@@ -11,7 +11,7 @@ React component example:
 ### dark theme
 
 ```js
-import { darkTheme } from "../theme/dark.ts";
+import { darkTheme } from "../../theme/dark.ts";
 import { ThemeProvider } from "styled-components";
 
 <ThemeProvider theme={darkTheme}>
@@ -24,7 +24,7 @@ import { ThemeProvider } from "styled-components";
 ### light theme
 
 ```js
-import { lightTheme } from "../theme/light.ts";
+import { lightTheme } from "../../theme/light.ts";
 import { ThemeProvider } from "styled-components";
 
 <ThemeProvider theme={lightTheme}>
