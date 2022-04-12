@@ -2,18 +2,79 @@ import { DefaultTheme, ThemeProvider } from "styled-components";
 
 import React, { useState, useEffect, useCallback } from "react";
 
-import { lightTheme as defaultTheme } from "./light";
+import { orangeTheme as defaultTheme } from "./orange";
 
 declare module "styled-components" {
   export interface DefaultTheme {
-    buttonColor: string;
-    buttonBackground: string;
-    mainColor: string;
+    buttonColor?: string;
+    buttonBackground?: string;
+    primaryColor: string;
+    secondaryColor?: string;
     radius?: number;
+    font: "Inter" | "Mulish" | "Titillium";
   }
 }
 
-// TODO add https://claus.github.io/react-dat-gui/ to controll theme & colors
+export const Fonts: Record<
+  DefaultTheme["font"],
+  { links: string[]; fontFamily: string }
+> = {
+  Inter: {
+    links: [
+      "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap",
+    ],
+    fontFamily: "'Inter', sans-serif;",
+  },
+  Mulish: {
+    links: [
+      "https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;700&display=swap",
+    ],
+    fontFamily: "'Mulish', sans-serif;",
+  },
+  Titillium: {
+    links: [
+      "https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600;700&display=swap",
+    ],
+    fontFamily: "'Titillium Web', sans-serif;",
+  },
+};
+
+export const getFontFromTheme = (
+  theme?: DefaultTheme
+): { links: string[]; fontFamily: string } => {
+  if (theme && theme.font && Fonts[theme.font]) {
+    return Fonts[theme.font];
+  }
+  return {
+    fontFamily: "sans-serif",
+    links: [],
+  };
+};
+
+export const getThemeFromLocalStorage = (
+  theme: DefaultTheme = defaultTheme
+): DefaultTheme => {
+  if (
+    window.localStorage.getItem("theme") !== null &&
+    typeof window.localStorage.getItem("theme") === "string"
+  ) {
+    let theme: DefaultTheme;
+    try {
+      theme = JSON.parse(window.localStorage.getItem("theme") || "");
+    } catch (err) {
+      return defaultTheme;
+    }
+    return theme;
+  }
+  return theme;
+};
+
+export const setThemeToLocalStorage = (
+  theme: DefaultTheme = defaultTheme
+): void => {
+  window.localStorage.setItem("theme", JSON.stringify(theme));
+  window.dispatchEvent(new Event("themeChange"));
+};
 
 export const GlobalThemeProvider: React.FC<{ children?: React.ReactNode }> = ({
   children,
@@ -21,23 +82,8 @@ export const GlobalThemeProvider: React.FC<{ children?: React.ReactNode }> = ({
   const [theme, setTheme] = useState<DefaultTheme>(defaultTheme);
 
   const onStorage = useCallback(() => {
-    if (
-      window.localStorage.getItem("theme") !== null &&
-      typeof window.localStorage.getItem("theme") === "string"
-    ) {
-      let theme: Partial<DefaultTheme>;
-      try {
-        theme = JSON.parse(window.localStorage.getItem("theme") || "");
-      } catch (err) {
-        return; // stop here
-      }
-      if (theme) {
-        setTheme((prevTheme) => ({
-          ...prevTheme,
-          ...theme,
-        }));
-      }
-    }
+    const storageTheme = getThemeFromLocalStorage(theme);
+    setTheme(storageTheme);
   }, []);
   useEffect(() => {
     onStorage();
@@ -49,5 +95,15 @@ export const GlobalThemeProvider: React.FC<{ children?: React.ReactNode }> = ({
     };
   }, [onStorage]);
 
-  return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
+  const font = Fonts[theme.font];
+
+  return (
+    <ThemeProvider theme={theme}>
+      {font &&
+        font.links.map((link) => (
+          <link key={link} rel="stylesheet" href={link} />
+        ))}
+      {children}
+    </ThemeProvider>
+  );
 };

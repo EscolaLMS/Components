@@ -20,10 +20,12 @@ module.exports = {
     savePropValueAsString: true,
   }).parse,
   webpackConfig: Object.assign({}, require("./webpack.config"), {}),
-  /*
+
   styleguideComponents: {
-    Wrapper: __dirname + "/src/styleguide/Wrapper.tsx",
+    Logo: __dirname + "/src/styleguide/Logo.tsx",
   },
-  */
+
   styleguideDir: "docs",
+
+  require: [path.join(__dirname, "/node_modules/react-dat-gui/dist/index.css")],
 };
