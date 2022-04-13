@@ -5,6 +5,7 @@ export const blueTheme: DefaultTheme = {
   primaryColor: "#56CCF2",
   secondaryColor: blend("#56CCF2", "#BDBDBD", "multiply").hex(),
   font: "Mulish",
+  buttonRadius: 10,
 };
 
 export default blueTheme;

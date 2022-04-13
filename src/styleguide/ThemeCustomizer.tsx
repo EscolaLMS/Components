@@ -50,6 +50,13 @@ export const ThemeCustomizer: React.FC<{
         <DatSelect path="font" options={["Inter", "Mulish", "Titillium"]} />
         <DatColor path="primaryColor" label="Primary Color" />
         <DatColor path="secondaryColor" label="Secondary Color" />
+        <DatNumber
+          path="buttonRadius"
+          label="Button Radius"
+          min={0}
+          max={100}
+          step={1}
+        />
       </DatGui>
     </div>
   );

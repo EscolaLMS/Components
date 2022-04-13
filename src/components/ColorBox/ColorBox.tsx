@@ -4,13 +4,13 @@ import styled, { withTheme, ThemeProvider } from "styled-components";
 
 import { getFontFromTheme } from "../../theme/provider";
 
-const StyledDiv = styled.div<{ type: string }>`
+const StyledDiv = styled.div<{ mode: string }>`
   /* Adapt the colors based on primary prop */
   background: ${(props) => {
-    if (props.type === "primary" && props.theme.primaryColor) {
+    if (props.mode === "primary" && props.theme.primaryColor) {
       return props.theme.primaryColor;
     }
-    if (props.type === "secondary" && props.theme.secondaryColor) {
+    if (props.mode === "secondary" && props.theme.secondaryColor) {
       return props.theme.secondaryColor;
     }
     return "black";
@@ -29,10 +29,10 @@ const StyledDiv = styled.div<{ type: string }>`
 
 export const ColorBox: React.FC<{
   children?: React.ReactNode;
-  type: "primary" | "secondary";
-}> = ({ children, type = "primary" }) => {
+  mode: "primary" | "secondary";
+}> = ({ children, mode = "primary" }) => {
   return (
-    <StyledDiv type={type}>
+    <StyledDiv mode={mode}>
       <span className={`button`}>{children}</span>
     </StyledDiv>
   );
