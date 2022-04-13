@@ -1,9 +1,31 @@
 React component example:
 
-### Default
+### Default themes
 
 ```js
-<Button size="large" primary={true}>
-  Push Me
-</Button>
+import { DefaultTheme, ThemeProvider } from "styled-components";
+import themes from "../../theme";
+Object.entries(themes).map((theme) => (
+  <ThemeProvider theme={theme[1]} key={theme[0]}>
+    <div style={{ background: "#E4E4E4", padding: "25px", margin: "12px" }}>
+      <pre>Theme {theme[0]}</pre>
+      <Button>Primary Button</Button>
+      {" | "}
+      <Button size="secondary">Secondary button</Button>
+    </div>
+  </ThemeProvider>
+));
+```
+
+### Custom theme
+
+```js
+import { GlobalThemeProvider } from "../../theme/provider";
+
+<GlobalThemeProvider>
+  <div style={{ background: "#E4E4E4", padding: "12px 25px", margin: "12px" }}>
+    <Button>Custom theme</Button> {" | "}
+    <Button size="secondary">Secondary button</Button>
+  </div>
+</GlobalThemeProvider>;
 ```
