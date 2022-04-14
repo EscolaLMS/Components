@@ -5,25 +5,33 @@ React component example:
 ```js
 import themes from "../../theme";
 import { DefaultTheme, ThemeProvider } from "styled-components";
+import ImageModal from "../../styleguide/ImageModal";
+import img1 from "./Title.png";
 
-Object.entries(themes).map((theme) => (
-  <ThemeProvider theme={theme[1]} key={theme[0]}>
-    <div style={{ background: "#E4E4E4", padding: "5px 15px", margin: "5px" }}>
-      <Title> Theme {theme[0]}</Title>
-      {[1, 2, 3, 4].map((level) => (
-        <Title key={level} level={level}>
-          Title level {level}.
-        </Title>
-      ))}
-    </div>
-  </ThemeProvider>
-));
+<React.Fragment>
+  {Object.entries(themes).map((theme) => (
+    <ThemeProvider theme={theme[1]} key={theme[0]}>
+      <div
+        style={{ background: "#E4E4E4", padding: "5px 15px", margin: "5px" }}
+      >
+        <Title> Theme {theme[0]}</Title>
+        {[1, 2, 3, 4].map((level) => (
+          <Title key={level} level={level}>
+            Title level {level}.
+          </Title>
+        ))}
+      </div>
+    </ThemeProvider>
+  ))}
+  <ImageModal images={[img1]} />
+</React.Fragment>;
 ```
 
 ### Custom theme
 
 ```js
 import { GlobalThemeProvider } from "../../theme/provider";
+import ImageModal from "../../styleguide/ImageModal";
 
 <GlobalThemeProvider>
   <Title>This is title h1. Lorem ipsum</Title>
