@@ -6,6 +6,7 @@ export const velvetTheme: DefaultTheme = {
   secondaryColor: blend("#600CAE", "#BDBDBD", "multiply").hex(),
   font: "Mulish",
   buttonRadius: 10,
+  headerColor: "#111111",
 };
 
 export default velvetTheme;

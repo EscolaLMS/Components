@@ -6,6 +6,7 @@ export const redTheme: DefaultTheme = {
   secondaryColor: blend("#E60037", "#BDBDBD", "multiply").hex(),
   font: "Titillium",
   buttonRadius: 10,
+  headerColor: "#111111",
 };
 
 export default redTheme;

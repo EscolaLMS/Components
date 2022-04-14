@@ -11,6 +11,7 @@ declare module "styled-components" {
     secondaryColor?: string;
     radius?: number;
     font: "Inter" | "Mulish" | "Titillium";
+    headerColor?: string;
   }
 }
 

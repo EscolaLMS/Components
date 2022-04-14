@@ -6,6 +6,7 @@ export const orangeTheme: DefaultTheme = {
   secondaryColor: blend("#F47820", "#BDBDBD", "multiply").hex(),
   font: "Inter",
   buttonRadius: 10,
+  headerColor: "#111111",
 };
 
 export default orangeTheme;

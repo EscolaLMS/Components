@@ -108,9 +108,7 @@ export const Button: React.FC<ButtonProps> = ({
 };
 
 // https://styled-components.com/docs/api#using-custom-props
-const NewButton = styled(Button)<{ mode: string }>`
-  color: ${(props) => props.mode};
-`;
+const NewButton = styled(Button)<{ mode: string }>``;
 
 // Main button with styles
 export default withTheme(NewButton);

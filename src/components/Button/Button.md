@@ -5,10 +5,12 @@ React component example:
 ```js
 import { DefaultTheme, ThemeProvider } from "styled-components";
 import themes from "../../theme";
+import Title from "../Typography/Title";
 Object.entries(themes).map((theme) => (
   <ThemeProvider theme={theme[1]} key={theme[0]}>
     <div style={{ background: "#E4E4E4", padding: "25px", margin: "12px" }}>
-      <pre>Theme {theme[0]}</pre>
+      <Title level={4}>Theme {theme[0]}</Title>
+      <br />
       <Button>Primary Button</Button>
       {" | "}
       <Button mode="secondary">Secondary button</Button>
