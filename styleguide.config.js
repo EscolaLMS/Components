@@ -38,18 +38,18 @@ module.exports = {
       name: "Component. Primitives",
       content: "doc/primitives.md",
       components: "src/components/primitives/**/*.tsx",
-      //exampleMode: "collapse", // 'hide' | 'collapse' | 'expand'
-      //usageMode: "collapse", // 'hide' | 'collapse' | 'expand'
-      //expand: "collapse",
+      // exampleMode: "collapse", // 'hide' | 'collapse' | 'expand'
+      // usageMode: "collapse", // 'hide' | 'collapse' | 'expand'
+      // expand: "collapse",
     },
 
     {
       name: "Component. Advanced",
       content: "doc/primitives.md",
       components: "src/components/advanced/**/*.tsx",
-      //exampleMode: "hide", // 'hide' | 'collapse' | 'expand'
-      //usageMode: "hide", // 'hide' | 'collapse' | 'expand'
-      //expand: "tocMode",
+      // exampleMode: "hide", // 'hide' | 'collapse' | 'expand'
+      // usageMode: "hide", // 'hide' | 'collapse' | 'expand'
+      // expand: "tocMode",
       // tocMode: "collapse",
     },
   ],
