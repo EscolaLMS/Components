@@ -18,7 +18,7 @@ jobs:
       - run: npm i
       - run: npm run lib
       - run: npm version ${{github.ref_name}}
-      - run: npm publish
+      - run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 

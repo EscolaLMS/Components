@@ -1,4 +1,4 @@
-name: Generate Dtyleguidist Documentation
+name: Generate Styleguidist Documentation
 
 on:
   push:
