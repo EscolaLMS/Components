@@ -1,6 +1,6 @@
 {
-  "name": "styleguide",
-  "version": "1.0.0",
+  "name": "@escolalms/components",
+  "version": "0.0.1",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
