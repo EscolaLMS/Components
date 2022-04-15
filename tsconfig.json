@@ -15,7 +15,13 @@
     "isolatedModules": true,
     "jsx": "react-jsx",
     //"declaration": true,
-    "typeRoots": []
+    "typeRoots": [],
+    "baseUrl": "./src",
+    "paths": {
+      "@components/": ["src/components/"],
+      "@components/*": ["src/components/*"],
+      "@src/*": ["src/*"]
+    }
   },
   "include": ["./src/**/*"]
 }

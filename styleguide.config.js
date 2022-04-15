@@ -28,4 +28,29 @@ module.exports = {
   styleguideDir: "docs",
 
   require: [path.join(__dirname, "/node_modules/react-dat-gui/dist/index.css")],
+
+  sections: [
+    {
+      name: "Introduction",
+      content: "doc/introduction.md",
+    },
+    {
+      name: "Component. Primitives",
+      content: "doc/primitives.md",
+      components: "src/components/primitives/**/*.tsx",
+      //exampleMode: "collapse", // 'hide' | 'collapse' | 'expand'
+      //usageMode: "collapse", // 'hide' | 'collapse' | 'expand'
+      //expand: "collapse",
+    },
+
+    {
+      name: "Component. Advanced",
+      content: "doc/primitives.md",
+      components: "src/components/advanced/**/*.tsx",
+      //exampleMode: "hide", // 'hide' | 'collapse' | 'expand'
+      //usageMode: "hide", // 'hide' | 'collapse' | 'expand'
+      //expand: "tocMode",
+      // tocMode: "collapse",
+    },
+  ],
 };
