@@ -17,7 +17,7 @@ export interface TitleProps {
   icon?: React.ReactNode;
 }
 
-const StyledDiv = styled.dl<TitleProps>`
+const StyledDiv = styled.div<TitleProps>`
   font-size: 16px;
   & > .range {
     height: 15px;
@@ -43,7 +43,7 @@ const StyledDiv = styled.dl<TitleProps>`
       height: 15px;
       background: red;
       position: absolute;
-      transition: left;
+      transition: left 0.2s;
     }
   }
 `;
