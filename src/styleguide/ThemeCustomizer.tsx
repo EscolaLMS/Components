@@ -57,6 +57,13 @@ export const ThemeCustomizer: React.FC<{
           max={100}
           step={1}
         />
+        <DatNumber
+          path="checkboxRadius"
+          label="Checkbox Radius"
+          min={0}
+          max={5}
+          step={1}
+        />
       </DatGui>
     </div>
   );

@@ -1,3 +1,7 @@
-import ContrastBox from "../../../components/primitives/ContrastBox/ContrastBox";
+import Option from "./Option";
 
-export default ContrastBox;
+import type { OptionType } from "./Option";
+
+export const Radio = (props: Omit<OptionType, "type">) => (
+  <Option type="radio" {...props} />
+);

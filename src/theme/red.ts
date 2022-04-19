@@ -5,7 +5,8 @@ export const redTheme: DefaultTheme = {
   primaryColor: "#E60037",
   secondaryColor: blend("#E60037", "#BDBDBD", "multiply").hex(),
   font: "Titillium",
-  buttonRadius: 10,
+  buttonRadius: 0,
+  checkboxRadius: 0,
   headerColor: "#111111",
 };
 

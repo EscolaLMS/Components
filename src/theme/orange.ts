@@ -5,7 +5,8 @@ export const orangeTheme: DefaultTheme = {
   primaryColor: "#F47820",
   secondaryColor: blend("#F47820", "#BDBDBD", "multiply").hex(),
   font: "Inter",
-  buttonRadius: 10,
+  buttonRadius: 0,
+  checkboxRadius: 0,
   headerColor: "#111111",
 };
 
