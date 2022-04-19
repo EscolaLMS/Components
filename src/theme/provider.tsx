@@ -7,6 +7,7 @@ import { orangeTheme as defaultTheme } from "./orange";
 declare module "styled-components" {
   export interface DefaultTheme {
     buttonRadius?: number;
+    checkboxRadius?: number;
     primaryColor: string;
     secondaryColor?: string;
     radius?: number;

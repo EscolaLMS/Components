@@ -5,7 +5,8 @@ export const blueTheme: DefaultTheme = {
   primaryColor: "#56CCF2",
   secondaryColor: blend("#56CCF2", "#BDBDBD", "multiply").hex(),
   font: "Mulish",
-  buttonRadius: 10,
+  buttonRadius: 0,
+  checkboxRadius: 0,
   headerColor: "#111111",
 };
 
