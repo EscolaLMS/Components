@@ -7,6 +7,7 @@ import themes from "../../../theme";
 import { DefaultTheme, ThemeProvider } from "styled-components";
 import ImageModal from "../../../styleguide/ImageModal";
 import img1 from "./Title.png";
+import Title from "./Title";
 
 <React.Fragment>
   {Object.entries(themes).map((theme) => (
@@ -15,28 +16,35 @@ import img1 from "./Title.png";
         style={{ background: "#E4E4E4", padding: "5px 15px", margin: "5px" }}
       >
         <Title> Theme {theme[0]}</Title>
-        {[1, 2, 3, 4].map((level) => (
-          <Title key={level} level={level}>
-            Title level {level}.
-          </Title>
-        ))}
+        <Text>
+          To przecież nie koniec świata! Ciężka sprawa, bo nasze dizajny
+          niestety są bez polotu – jak zwykle, więc trzeba dobrze stargetować
+          ten kejs. Potrzebny będzie refresz dizajnu i to ASAP, bo klient
+          odrzucił wszystkie ajdije, także to chyba jakiś faken dżołk.
+          Generalnie wszystko okej, ale będziemy robić nowy iwent, dlatego
+          działaj keżualnie.
+        </Text>
+        <Text>
+          Chyba nie bardzo identyfikujecie się z misją naszej firmy, także macie
+          teraz zakaz wychodzenia na kawkę w czasie mitingów. Na szczęście
+          poszedł sajnof na tym rilisie, więc sprawa jest jasna: o naszym timie
+          będzie teraz głośno. Straszny szejm, bo musimy acziwnąć ten czelendż,
+          więc idziemy na mały korytarzowy fokus. Fakap na całej linii:
+          zredżektowali nam te zmiany, ale co tam – nie płacą nam za nadgodziny.
+          Tak czy inaczej, szykują się nadgodziny. Jes! Uwaga, szybki fokus!
+          Zapomnij o przerwie na lancz – znowu zmienili hasła do drukarek, więc
+          do roboty!{" "}
+        </Text>
+        <Text>
+          Nie wszystko musi być z sensem. W mailu, który Ci zaraz forwardnę,
+          napisali, że mamy opóźnienia w projekcie, więc nie ma się co śmiać -
+          mamy kola z biznesem o 15:00. Nic nie robicie, tylko siedzicie cały
+          dzień i puszczacie bąki w fotele. Dizajn musi urywać dupę, ale zbliża
+          się dedlajn, dlatego potrzebny będzie fokus na konkretny target.
+        </Text>
       </div>
     </ThemeProvider>
   ))}
   <ImageModal images={[img1]} />
 </React.Fragment>;
-```
-
-### Custom theme
-
-```js
-import { GlobalThemeProvider } from "../../../theme/provider";
-import ImageModal from "../../../styleguide/ImageModal";
-
-<GlobalThemeProvider>
-  <Title>This is title h1. Lorem ipsum</Title>
-  <Title level={2}>This is title h2. Lorem ipsum</Title>
-  <Title level={3}>This is title h3. Lorem ipsum</Title>
-  <Title level={4}>This is title h4. Lorem ipsum</Title>
-</GlobalThemeProvider>;
 ```

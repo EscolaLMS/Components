@@ -16,6 +16,7 @@ const StyledP = styled.p<TitleProps>`
   font-weight: normal;
   font-size: 16px;
   line-height: 1.55em;
+  margin-bottom: 1.55em;
 `;
 
 export const Text: React.FC<{
