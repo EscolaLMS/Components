@@ -47,6 +47,7 @@ export const ThemeCustomizer: React.FC<{
           options={[themes]}
           onUpdate={handleUpdate}
         />
+        <DatSelect path="mode" options={["light", "dark"]} />
         <DatSelect path="font" options={["Inter", "Mulish", "Titillium"]} />
         <DatColor path="primaryColor" label="Primary Color" />
         <DatColor path="secondaryColor" label="Secondary Color" />

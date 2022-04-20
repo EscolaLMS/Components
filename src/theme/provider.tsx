@@ -8,6 +8,9 @@ declare module "styled-components" {
   export interface DefaultTheme {
     buttonRadius?: number;
     checkboxRadius?: number;
+    mode?: "light" | "dark";
+    backgroundLight: string;
+    backgroundDark: string;
     primaryColor: string;
     secondaryColor?: string;
     radius?: number;

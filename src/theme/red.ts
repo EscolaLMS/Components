@@ -8,6 +8,8 @@ export const redTheme: DefaultTheme = {
   buttonRadius: 0,
   checkboxRadius: 0,
   headerColor: "#111111",
+  backgroundDark: "#4A4A4A",
+  backgroundLight: "#FFFFFF",
 };
 
 export default redTheme;

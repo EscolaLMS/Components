@@ -1,7 +1,7 @@
 {
   "name": "@escolalms/components",
   "version": "0.0.3",
-  "main": "index.js",
+  "main": "lib/index.js",
   "license": "MIT",
   "scripts": {
     "dev": "styleguidist server",
