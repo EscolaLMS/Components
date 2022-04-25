@@ -16,7 +16,7 @@ const StyledDiv = styled.div<ComponentProps>`
   font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
   .download {
     background: ${(props) => {
-      return props.darkTheme ? props.theme.body.black : props.theme.body.white;
+      return props.darkTheme ? props.theme.body.gray1 : props.theme.body.white;
     }};
     color: ${(props) => {
       return props.darkTheme ? props.theme.body.white : props.theme.body.black;
@@ -31,7 +31,7 @@ const StyledDiv = styled.div<ComponentProps>`
     &:hover {
       background: ${(props) => {
         const darkHover = props.theme.body.gray2;
-        const ligthHover = props.theme.body.gray4;
+        const ligthHover = props.theme.body.gray3;
         return props.darkTheme ? darkHover : ligthHover
       }};
     }
