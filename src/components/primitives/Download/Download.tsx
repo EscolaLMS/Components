@@ -13,7 +13,7 @@ const StyledDiv = styled.div<ComponentProps>`
   width: 300px;
   margin: 10px;
   font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
-  .download {
+  .download-btn {
     background: ${(props) => {
       return props.theme.mode !== 'light' ? props.theme.body.gray1 : props.theme.body.white;
     }};
@@ -52,7 +52,7 @@ export const Download: React.FC<ComponentProps> = (props) => {
 
   return (
     <StyledDiv {...props}>
-      <a className="download" download href={href} target="_blank">
+      <a className="download-btn" download href={href} target="_blank">
         <span className="name">{name}</span>
         <span className="icon">
           <svg
