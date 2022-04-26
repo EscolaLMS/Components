@@ -11,10 +11,14 @@ const modes: Mode = ["light", "dark"];
 
 const ThemeTesterWrapper: React.FC<{
   name: string;
-  mode: "light" | "dark";
+  mode?: "light" | "dark";
   children?: React.ReactNode;
 }> = ({ children, name, mode }) => {
   const theme = React.useContext(ThemeContext);
+
+  if (mode === undefined) {
+    mode = theme.mode
+  }
 
   return (
     <div
@@ -53,11 +57,9 @@ export const ThemeTester: React.FC<{
         ))
       )}
       <GlobalThemeProvider>
-        {modes.map((mode) => (
-          <ThemeTesterWrapper name={"Custom"} mode={mode}>
-            {children}
-          </ThemeTesterWrapper>
-        ))}
+        <ThemeTesterWrapper name={"Custom"}>
+          {children}
+        </ThemeTesterWrapper>
       </GlobalThemeProvider>
     </div>
   );

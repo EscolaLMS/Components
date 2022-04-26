@@ -30,7 +30,7 @@ const StyledDiv = styled.div<TitleProps>`
       content: "";
       display: block;
       background: ${(props) => {
-        return props.theme.mode !== "dark" ? props.theme.body.gray3 : props.theme.body.white
+        return props.theme.mode !== "light" ? props.theme.body.gray3 : props.theme.body.white
       }};
       height: 1px;
       width: 100%;
