@@ -5,16 +5,16 @@ import React, { useState, useEffect, useCallback } from "react";
 import { orangeTheme as defaultTheme } from "./orange";
 
 interface BodyTheme {
-  white: string,
-  gray5: string,
-  gray4: string,
-  gray3: string,
-  gray2: string,
-  gray1: string,
+  white: string;
+  gray5: string;
+  gray4: string;
+  gray3: string;
+  gray2: string;
+  gray1: string;
   black: string;
 }
 
-export interface SharedDefaultTheme { 
+export interface SharedDefaultTheme {
   backgroundLight: string;
   backgroundDark: string;
   buttonRadius?: number;
@@ -25,6 +25,8 @@ export interface SharedDefaultTheme {
 declare module "styled-components" {
   export interface DefaultTheme extends SharedDefaultTheme {
     mode?: "light" | "dark";
+    textColorLight: string;
+    textColorDark: string;
     primaryColor: string;
     secondaryColor?: string;
     radius?: number;

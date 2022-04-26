@@ -1,10 +1,11 @@
 import React, { useCallback, useEffect, useState } from "react";
 import DatGui, {
   DatColor,
-  DatFolder,
   DatNumber,
   DatPresets,
   DatSelect,
+  DatString,
+  DatFolder,
 } from "react-dat-gui";
 import { orangeTheme as defaultTheme } from "./../theme/orange";
 
@@ -40,17 +41,32 @@ export const ThemeCustomizer: React.FC<{
         ))
       )}
       <DatGui data={state} onUpdate={handleUpdate}>
-        <DatFolder title="Theme customization" closed={false}>
-          <DatPresets
-            label="Presets"
-            // @ts-ignore // bug in the library
-            options={[themes]}
-            onUpdate={handleUpdate}
-          />
-          <DatSelect path="mode" options={["light", "dark"]} />
-          <DatSelect path="font" options={["Inter", "Mulish", "Titillium"]} />
+        <DatPresets
+          label="Presets"
+          // @ts-ignore // bug in the library
+          options={[themes]}
+          onUpdate={handleUpdate}
+        />
+        <DatSelect path="mode" options={["light", "dark"]} />
+        <DatSelect path="font" options={["Inter", "Mulish", "Titillium"]} />
+        <DatFolder title="Colors" closed={true}>
           <DatColor path="primaryColor" label="Primary Color" />
           <DatColor path="secondaryColor" label="Secondary Color" />
+          <DatColor path="backgroundDark" label="Background Dark Color" />
+          <DatColor path="backgroundLight" label="Background Light Color" />
+          <DatColor path="textColorDark" label="Text Dark Color" />
+          <DatColor path="textColorLight" label="Text Light Color" />
+          <DatFolder title="Body" closed={true}>
+            <DatColor path="body.white" label="white" />
+            <DatColor path="body.gray5" label="gray5" />
+            <DatColor path="body.gray4" label="gray4" />
+            <DatColor path="body.gray3" label="gray3" />
+            <DatColor path="body.gray2" label="gray2" />
+            <DatColor path="body.gray1" label="gray1" />
+            <DatColor path="body.black" label="black" />
+          </DatFolder>
+        </DatFolder>
+        <DatFolder title="Radiuses" closed={true}>
           <DatNumber
             path="buttonRadius"
             label="Button Radius"
@@ -65,17 +81,6 @@ export const ThemeCustomizer: React.FC<{
             max={5}
             step={1}
           />
-          <DatColor path="backgroundDark" label="backgroundDark" />
-          <DatColor path="backgroundLight" label="backgroundLight" />
-          <DatFolder title="body" closed>
-            <DatColor path="body.white" label="white" />
-            <DatColor path="body.gray5" label="gray5" />
-            <DatColor path="body.gray4" label="gray4" />
-            <DatColor path="body.gray3" label="gray3" />
-            <DatColor path="body.gray2" label="gray2" />
-            <DatColor path="body.gray1" label="gray1" />
-            <DatColor path="body.black" label="black" />
-          </DatFolder>
         </DatFolder>
       </DatGui>
     </div>
