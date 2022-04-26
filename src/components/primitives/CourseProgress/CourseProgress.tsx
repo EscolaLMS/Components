@@ -7,18 +7,16 @@ export interface TitleProps {
   title: string;
   children: React.ReactNode;
   icon?: React.ReactNode;
-  //TODO: change to theme.mode
-  whiteTheme?: boolean;
 }
 
 const StyledDiv = styled.div<TitleProps>`
   font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
-  color: ${(props) => props.whiteTheme ? props.theme.body.white : props.theme.body.gray1};
+  color: ${(props) => props.theme.mode !== "dark" ? props.theme.body.gray1 : props.theme.body.white};
   .header {
     display: flex;
     align-items: center;
     svg {
-      fill: ${(props) => props.whiteTheme ? props.theme.body.white : props.theme.body.gray1};
+      fill: ${(props) => props.theme.mode !== "dark" ? props.theme.body.gray1 : props.theme.body.white};
     }
   }
   .title {
@@ -32,7 +30,7 @@ const StyledDiv = styled.div<TitleProps>`
       content: "";
       display: block;
       background: ${(props) => {
-        return props.whiteTheme ? props.theme.body.white : props.theme.body.gray3
+        return props.theme.mode !== "dark" ? props.theme.body.gray3 : props.theme.body.white
       }};
       height: 1px;
       width: 100%;
