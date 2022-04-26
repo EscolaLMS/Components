@@ -2,6 +2,7 @@
 import { GlobalThemeProvider } from "../../../theme/provider";
 import ImageModal from "../../../styleguide/ImageModal";
 import img1 from "./LabelListItem.png";
+import ThemeTester from "../../../styleguide/ThemeTester";
 
 const Icon1 = () => (
   <svg
@@ -48,24 +49,26 @@ const Icon3 = () => (
   </svg>
 );
 
-<GlobalThemeProvider>
-  <LabelListItem title="Kategoria szkolenia">Fianse</LabelListItem>
-  <LabelListItem title="Poziom trudności%">Średni</LabelListItem>
-  <LabelListItem title="Termin rozpoczęcia%">22 marca 2022</LabelListItem>
-  <LabelListItem title="Czas trwania%">120 godzin</LabelListItem>
+<React.Fragment>
+  <ThemeTester>
+    <LabelListItem title="Kategoria szkolenia">Fianse</LabelListItem>
+    <LabelListItem title="Poziom trudności%">Średni</LabelListItem>
+    <LabelListItem title="Termin rozpoczęcia%">22 marca 2022</LabelListItem>
+    <LabelListItem title="Czas trwania%">120 godzin</LabelListItem>
 
-  <LabelListItem mode="header" icon={<Icon1 />} title="90%">
-    Poleca szkolenia Jana Kamińskiego{" "}
-  </LabelListItem>
+    <LabelListItem mode="header" icon={<Icon1 />} title="90%">
+      Poleca szkolenia Jana Kamińskiego{" "}
+    </LabelListItem>
 
-  <LabelListItem mode="header" icon={<Icon2 />} title="Gwarancja">
-    zadowoleia lub zwrot pieniędzy*{" "}
-  </LabelListItem>
+    <LabelListItem mode="header" icon={<Icon2 />} title="Gwarancja">
+      zadowoleia lub zwrot pieniędzy*{" "}
+    </LabelListItem>
 
-  <LabelListItem mode="header" icon={<Icon3 />} title="5.0">
-    Średnia ocena szkoleń Jana Kamińskiego{" "}
-  </LabelListItem>
+    <LabelListItem mode="header" icon={<Icon3 />} title="5.0">
+      Średnia ocena szkoleń Jana Kamińskiego{" "}
+    </LabelListItem>
+  </ThemeTester>
 
   <ImageModal images={[img1]} />
-</GlobalThemeProvider>;
+</React.Fragment>;
 ```
