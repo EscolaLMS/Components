@@ -32,7 +32,6 @@ export const ThemeCustomizer: React.FC<{
 
   useEffect(() => {
     onUpdate(state);
-    console.log("update");
   }, [state]);
 
   const resetToDefaults = useCallback(() => {
