@@ -6,6 +6,7 @@ import DatGui, {
   DatSelect,
   DatString,
   DatFolder,
+  DatButton,
 } from "react-dat-gui";
 import { orangeTheme as defaultTheme } from "./../theme/orange";
 
@@ -31,7 +32,12 @@ export const ThemeCustomizer: React.FC<{
 
   useEffect(() => {
     onUpdate(state);
+    console.log("update");
   }, [state]);
+
+  const resetToDefaults = useCallback(() => {
+    setState(defaultTheme);
+  }, []);
 
   return (
     <div>
@@ -46,6 +52,10 @@ export const ThemeCustomizer: React.FC<{
           // @ts-ignore // bug in the library
           options={[themes]}
           onUpdate={handleUpdate}
+        />
+        <DatButton
+          label="Reset to Defaults"
+          onClick={() => resetToDefaults()}
         />
         <DatSelect path="mode" options={["light", "dark"]} />
         <DatSelect path="font" options={["Inter", "Mulish", "Titillium"]} />
