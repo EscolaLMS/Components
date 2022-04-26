@@ -11,6 +11,8 @@ declare module "styled-components" {
     mode?: "light" | "dark";
     backgroundLight: string;
     backgroundDark: string;
+    textColorLight: string;
+    textColorDark: string;
     primaryColor: string;
     secondaryColor?: string;
     radius?: number;

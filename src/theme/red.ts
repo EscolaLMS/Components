@@ -9,7 +9,9 @@ export const redTheme: DefaultTheme = {
   checkboxRadius: 0,
   headerColor: "#111111",
   backgroundDark: "#4A4A4A",
-  backgroundLight: "#FFFFFF",
+  backgroundLight: "#F2F2F2",
+  textColorDark: "#FFF",
+  textColorLight: "#000",
 };
 
 export default redTheme;

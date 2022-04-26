@@ -6,6 +6,7 @@ import DatGui, {
   DatPresets,
   DatSelect,
   DatString,
+  DatFolder,
 } from "react-dat-gui";
 import { orangeTheme as defaultTheme } from "./../theme/orange";
 
@@ -49,22 +50,30 @@ export const ThemeCustomizer: React.FC<{
         />
         <DatSelect path="mode" options={["light", "dark"]} />
         <DatSelect path="font" options={["Inter", "Mulish", "Titillium"]} />
-        <DatColor path="primaryColor" label="Primary Color" />
-        <DatColor path="secondaryColor" label="Secondary Color" />
-        <DatNumber
-          path="buttonRadius"
-          label="Button Radius"
-          min={0}
-          max={100}
-          step={1}
-        />
-        <DatNumber
-          path="checkboxRadius"
-          label="Checkbox Radius"
-          min={0}
-          max={5}
-          step={1}
-        />
+        <DatFolder title="Colors" closed={false}>
+          <DatColor path="primaryColor" label="Primary Color" />
+          <DatColor path="secondaryColor" label="Secondary Color" />
+          <DatColor path="backgroundDark" label="Background Dark Color" />
+          <DatColor path="backgroundLight" label="Background Light Color" />
+          <DatColor path="textColorDark" label="Text Dark Color" />
+          <DatColor path="textColorLight" label="Text Light Color" />
+        </DatFolder>
+        <DatFolder title="Radiuses" closed={false}>
+          <DatNumber
+            path="buttonRadius"
+            label="Button Radius"
+            min={0}
+            max={100}
+            step={1}
+          />
+          <DatNumber
+            path="checkboxRadius"
+            label="Checkbox Radius"
+            min={0}
+            max={5}
+            step={1}
+          />
+        </DatFolder>
       </DatGui>
     </div>
   );
