@@ -15,24 +15,15 @@ const { t, i18n } = useTranslation();
 <div>
   <ThemeTester>
     <Title>{t("Welcome to Wellms")}</Title>
-    <Button
-      onClick={() => i18n.changeLanguage("en")}
-      disabled={i18n.language === "en"}
-    >
-      EN
-    </Button>
-    <Button
-      onClick={() => i18n.changeLanguage("fr")}
-      disabled={i18n.language === "fr"}
-    >
-      FR
-    </Button>
-    <Button
-      onClick={() => i18n.changeLanguage("pl")}
-      disabled={i18n.language === "pl"}
-    >
-      PL
-    </Button>
+    {["en", "fr", "pl"].map((langCode) => (
+      <Button
+        key={langCode}
+        onClick={() => i18n.changeLanguage(langCode)}
+        disabled={i18n.language === langCode}
+      >
+        {langCode}
+      </Button>
+    ))}
   </ThemeTester>
 </div>;
 ```
