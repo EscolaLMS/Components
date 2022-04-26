@@ -3,6 +3,7 @@ import { GlobalThemeProvider } from "../../../theme/provider";
 import ImageModal from "../../../styleguide/ImageModal";
 import img1 from "./IconTitle.png";
 import img2 from "./IconTitle-2.png";
+import ThemeTester from "../../../styleguide/ThemeTester";
 
 const Icon1 = () => (
   <svg
@@ -19,13 +20,15 @@ const Icon1 = () => (
   </svg>
 );
 
-<GlobalThemeProvider>
-  <IconTitle
-    title="Materiały do pobrania"
-    subtitle="lekcja 3"
-    icon={<Icon1 />}
-  />
+<React.Fragment>
+  <ThemeTester>
+    <IconTitle
+      title="Materiały do pobrania"
+      subtitle="lekcja 3"
+      icon={<Icon1 />}
+    />
+  </ThemeTester>
 
-  <ImageModal images={[img1, img2]} />
-</GlobalThemeProvider>;
+  <ImageModal images={[img1]} />
+</React.Fragment>;
 ```

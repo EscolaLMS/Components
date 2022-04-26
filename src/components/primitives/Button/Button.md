@@ -3,9 +3,6 @@ React component example:
 ### Default themes
 
 ```js
-import { DefaultTheme, ThemeProvider } from "styled-components";
-import themes from "../../../theme";
-import Title from "../Typography/Title";
 import img1 from "./Button.png";
 import ImageModal from "../../../styleguide/ImageModal";
 import ThemeTester from "../../../styleguide/ThemeTester";

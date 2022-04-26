@@ -4,6 +4,8 @@ import { GlobalThemeProvider } from "../../../theme/provider";
 import ImageModal from "../../../styleguide/ImageModal";
 import img1 from "./CourseProgress.png";
 
+import ThemeTester from "../../../styleguide/ThemeTester";
+
 const [progress, setProgress] = useState(0.5);
 
 const Icon1 = () => (
@@ -21,12 +23,14 @@ const Icon1 = () => (
   </svg>
 );
 
-<GlobalThemeProvider>
-  <CourseProgress progress={progress} icon={<Icon1 />} title="Moje postepy">
-    <strong>Ukonczono {Math.round(40 * progress)} z 40 lekcji</strong>
-    <p>Ukoncz kurs aby zdobyc certyfikat</p>
-  </CourseProgress>
-  <button onClick={() => setProgress(Math.random())}>random progress</button>
+<React.Fragment>
+  <ThemeTester>
+    <CourseProgress progress={progress} icon={<Icon1 />} title="Moje postepy">
+      <strong>Ukonczono {Math.round(40 * progress)} z 40 lekcji</strong>
+      <p>Ukoncz kurs aby zdobyc certyfikat</p>
+    </CourseProgress>
+    <button onClick={() => setProgress(Math.random())}>random progress</button>
+  </ThemeTester>
   <ImageModal images={[img1]} />
-</GlobalThemeProvider>;
+</React.Fragment>;
 ```

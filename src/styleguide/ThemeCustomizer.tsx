@@ -49,7 +49,7 @@ export const ThemeCustomizer: React.FC<{
         />
         <DatSelect path="mode" options={["light", "dark"]} />
         <DatSelect path="font" options={["Inter", "Mulish", "Titillium"]} />
-        <DatFolder title="Colors" closed={false}>
+        <DatFolder title="Colors" closed={true}>
           <DatColor path="primaryColor" label="Primary Color" />
           <DatColor path="secondaryColor" label="Secondary Color" />
           <DatColor path="backgroundDark" label="Background Dark Color" />
@@ -66,7 +66,7 @@ export const ThemeCustomizer: React.FC<{
             <DatColor path="body.black" label="black" />
           </DatFolder>
         </DatFolder>
-        <DatFolder title="Radiuses" closed={false}>
+        <DatFolder title="Radiuses" closed={true}>
           <DatNumber
             path="buttonRadius"
             label="Button Radius"
