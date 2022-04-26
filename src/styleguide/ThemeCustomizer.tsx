@@ -1,6 +1,5 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import DatGui, {
-  DatBoolean,
   DatColor,
   DatNumber,
   DatPresets,
@@ -10,7 +9,7 @@ import DatGui, {
 } from "react-dat-gui";
 import { orangeTheme as defaultTheme } from "./../theme/orange";
 
-import { DefaultTheme, ThemeProvider } from "styled-components";
+import { DefaultTheme } from "styled-components";
 
 import themes from "../theme";
 import { getFontFromTheme, getThemeFromLocalStorage } from "../theme/provider";
@@ -57,6 +56,15 @@ export const ThemeCustomizer: React.FC<{
           <DatColor path="backgroundLight" label="Background Light Color" />
           <DatColor path="textColorDark" label="Text Dark Color" />
           <DatColor path="textColorLight" label="Text Light Color" />
+          <DatFolder title="Body" closed={true}>
+            <DatColor path="body.white" label="white" />
+            <DatColor path="body.gray5" label="gray5" />
+            <DatColor path="body.gray4" label="gray4" />
+            <DatColor path="body.gray3" label="gray3" />
+            <DatColor path="body.gray2" label="gray2" />
+            <DatColor path="body.gray1" label="gray1" />
+            <DatColor path="body.black" label="black" />
+          </DatFolder>
         </DatFolder>
         <DatFolder title="Radiuses" closed={false}>
           <DatNumber
