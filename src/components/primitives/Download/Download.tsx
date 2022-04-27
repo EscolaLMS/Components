@@ -20,9 +20,13 @@ const StyledDiv = styled.div<ComponentProps>`
     color: ${(props) => {
       return props.theme.mode !== 'light' ? props.theme.body.white : props.theme.body.black;
     }};
+    text-decoration: none;
     border-radius: ${(props) => props.theme?.buttonRadius || 0}px;
     padding: 16px 10px 16px 20px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     display: flex;
+    line-height: 21px;
     align-items: center;
     justify-content: space-between;
     curson: pointer;
@@ -31,9 +35,13 @@ const StyledDiv = styled.div<ComponentProps>`
       background: ${(props) => {
         return props.theme.mode !== 'light' ? props.theme.body.gray2 : props.theme.body.gray3;
       }};
+      font-weight: 700;
     }
     .icon {
       margin-left: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       svg {
         fill: ${(props) => {
           return props.theme.mode !== 'light' ? props.theme.body.white : props.theme.body.black

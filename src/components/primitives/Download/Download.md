@@ -14,11 +14,11 @@ import img1 from "./Download.png";
     <Download href="https://escolalms.github.io/headless-format/paper.pdf" />
     <Download
       href="https://escolalms.github.io/headless-format/paper.pdf"
-      fileName="myPaper.pdf"
+      fileName="Long file name with extension.pdf"
     />
     <Download
       href="https://escolalms.github.io/headless-format/paper.pdf"
-      fileName={<strong>myPaper.pdf</strong>}
+      fileName={<strong>Styled Long file name with extension.pdf</strong>}
     />
   </ThemeTester>
 
