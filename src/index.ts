@@ -4,3 +4,4 @@ export { default as CourseProgress } from "./components/primitives/CourseProgres
 export { default as CourseTopNav } from "./components/primitives/CourseTopNav/CourseTopNav";
 export { default as Download } from "./components/primitives/Download/Download";
 export { default as Title } from "./components/primitives/Typography/Title";
+export { default as Input } from "./components/primitives/Input/Input";
