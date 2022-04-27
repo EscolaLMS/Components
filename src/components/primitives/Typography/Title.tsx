@@ -1,15 +1,14 @@
 import * as React from "react";
 
-import styled, { withTheme, ThemeProvider } from "styled-components";
+import styled, { withTheme } from "styled-components";
 
 import { getFontFromTheme } from "../../../theme/provider";
-
-type LevelInt = 1 | 2 | 3 | 4 | 5 | 6;
-type LevelStr = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+import { HeaderLevelInt, HeaderLevelStr } from "../../../types/titleTypes";
+import { setFontSizeByHeaderLevel } from "../../../utils/components/primitives/titleUtils";
 
 export interface TitleProps extends React.HTMLAttributes<HTMLHeadingElement> {
   children?: React.ReactNode;
-  level?: LevelInt;
+  level?: HeaderLevelInt;
   as: keyof JSX.IntrinsicElements;
 }
 
@@ -19,30 +18,15 @@ const StyledHeader = styled.h1<TitleProps>`
   color: ${(props) => props.theme.headerColor || "#111"};
   font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
   font-weight: bold;
-  font-size: ${(props) => {
-    if (props.level) {
-      switch (props.level) {
-        case 1:
-          return "50px";
-        case 2:
-          return "40px";
-        case 3:
-          return "36px";
-        case 4:
-        default:
-          return "20px";
-      }
-    }
-    return "20px";
-  }};
+  font-size: ${(props) => setFontSizeByHeaderLevel(props.level)};
   line-height: 1.55em;
 `;
 
 export const Title: React.FC<{
   children?: React.ReactNode;
-  level?: LevelInt;
+  level?: HeaderLevelInt;
 }> = ({ children, level = 1 }) => {
-  const tagName: LevelStr = `h${level}`;
+  const tagName: HeaderLevelStr = `h${level}`;
 
   return (
     <StyledHeader as={tagName} level={level}>
@@ -52,7 +36,7 @@ export const Title: React.FC<{
 };
 
 // https://styled-components.com/docs/api#using-custom-props
-const NewTitle = styled(Title)<{ level: LevelInt }>``;
+const NewTitle = styled(Title)<{ level: HeaderLevelInt }>``;
 
 // Main button with styles
 export default withTheme(NewTitle);

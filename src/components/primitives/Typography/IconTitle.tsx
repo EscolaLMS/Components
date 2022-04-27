@@ -1,68 +1,95 @@
 import * as React from "react";
-
-import styled, {
-  withTheme,
-  ThemeProvider,
-  ThemeContext,
-} from "styled-components";
-
-import { contrast } from "chroma-js";
-
+import styled, {withTheme} from "styled-components";
 import { getFontFromTheme } from "../../../theme/provider";
+import { HeaderLevelInt, HeaderLevelStr } from "../../../types/titleTypes";
+import { setFontSizeByHeaderLevel } from "../../../utils/components/primitives/titleUtils";
 
-export interface TitleProps {
-  title: string;
-  subtitle?: string;
-  icon: React.ReactNode;
-  level?: LevelInt;
+interface Styles {
+  icon?: React.CSSProperties;
+  title?: React.CSSProperties;
+  subtitle?: React.CSSProperties;
+}
+
+interface StyledHeader {
+  level?: HeaderLevelInt;
   as: keyof JSX.IntrinsicElements;
 }
 
-type LevelInt = 1 | 2 | 3 | 4 | 5 | 6;
-type LevelStr = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+export interface IconTitleProps extends StyledHeader, React.HTMLAttributes<HTMLHeadingElement> {
+  title: string;
+  subtitle?: string;
+  icon: React.ReactNode;
+  styles?: Styles;
+}
 
-const StyledHeader = styled.h3<{}>`
-  font-size: 16px;
-  & > .range {
-    height: 15px;
-    position: relative;
-
-    &:after {
-      content: "";
-      display: block;
-      background: red;
-      height: 1px;
-      width: 100%;
-      position: absolute;
-      left: 0p;
-      top: 8px;
+const StyledHeader = styled.h3<StyledHeader>`
+  &.lms-icon-title {
+    font-size: ${(props) => setFontSizeByHeaderLevel(props.level)};
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    margin: 20px 0;
+    font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
+    display: flex;
+    flex-wrap: wrap;
+    color: ${(props) => {
+      return props.theme.mode !== 'light' ? props.theme.body.white : props.theme.body.gray1
+    }};
+    .icon {
+      width: 0.70em;
+      display: flex;
+      align-items: center;
+      margin-right: 14px;
+      svg {
+        fill: ${(props) => {
+          return props.theme.mode !== 'light' ? props.theme.body.white : props.theme.body.black
+        }};
+      }
     }
-
-    .knob-wrapper {
-      width: calc(100% - 15px);
-      position: relative;
+    .title {
+      font-weight: 700;
+      margin-right: 0.4em;
     }
-    .knob {
-      width: 15px;
-      height: 15px;
-      background: red;
-      position: absolute;
-      transition: left 0.2s;
+    .subtitle {
+      font-size: 0.65em;
     }
   }
 `;
 
-export const IconTitle: React.FC<TitleProps> = (props) => {
-  const { title, subtitle, icon, level = 3 } = props;
-  const tagName: LevelStr = `h${level}`;
+export const IconTitle: React.FC<IconTitleProps> = (props) => {
+  const { title, subtitle, icon, level = 3, styles } = props;
+  const tagName: HeaderLevelStr = `h${level}`;
   return (
-    <StyledHeader as={tagName}>
-      <span className="icon">{icon}</span> {title}{" "}
-      {subtitle && <small>{subtitle}</small>}
+    <StyledHeader
+      as={tagName}
+      level={level}
+      className="lms-icon-title"
+    >
+      <span 
+        className="icon" 
+        style={styles?.icon}
+      >
+        {icon}
+      </span>
+      <span className="full-title">
+        <span 
+          className="title" 
+          style={styles?.title}
+        >
+          {title}
+        </span>
+        {subtitle && 
+          <span 
+            className="subtitle" 
+            style={styles?.subtitle}
+          >
+            {subtitle}
+          </span>
+        }
+      </span>
     </StyledHeader>
   );
 };
 
-const NewComponent = styled(IconTitle)<TitleProps>``;
+const NewComponent = styled(IconTitle)<StyledHeader>``;
 
 export default withTheme(NewComponent);
