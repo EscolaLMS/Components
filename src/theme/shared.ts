@@ -3,7 +3,7 @@ import { SharedDefaultTheme } from "./provider"
 export const sharedTheme: SharedDefaultTheme = {
     buttonRadius: 0,
     checkboxRadius: 0,
-    backgroundDark: "#4A4A4A",
+    backgroundDark: "#000000",
     backgroundLight: "#FFFFFF",
     body: {
         white: "#FFFFFF",
