@@ -1,3 +1,3 @@
-import ContrastBox from "../../../components/primitives/ContrastBox/ContrastBox";
+import ContrastBox from "../../../styleguide/ContrastBox/ContrastBox";
 
 export default ContrastBox;
