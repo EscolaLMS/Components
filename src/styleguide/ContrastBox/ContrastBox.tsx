@@ -8,7 +8,7 @@ import styled, {
 
 import { contrast } from "chroma-js";
 
-import { getFontFromTheme } from "../../../theme/provider";
+import { getFontFromTheme } from "../../theme/provider";
 
 export interface TitleProps extends React.HTMLAttributes<HTMLHeadingElement> {
   children?: React.ReactNode;

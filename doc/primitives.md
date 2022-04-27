@@ -1,1 +1,1 @@
-# Primitives Components
+Primitives Components are ones that cannot be decomposed
