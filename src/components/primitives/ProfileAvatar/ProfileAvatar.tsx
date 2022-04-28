@@ -9,8 +9,8 @@ export interface ProfileAvatarProps
 
 const StyledProfileAvatar = styled("img")<ProfileAvatarProps>`
   border-radius: 50%;
-  width: ${(props) => prop.size === "large" ? "116px" : "50px",
-  height: ${(props) => prop.size === "large" ? "116px" : "50px",
+  width: ${props => (props.size === "large" ? "116px" : "50px")};
+  height: ${props => (props.size === "large" ? "116px" : "50px")};
 `;
 
 export const ProfileAvatar: React.FC<ProfileAvatarProps> = ({
