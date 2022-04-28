@@ -4,8 +4,6 @@ import styled, { withTheme } from "styled-components";
 
 export interface ProfileAvatarProps
   extends React.ImgHTMLAttributes<HTMLImageElement> {
-  src: string;
-  alt: string;
   size?: "medium" | "large";
 }
 
