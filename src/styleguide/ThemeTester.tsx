@@ -46,7 +46,10 @@ export const ThemeTester: React.FC<{
     <div>
       {Object.entries(themes).map((theme) =>
         modes.map((mode) => (
-          <ThemeProvider theme={{ ...theme[1], mode }} key={theme[0]}>
+          <ThemeProvider
+            theme={{ ...theme[1], mode }}
+            key={`${theme[0]}${mode}`}
+          >
             <ThemeTesterWrapper
               name={theme[0].split("Theme").join("")}
               mode={mode}
@@ -57,9 +60,7 @@ export const ThemeTester: React.FC<{
         ))
       )}
       <GlobalThemeProvider>
-        <ThemeTesterWrapper name={"Custom"}>
-          {children}
-        </ThemeTesterWrapper>
+        <ThemeTesterWrapper name={"Custom"}>{children}</ThemeTesterWrapper>
       </GlobalThemeProvider>
     </div>
   );

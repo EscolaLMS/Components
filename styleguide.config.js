@@ -33,7 +33,14 @@ module.exports = {
     {
       name: "Introduction",
       content: "doc/introduction.md",
+      sections: [
+        {
+          name: "Theme Colors",
+          content: "doc/themes.md",
+        },
+      ],
     },
+
     {
       name: "Primitives Components",
       content: "doc/primitives.md",

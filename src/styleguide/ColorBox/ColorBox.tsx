@@ -2,7 +2,7 @@ import * as React from "react";
 
 import styled, { withTheme, ThemeProvider } from "styled-components";
 
-import { getFontFromTheme } from "../../../theme/provider";
+import { getFontFromTheme } from "../../theme/provider";
 
 const StyledDiv = styled.div<{ mode: string }>`
   /* Adapt the colors based on primary prop */
@@ -17,8 +17,8 @@ const StyledDiv = styled.div<{ mode: string }>`
   }};
   border-radius: ${(props) => props.theme?.radius || 0}px;
   font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
-  width: 300px;
-  height: 300px;
+  width: 200px;
+  height: 200px;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
