@@ -25,8 +25,8 @@ const Icon1 = () => (
 <React.Fragment>
   <ThemeTester>
     <CourseProgress progress={progress} icon={<Icon1 />} title="Moje postepy">
-      <strong>Ukonczono {Math.round(40 * progress)} z 40 lekcji</strong>
-      <p>Ukoncz kurs aby zdobyc certyfikat</p>
+      <strong style={{fontSize: 14}}>Ukończono {Math.round(40 * progress)} z 40 lekcji</strong>
+      <p style={{marginTop: 9}}>Ukoncz kurs aby zdobyc certyfikat</p>
     </CourseProgress>
     <button onClick={() => setProgress(Math.random())}>random progress</button>
   </ThemeTester>

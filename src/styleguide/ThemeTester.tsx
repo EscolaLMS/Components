@@ -17,7 +17,7 @@ const ThemeTesterWrapper: React.FC<{
   const theme = React.useContext(ThemeContext);
 
   if (mode === undefined) {
-    mode = theme.mode;
+    mode = theme.mode
   }
 
   return (

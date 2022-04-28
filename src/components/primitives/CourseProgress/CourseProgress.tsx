@@ -12,6 +12,8 @@ export interface TitleProps {
 const StyledDiv = styled.div<TitleProps>`
   font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
   color: ${(props) => props.theme.mode !== "dark" ? props.theme.body.gray1 : props.theme.body.white};
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   .header {
     display: flex;
     align-items: center;
@@ -20,12 +22,17 @@ const StyledDiv = styled.div<TitleProps>`
     }
   }
   .title {
-    margin-left: ${(props) => props.icon ? "16px": 0};
+    font-size: 16px;
+    font-weight: 700;
+    margin-left: ${(props) => props.icon ? "11px": 0};
+  }
+  .description {
+    font-size: 12px;
   }
   & > .range {
     height: 15px;
     position: relative;
-    margin: 20px 0;
+    margin: 22px 0 20px 0;
     &:before {
       content: "";
       display: block;
