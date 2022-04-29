@@ -2,7 +2,7 @@ import * as React from "react";
 
 import styled, { withTheme } from "styled-components";
 import {ProfileAvatarTypesStr} from "../../../types/ProfileAvatarTypes";
-import {setProfileAvatarBySize} from "./ProfileAvatarUtils";
+import {setProfileAvatarBySize} from "../../../utils/components/primitives/profileAvatarUtils";
 
 export interface ProfileAvatarProps
   extends React.ImgHTMLAttributes<HTMLImageElement> {
