@@ -6,7 +6,6 @@ import {setProfileAvatarBySize} from "../../../utils/components/primitives/profi
 
 export interface ProfileAvatarProps
   extends React.ImgHTMLAttributes<HTMLImageElement> {
-  style?: React.CSSProperties;
   size?: ProfileAvatarTypesStr;
 }
 
