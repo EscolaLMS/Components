@@ -11,7 +11,6 @@ export interface TitleProps
   extends StyledHeader,
     React.HTMLAttributes<HTMLHeadingElement> {
   children?: React.ReactNode;
-  style?: React.CSSProperties;
   as: keyof JSX.IntrinsicElements;
 }
 
@@ -31,11 +30,12 @@ const StyledHeader = styled.h1<StyledHeader>`
   line-height: 125%;
 `;
 
-export const Title: React.FC<TitleProps> = ({ children, level = 1, style }) => {
+export const Title: React.FC<TitleProps> = (props) => {
+  const { children, level = 1 } = props;
   const tagName: HeaderLevelStr = `h${level}`;
 
   return (
-    <StyledHeader as={tagName} level={level} style={style}>
+    <StyledHeader {...props} as={tagName} level={level}>
       {children}
     </StyledHeader>
   );
