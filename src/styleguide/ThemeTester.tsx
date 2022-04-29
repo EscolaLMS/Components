@@ -38,6 +38,7 @@ const StyledDiv = styled.div<{
     display: flex;
     gap: 20px;
     flex-wrap: wrap;
+    align-items: center;
   }
   .children-list-title {
     background: ${(props) =>
