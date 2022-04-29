@@ -1,0 +1,1 @@
+export type ProfileAvatarTypesStr = 'extraSmall' | 'small' | 'medium' | 'large' | 'extraLarge';

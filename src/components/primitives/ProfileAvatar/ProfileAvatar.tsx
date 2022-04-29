@@ -1,25 +1,28 @@
 import * as React from "react";
 
 import styled, { withTheme } from "styled-components";
+import {ProfileAvatarTypesStr} from "../../../types/ProfileAvatarTypes";
+import {setProfileAvatarBySize} from "./ProfileAvatarUtils";
 
 export interface ProfileAvatarProps
   extends React.ImgHTMLAttributes<HTMLImageElement> {
-  size?: "medium" | "large";
+  style?: React.CSSProperties;
+  size?: ProfileAvatarTypesStr;
 }
 
 const StyledProfileAvatar = styled("img")<ProfileAvatarProps>`
   border-radius: 50%;
-  width: ${props => (props.size === "large" ? "116px" : "50px")};
-  height: ${props => (props.size === "large" ? "116px" : "50px")};
+  width: ${props => setProfileAvatarBySize(props.size)};
+  height: ${props => setProfileAvatarBySize(props.size)};
 `;
 
 export const ProfileAvatar: React.FC<ProfileAvatarProps> = ({
   src,
   alt,
   size = "medium",
-  ...props
+  style
 }) => {
-  return <StyledProfileAvatar src={src} alt={alt} size={size} {...props} />;
+  return <StyledProfileAvatar src={src} alt={alt} size={size} style={style} />;
 };
 
 const NewProfileAvatar = styled(ProfileAvatar)<{ size: string }>``;
