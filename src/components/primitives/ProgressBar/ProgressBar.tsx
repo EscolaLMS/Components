@@ -48,7 +48,7 @@ const StyledDiv = styled.div<{}>`
         display: block;
         height: 100%;
         border-radius: 10px;
-        transition: 0.2s width;
+        transition: 0.2s width ease-in-out;
       }
     }
     .percentage-value {
