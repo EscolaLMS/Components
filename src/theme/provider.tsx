@@ -4,7 +4,12 @@ import React, { useState, useEffect, useCallback } from "react";
 
 import { orangeTheme as defaultTheme } from "./orange";
 
-interface BodyTheme {
+export interface SharedDefaultTheme {
+  theme?: string;
+  backgroundLight: string;
+  backgroundDark: string;
+  buttonRadius?: number;
+  checkboxRadius?: number;
   white: string;
   gray5: string;
   gray4: string;
@@ -12,14 +17,6 @@ interface BodyTheme {
   gray2: string;
   gray1: string;
   black: string;
-}
-
-export interface SharedDefaultTheme {
-  backgroundLight: string;
-  backgroundDark: string;
-  buttonRadius?: number;
-  checkboxRadius?: number;
-  body: BodyTheme;
   backgroundDarkProgress: string;
 }
 
@@ -79,9 +76,14 @@ export const getThemeFromLocalStorage = (
     window.localStorage.getItem("theme") !== null &&
     typeof window.localStorage.getItem("theme") === "string"
   ) {
-    let theme: DefaultTheme;
+    let theme: Required<DefaultTheme>;
     try {
-      theme = JSON.parse(window.localStorage.getItem("theme") || "");
+      theme = {
+        mode: "light",
+        theme: "all",
+        ...defaultTheme,
+        ...JSON.parse(window.localStorage.getItem("theme") || ""),
+      };
     } catch (err) {
       return defaultTheme;
     }
@@ -100,6 +102,7 @@ export const setThemeToLocalStorage = (
 export const GlobalThemeProvider: React.FC<{ children?: React.ReactNode }> = ({
   children,
 }) => {
+  // TODO, replace this with custom hook
   const [theme, setTheme] = useState<DefaultTheme>(defaultTheme);
 
   const onStorage = useCallback(() => {

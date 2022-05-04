@@ -20,9 +20,7 @@ const StyledHeader = styled.h1<StyledHeader>`
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: ${(props) => {
-    return props.theme.mode !== "light"
-      ? props.theme.body.white
-      : props.theme.body.gray1;
+    return props.theme.mode !== "light" ? props.theme.white : props.theme.gray1;
   }};
   font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
   font-weight: bold;
