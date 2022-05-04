@@ -20,6 +20,7 @@ export interface SharedDefaultTheme {
   buttonRadius?: number;
   checkboxRadius?: number;
   body: BodyTheme;
+  backgroundDarkProgress: string;
 }
 
 declare module "styled-components" {
