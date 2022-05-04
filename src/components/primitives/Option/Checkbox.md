@@ -7,13 +7,13 @@ import ThemeTester from "../../../styleguide/ThemeTester";
 
 <React.Fragment>
   <ThemeTester>
-    <Text>checked Checkbox without label</Text>
+    <Text style={{marginBottom: 0}}>checked Checkbox without label</Text>
     <Checkbox name="c3" checked />
-    <Text>Checkbox without label</Text>
+    <Text style={{marginBottom: 0}}>Checkbox without label</Text>
     <Checkbox name="c4" />
-    <Text>Checkbox with primitive label</Text>
+    <Text style={{marginBottom: 0}}>Checkbox with primitive label</Text>
     <Checkbox name="c5" label="dummy label" />
-    <Text>Checkbox with sophisticated label</Text>{" "}
+    <Text style={{marginBottom: 0}}>Checkbox with sophisticated label</Text>{" "}
     <Checkbox
       name="c6"
       label={
