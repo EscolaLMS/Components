@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { DefaultTheme } from "styled-components";
 
 import themes from "../theme";
-import { getFontFromTheme, getThemeFromLocalStorage } from "../theme/provider";
+import { getThemeFromLocalStorage } from "../theme/provider";
 import { orangeTheme as defaultTheme } from "../theme/orange";
 
 type Theme = "all" | "custom" | keyof typeof themes;

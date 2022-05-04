@@ -1,15 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 
-import styled, {
-  DefaultTheme,
-  ThemeProvider,
-  ThemeContext,
-} from "styled-components";
+import styled, { ThemeProvider, ThemeContext } from "styled-components";
 import { GlobalThemeProvider } from "../theme/provider";
 import { default as chroma } from "chroma-js";
 import { useLocalTheme } from "./useLocalTheme";
 import themes from "../theme";
-import theme from "../theme";
 
 type Mode = ("light" | "dark")[];
 

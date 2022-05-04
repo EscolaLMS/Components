@@ -1,8 +1,8 @@
-import React, { useCallback, useEffect, useState, useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { orangeTheme as defaultTheme } from "./../theme/orange";
 import { DefaultTheme } from "styled-components";
 import themes from "../theme";
-import { getFontFromTheme, getThemeFromLocalStorage } from "../theme/provider";
+import { getThemeFromLocalStorage } from "../theme/provider";
 import { useControls, folder } from "leva";
 
 const allowedKeys = [
