@@ -18,8 +18,10 @@ export interface SharedDefaultTheme {
   backgroundLight: string;
   backgroundDark: string;
   buttonRadius?: number;
+  inputRadius?: number;
   checkboxRadius?: number;
   body: BodyTheme;
+  errorColor: string;
 }
 
 declare module "styled-components" {

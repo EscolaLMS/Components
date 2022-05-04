@@ -65,6 +65,7 @@ export const ThemeCustomizer: React.FC<{
           <DatColor path="backgroundLight" label="Background Light Color" />
           <DatColor path="textColorDark" label="Text Dark Color" />
           <DatColor path="textColorLight" label="Text Light Color" />
+          <DatColor path="errorColor" label="Error Color" />
           <DatFolder title="Body" closed={true}>
             <DatColor path="body.white" label="white" />
             <DatColor path="body.gray5" label="gray5" />
@@ -79,6 +80,13 @@ export const ThemeCustomizer: React.FC<{
           <DatNumber
             path="buttonRadius"
             label="Button Radius"
+            min={0}
+            max={100}
+            step={1}
+          />
+          <DatNumber
+            path="inputRadius"
+            label="Input Radius"
             min={0}
             max={100}
             step={1}
