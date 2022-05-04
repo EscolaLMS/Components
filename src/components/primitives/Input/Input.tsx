@@ -45,7 +45,7 @@ const StyledDiv = styled("div")<InputProps>`
           padding-right: 10px;
         }
         label {
-          transform: translate(12px, -9px) scale(0.75);
+          transform: translate(12px, -6px) scale(0.75);
           ${(props) => {
             if (props.disabled) {
               return;
@@ -87,7 +87,7 @@ const StyledDiv = styled("div")<InputProps>`
       position: absolute;
       left: 0px;
       top: 0px;
-      transform: translate(12px, 9px) scale(1);
+      transform: translate(12px, 12px) scale(1);
       z-index: 1;
       transition: 0.2s all;
       color: ${(props) => {
@@ -217,7 +217,14 @@ export const Input: React.FC<InputProps> = (props) => {
             )}
             id={label ? generateRandomInputId : undefined}
           />
-          <fieldset>{label && <legend style={{}}>{label}</legend>}</fieldset>
+          <fieldset>
+            {label && (
+              <legend>
+                {label}
+                {required ? "*" : ""}
+              </legend>
+            )}
+          </fieldset>
         </div>
       </div>
       {helper && <span>{helper}</span>}
