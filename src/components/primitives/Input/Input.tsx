@@ -14,7 +14,6 @@ export interface InputProps
   type: "email" | "number" | "password" | "search" | "tel" | "text" | "url";
 }
 
-// Main button with styles
 const StyledDiv = styled("div")<InputProps>`
   &.lsm-input {
     -webkit-font-smoothing: antialiased;
@@ -38,10 +37,6 @@ const StyledDiv = styled("div")<InputProps>`
       flex-direction: column;
       position: relative;
       width: 100%;
-      padding: 0;
-      margin: 0;
-      border: 0;
-      vertical-align: top;
       &.filled,
       &:focus-within {
         legend {
@@ -50,7 +45,7 @@ const StyledDiv = styled("div")<InputProps>`
           padding-right: 10px;
         }
         label {
-          transform: translate(12px, -8px) scale(0.75);
+          transform: translate(12px, -9px) scale(0.75);
           ${(props) => {
             if (props.disabled) {
               return;
@@ -87,7 +82,6 @@ const StyledDiv = styled("div")<InputProps>`
       }
     }
     label {
-      display: block;
       transform-origin: left top;
       max-width: calc(100% - 24px);
       position: absolute;
@@ -95,7 +89,6 @@ const StyledDiv = styled("div")<InputProps>`
       top: 0px;
       transform: translate(12px, 9px) scale(1);
       z-index: 1;
-      pointer-events: none;
       transition: 0.2s all;
       color: ${(props) => {
         if (props.error) {
@@ -108,7 +101,6 @@ const StyledDiv = styled("div")<InputProps>`
     }
     .input-and-fieldset {
       box-sizing: border-box;
-      cursor: text;
       display: inline-flex;
       align-items: center;
       position: relative;
@@ -117,10 +109,9 @@ const StyledDiv = styled("div")<InputProps>`
         border: 0px;
         font-size: 14px;
         box-sizing: content-box;
-        margin: 0px;
         display: block;
         width: 100%;
-        padding: 12px;
+        padding: 11px 12px 13px;
         caret-color: #e60037;
         border-radius: ${(props) => props.theme.inputRadius}px;
         background: ${(props) => {
@@ -156,7 +147,6 @@ const StyledDiv = styled("div")<InputProps>`
         overflow: hidden;
         border-radius: ${(props) => props.theme.inputRadius}px;
         legend {
-          float: unset;
           overflow: hidden;
           display: block;
           width: auto;
