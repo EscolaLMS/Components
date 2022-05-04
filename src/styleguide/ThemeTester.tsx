@@ -7,8 +7,9 @@ import styled, {
 } from "styled-components";
 import { GlobalThemeProvider } from "../theme/provider";
 import { default as chroma } from "chroma-js";
-
+import { useLocalTheme } from "./useLocalTheme";
 import themes from "../theme";
+import theme from "../theme";
 
 type Mode = ("light" | "dark")[];
 
@@ -86,26 +87,40 @@ const ThemeTesterWrapper: React.FC<{
 export const ThemeTester: React.FC<{
   children?: React.ReactNode;
 }> = ({ children }) => {
+  const localTheme = useLocalTheme();
   return (
     <div>
-      {Object.entries(themes).map((theme) =>
-        modes.map((mode) => (
-          <ThemeProvider
-            theme={{ ...theme[1], mode }}
-            key={`${theme[0]}${mode}`}
-          >
-            <ThemeTesterWrapper
-              name={theme[0].split("Theme").join("")}
-              mode={mode}
+      {localTheme.theme === "all" &&
+        Object.entries(themes).map((theme) =>
+          modes.map((mode) => (
+            <ThemeProvider
+              theme={{ ...theme[1], mode }}
+              key={`${theme[0]}${mode}`}
             >
-              {children}
-            </ThemeTesterWrapper>
-          </ThemeProvider>
-        ))
+              <ThemeTesterWrapper
+                name={theme[0].split("Theme").join("")}
+                mode={mode}
+              >
+                {children}
+              </ThemeTesterWrapper>
+            </ThemeProvider>
+          ))
+        )}
+      {localTheme.theme !== "all" && localTheme.theme !== "custom" && (
+        <ThemeProvider theme={{ ...localTheme }}>
+          <ThemeTesterWrapper
+            name={localTheme.theme?.split("Theme").join("") || ""}
+            mode={localTheme.mode}
+          >
+            {children}
+          </ThemeTesterWrapper>
+        </ThemeProvider>
       )}
-      <GlobalThemeProvider>
-        <ThemeTesterWrapper name={"Custom"}>{children}</ThemeTesterWrapper>
-      </GlobalThemeProvider>
+      {localTheme.theme === "custom" && (
+        <GlobalThemeProvider>
+          <ThemeTesterWrapper name={"Custom"}>{children}</ThemeTesterWrapper>
+        </GlobalThemeProvider>
+      )}
     </div>
   );
 };
