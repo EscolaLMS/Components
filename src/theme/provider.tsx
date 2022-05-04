@@ -21,6 +21,7 @@ export interface SharedDefaultTheme {
   inputRadius?: number;
   checkboxRadius?: number;
   body: BodyTheme;
+  backgroundDarkProgress: string;
   errorColor: string;
 }
 
