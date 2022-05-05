@@ -41,4 +41,4 @@ jobs:
       - name: Npm install
         run: npm i --legacy-peer-deps
       - name: Lint TypeScript
-        run: npm run eslint . --ext .js,.jsx,.ts,.tsx
+        run: npm run eslint

@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "styleguidist server",
     "build": "styleguidist build",
+    "tsc": "tsc --project tsconfig.json --noEmit",
+    "eslint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lib": "tsc --noEmit false --outDir lib --module commonjs"
   },
   "files": [
