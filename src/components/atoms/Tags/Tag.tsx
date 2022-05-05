@@ -5,16 +5,16 @@ import styled, { withTheme, ThemeContext } from "styled-components";
 import { Title } from "../Typography/Title";
 import { Text } from "../Typography/Text";
 
-export interface TagsProps extends React.HTMLProps<HTMLDivElement> {}
+export type TagsProps = React.HTMLProps<HTMLDivElement>
 
 const StyledTag = styled("div")`
   display: flex;
   flex-direction: column;
-
+  
   &:not(:last-child) {
     margin-bottom: 20px;
   }
-`;
+`
 
 export const Tag: React.FC<TagsProps> = (props) => {
   const { children, title } = props;
@@ -45,6 +45,6 @@ export const Tag: React.FC<TagsProps> = (props) => {
   );
 };
 
-const NewTags = styled(Tag)<{}>``;
+const NewTags = styled(Tag)<TagsProps>``;
 
 export default withTheme(NewTags);
