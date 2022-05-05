@@ -9,9 +9,9 @@ import styled, {
 import { contrast } from "chroma-js";
 
 import { getFontFromTheme } from "../../../theme/provider";
-import { Title } from "../Typography/Title";
-import { IconTitle } from "../Typography/IconTitle";
-import { Text } from "../Typography/Text";
+import { Title } from "../../atoms/Typography/Title";
+import {IconTitle} from "../IconTitle/IconTitle";
+import { Text } from "../../atoms/Typography/Text";
 
 export interface TitleProps extends React.HTMLProps<HTMLDivElement> {
   variant?: "header" | "label";
