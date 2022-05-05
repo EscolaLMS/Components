@@ -16,7 +16,7 @@ export interface NotificationProps {
   unread: boolean;
   title: string;
   description: string;
-  date_time: Date;
+  dateTime: Date;
 }
 
 const StyledNotification = styled.section<{
@@ -29,6 +29,7 @@ const StyledNotification = styled.section<{
   background-color: ${({ theme }) =>
     theme.mode === "light" ? theme.backgroundLight : theme.backgroundDark};
   display: flex;
+  width: 100%;
   align-items: flex-start;
   padding: ${({ modularView }) => (modularView ? "0" : "23px 68px 24px 17px")};
   justify-content: ${(props) =>
@@ -100,7 +101,7 @@ export const Notification: React.FC<ComponentProps> = ({
   maxLengthDesc,
   modularView = false,
 }) => {
-  const { unread, title, description, date_time } = notification;
+  const { unread, title, description, dateTime } = notification;
 
   return (
     <StyledNotification
@@ -117,7 +118,7 @@ export const Notification: React.FC<ComponentProps> = ({
         </StyledDescription>
       </div>
       <StyledDate modularView={modularView}>
-        {format(date_time, isToday(date_time) ? "hh:mm" : "dd.MM.yyyy")}
+        {format(dateTime, isToday(dateTime) ? "hh:mm" : "dd.MM.yyyy")}
       </StyledDate>
     </StyledNotification>
   );
