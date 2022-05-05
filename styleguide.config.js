@@ -27,7 +27,6 @@ module.exports = {
 
   styleguideDir: "docs",
 
-  require: [path.join(__dirname, "/node_modules/react-dat-gui/dist/index.css")],
   tocMode: "collapse",
   sections: [
     {

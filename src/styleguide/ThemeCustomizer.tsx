@@ -1,99 +1,123 @@
-import React, { useCallback, useEffect, useState } from "react";
-import DatGui, {
-  DatColor,
-  DatNumber,
-  DatPresets,
-  DatSelect,
-  DatString,
-  DatFolder,
-  DatButton,
-} from "react-dat-gui";
+import React, { useEffect, useMemo } from "react";
 import { orangeTheme as defaultTheme } from "./../theme/orange";
-
 import { DefaultTheme } from "styled-components";
-
 import themes from "../theme";
-import { getFontFromTheme, getThemeFromLocalStorage } from "../theme/provider";
+import { getThemeFromLocalStorage } from "../theme/provider";
+import { useControls, folder } from "leva";
+
+const allowedKeys = [
+  "theme",
+  "mode",
+  "primaryColor",
+  "secondaryColor",
+  "backgroundDark",
+  "backgroundLight",
+  "textColorDark",
+  "textColorLight",
+  "backgroundDarkProgress",
+  "white",
+  "gray5",
+  "gray4",
+  "gray3",
+  "gray2",
+  "gray1",
+  "black",
+  "buttonRadius",
+  "checkboxRadius",
+];
+
+const filterInputData = (input: DefaultTheme) => {
+  return allowedKeys.reduce((acc: Partial<DefaultTheme>, curr: string) => {
+    return typeof input[curr as keyof DefaultTheme] !== "undefined"
+      ? { ...acc, [curr]: input[curr as keyof DefaultTheme] }
+      : acc;
+  }, {});
+};
 
 export const ThemeCustomizer: React.FC<{
   onUpdate: (theme: DefaultTheme) => void;
 }> = ({ onUpdate }) => {
-  const [state, setState] = useState<DefaultTheme>(
-    getThemeFromLocalStorage(defaultTheme)
-  );
+  const initData = useMemo(() => {
+    const data = getThemeFromLocalStorage(defaultTheme);
 
-  // Update current state with changes from controls
-  const handleUpdate = useCallback((newData: DefaultTheme) => {
-    setState((prevState) => ({
-      ...prevState,
-      ...newData,
-    }));
+    return filterInputData(data);
   }, []);
+
+  const [props, set] = useControls(() => ({
+    theme: {
+      label: "Theme",
+      value: initData.theme || "all",
+      options: ["all", ...Object.keys(themes), "custom"],
+      onChange: (theme: string) => {
+        switch (theme) {
+          case "all":
+          case "custom":
+            break;
+          default:
+            set({
+              theme,
+              ...filterInputData(themes[theme as keyof typeof themes]),
+            });
+        }
+      },
+      transient: false,
+    },
+    mode: {
+      options: ["light", "dark"],
+      value: initData.mode || "light",
+    },
+
+    Customize: folder(
+      {
+        font: {
+          options: ["Inter", "Mulish", "Titillium"],
+          value: initData.font || "Inter",
+        },
+        "Main Colors": folder({
+          primaryColor: initData.primaryColor || "#000000",
+          secondaryColor: initData.secondaryColor || "#000000",
+          backgroundDark: initData.backgroundDark || "#000000",
+          backgroundLight: initData.backgroundLight || "#000000",
+          textColorDark: initData.textColorDark || "#000000",
+          textColorLight: initData.textColorLight || "#000000",
+          backgroundDarkProgress: initData.backgroundDarkProgress || "#000000",
+        }),
+        "Body Colors": folder({
+          white: initData.white || "#000000",
+          gray5: initData.gray5 || "#000000",
+          gray4: initData.gray4 || "#000000",
+          gray3: initData.gray3 || "#000000",
+          gray2: initData.gray2 || "#000000",
+          gray1: initData.gray1 || "#000000",
+          black: initData.black || "#000000",
+        }),
+        Radiuses: folder({
+          buttonRadius: {
+            min: 0,
+            max: 100,
+            step: 1,
+            value: initData.buttonRadius || 0,
+          },
+          checkboxRadius: {
+            min: 0,
+            max: 5,
+            step: 1,
+            value: initData.checkboxRadius || 0,
+          },
+        }),
+      },
+
+      {
+        render: (get) => get("theme") === "custom",
+      }
+    ),
+  }));
 
   useEffect(() => {
-    onUpdate(state);
-  }, [state]);
+    onUpdate(props as DefaultTheme);
+  }, [props]);
 
-  const resetToDefaults = useCallback(() => {
-    setState(defaultTheme);
-  }, []);
-
-  return (
-    <div>
-      {Object.values(themes).map((theme) =>
-        getFontFromTheme(theme).links.map((link) => (
-          <link key={link} rel="stylesheet" href={link} />
-        ))
-      )}
-      <DatGui data={state} onUpdate={handleUpdate}>
-        <DatPresets
-          label="Presets"
-          // @ts-ignore // bug in the library
-          options={[themes]}
-          onUpdate={handleUpdate}
-        />
-        <DatButton
-          label="Reset to Defaults"
-          onClick={() => resetToDefaults()}
-        />
-        <DatSelect path="mode" options={["light", "dark"]} />
-        <DatSelect path="font" options={["Inter", "Mulish", "Titillium"]} />
-        <DatFolder title="Colors" closed={true}>
-          <DatColor path="primaryColor" label="Primary Color" />
-          <DatColor path="secondaryColor" label="Secondary Color" />
-          <DatColor path="backgroundDark" label="Background Dark Color" />
-          <DatColor path="backgroundLight" label="Background Light Color" />
-          <DatColor path="textColorDark" label="Text Dark Color" />
-          <DatColor path="textColorLight" label="Text Light Color" />
-          <DatFolder title="Body" closed={true}>
-            <DatColor path="body.white" label="white" />
-            <DatColor path="body.gray5" label="gray5" />
-            <DatColor path="body.gray4" label="gray4" />
-            <DatColor path="body.gray3" label="gray3" />
-            <DatColor path="body.gray2" label="gray2" />
-            <DatColor path="body.gray1" label="gray1" />
-            <DatColor path="body.black" label="black" />
-          </DatFolder>
-        </DatFolder>
-        <DatFolder title="Radiuses" closed={true}>
-          <DatNumber
-            path="buttonRadius"
-            label="Button Radius"
-            min={0}
-            max={100}
-            step={1}
-          />
-          <DatNumber
-            path="checkboxRadius"
-            label="Checkbox Radius"
-            min={0}
-            max={5}
-            step={1}
-          />
-        </DatFolder>
-      </DatGui>
-    </div>
-  );
+  return <React.Fragment />;
 };
 
 export default ThemeCustomizer;
