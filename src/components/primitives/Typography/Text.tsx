@@ -13,7 +13,7 @@ const StyledP = styled.p<TitleProps>`
   margin: ${(props) => (props.noMargin ? "0" : "0 0 1.55em 0")};
   padding: 0;
   color: ${(props) =>
-    props.theme.mode !== "light" ? props.theme.white : props.theme.gray1};
+    props.theme.mode !== "light" ? props.theme.white : "#111"};
   font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
   font-weight: normal;
   font-size: 16px;
