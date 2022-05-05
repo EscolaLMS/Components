@@ -23,7 +23,7 @@ const [text, setText] = useState("lorem ipsum");
 
     <Input type="text" label="disabled" value="disabled" disabled />
 
-    <Input type="text" label="readonly" value="readonly" readonly />
+    <Input type="text" label="readonly" value="readonly" readOnly />
   </ThemeTester>
   <ImageModal images={[img1]} />
 </React.Fragment>;

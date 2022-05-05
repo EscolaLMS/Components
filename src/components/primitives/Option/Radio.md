@@ -8,7 +8,7 @@ import ThemeTester from "../../../styleguide/ThemeTester";
 <React.Fragment>
   <ThemeTester>
     <Text>checked Radio without label</Text>
-    <Radio name="r3" checked />
+    <Radio name="r3" defaultChecked />
     <Text>Radio without label</Text>
     <Radio name="r4" />
     <Text>Radio with primitive label</Text>
@@ -22,7 +22,7 @@ import ThemeTester from "../../../styleguide/ThemeTester";
         </strong>
       }
     />
-    <Radio name="r5" checked label={<strong>dummy label</strong>} />
+    <Radio name="r5" defaultChecked label={<strong>dummy label</strong>} />
   </ThemeTester>
 
   <ImageModal images={[img1]} />
