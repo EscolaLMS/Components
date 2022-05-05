@@ -4,7 +4,7 @@
 import { ThemeProvider } from "styled-components";
 import Download from "./Download";
 import themes from "../../../theme";
-import Title from "../Typography/Title";
+import Title from "../../atoms/Typography/Title";
 import ThemeTester from "../../../styleguide/ThemeTester";
 import ImageModal from "../../../styleguide/ImageModal";
 import img1 from "./Download.png";

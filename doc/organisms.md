@@ -1,4 +1,4 @@
-Functional Components represents how to connect other components with application logic
+Organisms are groups of molecules joined together to form a relatively complex, distinct section of an interface.
 
 ## Translation
 

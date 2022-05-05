@@ -10,7 +10,7 @@ import { contrast } from "chroma-js";
 
 import { getFontFromTheme } from "../../../theme/provider";
 
-import Button from "../../primitives/Button/Button";
+import Button from "../../atoms/Button/Button";
 
 export interface ComponentProps {
   isFinished: boolean;
