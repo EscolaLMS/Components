@@ -17,10 +17,7 @@ window.ybug_settings = window.ybug_settings || false;
 
 window.ybug_settings = { id: "4a30b8sn4pfpdw7wp4c0" };
 
-export const Logo: React.FC<{ children?: React.ReactNode; classes: any }> = ({
-  children,
-  classes,
-}) => {
+export const Logo: React.FC = () => {
   const [, setTheme] = useLocalTheme();
 
   useLayoutEffect(() => {
@@ -35,7 +32,9 @@ export const Logo: React.FC<{ children?: React.ReactNode; classes: any }> = ({
             "https://widget.ybug.io/button/" + window.ybug_settings.id + ".js";
           const s = document.getElementsByTagName("script")[0];
           s && s.parentNode && s.parentNode.insertBefore(ybug, s);
-        } catch (er) {}
+        } catch (er) {
+          console.warn("ybug error", er);
+        }
       }
     })();
   }, []);

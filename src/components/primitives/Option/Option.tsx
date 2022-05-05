@@ -1,8 +1,6 @@
 import * as React from "react";
 
-import styled, { withTheme, ThemeContext } from "styled-components";
-
-import { contrast } from "chroma-js";
+import styled, { withTheme } from "styled-components";
 
 import { getFontFromTheme } from "../../../theme/provider";
 
@@ -22,7 +20,7 @@ const StyledDiv = styled.div<OptionType>`
     align-items: center;
     cursor: pointer;
   }
-  
+
   span {
     margin-left: 15px;
   }

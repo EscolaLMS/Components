@@ -1,14 +1,7 @@
 import * as React from "react";
 
-import styled, {
-  withTheme,
-  ThemeProvider,
-  ThemeContext,
-} from "styled-components";
+import styled, { withTheme, ThemeContext } from "styled-components";
 
-import { contrast } from "chroma-js";
-
-import { getFontFromTheme } from "../../../theme/provider";
 import { Title } from "../Typography/Title";
 import { IconTitle } from "../Typography/IconTitle";
 import { Text } from "../Typography/Text";
