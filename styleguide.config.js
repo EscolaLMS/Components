@@ -27,7 +27,6 @@ module.exports = {
 
   styleguideDir: "docs",
 
-  require: [path.join(__dirname, "/node_modules/react-dat-gui/dist/index.css")],
   tocMode: "collapse",
   sections: [
     {
@@ -40,23 +39,38 @@ module.exports = {
         },
       ],
     },
-
     {
-      name: "Primitives Components",
-      content: "doc/primitives.md",
-      components: "src/components/primitives/**/*.tsx",
+      name: "Atoms",
+      content: "doc/atoms.md",
+      components: "src/components/atoms/**/*.tsx",
     },
-
     {
-      name: "Advanced Components",
-      content: "doc/primitives.md",
-      components: "src/components/advanced/**/*.tsx",
+      name: "Molecules",
+      content: "doc/molecules.md",
+      components: "src/components/molecules/**/*.tsx",
     },
-
     {
-      name: "Functional Components",
-      content: "doc/functional.md",
-      components: "src/components/functional/**/*.tsx",
+      name: "Organisms",
+      content: "doc/organisms.md",
+      components: "src/components/organisms/**/*.tsx",
     },
+    {
+      name: "Templates",
+      content: "doc/templates.md",
+      components: "src/components/templates/**/*.tsx",
+    },
+    {
+      name: "Pages",
+      content: "doc/pages.md",
+      components: "src/components/pages/**/*.tsx",
+    },
+    {
+      name: "Forms",
+      content: "doc/forms.md",
+    },
+    {
+      name: "Translations",
+      content: "doc/translations.md",
+    }
   ],
 };

@@ -23,6 +23,7 @@ export const ImageModal: React.FC<{
           ))}
         </div>
       )}
+      {children}
     </div>
   );
 };
