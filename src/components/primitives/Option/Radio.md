@@ -7,13 +7,13 @@ import ThemeTester from "../../../styleguide/ThemeTester";
 
 <React.Fragment>
   <ThemeTester>
-    <Text style={{marginBottom: 0}}>checked Radio without label</Text>
+    <Text noMargin={true}>checked Radio without label</Text>
     <Radio name="r3" checked />
-    <Text style={{marginBottom: 0}}>Radio without label</Text>
+    <Text noMargin={true}>Radio without label</Text>
     <Radio name="r4" />
-    <Text style={{marginBottom: 0}}>Radio with primitive label</Text>
+    <Text noMargin={true}>Radio with primitive label</Text>
     <Radio name="r5" label="dummy label" />
-    <Text style={{marginBottom: 0}}>Radio with sophisticated label</Text>{" "}
+    <Text noMargin={true}>Radio with sophisticated label</Text>{" "}
     <Radio
       name="r6"
       label={
