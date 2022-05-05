@@ -51,24 +51,30 @@ const Icon3 = () => (
 
 <React.Fragment>
   <ThemeTester>
-    <LabelListItem title="Kategoria szkolenia">Fianse</LabelListItem>
-    <LabelListItem title="Poziom trudności%">Średni</LabelListItem>
-    <LabelListItem title="Termin rozpoczęcia%">22 marca 2022</LabelListItem>
-    <LabelListItem title="Czas trwania%">120 godzin</LabelListItem>
-
-    <LabelListItem mode="header" icon={<Icon1 />} title="90%">
-      Poleca szkolenia Jana Kamińskiego{" "}
+    <LabelListItem title="90%" icon={<Icon1 />}>
+      Poleca szkolenia Jana Kaminskiego
     </LabelListItem>
-
-    <LabelListItem mode="header" icon={<Icon2 />} title="Gwarancja">
-      zadowoleia lub zwrot pieniędzy*{" "}
+    <LabelListItem title="Gwarancja" icon={<Icon2 />}>
+      zadowolenia lub zwrot pieniędzy*
     </LabelListItem>
-
-    <LabelListItem mode="header" icon={<Icon3 />} title="5.0">
-      Średnia ocena szkoleń Jana Kamińskiego{" "}
+    <LabelListItem title="5.0" icon={<Icon3 />}>
+      Średnia ocena szkoleń Jana Kamińskiego
     </LabelListItem>
   </ThemeTester>
-
+  <ThemeTester>
+    <LabelListItem title="Kategoria szkolenia" variant={"label"}>
+      Finanse
+    </LabelListItem>
+    <LabelListItem title="Poziom trudności" variant={"label"}>
+      Średni
+    </LabelListItem>
+    <LabelListItem title="Termin rozpoczęcia" variant={"label"}>
+      22 marca 2022
+    </LabelListItem>
+    <LabelListItem title="Czas trwania" variant={"label"}>
+      120 godzin
+    </LabelListItem>
+  </ThemeTester>
   <ImageModal images={[img1]} />
 </React.Fragment>;
 ```
