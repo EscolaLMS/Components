@@ -58,7 +58,7 @@ const StyledDiv = styled("div")<InputProps>`
               return;
             }
             const backgroundLabel =
-              props.theme.mode === "dark" ? props.theme.body.black : undefined;
+              props.theme.mode === "dark" ? props.theme.black : undefined;
             return `
               background: ${backgroundLabel};
               box-shadow: -5px 0px 0px 0px ${backgroundLabel}, 5px 0px 0px 0px ${backgroundLabel};
@@ -70,7 +70,7 @@ const StyledDiv = styled("div")<InputProps>`
             if (props.disabled) {
               return "";
             }
-            props.theme.mode !== "dark" ? props.theme.body.white : undefined;
+            props.theme.mode !== "dark" ? props.theme.white : undefined;
           }};
         }
         fieldset {
@@ -81,9 +81,7 @@ const StyledDiv = styled("div")<InputProps>`
             if (props.disabled) {
               return "transparent;";
             }
-            return props.theme.mode !== "dark"
-              ? props.theme.body.gray3
-              : undefined;
+            return props.theme.mode !== "dark" ? props.theme.gray3 : undefined;
           }};
         }
       }
@@ -102,7 +100,7 @@ const StyledDiv = styled("div")<InputProps>`
           return props.theme.errorColor;
         }
         if (props.disabled && props.theme.mode === "dark") {
-          return props.theme.body.white;
+          return props.theme.white;
         }
       }};
     }
@@ -122,17 +120,15 @@ const StyledDiv = styled("div")<InputProps>`
         caret-color: #e60037;
         border-radius: ${(props) => props.theme.inputRadius}px;
         background: ${(props) => {
-          const { mode, body } = props.theme;
-          const bgColor = mode !== "dark" ? body.gray5 : body.gray1;
+          const { mode, gray1, gray5 } = props.theme;
+          const bgColor = mode !== "dark" ? gray5 : gray1;
           if (props.disabled) {
             return mix(bgColor, "#fff").hex();
           }
           return bgColor;
         }};
         color: ${(props) =>
-          props.theme.mode !== "dark"
-            ? props.theme.body.gray1
-            : props.theme.body.white};
+          props.theme.mode !== "dark" ? props.theme.gray1 : props.theme.white};
         &:disabled {
           cursor: not-allowed;
         }
@@ -143,8 +139,8 @@ const StyledDiv = styled("div")<InputProps>`
         margin: 0px;
         padding: 0px 8px;
         border: ${(props) => {
-          const { body, mode } = props.theme;
-          let borderColor = mode !== "dark" ? body.gray4 : body.gray5;
+          const { mode, gray4, gray5 } = props.theme;
+          let borderColor = mode !== "dark" ? gray4 : gray5;
           if (props.error) {
             borderColor = props.theme.errorColor;
           }
