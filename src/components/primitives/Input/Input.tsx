@@ -5,14 +5,21 @@ import { useMemo, useCallback } from "react";
 import { mix } from "chroma-js";
 
 export interface InputProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {
-  label?: string;
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "type"> {
+  label?: string | React.ReactNode;
   helper?: React.ReactNode;
-  error?: string;
+  error?: string | React.ReactNode;
   container?: React.HTMLAttributes<HTMLDivElement>;
-  required?: boolean;
   type: "email" | "number" | "password" | "search" | "tel" | "text" | "url";
 }
+
+const notInputProps = {
+  theme: undefined,
+  container: undefined,
+  label: undefined,
+  helper: undefined,
+  error: undefined,
+};
 
 const StyledDiv = styled("div")<InputProps>`
   &.lsm-input {
@@ -170,10 +177,8 @@ export const Input: React.FC<InputProps> = (props) => {
   }, []);
 
   const addFilledClass = useCallback(() => {
-    if (props.value && props.value !== "") {
-      return "filled";
-    }
-    if (props.placeholder && props.placeholder !== "") {
+    const { value, placeholder } = props;
+    if ((value && value !== "") || (placeholder && placeholder !== "")) {
       return "filled";
     }
     return "";
@@ -204,17 +209,8 @@ export const Input: React.FC<InputProps> = (props) => {
         {renderLabel()}
         <div className="input-and-fieldset">
           <input
-            {...Object.assign(
-              {},
-              {
-                ...props,
-                theme: undefined,
-                container: undefined,
-                label: undefined,
-                helper: undefined,
-                error: undefined,
-              }
-            )}
+            {...props}
+            {...notInputProps}
             id={label ? generateRandomInputId : undefined}
           />
           <fieldset>
