@@ -14,9 +14,7 @@ const StyledDiv = styled.div<{}>`
   margin: 0;
   padding: 0;
   color: ${(props) =>
-    props.theme.mode !== "dark"
-      ? props.theme.body.gray1
-      : props.theme.body.white};
+    props.theme.mode !== "dark" ? props.theme.gray1 : props.theme.white};
   font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -32,8 +30,8 @@ const StyledDiv = styled.div<{}>`
         display: block;
         background: ${(props) => {
           return props.theme.mode !== "dark"
-            ? props.theme.body.white
-            : props.theme.body.gray2;
+            ? props.theme.white
+            : props.theme.gray2;
         }};
         height: 100%;
         border-radius: 10px;

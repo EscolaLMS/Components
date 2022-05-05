@@ -1,5 +1,5 @@
 import * as React from "react";
-import styled, {withTheme} from "styled-components";
+import styled, { withTheme } from "styled-components";
 import { getFontFromTheme } from "../../../theme/provider";
 import { HeaderLevelInt, HeaderLevelStr } from "../../../types/titleTypes";
 import { setFontSizeByHeaderLevel } from "../../../utils/components/primitives/titleUtils";
@@ -15,7 +15,9 @@ interface StyledHeader {
   as: keyof JSX.IntrinsicElements;
 }
 
-export interface IconTitleProps extends StyledHeader, React.HTMLAttributes<HTMLHeadingElement> {
+export interface IconTitleProps
+  extends StyledHeader,
+    React.HTMLAttributes<HTMLHeadingElement> {
   title: string;
   subtitle?: string;
   icon: React.ReactNode;
@@ -32,16 +34,20 @@ const StyledHeader = styled.h3<StyledHeader>`
     display: flex;
     flex-wrap: wrap;
     color: ${(props) => {
-      return props.theme.mode !== 'light' ? props.theme.body.white : props.theme.body.gray1
+      return props.theme.mode !== "light"
+        ? props.theme.white
+        : props.theme.gray1;
     }};
     .icon {
-      width: 0.70em;
+      width: 0.7em;
       display: flex;
       align-items: center;
       margin-right: 14px;
       svg {
         fill: ${(props) => {
-          return props.theme.mode !== 'light' ? props.theme.body.white : props.theme.body.black
+          return props.theme.mode !== "light"
+            ? props.theme.white
+            : props.theme.black;
         }};
       }
     }
@@ -59,32 +65,19 @@ export const IconTitle: React.FC<IconTitleProps> = (props) => {
   const { title, subtitle, icon, level = 3, styles } = props;
   const tagName: HeaderLevelStr = `h${level}`;
   return (
-    <StyledHeader
-      as={tagName}
-      level={level}
-      className="lms-icon-title"
-    >
-      <span 
-        className="icon" 
-        style={styles?.icon}
-      >
+    <StyledHeader as={tagName} level={level} className="lms-icon-title">
+      <span className="icon" style={styles?.icon}>
         {icon}
       </span>
       <span className="full-title">
-        <span 
-          className="title" 
-          style={styles?.title}
-        >
+        <span className="title" style={styles?.title}>
           {title}
         </span>
-        {subtitle && 
-          <span 
-            className="subtitle" 
-            style={styles?.subtitle}
-          >
+        {subtitle && (
+          <span className="subtitle" style={styles?.subtitle}>
             {subtitle}
           </span>
-        }
+        )}
       </span>
     </StyledHeader>
   );
