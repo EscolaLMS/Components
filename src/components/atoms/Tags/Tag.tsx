@@ -5,7 +5,7 @@ import styled, { withTheme, ThemeContext } from "styled-components";
 import { Title } from "../Typography/Title";
 import { Text } from "../Typography/Text";
 
-export type TagsProps = React.HTMLProps<HTMLDivElement>
+export type TagProps = React.HTMLProps<HTMLDivElement>
 
 const StyledTag = styled("div")`
   display: flex;
@@ -16,7 +16,7 @@ const StyledTag = styled("div")`
   }
 `
 
-export const Tag: React.FC<TagsProps> = (props) => {
+export const Tag: React.FC<TagProps> = (props) => {
   const { children, title } = props;
   const theme = React.useContext(ThemeContext);
 
@@ -45,6 +45,6 @@ export const Tag: React.FC<TagsProps> = (props) => {
   );
 };
 
-const NewTags = styled(Tag)<TagsProps>``;
+const NewTags = styled(Tag)<TagProps>``;
 
 export default withTheme(NewTags);
