@@ -8,7 +8,7 @@ import ThemeTester from "../../../styleguide/ThemeTester";
 <React.Fragment>
   <ThemeTester>
     <Text noMargin={true}>checked Checkbox without label</Text>
-    <Checkbox name="c3" checked />
+    <Checkbox name="c3" defaultChecked />
     <Text noMargin={true}>Checkbox without label</Text>
     <Checkbox name="c4" />
     <Text noMargin={true}>Checkbox with primitive label</Text>
@@ -22,7 +22,7 @@ import ThemeTester from "../../../styleguide/ThemeTester";
         </strong>
       }
     />
-    <Checkbox name="c7" checked label={<strong>dummy label</strong>} />
+    <Checkbox name="c7" label={<strong>dummy label</strong>} defaultChecked />
   </ThemeTester>
 
   <ImageModal images={[img1]} />
