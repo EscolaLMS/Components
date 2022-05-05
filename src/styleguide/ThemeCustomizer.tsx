@@ -15,6 +15,7 @@ const allowedKeys = [
   "textColorDark",
   "textColorLight",
   "backgroundDarkProgress",
+  "invertColor",
   "white",
   "gray5",
   "gray4",
@@ -81,6 +82,7 @@ export const ThemeCustomizer: React.FC<{
           textColorDark: initData.textColorDark || "#000000",
           textColorLight: initData.textColorLight || "#000000",
           backgroundDarkProgress: initData.backgroundDarkProgress || "#000000",
+          invertColor: initData.invertColor || "#000000",
         }),
         "Body Colors": folder({
           white: initData.white || "#000000",

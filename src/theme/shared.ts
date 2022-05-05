@@ -6,7 +6,7 @@ export const sharedTheme: SharedDefaultTheme = {
   checkboxRadius: 0,
   backgroundDark: "#000000",
   backgroundLight: "#FFFFFF",
-
+  invertColor: "#FFCC00",
   white: "#FFFFFF",
   gray5: "#F8F8F8",
   gray4: "#F2F2F2",

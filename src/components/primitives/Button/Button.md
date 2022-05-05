@@ -10,15 +10,24 @@ import ThemeTester from "../../../styleguide/ThemeTester";
 <React.Fragment>
   <ThemeTester>
     <Button>Primary Button</Button>
-    <br />
     <Button mode="secondary">Secondary button</Button>
-    <br />
     <Button mode="outline">Outline button</Button>
-    <br />
     <Button disabled>Primary Button disabled</Button>
-    <br />
     <Button mode="secondary" disabled>
       Secondary button disabled
+    </Button>
+    <Button invert>Invert button</Button>
+    <Button mode="secondary" invert>
+      Secondary Invert button
+    </Button>
+    <Button mode="outline" invert>
+      Outline Invert button
+    </Button>
+    <Button disabled invert>
+      Primary Invert Button disabled
+    </Button>
+    <Button mode="secondary" disabled invert>
+      Secondary Invert Button disabled
     </Button>
   </ThemeTester>
 
