@@ -3,12 +3,14 @@ import { DefaultTheme, ThemeProvider } from "styled-components";
 import React, { useState, useEffect, useCallback } from "react";
 
 import { orangeTheme as defaultTheme } from "./orange";
+import { useLocalTheme } from "../styleguide/useLocalTheme";
 
 export interface SharedDefaultTheme {
   theme?: string;
   backgroundLight: string;
   backgroundDark: string;
   buttonRadius?: number;
+  inputRadius?: number;
   checkboxRadius?: number;
   white: string;
   gray5: string;
@@ -18,6 +20,7 @@ export interface SharedDefaultTheme {
   gray1: string;
   black: string;
   backgroundDarkProgress: string;
+  errorColor: string;
 }
 
 declare module "styled-components" {
@@ -69,56 +72,10 @@ export const getFontFromTheme = (
   };
 };
 
-export const getThemeFromLocalStorage = (
-  theme: DefaultTheme = defaultTheme
-): DefaultTheme => {
-  if (
-    window.localStorage.getItem("theme") !== null &&
-    typeof window.localStorage.getItem("theme") === "string"
-  ) {
-    let theme: Required<DefaultTheme>;
-    try {
-      theme = {
-        mode: "light",
-        theme: "all",
-        ...defaultTheme,
-        ...JSON.parse(window.localStorage.getItem("theme") || ""),
-      };
-    } catch (err) {
-      return defaultTheme;
-    }
-    return theme;
-  }
-  return theme;
-};
-
-export const setThemeToLocalStorage = (
-  theme: DefaultTheme = defaultTheme
-): void => {
-  window.localStorage.setItem("theme", JSON.stringify(theme));
-  window.dispatchEvent(new Event("themeChange"));
-};
-
 export const GlobalThemeProvider: React.FC<{ children?: React.ReactNode }> = ({
   children,
 }) => {
-  // TODO, replace this with custom hook
-  const [theme, setTheme] = useState<DefaultTheme>(defaultTheme);
-
-  const onStorage = useCallback(() => {
-    const storageTheme = getThemeFromLocalStorage(theme);
-    setTheme(storageTheme);
-  }, []);
-  useEffect(() => {
-    onStorage();
-    window.addEventListener("storage", onStorage);
-    window.addEventListener("themeChange", onStorage);
-    return () => {
-      window.removeEventListener("storage", onStorage);
-      window.removeEventListener("themeChange", onStorage);
-    };
-  }, [onStorage]);
-
+  const [theme] = useLocalTheme();
   const font = Fonts[theme.font];
 
   return (

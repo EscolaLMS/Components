@@ -29,7 +29,7 @@ const StyledHeader = styled.h3<StyledHeader>`
     font-size: ${(props) => setFontSizeByHeaderLevel(props.level)};
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    margin: 20px 0;
+    margin: 0 0 20px 0;
     font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
     display: flex;
     flex-wrap: wrap;
@@ -49,6 +49,7 @@ const StyledHeader = styled.h3<StyledHeader>`
             ? props.theme.white
             : props.theme.black;
         }};
+        flex-shrink: 0;
       }
     }
     .title {

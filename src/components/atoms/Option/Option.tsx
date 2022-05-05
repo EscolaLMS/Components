@@ -22,6 +22,10 @@ const StyledDiv = styled.div<OptionType>`
     align-items: center;
     cursor: pointer;
   }
+  
+  span {
+    margin-left: 15px;
+  }
 
   &:hover input {
     border: 1px solid rgba(0, 0, 0, 0.4);
@@ -35,7 +39,7 @@ const StyledDiv = styled.div<OptionType>`
     height: 20px;
     border: 1px solid rgba(0, 0, 0, 0.2);
     position: relative;
-    margin-right: 15px;
+    margin: 0;
     border-radius: ${(props) => props.theme.checkboxRadius || "0"}px;
     ${(props) => (props.type === "radio" ? "border-radius:100%" : "")}
   }
