@@ -1,14 +1,6 @@
 import * as React from "react";
 
-import styled, {
-  withTheme,
-  ThemeProvider,
-  ThemeContext,
-} from "styled-components";
-
-import { contrast } from "chroma-js";
-
-import { getFontFromTheme } from "../../../theme/provider";
+import styled, { withTheme } from "styled-components";
 
 import Button from "../../atoms/Button/Button";
 

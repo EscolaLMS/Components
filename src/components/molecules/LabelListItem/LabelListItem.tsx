@@ -1,16 +1,9 @@
 import * as React from "react";
 
-import styled, {
-  withTheme,
-  ThemeProvider,
-  ThemeContext,
-} from "styled-components";
+import styled, { withTheme, ThemeContext } from "styled-components";
 
-import { contrast } from "chroma-js";
-
-import { getFontFromTheme } from "../../../theme/provider";
 import { Title } from "../../atoms/Typography/Title";
-import {IconTitle} from "../IconTitle/IconTitle";
+import IconTitle from "../../molecules/IconTitle/IconTitle"
 import { Text } from "../../atoms/Typography/Text";
 
 export interface TitleProps extends React.HTMLProps<HTMLDivElement> {

@@ -30,7 +30,7 @@ export const Text: React.FC<TitleProps> = (props) => {
 };
 
 // https://styled-components.com/docs/api#using-custom-props
-const NewText = styled(Text)<{}>``;
+const NewText = styled(Text)``;
 
 // Main button with styles
 export default withTheme(NewText);

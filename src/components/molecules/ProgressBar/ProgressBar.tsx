@@ -10,7 +10,7 @@ export interface ProgressBarProps extends React.HTMLAttributes<HTMLDivElement> {
   maxProgress: number;
 }
 
-const StyledDiv = styled.div<{}>`
+const StyledDiv = styled.div`
   margin: 0;
   padding: 0;
   color: ${(props) =>
@@ -96,6 +96,6 @@ export const ProgressBar: React.FC<ProgressBarProps> = (props) => {
 };
 
 // https://styled-components.com/docs/api#using-custom-props
-const NewProgressBar = styled(ProgressBar)<{}>``;
+const NewProgressBar = styled(ProgressBar)``;
 
 export default withTheme(NewProgressBar);
