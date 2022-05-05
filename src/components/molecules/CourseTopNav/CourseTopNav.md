@@ -3,7 +3,7 @@ import { GlobalThemeProvider } from "../../../theme/provider";
 import ImageModal from "../../../styleguide/ImageModal";
 import img1 from "./CourseTopNav.png";
 
-import ThemeTester from "../../.././styleguide/ThemeTester";
+import ThemeTester from "../../../styleguide/ThemeTester";
 
 const onNext = () => console.log("onNext");
 const onPrev = () => console.log("onPrev");
