@@ -9,6 +9,7 @@ export interface SharedDefaultTheme {
   backgroundLight: string;
   backgroundDark: string;
   buttonRadius?: number;
+  inputRadius?: number;
   checkboxRadius?: number;
   white: string;
   gray5: string;
@@ -18,6 +19,7 @@ export interface SharedDefaultTheme {
   gray1: string;
   black: string;
   backgroundDarkProgress: string;
+  errorColor: string;
 }
 
 declare module "styled-components" {

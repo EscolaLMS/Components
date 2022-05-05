@@ -5,7 +5,7 @@ import themes from "../theme";
 import { getThemeFromLocalStorage } from "../theme/provider";
 import { useControls, folder } from "leva";
 
-const allowedKeys = [
+const allowedKeys: (keyof DefaultTheme & string)[] = [
   "theme",
   "mode",
   "primaryColor",
@@ -15,6 +15,7 @@ const allowedKeys = [
   "textColorDark",
   "textColorLight",
   "backgroundDarkProgress",
+  "errorColor",
   "white",
   "gray5",
   "gray4",
@@ -24,14 +25,18 @@ const allowedKeys = [
   "black",
   "buttonRadius",
   "checkboxRadius",
+  "inputRadius",
 ];
 
 const filterInputData = (input: DefaultTheme) => {
-  return allowedKeys.reduce((acc: Partial<DefaultTheme>, curr: string) => {
-    return typeof input[curr as keyof DefaultTheme] !== "undefined"
-      ? { ...acc, [curr]: input[curr as keyof DefaultTheme] }
-      : acc;
-  }, {});
+  return allowedKeys.reduce(
+    (acc: Partial<DefaultTheme>, curr: string & keyof DefaultTheme) => {
+      return typeof input[curr] !== "undefined"
+        ? { ...acc, [curr]: input[curr] }
+        : acc;
+    },
+    {}
+  );
 };
 
 export const ThemeCustomizer: React.FC<{
@@ -81,6 +86,7 @@ export const ThemeCustomizer: React.FC<{
           textColorDark: initData.textColorDark || "#000000",
           textColorLight: initData.textColorLight || "#000000",
           backgroundDarkProgress: initData.backgroundDarkProgress || "#000000",
+          errorColor: initData.errorColor || "#EB5757",
         }),
         "Body Colors": folder({
           white: initData.white || "#000000",
@@ -103,6 +109,12 @@ export const ThemeCustomizer: React.FC<{
             max: 5,
             step: 1,
             value: initData.checkboxRadius || 0,
+          },
+          inputRadius: {
+            min: 0,
+            max: 100,
+            step: 1,
+            value: initData.inputRadius || 0,
           },
         }),
       },
