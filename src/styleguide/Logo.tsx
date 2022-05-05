@@ -1,13 +1,43 @@
 // src/styleguide/Wrapper.js
-import React from "react";
+import React, { useLayoutEffect } from "react";
 
 import { ThemeCustomizer } from "./ThemeCustomizer";
 import { setThemeToLocalStorage } from "./../theme/provider";
+
+declare global {
+  interface Window {
+    ybug_settings: Ybug;
+  }
+}
+
+interface Ybug {
+  id: string;
+}
+window.ybug_settings = window.ybug_settings || false;
+
+window.ybug_settings = { id: "4a30b8sn4pfpdw7wp4c0" };
 
 export const Logo: React.FC<{ children?: React.ReactNode; classes: any }> = ({
   children,
   classes,
 }) => {
+  useLayoutEffect(() => {
+    // ybug
+    (function () {
+      if (window && window.ybug_settings) {
+        try {
+          const ybug = document.createElement("script");
+          ybug.type = "text/javascript";
+          ybug.async = true;
+          ybug.src =
+            "https://widget.ybug.io/button/" + window.ybug_settings.id + ".js";
+          const s = document.getElementsByTagName("script")[0];
+          s && s.parentNode && s.parentNode.insertBefore(ybug, s);
+        } catch (er) {}
+      }
+    })();
+  }, []);
+
   return (
     <React.Fragment>
       <ThemeCustomizer onUpdate={(theme) => setThemeToLocalStorage(theme)} />
