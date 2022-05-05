@@ -6,3 +6,4 @@ export { default as Download } from "./components/primitives/Download/Download";
 export { default as Title } from "./components/primitives/Typography/Title";
 export { default as Input } from "./components/primitives/Input/Input";
 export { default as ProgressBar } from "./components/primitives/ProgressBar/ProgressBar";
+export { default as Logo } from "./components/primitives/Logo/Logo";

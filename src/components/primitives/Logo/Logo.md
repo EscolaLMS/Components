@@ -1,13 +1,29 @@
 ```js
-import { GlobalThemeProvider } from "../../../theme/provider";
 import ImageModal from "../../../styleguide/ImageModal";
 import img1 from "./Logo.png";
 import img2 from "./Logo-2.png";
+import logo1 from "./logo-placeholder.png";
+import logo2 from "./logo-placeholder2.png";
+import Text from "../Typography/Text";
+import ThemeTester from "../../../styleguide/ThemeTester";
 
-<GlobalThemeProvider>
-  <Logo>
-    <pre>This component is not ready yet</pre>
-  </Logo>
+<React.Fragment>
+  <ThemeTester>
+    <div>
+      <Text style={{ marginBottom: "8px" }}>Default logo</Text>
+      <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
+        <Logo src={logo1} alt={"logo1"} />
+        <Logo src={logo2} alt={"logo2"} />
+      </div>
+    </div>
+    <div>
+      <Text style={{ marginBottom: "10px" }}>Small logo</Text>
+      <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
+        <Logo src={logo1} alt={"logo1"} isSmall />
+        <Logo src={logo2} alt={"logo2"} isSmall />
+      </div>
+    </div>
+  </ThemeTester>
   <ImageModal images={[img1, img2]} />
-</GlobalThemeProvider>;
+</React.Fragment>;
 ```
