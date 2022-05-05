@@ -5,7 +5,7 @@ import ThemeTester from "../../../styleguide/ThemeTester";
 import img1 from "./Title.png";
 
 <React.Fragment>
-  <ThemeTester direction={"column"}>
+  <ThemeTester>
     <Title
       style={{
         marginBottom: 20,
