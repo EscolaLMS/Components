@@ -9,29 +9,60 @@ import styled, {
 import { contrast } from "chroma-js";
 
 import { getFontFromTheme } from "../../../theme/provider";
+import { Title } from "../Typography/Title";
+import { IconTitle } from "../Typography/IconTitle";
+import { Text } from "../Typography/Text";
 
-export interface TitleProps {
-  mode?: "header" | "label";
-  title: string;
-  children: React.ReactNode;
+export interface TitleProps extends React.HTMLProps<HTMLDivElement> {
+  variant?: "header" | "label";
   icon?: React.ReactNode;
 }
 
-const StyledDiv = styled.dl<TitleProps>`
-  font-size: ${(props) => (props.mode === "header" ? "20px" : "12px")};
+const StyledLabelListItem = styled("div")<TitleProps>`
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+
+  .lms-icon-title {
+    margin-bottom: 5px;
+  }
 `;
 
 export const LabelListItem: React.FC<TitleProps> = (props) => {
-  const { title, children, icon } = props;
+  const { children, variant = "header", title, icon } = props;
+  const theme = React.useContext(ThemeContext);
 
   return (
-    <StyledDiv {...props}>
-      <dt>
-        {icon && <div className="icon">{icon}</div>}
-        {title}
-      </dt>
-      <dd>{children}</dd>
-    </StyledDiv>
+    <StyledLabelListItem>
+      {variant === "header" ? (
+        <React.Fragment>
+          {title && <IconTitle level={4} title={title} icon={icon} as={"h4"} />}
+          <Text noMargin={true}>{children}</Text>
+        </React.Fragment>
+      ) : (
+        <React.Fragment>
+          <Text
+            style={{
+              textTransform: "uppercase",
+              marginBottom: "8px",
+              fontSize: "12px",
+            }}
+          >
+            {title}
+          </Text>
+          <Title
+            level={4}
+            style={{
+              marginBottom: "0",
+              color: theme.primaryColor,
+            }}
+            as={"h4"}
+          >
+            {children}
+          </Title>
+        </React.Fragment>
+      )}
+    </StyledLabelListItem>
   );
 };
 
