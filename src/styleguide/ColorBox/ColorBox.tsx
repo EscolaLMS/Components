@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import styled, { withTheme, ThemeProvider } from "styled-components";
+import styled, { withTheme } from "styled-components";
 
 import { getFontFromTheme } from "../../theme/provider";
 

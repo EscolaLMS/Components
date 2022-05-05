@@ -1,8 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { DefaultTheme } from "styled-components";
 
-import themes from "../theme";
-
 import { orangeTheme as defaultTheme } from "../theme/orange";
 
 export const getThemeFromLocalStorage = (

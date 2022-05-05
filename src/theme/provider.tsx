@@ -1,8 +1,7 @@
 import { DefaultTheme, ThemeProvider } from "styled-components";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React from "react";
 
-import { orangeTheme as defaultTheme } from "./orange";
 import { useLocalTheme } from "../styleguide/useLocalTheme";
 
 export interface SharedDefaultTheme {

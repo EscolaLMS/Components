@@ -1,4 +1,4 @@
-name: Typescript check
+name: Static Code Analysts Tests
 
 on:
   push:
@@ -12,9 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        #node-version: [10.x, 12.x, 14.x, 15.x]
         node-version: [14.x, 15.x, 16.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
       - uses: actions/checkout@v2
@@ -26,3 +24,21 @@ jobs:
         run: npm i --legacy-peer-deps
       - name: TypeScript tsc
         run: ./node_modules/.bin/tsc --project tsconfig.json --noEmit
+
+  eslint:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Npm install
+        run: npm i --legacy-peer-deps
+      - name: Lint TypeScript
+        run: npm run eslint . --ext .js,.jsx,.ts,.tsx
