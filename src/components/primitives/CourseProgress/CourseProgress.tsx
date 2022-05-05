@@ -11,20 +11,22 @@ export interface TitleProps {
 
 const StyledDiv = styled.div<TitleProps>`
   font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
-  color: ${(props) => props.theme.mode !== "dark" ? props.theme.body.gray1 : props.theme.body.white};
+  color: ${(props) =>
+    props.theme.mode !== "dark" ? props.theme.gray1 : props.theme.white};
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   .header {
     display: flex;
     align-items: center;
     svg {
-      fill: ${(props) => props.theme.mode !== "dark" ? props.theme.body.gray1 : props.theme.body.white};
+      fill: ${(props) =>
+        props.theme.mode !== "dark" ? props.theme.gray1 : props.theme.white};
     }
   }
   .title {
     font-size: 16px;
     font-weight: 700;
-    margin-left: ${(props) => props.icon ? "11px": 0};
+    margin-left: ${(props) => (props.icon ? "11px" : 0)};
   }
   .description {
     font-size: 12px;
@@ -37,7 +39,9 @@ const StyledDiv = styled.div<TitleProps>`
       content: "";
       display: block;
       background: ${(props) => {
-        return props.theme.mode !== "light" ? props.theme.body.gray3 : props.theme.body.white
+        return props.theme.mode !== "light"
+          ? props.theme.gray3
+          : props.theme.white;
       }};
       height: 1px;
       width: 100%;
@@ -78,7 +82,7 @@ export const CourseProgress: React.FC<TitleProps> = (props) => {
     <StyledDiv {...props}>
       <div className="header">
         {icon}
-        <span className="title">{title}</span> 
+        <span className="title">{title}</span>
       </div>
 
       <div className="range">
