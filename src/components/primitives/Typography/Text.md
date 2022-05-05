@@ -30,7 +30,7 @@ import ThemeTester from "../../../styleguide/ThemeTester";
       nadgodziny. Jes! Uwaga, szybki fokus! Zapomnij o przerwie na lancz – znowu
       zmienili hasła do drukarek, więc do roboty!{" "}
     </Text>
-    <Text>
+    <Text noMargin={true}>
       Nie wszystko musi być z sensem. W mailu, który Ci zaraz forwardnę,
       napisali, że mamy opóźnienia w projekcie, więc nie ma się co śmiać - mamy
       kola z biznesem o 15:00. Nic nie robicie, tylko siedzicie cały dzień i
