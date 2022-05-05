@@ -5,7 +5,7 @@ import ThemeTester from "../../../styleguide/ThemeTester";
 import img1 from "./Title.png";
 
 <React.Fragment>
-  <ThemeTester>
+  <ThemeTester direction={"column"}>
     <Title
       style={{
         marginBottom: 20,
@@ -36,6 +36,14 @@ import img1 from "./Title.png";
       }}
     >
       This is title h4. Lorem ipsum
+    </Title>
+    <Title
+      level={5}
+      style={{
+        marginBottom: 20,
+      }}
+    >
+      This is title h5. Lorem ipsum
     </Title>
   </ThemeTester>
   <ImageModal images={[img1]} />

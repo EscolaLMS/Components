@@ -1,12 +1,15 @@
 ```js
 import { GlobalThemeProvider } from "../../../theme/provider";
 import ImageModal from "../../../styleguide/ImageModal";
-import img1 from "./Tags.png";
+import ThemeTester from "../../../styleguide/ThemeTester";
+import img1 from "./Tag.png";
 
-<GlobalThemeProvider>
-  <Tag>
-    <pre>This component is not ready yet</pre>
-  </Tag>
+<React.Fragment>
+  <ThemeTester layout={"column"}>
+    <Tag title={"Kategoria szkolenia"}>Finanse</Tag>
+    <Tag title={"Kategoria szkolenia"}>Finanse</Tag>
+    <Tag title={"Kategoria szkolenia"}>Finanse</Tag>
+  </ThemeTester>
   <ImageModal images={[img1]} />
-</GlobalThemeProvider>;
+</React.Fragment>;
 ```

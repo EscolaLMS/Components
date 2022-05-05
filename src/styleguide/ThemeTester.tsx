@@ -8,10 +8,13 @@ import themes from "../theme";
 
 type Mode = ("light" | "dark")[];
 
+type Layout = "row" | "column";
+
 const modes: Mode = ["light", "dark"];
 
 const StyledDiv = styled.div<{
   mode?: "light" | "dark";
+  layout?: Layout;
 }>`
   background: ${(props) =>
     props.mode === "dark"
@@ -34,7 +37,9 @@ const StyledDiv = styled.div<{
     display: flex;
     gap: 20px;
     flex-wrap: wrap;
-    align-items: center;
+    align-items: ${(props) => (props.layout === "column" ? "flex-start" : "center")};
+    flex-direction: ${(props) => props.layout};
+    
   }
   .children-list-title {
     background: ${(props) =>
@@ -57,7 +62,8 @@ const ThemeTesterWrapper: React.FC<{
   name: string;
   mode?: "light" | "dark";
   children?: React.ReactNode;
-}> = ({ children, name, mode }) => {
+  layout?: Layout;
+}> = ({ children, name, mode, layout = "row" }) => {
   const theme = React.useContext(ThemeContext);
 
   if (mode === undefined) {
@@ -65,7 +71,7 @@ const ThemeTesterWrapper: React.FC<{
   }
 
   return (
-    <StyledDiv mode={mode}>
+    <StyledDiv mode={mode} layout={layout}>
       <p className="children-list-title">
         <span>
           Theme <strong>{name}</strong>
@@ -81,7 +87,8 @@ const ThemeTesterWrapper: React.FC<{
 
 export const ThemeTester: React.FC<{
   children?: React.ReactNode;
-}> = ({ children }) => {
+  layout?: Layout;
+}> = ({ children, layout }) => {
   const [localTheme] = useLocalTheme();
 
   return (
@@ -96,6 +103,7 @@ export const ThemeTester: React.FC<{
               <ThemeTesterWrapper
                 name={theme[0].split("Theme").join("")}
                 mode={mode}
+                layout={layout}
               >
                 {children}
               </ThemeTesterWrapper>
@@ -107,6 +115,7 @@ export const ThemeTester: React.FC<{
           <ThemeTesterWrapper
             name={localTheme.theme?.split("Theme").join("") || ""}
             mode={localTheme.mode}
+            layout={layout}
           >
             {children}
           </ThemeTesterWrapper>
