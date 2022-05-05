@@ -3,8 +3,8 @@ import * as React from "react";
 import styled, { withTheme, ThemeContext } from "styled-components";
 
 import { Title } from "../../atoms/Typography/Title";
-import IconTitle from "../../molecules/IconTitle/IconTitle"
 import { Text } from "../../atoms/Typography/Text";
+import { IconTitle } from "../IconTitle/IconTitle";
 
 export interface TitleProps extends React.HTMLProps<HTMLDivElement> {
   variant?: "header" | "label";
