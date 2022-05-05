@@ -1,11 +1,11 @@
 import React, { useEffect, useMemo } from "react";
-import { orangeTheme as defaultTheme } from "./../theme/orange";
 import { DefaultTheme } from "styled-components";
 import themes from "../theme";
-import { getThemeFromLocalStorage } from "../theme/provider";
 import { useControls, folder } from "leva";
+import { useLocalTheme } from "./useLocalTheme";
 
 const allowedKeys: (keyof DefaultTheme & string)[] = [
+  "font",
   "theme",
   "mode",
   "primaryColor",
@@ -42,10 +42,10 @@ const filterInputData = (input: DefaultTheme) => {
 export const ThemeCustomizer: React.FC<{
   onUpdate: (theme: DefaultTheme) => void;
 }> = ({ onUpdate }) => {
-  const initData = useMemo(() => {
-    const data = getThemeFromLocalStorage(defaultTheme);
+  const [localTheme] = useLocalTheme();
 
-    return filterInputData(data);
+  const initData = useMemo(() => {
+    return filterInputData(localTheme);
   }, []);
 
   const [props, set] = useControls(() => ({
