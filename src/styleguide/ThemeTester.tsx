@@ -82,7 +82,8 @@ const ThemeTesterWrapper: React.FC<{
 export const ThemeTester: React.FC<{
   children?: React.ReactNode;
 }> = ({ children }) => {
-  const localTheme = useLocalTheme();
+  const [localTheme] = useLocalTheme();
+
   return (
     <div>
       {localTheme.theme === "all" &&
