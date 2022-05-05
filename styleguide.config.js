@@ -64,5 +64,13 @@ module.exports = {
       content: "doc/pages.md",
       components: "src/components/pages/**/*.tsx",
     },
+    {
+      name: "Forms",
+      content: "doc/forms.md",
+    },
+    {
+      name: "Translations",
+      content: "doc/translations.md",
+    }
   ],
 };
