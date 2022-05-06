@@ -27,50 +27,62 @@ module.exports = {
 
   styleguideDir: "docs",
 
-  tocMode: "collapse",
+  tocMode: "expand",
   sections: [
     {
       name: "Introduction",
-      content: "doc/introduction.md",
+      content: "doc/introduction/introduction.md",
       sections: [
         {
           name: "Theme Colors",
-          content: "doc/themes.md",
+          content: "doc/introduction/themes.md",
         },
       ],
     },
     {
-      name: "Atoms",
-      content: "doc/atoms.md",
-      components: "src/components/atoms/**/*.tsx",
+      name: "Components",
+      content: "doc/introduction/introduction.md",
+      sections: [
+        {
+          name: "Atoms",
+          content: "doc/components/atoms.md",
+          components: "src/components/atoms/**/*.tsx",
+        },
+        {
+          name: "Molecules",
+          content: "doc/components/molecules.md",
+          components: "src/components/molecules/**/*.tsx",
+        },
+        {
+          name: "Organisms",
+          content: "doc/components/organisms.md",
+          components: "src/components/organisms/**/*.tsx",
+        },
+        {
+          name: "Templates",
+          content: "doc/components/templates.md",
+          components: "src/components/templates/**/*.tsx",
+        },
+        {
+          name: "Pages",
+          content: "doc/components/pages.md",
+          components: "src/components/pages/**/*.tsx",
+        },
+      ],
     },
+
     {
-      name: "Molecules",
-      content: "doc/molecules.md",
-      components: "src/components/molecules/**/*.tsx",
+      name: "Advanced Topics",
+      sections: [
+        {
+          name: "Forms",
+          content: "doc/advanced/forms.md",
+        },
+        {
+          name: "Translations",
+          content: "doc/advanced/translations.md",
+        },
+      ],
     },
-    {
-      name: "Organisms",
-      content: "doc/organisms.md",
-      components: "src/components/organisms/**/*.tsx",
-    },
-    {
-      name: "Templates",
-      content: "doc/templates.md",
-      components: "src/components/templates/**/*.tsx",
-    },
-    {
-      name: "Pages",
-      content: "doc/pages.md",
-      components: "src/components/pages/**/*.tsx",
-    },
-    {
-      name: "Forms",
-      content: "doc/forms.md",
-    },
-    {
-      name: "Translations",
-      content: "doc/translations.md",
-    }
   ],
 };
