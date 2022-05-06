@@ -10,6 +10,13 @@ type Mode = ("light" | "dark")[];
 
 const modes: Mode = ["light", "dark"];
 
+export interface ThemeTesterWrapperProps {
+  name: string;
+  mode?: "light" | "dark";
+  childrenListStyle?: React.CSSProperties;
+  children?: React.ReactNode;
+}
+
 const StyledDiv = styled.div<{
   mode?: "light" | "dark";
 }>`
@@ -53,16 +60,9 @@ const StyledDiv = styled.div<{
   }
 `;
 
-const ThemeTesterWrapper: React.FC<{
-  name: string;
-  mode?: "light" | "dark";
-  children?: React.ReactNode;
-}> = ({ children, name, mode }) => {
+const ThemeTesterWrapper: React.FC<ThemeTesterWrapperProps> = (props) => {
   const theme = React.useContext(ThemeContext);
-
-  if (mode === undefined) {
-    mode = theme.mode;
-  }
+  const { children, name, childrenListStyle, mode = theme.mode } = props;
 
   return (
     <StyledDiv mode={mode}>
@@ -74,14 +74,20 @@ const ThemeTesterWrapper: React.FC<{
           Mode <strong>{mode}</strong>
         </span>
       </p>
-      <div className="children-list">{children}</div>
+      <div className="children-list" style={childrenListStyle}>
+        {children}
+      </div>
     </StyledDiv>
   );
 };
 
-export const ThemeTester: React.FC<{
+interface ThemeTesterProps {
   children?: React.ReactNode;
-}> = ({ children }) => {
+  childrenListStyle?: React.CSSProperties;
+}
+
+export const ThemeTester: React.FC<ThemeTesterProps> = (props) => {
+  const { children, childrenListStyle } = props;
   const [localTheme] = useLocalTheme();
 
   return (
@@ -96,6 +102,7 @@ export const ThemeTester: React.FC<{
               <ThemeTesterWrapper
                 name={theme[0].split("Theme").join("")}
                 mode={mode}
+                childrenListStyle={childrenListStyle}
               >
                 {children}
               </ThemeTesterWrapper>
@@ -107,6 +114,7 @@ export const ThemeTester: React.FC<{
           <ThemeTesterWrapper
             name={localTheme.theme?.split("Theme").join("") || ""}
             mode={localTheme.mode}
+            childrenListStyle={childrenListStyle}
           >
             {children}
           </ThemeTesterWrapper>
@@ -114,7 +122,12 @@ export const ThemeTester: React.FC<{
       )}
       {localTheme.theme === "custom" && (
         <GlobalThemeProvider>
-          <ThemeTesterWrapper name={"Custom"}>{children}</ThemeTesterWrapper>
+          <ThemeTesterWrapper
+            name={"Custom"}
+            childrenListStyle={childrenListStyle}
+          >
+            {children}
+          </ThemeTesterWrapper>
         </GlobalThemeProvider>
       )}
     </div>
