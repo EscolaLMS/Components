@@ -2,12 +2,12 @@ import * as React from "react";
 
 import styled, { withTheme, ThemeContext } from "styled-components";
 
-import { Title } from "../Typography/Title";
-import { Text } from "../Typography/Text";
+import { Title } from "../../atoms/Typography/Title";
+import { Text } from "../../atoms/Typography/Text";
 
-export type TagProps = React.HTMLProps<HTMLDivElement>
+export type DescriptionProps = React.HTMLProps<HTMLDivElement>
 
-const StyledTag = styled("div")`
+const StyledDescription = styled("div")`
   display: flex;
   flex-direction: column;
   
@@ -16,12 +16,12 @@ const StyledTag = styled("div")`
   }
 `
 
-export const Tag: React.FC<TagProps> = (props) => {
+export const Description: React.FC<DescriptionProps> = (props) => {
   const { children, title } = props;
   const theme = React.useContext(ThemeContext);
 
   return (
-    <StyledTag>
+    <StyledDescription>
       <Text
         style={{
           textTransform: "uppercase",
@@ -41,10 +41,10 @@ export const Tag: React.FC<TagProps> = (props) => {
       >
         {children}
       </Title>
-    </StyledTag>
+    </StyledDescription>
   );
 };
 
-const NewTags = styled(Tag)<TagProps>``;
+const NewDescription = styled(Description)<DescriptionProps>``;
 
-export default withTheme(NewTags);
+export default withTheme(NewDescription);
