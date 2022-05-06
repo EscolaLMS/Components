@@ -4,8 +4,7 @@ import styled, { withTheme } from "styled-components";
 
 import { getFontFromTheme } from "../../../theme/provider";
 
-export interface TitleProps extends React.HTMLAttributes<HTMLHeadingElement> {
-  children?: React.ReactNode;
+export interface TitleProps extends React.HTMLAttributes<HTMLParagraphElement> {
   noMargin?: boolean;
 }
 
@@ -21,9 +20,9 @@ const StyledP = styled.p<TitleProps>`
 `;
 
 export const Text: React.FC<TitleProps> = (props) => {
-  const { children, noMargin, style } = props;
+  const { children, noMargin, style, ...rest } = props;
   return (
-    <StyledP style={style} noMargin={noMargin}>
+    <StyledP style={style} noMargin={noMargin} {...rest}>
       {children}
     </StyledP>
   );
