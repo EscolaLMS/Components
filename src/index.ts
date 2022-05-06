@@ -5,4 +5,4 @@ export { default as CourseTopNav } from "./components/organisms/CourseTopNav/Cou
 export { default as Download } from "./components/molecules/Download/Download";
 export { default as Title } from "./components/atoms/Typography/Title";
 export { default as Input } from "./components/atoms/Input/Input";
-export { default as ProgressBar } from "./components/molecules/ProgressBar/ProgressBar";
+export { default as ProgressBar } from "./components/atoms/ProgressBar/ProgressBar";
