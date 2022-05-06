@@ -12,7 +12,7 @@ const Icon1 = () => (
 );
 
 <React.Fragment>
-  <ThemeTester>
+  <ThemeTester flexDirection="column">
     <IconTitle
       level={1}
       title="Material to download"

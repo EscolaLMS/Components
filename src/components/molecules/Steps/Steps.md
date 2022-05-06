@@ -2,11 +2,11 @@
 import { GlobalThemeProvider } from "../../../theme/provider";
 import ImageModal from "../../../styleguide/ImageModal";
 import ThemeTester from "../../../styleguide/ThemeTester";
-import img1 from "./Switcher.png";
+import img1 from "./Steps.png";
 
 <React.Fragment>
   <ThemeTester>
-    <Switcher
+    <Steps
       options={[
         {
           label: "4 tygodnie",
