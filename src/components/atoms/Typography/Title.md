@@ -17,6 +17,7 @@ import img1 from "./Title.png";
     </Title>
     <Title level={3}>This is title h3. Lorem ipsum</Title>
     <Title level={4}>This is title h4. Lorem ipsum</Title>
+    <Title level={5}>This is title h5. Lorem ipsum</Title>
   </ThemeTester>
   <ImageModal images={[img1]} />
 </React.Fragment>;
