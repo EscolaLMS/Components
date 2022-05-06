@@ -1,12 +1,14 @@
 ```js
-import { GlobalThemeProvider } from "../../../theme/provider";
-import ImageModal from "../../../styleguide/ImageModal";
+import { ThemeTester, ImageModal } from "../../../styleguide";
 import img1 from "./Tags.png";
 
-<GlobalThemeProvider>
-  <Tag>
-    <pre>This component is not ready yet</pre>
-  </Tag>
+<>
+  <ThemeTester>
+    <Tag>tag1</Tag>
+    <Tag>bestseller</Tag>
+    <Tag>nowość</Tag>
+    <Tag onClick={() => console.log("click")}>Clickable tag</Tag>
+  </ThemeTester>
   <ImageModal images={[img1]} />
-</GlobalThemeProvider>;
+</>;
 ```
