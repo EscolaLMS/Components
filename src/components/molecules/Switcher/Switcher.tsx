@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import styled, { withTheme, ThemeContext } from "styled-components";
+import styled, { withTheme } from "styled-components";
 import { Radio } from "../../atoms/Option/Radio";
 
 export interface SwitcherOptionProps {
