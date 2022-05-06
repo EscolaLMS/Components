@@ -12,6 +12,7 @@ const modes: Mode = ["light", "dark"];
 
 const StyledDiv = styled.div<{
   mode?: "light" | "dark";
+  flexDirection?: React.CSSProperties["flexDirection"];
 }>`
   background: ${(props) =>
     props.mode === "dark"
@@ -35,6 +36,7 @@ const StyledDiv = styled.div<{
     gap: 20px;
     flex-wrap: wrap;
     align-items: center;
+    flex-direction: ${(props) => props.flexDirection || "row"};
   }
   .children-list-title {
     background: ${(props) =>
@@ -57,7 +59,8 @@ const ThemeTesterWrapper: React.FC<{
   name: string;
   mode?: "light" | "dark";
   children?: React.ReactNode;
-}> = ({ children, name, mode }) => {
+  flexDirection?: React.CSSProperties["flexDirection"];
+}> = ({ children, name, mode, flexDirection }) => {
   const theme = React.useContext(ThemeContext);
 
   if (mode === undefined) {
@@ -65,7 +68,7 @@ const ThemeTesterWrapper: React.FC<{
   }
 
   return (
-    <StyledDiv mode={mode}>
+    <StyledDiv mode={mode} flexDirection={flexDirection}>
       <p className="children-list-title">
         <span>
           Theme <strong>{name}</strong>
@@ -81,7 +84,8 @@ const ThemeTesterWrapper: React.FC<{
 
 export const ThemeTester: React.FC<{
   children?: React.ReactNode;
-}> = ({ children }) => {
+  flexDirection?: React.CSSProperties["flexDirection"];
+}> = ({ children, flexDirection }) => {
   const [localTheme] = useLocalTheme();
 
   return (
@@ -94,6 +98,7 @@ export const ThemeTester: React.FC<{
               key={`${theme[0]}${mode}`}
             >
               <ThemeTesterWrapper
+                flexDirection={flexDirection}
                 name={theme[0].split("Theme").join("")}
                 mode={mode}
               >
@@ -105,6 +110,7 @@ export const ThemeTester: React.FC<{
       {localTheme.theme !== "all" && localTheme.theme !== "custom" && (
         <ThemeProvider theme={{ ...localTheme }}>
           <ThemeTesterWrapper
+            flexDirection={flexDirection}
             name={localTheme.theme?.split("Theme").join("") || ""}
             mode={localTheme.mode}
           >
@@ -114,7 +120,9 @@ export const ThemeTester: React.FC<{
       )}
       {localTheme.theme === "custom" && (
         <GlobalThemeProvider>
-          <ThemeTesterWrapper name={"Custom"}>{children}</ThemeTesterWrapper>
+          <ThemeTesterWrapper name={"Custom"} flexDirection={flexDirection}>
+            {children}
+          </ThemeTesterWrapper>
         </GlobalThemeProvider>
       )}
     </div>
