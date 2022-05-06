@@ -1,11 +1,11 @@
 import React, { useEffect, useMemo } from "react";
-import { orangeTheme as defaultTheme } from "./../theme/orange";
 import { DefaultTheme } from "styled-components";
 import themes from "../theme";
-import { getThemeFromLocalStorage } from "../theme/provider";
 import { useControls, folder } from "leva";
+import { useLocalTheme } from "./useLocalTheme";
 
-const allowedKeys = [
+const allowedKeys: (keyof DefaultTheme & string)[] = [
+  "font",
   "theme",
   "mode",
   "primaryColor",
@@ -15,6 +15,7 @@ const allowedKeys = [
   "textColorDark",
   "textColorLight",
   "backgroundDarkProgress",
+  "errorColor",
   "invertColor",
   "white",
   "gray5",
@@ -25,23 +26,27 @@ const allowedKeys = [
   "black",
   "buttonRadius",
   "checkboxRadius",
+  "inputRadius",
 ];
 
 const filterInputData = (input: DefaultTheme) => {
-  return allowedKeys.reduce((acc: Partial<DefaultTheme>, curr: string) => {
-    return typeof input[curr as keyof DefaultTheme] !== "undefined"
-      ? { ...acc, [curr]: input[curr as keyof DefaultTheme] }
-      : acc;
-  }, {});
+  return allowedKeys.reduce(
+    (acc: Partial<DefaultTheme>, curr: string & keyof DefaultTheme) => {
+      return typeof input[curr] !== "undefined"
+        ? { ...acc, [curr]: input[curr] }
+        : acc;
+    },
+    {}
+  );
 };
 
 export const ThemeCustomizer: React.FC<{
   onUpdate: (theme: DefaultTheme) => void;
 }> = ({ onUpdate }) => {
-  const initData = useMemo(() => {
-    const data = getThemeFromLocalStorage(defaultTheme);
+  const [localTheme] = useLocalTheme();
 
-    return filterInputData(data);
+  const initData = useMemo(() => {
+    return filterInputData(localTheme);
   }, []);
 
   const [props, set] = useControls(() => ({
@@ -82,6 +87,7 @@ export const ThemeCustomizer: React.FC<{
           textColorDark: initData.textColorDark || "#000000",
           textColorLight: initData.textColorLight || "#000000",
           backgroundDarkProgress: initData.backgroundDarkProgress || "#000000",
+          errorColor: initData.errorColor || "#EB5757",
           invertColor: initData.invertColor || "#000000",
         }),
         "Body Colors": folder({
@@ -105,6 +111,12 @@ export const ThemeCustomizer: React.FC<{
             max: 5,
             step: 1,
             value: initData.checkboxRadius || 0,
+          },
+          inputRadius: {
+            min: 0,
+            max: 100,
+            step: 1,
+            value: initData.inputRadius || 0,
           },
         }),
       },

@@ -1,10 +1,6 @@
 import * as React from "react";
 
-import styled, {
-  withTheme,
-  ThemeProvider,
-  ThemeContext,
-} from "styled-components";
+import styled, { withTheme, ThemeContext } from "styled-components";
 
 import { contrast } from "chroma-js";
 
@@ -12,7 +8,7 @@ import { getFontFromTheme } from "../../theme/provider";
 
 export interface TitleProps extends React.HTMLAttributes<HTMLHeadingElement> {
   children?: React.ReactNode;
-  lightContrast?: Boolean;
+  lightContrast?: boolean;
 }
 
 const StyledDiv = styled.div<TitleProps>`

@@ -1,0 +1,9 @@
+node_modules
+yarn.lock
+package-lock.json
+docs
+yarn-error.log
+lib
+.idea
+*.config.js
+.eslintrc.js
