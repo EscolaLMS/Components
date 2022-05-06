@@ -20,7 +20,8 @@ const StyledButton = styled("button")<ButtonProps>`
     return props.theme?.primaryColor || "black";
   }};
   color: ${(props) => (props.mode === "outline" ? "#4A4A4A" : "#fff")};
-  font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
+  font-family: ${(props) =>
+    props.theme ? getFontFromTheme(props.theme).fontFamily : "sans-serif"};
   font-weight: bold;
   font-size: ${(props) => {
     if (props.mode) {
@@ -80,7 +81,9 @@ const StyledButton = styled("button")<ButtonProps>`
     box-shadow: 0px 0px 10px
       rgba(
         ${(props) =>
-          chroma(props.theme?.primaryColor).rgb().join(",") || "0, 0, 0"},
+          props.theme && props.theme.primaryColor
+            ? chroma(props.theme.primaryColor).rgb().join(",") || "0, 0, 0"
+            : "0, 0, 0"},
         0.5
       );
     ${(props) => {

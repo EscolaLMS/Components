@@ -3,8 +3,8 @@ Below is example how to use forms with `formik`
 ```js
 import { Formik } from "formik";
 
-import { Title, Button, Input } from "../src/index.ts";
-import { ThemeTester } from "../src/styleguide";
+import { Title, Button, Input } from "../../src/index.ts";
+import { ThemeTester } from "../../src/styleguide";
 
 <ThemeTester>
   <Title>Anywhere in your app!</Title>
