@@ -3,19 +3,19 @@ import * as React from "react";
 import styled, { withTheme } from "styled-components";
 import { Radio } from "../../atoms/Option/Radio";
 
-export interface SwitcherOptionProps {
+export interface StepsOptionProps {
   value: string;
   label: string;
   checked?: boolean;
   onChange: (value: string) => void;
 }
 
-export interface SwitcherProps extends React.HTMLAttributes<HTMLDivElement> {
-  options: SwitcherOptionProps[];
+export interface StepsProps extends React.HTMLAttributes<HTMLDivElement> {
+  options: StepsOptionProps[];
   checked: number;
 }
 
-const StyledSwitcher = styled("div")<SwitcherProps>`
+const StyledSteps = styled("div")<StepsProps>`
   position: relative;
   display: flex;
   width: 100%;
@@ -41,7 +41,7 @@ const StyledSwitcher = styled("div")<SwitcherProps>`
   }
 `;
 
-const StyledSwitcherOption = styled("div")`
+const StyledStepsOption = styled("div")`
   position: relative;
   padding-top: 30px;
   display: flex;
@@ -87,22 +87,22 @@ const StyledSwitcherOption = styled("div")`
   }
 `;
 
-const SwitcherOption: React.FC<SwitcherOptionProps> = (props) => {
+const StepsOption: React.FC<StepsOptionProps> = (props) => {
   const { value, label, checked } = props;
 
   return (
-    <StyledSwitcherOption>
+    <StyledStepsOption>
       <Radio
         value={value}
         checked={checked}
         label={label}
         onChange={() => props.onChange(value)}
       />
-    </StyledSwitcherOption>
+    </StyledStepsOption>
   );
 };
 
-export const Switcher: React.FC<SwitcherProps> = (props) => {
+export const Steps: React.FC<StepsProps> = (props) => {
   const { options, checked } = props;
   const [checkedOption, setCheckedOption] = React.useState(checked || 0);
 
@@ -111,10 +111,10 @@ export const Switcher: React.FC<SwitcherProps> = (props) => {
   )}%`;
 
   return (
-    <StyledSwitcher options={options} checked={checked}>
+    <StyledSteps options={options} checked={checked}>
       <div className={"progress-bar"} style={{ width: progressBarWidth }} />
       {options.map((option, index) => (
-        <SwitcherOption
+        <StepsOption
           key={option.value}
           value={option.value}
           label={option.label}
@@ -122,10 +122,10 @@ export const Switcher: React.FC<SwitcherProps> = (props) => {
           onChange={() => setCheckedOption(index)}
         />
       ))}
-    </StyledSwitcher>
+    </StyledSteps>
   );
 };
 
-const NewSwitcher = styled(Switcher)<SwitcherProps>``;
+const NewSteps = styled(Steps)<StepsProps>``;
 
-export default withTheme(NewSwitcher);
+export default withTheme(NewSteps);
