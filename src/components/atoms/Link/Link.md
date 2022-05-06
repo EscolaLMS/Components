@@ -1,12 +1,14 @@
 ```js
-import { GlobalThemeProvider } from "../../../theme/provider";
+import ThemeTester from "../../../styleguide/ThemeTester";
 import ImageModal from "../../../styleguide/ImageModal";
-import img1 from "./Dropdown.png";
+import img1 from "./Link.png";
 
-<GlobalThemeProvider>
-  <Dropdown>
-    <pre>This component is not ready yet</pre>
-  </Dropdown>
+<>
+  <ThemeTester>
+    <Link href="http://onet.pl" target="_blank">
+      Onet
+    </Link>
+  </ThemeTester>
   <ImageModal images={[img1]} />
-</GlobalThemeProvider>;
+</>;
 ```
