@@ -19,7 +19,12 @@ const StyledButton = styled("button")<ButtonProps>`
     }
     return props.theme?.primaryColor || "black";
   }};
-  color: ${(props) => (props.mode === "outline" ? "#4A4A4A" : "#fff")};
+  color: ${(props) => {
+    if (props.mode === "outline") {
+      return props.theme.mode === "light" ? "#4A4A4A" : "#fff";
+    }
+    return "#fff";
+  }};
   font-family: ${(props) =>
     props.theme ? getFontFromTheme(props.theme).fontFamily : "sans-serif"};
   font-weight: bold;
@@ -71,7 +76,9 @@ const StyledButton = styled("button")<ButtonProps>`
     box-shadow: none !important;
     ${(props) => {
       if (props.mode === "outline") {
-        return "border: 2px solid #4A4A4A;";
+        return props.theme.mode === "light"
+          ? "border: 2px solid #4A4A4A;"
+          : "border: 2px solid #fff;";
       }
       return "";
     }};
@@ -94,6 +101,14 @@ const StyledButton = styled("button")<ButtonProps>`
       }
       return "";
     }};
+    ${(props) => {
+      if (props.mode === "outline") {
+        return props.theme.mode === "light"
+          ? "border: 2px solid rgba(74,74,74,0.5);"
+          : "border: 2px solid rgba(255,255,255,0.5);";
+      }
+      return "";
+    }}
   }
 `;
 
