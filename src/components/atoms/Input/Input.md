@@ -11,6 +11,7 @@ const [texts, setTexts] = useState({
   input1: "",
   input2: "Filled",
   input3: "Error",
+  input4: "Text",
 });
 
 <React.Fragment>
@@ -32,7 +33,7 @@ const [texts, setTexts] = useState({
       <Input
         label="Filled"
         type="text"
-        required={true}
+        required
         value={texts.input2}
         onChange={(e) =>
           setTexts({
@@ -46,7 +47,7 @@ const [texts, setTexts] = useState({
       <Input
         label="Error"
         type="text"
-        required={true}
+        required
         value={texts.input3}
         onChange={(e) =>
           setTexts({
@@ -54,7 +55,21 @@ const [texts, setTexts] = useState({
             input3: e.target.value,
           })
         }
-        error={"To jest error"}
+        error={"This is error"}
+      />
+    </div>
+    <div style={{ height: 60 }}>
+      <Input
+        label="With text helper"
+        type="text"
+        value={texts.input4}
+        onChange={(e) =>
+          setTexts({
+            ...texts,
+            input4: e.target.value,
+          })
+        }
+        helper={<span style={{ marginLeft: 12 }}>Text helper</span>}
       />
     </div>
     <div style={{ height: 60 }}>
