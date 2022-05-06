@@ -2,7 +2,6 @@ import * as React from "react";
 
 import styled, { withTheme } from "styled-components";
 import { getFontFromTheme } from "../../../theme/provider";
-import { default as chroma } from "chroma-js";
 
 export interface LinkProps
   extends React.ButtonHTMLAttributes<HTMLAnchorElement> {
