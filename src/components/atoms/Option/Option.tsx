@@ -39,7 +39,7 @@ const StyledDiv = styled.div<OptionType>`
     position: relative;
     margin: 0;
     border-radius: ${(props) => props.theme.checkboxRadius || "0"}px;
-    ${(props) => (props.type === "radio" ? "border-radius:100%" : "")}
+    ${(props) => (props.type === "radio" ? "border-radius:100%" : "")};
   }
 
   input::after {

@@ -33,7 +33,7 @@ const StyledDiv = styled.div<ComponentProps>`
     line-height: 21px;
     align-items: center;
     justify-content: space-between;
-    curson: pointer;
+    cursor: pointer;
     transition: all 0.3s;
     &:hover {
       background: ${(props) => {
@@ -59,7 +59,7 @@ const StyledDiv = styled.div<ComponentProps>`
   }
 `;
 
-export const Download: React.FC<ComponentProps> = (props) => {
+export const Downloads: React.FC<ComponentProps> = (props) => {
   const { href, fileName } = props;
 
   const name = React.useMemo(() => {
@@ -85,6 +85,6 @@ export const Download: React.FC<ComponentProps> = (props) => {
   );
 };
 
-const NewComponent = styled(Download)<ComponentProps>``;
+const NewComponent = styled(Downloads)<ComponentProps>``;
 
 export default withTheme(NewComponent);

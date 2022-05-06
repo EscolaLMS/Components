@@ -6,7 +6,7 @@ import img1 from "./Option.png";
 import ThemeTester from "../../../styleguide/ThemeTester";
 
 <React.Fragment>
-  <ThemeTester>
+  <ThemeTester flexDirection="column">
     <Text noMargin={true}>checked Checkbox without label</Text>
     <Checkbox name="c3" defaultChecked />
     <Text noMargin={true}>Checkbox without label</Text>

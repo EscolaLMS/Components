@@ -15,10 +15,12 @@ export interface ThemeTesterWrapperProps {
   mode?: "light" | "dark";
   childrenListStyle?: React.CSSProperties;
   children?: React.ReactNode;
+  flexDirection?: React.CSSProperties["flexDirection"];
 }
 
 const StyledDiv = styled.div<{
   mode?: "light" | "dark";
+  flexDirection?: React.CSSProperties["flexDirection"];
 }>`
   background: ${(props) =>
     props.mode === "dark"
@@ -42,6 +44,7 @@ const StyledDiv = styled.div<{
     gap: 20px;
     flex-wrap: wrap;
     align-items: center;
+    flex-direction: ${(props) => props.flexDirection || "row"};
   }
   .children-list-title {
     background: ${(props) =>
@@ -62,10 +65,16 @@ const StyledDiv = styled.div<{
 
 const ThemeTesterWrapper: React.FC<ThemeTesterWrapperProps> = (props) => {
   const theme = React.useContext(ThemeContext);
-  const { children, name, childrenListStyle, mode = theme.mode } = props;
+  const {
+    children,
+    name,
+    childrenListStyle,
+    mode = theme.mode,
+    flexDirection,
+  } = props;
 
   return (
-    <StyledDiv mode={mode}>
+    <StyledDiv mode={mode} flexDirection={flexDirection}>
       <p className="children-list-title">
         <span>
           Theme <strong>{name}</strong>
@@ -84,10 +93,11 @@ const ThemeTesterWrapper: React.FC<ThemeTesterWrapperProps> = (props) => {
 interface ThemeTesterProps {
   children?: React.ReactNode;
   childrenListStyle?: React.CSSProperties;
+  flexDirection?: React.CSSProperties["flexDirection"];
 }
 
 export const ThemeTester: React.FC<ThemeTesterProps> = (props) => {
-  const { children, childrenListStyle } = props;
+  const { children, childrenListStyle, flexDirection } = props;
   const [localTheme] = useLocalTheme();
 
   return (
@@ -100,6 +110,7 @@ export const ThemeTester: React.FC<ThemeTesterProps> = (props) => {
               key={`${theme[0]}${mode}`}
             >
               <ThemeTesterWrapper
+                flexDirection={flexDirection}
                 name={theme[0].split("Theme").join("")}
                 mode={mode}
                 childrenListStyle={childrenListStyle}
@@ -112,6 +123,7 @@ export const ThemeTester: React.FC<ThemeTesterProps> = (props) => {
       {localTheme.theme !== "all" && localTheme.theme !== "custom" && (
         <ThemeProvider theme={{ ...localTheme }}>
           <ThemeTesterWrapper
+            flexDirection={flexDirection}
             name={localTheme.theme?.split("Theme").join("") || ""}
             mode={localTheme.mode}
             childrenListStyle={childrenListStyle}
@@ -125,6 +137,7 @@ export const ThemeTester: React.FC<ThemeTesterProps> = (props) => {
           <ThemeTesterWrapper
             name={"Custom"}
             childrenListStyle={childrenListStyle}
+            flexDirection={flexDirection}
           >
             {children}
           </ThemeTesterWrapper>

@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import Button from "../components/atoms/Button/Button";
+
 export const ImageModal: React.FC<{
   children?: React.ReactNode;
   images: string[];
@@ -8,9 +10,9 @@ export const ImageModal: React.FC<{
 
   return (
     <div>
-      <button onClick={() => setIsOpen((prev) => !prev)}>
-        toggle img preview
-      </button>
+      <Button mode="outline" onClick={() => setIsOpen((prev) => !prev)}>
+        {isOpen ? <>&lt;</> : <>&gt;</>} toggle img preview
+      </Button>
       {isOpen && (
         <div onClick={() => setIsOpen((prev) => !prev)}>
           {images.map((img) => (

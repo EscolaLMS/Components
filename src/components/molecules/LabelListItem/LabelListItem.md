@@ -50,7 +50,7 @@ const Icon3 = () => (
 );
 
 <React.Fragment>
-  <ThemeTester>
+  <ThemeTester flexDirection="column">
     <LabelListItem title="90%" icon={<Icon1 />}>
       Poleca szkolenia Jana Kaminskiego
     </LabelListItem>
