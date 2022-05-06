@@ -6,7 +6,7 @@ import img1 from "./Option.png";
 import ThemeTester from "../../../styleguide/ThemeTester";
 
 <React.Fragment>
-  <ThemeTester>
+  <ThemeTester flexDirection="column">
     <Text noMargin={true}>checked Radio without label</Text>
     <Radio name="r3" defaultChecked />
     <Text noMargin={true}>Radio without label</Text>

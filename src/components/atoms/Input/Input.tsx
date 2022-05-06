@@ -52,13 +52,12 @@ const StyledDiv = styled("div")<InputProps>`
           padding-right: 10px;
         }
         label {
-          transform: translate(12px, -6px) scale(0.75);
+          transform: translate(12px, -7px) scale(0.75);
           ${(props) => {
-            if (props.disabled) {
-              return;
-            }
             const backgroundLabel =
-              props.theme.mode === "dark" ? props.theme.black : undefined;
+              props.theme.mode === "dark"
+                ? props.theme.black
+                : props.theme.white;
             return `
               background: ${backgroundLabel};
               box-shadow: -5px 0px 0px 0px ${backgroundLabel}, 5px 0px 0px 0px ${backgroundLabel};
@@ -70,7 +69,7 @@ const StyledDiv = styled("div")<InputProps>`
             if (props.disabled) {
               return "";
             }
-            props.theme.mode !== "dark" ? props.theme.white : undefined;
+            props.theme.mode === "dark" ? props.theme.white : undefined;
           }};
         }
         fieldset {
@@ -87,6 +86,7 @@ const StyledDiv = styled("div")<InputProps>`
       }
     }
     label {
+      pointer-events none;
       transform-origin: left top;
       max-width: calc(100% - 24px);
       position: absolute;
@@ -98,9 +98,6 @@ const StyledDiv = styled("div")<InputProps>`
       color: ${(props) => {
         if (props.error) {
           return props.theme.errorColor;
-        }
-        if (props.disabled && props.theme.mode === "dark") {
-          return props.theme.white;
         }
       }};
     }
@@ -121,11 +118,10 @@ const StyledDiv = styled("div")<InputProps>`
         border-radius: ${(props) => props.theme.inputRadius}px;
         background: ${(props) => {
           const { mode, gray1, gray5 } = props.theme;
-          const bgColor = mode !== "dark" ? gray5 : gray1;
           if (props.disabled) {
-            return mix(bgColor, "#fff").hex();
+            return mix(gray1, "#fff").hex();
           }
-          return bgColor;
+          return mode !== "dark" ? gray5 : gray1;
         }};
         color: ${(props) =>
           props.theme.mode !== "dark" ? props.theme.gray1 : props.theme.white};

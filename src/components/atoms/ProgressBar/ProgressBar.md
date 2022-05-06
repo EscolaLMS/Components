@@ -23,7 +23,7 @@ const setRandomProgresses = () => {
 };
 
 <GlobalThemeProvider>
-  <ThemeTester>
+  <ThemeTester childrenListStyle={{ display: "block" }}>
     <ProgressBar
       currentProgress={currentProgreses.progress1}
       maxProgress={10}
