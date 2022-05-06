@@ -4,7 +4,7 @@ import styled, { withTheme, ThemeContext } from "styled-components";
 
 import { Title } from "../../atoms/Typography/Title";
 import { Text } from "../../atoms/Typography/Text";
-import { IconTitle } from "../IconTitle/IconTitle";
+import { IconTitle } from "../../atoms/IconTitle/IconTitle";
 
 export interface TitleProps extends React.HTMLProps<HTMLDivElement> {
   variant?: "header" | "label";
