@@ -75,6 +75,10 @@ module.exports = {
       name: "Advanced Topics",
       sections: [
         {
+          name: "Grid",
+          content: "doc/advanced/grid.md",
+        },
+        {
           name: "Forms",
           content: "doc/advanced/forms.md",
         },
