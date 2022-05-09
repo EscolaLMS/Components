@@ -26,7 +26,7 @@ const DownloadsList: React.FC<ComponentProps> = (props) => {
 
   return (
     <Col xs={12} md={4}>
-      <Download href={href} fileName={fileName} />
+      <Download href={href} fileName={fileName} key={href} />
     </Col>
   );
 };
