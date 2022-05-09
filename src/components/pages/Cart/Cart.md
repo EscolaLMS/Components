@@ -2,12 +2,12 @@
 import { GlobalThemeProvider } from "../../../theme/provider";
 import ImageModal from "../../../styleguide/ImageModal";
 
-import img1 from "./LoginForm.png";
+import img1 from "./Course.png";
 
 <GlobalThemeProvider>
-  <LoginForm>
+  <Cart>
     <pre>This component is not ready yet</pre>
-  </LoginForm>
+  </Cart>
   <ImageModal images={[img1]} />
 </GlobalThemeProvider>;
 ```

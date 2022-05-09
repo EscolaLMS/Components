@@ -30,9 +30,11 @@ const Icon1 = () => (
       <p style={{ marginTop: 9 }}>Ukoncz kurs aby zdobyc certyfikat</p>
     </CourseProgress>
   </ThemeTester>
-  <Button mode="secondary" onClick={() => setProgress(Math.random())}>
-    Click to generate random progress
-  </Button>
+  <GlobalThemeProvider>
+    <Button mode="secondary" onClick={() => setProgress(Math.random())}>
+      Click to generate random progress
+    </Button>
+  </GlobalThemeProvider>
   <ImageModal images={[img1]} />
 </React.Fragment>;
 ```

@@ -16,7 +16,7 @@ import ThemeTester from "../../../styleguide/ThemeTester";
     </Button>
     <Button mode="secondary">Secondary button</Button>
     <Button mode="outline">Outline button</Button>
-    <Button mode="outline" loading>
+    <Button loading mode="outline">
       Outline button loading
     </Button>
 
