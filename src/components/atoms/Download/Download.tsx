@@ -9,9 +9,8 @@ export interface ComponentProps {
 
 const StyledDiv = styled.div<ComponentProps>`
   font-size: 1.1em;
+  margin-bottom: 20px;
   diplay: inline-block;
-  width: 300px;
-  margin: 10px;
   font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
   .download-btn {
     background: ${(props) => {
