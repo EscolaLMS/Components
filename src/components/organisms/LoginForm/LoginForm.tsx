@@ -1,5 +1,7 @@
 import { Formik } from "formik";
+import { useContext } from "react";
 import { useTranslation } from "react-i18next";
+import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 
 import { Input, Button, Title } from "../../../";
 
@@ -11,12 +13,14 @@ interface MyFormValues {
 export const LoginForm = () => {
   const initialValues: MyFormValues = { email: "", password: "" };
   const { t, i18n } = useTranslation();
+  const { login, apiUrl } = useContext(EscolaLMSContext);
 
   return (
     <Formik
       initialValues={initialValues}
       validate={(values) => {
         const errors: Partial<MyFormValues> = {};
+        /*
         if (!values.email) {
           errors.email = "Required";
         } else if (
@@ -24,13 +28,14 @@ export const LoginForm = () => {
         ) {
           errors.email = "Invalid email address";
         }
+        */
         return errors;
       }}
       onSubmit={(values, { setSubmitting }) => {
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
-          setSubmitting(false);
-        }, 400);
+        login(values)
+          .then((resp) => console.log("resp", resp))
+          .catch((err) => console.log("err", err))
+          .finally(() => setSubmitting(false));
       }}
     >
       {({
