@@ -15,6 +15,7 @@ const allowedKeys: (keyof DefaultTheme & string)[] = [
   "textColorDark",
   "textColorLight",
   "backgroundDarkProgress",
+  "backgroundDarkCommentBar",
   "errorColor",
   "white",
   "gray5",
@@ -87,6 +88,8 @@ export const ThemeCustomizer: React.FC<{
           textColorLight: initData.textColorLight || "#000000",
           backgroundDarkProgress: initData.backgroundDarkProgress || "#000000",
           errorColor: initData.errorColor || "#EB5757",
+          backgroundDarkCommentBar:
+            initData.backgroundDarkCommentBar || "#000000",
         }),
         "Body Colors": folder({
           white: initData.white || "#000000",
