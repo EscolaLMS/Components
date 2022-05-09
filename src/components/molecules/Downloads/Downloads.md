@@ -15,11 +15,28 @@ import img1 from "./Downloads.png";
       title={"Downloads"}
       subtitle={"Subtitle"}
       downloads={[
-        <Download href="https://escolalms.github.io/headless-format/paper.pdf" />,
-        <Download href="https://escolalms.github.io/headless-format/paper.pdf" />,
-        <Download href="https://escolalms.github.io/headless-format/paper.pdf" />,
-        <Download href="https://escolalms.github.io/headless-format/paper.pdf" />,
-        <Download href="https://escolalms.github.io/headless-format/paper.pdf" />,
+          {
+              href: "https://www.google.com",
+          },
+          {
+              fileName: "File name",
+              href: "https://www.google.com",
+          },
+          {
+              fileName: "File name",
+              href: "https://www.google.com",
+          },
+          {
+              href: "https://www.google.com",
+          },
+          {
+              fileName: "File name",
+              href: "https://www.google.com",
+          },
+          {
+              fileName: "File name",
+              href: "https://www.google.com",
+          }
       ]}
     />
   </ThemeTester>
