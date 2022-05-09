@@ -16,4 +16,3 @@ import { Container, Row, Col } from 'react-grid-system';
     </Col>
   </Row>
 </Container>
-https://www.npmjs.com/package/react-grid-system
