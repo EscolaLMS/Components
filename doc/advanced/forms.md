@@ -6,7 +6,7 @@ import { Formik } from "formik";
 import { Title, Button, Input } from "../../src/index.ts";
 import { ThemeTester } from "../../src/styleguide";
 
-<ThemeTester>
+<ThemeTester flexDirection="column" alignItems="start">
   <Title>Anywhere in your app!</Title>
   <Formik
     initialValues={{ email: "", password: "" }}
