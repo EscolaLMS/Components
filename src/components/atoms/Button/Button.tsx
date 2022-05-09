@@ -70,7 +70,14 @@ const StyledButton = styled("button")<ButtonProps>`
 
   &:disabled {
     cursor: not-allowed;
-    background: rgba(${chroma("#4a4a4a").rgb().join(",")}, 0.2);
+    border-color: transparent;
+    ${(props) => {
+      if (props.theme.gray1) {
+        return `background: rgba(${chroma(props.theme.gray1)
+          .rgb()
+          .join(",")}, 0.2);`;
+      }
+    }}
     ${(props) => {
       if (props.invert) {
         return `color: ${props.theme.white};`;
@@ -80,8 +87,14 @@ const StyledButton = styled("button")<ButtonProps>`
     &:hover,
     &:focus,
     &:active {
-      border: 2px solid rgba(0, 0, 0, 0);
-      box-shadow: none !important;
+      ${(props) => {
+        if (props.theme.gray1) {
+          return `background: rgba(${chroma(props.theme.gray1)
+            .rgb()
+            .join(",")}, 0.2);`;
+        }
+      }}
+      color: ${(props) => props.theme.white}
     }
   }
 
@@ -99,29 +112,21 @@ const StyledButton = styled("button")<ButtonProps>`
   }
 
   &:hover {
-    box-shadow: 0px 0px 10px
-      rgba(
-        ${(props) =>
-          props.theme && props.theme.primaryColor
-            ? chroma(props.theme.primaryColor).rgb().join(",") || "0, 0, 0"
-            : "0, 0, 0"},
-        0.5
-      );
+    color: ${(props) => props.theme.primaryColor};
+    border-color: transparent;
     ${(props) => {
-      if (props.mode === "outline" || props.invert) {
-        return "box-shadow:none;";
-      }
-    }};
-    ${(props) => {
-      if (!props.invert && props.mode === "outline") {
-        return `background: ${props.theme.primaryColor}; color: ${props.theme.white}`;
-      }
-    }}
-    ${(props) => {
-      if (props.invert && props.mode === "outline") {
-        return `background: ${props.theme.white};
-                color: ${props.theme.gray1};
-                text-decoration:none`;
+      if (props.theme.primaryColor) {
+        if (props.invert) {
+          return `
+            background: ${chroma(props.theme.invertColor).alpha(0.3).hex()};
+            color: ${props.theme.invertColor};
+            text-decoration:none;
+          `;
+        } else {
+          return `
+            background: ${chroma(props.theme.primaryColor).alpha(0.3).hex()};
+          `;
+        }
       }
     }}
   }
