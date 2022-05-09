@@ -44,8 +44,8 @@ export const Downloads: React.FC<DownloadsProps> = (props) => {
         as={"h4"}
       />
       <Row>
-        {downloads.map((download) => (
-          <DownloadsList {...download} />
+        {downloads.map((download, index) => (
+          <DownloadsList key={index} {...download} />
         ))}
       </Row>
     </React.Fragment>

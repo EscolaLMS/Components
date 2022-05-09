@@ -10,7 +10,7 @@ export interface ComponentProps {
 const StyledDiv = styled.div<ComponentProps>`
   font-size: 1.1em;
   margin-bottom: 20px;
-  diplay: inline-block;
+  display: inline-block;
   font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
   .download-btn {
     background: ${(props) => {
@@ -52,7 +52,7 @@ const StyledDiv = styled.div<ComponentProps>`
           return props.theme.mode !== "light"
             ? props.theme.white
             : props.theme.black;
-        }}};
+        }};
       }
     }
   }

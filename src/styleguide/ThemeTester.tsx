@@ -48,6 +48,7 @@ const StyledDiv = styled.div<{
       props.flexDirection === "column" ? "" : "center"};
     flex-direction: ${(props) => props.flexDirection || "row"};
     align-items: ${(props) => props.alignItems || "center"};
+    gap: 20px;
   }
   .children-list-title {
     background: ${(props) =>

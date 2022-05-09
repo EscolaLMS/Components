@@ -79,9 +79,9 @@ export const Rating: React.FC<RatingProps> = (props) => {
       <>
         {startToRender.map((index) => {
           return index + 1 <= Math.round(ratingValue) ? (
-            <RatingIconFull />
+            <RatingIconFull key={index} />
           ) : (
-            <RatingIconEmpty />
+            <RatingIconEmpty key={index} />
           );
         })}
         {label && <span className="label">{label}</span>}
