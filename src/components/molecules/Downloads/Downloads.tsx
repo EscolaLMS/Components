@@ -10,7 +10,7 @@ setConfiguration({
 export interface DownloadsProps {
   title: string;
   subtitle: string;
-  downloads: [];
+  downloads: JSX.Element[];
 }
 
 const Icon1 = () => (
