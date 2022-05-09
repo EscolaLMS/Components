@@ -3,7 +3,7 @@ import { getFontFromTheme } from "../../../theme/provider";
 import styled, { withTheme } from "styled-components";
 import Notification, {
   NotificationProps,
-} from "../../atoms/Notifications/Notification";
+} from "../../atoms/Notification/Notification";
 import { useOnClickOutside } from "../../../hooks/useOnClickOutside";
 
 export interface ComponentProps {

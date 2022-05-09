@@ -5,10 +5,10 @@ All config values are defined in [`provider.tsx`](https://github.com/EscolaLMS/C
 ### Colors
 
 ```js
-import ThemeTester from "../src/styleguide/ThemeTester";
-import ColorBox from "../src/styleguide/ColorBox/ColorBox";
-import ImageModal from "../src/styleguide/ImageModal";
-import img1 from "../src/styleguide/ColorBox/ColorBox.png";
+import ThemeTester from "../../src/styleguide/ThemeTester";
+import ColorBox from "../../src/styleguide/ColorBox/ColorBox";
+import ImageModal from "../../src/styleguide/ImageModal";
+import img1 from "../../src/styleguide/ColorBox/ColorBox.png";
 <React.Fragment>
   <ThemeTester>
     <div style={{ display: "flex" }}>

@@ -1,11 +1,14 @@
 ```js
 import img1 from "./Badge.png";
-import ImageModal from "../../../styleguide/ImageModal";
-import ThemeTester from "../../../styleguide/ThemeTester";
+import { ImageModal, ThemeTester } from "../../../styleguide";
 
 <React.Fragment>
   <ThemeTester>
-    <Badge style={{ marginRight: "10px" }}>Bestseller </Badge>{" "}
+    <Badge>Bestseller </Badge>
+    <Badge>New </Badge>
+    <Badge>Crazy </Badge>
+    <Badge>Exclusive </Badge>
   </ThemeTester>
+  <ImageModal images={[img1]} />
 </React.Fragment>;
 ```

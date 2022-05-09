@@ -5,6 +5,7 @@ import ImageModal from "../../../styleguide/ImageModal";
 import img1 from "./ProgressBar.png";
 import ThemeTester from "../../../styleguide/ThemeTester";
 import ProgressBar from "./ProgressBar";
+import Button from "../Button/Button";
 
 const [currentProgreses, setCurrentProgreses] = useState({
   progress1: 10,
@@ -23,7 +24,7 @@ const setRandomProgresses = () => {
 };
 
 <GlobalThemeProvider>
-  <ThemeTester>
+  <ThemeTester childrenListStyle={{ display: "block" }}>
     <ProgressBar
       currentProgress={currentProgreses.progress1}
       maxProgress={10}
@@ -36,7 +37,10 @@ const setRandomProgresses = () => {
       currentProgress={currentProgreses.progress3}
       maxProgress={10}
     />
-    <button onClick={setRandomProgresses}>random progress</button>
+    <hr />
+    <Button mode="outline" onClick={setRandomProgresses}>
+      Click to generate random progress
+    </Button>
   </ThemeTester>
   <ImageModal images={[img1]} />
 </GlobalThemeProvider>;

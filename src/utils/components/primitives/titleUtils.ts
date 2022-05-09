@@ -8,7 +8,9 @@ export const setFontSizeByHeaderLevel = (level?: HeaderLevelInt): string => {
       return "40px";
     case 3:
       return "36px";
-    default:
+    case 4:
       return "20px";
+    default:
+      return "16px";
   }
-}
+};

@@ -8,7 +8,7 @@ import ImageModal from "../../../styleguide/ImageModal";
 import ThemeTester from "../../../styleguide/ThemeTester";
 
 <React.Fragment>
-  <ThemeTester>
+  <ThemeTester flexDirection="column">
     <Button>Primary Button</Button>
     <Button mode="secondary">Secondary button</Button>
     <Button mode="outline">Outline button</Button>

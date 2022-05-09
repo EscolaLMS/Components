@@ -1,10 +1,10 @@
 ```js
 import { useTranslation } from "react-i18next";
 
-import "../src/styleguide/i18n.ts";
+import "../../src/styleguide/i18n.ts";
 
-import { Title, Button } from "../src/index.ts";
-import { ThemeTester } from "../src/styleguide";
+import { Title, Button } from "../../src/index.ts";
+import { ThemeTester } from "../../src/styleguide";
 
 const { t, i18n } = useTranslation();
 
