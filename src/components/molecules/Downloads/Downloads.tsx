@@ -33,7 +33,7 @@ export const Downloads: React.FC<DownloadsProps> = (props) => {
       />
       <Row>
         {downloads.map((download) => (
-          <Col xs={12} md={6}>
+          <Col xs={12} md={4}>
             {download}
           </Col>
         ))}
