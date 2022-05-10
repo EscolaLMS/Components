@@ -64,8 +64,8 @@ export const LoginForm: React.FC<{
   mobile = false,
 }) => {
   const initialValues: MyFormValues = { email: "", password: "" };
-  const { t, i18n } = useTranslation();
-  const { login, apiUrl } = useContext(EscolaLMSContext);
+  const { t } = useTranslation();
+  const { login } = useContext(EscolaLMSContext);
 
   return (
     <StyledDiv mobile={mobile}>
@@ -87,7 +87,7 @@ export const LoginForm: React.FC<{
         }}
         onSubmit={(values, { setSubmitting, setErrors }) => {
           login(values)
-            .then((resp) => onSuccess && onSuccess())
+            .then(() => onSuccess && onSuccess())
             .catch((err: ResponseError<DefaultResponseError>) => {
               setErrors({ error: err.data.message, ...err.data.errors });
               onError && onError(err);
