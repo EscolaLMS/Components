@@ -24,7 +24,7 @@ const StyledP = styled.p<TitleProps>`
 export const Text: React.FC<TitleProps> = (props) => {
   const { children, noMargin, style, bold, size = "16" } = props;
   return (
-    <StyledP style={style} noMargin={noMargin} bold={bold} size={size}>
+    <StyledP style={style} noMargin={noMargin} bold={bold} size={size} {...props}>
       {children}
     </StyledP>
   );
