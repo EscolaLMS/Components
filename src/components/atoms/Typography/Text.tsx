@@ -5,25 +5,48 @@ import styled, { withTheme } from "styled-components";
 import { getFontFromTheme } from "../../../theme/provider";
 
 export interface TitleProps extends React.HTMLAttributes<HTMLHeadingElement> {
-  children?: React.ReactNode;
   noMargin?: boolean;
+  bold?: boolean;
+  size?: "16" | "14";
+  type?: "primary" | "secondary" | "warning" | "danger";
 }
 
 const StyledP = styled.p<TitleProps>`
   margin: ${(props) => (props.noMargin ? "0" : "0 0 1.55em 0")};
   padding: 0;
-  color: ${(props) =>
-    props.theme.mode !== "light" ? props.theme.white : "#111"};
+  color: ${(props) => {
+    switch (props.type) {
+      case "danger":
+        return "#EB5757";
+      case "primary":
+      default:
+        return props.theme.mode !== "light" ? props.theme.white : "#111";
+    }
+  }};
   font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
-  font-weight: normal;
-  font-size: 16px;
+  font-weight: ${(props) => (props.bold ? "bold" : "normal")};
+  font-size: ${(props) => (props.size === "14" ? "14px" : "16px")};
   line-height: 1.55em;
 `;
 
 export const Text: React.FC<TitleProps> = (props) => {
-  const { children, noMargin, style } = props;
+  const {
+    children,
+    noMargin,
+    style,
+    bold,
+    size = "16",
+    type = "primary",
+  } = props;
   return (
-    <StyledP style={style} noMargin={noMargin}>
+    <StyledP
+      style={style}
+      noMargin={noMargin}
+      bold={bold}
+      size={size}
+      type={type}
+      {...props}
+    >
       {children}
     </StyledP>
   );

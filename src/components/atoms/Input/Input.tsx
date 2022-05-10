@@ -25,7 +25,6 @@ const StyledDiv = styled("div")<InputProps>`
   &.lsm-input {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    margin: 12px 0;
     font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
     * {
       outline: none;

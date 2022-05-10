@@ -50,7 +50,7 @@ const StyledRating = styled.span`
       }
       return props.theme.primaryColor;
     }};
-    display: flex;
+    display: inline-flex;
     align-items: center;
     height: 20px;
     .filled-star-icon {

@@ -3,10 +3,9 @@ import * as React from "react";
 import styled, { withTheme } from "styled-components";
 import { getFontFromTheme } from "../../../theme/provider";
 
-export interface LinkProps
-  extends React.ButtonHTMLAttributes<HTMLAnchorElement> {
-  children?: React.ReactNode;
-}
+export type LinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
+  underline?: boolean;
+};
 
 // Main button with styles
 const StyledAnchor = styled("a")<LinkProps>`
@@ -28,7 +27,7 @@ const StyledAnchor = styled("a")<LinkProps>`
     content: "";
     position: absolute;
     width: 100%;
-    transform: scaleX(0);
+    transform: ${(props) => (props.underline ? "scaleX(1)" : "scaleX(0)")};
     height: 1px;
     bottom: 0;
     left: 0;
@@ -36,21 +35,27 @@ const StyledAnchor = styled("a")<LinkProps>`
       (props.theme.mode === "light"
         ? props.theme?.gray1
         : props.theme?.gray5) || "black"};
-    transform-origin: bottom right;
+    //transform-origin: bottom right;
+    transform-origin: ${(props) =>
+      props.underline ? "bottom left" : "bottom right"};
     transition: transform 0.25s ease-out;
   }
 
   &:hover,
   &:active {
     &:after {
-      transform: scaleX(1);
+      transform: ${(props) => (props.underline ? "scaleX(0)" : "scaleX(1)")};
       transform-origin: bottom left;
     }
   }
 `;
 
-export const Link: React.FC<LinkProps> = (props) => {
-  return <StyledAnchor {...props}>{props.children}</StyledAnchor>;
+export const Link: React.FC<LinkProps> = ({ underline = false, ...props }) => {
+  return (
+    <StyledAnchor underline={underline} {...props}>
+      {props.children}
+    </StyledAnchor>
+  );
 };
 
 const NewButton = styled(Link)``;
