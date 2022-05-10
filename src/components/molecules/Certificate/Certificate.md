@@ -13,8 +13,8 @@ import img2 from "./CertificateExample.png";
       description={
         "Wyróżnij się na tle innych, dzięki certyfikatowi potwierdzającemu wiedzę uzyskaną na szkoleniu."
       }
-      downloadUrl={"#"}
-      shareUrl={"#"}
+      handleDownload={() => console.log("download")}
+      handleShare={() => console.log("shared")}
     />
   </ThemeTester>
   <ImageModal images={[img1]} />

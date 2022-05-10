@@ -8,8 +8,8 @@ import { Row, Col } from "react-grid-system";
 export interface CertificateProps extends React.HTMLAttributes<HTMLDivElement> {
   image: string;
   description: string;
-  downloadUrl: string;
-  shareUrl: string;
+  handleDownload: () => void;
+  handleShare: () => void;
 }
 
 const StyledCertificate = styled("div")`
@@ -75,7 +75,7 @@ const Icon2 = () => {
 };
 
 export const Certificate: React.FC<CertificateProps> = (props) => {
-  const { image, title, description, downloadUrl, shareUrl } = props;
+  const { image, title, description, handleDownload, handleShare } = props;
 
   return (
     <StyledCertificate>
@@ -109,22 +109,18 @@ export const Certificate: React.FC<CertificateProps> = (props) => {
         </Col>
         <Col xs={12} md={5} className={"certificate-right-col"}>
           <div>
-            {downloadUrl && (
-              <div className="certificate-link">
-                <Icon1 />
-                <Link href={downloadUrl} style={{ marginLeft: "14px" }}>
-                  Pobierz lub wydrukuj jako plik PDF
-                </Link>
-              </div>
-            )}
-            {shareUrl && (
-              <div className="certificate-link">
-                <Icon2 />
-                <Link href={shareUrl} style={{ marginLeft: "14px" }}>
-                  Udostępnij jako zdjęcie online
-                </Link>
-              </div>
-            )}
+            <div className="certificate-link">
+              <Icon1 />
+              <Link style={{ marginLeft: "14px" }} onClick={handleDownload}>
+                Pobierz lub wydrukuj jako plik PDF
+              </Link>
+            </div>
+            <div className="certificate-link">
+              <Icon2 />
+              <Link style={{ marginLeft: "14px" }} onClick={handleShare}>
+                Udostępnij jako zdjęcie online
+              </Link>
+            </div>
           </div>
         </Col>
       </Row>
