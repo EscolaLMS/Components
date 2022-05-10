@@ -1,1 +1,1 @@
-Organisms are groups of molecules joined together to form a relatively complex, distinct section of an interface. Example are navigation, por header
+Organisms are groups of molecules joined together to form a relatively complex, distinct section of an interface. Those are components that are using [`Software Development Kit`](https://www.npmjs.com/package/@escolalms/sdk)

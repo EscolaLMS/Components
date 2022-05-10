@@ -13,7 +13,7 @@ export interface ComponentProps {
   onFinish: () => void;
 }
 
-const StyledDiv = styled.aside<ComponentProps>`
+const StyledAside = styled.aside`
   font-size: 16px;
   &.closed > button.toggle-btn {
     transform: rotate(180deg);
@@ -34,7 +34,7 @@ export const CourseTopNav: React.FC<ComponentProps> = (props) => {
 
   // TODO add react-i18n
   return (
-    <StyledDiv {...props} className={isClosed ? "closed" : ""}>
+    <StyledAside className={isClosed ? "closed" : ""}>
       <button
         onClick={() => setIsClosed((prev) => !prev)}
         className="toggle-btn"
@@ -96,7 +96,7 @@ export const CourseTopNav: React.FC<ComponentProps> = (props) => {
           )}
         </div>
       )}
-    </StyledDiv>
+    </StyledAside>
   );
 };
 

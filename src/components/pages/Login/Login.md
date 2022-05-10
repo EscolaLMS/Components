@@ -5,9 +5,9 @@ import ImageModal from "../../../styleguide/ImageModal";
 import img1 from "./LoginForm.png";
 
 <GlobalThemeProvider>
-  <LoginForm>
+  <Login>
     <pre>This component is not ready yet</pre>
-  </LoginForm>
+  </Login>
   <ImageModal images={[img1]} />
 </GlobalThemeProvider>;
 ```

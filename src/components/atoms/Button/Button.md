@@ -10,8 +10,16 @@ import ThemeTester from "../../../styleguide/ThemeTester";
 <React.Fragment>
   <ThemeTester flexDirection="column">
     <Button>Primary Button</Button>
+    <Button loading>Primary Button loading</Button>
+    <Button loading block>
+      Primary block Button loading
+    </Button>
     <Button mode="secondary">Secondary button</Button>
     <Button mode="outline">Outline button</Button>
+    <Button loading mode="outline">
+      Outline button loading
+    </Button>
+
     <Button disabled>Primary Button disabled</Button>
     <Button mode="secondary" disabled>
       Secondary button disabled
