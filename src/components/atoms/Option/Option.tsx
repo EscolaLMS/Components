@@ -73,11 +73,11 @@ const StyledDiv = styled.div<OptionType>`
 `;
 
 export const Option: React.FC<OptionType> = (props) => {
-  const { label, type } = props;
+  const { label, type, className } = props;
 
   if (label) {
     return (
-      <StyledDiv type={type}>
+      <StyledDiv type={type} className={`lms-${type} ${className}`}>
         <label>
           <input {...props} type={type} />
           <span>{label}</span>

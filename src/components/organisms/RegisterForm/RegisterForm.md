@@ -1,15 +1,25 @@
 ```js
-import { GlobalThemeProvider } from "../../../theme/provider";
-import ImageModal from "../../../styleguide/ImageModal";
 import img1 from "./LoginForm.png";
+import { ImageModal, ThemeTester } from "../../../styleguide";
 import { EscolaLMSContextProvider } from "@escolalms/sdk/lib/react/context";
+import { Text } from "../../../";
 
-<GlobalThemeProvider>
+<React.Fragment>
   <EscolaLMSContextProvider apiUrl="https://api-stage.escolalms.com/">
-    <RegisterForm>
-      <pre>This component is not ready yet</pre>
-    </RegisterForm>
-    <ImageModal images={[img1]} />
+    <ThemeTester flexDirection="column">
+      <RegisterForm
+        onSuccess={() => console.log("onSuccess")}
+        onError={(err) => console.log("onError", err.data)}
+        onLoginLink={() => console.log("onLoginLink")}
+      />
+
+      <Text>Mobile version</Text>
+      <div style={{ maxWidth: "400px" }}>
+        <RegisterForm mobile />
+      </div>
+    </ThemeTester>
   </EscolaLMSContextProvider>
-</GlobalThemeProvider>;
+
+  <ImageModal images={[img1]} />
+</React.Fragment>;
 ```
