@@ -193,7 +193,9 @@ export const Input: React.FC<InputProps> = (props) => {
       error={props.error}
       disabled={props.disabled}
       required={required}
-      className={`lsm-input ${container?.className ? container.className : ""}`}
+      className={`lsm-input ${helper ? "has-helper" : ""} ${
+        error ? "has-error" : ""
+      } ${container?.className ? container.className : ""}`}
       type={props.type}
     >
       <div className={`input-container ${addFilledClass()}`}>
@@ -204,14 +206,14 @@ export const Input: React.FC<InputProps> = (props) => {
             {...notInputProps}
             id={label ? generateRandomInputId : undefined}
           />
-          <fieldset>
-            {label && (
+          {label && (
+            <fieldset>
               <legend>
                 {label}
                 {required ? "*" : ""}
               </legend>
-            )}
-          </fieldset>
+            </fieldset>
+          )}
         </div>
       </div>
       {helper && <span>{helper}</span>}

@@ -9,7 +9,7 @@ import type { ResponseError } from "umi-request";
 
 import styled, { withTheme } from "styled-components";
 
-import { Input, Button, Title, Link, Text } from "../../../";
+import { Input, Button, Title, Link, Text, Checkbox } from "../../../";
 
 const StyledDiv = styled.div<{ mobile: boolean }>`
   margin: 0;
@@ -21,8 +21,15 @@ const StyledDiv = styled.div<{ mobile: boolean }>`
   justify-content: center;
   align-items: center;
   align-content: center;
+  .lms-checkbox {
+    margin: 20px 0;
+  }
   .lsm-input {
     margin: 30px 0;
+    &.has-error,
+    &.has-helper {
+      margin-bottom: -15px;
+    }
   }
   button {
     margin-top: 10px;
@@ -59,18 +66,10 @@ type FormValues = {
 export const RegisterForm: React.FC<{
   onError?: (err: ResponseError<DefaultResponseError>) => void;
   onSuccess?: () => void;
-  onResetPasswordLink?: () => void;
-  onRegisterLink?: () => void;
+  onLoginLink?: () => void;
   mobile?: boolean;
   return_url?: string;
-}> = ({
-  onSuccess,
-  onError,
-  onResetPasswordLink,
-  onRegisterLink,
-  mobile = false,
-  return_url = "",
-}) => {
+}> = ({ onSuccess, onError, onLoginLink, mobile = false, return_url = "" }) => {
   const [initialValues, setInitialValues] = useState<
     FormValues & Record<string, string | boolean>
   >({
@@ -106,15 +105,29 @@ export const RegisterForm: React.FC<{
 
   const isAdditionalRequiredField = useCallback(
     (field: EscolaLms.ModelFields.Models.Metadata) => {
+      if (
+        field.type !== "boolean" &&
+        field.extra &&
+        Array.isArray(field.extra)
+      ) {
+        if (
+          field.extra?.some(
+            (item: Record<string, any>) => item.register === false
+          )
+        ) {
+          return false;
+        }
+      }
+
       return field?.rules && field?.rules.length > 0;
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [fields]
   );
 
   return (
     <StyledDiv mobile={mobile}>
-      <Title level={3}>{t("Zaloguj się do swojego konta Wellms")}</Title>{" "}
+      <Title level={3}>{t("Registration")}</Title>
+      <Text level={3}>{t("Registration.Subtitle")}</Text>
       <Formik
         enableReinitialize
         initialValues={initialValues}
@@ -136,11 +149,11 @@ export const RegisterForm: React.FC<{
           }
           if (!values.password) {
             errors.password = t("Required");
-          } else if (
+          } /*else if (
             !/(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/i.test(values.password)
           ) {
             errors.password = t("Bad password");
-          }
+          }*/
           if (!values.password_confirmation) {
             errors.password_confirmation = t("Required");
           } else if (values.password !== values.password_confirmation) {
@@ -164,22 +177,20 @@ export const RegisterForm: React.FC<{
 
           return errors;
         }}
-        onSubmit={(values, { setSubmitting, resetForm }) => {
+        onSubmit={(values, { setSubmitting, resetForm, setErrors }) => {
           register({
             ...values,
             return_url: `${window.location.origin}${return_url}`,
           })
             .then(() => {
-              setSubmitting(false);
-              //registrationMessageSucces();
               resetForm();
-              //setSent(true);
+              onSuccess && onSuccess();
             })
-            .catch((error) => {
-              console.log("error", error);
-
-              //.catch((error: API.DataResponseSuccess<API.DefaultResponseError>) => {
-              //toast.error(error.data.message);
+            .catch((err: ResponseError<DefaultResponseError>) => {
+              setErrors({ error: err.data.message, ...err.data.errors });
+              onError && onError(err);
+            })
+            .finally(() => {
               setSubmitting(false);
             });
         }}
@@ -194,98 +205,77 @@ export const RegisterForm: React.FC<{
           isSubmitting,
         }) => (
           <form onSubmit={handleSubmit}>
-            <div>
-              <label htmlFor="first_name">
-                *{t("RegisterForm.First name")}
-              </label>
-              <input
-                placeholder={""}
-                className="form-control grey"
-                type="text"
-                name="first_name"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.first_name}
-              />
-              {errors.first_name && touched.first_name && (
-                <span>{errors.first_name}</span>
-              )}
-            </div>
-            <div>
-              <label htmlFor="last_name">*{t("RegisterForm.Last name")}</label>
-              <input
-                placeholder={""}
-                className="form-control grey"
-                type="text"
-                name="last_name"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.last_name}
-              />
-              {errors.last_name && touched.last_name && (
-                <span>{errors.last_name}</span>
-              )}
-            </div>
-            <div>
-              <label htmlFor="email">*{t("Email")}</label>
-              <input
-                placeholder={t("Email")}
-                className="form-control grey"
-                type="email"
-                name="email"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.email}
-              />
-              {errors.email && touched.email && <span>{errors.email}</span>}
-            </div>
-            <div>
-              <label htmlFor="password">*{t("Password")}</label>
-              <input
-                placeholder={""}
-                className="form-control grey"
-                type="password"
-                name="password"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.password}
-              />
-              <p>({t("RegisterForm.Password validation")} (!@#$%^&*))</p>
-              {errors.password && touched.password && (
-                <span>{errors.password}</span>
-              )}
-            </div>
-            <div>
-              <label htmlFor="password_confirmation">
-                *{t("RegisterForm.Repeat password")}
-              </label>
-              <input
-                placeholder={""}
-                className="form-control grey"
-                type="password"
-                name="password_confirmation"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.password_confirmation}
-              />
-              {errors.password_confirmation &&
-                touched.password_confirmation && (
-                  <span>{errors.password_confirmation}</span>
-                )}
-            </div>
-            <div>
-              <label htmlFor="password">*{t("RegisterForm.Phone")}</label>
-              <input
-                placeholder={""}
-                className="form-control grey"
-                type="text"
-                name="phone"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.phone}
-              />
-              {errors.phone && touched.phone && <span>{errors.phone}</span>}
-            </div>
+            {errors && errors.error && (
+              <Text type="danger">{errors.error}</Text>
+            )}
+            <Input
+              label={t("RegisterForm.First name")}
+              type="text"
+              name="first_name"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.first_name}
+              error={touched.first_name && errors.first_name}
+              required
+            />
+
+            <Input
+              label={t("RegisterForm.Last name")}
+              type="text"
+              name="last_name"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.last_name}
+              error={touched.last_name && errors.last_name}
+              required
+            />
+
+            <Input
+              label={t("Email")}
+              className="form-control grey"
+              type="email"
+              name="email"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.email}
+              error={touched.email && errors.email}
+              required
+            />
+
+            <Input
+              label={t("Password")}
+              type="password"
+              name="password"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.password}
+              error={touched.password && errors.password}
+              helper={t("RegisterForm.Password validation")}
+              required
+            />
+
+            <Input
+              label={t("RegisterForm.Repeat password")}
+              type="password"
+              name="password_confirmation"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.password_confirmation}
+              error={
+                touched.password_confirmation && errors.password_confirmation
+              }
+              required
+            />
+
+            <Input
+              label={t("RegisterForm.Phone")}
+              type="text"
+              name="phone"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.phone}
+              error={touched.phone && errors.phone}
+            />
 
             {fields &&
               fields.list &&
@@ -305,25 +295,17 @@ export const RegisterForm: React.FC<{
                     field: EscolaLms.ModelFields.Models.Metadata,
                     index: number
                   ) => (
-                    <div key={`${field}${index}`}>
-                      <label htmlFor="password">
-                        {isAdditionalRequiredField(field) && "*"}
-                        {t(`RegisterForm.${field.name}`)}
-                      </label>
-
-                      <input
-                        placeholder={""}
-                        className="form-control grey"
-                        type="text"
-                        name={field.name}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={String(values[field.name]) || ""}
-                      />
-                      {errors[field.name] && touched[field.name] && (
-                        <span>{errors[field.name]}</span>
-                      )}
-                    </div>
+                    <Input
+                      key={`${field}${index}`}
+                      required={isAdditionalRequiredField(field)}
+                      label={t(`RegisterForm.${field.name}`)}
+                      type="text"
+                      name={field.name}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={String(values[field.name]) || ""}
+                      error={errors[field.name] && touched[field.name]}
+                    />
                   )
                 )}
 
@@ -339,50 +321,31 @@ export const RegisterForm: React.FC<{
                     field: EscolaLms.ModelFields.Models.Metadata,
                     index: number
                   ) => (
-                    <div key={`${field.id}${index}`}>
-                      <div>
-                        <input
-                          placeholder={""}
-                          type="checkbox"
-                          id={field.name}
-                          name={field.name}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                        />
-
-                        <label htmlFor={field.name}>
-                          {/**
-                          {field.name === "Privacy Policy"
-                            ? rodoLabel()
-                            : field.name === "Terms of Service"
-                            ? regulationsLabel()
-                            : field.name}
-                  */}
-                        </label>
-                      </div>
-
-                      {errors[field.name] && touched[field.name] && (
-                        <span>{errors[field.name]}</span>
-                      )}
-                    </div>
+                    <Checkbox
+                      key={`${field.id}${index}`}
+                      label={t(`RegisterForm.${field.name}`)}
+                      id={field.name}
+                      name={field.name}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                    />
                   )
                 )}
 
-            <Button
-              type="submit"
-              className={isSubmitting ? "loading" : ""}
-              disabled={isSubmitting}
-            >
+            <Button mode="secondary" type="submit" loading={isSubmitting} block>
               {t("RegisterForm.Sign up")}
             </Button>
           </form>
         )}
       </Formik>
+      <Text size="14">
+        {t("RegisterForm.Already have account")}{" "}
+        <Link underline onClick={() => onLoginLink && onLoginLink()}>
+          {t("Login")}
+        </Link>
+      </Text>
     </StyledDiv>
   );
 };
 
-// https://styled-components.com/docs/api#using-custom-props
-
-// Main button with styles
 export default withTheme(styled(RegisterForm)<{ mobile: boolean }>``);
