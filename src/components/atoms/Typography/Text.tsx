@@ -23,7 +23,7 @@ const StyledP = styled.p<TitleProps>`
 export const Text: React.FC<TitleProps> = (props) => {
   const { children, noMargin, style } = props;
   return (
-    <StyledP style={style} noMargin={noMargin}>
+    <StyledP style={style} noMargin={noMargin} {...props}>
       {children}
     </StyledP>
   );
