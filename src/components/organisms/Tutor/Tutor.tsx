@@ -9,7 +9,10 @@ import { RatingProps, Rating } from "../../atoms/Rating/Rating";
 import { ReactNode } from "react";
 import { Text } from "../../atoms/Typography/Text";
 
-export interface TutorProps {
+interface StyledTourProps {
+  isMobile?: boolean;
+}
+export interface TutorProps extends StyledTourProps {
   title: ReactNode | string;
   fullName: ReactNode | string;
   avatar: ProfileAvatarProps;
@@ -18,40 +21,29 @@ export interface TutorProps {
   coursesInfo?: ReactNode | string;
 }
 
-const StyledTutor = styled.div`
+const StyledTutor = styled.div<StyledTourProps>`
   &.lms-tutor {
     max-width: 640px;
     .title {
       margin-bottom: 20px;
     }
-    .avatar {
-      height: auto;
-    }
     .avatar-row {
-      display: flex;
-      align-items: center;
+      display: inline-flex;
+      align-items: ${(props) => (props.isMobile ? "center" : "flex-start")};
     }
     .avatar-info {
       margin-left: 20px;
     }
     .ranking-row {
       display: flex;
-      align-items: center;
+      flex-direction: ${(props) => (props.isMobile ? "column" : "row")};
       margin: 10px 0;
-      @media (max-width: 768px) {
-        display: block;
-      }
     }
     .course-info {
       color: ${(props) =>
         props.theme.mode !== "dark" ? props.theme.primaryColor : "red"};
-      display: inline-block;
-      margin: 0 0 0 25px;
+      margin: ${(props) => (props.isMobile ? "0" : "0 0 0 25px")};
       font-weight: 700;
-      @media (max-width: 768px) {
-        display: block;
-        margin: 0;
-      }
     }
     .description {
       margin-bottom: 16px;
@@ -63,15 +55,23 @@ const StyledTutor = styled.div`
 `;
 
 export const Tutor: React.FC<TutorProps> = (props) => {
-  const { title, fullName, avatar, rating, coursesInfo, description } = props;
+  const {
+    title,
+    fullName,
+    avatar,
+    rating,
+    coursesInfo,
+    description,
+    isMobile,
+  } = props;
 
   return (
-    <StyledTutor className="lms-tutor">
+    <StyledTutor className="lms-tutor" isMobile={isMobile}>
       <Title as="h3" level={4} className="title">
         {title}
       </Title>
       <div className="avatar-row">
-        <ProfileAvatar size={"extraLarge"} {...avatar} className="avatar" />
+        <ProfileAvatar size={"extraLarge"} {...avatar} />
         <div className="avatar-info">
           <Title as="h4" level={4}>
             {fullName}
@@ -80,9 +80,10 @@ export const Tutor: React.FC<TutorProps> = (props) => {
             <Rating {...rating} label={rating.ratingValue} />
             {coursesInfo && <Text className="course-info">{coursesInfo}</Text>}
           </div>
+          {!isMobile && <Text className="description">{description}</Text>}
         </div>
       </div>
-      <Text className="description">{description}</Text>
+      {isMobile && <Text className="description">{description}</Text>}
     </StyledTutor>
   );
 };
