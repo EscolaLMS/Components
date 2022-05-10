@@ -5,7 +5,7 @@ import { Text } from "../../atoms/Typography/Text";
 import { Link } from "../../atoms/Link/Link";
 import { Row, Col } from "react-grid-system";
 
-export interface CertificateProps {
+export interface CertificateProps extends React.HTMLAttributes<HTMLDivElement> {
   image: string;
   title: string;
   description: string;
@@ -23,7 +23,8 @@ const StyledCertificate = styled("div")`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border-left: 1px solid ${({ theme }) => theme.gray3};
+    border-left: 1px solid
+      ${({ theme }) => (theme.mode === "light" ? theme.gray3 : theme.white)};
   }
 
   .certificate-right-col-inner {
