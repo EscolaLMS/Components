@@ -7,7 +7,6 @@ import { Row, Col } from "react-grid-system";
 
 export interface CertificateProps extends React.HTMLAttributes<HTMLDivElement> {
   image: string;
-  title: string;
   description: string;
   downloadUrl: string;
   shareUrl: string;
