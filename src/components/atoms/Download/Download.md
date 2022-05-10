@@ -10,7 +10,7 @@ import ImageModal from "../../../styleguide/ImageModal";
 import img1 from "./Download.png";
 
 <React.Fragment>
-  <ThemeTester>
+  <ThemeTester flexDirection={"column"}>
     <Download href="https://escolalms.github.io/headless-format/paper.pdf" />
     <Download
       href="https://escolalms.github.io/headless-format/paper.pdf"

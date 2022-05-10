@@ -2,6 +2,7 @@ import * as React from "react";
 import { useCallback } from "react";
 import styled, { withTheme } from "styled-components";
 import { getFontFromTheme } from "../../../theme/provider";
+import { calcPercentage } from "../../../utils/utils";
 
 export interface ProgressBarProps extends React.HTMLAttributes<HTMLDivElement> {
   hideLabel?: boolean;
@@ -71,15 +72,10 @@ export const ProgressBar: React.FC<ProgressBarProps> = (props) => {
     return <div>{label}</div>;
   }, [hideLabel, label]);
 
-  const percentageValue = useCallback(() => {
-    if (maxProgress === 0) {
-      return "0%";
-    }
-    if (currentProgress >= maxProgress) {
-      return "100%";
-    }
-    return `${Math.round((currentProgress / maxProgress) * 100)}%`;
-  }, [currentProgress, maxProgress]);
+  const percentageValue = useCallback(
+    () => calcPercentage(currentProgress, maxProgress),
+    [currentProgress, maxProgress]
+  );
 
   return (
     <StyledDiv {...props} className={`lms-progress-bar ${props.className}`}>

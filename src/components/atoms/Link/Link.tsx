@@ -3,10 +3,7 @@ import * as React from "react";
 import styled, { withTheme } from "styled-components";
 import { getFontFromTheme } from "../../../theme/provider";
 
-export interface LinkProps
-  extends React.ButtonHTMLAttributes<HTMLAnchorElement> {
-  children?: React.ReactNode;
-}
+export type LinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement>;
 
 // Main button with styles
 const StyledAnchor = styled("a")<LinkProps>`

@@ -1,90 +1,57 @@
 import * as React from "react";
 import styled, { withTheme } from "styled-components";
-import { getFontFromTheme } from "../../../theme/provider";
+import { setConfiguration, Row, Col } from "react-grid-system";
+import { IconTitle } from "../../atoms/IconTitle/IconTitle";
+import { Download } from "../../atoms/Download/Download";
+import { ComponentProps } from "../../atoms/Download/Download";
 
-export interface ComponentProps {
-  href: string;
-  fileName?: string | React.ReactNode;
+setConfiguration({
+  gutterWidth: 20,
+});
+
+export interface DownloadsProps {
+  title: string;
+  subtitle: string;
+  downloads: ComponentProps[];
 }
 
-const StyledDiv = styled.div<ComponentProps>`
-  font-size: 1.1em;
-  diplay: inline-block;
-  width: 300px;
-  margin: 10px;
-  font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
-  .download-btn {
-    background: ${(props) => {
-      return props.theme.mode !== "light"
-        ? props.theme.gray1
-        : props.theme.white;
-    }};
-    color: ${(props) => {
-      return props.theme.mode !== "light"
-        ? props.theme.white
-        : props.theme.black;
-    }};
-    text-decoration: none;
-    border-radius: ${(props) => props.theme?.buttonRadius || 0}px;
-    padding: 16px 10px 16px 20px;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    display: flex;
-    line-height: 21px;
-    align-items: center;
-    justify-content: space-between;
-    cursor: pointer;
-    transition: all 0.3s;
-    &:hover {
-      background: ${(props) => {
-        return props.theme.mode !== "light"
-          ? props.theme.gray2
-          : props.theme.gray3;
-      }};
-      font-weight: 700;
-    }
-    .icon {
-      margin-left: 30px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      svg {
-        fill: ${(props) => {
-          return props.theme.mode !== "light"
-            ? props.theme.white
-            : props.theme.black;
-        }}};
-      }
-    }
-  }
-`;
+const Icon1 = () => (
+  <svg viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M1.5013 19.1668H9.83464C10.0556 19.1668 10.2676 19.079 10.4239 18.9228C10.5802 18.7665 10.668 18.5545 10.668 18.3335V8.3335C10.668 8.11248 10.5802 7.90052 10.4239 7.74424C10.2676 7.58796 10.0556 7.50016 9.83464 7.50016H1.5013C1.28029 7.50016 1.06833 7.58796 0.912046 7.74424C0.755766 7.90052 0.667969 8.11248 0.667969 8.3335V18.3335C0.667969 18.5545 0.755766 18.7665 0.912046 18.9228C1.06833 19.079 1.28029 19.1668 1.5013 19.1668ZM2.33464 9.16683H9.0013V17.5002H2.33464V9.16683ZM12.3346 15.0002V5.8335H4.83464C4.61362 5.8335 4.40166 5.7457 4.24538 5.58942C4.0891 5.43314 4.0013 5.22118 4.0013 5.00016C4.0013 4.77915 4.0891 4.56719 4.24538 4.41091C4.40166 4.25463 4.61362 4.16683 4.83464 4.16683H13.168C13.389 4.16683 13.6009 4.25463 13.7572 4.41091C13.9135 4.56719 14.0013 4.77915 14.0013 5.00016V15.0002C14.0013 15.2212 13.9135 15.4331 13.7572 15.5894C13.6009 15.7457 13.389 15.8335 13.168 15.8335C12.947 15.8335 12.735 15.7457 12.5787 15.5894C12.4224 15.4331 12.3346 15.2212 12.3346 15.0002ZM17.3346 1.66683V12.5002C17.3346 12.7212 17.2468 12.9331 17.0906 13.0894C16.9343 13.2457 16.7223 13.3335 16.5013 13.3335C16.2803 13.3335 16.0683 13.2457 15.912 13.0894C15.7558 12.9331 15.668 12.7212 15.668 12.5002V2.50016H8.16797C7.94696 2.50016 7.73499 2.41237 7.57871 2.25609C7.42243 2.0998 7.33464 1.88784 7.33464 1.66683C7.33464 1.44582 7.42243 1.23385 7.57871 1.07757C7.73499 0.921293 7.94696 0.833496 8.16797 0.833496H16.5013C16.7223 0.833496 16.9343 0.921293 17.0906 1.07757C17.2468 1.23385 17.3346 1.44582 17.3346 1.66683Z" />
+  </svg>
+);
 
-export const Downloads: React.FC<ComponentProps> = (props) => {
+const DownloadsList: React.FC<ComponentProps> = (props) => {
   const { href, fileName } = props;
 
-  const name = React.useMemo(() => {
-    return fileName || href.split("/").pop();
-  }, [href, fileName]);
-
   return (
-    <StyledDiv {...props}>
-      <a className="download-btn" download href={href} target="_blank">
-        <span className="name">{name}</span>
-        <span className="icon">
-          <svg
-            width="16"
-            height="18"
-            viewBox="0 0 16 18"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M1.33333 15.6665H14.6667C14.8877 15.6665 15.0996 15.7543 15.2559 15.9106C15.4122 16.0669 15.5 16.2788 15.5 16.4998C15.5 16.7209 15.4122 16.9328 15.2559 17.0891C15.0996 17.2454 14.8877 17.3332 14.6667 17.3332H1.33333C1.11232 17.3332 0.900358 17.2454 0.744078 17.0891C0.587797 16.9328 0.5 16.7209 0.5 16.4998C0.5 16.2788 0.587797 16.0669 0.744078 15.9106C0.900358 15.7543 1.11232 15.6665 1.33333 15.6665V15.6665ZM8 0.666504C7.77899 0.666504 7.56702 0.754301 7.41074 0.910582C7.25446 1.06686 7.16667 1.27882 7.16667 1.49984V11.1548L5.25583 9.244C5.17896 9.16441 5.08701 9.10093 4.98534 9.05725C4.88367 9.01358 4.77432 8.99059 4.66367 8.98963C4.55302 8.98867 4.44329 9.00975 4.34087 9.05165C4.23846 9.09355 4.14541 9.15543 4.06717 9.23368C3.98893 9.31192 3.92705 9.40496 3.88515 9.50738C3.84325 9.60979 3.82216 9.71952 3.82312 9.83017C3.82409 9.94082 3.84707 10.0502 3.89075 10.1518C3.93442 10.2535 3.99791 10.3455 4.0775 10.4223L7.41083 13.7557C7.48841 13.8329 7.58044 13.894 7.68167 13.9357C7.78245 13.978 7.89068 13.9998 8 13.9998C8.10932 13.9998 8.21755 13.978 8.31833 13.9357C8.41956 13.894 8.51159 13.8329 8.58917 13.7557L11.9225 10.4223C12.0743 10.2652 12.1583 10.0547 12.1564 9.83617C12.1545 9.61767 12.0669 9.40866 11.9123 9.25416C11.7578 9.09965 11.5488 9.01201 11.3303 9.01011C11.1118 9.00821 10.9013 9.09221 10.7442 9.244L8.83333 11.1548V1.49984C8.83333 1.27882 8.74554 1.06686 8.58926 0.910582C8.43297 0.754301 8.22101 0.666504 8 0.666504V0.666504Z" />
-          </svg>
-        </span>
-      </a>
-    </StyledDiv>
+    <Col xs={12} md={4}>
+      <Download href={href} fileName={fileName} key={href} />
+    </Col>
   );
 };
 
-const NewComponent = styled(Downloads)<ComponentProps>``;
+export const Downloads: React.FC<DownloadsProps> = (props) => {
+  const { title, subtitle, downloads } = props;
 
-export default withTheme(NewComponent);
+  return (
+    <React.Fragment>
+      <IconTitle
+        level={4}
+        title={title}
+        subtitle={subtitle}
+        icon={<Icon1 />}
+        as={"h4"}
+      />
+      <Row>
+        {downloads.map((download, index) => (
+          <DownloadsList key={index} {...download} />
+        ))}
+      </Row>
+    </React.Fragment>
+  );
+};
+
+const NewDownloads = styled(Downloads)<DownloadsProps>``;
+
+export default withTheme(NewDownloads);

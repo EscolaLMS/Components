@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import Button from "../components/atoms/Button/Button";
+import { GlobalThemeProvider } from "../theme/provider";
 
 export const ImageModal: React.FC<{
   children?: React.ReactNode;
@@ -10,9 +11,11 @@ export const ImageModal: React.FC<{
 
   return (
     <div>
-      <Button mode="outline" onClick={() => setIsOpen((prev) => !prev)}>
-        {isOpen ? <>&lt;</> : <>&gt;</>} toggle img preview
-      </Button>
+      <GlobalThemeProvider>
+        <Button mode="outline" onClick={() => setIsOpen((prev) => !prev)}>
+          {isOpen ? <>&lt;</> : <>&gt;</>} toggle img preview
+        </Button>
+      </GlobalThemeProvider>
       {isOpen && (
         <div onClick={() => setIsOpen((prev) => !prev)}>
           {images.map((img) => (

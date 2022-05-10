@@ -6,8 +6,7 @@ import { Formik } from "formik";
 import { Title, Button, Input } from "../../src/index.ts";
 import { ThemeTester } from "../../src/styleguide";
 
-<ThemeTester>
-  <Title>Anywhere in your app!</Title>
+<ThemeTester flexDirection="column" alignItems="start">
   <Formik
     initialValues={{ email: "", password: "" }}
     validate={(values) => {
@@ -38,24 +37,26 @@ import { ThemeTester } from "../../src/styleguide";
       isSubmitting,
       /* and other goodies */
     }) => (
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} style={{ width: "100%" }}>
         <Input
           type="email"
           name="email"
+          label="email"
           onChange={handleChange}
           onBlur={handleBlur}
           value={values.email}
+          error={touched.email && errors.email}
         />
-        {errors.email && touched.email && errors.email}
         <Input
           type="password"
           name="password"
+          label="password"
           onChange={handleChange}
           onBlur={handleBlur}
           value={values.password}
+          error={touched.password && errors.password}
         />
-        {errors.password && touched.password && errors.password}
-        <Button type="submit" disabled={isSubmitting}>
+        <Button mode="secondary" type="submit" loading={isSubmitting} block>
           Submit
         </Button>
       </form>
