@@ -1,15 +1,16 @@
 ```js
-import { GlobalThemeProvider } from "../../../theme/provider";
-import ImageModal from "../../../styleguide/ImageModal";
 import img1 from "./LoginForm.png";
+import { ImageModal, ThemeTester } from "../../../styleguide";
 import { EscolaLMSContextProvider } from "@escolalms/sdk/lib/react/context";
+import { Text } from "../../../";
 
-<GlobalThemeProvider>
+<React.Fragment>
   <EscolaLMSContextProvider apiUrl="https://api-stage.escolalms.com/">
-    <RegisterForm>
-      <pre>This component is not ready yet</pre>
-    </RegisterForm>
-    <ImageModal images={[img1]} />
+    <ThemeTester flexDirection="column">
+      <RegisterForm />
+    </ThemeTester>
   </EscolaLMSContextProvider>
-</GlobalThemeProvider>;
+
+  <ImageModal images={[img1]} />
+</React.Fragment>;
 ```
