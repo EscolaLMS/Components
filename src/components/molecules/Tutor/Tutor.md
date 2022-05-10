@@ -39,7 +39,7 @@ import { Title } from "../../atoms/Typography/Title";
       description={
         "Praktyk z 15 letnim doświadczeniem w zarządzaniu zarówno mikro jak i makro przedsiębiorstwami. Odpowiadał za opracowanie biznesplanu dla firm tj.: CCC, Allegro, 4F"
       }
-      isMobile
+      mobile
     />
   </ThemeTester>
   <ImageModal images={[img1]} />

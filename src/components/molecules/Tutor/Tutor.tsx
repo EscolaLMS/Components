@@ -10,7 +10,7 @@ import { ReactNode } from "react";
 import { Text } from "../../atoms/Typography/Text";
 
 interface StyledTourProps {
-  isMobile?: boolean;
+  mobile?: boolean;
 }
 export interface TutorProps extends StyledTourProps {
   title: ReactNode | string;
@@ -29,20 +29,20 @@ const StyledTutor = styled.div<StyledTourProps>`
     }
     .avatar-row {
       display: inline-flex;
-      align-items: ${(props) => (props.isMobile ? "center" : "flex-start")};
+      align-items: ${(props) => (props.mobile ? "center" : "flex-start")};
     }
     .avatar-info {
       margin-left: 20px;
     }
     .ranking-row {
       display: flex;
-      flex-direction: ${(props) => (props.isMobile ? "column" : "row")};
+      flex-direction: ${(props) => (props.mobile ? "column" : "row")};
       margin: 10px 0;
     }
     .course-info {
       color: ${(props) =>
         props.theme.mode !== "dark" ? props.theme.primaryColor : "red"};
-      margin: ${(props) => (props.isMobile ? "0" : "0 0 0 25px")};
+      margin: ${(props) => (props.mobile ? "0" : "0 0 0 25px")};
       font-weight: 700;
     }
     .description {
@@ -62,11 +62,11 @@ export const Tutor: React.FC<TutorProps> = (props) => {
     rating,
     coursesInfo,
     description,
-    isMobile,
+    mobile,
   } = props;
 
   return (
-    <StyledTutor className="lms-tutor" isMobile={isMobile}>
+    <StyledTutor className="lms-tutor" mobile={mobile}>
       <Title as="h3" level={4} className="title">
         {title}
       </Title>
@@ -80,10 +80,10 @@ export const Tutor: React.FC<TutorProps> = (props) => {
             <Rating {...rating} label={rating.ratingValue} />
             {coursesInfo && <Text className="course-info">{coursesInfo}</Text>}
           </div>
-          {!isMobile && <Text className="description">{description}</Text>}
+          {!mobile && <Text className="description">{description}</Text>}
         </div>
       </div>
-      {isMobile && <Text className="description">{description}</Text>}
+      {mobile && <Text className="description">{description}</Text>}
     </StyledTutor>
   );
 };
