@@ -27,6 +27,7 @@ const allowedKeys: (keyof DefaultTheme & string)[] = [
   "buttonRadius",
   "checkboxRadius",
   "inputRadius",
+  "noteRadius",
 ];
 
 const filterInputData = (input: DefaultTheme) => {
@@ -118,6 +119,12 @@ export const ThemeCustomizer: React.FC<{
             max: 100,
             step: 1,
             value: initData.inputRadius || 0,
+          },
+          noteRadius: {
+            min: 0,
+            max: 100,
+            step: 1,
+            value: initData.noteRadius || 0,
           },
         }),
       },
