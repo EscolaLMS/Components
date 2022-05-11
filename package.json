@@ -34,6 +34,7 @@
     "react-dom": "^17",
     "react-grid-system": "^8.1.4",
     "react-i18next": "^11.16.7",
+    "react-markdown": "^8.0.3",
     "react-styleguidist": "^11.2.0",
     "source-map-loader": "^3.0.1",
     "style-loader": "^3.3.1",
