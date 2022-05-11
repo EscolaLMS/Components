@@ -1,8 +1,8 @@
 import * as React from "react";
 
 import styled, { withTheme } from "styled-components";
-import {ProfileAvatarTypesStr} from "../../../types/ProfileAvatarTypes";
-import {setProfileAvatarBySize} from "../../../utils/components/primitives/profileAvatarUtils";
+import { ProfileAvatarTypesStr } from "../../../types/ProfileAvatarTypes";
+import { setProfileAvatarBySize } from "../../../utils/components/primitives/profileAvatarUtils";
 
 export interface ProfileAvatarProps
   extends React.ImgHTMLAttributes<HTMLImageElement> {
@@ -11,17 +11,13 @@ export interface ProfileAvatarProps
 
 const StyledProfileAvatar = styled("img")<ProfileAvatarProps>`
   border-radius: 50%;
-  width: ${props => setProfileAvatarBySize(props.size)};
-  height: ${props => setProfileAvatarBySize(props.size)};
+  width: ${(props) => setProfileAvatarBySize(props.size)};
+  height: ${(props) => setProfileAvatarBySize(props.size)};
 `;
 
-export const ProfileAvatar: React.FC<ProfileAvatarProps> = ({
-  src,
-  alt,
-  size = "medium",
-  style
-}) => {
-  return <StyledProfileAvatar src={src} alt={alt} size={size} style={style} />;
+export const ProfileAvatar: React.FC<ProfileAvatarProps> = (props) => {
+  const { size } = props;
+  return <StyledProfileAvatar {...props} size={size} />;
 };
 
 const NewProfileAvatar = styled(ProfileAvatar)<{ size: string }>``;

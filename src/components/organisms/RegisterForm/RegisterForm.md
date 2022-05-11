@@ -2,22 +2,20 @@
 import img1 from "./LoginForm.png";
 import { ImageModal, ThemeTester } from "../../../styleguide";
 import { EscolaLMSContextProvider } from "@escolalms/sdk/lib/react/context";
-import { LoginForm } from "./LoginForm";
-
 import { Text } from "../../../";
 
 <React.Fragment>
   <EscolaLMSContextProvider apiUrl="https://api-stage.escolalms.com/">
     <ThemeTester flexDirection="column">
-      <LoginForm
+      <RegisterForm
         onSuccess={() => console.log("onSuccess")}
         onError={(err) => console.log("onError", err.data)}
-        onResetPasswordLink={() => console.log("onResetPasswordLink")}
-        onRegisterLink={() => console.log("onRegisterLink")}
+        onLoginLink={() => console.log("onLoginLink")}
       />
+
       <Text>Mobile version</Text>
       <div style={{ maxWidth: "400px" }}>
-        <LoginForm mobile />
+        <RegisterForm mobile />
       </div>
     </ThemeTester>
   </EscolaLMSContextProvider>
