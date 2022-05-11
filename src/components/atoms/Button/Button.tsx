@@ -88,8 +88,8 @@ const StyledButton = styled("button")<ButtonProps>`
     if (props.invert) {
       return props.theme.gray1;
     }
-    if (props.mode === "outline") {
-      return props.theme.primaryColor;
+    if (props.mode === "outline" && props.theme.mode === "light") {
+      return props.theme.gray1;
     }
     return props.theme.white;
   }};
@@ -123,6 +123,11 @@ const StyledButton = styled("button")<ButtonProps>`
     }
     if (props.invert) {
       return props.theme.invertColor;
+    }
+    if (props.mode === "outline") {
+      return props.theme.mode === "light"
+        ? props.theme.gray1
+        : props.theme.white;
     }
     return props.theme?.primaryColor || "black";
   }};
@@ -165,7 +170,7 @@ const StyledButton = styled("button")<ButtonProps>`
     cursor: not-allowed;
     border-color: transparent;
     ${(props) => {
-      if (props.theme.gray1) {
+      if (props.theme) {
         return `background: rgba(${chroma(props.theme.gray1)
           .rgb()
           .join(",")}, 0.2);`;
@@ -181,7 +186,7 @@ const StyledButton = styled("button")<ButtonProps>`
     &:focus,
     &:active {
       ${(props) => {
-        if (props.theme.gray1) {
+        if (props.theme) {
           return `background: rgba(${chroma(props.theme.gray1)
             .rgb()
             .join(",")}, 0.2);`;
@@ -208,14 +213,26 @@ const StyledButton = styled("button")<ButtonProps>`
     color: ${(props) => props.theme.primaryColor};
     border-color: transparent;
     ${(props) => {
-      if (props.theme.primaryColor) {
+      if (props.theme) {
         if (props.invert) {
+          if (props.mode === "outline") {
+            return `
+              background: ${props.theme.white};
+              color: ${props.theme.gray1};
+            `;
+          }
           return `
             background: ${chroma(props.theme.invertColor).alpha(0.3).hex()};
             color: ${props.theme.invertColor};
             text-decoration:none;
           `;
         } else {
+          if (props.mode === "outline") {
+            return `
+              background: ${props.theme.black};
+              color: ${props.theme.white};
+            `;
+          }
           return `
             background: ${chroma(props.theme.primaryColor).alpha(0.3).hex()};
           `;
@@ -237,13 +254,19 @@ export const Button: React.FC<ButtonProps> = ({
   const theme = React.useContext(ThemeContext);
 
   const loadingColor = React.useMemo(() => {
-    if (theme && theme.mode === "light" && mode === "outline") {
-      return "#4A4A4A";
+    if ((theme && theme.mode === "light" && mode === "outline") || invert) {
+      return theme.gray1;
     }
-    return "#fff";
+    return theme.white || "#fff";
   }, [mode, theme]);
   return (
-    <StyledButton invert={invert} mode={mode} loading={loading} block={block} {...props}>
+    <StyledButton
+      invert={invert}
+      mode={mode}
+      loading={loading}
+      block={block}
+      {...props}
+    >
       {loading && <LoadingIcon color={loadingColor} />}
       {children}
     </StyledButton>

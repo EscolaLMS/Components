@@ -25,6 +25,9 @@ import ThemeTester from "../../../styleguide/ThemeTester";
       Secondary button disabled
     </Button>
     <Button invert>Invert button</Button>
+    <Button invert loading>
+      Invert loading button
+    </Button>
     <Button mode="secondary" invert>
       Secondary Invert button
     </Button>
