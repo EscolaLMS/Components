@@ -21,6 +21,7 @@ export interface SharedDefaultTheme {
   backgroundDarkProgress: string;
   backgroundDarkCommentBar: string;
   errorColor: string;
+  invertColor: string;
 }
 
 declare module "styled-components" {

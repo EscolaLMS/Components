@@ -17,6 +17,7 @@ const allowedKeys: (keyof DefaultTheme & string)[] = [
   "backgroundDarkProgress",
   "backgroundDarkCommentBar",
   "errorColor",
+  "invertColor",
   "white",
   "gray5",
   "gray4",
@@ -90,6 +91,7 @@ export const ThemeCustomizer: React.FC<{
           errorColor: initData.errorColor || "#EB5757",
           backgroundDarkCommentBar:
             initData.backgroundDarkCommentBar || "#000000",
+          invertColor: initData.invertColor || "#000000",
         }),
         "Body Colors": folder({
           white: initData.white || "#000000",
