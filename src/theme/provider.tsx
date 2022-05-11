@@ -10,6 +10,7 @@ export interface SharedDefaultTheme {
   backgroundDark: string;
   buttonRadius?: number;
   inputRadius?: number;
+  noteRadius?: number;
   checkboxRadius?: number;
   white: string;
   gray5: string;
