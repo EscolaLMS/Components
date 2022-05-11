@@ -1,9 +1,12 @@
 import { HeaderLevelInt } from "../../../types/titleTypes";
 
-export const setFontSizeByHeaderLevel = (level?: HeaderLevelInt): string => {
+export const setFontSizeByHeaderLevel = (
+  level?: HeaderLevelInt,
+  mobile?: boolean
+): string => {
   switch (level) {
     case 1:
-      return "50px";
+      return mobile ? "20px" : "50px";
     case 2:
       return "40px";
     case 3:

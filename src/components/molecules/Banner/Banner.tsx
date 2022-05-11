@@ -38,8 +38,9 @@ export const Banner: React.FC<BannerProps> = (props) => {
       <Row align={"center"} direction={mobile ? "column-reverse" : "row"}>
         <Col xs={12} md={mobile ? 12 : 6}>
           <Title
-            level={mobile ? 3 : 1}
-            as={mobile ? "h3" : "h1"}
+            level={1}
+            as={"h1"}
+            mobile={mobile}
             style={{ fontWeight: "normal" }}
           >
             <ReactMarkdown components={{ p: React.Fragment }} children={text} />
