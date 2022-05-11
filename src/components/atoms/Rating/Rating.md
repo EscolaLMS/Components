@@ -4,7 +4,7 @@ import ImageModal from "../../../styleguide/ImageModal";
 import ThemeTester from "../../../styleguide/ThemeTester";
 
 <React.Fragment>
-  <ThemeTester childrenListStyle={{ display: "block" }}>
+  <ThemeTester flexDirection="column">
     <Rating ratingValue={4.1} label={4.1} />
     <Rating ratingValue={5} />
     <Rating ratingValue={4} />
