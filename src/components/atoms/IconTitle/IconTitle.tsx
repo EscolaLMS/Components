@@ -12,6 +12,7 @@ interface Styles {
 
 interface StyledHeader {
   level?: HeaderLevelInt;
+  mobile?: boolean;
   as: keyof JSX.IntrinsicElements;
 }
 
@@ -26,7 +27,8 @@ export interface IconTitleProps
 
 const StyledHeader = styled.h3<StyledHeader>`
   &.lms-icon-title {
-    font-size: ${(props) => setFontSizeByHeaderLevel(props.level)};
+    font-size: ${(props) =>
+      setFontSizeByHeaderLevel(props.level, props.mobile)};
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     margin: 0 0 20px 0;

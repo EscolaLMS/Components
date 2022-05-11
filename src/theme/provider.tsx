@@ -10,6 +10,7 @@ export interface SharedDefaultTheme {
   backgroundDark: string;
   buttonRadius?: number;
   inputRadius?: number;
+  noteRadius?: number;
   checkboxRadius?: number;
   white: string;
   gray5: string;
@@ -21,6 +22,7 @@ export interface SharedDefaultTheme {
   backgroundDarkProgress: string;
   backgroundDarkCommentBar: string;
   errorColor: string;
+  invertColor: string;
 }
 
 declare module "styled-components" {

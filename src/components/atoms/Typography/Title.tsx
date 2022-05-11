@@ -6,6 +6,7 @@ import { setFontSizeByHeaderLevel } from "../../../utils/components/primitives/t
 
 interface StyledHeader {
   level?: HeaderLevelInt;
+  mobile?: boolean;
 }
 export interface TitleProps
   extends StyledHeader,
@@ -24,16 +25,16 @@ const StyledHeader = styled.h1<StyledHeader>`
   }};
   font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
   font-weight: bold;
-  font-size: ${(props) => setFontSizeByHeaderLevel(props.level)};
+  font-size: ${(props) => setFontSizeByHeaderLevel(props.level, props.mobile)};
   line-height: 125%;
 `;
 
 export const Title: React.FC<TitleProps> = (props) => {
-  const { children, level = 1 } = props;
+  const { children, level = 1, mobile = false } = props;
   const tagName: HeaderLevelStr = `h${level}`;
 
   return (
-    <StyledHeader {...props} as={tagName} level={level}>
+    <StyledHeader {...props} as={tagName} level={level} mobile={mobile}>
       {children}
     </StyledHeader>
   );

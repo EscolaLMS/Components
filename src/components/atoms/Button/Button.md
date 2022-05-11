@@ -24,6 +24,22 @@ import ThemeTester from "../../../styleguide/ThemeTester";
     <Button mode="secondary" disabled>
       Secondary button disabled
     </Button>
+    <Button invert>Invert button</Button>
+    <Button invert loading>
+      Invert loading button
+    </Button>
+    <Button mode="secondary" invert>
+      Secondary Invert button
+    </Button>
+    <Button mode="outline" invert>
+      Outline Invert button
+    </Button>
+    <Button disabled invert>
+      Primary Invert Button disabled
+    </Button>
+    <Button mode="secondary" disabled invert>
+      Secondary Invert Button disabled
+    </Button>
   </ThemeTester>
 
   <ImageModal images={[img1]} />
