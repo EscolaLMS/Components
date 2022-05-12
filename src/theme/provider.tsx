@@ -12,6 +12,7 @@ export interface SharedDefaultTheme {
   inputRadius?: number;
   noteRadius?: number;
   checkboxRadius?: number;
+  cardRadius?: number;
   white: string;
   gray5: string;
   gray4: string;
