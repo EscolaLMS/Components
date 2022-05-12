@@ -20,6 +20,7 @@ const StyledText = styled("p")<IconTextProps>`
   margin: 0 0 20px 0;
   font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
   display: flex;
+  align-items: center;
   flex-wrap: wrap;
   font-size: 14px;
   color: ${(props) => {
@@ -27,16 +28,12 @@ const StyledText = styled("p")<IconTextProps>`
   }};
 
   .icon {
-    width: 1em;
+    width: 18px;
+    height: 18px;
     display: flex;
     align-items: center;
     margin-right: 9px;
     svg {
-      fill: ${(props) => {
-        return props.theme.mode !== "light"
-          ? props.theme.white
-          : props.theme.black;
-      }};
       flex-shrink: 0;
     }
   }
