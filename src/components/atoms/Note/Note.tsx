@@ -18,6 +18,7 @@ const StyledNote = styled("div")<StyledNoteProps>`
   display: flex;
   position: relative;
   width: 100%;
+  box-sizing: border-box;
   justify-content: space-between;
   margin-bottom: 10px;
   border-radius: ${(props) => props.theme.noteRadius}px;

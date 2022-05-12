@@ -173,8 +173,16 @@ const StyledButton = styled("button")<ButtonProps>`
         } else {
           if (props.mode === "outline") {
             return `
-              background: ${props.theme.black};
-              color: ${props.theme.white};
+              background: ${
+                props.theme.mode !== "dark"
+                  ? props.theme.black
+                  : props.theme.white
+              };
+              color: ${
+                props.theme.mode !== "dark"
+                  ? props.theme.white
+                  : props.theme.black
+              };
             `;
           }
           return `
