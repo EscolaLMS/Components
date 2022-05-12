@@ -36,6 +36,11 @@ const StyledTutor = styled.div<StyledTourProps>`
     }
     .ranking-row {
       display: flex;
+      ${(props) => {
+        if (!props.mobile) {
+          return "align-items: center;";
+        }
+      }}
       flex-direction: ${(props) => (props.mobile ? "column" : "row")};
       margin: 10px 0;
     }
@@ -55,15 +60,8 @@ const StyledTutor = styled.div<StyledTourProps>`
 `;
 
 export const Tutor: React.FC<TutorProps> = (props) => {
-  const {
-    title,
-    fullName,
-    avatar,
-    rating,
-    coursesInfo,
-    description,
-    mobile,
-  } = props;
+  const { title, fullName, avatar, rating, coursesInfo, description, mobile } =
+    props;
 
   return (
     <StyledTutor className="lms-tutor" mobile={mobile}>
