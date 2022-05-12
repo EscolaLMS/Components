@@ -1,13 +1,12 @@
 ```js
 import { GlobalThemeProvider } from "../../../theme/provider";
 import ImageModal from "../../../styleguide/ImageModal";
-
-import img1 from "./Course.png";
+import img1 from "./LoginForm.png";
 
 <GlobalThemeProvider>
-  <Tutors>
+  <ResetPasswordForm>
     <pre>This component is not ready yet</pre>
-  </Tutors>
+  </ResetPasswordForm>
   <ImageModal images={[img1]} />
 </GlobalThemeProvider>;
 ```
