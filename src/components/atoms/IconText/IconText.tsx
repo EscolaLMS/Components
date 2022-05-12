@@ -12,14 +12,16 @@ export interface IconTextProps
   icon: React.ReactNode;
   text: string;
   styles?: Styles;
+  noMargin?: boolean;
 }
 
 const StyledText = styled("p")<IconTextProps>`
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  margin: 0 0 20px 0;
+  margin: ${({ noMargin }) => (noMargin ? "0" : "0 0 20px 0")};
   font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
   display: flex;
+  align-items: center;
   flex-wrap: wrap;
   font-size: 14px;
   color: ${(props) => {
@@ -27,16 +29,12 @@ const StyledText = styled("p")<IconTextProps>`
   }};
 
   .icon {
-    width: 1em;
+    width: 18px;
+    height: 18px;
     display: flex;
     align-items: center;
     margin-right: 9px;
     svg {
-      fill: ${(props) => {
-        return props.theme.mode !== "light"
-          ? props.theme.white
-          : props.theme.black;
-      }};
       flex-shrink: 0;
     }
   }
@@ -50,7 +48,7 @@ export const IconText: React.FC<IconTextProps> = (props) => {
       <span className="icon" style={styles?.icon}>
         {icon}
       </span>
-      <span className="title" style={styles?.text}>
+      <span className="text" style={styles?.text}>
         {text}
       </span>
     </StyledText>
