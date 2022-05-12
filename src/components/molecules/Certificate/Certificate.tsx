@@ -88,8 +88,14 @@ const Icon2 = () => {
 };
 
 export const Certificate: React.FC<CertificateProps> = (props) => {
-  const { image, title, description, handleDownload, handleShare, mobile } =
-    props;
+  const {
+    image,
+    title,
+    description,
+    handleDownload,
+    handleShare,
+    mobile = false,
+  } = props;
 
   return (
     <StyledCertificate {...props}>
