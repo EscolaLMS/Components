@@ -2,13 +2,14 @@ import * as React from "react";
 import styled, { withTheme } from "styled-components";
 import { Title } from "../../atoms/Typography/Title";
 import { Col, Row } from "react-grid-system";
+import { ReactNode } from "react";
 
 interface CheckoutOrderProps {
-  id: number;
-  title: string;
-  lessons: number;
-  price: number;
-  oldPrice?: number;
+  title: ReactNode;
+  subtitle?: ReactNode[];
+  summary?: ReactNode[];
+  price: string;
+  oldPrice?: string;
   satisfaction?: number;
   guarantee?: boolean;
   rating?: number;
@@ -63,13 +64,13 @@ export const CheckoutCards: React.FC<CheckoutCardsProps> = (props) => {
 
   return (
     <React.Fragment>
-      {orders.map((order) => {
+      {orders.map(({ handleDelete, oldPrice, price, title }, index) => {
         return (
-          <StyledCheckoutCard {...props} key={order.id}>
+          <StyledCheckoutCard {...props} key={index}>
             <Row>
               <Col xs={12} md={6}>
                 <Title as={"h4"} level={4} style={{ marginBottom: "10px" }}>
-                  {order.title}
+                  {title}
                 </Title>
               </Col>
               <Col xs={12} md={6}>
@@ -81,22 +82,22 @@ export const CheckoutCards: React.FC<CheckoutCardsProps> = (props) => {
                   }}
                 >
                   <div>
-                    {order.oldPrice && (
+                    {oldPrice && (
                       <Title
                         as={"h5"}
                         level={5}
                         className={"checkout-card-discount"}
                       >
-                        {order.oldPrice} zł
+                        {oldPrice}
                       </Title>
                     )}
                     <Title as={"h4"} level={4}>
-                      {order.price} zł
+                      {price}
                     </Title>
                   </div>
                   <div
                     className={"checkout-card-remove"}
-                    onClick={order.handleDelete}
+                    onClick={handleDelete}
                   >
                     <IconBin />
                   </div>

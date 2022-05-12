@@ -10,11 +10,9 @@ import img1 from "./CheckoutCards.png";
       <CheckoutCards
         orders={[
           {
-            id: 1,
             title: "Product 1",
-            lessons: 10,
-            price: 100,
-            oldPrice: 50,
+            price: "100 zł",
+            oldPrice: "50 zł",
             satisfaction: 80,
             guarantee: true,
             rating: 4.5,
@@ -23,11 +21,9 @@ import img1 from "./CheckoutCards.png";
             },
           },
           {
-            id: 2,
             title: "Product 1",
-            lessons: 10,
-            price: 100,
-            oldPrice: 50,
+            price: "100 zł",
+            oldPrice: "50 zł",
             satisfaction: 80,
             guarantee: true,
             rating: 4.5,
