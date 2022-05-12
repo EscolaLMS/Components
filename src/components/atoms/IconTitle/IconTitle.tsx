@@ -8,6 +8,7 @@ interface Styles {
   icon?: React.CSSProperties;
   title?: React.CSSProperties;
   subtitle?: React.CSSProperties;
+  container?: React.CSSProperties;
 }
 
 interface StyledHeader {
@@ -68,7 +69,12 @@ export const IconTitle: React.FC<IconTitleProps> = (props) => {
   const { title, subtitle, icon, level = 3, styles } = props;
   const tagName: HeaderLevelStr = `h${level}`;
   return (
-    <StyledHeader as={tagName} level={level} className="lms-icon-title">
+    <StyledHeader
+      as={tagName}
+      level={level}
+      className="lms-icon-title"
+      style={styles?.container}
+    >
       <span className="icon" style={styles?.icon}>
         {icon}
       </span>
