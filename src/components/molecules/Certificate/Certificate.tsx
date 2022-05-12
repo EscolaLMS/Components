@@ -10,24 +10,37 @@ export interface CertificateProps extends React.HTMLAttributes<HTMLDivElement> {
   description: string;
   handleDownload: () => void;
   handleShare: () => void;
+  mobile?: boolean;
 }
 
-const StyledCertificate = styled("div")`
+const StyledCertificate = styled("div")<CertificateProps>`
   .certificate-left-col {
     margin-left: 20px;
   }
 
   .certificate-right-col {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border-left: 1px solid
-      ${({ theme }) => (theme.mode === "light" ? theme.gray3 : theme.white)};
+    ${(props) =>
+      props.mobile
+        ? `
+      margin-top: 23px;
+      `
+        : `
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-left: 1px solid ${
+        props.theme.mode === "light" ? props.theme.gray3 : props.theme.white
+      };
+    `}
   }
 
   .certificate-right-col-inner {
-    padding-left: 34px;
+    ${(props) =>
+      props.mobile &&
+      `
+        padding-left: 34px;
+      `}
   }
 
   .certificate-link {
@@ -75,17 +88,18 @@ const Icon2 = () => {
 };
 
 export const Certificate: React.FC<CertificateProps> = (props) => {
-  const { image, title, description, handleDownload, handleShare } = props;
+  const { image, title, description, handleDownload, handleShare, mobile } =
+    props;
 
   return (
-    <StyledCertificate>
+    <StyledCertificate {...props}>
       <Title level={4} as={"h4"} style={{ marginBottom: "20px" }}>
         Certificates
       </Title>
       <Row>
         <Col
           xs={12}
-          md={7}
+          md={mobile ? 12 : 7}
           style={{
             display: "flex",
             alignItems: "center",
@@ -107,7 +121,7 @@ export const Certificate: React.FC<CertificateProps> = (props) => {
             </Text>
           </div>
         </Col>
-        <Col xs={12} md={5} className={"certificate-right-col"}>
+        <Col xs={12} md={mobile ? 12 : 5} className={"certificate-right-col"}>
           <div>
             <div className="certificate-link">
               <Icon1 />
