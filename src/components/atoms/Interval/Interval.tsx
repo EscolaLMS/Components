@@ -1,13 +1,13 @@
 import * as React from "react";
-import styled, { withTheme } from "styled-components";
+import styled from "styled-components";
 import { calcPercentage } from "../../../utils/utils";
 
-export interface CommentBarProps {
+export interface IntervalProps {
   current: number;
   max: number;
 }
 
-const StyledRating = styled.div<CommentBarProps>`
+const StyledInterval = styled.div<IntervalProps>`
   position: relative;
   margin: 15px 8px;
   height: 1px;
@@ -38,7 +38,7 @@ const StyledRating = styled.div<CommentBarProps>`
     background: ${(props) =>
       props.theme.mode !== "dark"
         ? props.theme.primaryColor
-        : props.theme.backgroundDarkProgress};
+        : props.theme.backgroundDarkInterval};
     width: ${({ max, current }) => {
       return `${calcPercentage(current, max)}`;
     }};
@@ -46,15 +46,10 @@ const StyledRating = styled.div<CommentBarProps>`
   }
 `;
 
-export const CommentBar: React.FC<CommentBarProps> = (props) => {
+export const Interval: React.FC<IntervalProps> = (props) => {
   return (
-    <StyledRating {...props}>
+    <StyledInterval {...props}>
       <div></div>
-    </StyledRating>
+    </StyledInterval>
   );
 };
-
-const NewCommentBar = styled(CommentBar)``;
-
-// Main button with styles
-export default withTheme(NewCommentBar);

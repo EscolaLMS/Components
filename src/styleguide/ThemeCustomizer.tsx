@@ -15,7 +15,7 @@ const allowedKeys: (keyof DefaultTheme & string)[] = [
   "textColorDark",
   "textColorLight",
   "backgroundDarkProgress",
-  "backgroundDarkCommentBar",
+  "backgroundDarkInterval",
   "errorColor",
   "invertColor",
   "white",
@@ -29,6 +29,7 @@ const allowedKeys: (keyof DefaultTheme & string)[] = [
   "checkboxRadius",
   "inputRadius",
   "noteRadius",
+  "cardRadius",
 ];
 
 const filterInputData = (input: DefaultTheme) => {
@@ -90,8 +91,7 @@ export const ThemeCustomizer: React.FC<{
           textColorLight: initData.textColorLight || "#000000",
           backgroundDarkProgress: initData.backgroundDarkProgress || "#000000",
           errorColor: initData.errorColor || "#EB5757",
-          backgroundDarkCommentBar:
-            initData.backgroundDarkCommentBar || "#000000",
+          backgroundDarkInterval: initData.backgroundDarkInterval || "#000000",
           invertColor: initData.invertColor || "#000000",
         }),
         "Body Colors": folder({
@@ -127,6 +127,12 @@ export const ThemeCustomizer: React.FC<{
             max: 100,
             step: 1,
             value: initData.noteRadius || 0,
+          },
+          cardRadius: {
+            min: 0,
+            max: 100,
+            step: 1,
+            value: initData.cardRadius || 0,
           },
         }),
       },

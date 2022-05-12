@@ -12,6 +12,7 @@ export interface SharedDefaultTheme {
   inputRadius?: number;
   noteRadius?: number;
   checkboxRadius?: number;
+  cardRadius?: number;
   white: string;
   gray5: string;
   gray4: string;
@@ -20,7 +21,7 @@ export interface SharedDefaultTheme {
   gray1: string;
   black: string;
   backgroundDarkProgress: string;
-  backgroundDarkCommentBar: string;
+  backgroundDarkInterval: string;
   errorColor: string;
   invertColor: string;
 }

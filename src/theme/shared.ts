@@ -2,11 +2,12 @@ import { SharedDefaultTheme } from "./provider";
 
 export const sharedTheme: SharedDefaultTheme = {
   backgroundDarkProgress: "#E60037",
-  backgroundDarkCommentBar: "#FF003D",
+  backgroundDarkInterval: "#FF003D",
   buttonRadius: 0,
   checkboxRadius: 0,
   inputRadius: 0,
   noteRadius: 0,
+  cardRadius: 0,
   backgroundDark: "#000000",
   backgroundLight: "#FFFFFF",
   errorColor: "#EB5757",
