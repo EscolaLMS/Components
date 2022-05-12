@@ -30,7 +30,8 @@ const StyledCheckoutCard = styled("div")<CheckoutCardProps>`
   padding: 15px;
   width: 100%;
   box-sizing: border-box;
-  background-color: ${({ theme }) => theme.gray5};
+  background-color: ${(props) =>
+    props.theme.mode == "light" ? props.theme.gray4 : props.theme.gray1};
 
   &:not(:last-child) {
     margin-bottom: 20px;
@@ -148,7 +149,7 @@ export const CheckoutCard: React.FC<CheckoutCardProps> = (props) => {
   const { img, summary, subtitle, oldPrice, price, title, handleDelete } =
     props;
 
-  const chooseIcon = (type: string) => {
+  const summaryIcon = (type: string) => {
     switch (type) {
       case "satisfaction":
         return <IconBadge />;
@@ -217,7 +218,7 @@ export const CheckoutCard: React.FC<CheckoutCardProps> = (props) => {
                 <div className={"checkout-card-summary"}>
                   {summary.map((item, index) => (
                     <IconText
-                      icon={chooseIcon(item.type)}
+                      icon={summaryIcon(item.type)}
                       text={item.text}
                       key={index}
                       style={{
