@@ -2,6 +2,7 @@
 import ThemeTester from "../../../styleguide/ThemeTester";
 import ImageModal from "../../../styleguide/ImageModal";
 import img1 from "./Notes.png";
+import { Title } from "../../atoms/Typography/Title";
 const noteGroups = [
   {
     title: "lession 1",
@@ -38,7 +39,14 @@ const noteGroups = [
 ];
 
 <ThemeTester childrenListStyle={{ display: "block" }}>
+  <Title level={3}>Desktop View</Title>
   <Notes
+    noteGroups={noteGroups}
+    onAddNoteClick={() => console.log("On add node click")}
+  />
+  <Title level={3}>Mobile View</Title>
+  <Notes
+    mobile
     noteGroups={noteGroups}
     onAddNoteClick={() => console.log("On add node click")}
   />

@@ -32,6 +32,7 @@ export interface NotesProps {
   onAddNoteClick: (
     event?: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => void;
+  mobile?: boolean;
 }
 
 const StyledNotes = styled.div`
@@ -41,19 +42,21 @@ const StyledNotes = styled.div`
 `;
 
 export const Notes: React.FC<NotesProps> = (props) => {
-  const { noteGroups, onAddNoteClick } = props;
+  const { noteGroups, onAddNoteClick, mobile } = props;
 
   return (
     <StyledNotes>
       {noteGroups.map((noteGroup) => {
         return (
           <>
-            <IconTitle
-              level={4}
-              title={"Notatki"}
-              icon={<NoteIcon />}
-              as={"h4"}
-            />
+            {!mobile && (
+              <IconTitle
+                level={4}
+                title={"Notatki"}
+                icon={<NoteIcon />}
+                as={"h4"}
+              />
+            )}
             <Button mode="outline" onClick={onAddNoteClick}>
               Dodaj nową notatkę
             </Button>
