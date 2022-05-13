@@ -7,6 +7,11 @@ import { initReactI18next } from "react-i18next";
 const resources = {
   en: {
     translation: {
+      "Course.Lesson": "Module",
+      "Course.Finished": "Finished",
+      "Course.Agenda": "Agenda",
+      "Course.markAsFinished": "Mark as finished",
+
       "Welcome to Wellms": "Welcome to Wellms and react-i18next",
     },
   },
