@@ -24,7 +24,6 @@ const StyledTextArea = styled("div")<TextAreaProps>`
   font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
   font-size: 14px;
   position: relative;
-  margin: 20px 0;
   * {
     outline: none;
     box-sizing: content-box;
