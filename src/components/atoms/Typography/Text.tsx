@@ -27,6 +27,10 @@ const StyledP = styled.p<TextProps>`
   font-weight: ${(props) => (props.bold ? "bold" : "normal")};
   font-size: ${(props) => (props.size === "14" ? "14px" : "16px")};
   line-height: 1.55em;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 `;
 
 export const Text: React.FC<TextProps> = (props) => {
