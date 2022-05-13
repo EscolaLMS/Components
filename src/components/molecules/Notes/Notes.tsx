@@ -22,23 +22,6 @@ const NoteIcon = () => {
   );
 };
 
-const PlusIcon = () => {
-  return (
-    <svg
-      width="14"
-      height="14"
-      viewBox="0 0 14 14"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M6.9987 0.333496C7.45893 0.333496 7.83203 0.706592 7.83203 1.16683V6.16683H12.832C13.2923 6.16683 13.6654 6.53993 13.6654 7.00017C13.6654 7.4604 13.2923 7.8335 12.832 7.8335H7.83203V12.8335C7.83203 13.2937 7.45893 13.6668 6.9987 13.6668C6.53846 13.6668 6.16536 13.2937 6.16536 12.8335V7.8335H1.16536C0.705127 7.8335 0.332031 7.4604 0.332031 7.00017C0.332031 6.53993 0.705127 6.16683 1.16536 6.16683H6.16536V1.16683C6.16536 0.706592 6.53846 0.333496 6.9987 0.333496Z"
-        fill="currentColor"
-      />
-    </svg>
-  );
-};
-
 interface NoteGroup {
   title: ReactNode;
   notes: NoteProps[];
@@ -53,13 +36,7 @@ export interface NotesProps {
 
 const StyledNotes = styled.div`
   .title {
-    margin-bottom: 0;
-  }
-  .title-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
+    margin: 20px 0 10px;
   }
 `;
 
@@ -77,14 +54,10 @@ export const Notes: React.FC<NotesProps> = (props) => {
               icon={<NoteIcon />}
               as={"h4"}
             />
-            <div className="title-container">
-              <Text className="title">{noteGroup.title}</Text>
-              <Button mode="outline" onClick={onAddNoteClick}>
-                <PlusIcon />
-                Dodaj nową
-              </Button>
-            </div>
-
+            <Button mode="outline" onClick={onAddNoteClick}>
+              Dodaj nową notatkę
+            </Button>
+            <Text className="title">{noteGroup.title}</Text>
             {noteGroup.notes.map((note) => {
               return <Note {...note} />;
             })}
