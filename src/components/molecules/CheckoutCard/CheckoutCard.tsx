@@ -163,7 +163,17 @@ export const CheckoutCard: React.FC<CheckoutCardProps> = (props) => {
                   {title}
                 </Title>
               </div>
-              {subtitle && <IconText icon={<IconBook />} text={"5 lekcji"} />}
+              {subtitle && (
+                <IconText
+                  icon={<IconBook />}
+                  text={"5 lekcji"}
+                  styles={{
+                    icon: {
+                      display: mobile ? "none" : "",
+                    },
+                  }}
+                />
+              )}
             </Col>
             <Col xs={12} md={mobile ? 2 : 6}>
               <div
