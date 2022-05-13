@@ -81,8 +81,7 @@ export const RegisterForm: React.FC<{
     phone: "",
   });
   const { t } = useTranslation();
-  const { register, config, fields, fetchFields } =
-    useContext(EscolaLMSContext);
+  const { register, fields, fetchFields } = useContext(EscolaLMSContext);
 
   useEffect(() => {
     fetchFields({ class_type: "App\\Models\\User" });
@@ -112,7 +111,8 @@ export const RegisterForm: React.FC<{
       ) {
         if (
           field.extra?.some(
-            (item: Record<string, any>) => item.register === false
+            (item: Record<string, string | number | boolean>) =>
+              item.register === false
           )
         ) {
           return false;
@@ -285,7 +285,8 @@ export const RegisterForm: React.FC<{
                   const r =
                     Array.isArray(field.extra) &&
                     field.extra?.filter(
-                      (item: Record<string, any>) => item.register
+                      (item: Record<string, string | number | boolean>) =>
+                        item.register
                     );
 
                   return field.type !== "boolean" && !r;

@@ -12,14 +12,17 @@ export interface BannerImgProps {
 }
 
 export interface BannerProps extends React.HTMLAttributes<HTMLDivElement> {
+  background?: React.CSSProperties["background"];
   text: string;
   btnText: string;
-  img: BannerImgProps;
+  img: BannerImgProps | React.ReactElement;
   handleBtn: () => void;
   mobile?: boolean;
 }
 
 const StyledBanner = styled("div")<BannerProps>`
+  background: ${(props) => props.background};
+
   .banner-btn {
     margin-top: ${(props) => (props.mobile ? "22px" : "52px")};
   }
@@ -50,12 +53,16 @@ export const Banner: React.FC<BannerProps> = (props) => {
           </Button>
         </Col>
         <Col xs={12} md={mobile ? 12 : 6}>
-          <img
-            src={img.src}
-            alt={img.alt}
-            title={img.title}
-            className={"banner-img"}
-          />
+          {React.isValidElement(img) ? (
+            <React.Fragment>{img}</React.Fragment>
+          ) : (
+            <img
+              className={"banner-img"}
+              src={(img as BannerImgProps).src}
+              alt={(img as BannerImgProps).alt}
+              title={(img as BannerImgProps).title}
+            />
+          )}
         </Col>
       </Row>
     </StyledBanner>

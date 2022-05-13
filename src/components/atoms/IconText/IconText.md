@@ -1,7 +1,7 @@
 ```js
 import { GlobalThemeProvider } from "../../../theme/provider";
 import ImageModal from "../../../styleguide/ImageModal";
-import img1 from "./IconTitle.png";
+import img1 from "./IconText.png";
 import ThemeTester from "../../../styleguide/ThemeTester";
 
 const Icon1 = () => (
@@ -12,30 +12,8 @@ const Icon1 = () => (
 
 <React.Fragment>
   <ThemeTester flexDirection="column">
-    <IconTitle
-      level={1}
-      title="Material to download"
-      subtitle="lession 3"
-      icon={<Icon1 />}
-    />
-    <IconTitle
-      level={2}
-      title="Material to download"
-      subtitle="lession 3"
-      icon={<Icon1 />}
-    />
-    <IconTitle
-      level={3}
-      title="Material to download"
-      subtitle="lession 3"
-      icon={<Icon1 />}
-    />
-    <IconTitle
-      level={4}
-      title="Material to download"
-      subtitle="lession 3"
-      icon={<Icon1 />}
-    />
+    <IconText icon={<Icon1 />} text={"My example text"} />
+    <IconText icon={<Icon1 />} text={"My example text"} />
   </ThemeTester>
 
   <ImageModal images={[img1]} />

@@ -11,6 +11,7 @@ import { Text } from "../../../";
         onSuccess={() => console.log("onSuccess")}
         onError={(err) => console.log("onError", err.data)}
         onLoginLink={() => console.log("onLoginLink")}
+        return_url="?action=_after_click_from_email"
       />
 
       <Text>Mobile version</Text>
