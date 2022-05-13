@@ -1,6 +1,5 @@
 import { Button, IconTitle, ProgressRing, Text } from "../../..";
 import * as React from "react";
-import ReactMarkdown from "react-markdown";
 import styled, { withTheme } from "styled-components";
 import { useTranslation } from "react-i18next";
 import type { Lesson, Topic } from "@escolalms/sdk/lib/types/api";
@@ -322,7 +321,7 @@ const CourseAgendaTopic: React.FC<CourseAgendaTopicProps> = ({
 
 const CourseAgendaLesson: React.FC<CourseAgendaLessonProps> = (props) => {
   const {
-    mobile = false,
+    // mobile = false,
     lesson,
     index,
     finishedTopicIds,
