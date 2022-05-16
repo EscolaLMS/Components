@@ -2,32 +2,52 @@ import * as React from "react";
 import styled from "styled-components";
 
 export interface CardProps {
-  wingsSize?: "small" | "large";
+  // size of wings for a card
+  wings?: "small" | "large" | "hidden";
+  // overwrite default css style
   style?: React.CSSProperties;
-  smallPadding?: boolean;
+  // block or inline
+  inline?: boolean;
 }
 
 const StyledCard = styled.div<CardProps>`
+  width: ${(props) => (props.inline ? "auto" : "100%")};
+  display: ${(props) => (props.inline ? "inline-block" : "block")};
+
   position: relative;
+
+  padding-top: ${(props) => {
+    switch (props.wings) {
+      case "large":
+        return "73px";
+      case "small":
+        return "22px";
+      case "hidden":
+      default:
+        return "0";
+    }
+  }};
   .content {
     position: relative;
     padding: ${(props) => {
-      if (props.smallPadding) {
-        return "10px 13px";
+      if (props.inline) {
+        return "10px 15px";
       }
       return "15px 20px";
     }};
     z-index: 1;
     border-radius: ${(props) => props.theme.cardRadius}px;
     background: ${(props) =>
-      props.theme.mode !== "dark" ? props.theme.gray4 : props.theme.gray1};
+      props.theme.mode !== "dark"
+        ? props.theme.cardBackgroundColorDark
+        : props.theme.cardBackgroundColorLight};
     &:before,
     &:after {
       background: ${(props) => {
-        if (props.wingsSize) {
+        if (props.wings) {
           return props.theme.mode !== "dark"
-            ? props.theme.gray4
-            : props.theme.gray1;
+            ? props.theme.cardBackgroundColorDark
+            : props.theme.cardBackgroundColorLight;
         }
         return "transparent";
       }};
@@ -45,15 +65,15 @@ const StyledCard = styled.div<CardProps>`
       z-index: -1;
     }
     &:before {
-      ${({ wingsSize }) => {
-        if (wingsSize && wingsSize === "large") {
+      ${({ wings }) => {
+        if (wings && wings === "large") {
           return `
           height: calc(100% + 33px);
             top: -33px;
             clip-path: polygon(100% 0, 100% 100%, 0 100%, 0 33px);
           `;
         }
-        if (wingsSize && wingsSize === "small") {
+        if (wings && wings === "small") {
           return `
             height: calc(100% + 10px);
             top: -10px;
@@ -63,15 +83,15 @@ const StyledCard = styled.div<CardProps>`
       }}
     }
     &:after {
-      ${({ wingsSize }) => {
-        if (wingsSize && wingsSize === "large") {
+      ${({ wings }) => {
+        if (wings && wings === "large") {
           return `
             height: calc(100% + 72px);
             top: -72px;
             clip-path: polygon(100% 0, 100% 100%, 0 100%, 0 72px);
           `;
         }
-        if (wingsSize && wingsSize === "small") {
+        if (wings && wings === "small") {
           return `
             height: calc(100% + 22px);
             top: -22px;
@@ -84,13 +104,13 @@ const StyledCard = styled.div<CardProps>`
 `;
 
 export const Card: React.FC<CardProps> = ({
-  wingsSize,
+  wings,
   children,
   style,
-  smallPadding,
+  inline,
 }) => {
   return (
-    <StyledCard wingsSize={wingsSize} style={style} smallPadding={smallPadding}>
+    <StyledCard wings={wings} style={style} inline={inline}>
       <div className="content">{children}</div>
     </StyledCard>
   );
