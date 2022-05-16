@@ -36,9 +36,10 @@ const StyledCard = styled.div<CardProps>`
       right: 0;
       width: ${(props) => {
         if (props.theme.cardRadius !== undefined) {
-          return `calc(100% - ${props.theme.cardRadius / 1.5}px);`;
+          return `calc(100% - ${props.theme.cardRadius / 1.5}px)`;
         }
-      }}
+        return "auto";
+      }};
       opacity: 0.4;
       border-radius: ${(props) => props.theme.cardRadius}px;
       z-index: -1;

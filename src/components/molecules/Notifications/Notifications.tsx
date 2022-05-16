@@ -123,16 +123,23 @@ const StyledLink = styled.a`
   font-weight: 500;
   color: ${({ theme }) => theme.textColorLight};
   transition: color 0.4s;
-  &:hover {
-    color: ${({ theme }) => theme.primaryColor};
-    svg path {
-      fill: ${({ theme }) => theme.primaryColor};
+
+  /* stylelint-disable */
+  svg {
+    /* stylelint-enable */
+    margin-left: 8px;
+    /* stylelint-disable */
+    path {
+      /* stylelint-enable */
+      transition: fill 0.4s;
     }
   }
-  svg {
-    margin-left: 8px;
-    path {
-      transition: fill 0.4s;
+  &:hover {
+    color: ${({ theme }) => theme.primaryColor};
+    svg {
+      path {
+        fill: ${({ theme }) => theme.primaryColor};
+      }
     }
   }
 `;

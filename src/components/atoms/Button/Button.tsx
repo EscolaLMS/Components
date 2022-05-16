@@ -110,36 +110,6 @@ const StyledButton = styled("button")<ButtonProps>`
     width: auto;
   }
 
-  &:disabled {
-    cursor: not-allowed;
-    border-color: transparent;
-    ${(props) => {
-      if (props.theme) {
-        return `background: rgba(${chroma(props.theme.gray1)
-          .rgb()
-          .join(",")}, 0.2);`;
-      }
-    }}
-    ${(props) => {
-      if (props.invert) {
-        return `color: ${props.theme.white};`;
-      }
-    }}
-    &,
-    &:hover,
-    &:focus,
-    &:active {
-      ${(props) => {
-        if (props.theme) {
-          return `background: rgba(${chroma(props.theme.gray1)
-            .rgb()
-            .join(",")}, 0.2);`;
-        }
-      }}
-      color: ${(props) => props.theme.white}
-    }
-  }
-
   &:focus,
   &:active {
     border-style: solid;
@@ -183,6 +153,36 @@ const StyledButton = styled("button")<ButtonProps>`
         }
       }
     }}
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    border-color: transparent;
+    ${(props) => {
+      if (props.theme) {
+        return `background: rgba(${chroma(props.theme.gray1)
+          .rgb()
+          .join(",")}, 0.2);`;
+      }
+    }}
+    ${(props) => {
+      if (props.invert) {
+        return `color: ${props.theme.white};`;
+      }
+    }}
+    &,
+    &:hover,
+    &:focus,
+    &:active {
+      ${(props) => {
+        if (props.theme) {
+          return `background: rgba(${chroma(props.theme.gray1)
+            .rgb()
+            .join(",")}, 0.2);`;
+        }
+      }}
+      color: ${(props) => props.theme.white}
+    }
   }
 `;
 

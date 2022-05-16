@@ -140,12 +140,7 @@ const StyledSection = styled("section")<CourseAgendaProps>`
     .duration {
       margin: 1px 0;
     }
-    &.open > header button svg {
-      transform: rotate(180deg);
-    }
-    &.closed > header button svg {
-      transform: rotate(0);
-    }
+
     & > header {
       display: flex;
       flex-direction: row;
@@ -188,17 +183,16 @@ const StyledSection = styled("section")<CourseAgendaProps>`
         }
       }
     }
+    &.open > header button svg {
+      transform: rotate(180deg);
+    }
+    &.closed > header button svg {
+      transform: rotate(0);
+    }
     &.closed {
       cursor: pointer;
     }
-    &.open .lesson__topics {
-      max-height: 100vh;
-      transition: all 0.35s ease-in;
-    }
-    &.closed .lesson__topics {
-      max-height: 0;
-      transition: all 0.35s ease-out;
-    }
+
     .lesson__topics {
       list-style: none;
       margin: 0;
@@ -210,29 +204,11 @@ const StyledSection = styled("section")<CourseAgendaProps>`
         border-bottom: 2px solid ${(props) => props.theme.white};
         position: relative;
         cursor: pointer;
-        &:hover {
-          .topic__title {
-            text-decoration: underline;
-          }
-        }
+
         &:last-child {
           border-bottom: none;
         }
-        &.lesson__topic-current {
-          background: ${(props) => props.theme.white};
-          cursor: default;
-          button {
-            margin-top: 6px;
-            border-width: 1px;
-            font-weight: normal;
-            color: ${(props) => props.theme.gray1};
-          }
-          &:hover {
-            .topic__title {
-              text-decoration: none;
-            }
-          }
-        }
+
         & > p {
           padding-left: 30px;
           margin: 0 0 10px 0;
@@ -265,7 +241,38 @@ const StyledSection = styled("section")<CourseAgendaProps>`
         .topic__index {
           color: ${(props) => props.theme.gray3};
         }
+
+        &:hover {
+          .topic__title {
+            text-decoration: underline;
+          }
+        }
+
+        &.lesson__topic-current {
+          background: ${(props) => props.theme.white};
+          cursor: default;
+          button {
+            margin-top: 6px;
+            border-width: 1px;
+            font-weight: normal;
+            color: ${(props) => props.theme.gray1};
+          }
+          &:hover {
+            .topic__title {
+              text-decoration: none;
+            }
+          }
+        }
       }
+    }
+
+    &.open .lesson__topics {
+      max-height: 100vh;
+      transition: all 0.35s ease-in;
+    }
+    &.closed .lesson__topics {
+      max-height: 0;
+      transition: all 0.35s ease-out;
     }
   }
 `;
