@@ -50,5 +50,7 @@
     "webpack": "^5.72.0"
   },
   "homepage": "https://escolalms.github.io/components",
-  "dependencies": {}
+  "dependencies": {
+    "react-dropdown": "^1.10.0"
+  }
 }
