@@ -1,12 +1,25 @@
 ```js
-import { GlobalThemeProvider } from "../../../theme/provider";
+import ThemeTester from "../../../styleguide/ThemeTester";
 import ImageModal from "../../../styleguide/ImageModal";
-import img1 from "./Dropdown.png";
+import img1 from "./Dropdown1.png";
+import img2 from "./Dropdown2.png";
 
-<GlobalThemeProvider>
-  <Dropdown>
-    <pre>This component is not ready yet</pre>
-  </Dropdown>
-  <ImageModal images={[img1]} />
-</GlobalThemeProvider>;
+<ThemeTester flexDirection={"column"}>
+  <Dropdown
+    options={["item1", "item2", "item3", "item4", "item5", "item6"]}
+    placeholder="Select from string"
+  />
+  <Dropdown
+    options={[
+      { label: "item1", value: 1 },
+      { label: "item2", value: 2 },
+      { label: "item3", value: 3 },
+      { label: "item4", value: 4 },
+      { label: "item5", value: 5 },
+      { label: "item6", value: 6 },
+    ]}
+    placeholder="Select from object"
+  />
+  <ImageModal images={[img1, img2]} />
+</ThemeTester>;
 ```
