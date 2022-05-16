@@ -44,8 +44,6 @@ const StyledDiv = styled.div<{
     padding: 10px 25px 0;
     display: flex;
     flex-wrap: wrap;
-    align-items: ${(props) =>
-      props.flexDirection === "column" ? "" : "center"};
     flex-direction: ${(props) => props.flexDirection || "row"};
     align-items: ${(props) => props.alignItems || "center"};
     gap: 20px;
