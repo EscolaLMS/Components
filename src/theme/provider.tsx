@@ -8,6 +8,8 @@ export interface SharedDefaultTheme {
   theme?: string;
   backgroundLight: string;
   backgroundDark: string;
+  cardBackgroundColorLight: string;
+  cardBackgroundColorDark: string;
   buttonRadius?: number;
   inputRadius?: number;
   noteRadius?: number;
@@ -31,6 +33,7 @@ declare module "styled-components" {
     mode?: "light" | "dark";
     textColorLight: string;
     textColorDark: string;
+
     primaryColor: string;
     secondaryColor?: string;
     radius?: number;
