@@ -49,14 +49,6 @@ const StyledStepsOption = styled("div")`
   align-items: flex-end;
   flex: 1;
 
-  label {
-    position: relative;
-
-    &:hover span {
-      opacity: 1;
-    }
-  }
-
   span {
     top: -30px;
     margin: 0;
@@ -73,17 +65,23 @@ const StyledStepsOption = styled("div")`
     opacity: 0;
     transition: opacity 0.2s ease-in-out;
   }
-
-  input:checked + span {
-    opacity: 1;
-  }
-
   &:last-child {
     span {
       left: auto;
       right: 0;
       transform: translateX(0);
     }
+  }
+  label {
+    position: relative;
+
+    &:hover span {
+      opacity: 1;
+    }
+  }
+
+  input:checked + span {
+    opacity: 1;
   }
 `;
 

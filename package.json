@@ -8,6 +8,7 @@
     "build": "styleguidist build",
     "tsc": "tsc --project tsconfig.json --noEmit",
     "eslint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "stylelint": "stylelint './src/**/*.tsx'",
     "lib": "tsc --noEmit false --outDir lib --module commonjs"
   },
   "files": [
@@ -22,6 +23,7 @@
   },
   "devDependencies": {
     "@escolalms/sdk": "^0.2.51",
+    "@stylelint/postcss-css-in-js": "stylelint/postcss-css-in-js",
     "@types/chroma-js": "^2.1.3",
     "@types/react": "^17",
     "@types/styled-components": "^5.1.25",
@@ -35,6 +37,10 @@
     "formik": "^2.2.9",
     "i18next": "^21.6.16",
     "leva": "^0.9.24",
+    "postcss": "^8.4.13",
+    "postcss-scss": "^4.0.4",
+    "postcss-styled": "^0.34.0",
+    "postcss-syntax": "^0.36.2",
     "react": "^17",
     "react-docgen-typescript": "^2.2.2",
     "react-dom": "^17",
@@ -45,6 +51,10 @@
     "source-map-loader": "^3.0.1",
     "style-loader": "^3.3.1",
     "styled-components": "^5.3.5",
+    "stylelint": "^14.8.2",
+    "stylelint-config-recommended": "^7.0.0",
+    "stylelint-config-styled-components": "^0.1.1",
+    "stylelint-processor-styled-components": "^1.10.0",
     "ts-loader": "^9.2.8",
     "typescript": "^4.6.4",
     "webpack": "^5.72.0"
