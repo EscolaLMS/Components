@@ -13,7 +13,7 @@ export { default as Notification } from "./components/atoms/Notification/Notific
 export { default as Option } from "./components/atoms/Option/Option";
 export { Checkbox as Checkbox } from "./components/atoms/Option/Checkbox";
 export { Radio as Radio } from "./components/atoms/Option/Radio";
-export { default as ProfileAvatar } from "./components/atoms/ProfileAvatar/ProfileAvatar";
+export { default as Avatar } from "./components/atoms/Avatar/Avatar";
 export { default as ProgressBar } from "./components/atoms/ProgressBar/ProgressBar";
 export { default as ProgressRing } from "./components/atoms/ProgressRing/ProgressRing";
 
