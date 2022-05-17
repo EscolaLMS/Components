@@ -36,10 +36,10 @@ const StyledBanner = styled("div")<StyledBannerProps>`
 `;
 
 export const Banner: React.FC<BannerProps> = (props) => {
-  const { title, img, btnText, handleBtn, mobile = false } = props;
+  const { title, img, btnText, handleBtn, background, mobile = false } = props;
 
   return (
-    <StyledBanner {...props}>
+    <StyledBanner mobile={mobile} background={background}>
       <Row align={"center"} direction={mobile ? "column-reverse" : "row"}>
         <Col xs={12} md={mobile ? 12 : 6}>
           <Title
