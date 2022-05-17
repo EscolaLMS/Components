@@ -62,11 +62,10 @@ const StyledCertificate = styled("div")<CertificateProps>`
     &:not(:last-child) {
       margin-bottom: 24px;
     }
-    
+
     svg path {
       fill: ${(props) =>
         props.theme.mode === "light" ? props.theme.gray2 : props.theme.white};
-      }
     }
   }
 `;
