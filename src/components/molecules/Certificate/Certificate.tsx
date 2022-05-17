@@ -175,6 +175,6 @@ export const Certificate: React.FC<CertificateProps> = (props) => {
   );
 };
 
-const NewCertificate = styled(Certificate)``;
+const NewCertificate = styled(Certificate)<CertificateProps>``;
 
 export default withTheme(NewCertificate);
