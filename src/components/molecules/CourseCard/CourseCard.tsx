@@ -8,6 +8,7 @@ import { Card } from "../../atoms/Card/Card";
 import ProgressBar, {
   ProgressBarProps,
 } from "../../atoms/ProgressBar/ProgressBar";
+import { RatioBox } from "../../atoms/RatioImage/RatioBox";
 import { Text } from "../../atoms/Typography/Text";
 import { Title } from "../../atoms/Typography/Title";
 
@@ -53,15 +54,14 @@ export interface CourseCardProps {
   id: number;
   image: Image;
   title: ReactNode;
-  subtitle?: ReactNode;
+  categories: string[];
   tags?: Tag[];
   lessonsCount: number;
-  cardTitle: ReactNode;
+  subtitle: ReactNode;
   //TODO: add params if needed to onImageClick
   onImageClick?: () => void;
   onTagClick?: (tagId: number) => void;
-  onStartNowClick?: (cardId: number) => void;
-  onStartLaterClick?: (cardId: number) => void;
+  onButtonClick?: (cardId: number) => void;
   progress?: ProgressBarProps;
 }
 
@@ -84,6 +84,7 @@ const StyledCourseCard = styled("div")`
     align-self: end;
     display: flex;
     gap: 10px;
+    z-index: 1;
   }
   .card {
     padding: 13px 10px;
@@ -100,7 +101,7 @@ const StyledCourseCard = styled("div")`
   .title {
     margin-bottom: 15px;
   }
-  .subtitle {
+  .categories {
     font-size: 14px;
     line-height: 17px;
     color: ${(props) => props.theme.gray3};
@@ -115,10 +116,6 @@ const StyledCourseCard = styled("div")`
     font-weight: 700;
     margin: 0 0 0 10px;
   }
-  .buttons-container {
-    display: flex;
-    gap: 16px;
-  }
 `;
 
 export const CourseCard: React.FC<CourseCardProps> = (props) => {
@@ -127,12 +124,11 @@ export const CourseCard: React.FC<CourseCardProps> = (props) => {
     lessonsCount,
     title,
     image,
-    subtitle,
+    categories,
     tags = [],
     onImageClick,
     onTagClick,
-    onStartLaterClick,
-    onStartNowClick,
+    onButtonClick,
     progress,
   } = props;
 
@@ -172,21 +168,21 @@ export const CourseCard: React.FC<CourseCardProps> = (props) => {
               <Badge onClick={(e) => tagClick(e, tag.id)}>{tag.title}</Badge>
             ))}
           </div>
-          {props.cardTitle && (
+          {props.subtitle && (
             <div className="card">
-              <Card smallPadding wingsSize="small">
-                {props.cardTitle}
-              </Card>
+              <Card wings="small">{props.subtitle}</Card>
             </div>
           )}
         </div>
-        <img className="image" src={imageSrc} alt={image.alt} />
+        <RatioBox ratio={1}>
+          <img className="image" src={imageSrc} alt={image.alt} />
+        </RatioBox>
       </div>
       <div className="course-section">
         <Title level={4} className="title">
           {title}
         </Title>
-        {subtitle && <Text className="subtitle">{subtitle}</Text>}
+        <Text className="categories">{categories.join(" / ")}</Text>
         <div className="lession-container">
           <IconOpenBook />
           <Text className="lessions-count">
@@ -196,18 +192,13 @@ export const CourseCard: React.FC<CourseCardProps> = (props) => {
         {progress ? (
           <ProgressBar {...progress} />
         ) : (
-          <div className="buttons-container">
-            {onStartNowClick && (
-              <Button mode="secondary" onClick={() => onStartNowClick(id)}>
+          <>
+            {onButtonClick && (
+              <Button mode="secondary" onClick={() => onButtonClick(id)}>
                 {t("course.card.start.now")}
               </Button>
             )}
-            {onStartLaterClick && (
-              <Button mode="outline" onClick={() => onStartLaterClick(id)}>
-                {t("course.card.save.to.later")}
-              </Button>
-            )}
-          </div>
+          </>
         )}
       </div>
     </StyledCourseCard>

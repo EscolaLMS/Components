@@ -1,5 +1,5 @@
 import * as React from "react";
-import styled, { withTheme } from "styled-components";
+import styled from "styled-components";
 
 export interface RatioBoxProps {
   ratio: number;
@@ -29,5 +29,3 @@ export const RatioBox: React.FC<RatioBoxProps> = (props) => {
 
   return <StyledDiv {...props}>{children}</StyledDiv>;
 };
-
-export default RatioBox;

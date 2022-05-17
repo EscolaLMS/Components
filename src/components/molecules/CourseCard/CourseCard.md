@@ -11,7 +11,7 @@ import backgroundImage2 from "./bgImage2.png";
 import { Row, Col } from "react-grid-system";
 
 <GlobalThemeProvider>
-  <ThemeTester flexDirection="column" alignItems={"start"}>
+  <ThemeTester childrenListStyle={{ display: "block" }}>
     <Row>
       <Col xs={6}>
         <CourseCard
@@ -26,13 +26,12 @@ import { Row, Col } from "react-grid-system";
             },
           ]}
           lessonsCount={5}
-          cardTitle={"100% Online"}
+          subtitle={"100% Online"}
           title={"Best course ever"}
-          subtitle={"Programming / Front-end"}
+          categories={["Programming", "Front-end"]}
           onTagClick={(tagId) => console.log({ tagId })}
           onImageClick={() => console.log("Image click")}
-          onStartNowClick={(cardId) => console.log({ cardId })}
-          onStartLaterClick={(cardId) => console.log({ cardId })}
+          onButtonClick={(cardId) => console.log({ cardId })}
         />
       </Col>
       <Col xs={6}>
@@ -53,12 +52,12 @@ import { Row, Col } from "react-grid-system";
             },
           ]}
           title={"Best course ever"}
-          subtitle={"Programming / Front-end"}
+          categories={["Programming", "Front-end"]}
           onImageClick={() => console.log("Image click")}
           onTagClick={(tagId) => console.log({ tagId })}
           progress={{
-            currentProgress: 43,
-            maxProgress: 100,
+            currentProgress: 0.43,
+            maxProgress: 1,
           }}
         />
       </Col>
