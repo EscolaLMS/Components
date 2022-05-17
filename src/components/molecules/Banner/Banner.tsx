@@ -4,6 +4,7 @@ import styled, { withTheme } from "styled-components";
 import { Row, Col } from "react-grid-system";
 import { Title } from "../../atoms/Typography/Title";
 import { Button } from "../../atoms/Button/Button";
+import { ReactNode } from "react";
 
 interface StyledBannerProps {
   mobile?: boolean;
@@ -18,7 +19,7 @@ interface BannerImgProps {
 export interface BannerProps extends StyledBannerProps {
   title: string;
   btnText: string;
-  img: BannerImgProps | React.ReactElement;
+  img: BannerImgProps | ReactNode;
   handleBtn: () => void;
 }
 
