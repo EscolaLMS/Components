@@ -5,6 +5,10 @@ import ThemeTester from "../../../styleguide/ThemeTester";
 import img1 from "./Certificate.png";
 import img2 from "./CertificateExample.png";
 
+const CertificateImg = () => {
+  return <img src={img2} alt={"certificate"} />;
+};
+
 const props = {
   img: {
     src: img2,
@@ -38,10 +42,7 @@ const props = {
     <div style={{ width: "375px" }}>
       <Certificate
         mobile
-        img={{
-          src: props.img.src,
-          alt: props.img.alt,
-        }}
+        img={CertificateImg()}
         title={props.title}
         description={props.description}
         handleDownload={props.handleDownload}

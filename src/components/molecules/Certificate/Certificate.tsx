@@ -17,7 +17,7 @@ interface CertificateImgProps {
 }
 
 export interface CertificateProps extends StyledCertificateProps {
-  img: CertificateImgProps;
+  img: CertificateImgProps | ReactNode;
   title: ReactNode;
   description: ReactNode;
   handleDownload: () => void;
@@ -132,9 +132,18 @@ export const Certificate: React.FC<CertificateProps> = (props) => {
             alignItems: "center",
           }}
         >
-          <RatioBox ratio={1}>
-            <img src={img.src} alt={img.alt} />
-          </RatioBox>
+          <div className={"certificate-badge"}>
+            {React.isValidElement(img) ? (
+              <React.Fragment>{img}</React.Fragment>
+            ) : (
+              <RatioBox ratio={1}>
+                <img
+                  src={(img as CertificateImgProps).src}
+                  alt={(img as CertificateImgProps).alt}
+                />
+              </RatioBox>
+            )}
+          </div>
           <div className={"certificate-left-col"}>
             <Title
               as={"h4"}
