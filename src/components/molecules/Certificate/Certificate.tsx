@@ -50,6 +50,12 @@ const StyledCertificate = styled("div")<CertificateProps>`
     &:not(:last-child) {
       margin-bottom: 24px;
     }
+    
+    svg path {
+      fill: ${(props) =>
+        props.theme.mode === "light" ? props.theme.gray2 : props.theme.white};
+      }
+    }
   }
 `;
 
@@ -129,18 +135,22 @@ export const Certificate: React.FC<CertificateProps> = (props) => {
         </Col>
         <Col xs={12} md={mobile ? 12 : 5} className={"certificate-right-col"}>
           <div>
-            <div className="certificate-link">
-              <Icon1 />
-              <Link style={{ marginLeft: "14px" }} onClick={handleDownload}>
-                Pobierz lub wydrukuj jako plik PDF
-              </Link>
-            </div>
-            <div className="certificate-link">
-              <Icon2 />
-              <Link style={{ marginLeft: "14px" }} onClick={handleShare}>
-                Udostępnij jako zdjęcie online
-              </Link>
-            </div>
+            {handleDownload && (
+              <div className="certificate-link">
+                <Icon1 />
+                <Link style={{ marginLeft: "14px" }} onClick={handleDownload}>
+                  Pobierz lub wydrukuj jako plik PDF
+                </Link>
+              </div>
+            )}
+            {handleShare && (
+              <div className="certificate-link">
+                <Icon2 />
+                <Link style={{ marginLeft: "14px" }} onClick={handleShare}>
+                  Udostępnij jako zdjęcie online
+                </Link>
+              </div>
+            )}
           </div>
         </Col>
       </Row>
