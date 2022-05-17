@@ -9,7 +9,6 @@ const props = {
   img: {
     src: img2,
     alt: "Certificate",
-    title: "Certificate",
   },
   title: "Made in EU",
   description:
@@ -29,7 +28,6 @@ const props = {
         img={{
           src: props.img.src,
           alt: props.img.alt,
-          title: props.img.title,
         }}
         title={props.title}
         description={props.description}
@@ -43,7 +41,6 @@ const props = {
         img={{
           src: props.img.src,
           alt: props.img.alt,
-          title: props.img.title,
         }}
         title={props.title}
         description={props.description}

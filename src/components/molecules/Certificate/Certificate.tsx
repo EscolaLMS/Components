@@ -5,22 +5,26 @@ import { Text } from "../../atoms/Typography/Text";
 import { Link } from "../../atoms/Link/Link";
 import { Row, Col } from "react-grid-system";
 import RatioBox from "../../atoms/RatioImage/RatioBox";
+import { ReactNode } from "react";
+
+interface StyledCertificateProps {
+  mobile?: boolean;
+}
 
 interface CertificateImgProps {
   src: string;
   alt: string;
-  title: string;
 }
 
-export interface CertificateProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface CertificateProps extends StyledCertificateProps {
   img: CertificateImgProps;
-  description: string;
+  title: ReactNode;
+  description: ReactNode;
   handleDownload: () => void;
   handleShare: () => void;
-  mobile?: boolean;
 }
 
-const StyledCertificate = styled("div")<CertificateProps>`
+const StyledCertificate = styled("div")<StyledCertificateProps>`
   .certificate-badge {
     width: 116px;
     flex-shrink: 0;
@@ -109,13 +113,13 @@ export const Certificate: React.FC<CertificateProps> = (props) => {
     img,
     title,
     description,
-    handleDownload,
     handleShare,
+    handleDownload,
     mobile = false,
   } = props;
 
   return (
-    <StyledCertificate {...props}>
+    <StyledCertificate mobile={mobile}>
       <Title level={4} as={"h4"} style={{ marginBottom: "20px" }}>
         Certificates
       </Title>
@@ -128,15 +132,9 @@ export const Certificate: React.FC<CertificateProps> = (props) => {
             alignItems: "center",
           }}
         >
-          <div className={"certificate-badge"}>
-            <RatioBox ratio={1}>
-              <img
-                src={(img as CertificateImgProps).src}
-                alt={(img as CertificateImgProps).alt}
-                title={(img as CertificateImgProps).title}
-              />
-            </RatioBox>
-          </div>
+          <RatioBox ratio={1}>
+            <img src={img.src} alt={img.alt} />
+          </RatioBox>
           <div className={"certificate-left-col"}>
             <Title
               as={"h4"}
