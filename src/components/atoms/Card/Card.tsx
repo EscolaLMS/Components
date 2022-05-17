@@ -21,6 +21,8 @@ const StyledCard = styled.div<CardProps>`
     border-radius: ${(props) => props.theme.cardRadius}px;
     background: ${(props) =>
       props.theme.mode !== "dark" ? props.theme.gray4 : props.theme.gray1};
+    color: ${(props) =>
+      props.theme.mode !== "dark" ? props.theme.gray1 : props.theme.white};
     &:before,
     &:after {
       background: ${(props) => {

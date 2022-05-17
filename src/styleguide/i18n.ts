@@ -11,6 +11,10 @@ const resources = {
       "Course.Finished": "Finished",
       "Course.Agenda": "Agenda",
       "Course.markAsFinished": "Mark as finished",
+      "course.card.lessions": "lessions",
+      "course.card.start.now": "Start now",
+      "course.card.save.to.later": "Save for later",
+      "progress.bar.default.label": "Progress",
 
       "Welcome to Wellms": "Welcome to Wellms and react-i18next",
     },
@@ -22,6 +26,10 @@ const resources = {
   },
   pl: {
     translation: {
+      "course.card.lessions": "lekcji",
+      "course.card.start.now": "Zacznij teraz",
+      "course.card.save.to.later": "Zapisz na później",
+      "progress.bar.default.label": "Postęp",
       "Welcome to Wellms": "Witaj w Wellms i react-i18next",
     },
   },

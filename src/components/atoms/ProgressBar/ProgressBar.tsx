@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useCallback } from "react";
+import { useTranslation } from "react-i18next";
 import styled, { withTheme } from "styled-components";
 import { getFontFromTheme } from "../../../theme/provider";
 import { calcPercentage } from "../../../utils/utils";
@@ -63,7 +64,13 @@ const StyledDiv = styled.div`
 `;
 
 export const ProgressBar: React.FC<ProgressBarProps> = (props) => {
-  const { currentProgress, maxProgress, hideLabel, label = "Progress" } = props;
+  const { t } = useTranslation();
+  const {
+    currentProgress,
+    maxProgress,
+    hideLabel,
+    label = t("progress.bar.default.label"),
+  } = props;
 
   const renderLabel = useCallback(() => {
     if (hideLabel) {
