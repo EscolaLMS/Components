@@ -1,5 +1,5 @@
 import { DefaultTheme } from "styled-components";
-import { blend } from "chroma-js";
+import { blend, default as chroma } from "chroma-js";
 import { sharedTheme } from "./shared";
 
 export const orangeTheme: DefaultTheme = {
@@ -9,7 +9,9 @@ export const orangeTheme: DefaultTheme = {
   font: "Inter",
   headerColor: "#111111",
   backgroundDark: "#4A4A4A",
-  backgroundLight: "#F2F2F2",
+  backgroundLight: "#FFFFFF",
+  cardBackgroundColorLight: chroma("#4A4A4A").brighten(1).hex(),
+  cardBackgroundColorDark: chroma("#FFFFFF").darken(1).hex(),
   textColorDark: "#FFF",
   textColorLight: "#000",
 };

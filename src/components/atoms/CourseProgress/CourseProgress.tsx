@@ -46,7 +46,7 @@ const StyledDiv = styled.div<TitleProps>`
       height: 1px;
       width: 100%;
       position: absolute;
-      left: 0p;
+      left: 0px;
       top: 8px;
     }
     &:after {

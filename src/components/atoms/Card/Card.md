@@ -5,24 +5,37 @@ import { Text } from "../Typography/Text";
 import { IconTitle } from "../IconTitle/IconTitle";
 import { Button } from "../Button/Button";
 import { useState } from "react";
+import ImageModal from "../../../styleguide/ImageModal";
+import img1 from "./Card.png";
 
 <React.Fragment>
-  <ThemeTester childrenListStyle={{ display: "block" }}>
-    <Card style={{ marginTop: 60 }} wingsSize={"large"}>
-      <Text style={{ margin: 0 }}>With large wings</Text>
+  <ThemeTester flexDirection="column">
+    <Card wings={"large"}>
+      <Text noMargin>With large wings</Text>
     </Card>
-    <Card wingsSize={"small"} style={{ marginTop: 30 }}>
-      <Text style={{ margin: 0 }}>With small Wings</Text>
+    <Card wings={"small"}>
+      <Text noMargin>With small Wings</Text>
     </Card>
-    <Card wingsSize={"small"} smallPadding style={{ marginTop: 30 }}>
-      <Text style={{ margin: 0 }}>With small Wings and padding</Text>
+    <Card wings={"hidden"}>
+      <Text noMargin>Without Wings</Text>
     </Card>
-    <Card style={{ marginTop: 30 }}>
-      <Text style={{ margin: 0 }}>Without Wings</Text>
+
+    <Card wings={"large"} inline>
+      <Text size="14" noMargin>
+        Inline with large wings
+      </Text>
     </Card>
-    <Card smallPadding style={{ marginTop: 30 }}>
-      <Text style={{ margin: 0 }}>Without Wings and small padding</Text>
+    <Card wings={"small"} inline>
+      <Text size="14" noMargin>
+        Inline with small Wings
+      </Text>
+    </Card>
+    <Card wings={"hidden"} inline>
+      <Text size="14" noMargin>
+        Inline without Wings
+      </Text>
     </Card>
   </ThemeTester>
+  <ImageModal images={[img1]} />
 </React.Fragment>;
 ```

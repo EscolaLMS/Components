@@ -1,6 +1,6 @@
-import {ProfileAvatarTypesStr} from "../../../types/ProfileAvatarTypes";
+import { AvatarTypesStr } from "../../../types/AvatarTypes";
 
-export const setProfileAvatarBySize = (size?: ProfileAvatarTypesStr): string => {
+export const setAvatarBySize = (size?: AvatarTypesStr): string => {
   switch (size) {
     case "extraSmall":
       return "22px";
@@ -15,4 +15,4 @@ export const setProfileAvatarBySize = (size?: ProfileAvatarTypesStr): string => 
     default:
       return "50px";
   }
-}
+};

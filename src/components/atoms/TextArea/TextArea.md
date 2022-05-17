@@ -15,7 +15,7 @@ const [texts, setTexts] = useState({
 });
 
 <React.Fragment>
-  <ThemeTester childrenListStyle={{ display: "block" }}>
+  <ThemeTester flexDirection="column">
     <TextArea
       label={"TextArea"}
       value={texts.textarea1}

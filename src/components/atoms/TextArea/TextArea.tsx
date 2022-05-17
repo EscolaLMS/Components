@@ -24,6 +24,8 @@ const StyledTextArea = styled("div")<TextAreaProps>`
   font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
   font-size: 14px;
   position: relative;
+  width: 100%;
+
   * {
     outline: none;
     box-sizing: content-box;
@@ -41,7 +43,6 @@ const StyledTextArea = styled("div")<TextAreaProps>`
     box-sizing: border-box;
     resize: none;
     font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
-    border: 0px;
     font-size: 14px;
     display: block;
     width: 100%;
@@ -70,7 +71,7 @@ const StyledTextArea = styled("div")<TextAreaProps>`
     }
   }
   label {
-    pointer-events none;
+    pointer-events: none;
     transform-origin: left top;
     max-width: calc(100% - 24px);
     position: absolute;
