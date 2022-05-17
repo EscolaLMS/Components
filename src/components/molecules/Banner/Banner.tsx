@@ -5,22 +5,24 @@ import { Row, Col } from "react-grid-system";
 import { Title } from "../../atoms/Typography/Title";
 import { Button } from "../../atoms/Button/Button";
 
-export interface BannerImgProps {
-  src: string;
-  alt?: string;
-  title?: string;
+interface StyledBannerProps {
+  mobile?: boolean;
+  background?: React.CSSProperties["background"];
 }
 
-export interface BannerProps extends React.HTMLAttributes<HTMLDivElement> {
-  background?: React.CSSProperties["background"];
-  text: string;
+interface BannerImgProps {
+  src: string;
+  alt: string;
+}
+
+export interface BannerProps extends StyledBannerProps {
+  title: string;
   btnText: string;
   img: BannerImgProps | React.ReactElement;
   handleBtn: () => void;
-  mobile?: boolean;
 }
 
-const StyledBanner = styled("div")<BannerProps>`
+const StyledBanner = styled("div")<StyledBannerProps>`
   background: ${(props) => props.background};
 
   .banner-btn {
@@ -28,13 +30,14 @@ const StyledBanner = styled("div")<BannerProps>`
   }
 
   .banner-img {
-    max-width: 100%;
-    height: 100%;
+    max-width: ${(props) => (props.mobile ? "80%" : "100%")};
+    margin: ${(props) => (props.mobile ? "0 auto" : "0")};
+    height: auto;
   }
 `;
 
 export const Banner: React.FC<BannerProps> = (props) => {
-  const { text, img, btnText, handleBtn, mobile = false } = props;
+  const { title, img, btnText, handleBtn, mobile = false } = props;
 
   return (
     <StyledBanner {...props}>
@@ -46,13 +49,22 @@ export const Banner: React.FC<BannerProps> = (props) => {
             mobile={mobile}
             style={{ fontWeight: "normal" }}
           >
-            <ReactMarkdown components={{ p: React.Fragment }} children={text} />
+            <ReactMarkdown
+              components={{ p: React.Fragment }}
+              children={title}
+            />
           </Title>
           <Button className={"banner-btn"} onClick={handleBtn}>
             {btnText}
           </Button>
         </Col>
-        <Col xs={12} md={mobile ? 12 : 6}>
+        <Col
+          xs={12}
+          md={mobile ? 12 : 6}
+          style={{
+            textAlign: mobile ? "center" : "left",
+          }}
+        >
           {React.isValidElement(img) ? (
             <React.Fragment>{img}</React.Fragment>
           ) : (
@@ -60,7 +72,6 @@ export const Banner: React.FC<BannerProps> = (props) => {
               className={"banner-img"}
               src={(img as BannerImgProps).src}
               alt={(img as BannerImgProps).alt}
-              title={(img as BannerImgProps).title}
             />
           )}
         </Col>
