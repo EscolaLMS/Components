@@ -31,7 +31,6 @@ const StyledBanner = styled("div")<StyledBannerProps>`
 
   .banner-img {
     max-width: ${(props) => (props.mobile ? "80%" : "100%")};
-    margin: ${(props) => (props.mobile ? "0 auto" : "0")};
     height: auto;
   }
 `;
