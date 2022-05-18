@@ -4,7 +4,7 @@ import { Title } from "../../atoms/Typography/Title";
 import { Col, Row } from "react-grid-system";
 import { ReactNode } from "react";
 import { IconText } from "../../atoms/IconText/IconText";
-import RatioBox from "../../atoms/RatioImage/RatioBox";
+import RatioBox from "../../atoms/RatioBox/RatioBox";
 
 interface StyledCheckoutCardProps {
   mobile?: boolean;
