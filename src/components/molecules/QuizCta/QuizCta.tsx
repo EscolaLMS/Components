@@ -96,10 +96,10 @@ export const QuizCta: React.FC<QuizCtaCardProps> = (props) => {
   const {
     title,
     children,
-    primaryBtnText,
-    handlePrimaryBtn,
-    tertiaryBtnText,
-    handleTertiaryBtn,
+    primaryButtonText,
+    onPrimaryButtonClick,
+    secondaryButtonText,
+    onSecondaryButtonClick,
     mobile = false,
   } = props;
 
@@ -146,17 +146,17 @@ export const QuizCta: React.FC<QuizCtaCardProps> = (props) => {
             {children && mobile && <React.Fragment>{children}</React.Fragment>}
           </div>
           <div className="quiz-cta-btn-group">
-            <Button mode="white" onClick={handlePrimaryBtn}>
-              {primaryBtnText}
+            <Button mode="white" onClick={onPrimaryButtonClick}>
+              {primaryButtonText}
             </Button>
-            {tertiaryBtnText && handleTertiaryBtn && (
+            {secondaryButtonText && onSecondaryButtonClick && (
               <Link
                 href="http://onet.pl"
                 target="_blank"
                 underline
-                onClick={handleTertiaryBtn}
+                onClick={onSecondaryButtonClick}
               >
-                {tertiaryBtnText}
+                {secondaryButtonText}
               </Link>
             )}
           </div>

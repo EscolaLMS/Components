@@ -13,12 +13,12 @@ const props = {
       <Text>Quiz zawiera 2-3 pytania jednokrotnego wyboru</Text>
     </React.Fragment>
   ),
-  primaryBtnText: "Rozpocznij quiz",
-  handlePrimaryBtn: () => {
-    console.log("handlePrimaryBtn");
+  primaryButtonText: "Rozpocznij quiz",
+  onPrimaryButtonClick: () => {
+    console.log("onPrimaryButtonClick");
   },
-  tertiaryBtnText: "Następny moduł",
-  handleTertiaryBtn: () => {
+  secondaryButtonText: "Następny moduł",
+  onSecondaryButtonClick: () => {
     console.log("handleTeriaryBtn");
   },
 };
@@ -29,10 +29,10 @@ const props = {
       <QuizCta
         title={props.title}
         children={props.children}
-        primaryBtnText={props.primaryBtnText}
-        handlePrimaryBtn={props.handlePrimaryBtn}
-        tertiaryBtnText={props.tertiaryBtnText}
-        handleTertiaryBtn={props.handleTertiaryBtn}
+        primaryButtonText={props.primaryButtonText}
+        onPrimaryButtonClick={props.onPrimaryButtonClick}
+        secondaryButtonText={props.secondaryButtonText}
+        onSecondaryButtonClick={props.onSecondaryButtonClick}
       />
     </div>
     <div style={{ width: "375px" }}>
@@ -40,10 +40,10 @@ const props = {
         mobile
         title={props.title}
         children={props.children}
-        primaryBtnText={props.primaryBtnText}
-        handlePrimaryBtn={props.handlePrimaryBtn}
-        tertiaryBtnText={props.tertiaryBtnText}
-        handleTertiaryBtn={props.handleTertiaryBtn}
+        primaryButtonText={props.primaryButtonText}
+        onPrimaryButtonClick={props.onPrimaryButtonClick}
+        secondaryButtonText={props.secondaryButtonText}
+        onSecondaryButtonClick={props.onSecondaryButtonClick}
       />
     </div>
   </ThemeTester>
