@@ -1,5 +1,5 @@
 import * as React from "react";
-import styled, { withTheme } from "styled-components";
+import styled from "styled-components";
 
 export interface RatioBoxProps {
   ratio: number;
