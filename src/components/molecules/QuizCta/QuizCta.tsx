@@ -1,13 +1,15 @@
 import * as React from "react";
-import styled, { withTheme } from "styled-components";
+import styled, { ThemeContext, withTheme } from "styled-components";
 import { Col, Row } from "react-grid-system";
 import { Title } from "../../atoms/Typography/Title";
 import { Link } from "../../atoms/Link/Link";
 import { Button } from "../../atoms/Button/Button";
 import { ReactNode } from "react";
+import { contrast } from "chroma-js";
 
 interface StyledQuizCtaCardProps {
   mobile?: boolean;
+  lightContrast?: boolean;
 }
 
 export interface QuizCtaCardProps extends StyledQuizCtaCardProps {
@@ -24,12 +26,22 @@ const StyledQuizCta = styled("div")<StyledQuizCtaCardProps>`
   background-color: ${(props) => props.theme.primaryColor};
   border-radius: ${(props) => props.theme.cardRadius}px;
 
+  *:not(button) {
+    color: ${(props) =>
+      props.lightContrast ? props.theme.white : props.theme.gray1};
+  }
+
   .quiz-cta-icon {
     margin-right: ${(props) => (props.mobile ? "12px" : "23px")};
 
     svg {
       width: ${(props) => (props.mobile ? "31px" : "48px")};
       height: ${(props) => (props.mobile ? "31px" : "48px")};
+
+      path {
+        fill: ${(props) =>
+          props.lightContrast ? props.theme.white : props.theme.gray1};
+      }
     }
   }
 
@@ -48,14 +60,17 @@ const StyledQuizCta = styled("div")<StyledQuizCtaCardProps>`
     a {
       margin-left: auto;
       margin-right: auto;
+
+      &:after {
+        background-color: ${(props) =>
+          props.lightContrast ? props.theme.white : props.theme.gray1};
+      }
     }
   }
 
   .quiz-cta-children {
-  
     p:not(:last-child) {
-        margin-bottom: ${(props) => (props.mobile ? "5px" : "14px")};
-      }
+      margin-bottom: ${(props) => (props.mobile ? "5px" : "14px")};
     }
   }
 `;
@@ -88,8 +103,14 @@ export const QuizCta: React.FC<QuizCtaCardProps> = (props) => {
     mobile = false,
   } = props;
 
+  const theme = React.useContext(ThemeContext);
+
+  const cts = React.useMemo(() => {
+    return contrast("#fff", theme.primaryColor) >= 4.5;
+  }, [theme.primaryColor]);
+
   return (
-    <StyledQuizCta mobile={mobile}>
+    <StyledQuizCta mobile={mobile} lightContrast={cts}>
       <Row align={"center"}>
         <Col
           xs={12}
