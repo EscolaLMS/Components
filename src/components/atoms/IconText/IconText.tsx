@@ -1,6 +1,7 @@
 import * as React from "react";
 import styled, { withTheme } from "styled-components";
 import { getFontFromTheme } from "../../../theme/provider";
+import { ReactNode } from "react";
 
 interface Styles {
   icon?: React.CSSProperties;
@@ -9,7 +10,7 @@ interface Styles {
 
 export interface IconTextProps
   extends React.HTMLAttributes<HTMLParagraphElement> {
-  icon: React.ReactNode;
+  icon: ReactNode;
   text: string;
   styles?: Styles;
   noMargin?: boolean;
@@ -34,8 +35,14 @@ const StyledText = styled("p")<IconTextProps>`
     display: flex;
     align-items: center;
     margin-right: 9px;
+
     svg {
       flex-shrink: 0;
+      fill: ${(props) => {
+        return props.theme.mode !== "light"
+          ? props.theme.white
+          : props.theme.black;
+      }};
     }
   }
 `;
