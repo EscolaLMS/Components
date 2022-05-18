@@ -1,6 +1,7 @@
 ```js
 import { GlobalThemeProvider } from "../../../theme/provider";
 import ImageModal from "../../../styleguide/ImageModal";
+import ThemeTester from "../../../styleguide/ThemeTester";
 import Text from "../../atoms/Typography/Text";
 import img1 from "./QuizCta.png";
 
@@ -12,32 +13,40 @@ const props = {
       <Text>Quiz zawiera 2-3 pytania jednokrotnego wyboru</Text>
     </React.Fragment>
   ),
-  handleBtn1: () => {
-    console.log("handleBtn1");
+  primaryBtnText: "Rozpocznij quiz",
+  handlePrimaryBtn: () => {
+    console.log("handlePrimaryBtn");
   },
-  handleBtn2: () => {
-    console.log("handleBtn2");
+  tertiaryBtnText: "Następny moduł",
+  handleTertiaryBtn: () => {
+    console.log("handleTeriaryBtn");
   },
 };
 
 <GlobalThemeProvider>
-  <div style={{ width: "100%", marginBottom: "20px" }}>
-    <QuizCta
-      title={props.title}
-      children={props.children}
-      handleBtn1={props.handleBtn1()}
-      handleBtn2={props.handleBtn2()}
-    />
-  </div>
-  <div style={{ width: "375px" }}>
-    <QuizCta
-      mobile={true}
-      title={props.title}
-      children={props.children}
-      handleBtn1={props.handleBtn1()}
-      handleBtn2={props.handleBtn2()}
-    />
-  </div>
+  <ThemeTester>
+    <div style={{ width: "100%", marginBottom: "20px" }}>
+      <QuizCta
+        title={props.title}
+        children={props.children}
+        primaryBtnText={props.primaryBtnText}
+        handlePrimaryBtn={props.handlePrimaryBtn}
+        tertiaryBtnText={props.tertiaryBtnText}
+        handleTertiaryBtn={props.handleTertiaryBtn}
+      />
+    </div>
+    <div style={{ width: "375px" }}>
+      <QuizCta
+        mobile
+        title={props.title}
+        children={props.children}
+        primaryBtnText={props.primaryBtnText}
+        handlePrimaryBtn={props.handlePrimaryBtn}
+        tertiaryBtnText={props.tertiaryBtnText}
+        handleTertiaryBtn={props.handleTertiaryBtn}
+      />
+    </div>
+  </ThemeTester>
   <ImageModal images={[img1]} />
 </GlobalThemeProvider>;
 ```

@@ -4,15 +4,22 @@ import { Col, Row } from "react-grid-system";
 import { Title } from "../../atoms/Typography/Title";
 import { Link } from "../../atoms/Link/Link";
 import { Button } from "../../atoms/Button/Button";
+import { ReactNode } from "react";
 
-export interface QuizCtaCardProps extends React.HTMLAttributes<HTMLDivElement> {
-  title: string;
-  handleBtn1: () => void;
-  handleBtn2?: () => void;
+interface StyledQuizCtaCardProps {
   mobile?: boolean;
 }
 
-const StyledQuizCta = styled("div")<QuizCtaCardProps>`
+export interface QuizCtaCardProps extends StyledQuizCtaCardProps {
+  title: ReactNode;
+  children: ReactNode;
+  primaryBtnText: ReactNode;
+  handlePrimaryBtn: () => void;
+  tertiaryBtnText?: ReactNode;
+  handleTertiaryBtn?: () => void;
+}
+
+const StyledQuizCta = styled("div")<StyledQuizCtaCardProps>`
   padding: ${(props) => (props.mobile ? "22px" : "55px 45px")};
   background-color: ${(props) => props.theme.primaryColor};
   border-radius: ${(props) => props.theme.cardRadius}px;
@@ -31,6 +38,7 @@ const StyledQuizCta = styled("div")<QuizCtaCardProps>`
     width: calc(100% + 16px);
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     align-items: center;
 
     > * {
@@ -40,6 +48,14 @@ const StyledQuizCta = styled("div")<QuizCtaCardProps>`
     a {
       margin-left: auto;
       margin-right: auto;
+    }
+  }
+
+  .quiz-cta-children {
+  
+    p:not(:last-child) {
+        margin-bottom: ${(props) => (props.mobile ? "5px" : "14px")};
+      }
     }
   }
 `;
@@ -62,10 +78,18 @@ const CloudIcon = () => {
 };
 
 export const QuizCta: React.FC<QuizCtaCardProps> = (props) => {
-  const { title, children, handleBtn1, handleBtn2, mobile = false } = props;
+  const {
+    title,
+    children,
+    primaryBtnText,
+    handlePrimaryBtn,
+    tertiaryBtnText,
+    handleTertiaryBtn,
+    mobile = false,
+  } = props;
 
   return (
-    <StyledQuizCta {...props}>
+    <StyledQuizCta mobile={mobile}>
       <Row align={"center"}>
         <Col
           xs={12}
@@ -89,23 +113,31 @@ export const QuizCta: React.FC<QuizCtaCardProps> = (props) => {
             >
               {title}
             </Title>
-            {children && !mobile && <React.Fragment>{children}</React.Fragment>}
+            <div className="quiz-cta-children">
+              {children && !mobile && (
+                <React.Fragment>{children}</React.Fragment>
+              )}
+            </div>
           </div>
         </Col>
         <Col xs={12} md={mobile ? 12 : 5}>
-          {children && mobile && <React.Fragment>{children}</React.Fragment>}
+          <div className="quiz-cta-children">
+            {children && mobile && <React.Fragment>{children}</React.Fragment>}
+          </div>
           <div className="quiz-cta-btn-group">
-            <Button mode="white" onClick={handleBtn1}>
-              Secondary button
+            <Button mode="white" onClick={handlePrimaryBtn}>
+              {primaryBtnText}
             </Button>
-            <Link
-              href="http://onet.pl"
-              target="_blank"
-              underline
-              onClick={handleBtn2}
-            >
-              Rozpocznij quiz
-            </Link>
+            {tertiaryBtnText && handleTertiaryBtn && (
+              <Link
+                href="http://onet.pl"
+                target="_blank"
+                underline
+                onClick={handleTertiaryBtn}
+              >
+                {tertiaryBtnText}
+              </Link>
+            )}
           </div>
         </Col>
       </Row>
