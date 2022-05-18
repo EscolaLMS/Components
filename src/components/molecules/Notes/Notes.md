@@ -44,12 +44,16 @@ const noteGroups = [
     noteGroups={noteGroups}
     onAddNoteClick={() => console.log("On add node click")}
   />
-  <Title level={3}>Mobile View</Title>
-  <Notes
-    mobile
-    noteGroups={noteGroups}
-    onAddNoteClick={() => console.log("On add node click")}
-  />
+  <div style={{ maxWidth: 360, margin: "auto" }}>
+    <div style={{ margin: "0 16px" }}>
+      <Title level={3}>Mobile View</Title>
+      <Notes
+        mobile
+        noteGroups={noteGroups}
+        onAddNoteClick={() => console.log("On add node click")}
+      />
+    </div>
+  </div>
   <ImageModal images={[img1]} />
 </ThemeTester>;
 ```

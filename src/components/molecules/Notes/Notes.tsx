@@ -36,6 +36,9 @@ export interface NotesProps {
 }
 
 const StyledNotes = styled.div`
+  .notes-container {
+    margin-bottom: 50px;
+  }
   .title {
     margin: 20px 0 10px;
   }
@@ -48,7 +51,7 @@ export const Notes: React.FC<NotesProps> = (props) => {
     <StyledNotes>
       {noteGroups.map((noteGroup) => {
         return (
-          <>
+          <div className="notes-container">
             {!mobile && (
               <IconTitle
                 level={4}
@@ -64,7 +67,7 @@ export const Notes: React.FC<NotesProps> = (props) => {
             {noteGroup.notes.map((note) => {
               return <Note {...note} />;
             })}
-          </>
+          </div>
         );
       })}
     </StyledNotes>
