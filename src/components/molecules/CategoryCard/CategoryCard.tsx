@@ -15,7 +15,7 @@ export interface CategoryCardProps extends StyledCategoryCardProps {
   title: ReactNode;
   subtitle: ReactNode;
   buttonText: string;
-  handleButtonClick: () => void;
+  onButtonClick: () => void;
 }
 
 export const CategoryCard: React.FC<CategoryCardProps> = (props) => {
@@ -68,7 +68,7 @@ export const CategoryCard: React.FC<CategoryCardProps> = (props) => {
     title,
     subtitle,
     buttonText,
-    handleButtonClick,
+    onButtonClick,
     variant,
     mobile = false,
   } = props;
@@ -80,7 +80,7 @@ export const CategoryCard: React.FC<CategoryCardProps> = (props) => {
       </Title>
       <div className={"category-card-children"}>{subtitle}</div>
       <Button
-        onClick={handleButtonClick}
+        onClick={onButtonClick}
         style={{
           marginTop: "6px",
         }}

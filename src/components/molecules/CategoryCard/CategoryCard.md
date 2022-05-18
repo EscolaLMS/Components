@@ -56,8 +56,8 @@ const props = {
   subtitle: <IconText icon={<IconBook />} text="Marketing i sprzedaż" />,
   buttonText: "Zobacz więcej",
   variant: "gradient",
-  handleButtonClick: () => {
-    console.log("handleButtonClick");
+  onButtonClick: () => {
+    console.log("onButtonClick");
   },
 };
 
@@ -72,7 +72,7 @@ const props = {
             title={props.title}
             subtitle={props.subtitle}
             buttonText={props.buttonText}
-            handleButtonClick={props.handleButtonClick}
+            onButtonClick={props.onButtonClick}
           />
         </Col>
         <Col xs={12} md={4}>
@@ -82,7 +82,7 @@ const props = {
             title={props.title}
             subtitle={props.subtitle}
             buttonText={props.buttonText}
-            handleButtonClick={props.handleButtonClick}
+            onButtonClick={props.onButtonClick}
           />
         </Col>
         <Col xs={12} md={4}>
@@ -92,7 +92,7 @@ const props = {
             title={props.title}
             subtitle={props.subtitle}
             buttonText={props.buttonText}
-            handleButtonClick={props.handleButtonClick}
+            onButtonClick={props.onButtonClick}
           />
         </Col>
       </Row>
@@ -107,7 +107,7 @@ const props = {
             title={props.title}
             subtitle={props.subtitle}
             buttonText={props.buttonText}
-            handleButtonClick={props.handleButtonClick}
+            onButtonClick={props.onButtonClick}
           />
         </Col>
       </Row>
