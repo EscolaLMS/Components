@@ -19,7 +19,7 @@ import ThemeTester from "../../../styleguide/ThemeTester";
     <Button loading mode="outline">
       Outline button loading
     </Button>
-
+    <Button mode="white">White button</Button>
     <Button disabled>Primary Button disabled</Button>
     <Button mode="secondary" disabled>
       Secondary button disabled
