@@ -1,3 +1,96 @@
-import ContrastBox from "../../../styleguide/ContrastBox/ContrastBox";
+import * as React from "react";
+import styled, { withTheme } from "styled-components";
+import { ReactNode } from "react";
+import { Title } from "../../atoms/Typography/Title";
+import { Button } from "../../atoms/Button/Button";
+import chroma from "chroma-js";
 
-export default ContrastBox;
+interface StyledCategoryCardProps {
+  mobile?: boolean;
+  variant: "solid" | "gradient";
+}
+
+export interface CategoryCardProps extends StyledCategoryCardProps {
+  icon: ReactNode;
+  title: ReactNode;
+  subtitle: ReactNode;
+  buttonText: string;
+  handleButtonClick: () => void;
+}
+
+export const CategoryCard: React.FC<CategoryCardProps> = (props) => {
+  const StyledCategoryCard = styled("div")<StyledCategoryCardProps>`
+    text-align: center;
+    padding: ${({ variant, mobile }) =>
+      variant === "solid"
+        ? "78px 8px 72px"
+        : mobile
+        ? "75px 8px 97px"
+        : "75px 8px 208px"};
+    border-radius: ${({ theme }) => theme.cardRadius}px;
+    background: ${({ theme, variant }) =>
+      variant === "gradient"
+        ? `linear-gradient(180deg, ${
+            theme.mode === "light"
+              ? chroma(theme.backgroundLight).darken(0.2).hex()
+              : chroma(theme.backgroundDark).brighten(1).hex()
+          } 0%, transparent 100%)`
+        : theme.mode === "light"
+        ? chroma(theme.backgroundLight).darken(0.2).hex()
+        : chroma(theme.backgroundDark).brighten(1).hex()};
+
+    .category-card-title {
+      margin-top: 34px;
+      margin-bottom: 26px;
+    }
+
+    .category-card-icon {
+      svg path {
+        fill: ${({ theme }) =>
+          theme.mode === "light" ? theme.gray1 : theme.white};
+      }
+    }
+
+    .category-card-children {
+      display: flex;
+      justify-content: center;
+
+      svg {
+        fill: none;
+        path {
+          stroke: currentColor;
+        }
+      }
+    }
+  `;
+  const {
+    icon,
+    title,
+    subtitle,
+    buttonText,
+    handleButtonClick,
+    variant,
+    mobile = false,
+  } = props;
+  return (
+    <StyledCategoryCard mobile={mobile} variant={variant}>
+      <div className={"category-card-icon"}>{icon}</div>
+      <Title as={"h4"} level={4} className={"category-card-title"}>
+        {title}
+      </Title>
+      <div className={"category-card-children"}>{subtitle}</div>
+      <Button
+        onClick={handleButtonClick}
+        style={{
+          marginTop: "6px",
+        }}
+      >
+        {buttonText}
+      </Button>
+    </StyledCategoryCard>
+  );
+};
+
+const NewCategoryCard = styled(CategoryCard)<CategoryCardProps>``;
+
+export default withTheme(NewCategoryCard);
