@@ -1,5 +1,5 @@
 import { DefaultTheme } from "styled-components";
-import { blend } from "chroma-js";
+import { blend, default as chroma } from "chroma-js";
 import { sharedTheme } from "./shared";
 
 export const velvetTheme: DefaultTheme = {
@@ -10,6 +10,8 @@ export const velvetTheme: DefaultTheme = {
   headerColor: "#111111",
   backgroundDark: "#4A4A4A",
   backgroundLight: "#F2F2F2",
+  cardBackgroundColorLight: chroma("#4A4A4A").brighten(1).hex(),
+  cardBackgroundColorDark: chroma("#F2F2F2").darken(1).hex(),
   textColorDark: "#FFF",
   textColorLight: "#000",
 };

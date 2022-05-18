@@ -25,10 +25,6 @@ const StyledDiv = styled.div<OptionType>`
     margin-left: 15px;
   }
 
-  &:hover input {
-    border: 1px solid rgba(0, 0, 0, 0.4);
-  }
-
   input {
     cursor: pointer;
     transition: border-color 0.5s;
@@ -45,6 +41,10 @@ const StyledDiv = styled.div<OptionType>`
     &:checked {
       border-color: ${(props) => props.theme.primaryColor};
     }
+  }
+
+  &:hover input {
+    border: 1px solid rgba(0, 0, 0, 0.4);
   }
 
   input::after {

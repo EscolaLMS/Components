@@ -19,6 +19,7 @@ export interface CheckoutCardProps
   price: string;
   oldPrice?: string;
   handleDelete: () => void;
+  mobile?: boolean;
 }
 
 const StyledCheckoutCard = styled("div")<CheckoutCardProps>`
@@ -26,7 +27,7 @@ const StyledCheckoutCard = styled("div")<CheckoutCardProps>`
   width: 100%;
   box-sizing: border-box;
   background-color: ${(props) =>
-    props.theme.mode == "light" ? props.theme.gray4 : props.theme.gray1};
+    props.theme.mode == "light" ? props.theme.gray5 : props.theme.gray1};
 
   &:not(:last-child) {
     margin-bottom: 20px;
@@ -53,6 +54,9 @@ const StyledCheckoutCard = styled("div")<CheckoutCardProps>`
   }
 
   .checkout-card-img {
+    width: ${(props) => (props.mobile ? "45px" : "100%")};
+    margin-right: ${(props) => (props.mobile ? "15px" : "0")};
+    flex-shrink: 0;
     background-color: ${({ theme }) => theme.white};
 
     img {
@@ -62,7 +66,7 @@ const StyledCheckoutCard = styled("div")<CheckoutCardProps>`
   }
 
   .checkout-card-summary-item {
-    margin-right: 25px;
+    margin-right: ${(props) => (props.mobile ? "10px" : "25px")};
   }
 `;
 
@@ -111,34 +115,67 @@ const IconBook = () => {
 };
 
 export const CheckoutCard: React.FC<CheckoutCardProps> = (props) => {
-  const { img, summary, subtitle, oldPrice, price, title, handleDelete } =
-    props;
+  const {
+    img,
+    summary,
+    subtitle,
+    oldPrice,
+    price,
+    title,
+    handleDelete,
+    mobile = false,
+  } = props;
+
+  const thumbnail = () => {
+    return (
+      <div className="checkout-card-img">
+        {React.isValidElement(img) ? (
+          <React.Fragment>{img}</React.Fragment>
+        ) : (
+          <img
+            src={(img as CheckoutImgProps).src}
+            alt={(img as CheckoutImgProps).alt}
+            title={(img as CheckoutImgProps).title}
+          />
+        )}
+      </div>
+    );
+  };
 
   return (
     <StyledCheckoutCard {...props}>
       <Row align={"center"}>
-        <Col xs={12} md={2}>
-          <div className="checkout-card-img">
-            {React.isValidElement(img) ? (
-              <React.Fragment>{img}</React.Fragment>
-            ) : (
-              <img
-                src={(img as CheckoutImgProps).src}
-                alt={(img as CheckoutImgProps).alt}
-                title={(img as CheckoutImgProps).title}
-              />
-            )}
-          </div>
-        </Col>
-        <Col xs={12} md={10}>
+        {!mobile && (
+          <Col xs={12} md={2}>
+            {thumbnail()}
+          </Col>
+        )}
+        <Col xs={12} md={mobile ? 12 : 10}>
           <Row>
-            <Col xs={12} md={6}>
-              <Title as={"h4"} level={4} style={{ marginBottom: "10px" }}>
-                {title}
-              </Title>
-              {subtitle && <IconText icon={<IconBook />} text={"5 lekcji"} />}
+            <Col xs={12} md={mobile ? 10 : 6}>
+              <div style={{ display: "flex", alignItems: "start" }}>
+                {mobile && thumbnail()}
+                <Title
+                  as={"h4"}
+                  level={4}
+                  style={{ marginBottom: mobile ? "23px" : "10px" }}
+                >
+                  {title}
+                </Title>
+              </div>
+              {subtitle && (
+                <IconText
+                  icon={<IconBook />}
+                  text={"5 lekcji"}
+                  styles={{
+                    icon: {
+                      display: mobile ? "none" : "",
+                    },
+                  }}
+                />
+              )}
             </Col>
-            <Col xs={12} md={6}>
+            <Col xs={12} md={mobile ? 2 : 6}>
               <div
                 style={{
                   display: "flex",
@@ -146,20 +183,22 @@ export const CheckoutCard: React.FC<CheckoutCardProps> = (props) => {
                   justifyContent: "flex-end",
                 }}
               >
-                <div>
-                  {oldPrice && (
-                    <Title
-                      as={"h5"}
-                      level={5}
-                      className={"checkout-card-discount"}
-                    >
-                      {oldPrice}
+                {!mobile && (
+                  <div>
+                    {oldPrice && (
+                      <Title
+                        as={"h5"}
+                        level={5}
+                        className={"checkout-card-discount"}
+                      >
+                        {oldPrice}
+                      </Title>
+                    )}
+                    <Title as={"h4"} level={4}>
+                      {price}
                     </Title>
-                  )}
-                  <Title as={"h4"} level={4}>
-                    {price}
-                  </Title>
-                </div>
+                  </div>
+                )}
                 <div className={"checkout-card-remove"} onClick={handleDelete}>
                   <IconBin />
                 </div>

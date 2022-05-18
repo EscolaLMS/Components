@@ -9,6 +9,7 @@ const BannerImg = () => {
 };
 
 const props = {
+  background: "transparent",
   text: "My markdown text with some **bold**",
   btnText: "Sprawdź przycisk",
   handleBtn: () => {
@@ -19,6 +20,7 @@ const props = {
 <GlobalThemeProvider>
   <div style={{ width: "100%" }}>
     <Banner
+      background={props.background}
       text={props.text}
       btnText={props.btnText}
       handleBtn={props.handleBtn}

@@ -26,7 +26,7 @@ const StyledDiv = styled("div")<BadgeProps>`
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
   display: inline-flex;
-  text-transform: uppercase; ;
+  text-transform: uppercase;
 `;
 
 export const Badge: React.FC<BadgeProps> = ({ children, color, ...props }) => {

@@ -52,7 +52,7 @@ export const Logo: React.FC = () => {
         x="0px"
         y="0px"
         viewBox="0 0 841.89 595.28"
-        enable-background="new 0 0 841.89 595.28"
+        enableBackground="new 0 0 841.89 595.28"
       >
         <g>
           <path

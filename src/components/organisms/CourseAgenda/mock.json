@@ -30,32 +30,68 @@
   "lessons": [
     {
       "id": 76,
-      "title": "Add title here",
+      "title": "Wprowadzenie do zajęć",
       "summary": "Aciuu",
       "duration": null,
       "active": true,
-      "topics": [],
+      "topics": [
+        {
+          "id": 1683,
+          "title": "Zasady rachunkowośći",
+          "lesson_id": 76,
+          "active": true,
+          "preview": false,
+          "topicable_id": null,
+          "topicable_type": null,
+          "topicable": null,
+          "summary": null,
+          "introduction": null,
+          "description": null,
+          "resources": [],
+          "order": 1,
+          "json": null,
+          "can_skip": false
+        }
+      ],
       "order": 0
     },
     {
       "id": 77,
-      "title": "Add title here",
-      "summary": null,
-      "duration": null,
-      "active": true,
-      "topics": [],
-      "order": 2
-    },
-    {
-      "id": 78,
-      "title": "Add title here",
+      "title": "Wprowadzenie do ćwiczeń",
       "summary": null,
       "duration": null,
       "active": true,
       "topics": [
         {
+          "id": 2683,
+          "title": "Początki i historia zmian prawnych w Polsce",
+          "lesson_id": 76,
+          "active": true,
+          "preview": false,
+          "topicable_id": null,
+          "topicable_type": null,
+          "topicable": null,
+          "summary": null,
+          "introduction": null,
+          "description": null,
+          "resources": [],
+          "order": 1,
+          "json": null,
+          "can_skip": false
+        }
+      ],
+      "order": 2
+    },
+    {
+      "id": 78,
+      "title": "Projekt 1: Rozliczenie podatkowe miesięczne",
+      "summary": null,
+      "duration": "15 minutes",
+      "active": true,
+      "topics": [
+        {
           "id": 683,
-          "title": "Add new title here",
+          "title": "Zmora podatku ZUS",
           "lesson_id": 78,
           "active": true,
           "preview": false,
@@ -72,7 +108,7 @@
         },
         {
           "id": 684,
-          "title": "Add new title here",
+          "title": "Rodzaje rozliczeń miesięcznych",
           "lesson_id": 78,
           "active": true,
           "preview": false,

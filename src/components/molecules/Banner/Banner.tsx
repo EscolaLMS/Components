@@ -12,6 +12,7 @@ export interface BannerImgProps {
 }
 
 export interface BannerProps extends React.HTMLAttributes<HTMLDivElement> {
+  background?: React.CSSProperties["background"];
   text: string;
   btnText: string;
   img: BannerImgProps | React.ReactElement;
@@ -20,6 +21,8 @@ export interface BannerProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const StyledBanner = styled("div")<BannerProps>`
+  background: ${(props) => props.background};
+
   .banner-btn {
     margin-top: ${(props) => (props.mobile ? "22px" : "52px")};
   }

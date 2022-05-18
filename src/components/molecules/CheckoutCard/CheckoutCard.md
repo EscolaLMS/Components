@@ -57,27 +57,57 @@ const IconThumbsUp = () => {
   );
 };
 
+const props = {
+  image: {
+    src: img2,
+    alt: "Checkout Card",
+    title: "Checkout Card title",
+  },
+  title: "Księgowość dla początkujących",
+  subtitle: "5 lekcji",
+  price: "99.99 zł",
+  oldPrice: "199.99 zł",
+  summmary: [
+    <IconText icon={<IconThumbsUp />} text={"90%"} noMargin />,
+    <IconText icon={<IconBadge />} text={"Gwarancja"} noMargin />,
+    <IconText icon={<IconStar />} text={"5.0"} noMargin />,
+  ],
+  handleDelete: () => {
+    console.log("clicked");
+  },
+};
+
 <GlobalThemeProvider>
   <ThemeTester flexDirection="column" alignItems={"start"}>
     <div style={{ width: "100%" }}>
       <CheckoutCard
         img={{
-          src: img2,
-          alt: "CheckoutCard",
-          title: "CheckoutCard",
+          src: props.image.src,
+          alt: props.image.alt,
+          title: props.image.title,
         }}
-        title={"Księgowość dla początkujących"}
-        subtitle={"5 lekcji"}
-        price={"99,99 zł"}
-        summary={[
-          <IconText icon={<IconThumbsUp />} text={"90%"} noMargin />,
-          <IconText icon={<IconBadge />} text={"Gwarancja"} noMargin />,
-          <IconText icon={<IconStar />} text={"5.0"} noMargin />,
-        ]}
-        oldPrice={"199,99 zł"}
-        handleDelete={() => {
-          console.log("delete");
+        title={props.title}
+        subtitle={props.subtitle}
+        price={props.price}
+        oldPrice={props.oldPrice}
+        summary={props.summmary}
+        handleDelete={props.handleDelete}
+      />
+    </div>
+    <div style={{ width: "375px" }}>
+      <CheckoutCard
+        img={{
+          src: props.image.src,
+          alt: props.image.alt,
+          title: props.image.title,
         }}
+        title={props.title}
+        subtitle={props.subtitle}
+        price={props.price}
+        oldPrice={props.oldPrice}
+        summary={props.summmary}
+        handleDelete={props.handleDelete}
+        mobile
       />
     </div>
   </ThemeTester>

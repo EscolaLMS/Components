@@ -2,61 +2,115 @@ import * as React from "react";
 import styled from "styled-components";
 
 export interface CardProps {
-  hideWings?: boolean;
+  // size of wings for a card
+  wings?: "small" | "large" | "hidden";
+  // overwrite default css style
   style?: React.CSSProperties;
+  // block or inline
+  inline?: boolean;
 }
 
 const StyledCard = styled.div<CardProps>`
+  width: ${(props) => (props.inline ? "auto" : "100%")};
+  display: ${(props) => (props.inline ? "inline-block" : "block")};
+
   position: relative;
+
+  padding-top: ${(props) => {
+    switch (props.wings) {
+      case "large":
+        return "73px";
+      case "small":
+        return "22px";
+      case "hidden":
+      default:
+        return "0";
+    }
+  }};
   .content {
     position: relative;
-    padding: 15px 20px;
-    z-index: 2;
-    ${(props) => {
-      if (props.hideWings) {
-        return `
-          border-radius: ${props.theme.cardRadius}px;
-        `;
+    padding: ${(props) => {
+      if (props.inline) {
+        return "10px 15px";
       }
-      return `
-        border-bottom-left-radius: ${props.theme.cardRadius}px;
-        border-bottom-right-radius: ${props.theme.cardRadius}px;
-        border-top-left-radius: ${props.theme.cardRadius}px;
-      `;
-    }}
+      return "15px 20px";
+    }};
+    z-index: 1;
+    border-radius: ${(props) => props.theme.cardRadius}px;
     background: ${(props) =>
-      props.theme.mode !== "dark" ? props.theme.gray4 : props.theme.gray1};
+      props.theme.mode !== "dark"
+        ? props.theme.cardBackgroundColorDark
+        : props.theme.cardBackgroundColorLight};
     &:before,
     &:after {
       background: ${(props) => {
-        if (props.hideWings) {
-          return "transparent";
+        if (props.wings) {
+          return props.theme.mode !== "dark"
+            ? props.theme.cardBackgroundColorDark
+            : props.theme.cardBackgroundColorLight;
         }
-        return props.theme.mode !== "dark"
-          ? props.theme.gray4
-          : props.theme.gray1;
+        return "transparent";
       }};
       content: "";
       position: absolute;
-      top: -30px;
-      left: 0;
-      width: 100%;
-      height: 30px;
+      right: 0;
+      width: ${(props) => {
+        if (props.theme.cardRadius !== undefined) {
+          return `calc(100% - ${props.theme.cardRadius / 1.5}px)`;
+        }
+        return "auto";
+      }};
       opacity: 0.4;
+      border-radius: ${(props) => props.theme.cardRadius}px;
+      z-index: -1;
     }
     &:before {
-      clip-path: polygon(100% 50%, 100% 100%, 10% 100%);
+      ${({ wings }) => {
+        if (wings && wings === "large") {
+          return `
+          height: calc(100% + 33px);
+            top: -33px;
+            clip-path: polygon(100% 0, 100% 100%, 0 100%, 0 33px);
+          `;
+        }
+        if (wings && wings === "small") {
+          return `
+            height: calc(100% + 10px);
+            top: -10px;
+            clip-path: polygon(100% 0, 100% 100%, 0 100%, 0 10px);
+          `;
+        }
+      }}
     }
     &:after {
-      clip-path: polygon(100% 0%, 100% 100%, 10% 100%);
-      z-index: 1;
+      ${({ wings }) => {
+        if (wings && wings === "large") {
+          return `
+            height: calc(100% + 72px);
+            top: -72px;
+            clip-path: polygon(100% 0, 100% 100%, 0 100%, 0 72px);
+          `;
+        }
+        if (wings && wings === "small") {
+          return `
+            height: calc(100% + 22px);
+            top: -22px;
+            clip-path: polygon(100% 0, 100% 100%, 0 100%, 0 22px);
+          `;
+        }
+      }}
     }
   }
 `;
 
-export const Card: React.FC<CardProps> = ({ hideWings, children, style }) => {
+export const Card: React.FC<CardProps> = ({
+  wings,
+  children,
+  style,
+  inline,
+}) => {
   return (
-    <StyledCard hideWings={hideWings} style={style}>
+    <StyledCard wings={wings} style={style} inline={inline}>
       <div className="content">{children}</div>
     </StyledCard>
   );

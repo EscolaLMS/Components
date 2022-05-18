@@ -35,7 +35,6 @@ const StyledAnchor = styled("a")<LinkProps>`
       (props.theme.mode === "light"
         ? props.theme?.gray1
         : props.theme?.gray5) || "black"};
-    //transform-origin: bottom right;
     transform-origin: ${(props) =>
       props.underline ? "bottom left" : "bottom right"};
     transition: transform 0.25s ease-out;
