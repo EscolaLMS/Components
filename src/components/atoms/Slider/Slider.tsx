@@ -20,14 +20,9 @@ const StyledDiv = styled("div")<SliderProps>`
     display: block;
     box-sizing: border-box;
 
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
     user-select: none;
 
     -webkit-touch-callout: none;
-    -khtml-user-select: none;
-    -ms-touch-action: pan-y;
     touch-action: pan-y;
     -webkit-tap-highlight-color: transparent;
 
@@ -71,15 +66,6 @@ const StyledDiv = styled("div")<SliderProps>`
     cursor: hand;
   }
 
-  .slick-slider .slick-track,
-  .slick-slider .slick-list {
-    -webkit-transform: translate3d(0, 0, 0);
-    -moz-transform: translate3d(0, 0, 0);
-    -ms-transform: translate3d(0, 0, 0);
-    -o-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-  }
-
   .slick-track {
     position: relative;
     top: 0;
@@ -98,6 +84,12 @@ const StyledDiv = styled("div")<SliderProps>`
   .slick-track:after {
     clear: both;
   }
+
+  .slick-slider .slick-track,
+  .slick-slider .slick-list {
+    transform: translate3d(0, 0, 0);
+  }
+
   .slick-loading .slick-track {
     visibility: hidden;
   }
@@ -138,8 +130,6 @@ const StyledDiv = styled("div")<SliderProps>`
     display: none;
   }
 
-  // theme
-
   .slick-loading .slick-list {
     background: #fff center center no-repeat;
   }
@@ -158,8 +148,6 @@ const StyledDiv = styled("div")<SliderProps>`
     width: 20px;
     height: 20px;
     padding: 0;
-    -webkit-transform: translate(0, -50%);
-    -ms-transform: translate(0, -50%);
     transform: translate(0, -50%);
 
     cursor: pointer;
@@ -168,6 +156,31 @@ const StyledDiv = styled("div")<SliderProps>`
     border: none;
     outline: none;
     background: transparent;
+  }
+
+  .slick-prev {
+    left: -25px;
+  }
+
+  .slick-prev:before,
+  .slick-next:before {
+    font-size: 20px;
+    line-height: 1;
+
+    opacity: 0.75;
+    color: white;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  .slick-prev:before {
+    content: "←";
+  }
+  .slick-next {
+    right: -25px;
+  }
+  .slick-next:before {
+    content: "→";
   }
   .slick-prev:hover,
   .slick-prev:focus,
@@ -188,43 +201,20 @@ const StyledDiv = styled("div")<SliderProps>`
     opacity: 0.25;
   }
 
-  .slick-prev:before,
-  .slick-next:before {
-    font-family: "slick";
-    font-size: 20px;
-    line-height: 1;
-
-    opacity: 0.75;
-    color: white;
-
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  .slick-prev {
-    left: -25px;
-  }
   [dir="rtl"] .slick-prev {
     right: -25px;
     left: auto;
   }
-  .slick-prev:before {
-    content: "←";
-  }
+
   [dir="rtl"] .slick-prev:before {
     content: "→";
   }
 
-  .slick-next {
-    right: -25px;
-  }
   [dir="rtl"] .slick-next {
     right: auto;
     left: -25px;
   }
-  .slick-next:before {
-    content: "→";
-  }
+
   [dir="rtl"] .slick-next:before {
     content: "←";
   }
@@ -326,7 +316,6 @@ const StyledDiv = styled("div")<SliderProps>`
 
     display: block;
     border: none;
-    background: none;
     appearance: none;
 
     width: 100%;
@@ -350,7 +339,7 @@ const StyledDiv = styled("div")<SliderProps>`
 `;
 
 export const Slider: React.FC<SliderProps> = (props) => {
-  const { children, settings, dotsPosition = "top" } = props;
+  const { children, settings } = props;
 
   return (
     <StyledDiv {...props}>
