@@ -4,25 +4,28 @@ import { Title } from "../../atoms/Typography/Title";
 import { Col, Row } from "react-grid-system";
 import { ReactNode } from "react";
 import { IconText } from "../../atoms/IconText/IconText";
+import RatioBox from "../../atoms/RatioImage/RatioBox";
+
+interface StyledCheckoutCardProps {
+  mobile?: boolean;
+}
 
 interface CheckoutImgProps {
   src: string;
   alt: string;
-  title: string;
 }
 
-export interface CheckoutCardProps
-  extends React.HTMLAttributes<HTMLDivElement> {
+export interface CheckoutCardProps extends StyledCheckoutCardProps {
+  title: ReactNode;
   img: CheckoutImgProps | ReactNode;
   subtitle?: ReactNode;
   summary?: ReactNode[];
   price: string;
   oldPrice?: string;
   handleDelete: () => void;
-  mobile?: boolean;
 }
 
-const StyledCheckoutCard = styled("div")<CheckoutCardProps>`
+const StyledCheckoutCard = styled("div")<StyledCheckoutCardProps>`
   padding: 15px;
   width: 100%;
   box-sizing: border-box;
@@ -68,6 +71,25 @@ const StyledCheckoutCard = styled("div")<CheckoutCardProps>`
   .checkout-card-summary-item {
     margin-right: ${(props) => (props.mobile ? "10px" : "25px")};
   }
+
+  svg {
+    path {
+      fill: currentColor;
+    }
+
+    &.icon-primary {
+      path {
+        fill: ${({ theme }) => theme.primaryColor};
+      }
+    }
+
+    &.icon-stroke {
+      path {
+        stroke: currentColor;
+        fill: none;
+      }
+    }
+  }
 `;
 
 const IconBin = () => {
@@ -94,6 +116,7 @@ const IconBook = () => {
       height="18"
       viewBox="0 0 18 18"
       fill="none"
+      className={"icon-stroke"}
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
@@ -116,12 +139,12 @@ const IconBook = () => {
 
 export const CheckoutCard: React.FC<CheckoutCardProps> = (props) => {
   const {
+    title,
     img,
     summary,
     subtitle,
     oldPrice,
     price,
-    title,
     handleDelete,
     mobile = false,
   } = props;
@@ -132,18 +155,19 @@ export const CheckoutCard: React.FC<CheckoutCardProps> = (props) => {
         {React.isValidElement(img) ? (
           <React.Fragment>{img}</React.Fragment>
         ) : (
-          <img
-            src={(img as CheckoutImgProps).src}
-            alt={(img as CheckoutImgProps).alt}
-            title={(img as CheckoutImgProps).title}
-          />
+          <RatioBox ratio={1}>
+            <img
+              src={(img as CheckoutImgProps).src}
+              alt={(img as CheckoutImgProps).alt}
+            />
+          </RatioBox>
         )}
       </div>
     );
   };
 
   return (
-    <StyledCheckoutCard {...props}>
+    <StyledCheckoutCard mobile={mobile}>
       <Row align={"center"}>
         {!mobile && (
           <Col xs={12} md={2}>
@@ -166,6 +190,7 @@ export const CheckoutCard: React.FC<CheckoutCardProps> = (props) => {
               {subtitle && (
                 <IconText
                   icon={<IconBook />}
+                  className={`checkout-card-subtitle`}
                   text={"5 lekcji"}
                   styles={{
                     icon: {
