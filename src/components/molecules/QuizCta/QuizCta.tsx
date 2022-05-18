@@ -15,10 +15,10 @@ interface StyledQuizCtaCardProps {
 export interface QuizCtaCardProps extends StyledQuizCtaCardProps {
   title: ReactNode;
   children: ReactNode;
-  primaryBtnText: ReactNode;
-  handlePrimaryBtn: () => void;
-  tertiaryBtnText?: ReactNode;
-  handleTertiaryBtn?: () => void;
+  primaryButtonText: ReactNode;
+  onPrimaryButtonClick: () => void;
+  secondaryButtonText?: ReactNode;
+  onSecondaryButtonClick?: () => void;
 }
 
 const StyledQuizCta = styled("div")<StyledQuizCtaCardProps>`
