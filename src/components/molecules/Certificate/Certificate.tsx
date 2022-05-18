@@ -4,16 +4,32 @@ import { Title } from "../../atoms/Typography/Title";
 import { Text } from "../../atoms/Typography/Text";
 import { Link } from "../../atoms/Link/Link";
 import { Row, Col } from "react-grid-system";
+import RatioBox from "../../atoms/RatioImage/RatioBox";
+import { ReactNode } from "react";
 
-export interface CertificateProps extends React.HTMLAttributes<HTMLDivElement> {
-  image: string;
-  description: string;
-  handleDownload: () => void;
-  handleShare: () => void;
+interface StyledCertificateProps {
   mobile?: boolean;
 }
 
-const StyledCertificate = styled("div")<CertificateProps>`
+interface CertificateImgProps {
+  src: string;
+  alt: string;
+}
+
+export interface CertificateProps extends StyledCertificateProps {
+  img: CertificateImgProps | ReactNode;
+  title: ReactNode;
+  description: ReactNode;
+  handleDownload: () => void;
+  handleShare: () => void;
+}
+
+const StyledCertificate = styled("div")<StyledCertificateProps>`
+  .certificate-badge {
+    width: 116px;
+    flex-shrink: 0;
+  }
+
   .certificate-left-col {
     margin-left: 20px;
   }
@@ -49,6 +65,11 @@ const StyledCertificate = styled("div")<CertificateProps>`
 
     &:not(:last-child) {
       margin-bottom: 24px;
+    }
+
+    svg path {
+      fill: ${(props) =>
+        props.theme.mode === "light" ? props.theme.gray2 : props.theme.white};
     }
   }
 `;
@@ -89,16 +110,16 @@ const Icon2 = () => {
 
 export const Certificate: React.FC<CertificateProps> = (props) => {
   const {
-    image,
+    img,
     title,
     description,
-    handleDownload,
     handleShare,
+    handleDownload,
     mobile = false,
   } = props;
 
   return (
-    <StyledCertificate {...props}>
+    <StyledCertificate mobile={mobile}>
       <Title level={4} as={"h4"} style={{ marginBottom: "20px" }}>
         Certificates
       </Title>
@@ -111,7 +132,18 @@ export const Certificate: React.FC<CertificateProps> = (props) => {
             alignItems: "center",
           }}
         >
-          <img src={image} alt="certificate" width={116} height={116} />
+          <div className={"certificate-badge"}>
+            {React.isValidElement(img) ? (
+              <React.Fragment>{img}</React.Fragment>
+            ) : (
+              <RatioBox ratio={1}>
+                <img
+                  src={(img as CertificateImgProps).src}
+                  alt={(img as CertificateImgProps).alt}
+                />
+              </RatioBox>
+            )}
+          </div>
           <div className={"certificate-left-col"}>
             <Title
               as={"h4"}
@@ -129,18 +161,22 @@ export const Certificate: React.FC<CertificateProps> = (props) => {
         </Col>
         <Col xs={12} md={mobile ? 12 : 5} className={"certificate-right-col"}>
           <div>
-            <div className="certificate-link">
-              <Icon1 />
-              <Link style={{ marginLeft: "14px" }} onClick={handleDownload}>
-                Pobierz lub wydrukuj jako plik PDF
-              </Link>
-            </div>
-            <div className="certificate-link">
-              <Icon2 />
-              <Link style={{ marginLeft: "14px" }} onClick={handleShare}>
-                Udostępnij jako zdjęcie online
-              </Link>
-            </div>
+            {handleDownload && (
+              <div className="certificate-link">
+                <Icon1 />
+                <Link style={{ marginLeft: "14px" }} onClick={handleDownload}>
+                  Pobierz lub wydrukuj jako plik PDF
+                </Link>
+              </div>
+            )}
+            {handleShare && (
+              <div className="certificate-link">
+                <Icon2 />
+                <Link style={{ marginLeft: "14px" }} onClick={handleShare}>
+                  Udostępnij jako zdjęcie online
+                </Link>
+              </div>
+            )}
           </div>
         </Col>
       </Row>
@@ -148,6 +184,6 @@ export const Certificate: React.FC<CertificateProps> = (props) => {
   );
 };
 
-const NewCertificate = styled(Certificate)``;
+const NewCertificate = styled(Certificate)<CertificateProps>``;
 
 export default withTheme(NewCertificate);
