@@ -11,6 +11,7 @@ const resources = {
       "Course.Finished": "Finished",
       "Course.Agenda": "Agenda",
       "Course.markAsFinished": "Mark as finished",
+      "ratings.average.rate.label": "Average rate",
 
       "Welcome to Wellms": "Welcome to Wellms and react-i18next",
     },
@@ -22,6 +23,7 @@ const resources = {
   },
   pl: {
     translation: {
+      "ratings.average.rate.label": "Średnia ocena",
       "Welcome to Wellms": "Witaj w Wellms i react-i18next",
     },
   },

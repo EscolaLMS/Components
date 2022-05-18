@@ -12,7 +12,7 @@ export interface TitleProps
   extends StyledHeader,
     React.HTMLAttributes<HTMLHeadingElement> {
   children?: React.ReactNode;
-  as: keyof JSX.IntrinsicElements;
+  as?: keyof JSX.IntrinsicElements;
 }
 
 const StyledHeader = styled.h1<StyledHeader>`
