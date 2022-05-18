@@ -1,6 +1,7 @@
 import * as React from "react";
 import styled, { withTheme } from "styled-components";
 import { getFontFromTheme } from "../../../theme/provider";
+import chroma from "chroma-js";
 
 export interface ComponentProps {
   href: string;
@@ -9,14 +10,14 @@ export interface ComponentProps {
 
 const StyledDiv = styled.div<ComponentProps>`
   font-size: 1.1em;
+  width: 100%;
   margin-bottom: 20px;
-  display: inline-block;
   font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
   .download-btn {
     background: ${(props) => {
-      return props.theme.mode !== "light"
-        ? props.theme.gray1
-        : props.theme.white;
+      return props.theme.mode !== "dark"
+        ? chroma(props.theme.backgroundLight).darken(0.2).hex()
+        : chroma(props.theme.backgroundDark).brighten(1).hex();
     }};
     color: ${(props) => {
       return props.theme.mode !== "light"
