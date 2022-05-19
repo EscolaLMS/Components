@@ -163,7 +163,7 @@ export const Notifications: React.FC<ComponentProps> = (props) => {
 
   // TODO add react-i18n
   return (
-    <StyledWrapper>
+    <StyledWrapper ref={ref}>
       <StyledIcon onClick={() => setActive(!active)}>
         <svg
           width="19"
@@ -178,7 +178,7 @@ export const Notifications: React.FC<ComponentProps> = (props) => {
       </StyledIcon>
 
       {active && (
-        <StyledNotifications ref={ref}>
+        <StyledNotifications>
           <div>
             <StyledNotificationsHeader>
               <h5>Powiadomienia</h5>
