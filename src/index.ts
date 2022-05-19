@@ -17,7 +17,7 @@ export { default as Avatar } from "./components/atoms/Avatar/Avatar";
 export { default as ProgressBar } from "./components/atoms/ProgressBar/ProgressBar";
 export { default as ProgressRing } from "./components/atoms/ProgressRing/ProgressRing";
 
-export { default as Rating } from "./components/atoms/Rating/Rating";
+export { Rating } from "./components/atoms/Rating/Rating";
 export { default as Tag } from "./components/atoms/Tag/Tag";
 export { default as Text } from "./components/atoms/Typography/Text";
 export { default as Title } from "./components/atoms/Typography/Title";

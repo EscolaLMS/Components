@@ -19,6 +19,7 @@ const resources = {
       "rate.select.2": "Weak, below expectations",
       "rate.select.1": "Fatal, disappointments",
       "rate.submit.button": "Rate the course",
+      "ratings.average.rate.label": "Average rate",
 
       "Welcome to Wellms": "Welcome to Wellms and react-i18next",
     },
@@ -30,6 +31,7 @@ const resources = {
   },
   pl: {
     translation: {
+      "ratings.average.rate.label": "Średnia ocena",
       "Welcome to Wellms": "Witaj w Wellms i react-i18next",
       "rate.header": "Jak oceniasz ten kurs",
       "rate.select": "Wybierz ocene",

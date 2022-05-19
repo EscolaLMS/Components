@@ -1,5 +1,5 @@
 import * as React from "react";
-import styled, { withTheme } from "styled-components";
+import styled from "styled-components";
 import { getFontFromTheme } from "../../../theme/provider";
 
 interface IconProps {
@@ -112,8 +112,3 @@ export const Rating: React.FC<RatingProps> = (props) => {
     </StyledRating>
   );
 };
-
-const NewRating = styled(Rating)<RatingProps>``;
-
-// Main button with styles
-export default withTheme(NewRating);
