@@ -80,6 +80,7 @@ export const CategoryCard: React.FC<CategoryCardProps> = (props) => {
       </Title>
       <div className={"category-card-children"}>{subtitle}</div>
       <Button
+        mode={"secondary"}
         onClick={onButtonClick}
         style={{
           marginTop: "6px",
