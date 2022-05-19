@@ -93,6 +93,7 @@ const cartCardContainerStyle = {
           ...cartCardProps.discount,
           grantedDiscountCodes: ["1234", "XYS1234js1234"],
           status: "granted",
+          isOpen: true,
         }}
       />
     </div>

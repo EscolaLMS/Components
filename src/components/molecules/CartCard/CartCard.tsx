@@ -95,16 +95,21 @@ const StyledCardCard = styled.div`
     width: 24px;
     background: ${(props) =>
       props.theme.mode !== "dark" ? props.theme.gray1 : props.theme.white};
-    margin: 20px 0;
+    margin: 20px 0 14px 0;
   }
   .open-discount-state-container {
     margin-left: 24px;
   }
   .discount-form-container {
-    margin-top: 23px;
+    margin-top: 17px;
     display: flex;
     flex-direction: column;
     gap: 28px;
+  }
+  .discount-toggle {
+    display: inline-block;
+    padding: 6px 0;
+    cursor: pointer;
   }
   .discount-granted-info {
     margin-bottom: 23px;
@@ -176,16 +181,15 @@ export const CartCard: React.FC<CartCardProps> = (props) => {
       {discount && (
         <>
           <div className="separator"></div>
-          {/* TODO: change button to pseudo dropdown */}
-          <Button
-            mode="secondary"
+          <div
+            className="discount-toggle"
             onClick={() => setIsDiscountOpen(!isDiscountOpen)}
           >
             {t("cart.card.add.discount.button")}
             <span className="open-discount-state-container">
               {isDiscountOpen ? <ArrowOpenIcon /> : <ArrowClosedIcon />}{" "}
             </span>
-          </Button>
+          </div>
           {isDiscountOpen && (
             <div className="discount-form-container">
               <Input
