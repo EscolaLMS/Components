@@ -224,7 +224,12 @@ export const CheckoutCard: React.FC<CheckoutCardProps> = (props) => {
                     </Title>
                   </div>
                 )}
-                <div className={"checkout-card-remove"} onClick={handleDelete}>
+                <div
+                  role="button"
+                  className={"checkout-card-remove"}
+                  onClick={handleDelete}
+                  onKeyDown={(e) => e.key === "Enter" && handleDelete()}
+                >
                   <IconBin />
                 </div>
               </div>
