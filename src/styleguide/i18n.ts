@@ -11,6 +11,12 @@ const resources = {
       "Course.Finished": "Finished",
       "Course.Agenda": "Agenda",
       "Course.markAsFinished": "Mark as finished",
+      "cart.card.buy.button": "I buy and pay",
+      "cart.card.add.discount.button": "Add discount code",
+      "cart.card.realize.button": "Realize",
+      "cart.card.discount.error": "The code provided is invalid",
+      "cart.card.discount.granted": "**Discount code {{code}}** applied",
+      "cart.card.discount.realize.info": "Successfully implemented",
 
       "Welcome to Wellms": "Welcome to Wellms and react-i18next",
     },
@@ -23,6 +29,12 @@ const resources = {
   pl: {
     translation: {
       "Welcome to Wellms": "Witaj w Wellms i react-i18next",
+      "cart.card.buy.button": "Kupuję i płacę",
+      "cart.card.add.discount.button": "Dodaj kod rabatowy",
+      "cart.card.realize.button": "Realizuj",
+      "cart.card.discount.error": "Podany kod jest nieprawidłowy",
+      "cart.card.discount.granted": "**Kod rabatowy {{code}}** zastosowany",
+      "cart.card.discount.realize.info": "Zrealizowano pomyślnie",
     },
   },
 };

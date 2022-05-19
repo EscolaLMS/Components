@@ -69,7 +69,9 @@ const StyledDiv = styled("div")<InputProps>`
       }
       fieldset {
         position: absolute;
-        inset: -5px 0 0;
+        inset: ${({ label }) => {
+          return `${label ? "-5px " : "0 "} 0 0`;
+        }};
         margin: 0px;
         padding: 0px 8px;
         border: ${(props) => {
@@ -86,7 +88,7 @@ const StyledDiv = styled("div")<InputProps>`
         legend {
           overflow: hidden;
           display: block;
-          width: auto;
+          width: 0;
           height: 11px;
           font-size: 0.75em;
           visibility: hidden;
@@ -196,6 +198,7 @@ export const Input: React.FC<InputProps> = (props) => {
       error={props.error}
       disabled={props.disabled}
       required={required}
+      label={label}
       className={`lsm-input ${helper ? "has-helper" : ""} ${
         error ? "has-error" : ""
       } ${container?.className ? container.className : ""}`}
@@ -209,14 +212,14 @@ export const Input: React.FC<InputProps> = (props) => {
             {...notInputProps}
             id={label ? generateRandomInputId : undefined}
           />
-          {label && (
-            <fieldset>
+          <fieldset>
+            {label && (
               <legend>
                 {label}
                 {required ? "*" : ""}
               </legend>
-            </fieldset>
-          )}
+            )}
+          </fieldset>
         </div>
       </div>
       {helper && <span>{helper}</span>}
