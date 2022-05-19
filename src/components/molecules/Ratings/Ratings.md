@@ -1,13 +1,28 @@
 ```js
-import { GlobalThemeProvider } from "../../../theme/provider";
-import ImageModal from "../../../styleguide/ImageModal";
 import img1 from "./Ratings.png";
 import img2 from "./Ratings-2.png";
+import { ImageModal, ThemeTester } from "../../../styleguide";
+import mockApi from "./mock.json";
+import { Title } from "../../atoms/Typography/Title";
 
-<GlobalThemeProvider>
-    <Ratings>
-        <pre>This component is not ready yet</pre>
-    </Ratings>
-    <ImageModal images={[img1, img2]}/>
-</GlobalThemeProvider>;
+const ratingsProps = {
+  sumRates: mockApi.sum_rates,
+  avgRate: mockApi.avg_rate,
+  rates: mockApi.rates,
+  header: "Students rating",
+};
+
+<ThemeTester childrenListStyle={{ display: "block" }}>
+  <div style={{ margin: "0 16px" }}>
+    <Title level={3}>Desktop View</Title>
+    <Ratings {...ratingsProps} />
+  </div>
+  <div style={{ maxWidth: 360, margin: "auto" }}>
+    <div style={{ margin: "0 16px" }}>
+      <Title level={3}>Mobile View</Title>
+      <Ratings mobile {...ratingsProps} />
+    </div>
+  </div>
+  <ImageModal images={[img1, img2]} />
+</ThemeTester>;
 ```

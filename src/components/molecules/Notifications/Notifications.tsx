@@ -123,16 +123,23 @@ const StyledLink = styled.a`
   font-weight: 500;
   color: ${({ theme }) => theme.textColorLight};
   transition: color 0.4s;
-  &:hover {
-    color: ${({ theme }) => theme.primaryColor};
-    svg path {
-      fill: ${({ theme }) => theme.primaryColor};
+
+  /* stylelint-disable */
+  svg {
+    /* stylelint-enable */
+    margin-left: 8px;
+    /* stylelint-disable */
+    path {
+      /* stylelint-enable */
+      transition: fill 0.4s;
     }
   }
-  svg {
-    margin-left: 8px;
-    path {
-      transition: fill 0.4s;
+  &:hover {
+    color: ${({ theme }) => theme.primaryColor};
+    svg {
+      path {
+        fill: ${({ theme }) => theme.primaryColor};
+      }
     }
   }
 `;
@@ -156,7 +163,7 @@ export const Notifications: React.FC<ComponentProps> = (props) => {
 
   // TODO add react-i18n
   return (
-    <StyledWrapper>
+    <StyledWrapper ref={ref}>
       <StyledIcon onClick={() => setActive(!active)}>
         <svg
           width="19"
@@ -171,7 +178,7 @@ export const Notifications: React.FC<ComponentProps> = (props) => {
       </StyledIcon>
 
       {active && (
-        <StyledNotifications ref={ref}>
+        <StyledNotifications>
           <div>
             <StyledNotificationsHeader>
               <h5>Powiadomienia</h5>

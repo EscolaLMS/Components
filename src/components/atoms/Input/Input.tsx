@@ -38,68 +38,7 @@ const StyledDiv = styled("div")<InputProps>`
     .required {
       color: ${(props) => props.theme.errorColor};
     }
-    .input-container {
-      display: inline-flex;
-      flex-direction: column;
-      position: relative;
-      width: 100%;
-      &.filled,
-      &:focus-within {
-        legend {
-          width: auto;
-          margin-left: -2px;
-          padding-right: 10px;
-        }
-        label {
-          transform: translate(12px, -7px) scale(0.75);
-          ${(props) => {
-            const backgroundLabel =
-              props.theme.mode === "dark"
-                ? props.theme.black
-                : props.theme.white;
-            return `
-              background: ${backgroundLabel};
-              box-shadow: -5px 0px 0px 0px ${backgroundLabel}, 5px 0px 0px 0px ${backgroundLabel};
-            `;
-          }}
-        }
-        input {
-          background: ${(props) => {
-            if (props.disabled) {
-              return "";
-            }
-            props.theme.mode === "dark" ? props.theme.white : undefined;
-          }};
-        }
-        fieldset {
-          border-color: ${(props) => {
-            if (props.error) {
-              return props.theme.errorColor;
-            }
-            if (props.disabled) {
-              return "transparent;";
-            }
-            return props.theme.mode !== "dark" ? props.theme.gray3 : undefined;
-          }};
-        }
-      }
-    }
-    label {
-      pointer-events none;
-      transform-origin: left top;
-      max-width: calc(100% - 24px);
-      position: absolute;
-      left: 0px;
-      top: 0px;
-      transform: translate(12px, 12px) scale(1);
-      z-index: 1;
-      transition: 0.2s all;
-      color: ${(props) => {
-        if (props.error) {
-          return props.theme.errorColor;
-        }
-      }};
-    }
+
     .input-and-fieldset {
       box-sizing: border-box;
       display: inline-flex;
@@ -151,8 +90,72 @@ const StyledDiv = styled("div")<InputProps>`
           height: 11px;
           font-size: 0.75em;
           visibility: hidden;
-          width: 0;
           padding: 0;
+        }
+      }
+    }
+
+    .input-container {
+      display: inline-flex;
+      flex-direction: column;
+      position: relative;
+      width: 100%;
+
+      label {
+        pointer-events: none;
+        transform-origin: left top;
+        max-width: calc(100% - 24px);
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        transform: translate(12px, 12px) scale(1);
+        z-index: 1;
+        transition: 0.2s all;
+        color: ${(props) => {
+          if (props.error) {
+            return props.theme.errorColor;
+          }
+        }};
+      }
+
+      &.filled,
+      &:focus-within {
+        legend {
+          width: auto;
+          margin-left: -2px;
+          padding-right: 10px;
+        }
+        label {
+          transform: translate(12px, -7px) scale(0.75);
+          ${(props) => {
+            const backgroundLabel =
+              props.theme.mode === "dark"
+                ? props.theme.black
+                : props.theme.white;
+            return `
+              background: ${backgroundLabel};
+              box-shadow: -5px 0px 0px 0px ${backgroundLabel}, 5px 0px 0px 0px ${backgroundLabel};
+            `;
+          }}
+        }
+        input {
+          background: ${(props) => {
+            if (props.disabled) {
+              return "";
+            }
+            props.theme.mode === "dark" ? props.theme.white : undefined;
+          }};
+        }
+        fieldset {
+          border-color: ${(props) => {
+            if (props.error) {
+              return props.theme.errorColor;
+            }
+            if (props.disabled) {
+              return "transparent;";
+            }
+            return props.theme.mode !== "dark" ? props.theme.gray3 : undefined;
+          }};
         }
       }
     }

@@ -1,10 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
 import { Title } from "../../atoms/Typography/Title";
-import {
-  ProfileAvatar,
-  ProfileAvatarProps,
-} from "../../atoms/ProfileAvatar/ProfileAvatar";
+import { Avatar, AvatarProps } from "../../atoms/Avatar/Avatar";
 import { RatingProps, Rating } from "../../atoms/Rating/Rating";
 import { ReactNode } from "react";
 import { Text } from "../../atoms/Typography/Text";
@@ -15,7 +12,7 @@ interface StyledTourProps {
 export interface TutorProps extends StyledTourProps {
   title: ReactNode | string;
   fullName: ReactNode | string;
-  avatar: ProfileAvatarProps;
+  avatar: AvatarProps;
   rating: RatingProps;
   description: ReactNode | string;
   coursesInfo?: ReactNode | string;
@@ -36,6 +33,11 @@ const StyledTutor = styled.div<StyledTourProps>`
     }
     .ranking-row {
       display: flex;
+      ${(props) => {
+        if (!props.mobile) {
+          return "align-items: center;";
+        }
+      }}
       flex-direction: ${(props) => (props.mobile ? "column" : "row")};
       margin: 10px 0;
     }
@@ -55,15 +57,8 @@ const StyledTutor = styled.div<StyledTourProps>`
 `;
 
 export const Tutor: React.FC<TutorProps> = (props) => {
-  const {
-    title,
-    fullName,
-    avatar,
-    rating,
-    coursesInfo,
-    description,
-    mobile,
-  } = props;
+  const { title, fullName, avatar, rating, coursesInfo, description, mobile } =
+    props;
 
   return (
     <StyledTutor className="lms-tutor" mobile={mobile}>
@@ -71,7 +66,7 @@ export const Tutor: React.FC<TutorProps> = (props) => {
         {title}
       </Title>
       <div className="avatar-row">
-        <ProfileAvatar size={"extraLarge"} {...avatar} />
+        <Avatar size={"extraLarge"} {...avatar} />
         <div className="avatar-info">
           <Title as="h4" level={4}>
             {fullName}

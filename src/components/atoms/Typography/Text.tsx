@@ -4,14 +4,14 @@ import styled, { withTheme } from "styled-components";
 
 import { getFontFromTheme } from "../../../theme/provider";
 
-export interface TitleProps extends React.HTMLAttributes<HTMLHeadingElement> {
+export interface TextProps extends React.HTMLAttributes<HTMLParagraphElement> {
   noMargin?: boolean;
   bold?: boolean;
   size?: "16" | "14";
   type?: "primary" | "secondary" | "warning" | "danger";
 }
 
-const StyledP = styled.p<TitleProps>`
+const StyledP = styled.p<TextProps>`
   margin: ${(props) => (props.noMargin ? "0" : "0 0 1.55em 0")};
   padding: 0;
   color: ${(props) => {
@@ -27,9 +27,13 @@ const StyledP = styled.p<TitleProps>`
   font-weight: ${(props) => (props.bold ? "bold" : "normal")};
   font-size: ${(props) => (props.size === "14" ? "14px" : "16px")};
   line-height: 1.55em;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 `;
 
-export const Text: React.FC<TitleProps> = (props) => {
+export const Text: React.FC<TextProps> = (props) => {
   const {
     children,
     noMargin,

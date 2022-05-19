@@ -4,30 +4,59 @@ import { Title } from "../../atoms/Typography/Title";
 import { Text } from "../../atoms/Typography/Text";
 import { Link } from "../../atoms/Link/Link";
 import { Row, Col } from "react-grid-system";
+import RatioBox from "../../atoms/RatioBox/RatioBox";
+import { ReactNode } from "react";
 
-export interface CertificateProps extends React.HTMLAttributes<HTMLDivElement> {
-  image: string;
-  description: string;
+interface StyledCertificateProps {
+  mobile?: boolean;
+}
+
+interface CertificateImgProps {
+  src: string;
+  alt: string;
+}
+
+export interface CertificateProps extends StyledCertificateProps {
+  img: CertificateImgProps | ReactNode;
+  title: ReactNode;
+  description: ReactNode;
   handleDownload: () => void;
   handleShare: () => void;
 }
 
-const StyledCertificate = styled("div")`
+const StyledCertificate = styled("div")<StyledCertificateProps>`
+  .certificate-badge {
+    width: 116px;
+    flex-shrink: 0;
+  }
+
   .certificate-left-col {
     margin-left: 20px;
   }
 
   .certificate-right-col {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border-left: 1px solid
-      ${({ theme }) => (theme.mode === "light" ? theme.gray3 : theme.white)};
+    ${(props) =>
+      props.mobile
+        ? `
+      margin-top: 23px;
+      `
+        : `
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-left: 1px solid ${
+        props.theme.mode === "light" ? props.theme.gray3 : props.theme.white
+      };
+    `}
   }
 
   .certificate-right-col-inner {
-    padding-left: 34px;
+    ${(props) =>
+      props.mobile &&
+      `
+        padding-left: 34px;
+      `}
   }
 
   .certificate-link {
@@ -36,6 +65,11 @@ const StyledCertificate = styled("div")`
 
     &:not(:last-child) {
       margin-bottom: 24px;
+    }
+
+    svg path {
+      fill: ${(props) =>
+        props.theme.mode === "light" ? props.theme.gray2 : props.theme.white};
     }
   }
 `;
@@ -75,23 +109,41 @@ const Icon2 = () => {
 };
 
 export const Certificate: React.FC<CertificateProps> = (props) => {
-  const { image, title, description, handleDownload, handleShare } = props;
+  const {
+    img,
+    title,
+    description,
+    handleShare,
+    handleDownload,
+    mobile = false,
+  } = props;
 
   return (
-    <StyledCertificate>
+    <StyledCertificate mobile={mobile}>
       <Title level={4} as={"h4"} style={{ marginBottom: "20px" }}>
         Certificates
       </Title>
       <Row>
         <Col
           xs={12}
-          md={7}
+          md={mobile ? 12 : 7}
           style={{
             display: "flex",
             alignItems: "center",
           }}
         >
-          <img src={image} alt="certificate" width={116} height={116} />
+          <div className={"certificate-badge"}>
+            {React.isValidElement(img) ? (
+              <React.Fragment>{img}</React.Fragment>
+            ) : (
+              <RatioBox ratio={1}>
+                <img
+                  src={(img as CertificateImgProps).src}
+                  alt={(img as CertificateImgProps).alt}
+                />
+              </RatioBox>
+            )}
+          </div>
           <div className={"certificate-left-col"}>
             <Title
               as={"h4"}
@@ -107,20 +159,24 @@ export const Certificate: React.FC<CertificateProps> = (props) => {
             </Text>
           </div>
         </Col>
-        <Col xs={12} md={5} className={"certificate-right-col"}>
+        <Col xs={12} md={mobile ? 12 : 5} className={"certificate-right-col"}>
           <div>
-            <div className="certificate-link">
-              <Icon1 />
-              <Link style={{ marginLeft: "14px" }} onClick={handleDownload}>
-                Pobierz lub wydrukuj jako plik PDF
-              </Link>
-            </div>
-            <div className="certificate-link">
-              <Icon2 />
-              <Link style={{ marginLeft: "14px" }} onClick={handleShare}>
-                Udostępnij jako zdjęcie online
-              </Link>
-            </div>
+            {handleDownload && (
+              <div className="certificate-link">
+                <Icon1 />
+                <Link style={{ marginLeft: "14px" }} onClick={handleDownload}>
+                  Pobierz lub wydrukuj jako plik PDF
+                </Link>
+              </div>
+            )}
+            {handleShare && (
+              <div className="certificate-link">
+                <Icon2 />
+                <Link style={{ marginLeft: "14px" }} onClick={handleShare}>
+                  Udostępnij jako zdjęcie online
+                </Link>
+              </div>
+            )}
           </div>
         </Col>
       </Row>
@@ -128,6 +184,6 @@ export const Certificate: React.FC<CertificateProps> = (props) => {
   );
 };
 
-const NewCertificate = styled(Certificate)``;
+const NewCertificate = styled(Certificate)<CertificateProps>``;
 
 export default withTheme(NewCertificate);

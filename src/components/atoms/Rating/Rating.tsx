@@ -1,5 +1,5 @@
 import * as React from "react";
-import styled, { withTheme } from "styled-components";
+import styled from "styled-components";
 import { getFontFromTheme } from "../../../theme/provider";
 
 const RatingIconEmpty = () => (
@@ -36,7 +36,7 @@ export interface RatingProps {
   ratingValue: number;
   count?: number;
   readonly?: boolean;
-  label: React.ReactNode;
+  label?: React.ReactNode;
 }
 
 const StyledRating = styled.span`
@@ -89,8 +89,3 @@ export const Rating: React.FC<RatingProps> = (props) => {
     </StyledRating>
   );
 };
-
-const NewRating = styled(Rating)<RatingProps>``;
-
-// Main button with styles
-export default withTheme(NewRating);

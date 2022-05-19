@@ -8,10 +8,13 @@ export interface SharedDefaultTheme {
   theme?: string;
   backgroundLight: string;
   backgroundDark: string;
+  cardBackgroundColorLight: string;
+  cardBackgroundColorDark: string;
   buttonRadius?: number;
   inputRadius?: number;
   noteRadius?: number;
   checkboxRadius?: number;
+  cardRadius?: number;
   white: string;
   gray5: string;
   gray4: string;
@@ -20,7 +23,7 @@ export interface SharedDefaultTheme {
   gray1: string;
   black: string;
   backgroundDarkProgress: string;
-  backgroundDarkCommentBar: string;
+  backgroundDarkInterval: string;
   errorColor: string;
   invertColor: string;
 }
@@ -30,6 +33,7 @@ declare module "styled-components" {
     mode?: "light" | "dark";
     textColorLight: string;
     textColorDark: string;
+
     primaryColor: string;
     secondaryColor?: string;
     radius?: number;

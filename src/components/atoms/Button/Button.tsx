@@ -9,7 +9,7 @@ import Spin from "../Spin/Spin";
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children?: React.ReactNode;
-  mode?: "primary" | "secondary" | "outline";
+  mode?: "primary" | "secondary" | "outline" | "white";
   invert?: boolean;
   loading?: boolean;
   block?: boolean;
@@ -23,6 +23,9 @@ const StyledButton = styled("button")<ButtonProps>`
     if (props.invert) {
       return props.theme.invertColor;
     }
+    if (props.mode === "white") {
+      return props.theme.white;
+    }
     return props.theme?.primaryColor || "black";
   }};
   color: ${(props) => {
@@ -33,6 +36,9 @@ const StyledButton = styled("button")<ButtonProps>`
       return props.theme.gray1;
     }
     if (props.mode === "outline" && props.theme.mode === "light") {
+      return props.theme.gray1;
+    }
+    if (props.mode === "white") {
       return props.theme.gray1;
     }
     return props.theme.white;
@@ -46,6 +52,7 @@ const StyledButton = styled("button")<ButtonProps>`
           return "18px";
         case "secondary":
         case "outline":
+        case "white":
         default:
           return "14px";
       }
@@ -72,6 +79,9 @@ const StyledButton = styled("button")<ButtonProps>`
       return props.theme.mode === "light"
         ? props.theme.gray1
         : props.theme.white;
+    }
+    if (props.mode === "white") {
+      return props.theme.white;
     }
     return props.theme?.primaryColor || "black";
   }};
@@ -110,36 +120,6 @@ const StyledButton = styled("button")<ButtonProps>`
     width: auto;
   }
 
-  &:disabled {
-    cursor: not-allowed;
-    border-color: transparent;
-    ${(props) => {
-      if (props.theme) {
-        return `background: rgba(${chroma(props.theme.gray1)
-          .rgb()
-          .join(",")}, 0.2);`;
-      }
-    }}
-    ${(props) => {
-      if (props.invert) {
-        return `color: ${props.theme.white};`;
-      }
-    }}
-    &,
-    &:hover,
-    &:focus,
-    &:active {
-      ${(props) => {
-        if (props.theme) {
-          return `background: rgba(${chroma(props.theme.gray1)
-            .rgb()
-            .join(",")}, 0.2);`;
-        }
-      }}
-      color: ${(props) => props.theme.white}
-    }
-  }
-
   &:focus,
   &:active {
     border-style: solid;
@@ -170,6 +150,11 @@ const StyledButton = styled("button")<ButtonProps>`
             color: ${props.theme.invertColor};
             text-decoration:none;
           `;
+        } else if (props.mode === "white") {
+          return `
+            background: ${chroma(props.theme.white).alpha(0.85).hex()};
+            color: ${props.theme.gray1};
+          `;
         } else {
           if (props.mode === "outline") {
             return `
@@ -191,6 +176,36 @@ const StyledButton = styled("button")<ButtonProps>`
         }
       }
     }}
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    border-color: transparent;
+    ${(props) => {
+      if (props.theme) {
+        return `background: rgba(${chroma(props.theme.gray1)
+          .rgb()
+          .join(",")}, 0.2);`;
+      }
+    }}
+    ${(props) => {
+      if (props.invert) {
+        return `color: ${props.theme.white};`;
+      }
+    }}
+    &,
+    &:hover,
+    &:focus,
+    &:active {
+      ${(props) => {
+        if (props.theme) {
+          return `background: rgba(${chroma(props.theme.gray1)
+            .rgb()
+            .join(",")}, 0.2);`;
+        }
+      }}
+      color: ${(props) => props.theme.white}
+    }
   }
 `;
 
