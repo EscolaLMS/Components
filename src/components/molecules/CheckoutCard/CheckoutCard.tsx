@@ -225,6 +225,7 @@ export const CheckoutCard: React.FC<CheckoutCardProps> = (props) => {
                   </div>
                 )}
                 <div
+                  tabIndex={0}
                   role="button"
                   className={"checkout-card-remove"}
                   onClick={handleDelete}
