@@ -5,6 +5,7 @@ import { NoteProps, Note } from "../../atoms/Note/Note";
 import { IconTitle } from "../../atoms/IconTitle/IconTitle";
 import Text from "../../atoms/Typography/Text";
 import { Button } from "../../atoms/Button/Button";
+import { useTranslation } from "react-i18next";
 
 const NoteIcon = () => {
   return (
@@ -46,6 +47,7 @@ const StyledNotes = styled.div`
 
 export const Notes: React.FC<NotesProps> = (props) => {
   const { noteGroups, onAddNoteClick, mobile } = props;
+  const { t } = useTranslation();
 
   return (
     <StyledNotes>
@@ -61,7 +63,7 @@ export const Notes: React.FC<NotesProps> = (props) => {
               />
             )}
             <Button mode="outline" onClick={onAddNoteClick}>
-              Dodaj nową notatkę
+              {t("note.add.new")}
             </Button>
             <Text className="title">{noteGroup.title}</Text>
             {noteGroup.notes.map((note) => {

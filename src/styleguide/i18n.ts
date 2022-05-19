@@ -8,6 +8,7 @@ const resources = {
   en: {
     translation: {
       "Welcome to Wellms": "Welcome to Wellms and react-i18next",
+      "note.add.new": "Add new note",
     },
   },
   fr: {
@@ -18,6 +19,7 @@ const resources = {
   pl: {
     translation: {
       "Welcome to Wellms": "Witaj w Wellms i react-i18next",
+      "note.add.new": "Dodaj nową notatkę",
     },
   },
 };
