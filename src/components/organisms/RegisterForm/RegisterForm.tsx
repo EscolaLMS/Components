@@ -63,6 +63,12 @@ type FormValues = {
   error?: string;
 };
 
+// TODO: this should be downloaded from i18n
+const mapper: Record<string, string> = {
+  pl: "pl-PL",
+  en: "en-US",
+};
+
 export const RegisterForm: React.FC<{
   onError?: (err: ResponseError<DefaultResponseError>) => void;
   onSuccess?: () => void;
@@ -80,7 +86,7 @@ export const RegisterForm: React.FC<{
     password_confirmation: "",
     phone: "",
   });
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { register, fields, fetchFields } = useContext(EscolaLMSContext);
 
   useEffect(() => {
@@ -122,6 +128,19 @@ export const RegisterForm: React.FC<{
       return field?.rules && field?.rules.length > 0;
     },
     [fields]
+  );
+
+  const getFieldTranslate = useCallback(
+    (extra: Record<string, any>[]) => {
+      const currLang: string = i18n.language;
+
+      const translationFromServer = extra.find(
+        (item) => mapper[currLang] in item
+      );
+
+      return translationFromServer && translationFromServer[mapper[currLang]];
+    },
+    [i18n]
   );
 
   return (
@@ -282,15 +301,25 @@ export const RegisterForm: React.FC<{
               fields.list.length > 0 &&
               fields.list
                 .filter((field: EscolaLms.ModelFields.Models.Metadata) => {
-                  const r =
-                    Array.isArray(field.extra) &&
-                    field.extra?.filter(
-                      (item: Record<string, string | number | boolean>) =>
-                        item.register
-                    );
+                  let isRegistable;
 
-                  return field.type !== "boolean" && !r;
+                  if (field.extra && field.extra?.length > 0) {
+                    const r =
+                      Array.isArray(field.extra) &&
+                      field.extra.length > 0 &&
+                      field.extra?.filter(
+                        (item: Record<string, string | number | boolean>) =>
+                          item.register
+                      );
+
+                    if (r && r.length > 0) {
+                      isRegistable = r[0].register;
+                    }
+                  }
+
+                  return field.type !== "boolean" && isRegistable;
                 })
+
                 .map(
                   (
                     field: EscolaLms.ModelFields.Models.Metadata,
@@ -299,7 +328,12 @@ export const RegisterForm: React.FC<{
                     <Input
                       key={`${field}${index}`}
                       required={isAdditionalRequiredField(field)}
-                      label={t(`RegisterForm.${field.name}`)}
+                      label={
+                        (Array.isArray(field.extra) &&
+                          field.extra.length > 0 &&
+                          getFieldTranslate(field.extra)) ||
+                        t(`RegisterForm.${field.name}`)
+                      }
                       type="text"
                       name={field.name}
                       onChange={handleChange}
