@@ -17,6 +17,7 @@ const resources = {
       "cart.card.discount.error": "The code provided is invalid",
       "cart.card.discount.granted": "**Discount code {{code}}** applied",
       "cart.card.discount.realize.info": "Successfully implemented",
+      "ratings.average.rate.label": "Average rate",
 
       "Welcome to Wellms": "Welcome to Wellms and react-i18next",
     },
@@ -28,6 +29,7 @@ const resources = {
   },
   pl: {
     translation: {
+      "ratings.average.rate.label": "Średnia ocena",
       "Welcome to Wellms": "Witaj w Wellms i react-i18next",
       "cart.card.buy.button": "Kupuję i płacę",
       "cart.card.add.discount.button": "Dodaj kod rabatowy",
