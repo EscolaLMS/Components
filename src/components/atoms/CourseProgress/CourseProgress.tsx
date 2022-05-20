@@ -7,6 +7,7 @@ export interface TitleProps {
   title: string;
   children: React.ReactNode;
   icon?: React.ReactNode;
+  logged?: boolean;
 }
 
 const StyledDiv = styled.div<TitleProps>`
@@ -30,6 +31,19 @@ const StyledDiv = styled.div<TitleProps>`
   }
   .description {
     font-size: 12px;
+
+    > * {
+      font-size: 12px;
+    }
+
+    a {
+      color: ${({ theme }) =>
+        theme.mode === "light" ? theme.primaryColor : theme.white};
+
+      &:after {
+        background-color: currentColor;
+      }
+    }
   }
   & > .range {
     height: 15px;
@@ -40,8 +54,8 @@ const StyledDiv = styled.div<TitleProps>`
       display: block;
       background: ${(props) => {
         return props.theme.mode !== "light"
-          ? props.theme.gray3
-          : props.theme.white;
+          ? props.theme.white
+          : props.theme.gray3;
       }};
       height: 1px;
       width: 100%;
