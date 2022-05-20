@@ -28,7 +28,11 @@ const StyledQuizCta = styled("div")<StyledQuizCtaCardProps>`
 
   *:not(button) {
     color: ${(props) =>
-      props.lightContrast ? props.theme.white : props.theme.gray1};
+      props.theme.theme === "custom"
+        ? props.lightContrast
+          ? props.theme.white
+          : props.theme.gray1
+        : props.theme.white};
   }
 
   .quiz-cta-icon {
@@ -39,8 +43,7 @@ const StyledQuizCta = styled("div")<StyledQuizCtaCardProps>`
       height: ${(props) => (props.mobile ? "31px" : "48px")};
 
       path {
-        fill: ${(props) =>
-          props.lightContrast ? props.theme.white : props.theme.gray1};
+        fill: currentColor;
       }
     }
   }
@@ -62,8 +65,7 @@ const StyledQuizCta = styled("div")<StyledQuizCtaCardProps>`
       margin-right: auto;
 
       &:after {
-        background-color: ${(props) =>
-          props.lightContrast ? props.theme.white : props.theme.gray1};
+        background-color: currentColor;
       }
     }
   }
