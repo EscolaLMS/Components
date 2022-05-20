@@ -3,10 +3,9 @@ import * as React from "react";
 import styled, { withTheme, createGlobalStyle } from "styled-components";
 
 import Dialog, { DialogProps } from "rc-dialog";
+import chroma from "chroma-js";
 
-export interface ModalProps extends DialogProps {
-  mobile?: boolean;
-}
+export type ModalProps = DialogProps;
 
 const CloseBtn = () => (
   <svg
@@ -23,16 +22,10 @@ const CloseBtn = () => (
   </svg>
 );
 
-const GlobalStyle = createGlobalStyle<ModalProps>`
+const GlobalStyle = createGlobalStyle`
   .rc-dialog {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: center;
-    align-items: center;
-    align-content: center;
-    height: 100%;
-
+    position: relative;
+    
     &-wrap {
       position: fixed;
       overflow: auto;
@@ -43,6 +36,9 @@ const GlobalStyle = createGlobalStyle<ModalProps>`
       z-index: 1050;
       -webkit-overflow-scrolling: touch;
       outline: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     &-title {
@@ -54,12 +50,13 @@ const GlobalStyle = createGlobalStyle<ModalProps>`
 
     &-content {
       position: relative;
-      background-color: ${({ theme }) => theme.white};
+      background-color: ${({ theme }) =>
+        theme.mode === "light" ? theme.white : theme.black};
       border: none;
       border-radius: ${({ theme }) => theme.cardRadius};
       background-clip: padding-box;
       width: 100%;
-      max-width: ${({ mobile }) => (mobile ? "100%" : "468px")};
+      max-width: 468px;
       box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.1);
 
     }
@@ -74,11 +71,15 @@ const GlobalStyle = createGlobalStyle<ModalProps>`
       top: 12px;
       font-weight: 700;
       line-height: 1;
-      color: #000;
+      color: ${({ theme }) =>
+        theme.mode === "light" ? theme.black : theme.white};
       text-shadow: 0 1px 0 #fff;
-      filter: alpha(opacity=20);
-      opacity: 0.2;
+      opacity: ${({ theme }) => (theme.mode === "light" ? 0.2 : 0.4)};
       text-decoration: none;
+      
+      svg path {
+        fill: currentColor;
+      }
 
       &-x:after {
         content: "×";
@@ -100,7 +101,7 @@ const GlobalStyle = createGlobalStyle<ModalProps>`
     }
 
     &-body {
-      padding: ${({ mobile }) => (mobile ? "15px 10px" : "36px 23px")};
+      padding: 36px 23px;
     }
 
     &-footer {
@@ -162,10 +163,12 @@ const GlobalStyle = createGlobalStyle<ModalProps>`
     right: 0;
     left: 0;
     bottom: 0;
-    background-color: rgb(55, 55, 55);
-    background-color: rgba(55, 55, 55, 0.6);
+    filter: blur(2px);
+    background-color: ${({ theme }) =>
+      chroma(theme.mode === "light" ? theme.white : theme.black)
+        .alpha(0.7)
+        .css()};
     height: 100%;
-    filter: alpha(opacity=50);
     z-index: 1050;
 
     &-hidden {
