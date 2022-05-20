@@ -17,10 +17,16 @@ export const ImageModal: React.FC<{
         </Button>
       </GlobalThemeProvider>
       {isOpen && (
-        <div onClick={() => setIsOpen((prev) => !prev)}>
+        <div
+          tabIndex={0}
+          role={"button"}
+          onClick={() => setIsOpen((prev) => !prev)}
+          onKeyDown={(e) => e.key === "Enter" && setIsOpen((prev) => !prev)}
+        >
           {images.map((img) => (
             <div key={img}>
               <img
+                alt="Preview"
                 src={img}
                 style={{ width: "100%", display: "block", maxWidth: "100%" }}
               />

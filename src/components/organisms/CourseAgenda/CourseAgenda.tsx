@@ -209,7 +209,7 @@ const StyledSection = styled("section")<CourseAgendaProps>`
           border-bottom: none;
         }
 
-        & > p {
+        & > div > p {
           padding-left: 30px;
           margin: 0 0 10px 0;
         }
@@ -305,23 +305,30 @@ const CourseAgendaTopic: React.FC<CourseAgendaTopicProps> = ({
   }, [mode]);
 
   return (
-    <li className={`lesson__topic lesson__topic-${mode}`} onClick={onClick}>
-      <div className="topic__icon">
-        <TopicIcon mode={mode} />
+    <li className={`lesson__topic lesson__topic-${mode}`}>
+      <div
+        tabIndex={0}
+        onClick={onClick}
+        onKeyDown={(e) => e.key === "Enter" && onClick()}
+        role="button"
+      >
+        <div className="topic__icon">
+          <TopicIcon mode={mode} />
+        </div>
+        <p>
+          <span className="topic__index">{index}. </span>
+          <span className="topic__title">{topic.title}</span>
+        </p>
+        {mode === "current" && (
+          <Button
+            block
+            mode="outline"
+            onClick={() => onMarkFinished && onMarkFinished(topic)}
+          >
+            {t("Course.markAsFinished")}
+          </Button>
+        )}
       </div>
-      <p>
-        <span className="topic__index">{index}. </span>
-        <span className="topic__title">{topic.title}</span>
-      </p>
-      {mode === "current" && (
-        <Button
-          block
-          mode="outline"
-          onClick={() => onMarkFinished && onMarkFinished(topic)}
-        >
-          {t("Course.markAsFinished")}
-        </Button>
-      )}
     </li>
   );
 };
@@ -351,6 +358,9 @@ const CourseAgendaLesson: React.FC<CourseAgendaLessonProps> = (props) => {
     <div
       className={`lesson__item ${open ? "open" : "closed"}`}
       onClick={onClick}
+      onKeyDown={(e) => e.key === "Enter" && onClick()}
+      role="button"
+      tabIndex={0}
     >
       <header>
         <h6 className="lesson__title">
