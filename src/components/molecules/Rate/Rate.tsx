@@ -36,8 +36,8 @@ const StyledRate = styled.div`
 export const Rate: React.FC<Props> = (props) => {
   const { t } = useTranslation();
   const {
-    header = "rate.header",
-    submitLabel = "rate.submit.button",
+    header = "Rate.Header",
+    submitLabel = "Rate.submitButton",
     onSubmit,
   } = props;
 
@@ -45,9 +45,9 @@ export const Rate: React.FC<Props> = (props) => {
 
   const selectInfoText = useMemo(() => {
     if (rate === 0) {
-      return t("rate.select");
+      return t("Rate.Select");
     }
-    return t(`rate.select.${rate}`);
+    return t(`Rate.Select${rate}`);
   }, [rate]);
 
   return (
