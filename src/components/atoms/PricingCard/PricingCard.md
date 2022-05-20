@@ -1,15 +1,9 @@
 ```js
 import { useState } from "react";
-import ThemeTester from "../../../styleguide/ThemeTester";
-import ImageModal from "../../../styleguide/ImageModal";
-import IconText from "../../../components/atoms/IconText/IconText";
-import Button from "../../../components/atoms/Button/Button";
-import CourseProgress from "../../../components/atoms/CourseProgress/CourseProgress";
 import ReactMarkdown from "react-markdown";
 import { Container, Row, Col } from "react-grid-system";
-import { Title } from "../../atoms/Typography/Title";
-import Link from "../../atoms/Link/Link";
-import Text from "../../atoms/Typography/Text";
+import { ThemeTester, ImageModal}  from "../../../styleguide";
+import { IconText, Button, CourseProgress, Title, Link, Text } from "../../..";
 import img1 from "./PricingCard.png";
 
 const [progress, setProgress] = useState(0.5);
