@@ -28,11 +28,7 @@ const StyledQuizCta = styled("div")<StyledQuizCtaCardProps>`
 
   *:not(button) {
     color: ${(props) =>
-      props.theme.theme === "custom"
-        ? props.lightContrast
-          ? props.theme.white
-          : props.theme.gray1
-        : props.theme.white};
+      props.lightContrast ? props.theme.white : props.theme.gray1};
   }
 
   .quiz-cta-icon {
@@ -108,7 +104,7 @@ export const QuizCta: React.FC<QuizCtaCardProps> = (props) => {
   const theme = React.useContext(ThemeContext);
 
   const cts = React.useMemo(() => {
-    return contrast("#fff", theme.primaryColor) >= 4.5;
+    return contrast("#fff", theme.primaryColor) >= 1.85;
   }, [theme.primaryColor]);
 
   return (
