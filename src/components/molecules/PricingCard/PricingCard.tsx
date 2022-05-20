@@ -84,7 +84,6 @@ const StyledPricingCard = styled("div")<StyledPricingCardProps>`
         flex: 1;
       }
     }
-  }
 `;
 
 export const PricingCard: React.FC<PricingCardProps> = (props) => {
