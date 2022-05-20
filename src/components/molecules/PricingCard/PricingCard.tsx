@@ -24,7 +24,7 @@ const StyledPricingCard = styled("div")<StyledPricingCardProps>`
         : theme.backgroundDark
       : theme.mode === "light"
       ? chroma(theme.backgroundLight).darken(0.2).hex()
-      : chroma(theme.backgroundDark).brighten(1).hex()};};
+      : chroma(theme.backgroundDark).brighten(1).hex()};
 
   .pricing-card-price {
     margin-top: 10px;
@@ -32,7 +32,7 @@ const StyledPricingCard = styled("div")<StyledPricingCardProps>`
     display: flex;
     align-items: center;
   }
-  
+
   .pricing-card-discount {
     margin-left: ${(props) => (props.mobile ? "0" : "15px")};
     text-decoration: ${(props) => (props.free ? "none" : "line-through")};
@@ -65,25 +65,26 @@ const StyledPricingCard = styled("div")<StyledPricingCardProps>`
         theme.mode === "light" ? theme.gray1 : "transparent"};
     }
   }
-  
+
   .pricing-card-footer {
     margin-top: 7px;
     display: flex;
     padding-top: 10px;
-    border-top: 1px solid ${({ theme }) =>
-      theme.mode === "light"
-        ? theme.gray4
-        : chroma(theme.backgroundDark).brighten(1).hex()};
-      
-      > div:first-child {
-        width: 30%;
-        flex-shrink: 0;
-      }
-      
-      > div:last-child {
-        flex: 1;
-      }
+    border-top: 1px solid
+      ${({ theme }) =>
+        theme.mode === "light"
+          ? theme.gray4
+          : chroma(theme.backgroundDark).brighten(1).hex()};
+
+    > div:first-child {
+      width: 30%;
+      flex-shrink: 0;
     }
+
+    > div:last-child {
+      flex: 1;
+    }
+  }
 `;
 
 export const PricingCard: React.FC<PricingCardProps> = (props) => {
