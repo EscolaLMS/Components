@@ -30,9 +30,9 @@ const StyledDiv = styled.div<TitleProps>`
     margin-left: ${(props) => (props.icon ? "11px" : 0)};
   }
   .description {
-    font-size: 12px;
-
-    > * {
+   
+    &, 
+    & > * {
       font-size: 12px;
     }
 
