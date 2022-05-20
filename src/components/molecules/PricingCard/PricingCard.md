@@ -136,7 +136,7 @@ const props = {
                 {props.price}
               </Title>
               <div className="pricing-card-discount">
-                <Title level={4} as={"h4"}>
+                <Title level={5} as={"h5"}>
                   {props.oldPrice}
                 </Title>
               </div>
@@ -201,17 +201,17 @@ const props = {
           </PricingCard>
         </Col>
         <Col xs={12} md={4}>
-          <PricingCard>
+          <PricingCard free>
             <Title level={4} as={"h4"}>
               Księgowość dla początkujących
             </Title>
             <div className="pricing-card-price">
               <Title level={3} as={"h3"}>
-                99 zł
+                0 zł
               </Title>
               <div className="pricing-card-discount">
-                <Title level={4} as={"h4"}>
-                  199 zł
+                <Title level={5} as={"h5"}>
+                  za darmo
                 </Title>
               </div>
             </div>

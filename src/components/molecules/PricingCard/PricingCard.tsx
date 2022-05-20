@@ -5,6 +5,7 @@ import chroma from "chroma-js";
 
 interface StyledPricingCardProps {
   mobile?: boolean;
+  free?: boolean;
 }
 
 export interface PricingCardProps extends StyledPricingCardProps {
@@ -34,7 +35,7 @@ const StyledPricingCard = styled("div")<StyledPricingCardProps>`
   
   .pricing-card-discount {
     margin-left: ${(props) => (props.mobile ? "0" : "15px")};
-    text-decoration: line-through;
+    text-decoration: ${(props) => (props.free ? "none" : "line-through")};
     color: ${({ theme }) => (theme.mode === "light" ? theme.primaryColor : "")};
 
     > * {
@@ -70,7 +71,9 @@ const StyledPricingCard = styled("div")<StyledPricingCardProps>`
     display: flex;
     padding-top: 10px;
     border-top: 1px solid ${({ theme }) =>
-      theme.mode === "light" ? theme.gray3 : theme.white};
+      theme.mode === "light"
+        ? theme.gray4
+        : chroma(theme.backgroundDark).brighten(1).hex()};
       
       > div:first-child {
         width: 30%;
@@ -80,13 +83,14 @@ const StyledPricingCard = styled("div")<StyledPricingCardProps>`
       > div:last-child {
         flex: 1;
       }
+    }
   }
 `;
 
 export const PricingCard: React.FC<PricingCardProps> = (props) => {
-  const { mobile, children } = props;
+  const { children } = props;
 
-  return <StyledPricingCard mobile={mobile}>{children}</StyledPricingCard>;
+  return <StyledPricingCard {...props}>{children}</StyledPricingCard>;
 };
 
 const NewPricingCard = styled(PricingCard)<PricingCardProps>``;
