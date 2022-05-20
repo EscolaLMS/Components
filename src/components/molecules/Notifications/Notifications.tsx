@@ -227,6 +227,4 @@ export const Notifications: React.FC<ComponentProps> = (props) => {
   );
 };
 
-const NewNotifications = styled(Notifications)<ComponentProps>``;
-
-export default withTheme(NewNotifications);
+export default withTheme(styled(Notifications)<ComponentProps>``);

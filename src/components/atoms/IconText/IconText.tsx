@@ -23,7 +23,6 @@ const StyledText = styled("p")<IconTextProps>`
   font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
   font-size: 14px;
   color: ${(props) => {
     return props.theme.mode !== "light" ? props.theme.white : props.theme.gray1;
