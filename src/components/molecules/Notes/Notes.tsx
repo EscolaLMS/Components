@@ -63,7 +63,7 @@ export const Notes: React.FC<NotesProps> = (props) => {
               />
             )}
             <Button mode="outline" onClick={onAddNoteClick}>
-              {t("note.add.new")}
+              {t("note.addNew")}
             </Button>
             <Text className="title">{noteGroup.title}</Text>
             {noteGroup.notes.map((note) => {

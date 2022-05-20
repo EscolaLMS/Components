@@ -14,7 +14,7 @@ const resources = {
       "ratings.average.rate.label": "Average rate",
 
       "Welcome to Wellms": "Welcome to Wellms and react-i18next",
-      "note.add.new": "Add new note",
+      "note.addNew": "Add new note",
     },
   },
   fr: {
@@ -26,7 +26,7 @@ const resources = {
     translation: {
       "ratings.average.rate.label": "Średnia ocena",
       "Welcome to Wellms": "Witaj w Wellms i react-i18next",
-      "note.add.new": "Dodaj nową notatkę",
+      "note.addNew": "Dodaj nową notatkę",
     },
   },
 };
