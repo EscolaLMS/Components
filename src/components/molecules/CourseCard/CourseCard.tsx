@@ -8,7 +8,7 @@ import { Card } from "../../atoms/Card/Card";
 import ProgressBar, {
   ProgressBarProps,
 } from "../../atoms/ProgressBar/ProgressBar";
-import { RatioBox } from "../../atoms/RatioImage/RatioBox";
+import { RatioBox } from "../../atoms/RatioBox/RatioBox";
 import { Text } from "../../atoms/Typography/Text";
 import { Title } from "../../atoms/Typography/Title";
 
@@ -186,7 +186,7 @@ export const CourseCard: React.FC<CourseCardProps> = (props) => {
         <div className="lession-container">
           <IconOpenBook />
           <Text className="lessions-count">
-            {lessonsCount} {t("CourseCard.Lessions")}
+            {lessonsCount} {t("CourseCard.lessions")}
           </Text>
         </div>
         {progress ? (

@@ -4,7 +4,7 @@ import { Title } from "../../atoms/Typography/Title";
 import { Text } from "../../atoms/Typography/Text";
 import { Link } from "../../atoms/Link/Link";
 import { Row, Col } from "react-grid-system";
-import RatioBox from "../../atoms/RatioBox/RatioBox";
+import { RatioBox } from "../../atoms/RatioBox/RatioBox";
 import { ReactNode } from "react";
 
 interface StyledCertificateProps {
