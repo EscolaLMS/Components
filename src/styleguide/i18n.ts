@@ -7,18 +7,17 @@ import { initReactI18next } from "react-i18next";
 const resources = {
   en: {
     translation: {
-      "Course.Lesson": "Module",
-      "Course.Finished": "Finished",
+      "CartCard.addDiscountButton": "Add discount code",
+      "CartCard.buyButton": "I buy and pay",
+      "CartCard.discountError": "The code provided is invalid",
+      "CartCard.discountGranted": "**Discount code {{code}}** applied",
+      "CartCard.discountRealizeInfo": "Successfully implemented",
+      "CartCard.realizeButton": "Realize",
       "Course.Agenda": "Agenda",
+      "Course.Finished": "Finished",
+      "Course.Lesson": "Module",
       "Course.markAsFinished": "Mark as finished",
-      "cart.card.buy.button": "I buy and pay",
-      "cart.card.add.discount.button": "Add discount code",
-      "cart.card.realize.button": "Realize",
-      "cart.card.discount.error": "The code provided is invalid",
-      "cart.card.discount.granted": "**Discount code {{code}}** applied",
-      "cart.card.discount.realize.info": "Successfully implemented",
       "ratings.average.rate.label": "Average rate",
-
       "Welcome to Wellms": "Welcome to Wellms and react-i18next",
     },
   },
@@ -29,14 +28,14 @@ const resources = {
   },
   pl: {
     translation: {
+      "CartCard.addDiscountButton": "Dodaj kod rabatowy",
+      "CartCard.buyButton": "Kupuję i płacę",
+      "CartCard.discountError": "Podany kod jest nieprawidłowy",
+      "CartCard.discountGranted": "**Kod rabatowy {{code}}** zastosowany",
+      "CartCard.discountRealizeInfo": "Zrealizowano pomyślnie",
+      "CartCard.realizeButton": "Realizuj",
       "ratings.average.rate.label": "Średnia ocena",
       "Welcome to Wellms": "Witaj w Wellms i react-i18next",
-      "cart.card.buy.button": "Kupuję i płacę",
-      "cart.card.add.discount.button": "Dodaj kod rabatowy",
-      "cart.card.realize.button": "Realizuj",
-      "cart.card.discount.error": "Podany kod jest nieprawidłowy",
-      "cart.card.discount.granted": "**Kod rabatowy {{code}}** zastosowany",
-      "cart.card.discount.realize.info": "Zrealizowano pomyślnie",
     },
   },
 };

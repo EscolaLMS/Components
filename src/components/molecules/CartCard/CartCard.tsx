@@ -72,7 +72,7 @@ interface CartCardProps {
   id: number;
   title: string;
   subtitle?: ReactNode;
-  onBuyClick: (id: number) => void;
+  onBuyClick: (id: number, discountCodes: string[]) => void;
   description?: ReactNode;
   discount?: Discount;
 }
@@ -154,9 +154,11 @@ export const CartCard: React.FC<CartCardProps> = (props) => {
         mode="secondary"
         block
         className="buy-button"
-        onClick={() => onBuyClick(id)}
+        onClick={() =>
+          onBuyClick(id, discount ? discount.grantedDiscountCodes : [])
+        }
       >
-        {t("cart.card.buy.button")}
+        {t("CartCard.buyButton")}
       </Button>
       {discount && (
         <>
@@ -164,7 +166,7 @@ export const CartCard: React.FC<CartCardProps> = (props) => {
             return (
               <Text className="discount-granted-info">
                 <ReactMarkdown components={{ p: "span" }}>
-                  {t("cart.card.discount.granted", { code })}
+                  {t("CartCard.discountGranted", { code })}
                 </ReactMarkdown>
                 <span
                   className={"discount-remove"}
@@ -185,7 +187,7 @@ export const CartCard: React.FC<CartCardProps> = (props) => {
             className="discount-toggle"
             onClick={() => setIsDiscountOpen(!isDiscountOpen)}
           >
-            {t("cart.card.add.discount.button")}
+            {t("CartCard.addDiscountButton")}
             <span className="open-discount-state-container">
               {isDiscountOpen ? <ArrowOpenIcon /> : <ArrowClosedIcon />}{" "}
             </span>
@@ -197,12 +199,12 @@ export const CartCard: React.FC<CartCardProps> = (props) => {
                 value={discountInput}
                 onChange={(e) => setDiscountInput(e.target.value)}
                 error={
-                  discount.status === "error" && t("cart.card.discount.error")
+                  discount.status === "error" && t("CartCard.discountError")
                 }
                 helper={
                   discount.status === "granted" && (
                     <span className="granted-info">
-                      {t("cart.card.discount.realize.info")}
+                      {t("CartCard.discountRealizeInfo")}
                     </span>
                   )
                 }
@@ -213,7 +215,7 @@ export const CartCard: React.FC<CartCardProps> = (props) => {
                   block
                   onClick={() => discount.onDiscountClick(discountInput)}
                 >
-                  {t("cart.card.realize.button")}
+                  {t("CartCard.realizeButton")}
                 </Button>
               )}
             </div>

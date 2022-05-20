@@ -53,7 +53,7 @@ const Description = () => {
 const cartCardProps = {
   title: "37,99 zł",
   subtitle: <Subtitle />,
-  onBuyClick: (id) => console.log("Card id: ", id),
+  onBuyClick: (id, discountCodes) => console.log({ id, discountCodes }),
   description: <Description />,
   discount: {
     onDiscountClick: (discountValue) =>
