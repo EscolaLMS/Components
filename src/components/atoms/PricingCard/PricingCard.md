@@ -1,9 +1,10 @@
 ```js
 import { useState } from "react";
 import ReactMarkdown from "react-markdown";
-import { Container, Row, Col } from "react-grid-system";
-import { ThemeTester, ImageModal}  from "../../../styleguide";
-import { IconText, Button, CourseProgress, Title, Link, Text } from "../../..";
+import { Row, Col } from "react-grid-system";
+import { ThemeTester, ImageModal } from "../../../styleguide";
+import { IconText, Button, CourseProgress, Link, Text } from "../../..";
+import { Title } from "../../atoms/Typography/Title";
 import img1 from "./PricingCard.png";
 
 const [progress, setProgress] = useState(0.5);
