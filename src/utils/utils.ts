@@ -13,16 +13,17 @@ export const roundPercentageList = (orig: number[], target?: number) => {
     target = 100;
   }
 
+  const newVals = [];
+  const len = orig.length;
+  const marginOfErrors = [];
+
   let i = orig.length,
     j = 0,
     total = 0,
-    change,
-    newVals = [],
+    change = 0,
     next,
     factor1,
-    factor2,
-    len = orig.length,
-    marginOfErrors = [];
+    factor2;
 
   while (i--) {
     total += newVals[i] = Math.round(orig[i]);
@@ -46,21 +47,21 @@ export const roundPercentageList = (orig: number[], target?: number) => {
     total += change;
   }
 
-  for (i = 0; i < len; i++) {
+  for (let i = 0; i < len; i++) {
     marginOfErrors[i] = newVals[i] && Math.abs(orig[i] - newVals[i]) / orig[i];
   }
 
-  for (i = 0; i < len; i++) {
-    for (j = 0; j < len; j++) {
+  for (let i = 0; i < len; i++) {
+    for (let j = 0; j < len; j++) {
       if (j === i) continue;
 
-      var roundUpFactor =
+      const roundUpFactor =
         errorFactor(orig[i], newVals[i] + 1) +
         errorFactor(orig[j], newVals[j] - 1);
-      var roundDownFactor =
+      const roundDownFactor =
         errorFactor(orig[i], newVals[i] - 1) +
         errorFactor(orig[j], newVals[j] + 1);
-      var sumMargin = marginOfErrors[i] + marginOfErrors[j];
+      const sumMargin = marginOfErrors[i] + marginOfErrors[j];
 
       if (roundUpFactor < sumMargin) {
         newVals[i] = newVals[i] + 1;
@@ -86,6 +87,5 @@ export const roundPercentageList = (orig: number[], target?: number) => {
     return Math.abs(oldNum - newNum) / oldNum;
   }
 
-  console.log(newVals);
   return newVals;
 };
