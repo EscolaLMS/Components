@@ -87,7 +87,6 @@ const GlobalStyle = createGlobalStyle`
 
       &:hover {
         opacity: 1;
-        filter: alpha(opacity=100);
         text-decoration: none;
       }
     }
