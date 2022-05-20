@@ -4,7 +4,9 @@ import styled, { withTheme, createGlobalStyle } from "styled-components";
 
 import Dialog, { DialogProps } from "rc-dialog";
 
-export interface ModalProps extends DialogProps {}
+export interface ModalProps extends DialogProps {
+  mobile?: boolean;
+}
 
 const CloseBtn = () => (
   <svg
@@ -21,7 +23,7 @@ const CloseBtn = () => (
   </svg>
 );
 
-const GlobalStyle = createGlobalStyle`
+const GlobalStyle = createGlobalStyle<ModalProps>`
   .rc-dialog {
     display: flex;
     flex-direction: row;
@@ -29,7 +31,6 @@ const GlobalStyle = createGlobalStyle`
     justify-content: center;
     align-items: center;
     align-content: center;
-
     height: 100%;
 
     &-wrap {
@@ -53,10 +54,14 @@ const GlobalStyle = createGlobalStyle`
 
     &-content {
       position: relative;
-      background-color: #ffffff;
+      background-color: ${({ theme }) => theme.white};
       border: none;
-      border-radius: 6px 6px;
+      border-radius: ${({ theme }) => theme.cardRadius};
       background-clip: padding-box;
+      width: 100%;
+      max-width: ${({ mobile }) => (mobile ? "100%" : "468px")};
+      box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.1);
+
     }
 
     &-close {
@@ -95,7 +100,7 @@ const GlobalStyle = createGlobalStyle`
     }
 
     &-body {
-      padding: 20px;
+      padding: ${({ mobile }) => (mobile ? "15px 10px" : "36px 23px")};
     }
 
     &-footer {
@@ -208,7 +213,12 @@ const GlobalStyle = createGlobalStyle`
     100% {
       opacity: 0;
     }
+  }
   
+  .modal-title {
+    margin-bottom: 30px;
+    text-align: center;
+    color: ${({ theme }) => theme.primaryColor};
   }
 }
 `;
@@ -225,6 +235,6 @@ export const Modal: React.FC<ModalProps> = (props) => {
   );
 };
 
-const NewAvatar = styled(Modal)<ModalProps>``;
+const NewModal = styled(Modal)<ModalProps>``;
 
-export default withTheme(NewAvatar);
+export default withTheme(NewModal);
