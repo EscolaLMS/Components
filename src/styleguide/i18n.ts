@@ -14,6 +14,8 @@ const resources = {
       "CourseCard.Lessions": "lessions",
       "CourseCard.startNow": "Start now",
       "progress.bar.default.label": "Progress",
+      "ratings.average.rate.label": "Average rate",
+
       "Welcome to Wellms": "Welcome to Wellms and react-i18next",
     },
   },
@@ -27,6 +29,7 @@ const resources = {
       "CourseCard.Lessions": "lekcji",
       "CourseCard.startNow": "Zacznij teraz",
       "progress.bar.default.label": "Postęp",
+      "ratings.average.rate.label": "Średnia ocena",
       "Welcome to Wellms": "Witaj w Wellms i react-i18next",
     },
   },
