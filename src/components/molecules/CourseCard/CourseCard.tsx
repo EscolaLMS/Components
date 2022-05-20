@@ -5,7 +5,8 @@ import styled from "styled-components";
 import { Badge } from "../../atoms/Badge/Badge";
 import { Button } from "../../atoms/Button/Button";
 import { Card } from "../../atoms/Card/Card";
-import ProgressBar, {
+import {
+  ProgressBar,
   ProgressBarProps,
 } from "../../atoms/ProgressBar/ProgressBar";
 import { RatioBox } from "../../atoms/RatioBox/RatioBox";
@@ -146,26 +147,31 @@ export const CourseCard: React.FC<CourseCardProps> = (props) => {
 
   const imageSrc = useMemo(() => {
     const { path, url } = image;
-    let result;
-    if (path) {
-      result = path;
-    }
-    if (url) {
-      result = url;
-    }
-    return result;
+    return path || url;
   }, [image]);
+
+  const imageSectionProps: React.HTMLAttributes<HTMLDivElement> =
+    useMemo(() => {
+      if (onImageClick) {
+        return {
+          onClick: onImageClick,
+          onKeyUp: onImageClick,
+          role: "button",
+          tabIndex: 0,
+        };
+      }
+      return {};
+    }, [onImageClick]);
 
   return (
     <StyledCourseCard>
-      <div
-        className="image-section"
-        onClick={onImageClick ? onImageClick : undefined}
-      >
+      <div className="image-section" {...imageSectionProps}>
         <div className="information-in-image">
           <div className="badges">
             {tags.map((tag: Tag) => (
-              <Badge onClick={(e) => tagClick(e, tag.id)}>{tag.title}</Badge>
+              <Badge key={tag.id} onClick={(e) => tagClick(e, tag.id)}>
+                {tag.title}
+              </Badge>
             ))}
           </div>
           {props.subtitle && (
@@ -186,7 +192,7 @@ export const CourseCard: React.FC<CourseCardProps> = (props) => {
         <div className="lession-container">
           <IconOpenBook />
           <Text className="lessions-count">
-            {lessonsCount} {t("CourseCard.lessions")}
+            {t("CourseCard.lession", { count: lessonsCount })}
           </Text>
         </div>
         {progress ? (

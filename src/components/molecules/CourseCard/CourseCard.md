@@ -25,7 +25,7 @@ import { Row, Col } from "react-grid-system";
               id: 1,
             },
           ]}
-          lessonsCount={5}
+          lessonsCount={1}
           subtitle={"100% Online"}
           title={"Best course ever"}
           categories={["Programming", "Front-end"]}

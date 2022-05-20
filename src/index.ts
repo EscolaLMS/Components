@@ -17,7 +17,7 @@ export { default as Notification } from "./components/atoms/Notification/Notific
 export { default as Option } from "./components/atoms/Option/Option";
 export { Checkbox as Checkbox } from "./components/atoms/Option/Checkbox";
 export { Radio as Radio } from "./components/atoms/Option/Radio";
-export { default as ProgressBar } from "./components/atoms/ProgressBar/ProgressBar";
+export { ProgressBar } from "./components/atoms/ProgressBar/ProgressBar";
 export { default as ProgressRing } from "./components/atoms/ProgressRing/ProgressRing";
 export { Rating } from "./components/atoms/Rating/Rating";
 export { RatioBox } from "./components/atoms/RatioBox/RatioBox";
