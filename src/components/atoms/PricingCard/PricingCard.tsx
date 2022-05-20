@@ -36,9 +36,8 @@ const StyledPricingCard = styled("div")<StyledPricingCardProps>`
   .pricing-card-discount {
     margin-left: ${(props) => (props.mobile ? "0" : "15px")};
     text-decoration: ${(props) => (props.free ? "none" : "line-through")};
-    color: ${({ theme }) => (theme.mode === "light" ? theme.primaryColor : "")};
-
-    > * {
+    &, 
+    & > * {
       color: ${({ theme }) =>
         theme.mode === "light" ? theme.primaryColor : ""};
     }
