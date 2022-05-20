@@ -88,9 +88,13 @@ const StyledPricingCard = styled("div")<StyledPricingCardProps>`
 `;
 
 export const PricingCard: React.FC<PricingCardProps> = (props) => {
-  const { children } = props;
+  const { children, mobile, free } = props;
 
-  return <StyledPricingCard {...props}>{children}</StyledPricingCard>;
+  return (
+    <StyledPricingCard mobile={mobile} free={free}>
+      {children}
+    </StyledPricingCard>
+  );
 };
 
 const NewPricingCard = styled(PricingCard)<PricingCardProps>``;
