@@ -7,14 +7,13 @@ import { initReactI18next } from "react-i18next";
 const resources = {
   en: {
     translation: {
-      "Course.Lesson": "Module",
-      "Course.Finished": "Finished",
       "Course.Agenda": "Agenda",
+      "Course.Finished": "Finished",
+      "Course.Lesson": "Module",
       "Course.markAsFinished": "Mark as finished",
-      "course.card.lessions": "lessions",
-      "course.card.start.now": "Start now",
+      "CourseCard.Lessions": "lessions",
+      "CourseCard.startNow": "Start now",
       "progress.bar.default.label": "Progress",
-
       "Welcome to Wellms": "Welcome to Wellms and react-i18next",
     },
   },
@@ -25,8 +24,8 @@ const resources = {
   },
   pl: {
     translation: {
-      "course.card.lessions": "lekcji",
-      "course.card.start.now": "Zacznij teraz",
+      "CourseCard.Lessions": "lekcji",
+      "CourseCard.startNow": "Zacznij teraz",
       "progress.bar.default.label": "Postęp",
       "Welcome to Wellms": "Witaj w Wellms i react-i18next",
     },

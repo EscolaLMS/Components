@@ -186,7 +186,7 @@ export const CourseCard: React.FC<CourseCardProps> = (props) => {
         <div className="lession-container">
           <IconOpenBook />
           <Text className="lessions-count">
-            {lessonsCount} {t("course.card.lessions")}
+            {lessonsCount} {t("CourseCard.Lessions")}
           </Text>
         </div>
         {progress ? (
@@ -195,7 +195,7 @@ export const CourseCard: React.FC<CourseCardProps> = (props) => {
           <>
             {onButtonClick && (
               <Button mode="secondary" onClick={() => onButtonClick(id)}>
-                {t("course.card.start.now")}
+                {t("CourseCard.startNow")}
               </Button>
             )}
           </>
