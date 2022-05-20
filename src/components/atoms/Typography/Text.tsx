@@ -7,7 +7,7 @@ import { getFontFromTheme } from "../../../theme/provider";
 export interface TextProps extends React.HTMLAttributes<HTMLParagraphElement> {
   noMargin?: boolean;
   bold?: boolean;
-  size?: "16" | "14";
+  size?: "16" | "14" | "12";
   type?: "primary" | "secondary" | "warning" | "danger";
 }
 
@@ -25,7 +25,7 @@ const StyledP = styled.p<TextProps>`
   }};
   font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
   font-weight: ${(props) => (props.bold ? "bold" : "normal")};
-  font-size: ${(props) => (props.size === "14" ? "14px" : "16px")};
+  font-size: ${(props) => props.size}px;
   line-height: 1.55em;
 
   &:last-child {
