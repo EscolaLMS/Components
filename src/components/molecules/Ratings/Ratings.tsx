@@ -2,7 +2,7 @@ import * as React from "react";
 import { ReactNode, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
-import { calcPercentage } from "../../../utils/utils";
+import { roundPercentageList } from "../../../utils/utils";
 import { Interval } from "../../atoms/Interval/Interval";
 import { Rating } from "../../atoms/Rating/Rating";
 import { Text } from "../../atoms/Typography/Text";
@@ -57,7 +57,7 @@ const StyledRatingsDesktop = styled.div`
   }
   .average-rate-label {
     font-size: 14px;
-    margin: 11px 0 0;
+    margin: 3px 0 0;
   }
   .rate-with-interval-container {
     flex: 1;
@@ -130,7 +130,6 @@ const StyledRatingsMobile = styled.div`
     padding: 15px 20px;
     border-radius: ${(props) =>
       props.theme.mode !== "dark" ? "10px" : "20px"};
-    margin-bottom: 20px;
     > div {
       padding-left: 20px;
     }
@@ -175,23 +174,28 @@ export const Ratings: React.FC<RatingsProps> = (props) => {
   const { avgRate, rates, sumRates } = props;
 
   const renderRateWithInterval = useCallback(() => {
-    return Object.keys(rates)
+    const percentagesValues = Object.keys(rates)
       .sort()
-      .reverse()
       .map((rateKey: string) => {
         const rate = rates[`${rateKey}` as keyof Rates & string];
+        if (rate === 0) {
+          return 0;
+        }
+        return (rate / sumRates) * 100;
+      });
+
+    return roundPercentageList(percentagesValues)
+      .map((rate: number, index: number) => {
         return (
           <div className="rate-row">
             <div className="interval">
-              <Interval current={rate} max={sumRates} />
+              <Interval current={rate} max={100} />
             </div>
-            <Rating
-              label={calcPercentage(rate, sumRates)}
-              ratingValue={+rateKey}
-            />
+            <Rating label={`${rate}%`} ratingValue={index + 1} />
           </div>
         );
-      });
+      })
+      .reverse();
   }, [rates, avgRate]);
 
   return props.mobile ? (

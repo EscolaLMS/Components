@@ -75,6 +75,7 @@ const StyledRating = styled.span<RatingProps>`
       padding-right: 2px;
     }
     .label {
+      min-width: 48px;
       margin-left: 5px;
       font-size: 16px;
       font-weight: 700;
