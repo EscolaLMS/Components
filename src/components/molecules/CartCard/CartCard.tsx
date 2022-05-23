@@ -62,8 +62,7 @@ declare type DiscountStatus = "error" | "granted";
 
 interface Discount {
   onDiscountClick: (discountValue: string) => void;
-  onDeleteDiscoundClick: (id: number, code: string) => void;
-  grantedDiscountCodes: string[];
+  onDeleteDiscountClick: (id: number) => void;
   status?: DiscountStatus;
   isOpen?: boolean;
 }
@@ -72,9 +71,10 @@ interface CartCardProps {
   id: number;
   title: string;
   subtitle?: ReactNode;
-  onBuyClick: (id: number, discountCodes: string[]) => void;
+  onBuyClick: (id: number) => void;
   description?: ReactNode;
   discount?: Discount;
+  loading?: boolean;
 }
 
 const StyledCardCard = styled.div`
@@ -132,7 +132,8 @@ const StyledCardCard = styled.div`
 `;
 
 export const CartCard: React.FC<CartCardProps> = (props) => {
-  const { id, title, subtitle, onBuyClick, description, discount } = props;
+  const { id, title, subtitle, onBuyClick, description, discount, loading } =
+    props;
   const { t } = useTranslation();
 
   const initialDiscountOpen = useMemo(() => {
@@ -146,6 +147,13 @@ export const CartCard: React.FC<CartCardProps> = (props) => {
     useState<boolean>(initialDiscountOpen);
   const [discountInput, setDiscountInput] = useState<string>("");
 
+  const removeDiscountClick = () => {
+    if (discount) {
+      setDiscountInput("");
+      discount.onDeleteDiscountClick(id);
+    }
+  };
+
   return (
     <StyledCardCard>
       <Text className="title">{title}</Text>
@@ -154,38 +162,43 @@ export const CartCard: React.FC<CartCardProps> = (props) => {
         mode="secondary"
         block
         className="buy-button"
-        onClick={() =>
-          onBuyClick(id, discount ? discount.grantedDiscountCodes : [])
-        }
+        loading={loading}
+        onClick={() => onBuyClick(id)}
       >
         {t("CartCard.buyButton")}
       </Button>
       {discount && (
         <>
-          {discount.grantedDiscountCodes.map((code: string) => {
-            return (
+          {discount.status === "granted" && (
+            <>
               <Text className="discount-granted-info">
                 <ReactMarkdown components={{ p: "span" }}>
-                  {t("CartCard.discountGranted", { code })}
+                  {t("CartCard.discountGranted")}
                 </ReactMarkdown>
                 <span
                   className={"discount-remove"}
-                  onClick={() => discount.onDeleteDiscoundClick(id, code)}
+                  onClick={removeDiscountClick}
+                  onKeyUp={removeDiscountClick}
+                  role="button"
+                  tabIndex={0}
                 >
                   <IconBin />
                 </span>
               </Text>
-            );
-          })}
+            </>
+          )}
         </>
       )}
       {description}
-      {discount && (
+      {discount && discount.status !== "granted" && (
         <>
           <div className="separator"></div>
           <div
             className="discount-toggle"
             onClick={() => setIsDiscountOpen(!isDiscountOpen)}
+            onKeyUp={() => setIsDiscountOpen(!isDiscountOpen)}
+            role="button"
+            tabIndex={0}
           >
             {t("CartCard.addDiscountButton")}
             <span className="open-discount-state-container">
@@ -201,18 +214,13 @@ export const CartCard: React.FC<CartCardProps> = (props) => {
                 error={
                   discount.status === "error" && t("CartCard.discountError")
                 }
-                helper={
-                  discount.status === "granted" && (
-                    <span className="granted-info">
-                      {t("CartCard.discountRealizeInfo")}
-                    </span>
-                  )
-                }
+                disabled={loading}
               />
               {discountInput.length !== 0 && (
                 <Button
                   mode="outline"
                   block
+                  loading={loading}
                   onClick={() => discount.onDiscountClick(discountInput)}
                 >
                   {t("CartCard.realizeButton")}

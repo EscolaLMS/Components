@@ -4,6 +4,7 @@ import ImageModal from "../../../styleguide/ImageModal";
 import { Text } from "../../atoms/Typography/Text";
 import ReactMarkdown from "react-markdown";
 import img1 from "./CartCard.png";
+import { useState } from "react";
 
 const ClockIcon = () => {
   return (
@@ -22,6 +23,8 @@ const ClockIcon = () => {
     </svg>
   );
 };
+
+const [loading, setLoading] = useState(false);
 
 const Subtitle = () => {
   return (
@@ -53,14 +56,33 @@ const Description = () => {
 const cartCardProps = {
   title: "37,99 zł",
   subtitle: <Subtitle />,
-  onBuyClick: (id, discountCodes) => console.log({ id, discountCodes }),
+  onBuyClick: (id) => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+    console.log("cardId ", id);
+  },
   description: <Description />,
   discount: {
-    onDiscountClick: (discountValue) =>
-      console.log("Discount input value ", discountValue),
-    onDeleteDiscoundClick: (id, code) => console.log({ cardId: id, code }),
-    grantedDiscountCodes: [],
+    onDiscountClick: (discountValue) => {
+      setLoading(true);
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
+      console.log("Discount input value ", discountValue);
+    },
+
+    onDeleteDiscountClick: (id) => {
+      setLoading(true);
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
+      console.log("On delete discount hendler, cardId is ", id);
+    },
+    isDiscountGranted: false,
   },
+  loading,
 };
 
 const cartCardContainerStyle = {
@@ -91,7 +113,6 @@ const cartCardContainerStyle = {
         title="29,99 zł"
         discount={{
           ...cartCardProps.discount,
-          grantedDiscountCodes: ["1234", "XYS1234js1234"],
           status: "granted",
           isOpen: true,
         }}
