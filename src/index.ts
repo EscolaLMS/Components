@@ -17,10 +17,10 @@ export { default as Notification } from "./components/atoms/Notification/Notific
 export { default as Option } from "./components/atoms/Option/Option";
 export { Checkbox as Checkbox } from "./components/atoms/Option/Checkbox";
 export { Radio as Radio } from "./components/atoms/Option/Radio";
-export { default as ProgressBar } from "./components/atoms/ProgressBar/ProgressBar";
+export { ProgressBar } from "./components/atoms/ProgressBar/ProgressBar";
 export { default as ProgressRing } from "./components/atoms/ProgressRing/ProgressRing";
 export { Rating } from "./components/atoms/Rating/Rating";
-export { default as RatioBox } from "./components/atoms/RatioBox/RatioBox";
+export { RatioBox } from "./components/atoms/RatioBox/RatioBox";
 export { default as Slider } from "./components/atoms/Slider/Slider";
 export { default as Spin } from "./components/atoms/Spin/Spin";
 export { default as Tag } from "./components/atoms/Tag/Tag";

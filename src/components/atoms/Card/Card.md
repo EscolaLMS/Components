@@ -5,6 +5,7 @@ import { Text } from "../Typography/Text";
 import { IconTitle } from "../IconTitle/IconTitle";
 import { Button } from "../Button/Button";
 import { useState } from "react";
+import { CourseCard } from "../../molecules/CourseCard/CourseCard";
 import ImageModal from "../../../styleguide/ImageModal";
 import img1 from "./Card.png";
 
@@ -19,7 +20,6 @@ import img1 from "./Card.png";
     <Card wings={"hidden"}>
       <Text noMargin>Without Wings</Text>
     </Card>
-
     <Card wings={"large"} inline>
       <Text size="14" noMargin>
         Inline with large wings
@@ -35,6 +35,33 @@ import img1 from "./Card.png";
         Inline without Wings
       </Text>
     </Card>
+    <div style={{ width: 600 }}>
+      <CourseCard
+        id={1}
+        tags={[
+          {
+            title: "Bestseller",
+            id: 1,
+          },
+        ]}
+        lessonCount={1}
+        subtitle={"100% Online"}
+        title={"Best course ever"}
+        hideImage
+        categories={{
+          onCategoryClick: (id) => {
+            console.log("Category click id: ", id);
+          },
+          categoryElements: [
+            { id: 1, name: "Programming" },
+            { id: 2, name: "Front-end" },
+          ],
+        }}
+        onTagClick={(tagId) => console.log("onTagClick :", { tagId })}
+        onImageClick={() => console.log("onImageClick")}
+        onButtonClick={(cardId) => console.log("onButtonClick :", { cardId })}
+      />
+    </div>
   </ThemeTester>
   <ImageModal images={[img1]} />
 </React.Fragment>;
