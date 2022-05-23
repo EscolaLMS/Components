@@ -7,6 +7,11 @@ import { initReactI18next } from "react-i18next";
 const resources = {
   en: {
     translation: {
+      "CartCard.addDiscountButton": "Add discount code",
+      "CartCard.buyButton": "I buy and pay",
+      "CartCard.discountError": "The code provided is invalid",
+      "CartCard.discountGranted": "**Discount code** applied",
+      "CartCard.realizeButton": "Realize",
       "Course.Agenda": "Agenda",
       "Course.Finished": "Finished",
       "Course.Lesson": "Module",
@@ -30,6 +35,11 @@ const resources = {
   },
   pl: {
     translation: {
+      "CartCard.addDiscountButton": "Dodaj kod rabatowy",
+      "CartCard.buyButton": "Kupuję i płacę",
+      "CartCard.discountError": "Podany kod jest nieprawidłowy",
+      "CartCard.discountGranted": "**Kod rabatowy** zastosowany",
+      "CartCard.realizeButton": "Realizuj",
       "Course.Agenda": "Plan kursu",
       "Course.Finished": "Ukończono",
       "Course.Lesson": "Moduł",
