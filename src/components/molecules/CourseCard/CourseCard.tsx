@@ -60,7 +60,7 @@ interface Category {
 
 interface Categories {
   onCategoryClick: (id: number) => void;
-  categotyElements: Category[];
+  categoryElements: Category[];
 }
 
 export interface CourseCardProps {
@@ -69,7 +69,7 @@ export interface CourseCardProps {
   title: ReactNode;
   categories: Categories;
   tags?: Tag[];
-  lessonsCount: number;
+  lessonCount: number;
   subtitle: ReactNode;
   //TODO: add params if needed to onImageClick
   hideImage?: boolean;
@@ -147,7 +147,7 @@ const StyledCourseCard = styled("div")`
 export const CourseCard: React.FC<CourseCardProps> = (props) => {
   const {
     id,
-    lessonsCount,
+    lessonCount,
     title,
     image,
     categories,
@@ -198,7 +198,7 @@ export const CourseCard: React.FC<CourseCardProps> = (props) => {
           {title}
         </Title>
         <Text className="categories">
-          {categories.categotyElements.map((category, index) => {
+          {categories.categoryElements.map((category, index) => {
             return (
               <>
                 <span
@@ -211,7 +211,7 @@ export const CourseCard: React.FC<CourseCardProps> = (props) => {
                 >
                   {category.name}
                 </span>
-                {categories.categotyElements.length !== index + 1 && (
+                {categories.categoryElements.length !== index + 1 && (
                   <span> / </span>
                 )}
               </>
@@ -221,7 +221,7 @@ export const CourseCard: React.FC<CourseCardProps> = (props) => {
         <div className="lesson-container">
           <IconOpenBook />
           <Text className="lessons-count">
-            {t("CourseCard.lesson", { count: lessonsCount })}
+            {t("CourseCard.lesson", { count: lessonCount })}
           </Text>
         </div>
         {progress ? (

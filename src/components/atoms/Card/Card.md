@@ -44,7 +44,7 @@ import img1 from "./Card.png";
             id: 1,
           },
         ]}
-        lessonsCount={1}
+        lessonCount={1}
         subtitle={"100% Online"}
         title={"Best course ever"}
         hideImage
@@ -52,14 +52,14 @@ import img1 from "./Card.png";
           onCategoryClick: (id) => {
             console.log("Category click id: ", id);
           },
-          categotyElements: [
+          categoryElements: [
             { id: 1, name: "Programming" },
             { id: 2, name: "Front-end" },
           ],
         }}
-        onTagClick={(tagId) => console.log({ tagId })}
-        onImageClick={() => console.log("Image click")}
-        onButtonClick={(cardId) => console.log({ cardId })}
+        onTagClick={(tagId) => console.log("onTagClick :", { tagId })}
+        onImageClick={() => console.log("onImageClick")}
+        onButtonClick={(cardId) => console.log("onButtonClick :", { cardId })}
       />
     </div>
   </ThemeTester>

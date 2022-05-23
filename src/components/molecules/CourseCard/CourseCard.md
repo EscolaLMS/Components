@@ -25,20 +25,20 @@ import { Row, Col } from "react-grid-system";
               id: 1,
             },
           ]}
-          lessonsCount={1}
+          lessonCount={1}
           subtitle={"100% Online"}
           title={"Best course ever"}
           hideImage
           categories={{
             onCategoryClick: (id) => console.log("Category click id: ", id),
-            categotyElements: [
+            categoryElements: [
               { id: 1, name: "Programming" },
               { id: 2, name: "Front-end" },
             ],
           }}
-          onTagClick={(tagId) => console.log({ tagId })}
-          onImageClick={() => console.log("Image click")}
-          onButtonClick={(cardId) => console.log({ cardId })}
+          onTagClick={(tagId) => console.log("onTagClick :", { tagId })}
+          onImageClick={() => console.log("onImageClick")}
+          onButtonClick={(cardId) => console.log("onButtonClick :", { cardId })}
         />
       </Col>
       <Col xs={6}>
@@ -47,7 +47,7 @@ import { Row, Col } from "react-grid-system";
           image={{
             path: backgroundImage2,
           }}
-          lessonsCount={3}
+          lessonCount={3}
           tags={[
             {
               title: "Bestseller",
@@ -63,13 +63,13 @@ import { Row, Col } from "react-grid-system";
             onCategoryClick: (id) => {
               console.log("Category click id: ", id);
             },
-            categotyElements: [
+            categoryElements: [
               { id: 1, name: "Programming" },
               { id: 2, name: "Front-end" },
             ],
           }}
-          onImageClick={() => console.log("Image click")}
-          onTagClick={(tagId) => console.log({ tagId })}
+          onTagClick={(tagId) => console.log("onTagClick :", { tagId })}
+          onImageClick={() => console.log("onImageClick")}
           progress={{
             currentProgress: 0.43,
             maxProgress: 1,
