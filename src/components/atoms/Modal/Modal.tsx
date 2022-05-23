@@ -58,7 +58,6 @@ const GlobalStyle = createGlobalStyle`
       width: 100%;
       max-width: 468px;
       box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.1);
-
     }
 
     &-close {
@@ -162,7 +161,6 @@ const GlobalStyle = createGlobalStyle`
     right: 0;
     left: 0;
     bottom: 0;
-    filter: blur(2px);
     background-color: ${({ theme }) =>
       chroma(theme.mode === "light" ? theme.white : theme.black)
         .alpha(0.7)
@@ -174,7 +172,6 @@ const GlobalStyle = createGlobalStyle`
       display: none;
     }
   }
-
 
   &-fade-enter,&-fade-appear {
     opacity: 0;
@@ -227,6 +224,7 @@ const GlobalStyle = createGlobalStyle`
 
 export const Modal: React.FC<ModalProps> = (props) => {
   const { children } = props;
+
   return (
     <React.Fragment>
       <GlobalStyle />

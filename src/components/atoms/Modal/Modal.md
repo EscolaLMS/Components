@@ -1,5 +1,6 @@
 ```js
 import { useState } from "react";
+import { GlobalThemeProvider } from "../../../theme/provider";
 import { ImageModal, ThemeTester } from "../../../styleguide";
 import Title from "../../atoms/Typography/Title";
 import Text from "../../atoms/Typography/Text";
@@ -14,6 +15,8 @@ const onToggleDialog = () => {
 <React.Fragment>
   <ThemeTester>
     <button onClick={onToggleDialog}>launch modal</button>
+  </ThemeTester>
+  <GlobalThemeProvider>
     <Modal
       onClose={onToggleDialog}
       visible={visible}
@@ -30,8 +33,7 @@ const onToggleDialog = () => {
         velit?
       </Text>
     </Modal>
-  </ThemeTester>
-
+  </GlobalThemeProvider>
   <ImageModal images={[img1]} />
 </React.Fragment>;
 ```
