@@ -12,6 +12,7 @@ const resources = {
       "Course.Lesson": "Module",
       "Course.markAsFinished": "Mark as finished",
       "I18n.welcomeToWellms": "Welcome to Wellms and react-i18next",
+      "Notes.addNew": "Add new note",
       "Rate.Header": "How do you rate this course",
       "Rate.Select": "Select rate",
       "Rate.Select1": "Fatal, disappointments",
@@ -21,7 +22,6 @@ const resources = {
       "Rate.Select5": "Sensational, I recommend it heartily",
       "Rate.submitButton": "Rate the course",
       "Ratings.averageRateLabel": "Average rate",
-       "Notes.addNew": "Add new note",
     },
   },
   fr: {
@@ -36,6 +36,7 @@ const resources = {
       "Course.Lesson": "Moduł",
       "Course.markAsFinished": "Oznacz jako ukończone",
       "I18n.welcomeToWellms": "Witaj w Wellms i react-i18next",
+      "Notes.addNew": "Dodaj nową notatkę",
       "Rate.Header": "Jak oceniasz ten kurs",
       "Rate.Select": "Wybierz ocene",
       "Rate.Select1": "Fatalny, rozczarowujący",
@@ -45,7 +46,6 @@ const resources = {
       "Rate.Select5": "Rewelacyjny, polecam serdecznie",
       "Rate.submitButton": "Oceń kurs",
       "Ratings.averageRateLabel": "Średnia ocena",
-      "Notes.addNew": "Dodaj nową notatkę",
     },
   },
 };
