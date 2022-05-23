@@ -2,12 +2,18 @@ import * as React from "react";
 import styled from "styled-components";
 import { getFontFromTheme } from "../../../theme/provider";
 
-const RatingIconEmpty = () => (
+interface IconProps {
+  onClick?: (rate: number) => void;
+  rate: number;
+}
+
+const RatingIconEmpty: React.FC<IconProps> = ({ onClick, rate }) => (
   <svg
-    width="15"
-    height="15"
+    width="1em"
+    height="1em"
     viewBox="0 0 15 15"
     xmlns="http://www.w3.org/2000/svg"
+    onClick={() => (onClick ? onClick(rate) : undefined)}
   >
     <path
       d="M8.00002 0.270996C8.2841 0.270996 8.5438 0.431498 8.67084 0.685586L10.605 4.55394L14.858 5.17256C15.1405 5.21364 15.3751 5.41151 15.4633 5.68299C15.5515 5.95447 15.478 6.25248 15.2736 6.45175L12.1783 9.46971L12.8746 13.7249C12.9206 14.0061 12.8032 14.2891 12.5717 14.4553C12.3403 14.6214 12.0346 14.6421 11.7829 14.5085L8.00002 12.5013L4.21718 14.5085C3.96546 14.6421 3.65979 14.6214 3.4283 14.4553C3.1968 14.2891 3.07947 14.0061 3.12549 13.7249L3.82179 9.46971L0.726447 6.45175C0.522068 6.25248 0.448522 5.95447 0.536727 5.68299C0.624932 5.41151 0.859594 5.21364 1.14207 5.17256L5.39502 4.55394L7.3292 0.685586C7.45625 0.431498 7.71594 0.270996 8.00002 0.270996ZM8.00002 2.69805L6.56147 5.57516C6.45171 5.79468 6.24148 5.94661 5.9986 5.98194L2.86131 6.43827L5.1486 8.66837C5.32386 8.83925 5.40471 9.08492 5.36518 9.32649L4.85003 12.4746L7.64849 10.9897C7.86833 10.8731 8.13172 10.8731 8.35156 10.9897L11.15 12.4746L10.6349 9.32649C10.5953 9.08492 10.6762 8.83925 10.8514 8.66837L13.1387 6.43827L10.0014 5.98194C9.75856 5.94661 9.54834 5.79468 9.43858 5.57516L8.00002 2.69805Z"
@@ -16,13 +22,14 @@ const RatingIconEmpty = () => (
   </svg>
 );
 
-const RatingIconFull = () => (
+const RatingIconFull: React.FC<IconProps> = ({ onClick, rate }) => (
   <svg
-    width="15"
-    height="15"
+    width="1em"
+    height="1em"
     viewBox="0 0 15 15"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
+    onClick={() => (onClick ? onClick(rate) : undefined)}
     className="filled-star-icon"
   >
     <path
@@ -32,14 +39,18 @@ const RatingIconFull = () => (
   </svg>
 );
 
-export interface RatingProps {
-  ratingValue: number;
-  count?: number;
-  readonly?: boolean;
-  label?: React.ReactNode;
+interface StyledRating {
+  size?: React.CSSProperties["fontSize"];
 }
 
-const StyledRating = styled.span`
+export interface RatingProps extends StyledRating {
+  ratingValue: number;
+  count?: number;
+  label?: React.ReactNode;
+  onRateClick?: (rate: number) => void;
+}
+
+const StyledRating = styled.span<RatingProps>`
   &.lsm-rating {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -52,7 +63,6 @@ const StyledRating = styled.span`
     }};
     display: inline-flex;
     align-items: center;
-    height: 20px;
     .filled-star-icon {
       ${(props) => {
         if (props.theme.mode === "dark") {
@@ -61,9 +71,11 @@ const StyledRating = styled.span`
       }}
     }
     svg {
+      font-size: ${(props) => (props.size ? props.size : "15px")};
       padding-right: 2px;
     }
     .label {
+      min-width: 48px;
       margin-left: 5px;
       font-size: 16px;
       font-weight: 700;
@@ -72,16 +84,28 @@ const StyledRating = styled.span`
 `;
 
 export const Rating: React.FC<RatingProps> = (props) => {
-  const { count = 5, ratingValue, label } = props;
+  const { count = 5, ratingValue, label, onRateClick } = props;
   const startToRender = Array.from(Array(count).keys());
   return (
     <StyledRating {...props} className="lsm-rating">
       <>
         {startToRender.map((index) => {
           return index + 1 <= Math.round(ratingValue) ? (
-            <RatingIconFull key={index} />
+            <RatingIconFull
+              key={index}
+              rate={index + 1}
+              onClick={
+                onRateClick ? (rate: number) => onRateClick(rate) : undefined
+              }
+            />
           ) : (
-            <RatingIconEmpty key={index} />
+            <RatingIconEmpty
+              key={index}
+              rate={index + 1}
+              onClick={
+                onRateClick ? (rate: number) => onRateClick(rate) : undefined
+              }
+            />
           );
         })}
         {label && <span className="label">{label}</span>}
