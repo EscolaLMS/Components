@@ -7,6 +7,11 @@ import { initReactI18next } from "react-i18next";
 const resources = {
   en: {
     translation: {
+      "CartCard.addDiscountButton": "Add discount code",
+      "CartCard.buyButton": "I buy and pay",
+      "CartCard.discountError": "The code provided is invalid",
+      "CartCard.discountGranted": "**Discount code** applied",
+      "CartCard.realizeButton": "Realize",
       "Course.Agenda": "Agenda",
       "Course.Finished": "Finished",
       "Course.Lesson": "Module",
@@ -15,6 +20,8 @@ const resources = {
       "CourseCard.lesson_other": "{{count}} lessons",
       "CourseCard.startNow": "Start now",
       "I18n.welcomeToWellms": "Welcome to Wellms and react-i18next",
+      "Notes.addNew": "Add new note",
+      "Notes.title": "Notes",
       "ProgressBar.defaultLabel": "Progress",
       "Rate.Header": "How do you rate this course",
       "Rate.Select": "Select rate",
@@ -34,6 +41,11 @@ const resources = {
   },
   pl: {
     translation: {
+      "CartCard.addDiscountButton": "Dodaj kod rabatowy",
+      "CartCard.buyButton": "Kupuję i płacę",
+      "CartCard.discountError": "Podany kod jest nieprawidłowy",
+      "CartCard.discountGranted": "**Kod rabatowy** zastosowany",
+      "CartCard.realizeButton": "Realizuj",
       "Course.Agenda": "Plan kursu",
       "Course.Finished": "Ukończono",
       "Course.Lesson": "Moduł",
@@ -42,6 +54,7 @@ const resources = {
       "CourseCard.lesson_many": "{{count}} lekcji",
       "CourseCard.lesson_one": "{{count}} lekcja",
       "I18n.welcomeToWellms": "Witaj w Wellms i react-i18next",
+      "Notes.addNew": "Dodaj nową notatkę",
       "ProgressBar.defaultLabel": "Postęp",
       "Rate.Header": "Jak oceniasz ten kurs",
       "Rate.Select": "Wybierz ocene",
