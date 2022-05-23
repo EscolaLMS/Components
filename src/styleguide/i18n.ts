@@ -7,24 +7,43 @@ import { initReactI18next } from "react-i18next";
 const resources = {
   en: {
     translation: {
-      "Course.Lesson": "Module",
-      "Course.Finished": "Finished",
       "Course.Agenda": "Agenda",
+      "Course.Finished": "Finished",
+      "Course.Lesson": "Module",
       "Course.markAsFinished": "Mark as finished",
-      "ratings.average.rate.label": "Average rate",
-
-      "Welcome to Wellms": "Welcome to Wellms and react-i18next",
+      "I18n.welcomeToWellms": "Welcome to Wellms and react-i18next",
+      "Rate.Header": "How do you rate this course",
+      "Rate.Select": "Select rate",
+      "Rate.Select1": "Fatal, disappointments",
+      "Rate.Select2": "Weak, below expectations",
+      "Rate.Select3": "Without a revelation, it could be better",
+      "Rate.Select4": "Good, as expected",
+      "Rate.Select5": "Sensational, I recommend it heartily",
+      "Rate.submitButton": "Rate the course",
+      "Ratings.averageRateLabel": "Average rate",
     },
   },
   fr: {
     translation: {
-      "Welcome to Wellms": "Bienvenue à Wellms et react-i18next",
+      "I18n.welcomeToWellms": "Bienvenue à Wellms et react-i18next",
     },
   },
   pl: {
     translation: {
-      "ratings.average.rate.label": "Średnia ocena",
-      "Welcome to Wellms": "Witaj w Wellms i react-i18next",
+      "Course.Agenda": "Plan kursu",
+      "Course.Finished": "Ukończono",
+      "Course.Lesson": "Moduł",
+      "Course.markAsFinished": "Oznacz jako ukończone",
+      "I18n.welcomeToWellms": "Witaj w Wellms i react-i18next",
+      "Rate.Header": "Jak oceniasz ten kurs",
+      "Rate.Select": "Wybierz ocene",
+      "Rate.Select1": "Fatalny, rozczarowujący",
+      "Rate.Select2": "Słaby, poniżej oczewikań",
+      "Rate.Select3": "Bez, rewelacji, mógłby być lepszy",
+      "Rate.Select4": "Dobry, zgodny z oczekiwaniami",
+      "Rate.Select5": "Rewelacyjny, polecam serdecznie",
+      "Rate.submitButton": "Oceń kurs",
+      "Ratings.averageRateLabel": "Średnia ocena",
     },
   },
 };
