@@ -1,11 +1,5 @@
 import { Formik, FormikErrors } from "formik";
-import {
-  useContext,
-  useState,
-  useEffect,
-  useCallback,
-  useLayoutEffect,
-} from "react";
+import { useContext, useState, useEffect, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import type { DefaultResponseError } from "@escolalms/sdk/lib/types/api";
@@ -130,28 +124,6 @@ export const RegisterForm: React.FC<{
     },
     [fields]
   );
-
-  const getFieldTranslate = useCallback(() => {
-    const currLang: string = i18n.language;
-
-    fields.list &&
-      fields.list.map((field) => {
-        if (Array.isArray(field.extra)) {
-          const translationFromServer = field.extra.find(
-            (item) => currLang in item
-          );
-          if (translationFromServer) {
-            i18n.addResourceBundle(currLang, "translation", {
-              [`RegisterForm.${field.name}`]: translationFromServer[currLang],
-            });
-          }
-        }
-      });
-  }, [fields, i18n]);
-
-  useEffect(() => {
-    getFieldTranslate();
-  }, [fields]);
 
   return (
     <StyledDiv mobile={mobile}>
