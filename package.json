@@ -9,7 +9,8 @@
     "tsc": "tsc --project tsconfig.json --noEmit",
     "eslint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "stylelint": "stylelint './src/**/*.tsx'",
-    "lib": "tsc --noEmit false --outDir lib --module commonjs"
+    "lib": "tsc --noEmit false --outDir lib --module commonjs",
+    "prepare": "husky install"
   },
   "files": [
     "src/**/*",
@@ -34,16 +35,20 @@
     "css-loader": "^6.7.1",
     "date-fns": "^2.28.0",
     "eslint": "^8.14.0",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
     "file-loader": "^6.2.0",
     "formik": "^2.2.9",
+    "husky": "^8.0.0",
     "i18next": "^21.6.16",
     "leva": "^0.9.24",
     "postcss": "^8.4.13",
     "postcss-scss": "^4.0.4",
     "postcss-styled": "^0.34.0",
     "postcss-syntax": "^0.36.2",
+    "rc-dialog": "^8.8.1",
     "react": "^17",
     "react-docgen-typescript": "^2.2.2",
+    "react-dropdown": "^1.10.0",
     "react-dom": "^17",
     "react-grid-system": "^8.1.4",
     "react-i18next": "^11.16.7",
@@ -62,7 +67,5 @@
     "webpack": "^5.72.0"
   },
   "homepage": "https://escolalms.github.io/components",
-  "dependencies": {
-    "react-dropdown": "^1.10.0"
-  }
+  "dependencies": {}
 }
