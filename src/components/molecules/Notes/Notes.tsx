@@ -51,9 +51,9 @@ export const Notes: React.FC<NotesProps> = (props) => {
 
   return (
     <StyledNotes>
-      {noteGroups.map((noteGroup) => {
+      {noteGroups.map((noteGroup, index) => {
         return (
-          <div className="notes-container">
+          <div key={index} className="notes-container">
             {!mobile && (
               <IconTitle
                 level={4}
@@ -66,8 +66,8 @@ export const Notes: React.FC<NotesProps> = (props) => {
               {t("Notes.addNew")}
             </Button>
             <Text className="title">{noteGroup.title}</Text>
-            {noteGroup.notes.map((note) => {
-              return <Note {...note} />;
+            {noteGroup.notes.map((note, index) => {
+              return <Note key={index} {...note} />;
             })}
           </div>
         );
