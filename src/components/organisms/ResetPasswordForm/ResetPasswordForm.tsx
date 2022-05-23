@@ -55,14 +55,22 @@ export const ResetPasswordForm: React.FC<{
   backToLogin?: () => void;
   onRegisterLink?: () => void;
   mobile?: boolean;
-}> = ({ onSuccess, onError, backToLogin, onRegisterLink, mobile = false }) => {
+  return_url?: string;
+}> = ({
+  onSuccess,
+  onError,
+  backToLogin,
+  onRegisterLink,
+  mobile = false,
+  return_url,
+}) => {
   const initialValues: MyFormValues = { email: "" };
   const { t } = useTranslation();
   const { forgot } = useContext(EscolaLMSContext);
 
   return (
     <StyledDiv mobile={mobile}>
-      <Title level={3}>{t("Zresetuj hasło")}</Title>{" "}
+      <Title level={3}>{t("ResetForm.ResetPassword")}</Title>{" "}
       <Formik
         initialValues={initialValues}
         validate={(values) => {
@@ -77,9 +85,7 @@ export const ResetPasswordForm: React.FC<{
         onSubmit={(values, { setSubmitting, setErrors }) => {
           forgot({
             email: values.email,
-            // return_url: `${window.location.origin}${routing.password_reset}`,
-            // TODO: change this if routing will be created
-            return_url: `${window.location.origin}/reset`,
+            return_url: `${window.location.origin}/${return_url}`,
           })
             .then(() => onSuccess && onSuccess())
             .catch((err: ResponseError<DefaultResponseError>) => {
@@ -115,20 +121,20 @@ export const ResetPasswordForm: React.FC<{
             />
 
             <Button mode="secondary" type="submit" loading={isSubmitting} block>
-              {t("Resetuj hasło")}
+              {t("ResetForm.ResetPassword")}
             </Button>
           </form>
         )}
       </Formik>
       <Text size="14">
         <Link underline onClick={() => backToLogin && backToLogin()}>
-          {t("Wróć do logowania")}
+          {t("ResetForm.BackToLogin")}
         </Link>
       </Text>
       <Text size="14">
-        {t("Nie posiadasz konta?")}{" "}
+        {t("ResetForm.NotHavingAccount")}{" "}
         <Link underline onClick={() => onRegisterLink && onRegisterLink()}>
-          {t("Zarejestruj się")}
+          {t("ResetForm.Register")}
         </Link>
       </Text>
     </StyledDiv>

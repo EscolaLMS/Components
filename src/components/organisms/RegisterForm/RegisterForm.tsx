@@ -1,9 +1,16 @@
 import { Formik, FormikErrors } from "formik";
-import { useContext, useState, useEffect, useCallback } from "react";
+import {
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+  useLayoutEffect,
+} from "react";
 import { useTranslation } from "react-i18next";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import type { DefaultResponseError } from "@escolalms/sdk/lib/types/api";
 import type { ResponseError } from "umi-request";
+
 //import "@escolalms/ts-models";
 //import "@escolalms/sdk/lib/types/api";
 
@@ -61,12 +68,6 @@ type FormValues = {
   password_confirmation: string;
   phone: string;
   error?: string;
-};
-
-// TODO: this should be downloaded from i18n
-const mapper: Record<string, string> = {
-  pl: "pl-PL",
-  en: "en-US",
 };
 
 export const RegisterForm: React.FC<{
@@ -130,18 +131,27 @@ export const RegisterForm: React.FC<{
     [fields]
   );
 
-  const getFieldTranslate = useCallback(
-    (extra: Record<string, any>[]) => {
-      const currLang: string = i18n.language;
+  const getFieldTranslate = useCallback(() => {
+    const currLang: string = i18n.language;
 
-      const translationFromServer = extra.find(
-        (item) => mapper[currLang] in item
-      );
+    fields.list &&
+      fields.list.map((field) => {
+        if (Array.isArray(field.extra)) {
+          const translationFromServer = field.extra.find(
+            (item) => currLang in item
+          );
+          if (translationFromServer) {
+            i18n.addResourceBundle(currLang, "translation", {
+              [`RegisterForm.${field.name}`]: translationFromServer[currLang],
+            });
+          }
+        }
+      });
+  }, [fields, i18n]);
 
-      return translationFromServer && translationFromServer[mapper[currLang]];
-    },
-    [i18n]
-  );
+  useEffect(() => {
+    getFieldTranslate();
+  }, [fields]);
 
   return (
     <StyledDiv mobile={mobile}>
@@ -297,29 +307,18 @@ export const RegisterForm: React.FC<{
             />
 
             {fields &&
-              fields.list &&
-              fields.list.length > 0 &&
+              Array.isArray(fields.list) &&
               fields.list
                 .filter((field: EscolaLms.ModelFields.Models.Metadata) => {
-                  let isRegistable;
+                  const r =
+                    Array.isArray(field.extra) &&
+                    field.extra?.filter(
+                      (item: Record<string, string | number | boolean>) =>
+                        item.register
+                    );
 
-                  if (field.extra && field.extra?.length > 0) {
-                    const r =
-                      Array.isArray(field.extra) &&
-                      field.extra.length > 0 &&
-                      field.extra?.filter(
-                        (item: Record<string, string | number | boolean>) =>
-                          item.register
-                      );
-
-                    if (r && r.length > 0) {
-                      isRegistable = r[0].register;
-                    }
-                  }
-
-                  return field.type !== "boolean" && isRegistable;
+                  return field.type !== "boolean" && !r;
                 })
-
                 .map(
                   (
                     field: EscolaLms.ModelFields.Models.Metadata,
@@ -328,12 +327,7 @@ export const RegisterForm: React.FC<{
                     <Input
                       key={`${field}${index}`}
                       required={isAdditionalRequiredField(field)}
-                      label={
-                        (Array.isArray(field.extra) &&
-                          field.extra.length > 0 &&
-                          getFieldTranslate(field.extra)) ||
-                        t(`RegisterForm.${field.name}`)
-                      }
+                      label={t(`RegisterForm.${field.name}`)}
                       type="text"
                       name={field.name}
                       onChange={handleChange}
