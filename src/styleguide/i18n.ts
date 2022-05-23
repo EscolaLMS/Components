@@ -40,8 +40,6 @@ const resources = {
       "CartCard.discountError": "Podany kod jest nieprawidłowy",
       "CartCard.discountGranted": "**Kod rabatowy** zastosowany",
       "CartCard.realizeButton": "Realizuj",
-      "ratings.average.rate.label": "Średnia ocena",
-      "Welcome to Wellms": "Witaj w Wellms i react-i18next",
       "Course.Agenda": "Plan kursu",
       "Course.Finished": "Ukończono",
       "Course.Lesson": "Moduł",
