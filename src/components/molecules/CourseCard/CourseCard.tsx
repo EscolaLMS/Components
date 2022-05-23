@@ -1,3 +1,4 @@
+import { contrast } from "chroma-js";
 import * as React from "react";
 import { ReactNode, useMemo, useCallback } from "react";
 import { useTranslation } from "react-i18next";
@@ -51,15 +52,27 @@ interface Tag {
   id: number;
   title: string;
 }
+
+interface Category {
+  id: number;
+  name: string;
+}
+
+interface Categories {
+  onCategoryClick: (id: number) => void;
+  categotyElements: Category[];
+}
+
 export interface CourseCardProps {
   id: number;
-  image: Image;
+  image?: Image;
   title: ReactNode;
-  categories: string[];
+  categories: Categories;
   tags?: Tag[];
   lessonsCount: number;
   subtitle: ReactNode;
   //TODO: add params if needed to onImageClick
+  hideImage?: boolean;
   onImageClick?: () => void;
   onTagClick?: (tagId: number) => void;
   onButtonClick?: (cardId: number) => void;
@@ -105,17 +118,29 @@ const StyledCourseCard = styled("div")`
   .categories {
     font-size: 14px;
     line-height: 17px;
-    color: ${(props) => props.theme.gray3};
+    color: ${({ theme }) => {
+      const backgroundColor =
+        theme.mode === "dark"
+          ? theme.cardBackgroundColorDark
+          : theme.cardBackgroundColorLight;
+      return contrast("#fff", backgroundColor) >= 2.5 ? "#fff" : theme.gray3;
+    }};
     margin-bottom: 15px;
   }
-  .lession-container {
+  .lesson-container {
     display: flex;
     align-items: center;
     margin-bottom: 30px;
   }
-  .lessions-count {
+  .lessons-count {
     font-weight: 700;
     margin: 0 0 0 10px;
+  }
+  .category {
+    cursor: pointer;
+  }
+  .tag {
+    cursor: pointer;
   }
 `;
 
@@ -131,6 +156,7 @@ export const CourseCard: React.FC<CourseCardProps> = (props) => {
     onTagClick,
     onButtonClick,
     progress,
+    hideImage,
   } = props;
 
   const { t } = useTranslation();
@@ -146,8 +172,10 @@ export const CourseCard: React.FC<CourseCardProps> = (props) => {
   );
 
   const imageSrc = useMemo(() => {
-    const { path, url } = image;
-    return path || url;
+    if (image) {
+      const { path, url } = image;
+      return path || url;
+    }
   }, [image]);
 
   const imageSectionProps: React.HTMLAttributes<HTMLDivElement> =
@@ -163,36 +191,37 @@ export const CourseCard: React.FC<CourseCardProps> = (props) => {
       return {};
     }, [onImageClick]);
 
-  return (
-    <StyledCourseCard>
-      <div className="image-section" {...imageSectionProps}>
-        <div className="information-in-image">
-          <div className="badges">
-            {tags.map((tag: Tag) => (
-              <Badge key={tag.id} onClick={(e) => tagClick(e, tag.id)}>
-                {tag.title}
-              </Badge>
-            ))}
-          </div>
-          {props.subtitle && (
-            <div className="card">
-              <Card wings="small">{props.subtitle}</Card>
-            </div>
-          )}
-        </div>
-        <RatioBox ratio={1}>
-          <img className="image" src={imageSrc} alt={image.alt} />
-        </RatioBox>
-      </div>
-      <div className="course-section">
+  const renderCourseSection = () => {
+    return (
+      <>
         <Title level={4} className="title">
           {title}
         </Title>
-        <Text className="categories">{categories.join(" / ")}</Text>
-        <div className="lession-container">
+        <Text className="categories">
+          {categories.categotyElements.map((category, index) => {
+            return (
+              <>
+                <span
+                  className="category"
+                  key={category.id}
+                  onClick={() => categories.onCategoryClick(category.id)}
+                  onKeyDown={() => categories.onCategoryClick(category.id)}
+                  role="button"
+                  tabIndex={0}
+                >
+                  {category.name}
+                </span>
+                {categories.categotyElements.length !== index + 1 && (
+                  <span> / </span>
+                )}
+              </>
+            );
+          })}
+        </Text>
+        <div className="lesson-container">
           <IconOpenBook />
-          <Text className="lessions-count">
-            {t("CourseCard.lession", { count: lessonsCount })}
+          <Text className="lessons-count">
+            {t("CourseCard.lesson", { count: lessonsCount })}
           </Text>
         </div>
         {progress ? (
@@ -206,7 +235,46 @@ export const CourseCard: React.FC<CourseCardProps> = (props) => {
             )}
           </>
         )}
-      </div>
+      </>
+    );
+  };
+
+  return (
+    <StyledCourseCard>
+      {!hideImage && (
+        <div className="image-section" {...imageSectionProps}>
+          <div className="information-in-image">
+            <div className="badges">
+              {tags.map((tag: Tag) => (
+                <Badge
+                  className="tag"
+                  key={tag.id}
+                  onClick={(e) => tagClick(e, tag.id)}
+                >
+                  {tag.title}
+                </Badge>
+              ))}
+            </div>
+            {props.subtitle && (
+              <div className="card">
+                <Card wings="small">{props.subtitle}</Card>
+              </div>
+            )}
+          </div>
+          <RatioBox ratio={1}>
+            <img
+              className="image"
+              src={imageSrc}
+              alt={image ? image.alt : undefined}
+            />
+          </RatioBox>
+        </div>
+      )}
+      {hideImage ? (
+        <Card wings="large">{renderCourseSection()}</Card>
+      ) : (
+        <div className="course-section">{renderCourseSection()}</div>
+      )}
     </StyledCourseCard>
   );
 };

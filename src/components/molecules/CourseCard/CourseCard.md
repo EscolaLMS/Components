@@ -28,7 +28,14 @@ import { Row, Col } from "react-grid-system";
           lessonsCount={1}
           subtitle={"100% Online"}
           title={"Best course ever"}
-          categories={["Programming", "Front-end"]}
+          hideImage
+          categories={{
+            onCategoryClick: (id) => console.log("Category click id: ", id),
+            categotyElements: [
+              { id: 1, name: "Programming" },
+              { id: 2, name: "Front-end" },
+            ],
+          }}
           onTagClick={(tagId) => console.log({ tagId })}
           onImageClick={() => console.log("Image click")}
           onButtonClick={(cardId) => console.log({ cardId })}
@@ -52,7 +59,15 @@ import { Row, Col } from "react-grid-system";
             },
           ]}
           title={"Best course ever"}
-          categories={["Programming", "Front-end"]}
+          categories={{
+            onCategoryClick: (id) => {
+              console.log("Category click id: ", id);
+            },
+            categotyElements: [
+              { id: 1, name: "Programming" },
+              { id: 2, name: "Front-end" },
+            ],
+          }}
           onImageClick={() => console.log("Image click")}
           onTagClick={(tagId) => console.log({ tagId })}
           progress={{
