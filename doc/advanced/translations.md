@@ -10,7 +10,7 @@ const { t, i18n } = useTranslation();
 
 <div>
   <ThemeTester>
-    <Title>{t("Welcome to Wellms")}</Title>
+    <Title>{t("I18n.welcomeToWellms")}</Title>
     {["en", "fr", "pl"].map((langCode) => (
       <Button
         key={langCode}
