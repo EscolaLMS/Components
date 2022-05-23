@@ -67,7 +67,7 @@ const StyledDiv = styled("div")<InputProps>`
           cursor: not-allowed;
         }
       }
-      fieldset {
+      .fieldset {
         position: absolute;
         inset: ${({ label }) => {
           return `${label ? "-5px " : "0 "} 0 0`;
@@ -148,7 +148,7 @@ const StyledDiv = styled("div")<InputProps>`
             props.theme.mode === "dark" ? props.theme.white : undefined;
           }};
         }
-        fieldset {
+        .fieldset {
           border-color: ${(props) => {
             if (props.error) {
               return props.theme.errorColor;
@@ -212,14 +212,16 @@ export const Input: React.FC<InputProps> = (props) => {
             {...notInputProps}
             id={label ? generateRandomInputId : undefined}
           />
-          <fieldset>
-            {label && (
+          {label ? (
+            <fieldset className="fieldset">
               <legend>
                 {label}
                 {required ? "*" : ""}
               </legend>
-            )}
-          </fieldset>
+            </fieldset>
+          ) : (
+            <span className="fieldset"></span>
+          )}
         </div>
       </div>
       {helper && <span>{helper}</span>}
