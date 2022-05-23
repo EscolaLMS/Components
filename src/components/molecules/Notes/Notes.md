@@ -5,7 +5,7 @@ import img1 from "./Notes.png";
 import { Title } from "../../atoms/Typography/Title";
 const noteGroups = [
   {
-    title: "lession 1",
+    title: "lesson 1",
     notes: [
       {
         description: "Simple node",
@@ -23,15 +23,15 @@ const noteGroups = [
     ],
   },
   {
-    title: "lession 2",
+    title: "lesson 2",
     notes: [
       {
-        description: "Front-end lession",
+        description: "Front-end lesson",
         time: "12:00",
         color: "blue",
       },
       {
-        description: "Back-end lession",
+        description: "Back-end lesson",
         time: "18:00",
       },
     ],
