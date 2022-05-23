@@ -13,6 +13,7 @@ const resources = {
       "Course.markAsFinished": "Mark as finished",
       "I18n.welcomeToWellms": "Welcome to Wellms and react-i18next",
       "Notes.addNew": "Add new note",
+      "Notes.title": "Notes",
       "Rate.Header": "How do you rate this course",
       "Rate.Select": "Select rate",
       "Rate.Select1": "Fatal, disappointments",
