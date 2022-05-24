@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useState } from "react";
 import { Text } from "../../atoms/Typography/Text";
-import styled from "styled-components";
+import styled, { withTheme } from "styled-components";
 import { Input } from "../../atoms/Input/Input";
 import { TextArea } from "../../atoms/TextArea/TextArea";
 import Button from "../../atoms/Button/Button";
@@ -80,11 +80,11 @@ const SingleColor = styled("div")<SingleColorProps>`
     content: "";
     position: absolute;
     left: 51%;
-    top: 50%;
+    top: 46%;
     transform: translate(-50%, -50%);
     border: 1px solid ${(props) => props.theme.gray2};
-    width: 15px;
-    height: 15px;
+    width: 16px;
+    height: 16px;
     border-radius: 50px;
     display: ${(props) => (props.active ? "block" : "none")};
   }
@@ -204,4 +204,4 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ onError, onSuccess }) => {
   );
 };
 
-export default NoteEditor;
+export default withTheme(styled(NoteEditor)<NoteEditorProps>``);
