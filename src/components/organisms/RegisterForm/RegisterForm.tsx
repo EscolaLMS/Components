@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import type { DefaultResponseError } from "@escolalms/sdk/lib/types/api";
 import type { ResponseError } from "umi-request";
+
 //import "@escolalms/ts-models";
 //import "@escolalms/sdk/lib/types/api";
 
@@ -80,7 +81,7 @@ export const RegisterForm: React.FC<{
     password_confirmation: "",
     phone: "",
   });
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { register, fields, fetchFields } = useContext(EscolaLMSContext);
 
   useEffect(() => {
@@ -278,8 +279,7 @@ export const RegisterForm: React.FC<{
             />
 
             {fields &&
-              fields.list &&
-              fields.list.length > 0 &&
+              Array.isArray(fields.list) &&
               fields.list
                 .filter((field: EscolaLms.ModelFields.Models.Metadata) => {
                   const r =
