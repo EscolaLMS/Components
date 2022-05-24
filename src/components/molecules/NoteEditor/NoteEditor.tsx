@@ -13,7 +13,7 @@ import { t } from "i18next";
 
 const ColorPicker = styled.div`
   display: flex;
-  justify-items: flex-start;
+  justify-content: flex-start;
   align-items: center;
   margin-top: 28px;
   padding-left: 12px;
