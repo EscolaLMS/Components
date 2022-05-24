@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import styled, { withTheme, createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle, withTheme } from "styled-components";
 
 import Dialog, { DialogProps } from "rc-dialog";
 import chroma from "chroma-js";
@@ -22,7 +22,7 @@ const CloseBtn = () => (
   </svg>
 );
 
-const StyledDiv = styled.div`
+const StyledGlobal = createGlobalStyle`
   .rc-dialog {
     position: relative;
 
@@ -161,7 +161,6 @@ const StyledDiv = styled.div`
       right: 0;
       left: 0;
       bottom: 0;
-      filter: blur(2px);
       background-color: ${({ theme }) =>
         chroma(theme.mode === "light" ? theme.white : theme.black)
           .alpha(0.7)
@@ -231,19 +230,19 @@ export const Modal: React.FC<ModalProps> = (props) => {
   const { children } = props;
   const wrapper = React.useRef<HTMLDivElement>(null);
   return (
-    <StyledDiv>
-      <div ref={wrapper}></div>
-      <Dialog
-        {...props}
-        closeIcon={<CloseBtn />}
-        getContainer={props.getContainer || wrapper.current || document.body}
-      >
-        {children}
-      </Dialog>
-    </StyledDiv>
+    <React.Fragment>
+      <div ref={wrapper}>
+        <Dialog {...props} closeIcon={<CloseBtn />}>
+          <StyledGlobal />
+          {children}
+        </Dialog>
+      </div>
+    </React.Fragment>
   );
 };
 
-const NewModal = styled(Modal)<ModalProps>``;
+const NewModal = styled(Modal)<ModalProps>`
+  content: "skad jest scope";
+`;
 
 export default withTheme(NewModal);

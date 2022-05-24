@@ -14,7 +14,13 @@ const ModalWrapper = () => {
       >
         launch modal
       </Button>
-      <Modal onClose={() => setVisible(false)} visible={visible}>
+      <Modal
+        onClose={() => setVisible(false)}
+        visible={visible}
+        animation="zoom"
+        maskAnimation="fade"
+        destroyOnClose={true}
+      >
         <Title level={4} className="modal-title">
           Modal title
         </Title>
