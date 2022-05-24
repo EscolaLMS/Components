@@ -16,7 +16,7 @@ const StyledPopup = styled.div`
   max-width: 468px;
   padding: 36px 23px 23px 23px;
   margin: 0 auto;
-  background: "red";
+
   .form-title {
     text-align: center;
     color: ${(props) => props.theme.primaryColor};
@@ -147,8 +147,6 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ onError, onSuccess }) => {
           handleSubmit,
           isSubmitting,
           setFieldValue,
-
-          /* and other goodies */
         }) => (
           <form onSubmit={handleSubmit}>
             <Text className="form-title">Stwórz nową notatkę</Text>
