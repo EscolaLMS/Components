@@ -112,7 +112,7 @@ const initialValues: FormValues = {
   color: "#EB5757",
 };
 
-const NoteEditor: React.FC<NoteEditorProps> = ({ onError, onSuccess }) => {
+const NoteEditor: React.FC<NoteEditorProps> = ({ onSuccess }) => {
   const [selectedColor, setSelectedColor] = useState("#EB5757");
   const colors: { color: string }[] = [
     { color: "#EB5757" },
@@ -136,6 +136,7 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ onError, onSuccess }) => {
         }}
         onSubmit={(values) => {
           console.log(values);
+          onSuccess && onSuccess();
         }}
       >
         {({

@@ -5,7 +5,10 @@ import ThemeTester from "../../../styleguide/ThemeTester";
 
 <>
   <ThemeTester>
-    <NoteEditor />
+    <NoteEditor
+      onSuccess={() => console.log("Success")}
+      onError={() => console.log("Error")}
+    />
   </ThemeTester>
   <ImageModal images={[img1]} />
 </>;
