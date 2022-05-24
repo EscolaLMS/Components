@@ -4,7 +4,7 @@ import { Title } from "../../atoms/Typography/Title";
 import { Col, Row } from "react-grid-system";
 import { ReactNode } from "react";
 import { IconText } from "../../atoms/IconText/IconText";
-import RatioBox from "../../atoms/RatioBox/RatioBox";
+import { RatioBox } from "../../atoms/RatioBox/RatioBox";
 
 interface StyledCheckoutCardProps {
   mobile?: boolean;
@@ -224,7 +224,13 @@ export const CheckoutCard: React.FC<CheckoutCardProps> = (props) => {
                     </Title>
                   </div>
                 )}
-                <div className={"checkout-card-remove"} onClick={handleDelete}>
+                <div
+                  tabIndex={0}
+                  role="button"
+                  className={"checkout-card-remove"}
+                  onClick={handleDelete}
+                  onKeyDown={(e) => e.key === "Enter" && handleDelete()}
+                >
                   <IconBin />
                 </div>
               </div>

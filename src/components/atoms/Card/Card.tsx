@@ -41,6 +41,8 @@ const StyledCard = styled.div<CardProps>`
       props.theme.mode !== "dark"
         ? props.theme.cardBackgroundColorDark
         : props.theme.cardBackgroundColorLight};
+    color: ${(props) =>
+          props.theme.mode !== "dark" ? props.theme.gray1 : props.theme.white};
     &:before,
     &:after {
       background: ${(props) => {

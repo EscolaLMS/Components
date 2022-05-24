@@ -29,5 +29,3 @@ export const RatioBox: React.FC<RatioBoxProps> = (props) => {
 
   return <StyledDiv {...props}>{children}</StyledDiv>;
 };
-
-export default RatioBox;

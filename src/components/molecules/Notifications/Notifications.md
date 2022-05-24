@@ -2,7 +2,6 @@
 import ThemeTester from "../../../styleguide/ThemeTester";
 import ImageModal from "../../../styleguide/ImageModal";
 import img1 from "./Notifications.png";
-import img2 from "./Notifications-2.png";
 import Notifications from "./Notifications";
 
 <React.Fragment>
