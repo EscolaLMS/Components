@@ -241,8 +241,6 @@ export const Modal: React.FC<ModalProps> = (props) => {
   );
 };
 
-const NewModal = styled(Modal)<ModalProps>`
-  content: "skad jest scope";
-`;
+const NewModal = styled(Modal)<ModalProps>``;
 
 export default withTheme(NewModal);
