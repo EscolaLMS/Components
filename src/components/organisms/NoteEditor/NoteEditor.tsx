@@ -112,7 +112,7 @@ const initialValues: FormValues = {
   color: "#EB5757",
 };
 
-const NoteEditor: React.FC<NoteEditorProps> = ({ onSuccess }) => {
+export const NoteEditor: React.FC<NoteEditorProps> = ({ onSuccess }) => {
   const [selectedColor, setSelectedColor] = useState("#EB5757");
   const colors: { color: string }[] = [
     { color: "#EB5757" },
