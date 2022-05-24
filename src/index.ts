@@ -27,3 +27,32 @@ export { default as Tag } from "./components/atoms/Tag/Tag";
 export { default as Text } from "./components/atoms/Typography/Text";
 export { TextArea } from "./components/atoms/TextArea/TextArea";
 export { default as Title } from "./components/atoms/Typography/Title";
+
+//MOLECULES
+export { default as Banner } from "./components/molecules/Banner/Banner";
+export { CartCard } from "./components/molecules/CartCard/CartCard";
+export { default as CategoryCard } from "./components/molecules/CategoryCard/CategoryCard";
+export { default as Certificate } from "./components/molecules/Certificate/Certificate";
+export { default as CheckoutCard } from "./components/molecules/CheckoutCard/CheckoutCard";
+export { CourseCard } from "./components/molecules/CourseCard/CourseCard";
+export { default as CourseTopNav } from "./components/molecules/CourseTopNav/CourseTopNav";
+export { default as Description } from "./components/molecules/Description/Description";
+export { default as Downloads } from "./components/molecules/Downloads/Downloads";
+export { Dropdown } from "./components/molecules/Dropdown/Dropdown";
+export { default as ImageBubble } from "./components/molecules/ImageBubble/ImageBubble";
+export { default as LabelListItem } from "./components/molecules/LabelListItem/LabelListItem";
+export { Notes } from "./components/molecules/Notes/Notes";
+export { default as Notifications } from "./components/molecules/Notifications/Notifications";
+export { default as QuizCta } from "./components/molecules/QuizCta/QuizCta";
+export { Rate } from "./components/molecules/Rate/Rate";
+export { Ratings } from "./components/molecules/Ratings/Ratings";
+export { default as Steps } from "./components/molecules/Steps/Steps";
+export { Tutor } from "./components/molecules/Tutor/Tutor";
+export { default as VideoPlayer } from "./components/molecules/VideoPlayer/VideoPlayer";
+
+//ORGANISMS
+export { default as CourseAgenda } from "./components/organisms/CourseAgenda/CourseAgenda";
+export { default as LoginForm } from "./components/organisms/LoginForm/LoginForm";
+export { default as NoteEditor } from "./components/organisms/NoteEditor/NoteEditor";
+export { default as RegisterForm } from "./components/organisms/RegisterForm/RegisterForm";
+export { default as ResetPasswordForm } from "./components/organisms/ResetPasswordForm/ResetPasswordForm";
