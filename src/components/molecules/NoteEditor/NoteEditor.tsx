@@ -11,6 +11,33 @@ import type { ResponseError } from "umi-request";
 import { Formik } from "formik";
 import { t } from "i18next";
 
+const ColorPicker = styled.div`
+  display: flex;
+  justify-items: flex-start;
+  align-items: center;
+  margin-top: 28px;
+  padding-left: 12px;
+  .label {
+    font-size: 12px;
+    margin-right: 20px;
+  }
+  .colors-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    column-gap: 10px;
+    button {
+      appearance: none;
+      outline: none;
+      background: transparent;
+      border-radius: 0;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+    }
+  }
+`;
+
 const StyledPopup = styled.div`
   width: calc(100% - 32px);
   max-width: 468px;
@@ -39,33 +66,6 @@ const StyledPopup = styled.div`
         max-width: 171px;
         margin-bottom: 23px;
       }
-    }
-  }
-`;
-
-const ColorPicker = styled.div`
-  display: flex;
-  justify-items: flex-start;
-  align-items: center;
-  margin-top: 28px;
-  padding-left: 12px;
-  .label {
-    font-size: 12px;
-    margin-right: 20px;
-  }
-  .colors-container {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    column-gap: 10px;
-    button {
-      appearance: none;
-      outline: none;
-      background: transparent;
-      border-radius: 0;
-      border: none;
-      padding: 0;
-      cursor: pointer;
     }
   }
 `;
