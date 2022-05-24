@@ -6,11 +6,10 @@ import { Input } from "../../atoms/Input/Input";
 import { TextArea } from "../../atoms/TextArea/TextArea";
 import Button from "../../atoms/Button/Button";
 import Link from "../../atoms/Link/Link";
-
-interface SingleColorProps {
-  color: string;
-  active?: boolean;
-}
+import type { DefaultResponseError } from "@escolalms/sdk/lib/types/api";
+import type { ResponseError } from "umi-request";
+import { Formik } from "formik";
+import { t } from "i18next";
 
 const StyledPopup = styled.div`
   width: calc(100% - 32px);
@@ -91,8 +90,30 @@ const SingleColor = styled("div")<SingleColorProps>`
   }
 `;
 
-const NoteEditor: React.FC = () => {
-  const [selectedColor, setSelectedColor] = useState(0);
+interface NoteEditorProps {
+  onSuccess?: () => void;
+  onError?: (err: ResponseError<DefaultResponseError>) => void;
+}
+
+interface SingleColorProps {
+  color: string;
+  active?: boolean;
+}
+
+interface FormValues {
+  title: string;
+  description: string;
+  color: string;
+}
+
+const initialValues: FormValues = {
+  title: "",
+  description: "",
+  color: "#EB5757",
+};
+
+const NoteEditor: React.FC<NoteEditorProps> = ({ onError, onSuccess }) => {
+  const [selectedColor, setSelectedColor] = useState("#EB5757");
   const colors = [
     { color: "#EB5757" },
     { color: "#F2994A" },
@@ -101,26 +122,86 @@ const NoteEditor: React.FC = () => {
   ];
   return (
     <StyledPopup>
-      <Text className="form-title">Stwórz nową notatkę</Text>
-      <Input type="text" label="Tytuł" placeholder="wpisz tytuł notatki" />
-      <TextArea placeholder="wpisz treść notatki" label="Treść" />
-      <ColorPicker>
-        <div className="label">Oznacz kolorem</div>
-        <div className="colors-container">
-          {colors.map((color, index) => (
-            <button onClick={() => setSelectedColor(index)}>
-              <SingleColor
-                color={color.color}
-                active={selectedColor === index}
-              />
-            </button>
-          ))}
-        </div>
-      </ColorPicker>
-      <div className="buttons-container">
-        <Button mode="secondary">Zapisz</Button>
-        <Link>Odrzuć</Link>
-      </div>
+      <Formik
+        initialValues={initialValues}
+        validate={(values) => {
+          const errors: Partial<FormValues> = {};
+          if (!values.title) {
+            errors.title = t("Required");
+          }
+          if (!values.description) {
+            errors.description = t("Required");
+          }
+          return errors;
+        }}
+        onSubmit={(values) => {
+          console.log(values);
+        }}
+      >
+        {({
+          values,
+          errors,
+          touched,
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          isSubmitting,
+          setFieldValue,
+
+          /* and other goodies */
+        }) => (
+          <form onSubmit={handleSubmit}>
+            <Text className="form-title">Stwórz nową notatkę</Text>
+            <Input
+              type="text"
+              label="Tytuł"
+              id="title"
+              name="title"
+              placeholder="wpisz tytuł notatki"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.title}
+              error={touched.title && errors.title}
+            />
+            <TextArea
+              id="description"
+              name="description"
+              placeholder="wpisz treść notatki"
+              label="Treść"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.description}
+              error={touched.description && errors.description}
+            />
+            <ColorPicker>
+              <div className="label">Oznacz kolorem</div>
+              <div className="colors-container">
+                {colors.map((color, index) => (
+                  <button
+                    key={index}
+                    type="button"
+                    onClick={() => {
+                      setSelectedColor(color.color);
+                      setFieldValue("color", color.color);
+                    }}
+                  >
+                    <SingleColor
+                      color={color.color}
+                      active={selectedColor === color.color}
+                    />
+                  </button>
+                ))}
+              </div>
+            </ColorPicker>
+            <div className="buttons-container">
+              <Button type="submit" loading={isSubmitting} mode="secondary">
+                Zapisz
+              </Button>
+              <Link>Odrzuć</Link>
+            </div>
+          </form>
+        )}
+      </Formik>
     </StyledPopup>
   );
 };
