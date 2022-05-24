@@ -71,20 +71,20 @@ const StyledPopup = styled.div`
 `;
 
 const SingleColor = styled("div")<SingleColorProps>`
-  width: 11px;
-  height: 11px;
+  width: 12px;
+  height: 12px;
   border-radius: 50px;
   background: ${(props) => props.color};
   position: relative;
   &:after {
     content: "";
     position: absolute;
-    left: 51%;
-    top: 46%;
+    left: 50%;
+    top: 50%;
     transform: translate(-50%, -50%);
     border: 1px solid ${(props) => props.theme.gray2};
-    width: 16px;
-    height: 16px;
+    width: 15px;
+    height: 15px;
     border-radius: 50px;
     display: ${(props) => (props.active ? "block" : "none")};
   }
@@ -149,13 +149,13 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ onError, onSuccess }) => {
           setFieldValue,
         }) => (
           <form onSubmit={handleSubmit}>
-            <Text className="form-title">Stwórz nową notatkę</Text>
+            <Text className="form-title">{t("NoteEditor.Title")}</Text>
             <Input
               type="text"
-              label="Tytuł"
+              label={t("NoteEditor.titleInputLabel")}
               id="title"
               name="title"
-              placeholder="wpisz tytuł notatki"
+              placeholder={t("NoteEditor.titleInputPlaceholder")}
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.title}
@@ -164,15 +164,16 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ onError, onSuccess }) => {
             <TextArea
               id="description"
               name="description"
-              placeholder="wpisz treść notatki"
-              label="Treść"
+              placeholder={t("NoteEditor.descInputPlaceholder")}
+              label={t("NoteEditor.descInputLabel")}
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.description}
               error={touched.description && errors.description}
+              rows={8}
             />
             <ColorPicker>
-              <div className="label">Oznacz kolorem</div>
+              <div className="label">{t("NoteEditor.MarkColor")}</div>
               <div className="colors-container">
                 {colors.map((color, index) => (
                   <button
@@ -193,9 +194,9 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ onError, onSuccess }) => {
             </ColorPicker>
             <div className="buttons-container">
               <Button type="submit" loading={isSubmitting} mode="secondary">
-                Zapisz
+                {t("NoteEditor.Save")}
               </Button>
-              <Link>Odrzuć</Link>
+              <Link>{t("NoteEditor.Discard")}</Link>
             </div>
           </form>
         )}
