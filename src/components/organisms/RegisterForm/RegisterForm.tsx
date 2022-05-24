@@ -81,7 +81,7 @@ export const RegisterForm: React.FC<{
     password_confirmation: "",
     phone: "",
   });
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const { register, fields, fetchFields } = useContext(EscolaLMSContext);
 
   useEffect(() => {
