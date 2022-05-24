@@ -142,8 +142,9 @@ const initialVideoState: VideoState = {
 const VideoPlayerControls: React.FC<{
   state: VideoState;
   onSeek?: (time: number) => void;
+  onToggle?: () => void;
 }> = (props) => {
-  const { state, onSeek } = props;
+  const { state, onSeek, onToggle } = props;
   return (
     <div>
       Seek range:
@@ -185,6 +186,9 @@ const VideoPlayerControls: React.FC<{
         }}
       >
         -10s
+      </button>
+      <button onClick={() => onToggle && onToggle()}>
+        {state.playing ? "pause" : "play"}
       </button>
     </div>
   );
