@@ -2,6 +2,7 @@ import * as React from "react";
 import styled, { withTheme } from "styled-components";
 import ReactPlayer, { ReactPlayerProps } from "react-player";
 import { RatioBox } from "../../../";
+import { format } from "date-fns";
 
 interface StyledVideoPlayerProps {
   mobile?: boolean;
@@ -107,31 +108,147 @@ const PlayIcon = () => {
   );
 };
 
+/*
+const VideoPlayerController:React.FC = (props) => {
+  console.log(props);
+  return <input type="range" min="0" max="100" />;
+});
+*/
+
+type VideoState = {
+  ready: boolean;
+  playing: boolean;
+  progress: {
+    played: number;
+    playedSeconds: number;
+    loaded: number;
+    loadedSeconds: number;
+  };
+  duration: number;
+};
+
+const initialVideoState: VideoState = {
+  ready: false,
+  playing: false,
+  progress: {
+    played: 0,
+    playedSeconds: 0,
+    loaded: 0,
+    loadedSeconds: 0,
+  },
+  duration: 0,
+};
+
+const VideoPlayerControls: React.FC<{
+  state: VideoState;
+  onSeek?: (time: number) => void;
+}> = (props) => {
+  const { state, onSeek } = props;
+  return (
+    <div>
+      Seek range:
+      <input
+        onChange={(e) => onSeek && onSeek(e.target.valueAsNumber)}
+        type="range"
+        min={0}
+        max={state.duration}
+        value={state.progress.playedSeconds}
+      />
+      Loaded range:
+      <input
+        type="range"
+        readOnly
+        min={0}
+        max={state.duration}
+        value={state.progress.loadedSeconds}
+      />
+      Time:
+      <pre>
+        {format(state.progress.playedSeconds * 1000, "mm:ss")} /{" "}
+        {format(state.duration * 1000, "mm:ss")}
+      </pre>
+      <button
+        onClick={() => {
+          const newSek = state.progress.playedSeconds + 10;
+          newSek <= state.duration && onSeek && onSeek(newSek);
+        }}
+      >
+        +10s
+      </button>
+      <button
+        onClick={() => {
+          const newSek =
+            state.progress.playedSeconds - 10 < 0
+              ? 0
+              : state.progress.playedSeconds - 10;
+          onSeek && onSeek(newSek);
+        }}
+      >
+        -10s
+      </button>
+    </div>
+  );
+};
+
 export const VideoPlayer: React.FC<VideoPlayerProps> = (props) => {
   const { children, mobile } = props;
   const [visibleOverlay, setVisibleOverlay] = React.useState<boolean>(true);
+
+  const ref = React.useRef<ReactPlayer>(null);
+
+  const [videoState, setVideoState] =
+    React.useState<VideoState>(initialVideoState);
+
+  React.useEffect(() => {
+    if (ref.current) {
+      //console.log(ref.current);
+    }
+  }, [ref]);
 
   return (
     <StyledVideoPlayer mobile={mobile}>
       <RatioBox ratio={9 / 16}>
         <ReactPlayer
+          ref={ref}
           {...props}
+          onReady={() =>
+            setVideoState((prevState) => ({ ...prevState, ready: true }))
+          }
+          onDuration={(duration) =>
+            setVideoState((prevState) => ({ ...prevState, duration }))
+          }
+          onStart={() =>
+            setVideoState((prevState) => ({ ...prevState, playing: true }))
+          }
+          onPause={() =>
+            setVideoState((prevState) => ({ ...prevState, playing: false }))
+          }
+          onEnded={() =>
+            setVideoState((prevState) => ({ ...prevState, playing: false }))
+          }
+          onProgress={(progress) =>
+            setVideoState((prevState) => ({ ...prevState, progress }))
+          }
           width={"100%"}
           height={"100%"}
           onPlay={() => {
+            setVideoState((prevState) => ({ ...prevState, playing: true }));
             setVisibleOverlay(false);
           }}
-          playIcon={PlayIcon()}
+          playIcon={<PlayIcon />}
           playing
           controls
         />
       </RatioBox>
+
+      <VideoPlayerControls
+        state={videoState}
+        onSeek={(time) => ref.current?.seekTo(time)}
+      />
 
       {visibleOverlay && <React.Fragment>{children}</React.Fragment>}
     </StyledVideoPlayer>
   );
 };
 
-const NewVideoPlayer = styled(VideoPlayer)<VideoPlayerProps>``;
-
-export default withTheme(NewVideoPlayer);
+export default withTheme(styled(VideoPlayer)<VideoPlayerProps>``);
