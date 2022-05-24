@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import styled, { withTheme, createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle, withTheme } from "styled-components";
 
 import Dialog, { DialogProps } from "rc-dialog";
 import chroma from "chroma-js";
@@ -22,10 +22,10 @@ const CloseBtn = () => (
   </svg>
 );
 
-const GlobalStyle = createGlobalStyle`
+const StyledGlobal = createGlobalStyle`
   .rc-dialog {
     position: relative;
-    
+
     &-wrap {
       position: fixed;
       overflow: auto;
@@ -58,7 +58,6 @@ const GlobalStyle = createGlobalStyle`
       width: 100%;
       max-width: 468px;
       box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.1);
-
     }
 
     &-close {
@@ -76,7 +75,7 @@ const GlobalStyle = createGlobalStyle`
       text-shadow: 0 1px 0 #fff;
       opacity: ${({ theme }) => (theme.mode === "light" ? 0.2 : 0.4)};
       text-decoration: none;
-      
+
       svg path {
         fill: currentColor;
       }
@@ -157,82 +156,87 @@ const GlobalStyle = createGlobalStyle`
       }
     }
     &-mask {
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    filter: blur(2px);
-    background-color: ${({ theme }) =>
-      chroma(theme.mode === "light" ? theme.white : theme.black)
-        .alpha(0.7)
-        .css()};
-    height: 100%;
-    z-index: 1050;
+      position: fixed;
+      top: 0;
+      right: 0;
+      left: 0;
+      bottom: 0;
+      background-color: ${({ theme }) =>
+        chroma(theme.mode === "light" ? theme.white : theme.black)
+          .alpha(0.7)
+          .css()};
+      height: 100%;
+      z-index: 1050;
 
-    &-hidden {
-      display: none;
+      &-hidden {
+        display: none;
+      }
     }
-  }
 
-
-  &-fade-enter,&-fade-appear {
-    opacity: 0;
-    animation-duration: 0.3s;
-    animation-fill-mode: both;
-    animation-timing-function: cubic-bezier(0.55, 0, 0.55, 0.2);    animation-play-state: paused;
-  }
-
-  &-fade-leave {
-    animation-duration: 0.3s;
-    animation-fill-mode: both;
-    animation-timing-function: cubic-bezier(0.55, 0, 0.55, 0.2);    animation-play-state: paused;
-  }
-
-  &-fade-enter&-fade-enter-active,&-fade-appear&-fade-appear-active  {
-    animation-name: rcDialogFadeIn;
-    animation-play-state: running;
-  }
-
-  &-fade-leave&-fade-leave-active {
-    animation-name: rcDialogFadeOut;
-    animation-play-state: running;
-  }
-
-  @keyframes rcDialogFadeIn {
-    0% {
+    &-fade-enter,
+    &-fade-appear {
       opacity: 0;
+      animation-duration: 0.3s;
+      animation-fill-mode: both;
+      animation-timing-function: cubic-bezier(0.55, 0, 0.55, 0.2);
+      animation-play-state: paused;
     }
-    100% {
-      opacity: 1;
-    }
-  }
 
-  @keyframes rcDialogFadeOut {
-    0% {
-      opacity: 1;
+    &-fade-leave {
+      animation-duration: 0.3s;
+      animation-fill-mode: both;
+      animation-timing-function: cubic-bezier(0.55, 0, 0.55, 0.2);
+      animation-play-state: paused;
     }
-    100% {
-      opacity: 0;
+
+    &-fade-enter&-fade-enter-active,
+    &-fade-appear&-fade-appear-active {
+      animation-name: rcDialogFadeIn;
+      animation-play-state: running;
+    }
+
+    &-fade-leave&-fade-leave-active {
+      animation-name: rcDialogFadeOut;
+      animation-play-state: running;
+    }
+
+    @keyframes rcDialogFadeIn {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    @keyframes rcDialogFadeOut {
+      0% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
+
+    .modal-title {
+      margin-bottom: 30px;
+      text-align: center;
+      color: ${({ theme }) => theme.primaryColor};
     }
   }
-  
-  .modal-title {
-    margin-bottom: 30px;
-    text-align: center;
-    color: ${({ theme }) => theme.primaryColor};
-  }
-}
 `;
 
 export const Modal: React.FC<ModalProps> = (props) => {
   const { children } = props;
+  const wrapper = React.useRef<HTMLDivElement>(null);
   return (
     <React.Fragment>
-      <GlobalStyle />
-      <Dialog {...props} closeIcon={<CloseBtn />}>
-        {children}
-      </Dialog>
+      <div ref={wrapper}>
+        <Dialog {...props} closeIcon={<CloseBtn />}>
+          <StyledGlobal />
+          {children}
+        </Dialog>
+      </div>
     </React.Fragment>
   );
 };
