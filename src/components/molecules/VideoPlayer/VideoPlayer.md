@@ -12,8 +12,14 @@ import img2 from "./VideoPlayerPoster.png";
         light={img2}
       >
         <div className="video-player-overlay">
-          <div className="video-player-header">
-            <Badge className={"video-player-badge"}>Nowość</Badge>
+          <div className="video-player-overlay-inner">
+            <Badge
+              style={{
+                marginRight: 10,
+              }}
+            >
+              Nowość
+            </Badge>
             <div className="video-player-breadcrumbs">
               <Link href="http://onet.pl" target="_blank">
                 Onet
@@ -22,15 +28,15 @@ import img2 from "./VideoPlayerPoster.png";
                 Onet
               </Link>
             </div>
-          </div>
-          <Title level={3}>Księgowość dla początkujących</Title>
-          <div className="video-player-footer">
-            <Text size={"12"} noMargin>
-              26/05/2020
-            </Text>
-            <Text size={"12"} noMargin>
-              2h 12 min
-            </Text>
+            <Title level={3}>Video Example</Title>
+            <div className="video-player-footer">
+              <Text size={"12"} noMargin>
+                27/05/2020
+              </Text>
+              <Text size={"12"} noMargin>
+                3.33 min
+              </Text>
+            </div>
           </div>
         </div>
       </VideoPlayer>
@@ -40,7 +46,7 @@ import img2 from "./VideoPlayerPoster.png";
         url="https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
         light={img2}
         mobile
-      />
+      ></VideoPlayer>
     </div>
   </ThemeTester>
 
