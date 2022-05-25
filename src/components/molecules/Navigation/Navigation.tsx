@@ -117,7 +117,7 @@ const GlobalStyle = createGlobalStyle`
   * {
     color: ${({ theme }) =>
       theme.mode !== "dark" ? theme.gray2 : theme.white};
-    font-weigth: 700;
+    font-weight: 700;
   }
   
 }
@@ -131,7 +131,7 @@ const GlobalStyle = createGlobalStyle`
   cursor: pointer;
   background: ${({ theme }) =>
     theme.mode !== "dark" ? theme.backgroundLight : theme.backgroundDark};
-    font-weigth: 700;
+    font-weight: 700;
     
   align-items: center;
   justify-content: space-between;
