@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useCallback } from "react";
-import styled, { withTheme } from "styled-components";
+import { useTranslation } from "react-i18next";
+import styled from "styled-components";
 import { getFontFromTheme } from "../../../theme/provider";
 import { calcPercentage } from "../../../utils/utils";
 
@@ -63,7 +64,13 @@ const StyledDiv = styled.div`
 `;
 
 export const ProgressBar: React.FC<ProgressBarProps> = (props) => {
-  const { currentProgress, maxProgress, hideLabel, label = "Progress" } = props;
+  const { t } = useTranslation();
+  const {
+    currentProgress,
+    maxProgress,
+    hideLabel,
+    label = t("ProgressBar.defaultLabel"),
+  } = props;
 
   const renderLabel = useCallback(() => {
     if (hideLabel) {
@@ -90,8 +97,3 @@ export const ProgressBar: React.FC<ProgressBarProps> = (props) => {
     </StyledDiv>
   );
 };
-
-// https://styled-components.com/docs/api#using-custom-props
-const NewProgressBar = styled(ProgressBar)``;
-
-export default withTheme(NewProgressBar);

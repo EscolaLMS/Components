@@ -79,6 +79,10 @@ module.exports = {
           content: "doc/advanced/grid.md",
         },
         {
+          name: "Responsive Design",
+          content: "doc/advanced/responsive.md",
+        },
+        {
           name: "Forms",
           content: "doc/advanced/forms.md",
         },
