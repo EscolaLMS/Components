@@ -22,7 +22,6 @@ interface VideoState {
   duration: number;
   volume: number;
   controls: boolean;
-  initialSeconds: number;
 }
 
 interface VideoPlayerControlsProps {
@@ -45,7 +44,6 @@ const initialVideoState: VideoState = {
   duration: 0,
   volume: 0.8,
   controls: false,
-  initialSeconds: 5,
 };
 
 export interface VideoPlayerProps
@@ -540,6 +538,14 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = (props) => {
           }}
           onPlay={() => {
             setVideoState((prevState) => ({ ...prevState, playing: true }));
+          }}
+          onEnded={() => {
+            setVideoState((prevState) => ({
+              ...prevState,
+              controls: false,
+              playing: false,
+            }));
+            ref.current?.showPreview();
           }}
           onClickPreview={() =>
             setVideoState((prevState) => ({
