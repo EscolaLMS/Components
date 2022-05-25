@@ -45,14 +45,15 @@ const initialVideoState: VideoState = {
   duration: 0,
   volume: 0.8,
   controls: false,
-  initialSeconds: 0,
+  initialSeconds: 5,
 };
 
 export interface VideoPlayerProps
   extends StyledVideoPlayerProps,
+    VideoPlayerControlsProps,
     ReactPlayerProps {}
 
-const StyledVideoPlayer = styled("div")<StyledVideoPlayerProps>`
+const StyledVideoPlayer = styled("div")<VideoPlayerControlsProps>`
   position: relative;
 
   .react-player__preview {
@@ -73,9 +74,15 @@ const StyledVideoPlayer = styled("div")<StyledVideoPlayerProps>`
 
   .video-player-overlay {
     position: absolute;
-    bottom: 40px;
-    display: ${(props) => (props.mobile ? "none" : "block")};
-    left: 18px;
+    padding: 20px;
+    bottom: ${(props) => (props.state.controls ? "120px" : "20px")};
+    right: ${(props) => (props.state.controls ? "0" : "")};
+    top: ${(props) => (props.state.controls ? "0" : "")};
+    display: flex;
+    align-items: flex-end;
+    left: 0;
+    background-color: ${(props) =>
+      props.state.controls ? "rgba(0, 0, 0, 0.5)" : "transparent"};
 
     * {
       color: ${({ theme }) => theme.white};
@@ -139,7 +146,7 @@ const StyledVideoControls = styled("div")<StyledVideoPlayerProps>`
   }
 
   input[type="range"] {
-    -webkit-appearance: none;
+    appearance: none;
     height: 3px;
     background: grey;
     border-radius: 3px;
@@ -151,7 +158,7 @@ const StyledVideoControls = styled("div")<StyledVideoPlayerProps>`
   }
 
   input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
+    appearance: none;
     height: 14px;
     width: 14px;
     border-radius: 50%;
@@ -161,7 +168,7 @@ const StyledVideoControls = styled("div")<StyledVideoPlayerProps>`
   }
 
   input[type="range"]::-webkit-slider-runnable-track {
-    -webkit-appearance: none;
+    appearance: none;
     box-shadow: none;
     border: none;
     background: transparent;
@@ -483,9 +490,10 @@ const VideoPlayerControls: React.FC<VideoPlayerControlsProps> = (props) => {
             </div>
           </div>
           <div className={"controls-right"}>
-            <button type={"button"}>
-              <IconQuality />
-            </button>
+            {/*todo: Quality Button*/}
+            {/*<button type={"button"}>*/}
+            {/*  <IconQuality />*/}
+            {/*</button>*/}
             <button
               type={"button"}
               onClick={() => onFullscreen && onFullscreen()}
@@ -500,14 +508,14 @@ const VideoPlayerControls: React.FC<VideoPlayerControlsProps> = (props) => {
 };
 
 export const VideoPlayer: React.FC<VideoPlayerProps> = (props) => {
-  const { mobile } = props;
+  const { children, mobile } = props;
 
   const ref = React.useRef<ReactPlayer>(null);
   const [videoState, setVideoState] =
     React.useState<VideoState>(initialVideoState);
 
   return (
-    <StyledVideoPlayer mobile={mobile}>
+    <StyledVideoPlayer state={videoState}>
       <RatioBox ratio={9 / 16}>
         <ReactPlayer
           {...props}
@@ -561,6 +569,10 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = (props) => {
               screenfull.request(findDOMNode(ref.current) as Element);
           }}
         />
+      )}
+
+      {!mobile && !videoState.playing && (
+        <React.Fragment>{children}</React.Fragment>
       )}
     </StyledVideoPlayer>
   );
