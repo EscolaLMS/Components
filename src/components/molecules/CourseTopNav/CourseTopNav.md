@@ -10,43 +10,58 @@ const onPrev = () => console.log("onPrev");
 const onFinish = () => console.log("onFinish");
 
 <React.Fragment>
-    <ThemeTester>
-        <CourseTopNav
-            hasNext
-            hasPrev
-            isFinished
-            onNext={onNext}
-            onPrev={onPrev}
-            onFinish={onFinish}
-        />
-
-        <CourseTopNav
-            hasNext
-            hasPrev
-            isFinished={false}
-            onNext={onNext}
-            onPrev={onPrev}
-            onFinish={onFinish}
-        />
-
-        <CourseTopNav
-            hasNext={false}
-            hasPrev
-            isFinished={false}
-            onNext={onNext}
-            onPrev={onPrev}
-            onFinish={onFinish}
-        />
-
-        <CourseTopNav
-            hasNext
-            hasPrev={false}
-            isFinished={false}
-            onNext={onNext}
-            onPrev={onPrev}
-            onFinish={onFinish}
-        />
-    </ThemeTester>
-    <ImageModal images={[img1]}/>
+  <ThemeTester childrenListStyle={{ display: "block" }}>
+    <CourseTopNav
+      hasNext
+      hasPrev
+      isFinished
+      onNext={onNext}
+      onPrev={onPrev}
+      onFinish={onFinish}
+    />
+    <div style={{ marginTop: 20 }}>
+      <CourseTopNav
+        hasNext
+        hasPrev
+        isFinished={false}
+        onNext={onNext}
+        onPrev={onPrev}
+        onFinish={onFinish}
+      />
+    </div>
+    <div style={{ marginTop: 20 }}>
+      <CourseTopNav
+        hasNext={false}
+        hasPrev
+        isFinished={false}
+        onNext={onNext}
+        onPrev={onPrev}
+        onFinish={onFinish}
+      />
+    </div>
+    <div style={{ marginTop: 20 }}>
+      <CourseTopNav
+        hasNext
+        hasPrev={false}
+        isFinished={false}
+        onNext={onNext}
+        onPrev={onPrev}
+        onFinish={onFinish}
+      />
+    </div>
+    <div style={{ margin: "20px auto 0", maxWidth: 360 }}>
+      <CourseTopNav
+        mobile
+        hasNext
+        hasPrev
+        isFinished
+        onNext={onNext}
+        onPrev={onPrev}
+        addNotes
+        onFinish={onFinish}
+      />
+    </div>
+  </ThemeTester>
+  <ImageModal images={[img1]} />
 </React.Fragment>;
 ```
