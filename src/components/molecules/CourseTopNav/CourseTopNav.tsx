@@ -27,7 +27,7 @@ const StyledAside = styled.aside<StyledAsideProps>`
     display: flex;
     justify-content: center;
     width: 100%;
-    border-bottom: 1px solid
+    border-bottom: 2px solid
       ${(props) =>
         props.theme.mode !== "dark"
           ? props.theme.backgroundLightCourseNav
@@ -38,8 +38,8 @@ const StyledAside = styled.aside<StyledAsideProps>`
   }
   .toggle-btn {
     border-radius: 6px 6px 0 0;
-    height: 24px;
-    width: 120px;
+    height: 16px;
+    width: ${(props) => (props.mobile ? "60px" : "120px")};
     background: ${(props) =>
       props.theme.mode !== "dark"
         ? props.theme.backgroundLightCourseNav
@@ -47,20 +47,41 @@ const StyledAside = styled.aside<StyledAsideProps>`
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
     color: ${(props) =>
       props.theme.mode !== "dark" ? props.theme.errorColor : props.theme.gray3};
   }
-  &.closed .toggle-btn svg {
-    transform: rotate(180deg);
+  &.closed {
+    .toggle-btn-container {
+      border-bottom-width: 6px;
+    }
+    .toggle-btn {
+      height: 24px;
+      svg {
+        transform: rotate(180deg);
+      }
+    }
   }
   .course-nav-container {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    align-items: center;
+    padding: ${(props) => (props.mobile ? "10px 0" : "15px 0")};
+    background: ${(props) =>
+      props.theme.mode !== "dark"
+        ? props.theme.backgroundLightCourseNav
+        : props.theme.backgroundDarkCourseNav};
   }
-  .col-finished {
+  .col-mid-actions {
     text-align: center;
+    display: flex;
+    justify-content: space-around;
+    button {
+      ${(props) => {
+        if (props.mobile) {
+          return `
+            padding: 6px 13px;
+          `;
+        }
+      }}
+    }
   }
   .col-next {
     text-align: right;
@@ -114,12 +135,13 @@ export const CourseTopNav: React.FC<CourseTopNavProps> = (props) => {
         mode={isFinished ? "secondary" : "outline"}
         onClick={() => onFinish && onFinish()}
       >
-        {isFinished ? "Zakoczony" : t("CourseTopNav.finish.lesson")}
+        {isFinished
+          ? t("CourseTopNav.finished")
+          : t("CourseTopNav.finishLesson")}
       </Button>
     );
   };
 
-  // TODO add react-i18n
   return (
     <StyledAside mobile={mobile} className={isClosed ? "closed" : ""}>
       <div className="toggle-btn-container">
@@ -145,8 +167,8 @@ export const CourseTopNav: React.FC<CourseTopNavProps> = (props) => {
         </span>
       </div>
       {!isClosed && (
-        <Row>
-          <Col xs={3}>
+        <Row className="course-nav-container">
+          <Col xs={addNotes ? 2 : 3}>
             <Button
               className="prev-btn"
               mode="outline"
@@ -169,26 +191,22 @@ export const CourseTopNav: React.FC<CourseTopNavProps> = (props) => {
               {!mobile && <>{t("CourseTopNav.prev")} </>}
             </Button>
           </Col>
-          <Col xs={6} className="col-finished">
+          <Col xs={addNotes ? 8 : 6} className="col-mid-actions">
             {addNotes ? (
-              <Row>
-                <Col xs={6} className="text-center">
-                  {renderFinishButton()}
-                </Col>
-                <Col xs={6} className="text-center">
-                  <Button
-                    mode="outline"
-                    onClick={() => onNoteClick && onNoteClick()}
-                  >
-                    {t(`CourseTopNav.add.note${mobile ? ".mobile" : ""}`)}
-                  </Button>
-                </Col>
-              </Row>
+              <>
+                <Button
+                  mode="outline"
+                  onClick={() => onNoteClick && onNoteClick()}
+                >
+                  {t(`CourseTopNav.addNote${mobile ? "Mobile" : ""}`)}
+                </Button>
+                {renderFinishButton()}
+              </>
             ) : (
               renderFinishButton()
             )}
           </Col>
-          <Col xs={3} className="col-next">
+          <Col xs={addNotes ? 2 : 3} className="col-next">
             <Button
               className="next-btn"
               mode="outline"
