@@ -73,14 +73,14 @@ const StyledAside = styled.aside<StyledAsideProps>`
       }
     }}
   }
-  .prev-btn svg {
+  .icon-prev {
     ${(props) => {
       if (!props.mobile) {
         return ` margin-left: 0`;
       }
     }};
   }
-  .next-btn svg {
+  .icon-next {
     ${(props) => {
       if (!props.mobile) {
         return ` margin-right: 0`;
@@ -154,6 +154,7 @@ export const CourseTopNav: React.FC<CourseTopNavProps> = (props) => {
               disabled={!hasPrev}
             >
               <svg
+                className="icon-prev"
                 width="8"
                 height="14"
                 viewBox="0 0 8 14"
@@ -196,6 +197,7 @@ export const CourseTopNav: React.FC<CourseTopNavProps> = (props) => {
             >
               {!mobile && <>{t("CourseTopNav.next")} </>}
               <svg
+                className="icon-next"
                 width="8"
                 height="14"
                 viewBox="0 0 8 14"
