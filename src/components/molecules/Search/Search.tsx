@@ -60,7 +60,7 @@ const StyledSearch = styled("div")<StyledSearchProps>`
       ${({ theme }) =>
         theme.mode == "light"
           ? chroma(theme.gray3).alpha(0.5).css()
-          : theme.gray1};
+          : chroma(theme.white).alpha(0.6).css()};
     border-top: none;
     box-sizing: border-box;
 
