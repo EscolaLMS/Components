@@ -12,7 +12,7 @@ interface StyledSearchProps {
 export interface SearchProps extends StyledSearchProps {
   onSearch: (value: string) => void;
   onChange: (value: string) => void;
-  onSubmit: () => void;
+  onSubmit: (value: string) => void;
   filterOptions: () => void;
   children: ReactNode;
   icon?: ReactNode;
@@ -145,13 +145,17 @@ export const Search: React.FC<SearchProps> = (props) => {
             onSearch(value);
           }}
           value={value}
-          onKeyDown={(e: { key: string }) => e.key === "Enter" && onSubmit()}
+          onKeyDown={(e: { key: string }) =>
+            e.key === "Enter" && onSubmit(value)
+          }
           onFocus={() => toggleFocus()}
         />
         <button
           type={"button"}
           className={"search-input-button"}
-          onClick={onSubmit}
+          onClick={() => {
+            onSubmit(value);
+          }}
         >
           {icon || <IconSearch />}
         </button>

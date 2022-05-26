@@ -6,8 +6,8 @@ const onSearch = (value) => {
   console.log(`Search: ${value}`);
 };
 
-const onSubmit = (e) => {
-  console.log("Submit: submit");
+const onSubmit = (value) => {
+  console.log(`Submit ${value}`);
 };
 
 const onChange = (value) => {
@@ -21,9 +21,9 @@ const onChange = (value) => {
       onChange={(e) => onChange(e)}
       onSearch={(e) => onSearch(e)}
     >
-      <option>option 1</option>
-      <option>option 2</option>
-      <option>option 3</option>
+      <div>football</div>
+      <div>voleyball</div>
+      <div>basketball</div>
     </Search>
   </ThemeTester>
   <ImageModal images={[img1]} />
