@@ -23,6 +23,7 @@
     "@types/react": "^17.0.2"
   },
   "devDependencies": {
+    "@escolalms/h5p-react": "^0.2.0",
     "@escolalms/sdk": "^0.2.51",
     "@stylelint/postcss-css-in-js": "stylelint/postcss-css-in-js",
     "@types/chroma-js": "^2.1.3",

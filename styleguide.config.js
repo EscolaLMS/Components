@@ -59,6 +59,11 @@ module.exports = {
           components: "src/components/organisms/**/*.tsx",
         },
         {
+          name: "Players",
+          content: "doc/components/players.md",
+          components: "src/components/players/**/*.tsx",
+        },
+        {
           name: "Templates",
           content: "doc/components/templates.md",
           components: "src/components/templates/**/*.tsx",
