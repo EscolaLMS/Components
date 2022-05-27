@@ -31,7 +31,7 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({
 
   return (
     <StyledWrapper>
-      {url && (
+      {url && ( // eslint-disable-next-line jsx-a11y/media-has-caption
         <audio
           onEnded={(): void => {
             onFinish();
