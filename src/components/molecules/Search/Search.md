@@ -20,6 +20,7 @@ const onChange = (value) => {
       onSubmit={(e) => onSubmit(e)}
       onChange={(e) => onChange(e)}
       onSearch={(e) => onSearch(e)}
+      placeholder="Select a course"
     >
       <div>football</div>
       <div>voleyball</div>

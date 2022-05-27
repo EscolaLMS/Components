@@ -14,6 +14,7 @@ export interface SearchProps extends StyledSearchProps {
   onChange: (value: string) => void;
   onSubmit: (value: string) => void;
   filterOptions: () => void;
+  placeholder: string;
   children: ReactNode;
   icon?: ReactNode;
 }
@@ -24,6 +25,13 @@ const StyledSearch = styled("div")<StyledSearchProps>`
 
   .lsm-input .input-and-fieldset input:not(:focus) ~ .fieldset {
     border-color: transparent;
+  }
+
+  input::placeholder {
+    color: ${({ theme }) =>
+      theme.mode === "light"
+        ? chroma(theme.gray1).alpha(0.5).css()
+        : chroma(theme.white).alpha(0.5).css()};
   }
 
   .search-input-wrapper {
@@ -94,7 +102,16 @@ const IconSearch = () => {
 };
 
 export const Search: React.FC<SearchProps> = (props) => {
-  const { children, onSearch, onChange, onSubmit, filterOptions, icon } = props;
+  const {
+    children,
+    placeholder,
+    mobile,
+    icon,
+    onSearch,
+    onChange,
+    onSubmit,
+    filterOptions,
+  } = props;
   const [value, setValue] = React.useState("");
   const [isFocused, setIsFocused] = React.useState(false);
   const childrenList = React.Children.toArray(children);
@@ -135,10 +152,10 @@ export const Search: React.FC<SearchProps> = (props) => {
   };
 
   return (
-    <StyledSearch ref={ref}>
+    <StyledSearch ref={ref} mobile={mobile}>
       <div className="search-input-wrapper">
         <Input
-          placeholder="Select a person"
+          placeholder={placeholder}
           onChange={(e: { target: { value: string } }) => {
             const { value } = e.target;
             setValue(value);
