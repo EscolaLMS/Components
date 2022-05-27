@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import * as React from "react";
 import styled, { withTheme } from "styled-components";
 import { Player, XAPIEvent } from "@escolalms/h5p-react";
 import * as API from "@escolalms/sdk/lib/types/api";
@@ -17,15 +17,15 @@ export interface H5PProps {
   h5pObject?: API.H5PObject;
 }
 
-const H5P: React.FC<H5PProps> = ({
+export const H5P: React.FC<H5PProps> = ({
   id,
   onXAPI,
   overwriteFileName = "h5p_overwrite.css",
   h5pObject,
 }) => {
-  const { fetchH5P, h5p } = useContext(EscolaLMSContext);
+  const { fetchH5P, h5p } = React.useContext(EscolaLMSContext);
 
-  useEffect(() => {
+  React.useEffect(() => {
     fetchH5P(id);
   }, [id, fetchH5P]);
 
@@ -43,6 +43,4 @@ const H5P: React.FC<H5PProps> = ({
   );
 };
 
-const H5Player = styled(H5P)<H5PProps>``;
-
-export default withTheme(H5Player);
+export default withTheme(styled(H5P)<H5PProps>``);

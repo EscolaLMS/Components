@@ -9,8 +9,9 @@ import h5pObject from "./h5pObject.ts";
 <React.Fragment>
   <EscolaLMSContextProvider apiUrl="https://api-stage.escolalms.com/">
     <Authbtn />
+
     <ThemeTester>
-      <H5Player onXAPI={(e) => console.log(e)} id={"4"} />
+      <H5P onXAPI={(e) => console.log(e)} id={"4"} />
     </ThemeTester>
   </EscolaLMSContextProvider>
 </React.Fragment>;
