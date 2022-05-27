@@ -11,6 +11,7 @@ import Authbtn from "../../../utils/components/authbtn";
       url="https://api-stage.escolalms.com//storage/course/7/topic/736/audio/siwCEwd14f7mPtY1rmfxcYovSTF73wKN1Sx3F7SL.mp4"
       onFinish={() => console.log("finish")}
     />
+    <AudioPlayer onFinish={() => console.log("finish")} />
   </ThemeTester>
 </React.Fragment>;
 ```

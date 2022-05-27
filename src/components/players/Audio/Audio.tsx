@@ -1,23 +1,27 @@
 import * as React from "react";
 import styled, { withTheme } from "styled-components";
-
+import { Text } from "../../atoms/Typography/Text";
 interface AudioPlayerProps {
   url?: string;
   onFinish: () => void;
 }
 
-const StyledAudio = styled("div")``;
+const StyledWrapper = styled("div")``;
 
 export const AudioPlayer: React.FC<AudioPlayerProps> = ({
   url,
   onFinish,
 }): React.ReactElement => {
   if (!url) {
-    return <p>No lesson data.</p>;
+    return (
+      <Text size="14" noMargin>
+        no source url provided
+      </Text>
+    );
   }
 
   return (
-    <StyledAudio>
+    <StyledWrapper>
       {url && (
         <audio
           onEnded={(): void => {
@@ -29,7 +33,7 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({
           <source src={url} />
         </audio>
       )}
-    </StyledAudio>
+    </StyledWrapper>
   );
 };
 
