@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from "react";
 import styled, { withTheme } from "styled-components";
 import { Player, XAPIEvent } from "@escolalms/h5p-react";
-
+import * as API from "@escolalms/sdk/lib/types/api";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 
 const StyledH5P = styled("div")`
@@ -10,11 +10,19 @@ const StyledH5P = styled("div")`
   width: 100%;
 `;
 
-const H5P: React.FC<{
+export interface H5PProps {
   id: string;
   onXAPI?: (e: XAPIEvent) => void;
   overwriteFileName?: string;
-}> = ({ id, onXAPI, overwriteFileName }) => {
+  h5pObject?: API.H5PObject;
+}
+
+const H5P: React.FC<H5PProps> = ({
+  id,
+  onXAPI,
+  overwriteFileName = "h5p_overwrite.css",
+  h5pObject,
+}) => {
   const { fetchH5P, h5p } = useContext(EscolaLMSContext);
 
   useEffect(() => {
@@ -23,20 +31,18 @@ const H5P: React.FC<{
 
   return (
     <StyledH5P>
-      {h5p.value && (
+      {(h5p.value || h5pObject) && (
         <Player
-          h5pObject={h5p.value}
+          h5pObject={h5p.value || h5pObject}
           id={id}
           onXAPI={(event: XAPIEvent) => onXAPI && onXAPI(event)}
-          styles={
-            overwriteFileName && [
-              `${window.location.origin}/${overwriteFileName}`,
-            ]
-          }
+          styles={[`${window.location.origin}/${overwriteFileName}`]}
         />
       )}
     </StyledH5P>
   );
 };
 
-export default withTheme(styled(H5P)``);
+const H5Player = styled(H5P)<H5PProps>``;
+
+export default withTheme(H5Player);
