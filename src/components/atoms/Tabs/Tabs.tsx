@@ -81,7 +81,6 @@ export const Tabs: React.FC<TabsProps> = (props) => {
                   selectedTab === tab.key ? "active" : ""
                 }`}
                 key={tab.key}
-                tabIndex={selectedTab === tab.key ? 0 : -1}
                 id={`tab-menu-${tab.key}`}
                 onClick={() => setSelectedTab(tab.key)}
               >
