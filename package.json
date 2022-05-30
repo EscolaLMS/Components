@@ -72,5 +72,6 @@
     "webpack": "^5.72.0",
     "react-pdf": "^5.7.2"
   },
-  "homepage": "https://escolalms.github.io/components"
+  "homepage": "https://escolalms.github.io/components",
+  "dependencies": {}
 }
