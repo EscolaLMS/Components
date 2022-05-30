@@ -7,7 +7,7 @@ import { API } from "@escolalms/sdk/lib";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 
 const StyledImagePlayer = styled("div")`
-  .escolalms-image {
+  > div {
     max-width: 50vw;
     max-height: 50vh;
     cursor: pointer;
