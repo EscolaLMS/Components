@@ -35,7 +35,7 @@ export { default as CategoryCard } from "./components/molecules/CategoryCard/Cat
 export { default as Certificate } from "./components/molecules/Certificate/Certificate";
 export { default as CheckoutCard } from "./components/molecules/CheckoutCard/CheckoutCard";
 export { CourseCard } from "./components/molecules/CourseCard/CourseCard";
-export { default as CourseTopNav } from "./components/molecules/CourseTopNav/CourseTopNav";
+export { CourseTopNav } from "./components/molecules/CourseTopNav/CourseTopNav";
 export { default as Description } from "./components/molecules/Description/Description";
 export { default as Downloads } from "./components/molecules/Downloads/Downloads";
 export { Dropdown } from "./components/molecules/Dropdown/Dropdown";
