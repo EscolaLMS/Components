@@ -54,6 +54,12 @@ export interface VideoPlayerProps
 const StyledVideoPlayer = styled("div")<VideoPlayerControlsProps>`
   position: relative;
 
+  &:hover {
+    .video-player-controls {
+      opacity: 1;
+    }
+  }
+
   .react-player__preview {
     &:before {
       position: absolute;
@@ -126,7 +132,7 @@ const StyledVideoPlayer = styled("div")<VideoPlayerControlsProps>`
   }
 `;
 
-const StyledVideoControls = styled("div")<StyledVideoPlayerProps>`
+const StyledVideoControls = styled("div")<VideoPlayerControlsProps>`
   position: absolute;
   left: 0;
   bottom: 0;
@@ -134,10 +140,12 @@ const StyledVideoControls = styled("div")<StyledVideoPlayerProps>`
   width: 100%;
   padding: 20px;
   display: flex;
+  opacity: ${(props) => (props.state.playing ? 0 : 1)};
   justify-content: end;
   flex-direction: column;
   background-color: rgba(0, 0, 0, 0.5);
   box-sizing: border-box;
+  transition: opacity 0.3s ease-in-out;
 
   .input-seek {
     width: 100%;
@@ -430,7 +438,7 @@ const VideoPlayerControls: React.FC<VideoPlayerControlsProps> = (props) => {
   };
 
   return (
-    <StyledVideoControls>
+    <StyledVideoControls {...props} className={"video-player-controls"}>
       <div>
         <input
           onChange={(e) => onSeek && onSeek(e.target.valueAsNumber)}

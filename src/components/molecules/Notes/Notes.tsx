@@ -57,7 +57,7 @@ export const Notes: React.FC<NotesProps> = (props) => {
             {!mobile && (
               <IconTitle
                 level={4}
-                title={t("note.Title")}
+                title={t("Notes.title")}
                 icon={<NoteIcon />}
                 as={"h4"}
               />
