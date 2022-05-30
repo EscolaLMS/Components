@@ -8,7 +8,7 @@ import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import "react-image-lightbox/style.css";
 
 const StyledImagePlayer = styled("div")`
-  .escolalms-image {
+  > div {
     cursor: pointer;
 
     &:hover {
