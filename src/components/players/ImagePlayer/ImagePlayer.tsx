@@ -11,14 +11,14 @@ const StyledImagePlayer = styled("div")`
   > div {
     cursor: pointer;
 
+    img {
+      width: 100%;
+      transition: transform 0.5s ease-out;
+    }
     &:hover {
       img {
         transform: scale(1.02);
       }
-    }
-    img {
-      width: 100%;
-      transition: transform 0.5s ease-out;
     }
   }
 `;
