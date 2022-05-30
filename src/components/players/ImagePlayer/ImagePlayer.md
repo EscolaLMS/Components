@@ -4,7 +4,7 @@ import ImageModal from "../../../styleguide/ImageModal";
 import { EscolaLMSContextProvider } from "@escolalms/sdk/lib/react/context";
 import ThemeTester from "../../../styleguide/ThemeTester";
 
-const d = {
+const mock = {
   id: 737,
   title: "awdwad",
   lesson_id: 22,
@@ -31,9 +31,12 @@ const d = {
 };
 
 <React.Fragment>
-  <EscolaLMSContextProvider apiUrl="https://api-stage.escolalms.com/">
+  <EscolaLMSContextProvider
+    apiUrl="https://api-stage.escolalms.com/"
+    flexDirection="column"
+  >
     <ThemeTester>
-      <ImagePlayer topic={d} onLoad={() => console.log("load")} />
+      <ImagePlayer topic={mock} onLoad={() => console.log("load")} />
     </ThemeTester>
   </EscolaLMSContextProvider>
 </React.Fragment>;
