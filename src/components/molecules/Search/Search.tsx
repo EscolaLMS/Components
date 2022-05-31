@@ -14,7 +14,7 @@ export interface SearchProps extends StyledSearchProps {
   onSearch: (value: string) => void;
   onChange: (value: string) => void;
   onSubmit: (value: string) => void;
-  filterOptions: () => void;
+  filterOptions?: () => void;
   placeholder: string;
   children: ReactNode;
   icon?: ReactNode;
@@ -134,7 +134,7 @@ export const Search: React.FC<SearchProps> = (props) => {
   useOnClickOutside(ref, () => setIsFocused(false));
 
   const toggleFocus = () => {
-    setIsFocused(!isFocused);
+    setIsFocused((isFocused) => !isFocused);
   };
 
   const filterChildren = (childrenList: ReactNode[]) => {
