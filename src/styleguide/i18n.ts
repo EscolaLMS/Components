@@ -7,6 +7,9 @@ import { initReactI18next } from "react-i18next";
 const resources = {
   en: {
     translation: {
+      Loading: "Loading",
+      Prev: "Previous",
+      Next: "Next",
       "CartCard.addDiscountButton": "Add discount code",
       "CartCard.buyButton": "I buy and pay",
       "CartCard.discountError": "The code provided is invalid",
@@ -46,6 +49,8 @@ const resources = {
       "Rate.Select5": "Sensational, I recommend it heartily",
       "Rate.submitButton": "Rate the course",
       "Ratings.averageRateLabel": "Average rate",
+      "PdfPlayer.notFound": "Document not found",
+      "PdfPlayer.of": "of",
     },
   },
   fr: {
@@ -55,6 +60,9 @@ const resources = {
   },
   pl: {
     translation: {
+      Loading: "Ładowanie",
+      Prev: "Poprzednia",
+      Next: "Następna",
       "CartCard.addDiscountButton": "Dodaj kod rabatowy",
       "CartCard.buyButton": "Kupuję i płacę",
       "CartCard.discountError": "Podany kod jest nieprawidłowy",
@@ -94,6 +102,8 @@ const resources = {
       "Rate.Select5": "Rewelacyjny, polecam serdecznie",
       "Rate.submitButton": "Oceń kurs",
       "Ratings.averageRateLabel": "Średnia ocena",
+      "PdfPlayer.notFound": "Dokument nie został znaleziony",
+      "PdfPlayer.of": "z",
     },
   },
 };
