@@ -24,8 +24,20 @@ const StyledSearch = styled("div")<StyledSearchProps>`
   position: relative;
   width: 100%;
 
-  .lsm-input .input-and-fieldset input:not(:focus) ~ .fieldset {
-    border-color: transparent;
+  .lsm-input .input-and-fieldset input {
+    &:focus {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+
+      ~ .fieldset {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+    }
+
+    &:not(:focus) ~ .fieldset {
+      border-color: transparent;
+    }
   }
 
   input::placeholder {
@@ -75,18 +87,25 @@ const StyledSearch = styled("div")<StyledSearchProps>`
     display: ${({ isFocused }) => (isFocused ? "block" : "none")};
     background-color: ${({ theme }) =>
       theme.mode == "light" ? theme.gray5 : theme.gray1};
-    border: 1px solid
+    border: 0.5px solid
       ${({ theme }) =>
         theme.mode == "light"
           ? chroma(theme.gray3).alpha(0.5).css()
           : chroma(theme.white).alpha(0.6).css()};
     border-top: none;
     box-sizing: border-box;
+    border-bottom-left-radius: ${({ theme }) => theme.inputRadius}px;
+    border-bottom-right-radius: ${({ theme }) => theme.inputRadius}px;
 
     > * {
       padding: 15px;
       cursor: pointer;
       transition: background-color 0.2s ease-in-out;
+
+      &:last-child {
+        border-bottom-left-radius: ${({ theme }) => theme.inputRadius}px;
+        border-bottom-right-radius: ${({ theme }) => theme.inputRadius}px;
+      }
 
       &:hover {
         background-color: ${({ theme }) =>
