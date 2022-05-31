@@ -7,7 +7,7 @@ import img2 from "./VideoPlayerPoster.png";
 <React.Fragment>
   <ThemeTester>
     <div style={{ width: "100%" }}>
-      <VideoPlayer
+      <AudioVideoPlayer
         url="https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
         light={img2}
       >
@@ -39,14 +39,21 @@ import img2 from "./VideoPlayerPoster.png";
             </div>
           </div>
         </div>
-      </VideoPlayer>
+      </AudioVideoPlayer>
     </div>
     <div style={{ width: 375 }}>
-      <VideoPlayer
+      <AudioVideoPlayer
         url="https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
         light={img2}
         mobile
-      ></VideoPlayer>
+      ></AudioVideoPlayer>
+    </div>
+    <div style={{ width: "100%" }}>
+      audio
+      <AudioVideoPlayer
+        url="http://commondatastorage.googleapis.com/codeskulptor-assets/Epoq-Lepidoptera.ogg"
+        light={img2}
+      ></AudioVideoPlayer>
     </div>
   </ThemeTester>
 

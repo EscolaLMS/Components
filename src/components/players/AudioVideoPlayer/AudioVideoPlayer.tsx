@@ -1,16 +1,16 @@
 import * as React from "react";
 import styled, { withTheme } from "styled-components";
 import ReactPlayer, { ReactPlayerProps } from "react-player";
-import { RatioBox } from "../../../";
+import { RatioBox } from "../../..";
 import format from "date-fns/format";
 import screenfull from "screenfull";
 import { findDOMNode } from "react-dom";
 
-interface StyledVideoPlayerProps {
+interface StyledAudioVideoPlayerProps {
   mobile?: boolean;
 }
 
-interface VideoState {
+interface AudioVideoState {
   ready: boolean;
   playing: boolean;
   progress: {
@@ -24,15 +24,15 @@ interface VideoState {
   controls: boolean;
 }
 
-interface VideoPlayerControlsProps {
-  state: VideoState;
+interface AudioVideoPlayerControlsProps {
+  state: AudioVideoState;
   onSeek?: (time: number) => void;
   onToggle?: () => void;
   onVolume?: (volume: number) => void;
   onFullscreen?: () => void;
 }
 
-const initialVideoState: VideoState = {
+const initialVideoState: AudioVideoState = {
   ready: false,
   playing: false,
   progress: {
@@ -46,12 +46,12 @@ const initialVideoState: VideoState = {
   controls: false,
 };
 
-export interface VideoPlayerProps
-  extends StyledVideoPlayerProps,
-    VideoPlayerControlsProps,
+export interface AudioVideoPlayerProps
+  extends StyledAudioVideoPlayerProps,
+    AudioVideoPlayerControlsProps,
     ReactPlayerProps {}
 
-const StyledVideoPlayer = styled("div")<VideoPlayerControlsProps>`
+const StyledAudioVideoPlayer = styled("div")<AudioVideoPlayerControlsProps>`
   position: relative;
 
   &:hover {
@@ -132,7 +132,7 @@ const StyledVideoPlayer = styled("div")<VideoPlayerControlsProps>`
   }
 `;
 
-const StyledVideoControls = styled("div")<VideoPlayerControlsProps>`
+const StyledVideoControls = styled("div")<AudioVideoPlayerControlsProps>`
   position: absolute;
   left: 0;
   bottom: 0;
@@ -382,6 +382,26 @@ const IconVolume = () => {
   );
 };
 
+const IconFullscreen = () => {
+  return (
+    <svg
+      width="25"
+      height="24"
+      viewBox="0 0 25 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M8.04688 3H5.04688C4.51644 3 4.00773 3.21071 3.63266 3.58579C3.25759 3.96086 3.04688 4.46957 3.04688 5V8M21.0469 8V5C21.0469 4.46957 20.8362 3.96086 20.4611 3.58579C20.086 3.21071 19.5773 3 19.0469 3H16.0469M16.0469 21H19.0469C19.5773 21 20.086 20.7893 20.4611 20.4142C20.8362 20.0391 21.0469 19.5304 21.0469 19V16M3.04688 16V19C3.04688 19.5304 3.25759 20.0391 3.63266 20.4142C4.00773 20.7893 4.51644 21 5.04688 21H8.04688"
+        stroke="white"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
+
 const IconQuality = () => {
   return (
     <svg
@@ -408,27 +428,9 @@ const IconQuality = () => {
   );
 };
 
-const IconFullscreen = () => {
-  return (
-    <svg
-      width="25"
-      height="24"
-      viewBox="0 0 25 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M8.04688 3H5.04688C4.51644 3 4.00773 3.21071 3.63266 3.58579C3.25759 3.96086 3.04688 4.46957 3.04688 5V8M21.0469 8V5C21.0469 4.46957 20.8362 3.96086 20.4611 3.58579C20.086 3.21071 19.5773 3 19.0469 3H16.0469M16.0469 21H19.0469C19.5773 21 20.086 20.7893 20.4611 20.4142C20.8362 20.0391 21.0469 19.5304 21.0469 19V16M3.04688 16V19C3.04688 19.5304 3.25759 20.0391 3.63266 20.4142C4.00773 20.7893 4.51644 21 5.04688 21H8.04688"
-        stroke="white"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-};
-
-const VideoPlayerControls: React.FC<VideoPlayerControlsProps> = (props) => {
+const AudioVideoPlayerControls: React.FC<AudioVideoPlayerControlsProps> = (
+  props
+) => {
   const { state, onSeek, onToggle, onVolume, onFullscreen } = props;
 
   const getBackgroundSize = (value: number, max: number) => {
@@ -497,9 +499,9 @@ const VideoPlayerControls: React.FC<VideoPlayerControlsProps> = (props) => {
           </div>
           <div className={"controls-right"}>
             {/*todo: Quality Button*/}
-            {/*<button type={"button"}>*/}
-            {/*  <IconQuality />*/}
-            {/*</button>*/}
+            {/* <button type={"button"}>
+              <IconQuality />
+            </button> */}
             <button
               type={"button"}
               onClick={() => onFullscreen && onFullscreen()}
@@ -513,15 +515,15 @@ const VideoPlayerControls: React.FC<VideoPlayerControlsProps> = (props) => {
   );
 };
 
-export const VideoPlayer: React.FC<VideoPlayerProps> = (props) => {
+export const AudioVideoPlayer: React.FC<AudioVideoPlayerProps> = (props) => {
   const { children, mobile } = props;
 
   const ref = React.useRef<ReactPlayer>(null);
-  const [videoState, setVideoState] =
-    React.useState<VideoState>(initialVideoState);
+  const [audioVideoState, setAudioVideoState] =
+    React.useState<AudioVideoState>(initialVideoState);
 
   return (
-    <StyledVideoPlayer state={videoState}>
+    <StyledAudioVideoPlayer state={audioVideoState}>
       <RatioBox ratio={9 / 16}>
         <ReactPlayer
           {...props}
@@ -530,25 +532,28 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = (props) => {
           height={"100%"}
           controls={!!mobile}
           playIcon={IconPlayCircle()}
-          playing={videoState.playing}
-          volume={videoState.volume}
+          playing={audioVideoState.playing}
+          volume={audioVideoState.volume}
           onReady={() =>
-            setVideoState((prevState) => ({ ...prevState, ready: true }))
+            setAudioVideoState((prevState) => ({ ...prevState, ready: true }))
           }
           onDuration={(duration) =>
-            setVideoState((prevState) => ({ ...prevState, duration }))
+            setAudioVideoState((prevState) => ({ ...prevState, duration }))
           }
           onStart={() =>
-            setVideoState((prevState) => ({ ...prevState, playing: true }))
+            setAudioVideoState((prevState) => ({ ...prevState, playing: true }))
           }
           onProgress={(progress) => {
-            setVideoState((prevState) => ({ ...prevState, progress }));
+            setAudioVideoState((prevState) => ({ ...prevState, progress }));
           }}
           onPlay={() => {
-            setVideoState((prevState) => ({ ...prevState, playing: true }));
+            setAudioVideoState((prevState) => ({
+              ...prevState,
+              playing: true,
+            }));
           }}
           onEnded={() => {
-            setVideoState((prevState) => ({
+            setAudioVideoState((prevState) => ({
               ...prevState,
               controls: false,
               playing: false,
@@ -556,7 +561,7 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = (props) => {
             ref.current?.showPreview();
           }}
           onClickPreview={() =>
-            setVideoState((prevState) => ({
+            setAudioVideoState((prevState) => ({
               ...prevState,
               controls: true,
               playing: true,
@@ -565,14 +570,14 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = (props) => {
         />
       </RatioBox>
 
-      {!mobile && videoState.controls && (
-        <VideoPlayerControls
-          state={videoState}
+      {!mobile && audioVideoState.controls && (
+        <AudioVideoPlayerControls
+          state={audioVideoState}
           onVolume={(volume) => {
-            setVideoState((prevState) => ({ ...prevState, volume }));
+            setAudioVideoState((prevState) => ({ ...prevState, volume }));
           }}
           onToggle={() => {
-            setVideoState((prevState) => ({
+            setAudioVideoState((prevState) => ({
               ...prevState,
               playing: !prevState.playing,
             }));
@@ -585,11 +590,11 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = (props) => {
         />
       )}
 
-      {!mobile && !videoState.playing && (
+      {!mobile && !audioVideoState.playing && (
         <React.Fragment>{children}</React.Fragment>
       )}
-    </StyledVideoPlayer>
+    </StyledAudioVideoPlayer>
   );
 };
 
-export default withTheme(styled(VideoPlayer)<VideoPlayerProps>``);
+export default withTheme(styled(AudioVideoPlayer)<AudioVideoPlayerProps>``);

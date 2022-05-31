@@ -48,7 +48,6 @@ export { Rate } from "./components/molecules/Rate/Rate";
 export { Ratings } from "./components/molecules/Ratings/Ratings";
 export { default as Steps } from "./components/molecules/Steps/Steps";
 export { Tutor } from "./components/molecules/Tutor/Tutor";
-export { default as VideoPlayer } from "./components/molecules/VideoPlayer/VideoPlayer";
 
 //ORGANISMS
 export { default as CourseAgenda } from "./components/organisms/CourseAgenda/CourseAgenda";
@@ -56,3 +55,5 @@ export { default as LoginForm } from "./components/organisms/LoginForm/LoginForm
 export { default as NoteEditor } from "./components/organisms/NoteEditor/NoteEditor";
 export { default as RegisterForm } from "./components/organisms/RegisterForm/RegisterForm";
 export { default as ResetPasswordForm } from "./components/organisms/ResetPasswordForm/ResetPasswordForm";
+
+//ADVANCED
