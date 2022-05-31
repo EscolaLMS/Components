@@ -1,4 +1,3 @@
-import { contrast } from "chroma-js";
 import * as React from "react";
 import { ReactNode, useMemo, useCallback } from "react";
 import { useTranslation } from "react-i18next";
@@ -13,6 +12,8 @@ import {
 import { RatioBox } from "../../atoms/RatioBox/RatioBox";
 import { Text } from "../../atoms/Typography/Text";
 import { Title } from "../../atoms/Typography/Title";
+import { IconText } from "../..//atoms/IconText/IconText";
+import { Link } from "../../atoms/Link/Link";
 
 const IconOpenBook = () => {
   return (
@@ -26,16 +27,43 @@ const IconOpenBook = () => {
       <path
         d="M1.5 1.98621H6C6.79565 1.98621 7.55871 2.30228 8.12132 2.86489C8.68393 3.42749 9 4.19056 9 4.98621V15.4862C9 14.8895 8.76295 14.3172 8.34099 13.8952C7.91903 13.4733 7.34674 13.2362 6.75 13.2362H1.5V1.98621Z"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M16.5 1.98621H12C11.2044 1.98621 10.4413 2.30228 9.87868 2.86489C9.31607 3.42749 9 4.19056 9 4.98621V15.4862C9 14.8895 9.23705 14.3172 9.65901 13.8952C10.081 13.4733 10.6533 13.2362 11.25 13.2362H16.5V1.98621Z"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
+
+const IconClock = () => {
+  return (
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 18 18"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M9 16.5C13.1421 16.5 16.5 13.1421 16.5 9C16.5 4.85786 13.1421 1.5 9 1.5C4.85786 1.5 1.5 4.85786 1.5 9C1.5 13.1421 4.85786 16.5 9 16.5Z"
+        stroke="#4F4F4F"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M9 4.5V9L12 10.5"
+        stroke="#4F4F4F"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -63,23 +91,30 @@ interface Categories {
   categoryElements: Category[];
 }
 
-export interface CourseCardProps {
+interface StyledCourseCardProps {
+  mobile?: boolean;
+  hideImage?: boolean;
+}
+
+export interface CourseCardProps extends StyledCourseCardProps {
   id: number;
   image?: Image;
-  title: ReactNode;
-  categories: Categories;
+  title: string;
+  categories?: Categories;
   tags?: Tag[];
   lessonCount: number;
-  subtitle: ReactNode;
+  lessonTime?: number;
+  subtitle?: ReactNode;
   //TODO: add params if needed to onImageClick
-  hideImage?: boolean;
   onImageClick?: () => void;
   onTagClick?: (tagId: number) => void;
   onButtonClick?: (cardId: number) => void;
+  secondaryButtonText?: string;
+  onSecondaryButtonClick?: () => void;
   progress?: ProgressBarProps;
 }
 
-const StyledCourseCard = styled("div")`
+const StyledCourseCard = styled("div")<StyledCourseCardProps>`
   .image-section {
     position: relative;
   }
@@ -106,8 +141,7 @@ const StyledCourseCard = styled("div")`
     font-size: 14px;
   }
   .image {
-    width: 100%;
-    height: auto;
+    border-radius: ${({ theme }) => theme.cardRadius}px;
   }
   .course-section {
     margin-top: 28px;
@@ -118,13 +152,8 @@ const StyledCourseCard = styled("div")`
   .categories {
     font-size: 14px;
     line-height: 17px;
-    color: ${({ theme }) => {
-      const backgroundColor =
-        theme.mode === "dark"
-          ? theme.cardBackgroundColorDark
-          : theme.cardBackgroundColorLight;
-      return contrast("#fff", backgroundColor) >= 2.5 ? "#fff" : theme.gray3;
-    }};
+    color: ${(props) =>
+      props.hideImage ? props.theme.gray2 : props.theme.gray3};
     margin-bottom: 15px;
   }
   .lesson-container {
@@ -139,8 +168,22 @@ const StyledCourseCard = styled("div")`
   .category {
     cursor: pointer;
   }
+
   .tag {
     cursor: pointer;
+  }
+
+  .lesson-buttons-group {
+    margin: 0 -8px;
+    width: calc(100% + 16px);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+
+    > * {
+      margin: 8px;
+      text-align: center;
+    }
   }
 `;
 
@@ -148,6 +191,7 @@ export const CourseCard: React.FC<CourseCardProps> = (props) => {
   const {
     id,
     lessonCount,
+    lessonTime,
     title,
     image,
     categories,
@@ -155,6 +199,8 @@ export const CourseCard: React.FC<CourseCardProps> = (props) => {
     onImageClick,
     onTagClick,
     onButtonClick,
+    onSecondaryButtonClick,
+    secondaryButtonText,
     progress,
     hideImage,
   } = props;
@@ -197,50 +243,68 @@ export const CourseCard: React.FC<CourseCardProps> = (props) => {
         <Title level={4} className="title">
           {title}
         </Title>
-        <Text className="categories">
-          {categories.categoryElements.map((category, index) => {
-            return (
-              <>
-                <span
-                  className="category"
-                  key={category.id}
-                  onClick={() => categories.onCategoryClick(category.id)}
-                  onKeyDown={() => categories.onCategoryClick(category.id)}
-                  role="button"
-                  tabIndex={0}
-                >
-                  {category.name}
-                </span>
-                {categories.categoryElements.length !== index + 1 && (
-                  <span> / </span>
-                )}
-              </>
-            );
-          })}
-        </Text>
-        <div className="lesson-container">
-          <IconOpenBook />
-          <Text className="lessons-count">
-            {t("CourseCard.lesson", { count: lessonCount })}
+
+        {categories && (
+          <Text className="categories">
+            {categories.categoryElements.map((category, index) => {
+              return (
+                <>
+                  <span
+                    className="category"
+                    key={category.id}
+                    onClick={() => categories.onCategoryClick(category.id)}
+                    onKeyDown={() => categories.onCategoryClick(category.id)}
+                    role="button"
+                    tabIndex={0}
+                  >
+                    {category.name}
+                  </span>
+                  {categories.categoryElements.length !== index + 1 && (
+                    <span> / </span>
+                  )}
+                </>
+              );
+            })}
           </Text>
+        )}
+        <div className="lesson-container">
+          <IconText
+            icon={<IconOpenBook />}
+            text={t("CourseCard.lesson", { count: lessonCount })}
+            noMargin
+          />
+          {lessonTime && (
+            <React.Fragment>
+              <IconText
+                icon={<IconClock />}
+                text={t("CourseCard.lesson", { count: lessonCount })}
+                noMargin
+              />
+            </React.Fragment>
+          )}
         </div>
         {progress ? (
           <ProgressBar {...progress} />
         ) : (
-          <>
+          <div className={"lesson-buttons-group"}>
             {onButtonClick && (
               <Button mode="secondary" onClick={() => onButtonClick(id)}>
                 {t("CourseCard.startNow")}
               </Button>
             )}
-          </>
+            {onSecondaryButtonClick && (
+              <Link onClick={() => onSecondaryButtonClick()}>
+                {secondaryButtonText}
+              </Link>
+            )}
+          </div>
         )}
       </>
     );
   };
 
   return (
-    <StyledCourseCard>
+    <StyledCourseCard hideImage={hideImage}>
       {!hideImage && (
         <div className="image-section" {...imageSectionProps}>
           <div className="information-in-image">

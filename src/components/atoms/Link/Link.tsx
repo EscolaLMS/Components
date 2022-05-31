@@ -31,10 +31,7 @@ const StyledAnchor = styled("a")<LinkProps>`
     height: 1px;
     bottom: 0;
     left: 0;
-    background-color: ${(props) =>
-      (props.theme.mode === "light"
-        ? props.theme?.gray1
-        : props.theme?.gray5) || "black"};
+    background-color: currentColor;
     transform-origin: ${(props) =>
       props.underline ? "bottom left" : "bottom right"};
     transition: transform 0.25s ease-out;

@@ -41,7 +41,70 @@ import { Row, Col } from "react-grid-system";
           onButtonClick={(cardId) => console.log("onButtonClick :", { cardId })}
         />
       </Col>
-      <Col xs={6}>
+    </Row>
+    <Row>
+      <Col xs={4}>
+        <CourseCard
+          id={2}
+          image={{
+            path: backgroundImage2,
+          }}
+          lessonCount={3}
+          tags={[
+            {
+              title: "Bestseller",
+              id: 1,
+            },
+            {
+              title: "Best Price",
+              id: 2,
+            },
+          ]}
+          title={"Best course ever"}
+          categories={{
+            onCategoryClick: (id) => {
+              console.log("Category click id: ", id);
+            },
+            categoryElements: [
+              { id: 1, name: "Programming" },
+              { id: 2, name: "Front-end" },
+            ],
+          }}
+          onTagClick={(tagId) => console.log("onTagClick :", { tagId })}
+          onImageClick={() => console.log("onImageClick")}
+          progress={{
+            currentProgress: 0.13,
+            maxProgress: 1,
+          }}
+        />
+      </Col>
+      <Col xs={4}>
+        <CourseCard
+          id={2}
+          image={{
+            path: backgroundImage2,
+          }}
+          lessonCount={3}
+          lessonTime={15}
+          tags={[
+            {
+              title: "Bestseller",
+              id: 1,
+            },
+            {
+              title: "Best Price",
+              id: 2,
+            },
+          ]}
+          title={"Best course ever"}
+          onTagClick={(tagId) => console.log("onTagClick :", { tagId })}
+          onImageClick={() => console.log("onImageClick")}
+          onButtonClick={() => console.log("onButtonClick")}
+          onSecondaryButtonClick={() => console.log("onSecondaryButtonClick")}
+          secondaryButtonText={"Zapisz się później"}
+        />
+      </Col>
+      <Col xs={4}>
         <CourseCard
           id={2}
           image={{
