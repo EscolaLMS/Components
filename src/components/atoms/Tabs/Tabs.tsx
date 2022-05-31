@@ -12,7 +12,7 @@ interface TabProps {
 export interface TabsProps {
   tabs: TabProps[];
   defaultActiveKey: number;
-  onClick: (index: number) => void;
+  onClick?: (key: number) => void;
 }
 
 const StyledTabs = styled("div")`
@@ -64,7 +64,7 @@ const StyledTabs = styled("div")`
 `;
 
 export const Tabs: React.FC<TabsProps> = (props) => {
-  const { tabs = [], defaultActiveKey = tabs[0].key } = props;
+  const { tabs = [], defaultActiveKey = tabs[0].key, onClick } = props;
   const [selectedTab, setSelectedTab] =
     React.useState<number>(defaultActiveKey);
   const panel = tabs && tabs.find((tab) => tab.key === selectedTab);
@@ -82,7 +82,10 @@ export const Tabs: React.FC<TabsProps> = (props) => {
                 }`}
                 key={tab.key}
                 id={`tab-menu-${tab.key}`}
-                onClick={() => setSelectedTab(tab.key)}
+                onClick={() => {
+                  setSelectedTab(tab.key);
+                  onClick && onClick(tab.key);
+                }}
               >
                 {tab.label}
               </button>

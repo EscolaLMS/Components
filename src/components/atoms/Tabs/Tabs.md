@@ -28,12 +28,17 @@ const props = {
     },
   ],
   defaultActiveKey: 22,
+  onClick: (key) => console.log(`onClick tab id: ${key}`),
 };
 
 <React.Fragment>
   <ThemeTester>
     <div style={{ width: "100%" }}>
-      <Tabs tabs={props.tabs} defaultActiveKey={props.defaultActiveKey} />
+      <Tabs
+        tabs={props.tabs}
+        defaultActiveKey={props.defaultActiveKey}
+        onClick={props.onClick}
+      />
     </div>
     <div style={{ width: 355 }}>
       <Tabs tabs={props.tabs} />
