@@ -22,8 +22,6 @@ export interface SharedDefaultTheme {
   gray2: string;
   gray1: string;
   black: string;
-  backgroundDarkProgress: string;
-  backgroundDarkInterval: string;
   errorColor: string;
   invertColor: string;
   backgroundDarkCourseNav: string;
