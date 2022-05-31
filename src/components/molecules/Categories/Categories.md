@@ -1,12 +1,24 @@
 ```js
-import { GlobalThemeProvider } from "../../../theme/provider";
-import ImageModal from "../../../styleguide/ImageModal";
+import { ThemeTester, ImageModal } from "../../../styleguide";
 import img1 from "./Categories.png";
 import img2 from "./Categories-2.png";
 import json from "./mock.json";
 
-<GlobalThemeProvider>
-  <Categories categories={json.data} onChange={(val) => console.log(val)} />
+<React.Fragment>
+  <ThemeTester>
+    <div style={{ width: "100%", display: "flex" }}>
+      <Categories categories={json.data} label={"Długość trwania"} />
+      <Categories categories={json.data} label={"Długość trwania"} />
+      <Categories categories={json.data} label={"Długość trwania"} />
+    </div>
+    <div style={{ width: 375 }}>
+      <Categories
+        categories={json.data}
+        label={"Długość trwania"}
+        mobile={true}
+      />
+    </div>
+  </ThemeTester>
   <ImageModal images={[img1, img2]} />
-</GlobalThemeProvider>;
+</React.Fragment>;
 ```
