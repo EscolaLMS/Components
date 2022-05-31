@@ -13,7 +13,6 @@ import { EscolaLMSContextProvider } from "@escolalms/sdk/lib/react/context";
         <ResponsiveImage 
             path={"course/7/topic/737/image/I43KisiNXzAoZNyx7q9ddfHcdVXaC6fYTfrElUW9.jpg"}
             srcSizes={[500, 750, 1000]}
-            onClick={() => setOpen(true)}
         />
     </div>
 </EscolaLMSContextProvider>
@@ -31,7 +30,6 @@ import { EscolaLMSContextProvider } from "@escolalms/sdk/lib/react/context";
         <ResponsiveImage 
             path={"course/55/images/depression-at-work-1.jpg"}
             srcSizes={[500, 750, 1000]}
-            onClick={() => setOpen(true)}
         />
     </div>
 </EscolaLMSContextProvider>
