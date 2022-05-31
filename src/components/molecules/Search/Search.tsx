@@ -1,12 +1,13 @@
 import * as React from "react";
 import styled, { withTheme } from "styled-components";
 import { ReactNode, useRef } from "react";
-import { Input } from "../../../";
+import { Input, Spin } from "../../../";
 import chroma from "chroma-js";
 import { useOnClickOutside } from "../../../hooks/useOnClickOutside";
 
 interface StyledSearchProps {
-  mobile?: boolean;
+  isFocused?: boolean;
+  loading?: boolean;
 }
 
 export interface SearchProps extends StyledSearchProps {
@@ -28,10 +29,8 @@ const StyledSearch = styled("div")<StyledSearchProps>`
   }
 
   input::placeholder {
-    color: ${({ theme }) =>
-      theme.mode === "light"
-        ? chroma(theme.gray1).alpha(0.5).css()
-        : chroma(theme.white).alpha(0.5).css()};
+    color: currentColor;
+    opacity: 0.5;
   }
 
   .search-input-wrapper {
@@ -43,14 +42,25 @@ const StyledSearch = styled("div")<StyledSearchProps>`
     right: 10px;
     top: 50%;
     transform: translateY(-50%);
+    transition: opacity 0.2s ease-in-out;
     appearance: none;
     border: none;
     background-color: transparent;
     cursor: pointer;
+    color: ${({ theme }) =>
+      theme.mode === "light" ? theme.gray1 : theme.white};
 
-    svg path {
-      fill: ${({ theme }) =>
-        theme.mode == "light" ? theme.gray1 : theme.white};
+    &:hover {
+      opacity: 0.75;
+    }
+
+    svg {
+      width: 20px;
+      height: 20px;
+
+      path {
+        fill: ${({ loading }) => !loading && "currentColor"};
+      }
     }
   }
 
@@ -59,9 +69,10 @@ const StyledSearch = styled("div")<StyledSearchProps>`
     top: 100%;
     left: 0;
     width: 100%;
-    height: 0;
-    overflow: hidden;
-    display: none;
+    height: ${({ isFocused }) => (isFocused ? "auto" : "0")};
+    max-height: ${({ isFocused }) => (isFocused ? "250px" : "0")};
+    overflow-y: auto;
+    display: ${({ isFocused }) => (isFocused ? "block" : "none")};
     background-color: ${({ theme }) =>
       theme.mode == "light" ? theme.gray5 : theme.gray1};
     border: 1px solid
@@ -75,11 +86,14 @@ const StyledSearch = styled("div")<StyledSearchProps>`
     > * {
       padding: 15px;
       cursor: pointer;
-    }
+      transition: background-color 0.2s ease-in-out;
 
-    &.active {
-      display: block;
-      height: auto;
+      &:hover {
+        background-color: ${({ theme }) =>
+          theme.mode == "light"
+            ? chroma(theme.gray5).darken(0.2).css()
+            : chroma(theme.gray1).brighten(0.2).css()};
+      }
     }
   }
 `;
@@ -105,8 +119,8 @@ export const Search: React.FC<SearchProps> = (props) => {
   const {
     children,
     placeholder,
-    mobile,
     icon,
+    loading,
     onSearch,
     onChange,
     onSubmit,
@@ -152,7 +166,7 @@ export const Search: React.FC<SearchProps> = (props) => {
   };
 
   return (
-    <StyledSearch ref={ref} mobile={mobile}>
+    <StyledSearch ref={ref} isFocused={isFocused} loading={loading}>
       <div className="search-input-wrapper">
         <Input
           placeholder={placeholder}
@@ -167,6 +181,7 @@ export const Search: React.FC<SearchProps> = (props) => {
           }
           onFocus={() => toggleFocus()}
         />
+
         <button
           type={"button"}
           className={"search-input-button"}
@@ -174,10 +189,10 @@ export const Search: React.FC<SearchProps> = (props) => {
             onSubmit(value);
           }}
         >
-          {icon || <IconSearch />}
+          {loading ? <Spin color={"currentColor"} /> : icon || <IconSearch />}
         </button>
       </div>
-      <div className={`search-input-options ${isFocused ? "active" : ""}`}>
+      <div className={"search-input-options"}>
         {filterChildren(childrenList)}
       </div>
     </StyledSearch>
