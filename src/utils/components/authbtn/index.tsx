@@ -6,7 +6,6 @@ const Authbtn = () => {
   const { login, user } = useContext(EscolaLMSContext);
   return (
     <Button
-      //loading={user.loading}
       mode="secondary"
       onClick={() => {
         login({ email: "student@escola-lms.com", password: "secret" });

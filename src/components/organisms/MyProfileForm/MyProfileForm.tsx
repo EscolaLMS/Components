@@ -74,19 +74,6 @@ type FormValues = {
   avatar?: string;
 } & Record<string, boolean | number | string>;
 
-/*
-const convertValuesFromResponseToForm: (
-  input: API.UserAsProfile
-) => FormValues = (input) => {
-  return {
-    first_name: input.first_name,
-    last_name: input.last_name,
-    email: input.email,
-    phone: input.phone,
-  };
-};
-*/
-
 export const MyProfileForm: React.FC<{
   onError?: (err: ResponseError<DefaultResponseError>) => void;
   onSuccess?: () => void;
