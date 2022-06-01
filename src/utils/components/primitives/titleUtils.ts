@@ -10,7 +10,7 @@ export const setFontSizeByHeaderLevel = (
     case 2:
       return mobile ? "20px" : "40px";
     case 3:
-      return "36px";
+      return mobile ? "20px" : "36px";
     case 4:
       return "20px";
     default:
