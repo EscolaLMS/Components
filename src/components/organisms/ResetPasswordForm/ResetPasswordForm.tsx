@@ -1,5 +1,5 @@
 import { Formik } from "formik";
-import { useContext } from "react";
+import { useCallback, useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import type { DefaultResponseError } from "@escolalms/sdk/lib/types/api";
@@ -46,27 +46,67 @@ const StyledDiv = styled.div<{ mobile: boolean }>`
 
 interface MyFormValues {
   email: string;
+  password: string;
   error?: string;
 }
 
 export const ResetPasswordForm: React.FC<{
-  onError?: (err: ResponseError<DefaultResponseError>) => void;
-  onSuccess?: () => void;
+  onFirstStepError?: (err: ResponseError<DefaultResponseError>) => void;
+  onSecondStepError?: (err: ResponseError<DefaultResponseError>) => void;
+  onFirstStepSuccess?: () => void;
+  onSecondStepSuccess?: () => void;
   backToLogin?: () => void;
   onRegisterLink?: () => void;
   mobile?: boolean;
   return_url?: string;
+  secondStep?: boolean;
+  email?: string;
+  token?: string;
 }> = ({
-  onSuccess,
-  onError,
+  onFirstStepError,
+  onSecondStepError,
+  onFirstStepSuccess,
+  onSecondStepSuccess,
   backToLogin,
   onRegisterLink,
   mobile = false,
   return_url,
+  secondStep,
+  email,
+  token,
 }) => {
-  const initialValues: MyFormValues = { email: "" };
+  const initialValues: MyFormValues = { email: "", password: "" };
   const { t } = useTranslation();
-  const { forgot } = useContext(EscolaLMSContext);
+  const { forgot, reset } = useContext(EscolaLMSContext);
+
+  const handleFirstStep = useCallback((values, setSubmitting, setErrors) => {
+    forgot({
+      email: values.email,
+      return_url: `${window.location.origin}/${return_url}`,
+    })
+      .then(() => onFirstStepSuccess && onFirstStepSuccess())
+      .catch((err: ResponseError<DefaultResponseError>) => {
+        setErrors({ error: err.data.message, ...err.data.errors });
+        onFirstStepError && onFirstStepError(err);
+      })
+      .finally(() => setSubmitting(false));
+  }, []);
+
+  const handleSecondStep = useCallback((values, setSubmitting, setErrors) => {
+    reset({
+      password: values.password,
+      email: String(email),
+      token: String(token),
+    })
+      .then(() => {
+        onSecondStepSuccess && onSecondStepSuccess();
+      })
+      .catch((err: ResponseError<DefaultResponseError>) => {
+        setErrors({ error: err.data.message, ...err.data.errors });
+        onSecondStepError && onSecondStepError(err);
+      })
+      .finally(() => setSubmitting(false));
+  }, []);
 
   return (
     <StyledDiv mobile={mobile}>
@@ -75,24 +115,15 @@ export const ResetPasswordForm: React.FC<{
         initialValues={initialValues}
         validate={(values) => {
           const errors: Partial<MyFormValues> = {};
-
-          if (!values.email) {
+          if (!values.email && !secondStep) {
             errors.email = t("Required");
           }
-
           return errors;
         }}
         onSubmit={(values, { setSubmitting, setErrors }) => {
-          forgot({
-            email: values.email,
-            return_url: `${window.location.origin}/${return_url}`,
-          })
-            .then(() => onSuccess && onSuccess())
-            .catch((err: ResponseError<DefaultResponseError>) => {
-              setErrors({ error: err.data.message, ...err.data.errors });
-              onError && onError(err);
-            })
-            .finally(() => setSubmitting(false));
+          !secondStep
+            ? handleFirstStep(values, setSubmitting, setErrors)
+            : handleSecondStep(values, setSubmitting, setErrors);
         }}
       >
         {({
@@ -103,22 +134,32 @@ export const ResetPasswordForm: React.FC<{
           handleBlur,
           handleSubmit,
           isSubmitting,
-
-          /* and other goodies */
         }) => (
           <form onSubmit={handleSubmit}>
             {errors && errors.error && (
               <Text type="danger">{errors.error}</Text>
             )}
-            <Input
-              type="email"
-              name="email"
-              label="email"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.email}
-              error={touched.email && errors.email}
-            />
+            {!secondStep ? (
+              <Input
+                type="email"
+                name="email"
+                label="email"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.email}
+                error={touched.email && errors.email}
+              />
+            ) : (
+              <Input
+                type="password"
+                name="password"
+                label="password"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.password}
+                error={touched.password && errors.password}
+              />
+            )}
 
             <Button mode="secondary" type="submit" loading={isSubmitting} block>
               {t("ResetForm.ResetPassword")}
@@ -126,17 +167,21 @@ export const ResetPasswordForm: React.FC<{
           </form>
         )}
       </Formik>
-      <Text size="14">
-        <Link underline onClick={() => backToLogin && backToLogin()}>
-          {t("ResetForm.BackToLogin")}
-        </Link>
-      </Text>
-      <Text size="14">
-        {t("ResetForm.NotHavingAccount")}{" "}
-        <Link underline onClick={() => onRegisterLink && onRegisterLink()}>
-          {t("ResetForm.Register")}
-        </Link>
-      </Text>
+      {!secondStep && (
+        <>
+          <Text size="14">
+            <Link underline onClick={() => backToLogin && backToLogin()}>
+              {t("ResetForm.BackToLogin")}
+            </Link>
+          </Text>
+          <Text size="14">
+            {t("ResetForm.NotHavingAccount")}{" "}
+            <Link underline onClick={() => onRegisterLink && onRegisterLink()}>
+              {t("ResetForm.Register")}
+            </Link>
+          </Text>
+        </>
+      )}
     </StyledDiv>
   );
 };
