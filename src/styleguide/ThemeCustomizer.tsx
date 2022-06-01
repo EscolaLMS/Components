@@ -14,8 +14,6 @@ const allowedKeys: (keyof DefaultTheme & string)[] = [
   "backgroundLight",
   "textColorDark",
   "textColorLight",
-  "backgroundDarkProgress",
-  "backgroundDarkInterval",
   "errorColor",
   "invertColor",
   "backgroundDarkCourseNav",
@@ -91,9 +89,7 @@ export const ThemeCustomizer: React.FC<{
           backgroundLight: initData.backgroundLight || "#000000",
           textColorDark: initData.textColorDark || "#000000",
           textColorLight: initData.textColorLight || "#000000",
-          backgroundDarkProgress: initData.backgroundDarkProgress || "#000000",
           errorColor: initData.errorColor || "#EB5757",
-          backgroundDarkInterval: initData.backgroundDarkInterval || "#000000",
           invertColor: initData.invertColor || "#000000",
           backgroundDarkCourseNav:
             initData.backgroundDarkCourseNav || "#000000",

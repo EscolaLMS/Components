@@ -41,11 +41,7 @@ const StyledRatingsDesktop = styled.div`
     margin-bottom: 20px;
   }
   .title {
-    ${(props) => {
-      if (props.theme.mode === "dark") {
-        return `color: red`;
-      }
-    }}
+    color: ${({ theme }) => theme.primaryColor};
   }
   .average-rate-container {
     background: ${(props) =>
@@ -107,11 +103,7 @@ const StyledRatingsMobile = styled.div`
     margin-bottom: 14px;
   }
   .title {
-    ${(props) => {
-      if (props.theme.mode === "dark") {
-        return `color: red`;
-      }
-    }}
+    color: ${({ theme }) => theme.primaryColor};
   }
   .rate-row {
     display: flex;
