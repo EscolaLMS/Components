@@ -21,7 +21,10 @@ const StyledDiv = styled.div`
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   .progress-container {
-    margin-bottom: 6px;
+    &:not(:last-child) {
+      margin-bottom: 6px;
+    }
+
     display: flex;
     align-items: center;
     .progress-bars {
