@@ -1,5 +1,5 @@
 ```js
-import { GlobalThemeProvider } from "../../../theme/provider";
+import { Row, Col } from "react-grid-system";
 import ImageModal from "../../../styleguide/ImageModal";
 import img1 from "./LabelListItem.png";
 import ThemeTester from "../../../styleguide/ThemeTester";
@@ -50,30 +50,89 @@ const Icon3 = () => (
 );
 
 <React.Fragment>
-  <ThemeTester flexDirection="column">
-    <LabelListItem title="90%" icon={<Icon1 />}>
-      Poleca szkolenia Jana Kaminskiego
-    </LabelListItem>
-    <LabelListItem title="Gwarancja" icon={<Icon2 />}>
-      zadowolenia lub zwrot pieniędzy*
-    </LabelListItem>
-    <LabelListItem title="5.0" icon={<Icon3 />}>
-      Średnia ocena szkoleń Jana Kamińskiego
-    </LabelListItem>
-  </ThemeTester>
   <ThemeTester>
-    <LabelListItem title="Kategoria szkolenia" variant={"label"}>
-      Finanse
-    </LabelListItem>
-    <LabelListItem title="Poziom trudności" variant={"label"}>
-      Średni
-    </LabelListItem>
-    <LabelListItem title="Termin rozpoczęcia" variant={"label"}>
-      22 marca 2022
-    </LabelListItem>
-    <LabelListItem title="Czas trwania" variant={"label"}>
-      120 godzin
-    </LabelListItem>
+    <div style={{ width: "100%" }}>
+      <Row>
+        <Col xs={12} md={3}>
+          <LabelListItem title="Kategoria szkolenia" variant={"label"}>
+            Finanse
+          </LabelListItem>
+        </Col>
+        <Col xs={12} md={3}>
+          <LabelListItem title="Poziom trudności" variant={"label"}>
+            Średni
+          </LabelListItem>
+        </Col>
+        <Col xs={12} md={3}>
+          <LabelListItem title="Termin rozpoczęcia" variant={"label"}>
+            22 marca 2022
+          </LabelListItem>
+        </Col>
+        <Col xs={12} md={3}>
+          <LabelListItem title="Czas trwania" variant={"label"}>
+            120 godzin
+          </LabelListItem>
+        </Col>
+      </Row>
+      <Row>
+        <Col xs={12} md={4}>
+          <LabelListItem title="90%" icon={<Icon1 />}>
+            Poleca szkolenia Jana Kaminskiego
+          </LabelListItem>
+        </Col>
+        <Col xs={12} md={4}>
+          <LabelListItem title="Gwarancja" icon={<Icon2 />}>
+            zadowolenia lub zwrot pieniędzy*
+          </LabelListItem>
+        </Col>
+        <Col xs={12} md={4}>
+          <LabelListItem title="5.0" icon={<Icon3 />}>
+            Średnia ocena szkoleń Jana Kamińskiego
+          </LabelListItem>
+        </Col>
+      </Row>
+    </div>
+    <div style={{ width: 375 }}>
+      <Row>
+        <Col xs={6}>
+          <LabelListItem title="Kategoria szkolenia" variant={"label"}>
+            Finanse
+          </LabelListItem>
+        </Col>
+        <Col xs={6}>
+          <LabelListItem title="Poziom trudności" variant={"label"}>
+            Średni
+          </LabelListItem>
+        </Col>
+        <Col xs={6}>
+          <LabelListItem title="Termin rozpoczęcia" variant={"label"}>
+            22 marca 2022
+          </LabelListItem>
+        </Col>
+        <Col xs={6}>
+          <LabelListItem title="Czas trwania" variant={"label"}>
+            120 godzin
+          </LabelListItem>
+        </Col>
+      </Row>
+      <Row>
+        <Col xs={12}>
+          <LabelListItem title="90%" icon={<Icon1 />} mobile={true}>
+            Poleca szkolenia Jana Kaminskiego
+          </LabelListItem>
+        </Col>
+        <Col xs={12}>
+          <LabelListItem title="Gwarancja" icon={<Icon2 />} mobile={true}>
+            zadowolenia lub zwrot pieniędzy*
+          </LabelListItem>
+        </Col>
+        <Col xs={12}>
+          <LabelListItem title="5.0" icon={<Icon3 />} mobile={true}>
+            Średnia ocena szkoleń Jana Kamińskiego
+          </LabelListItem>
+        </Col>
+      </Row>
+    </div>
   </ThemeTester>
   <ImageModal images={[img1]} />
 </React.Fragment>;

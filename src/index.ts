@@ -35,7 +35,7 @@ export { default as CategoryCard } from "./components/molecules/CategoryCard/Cat
 export { default as Certificate } from "./components/molecules/Certificate/Certificate";
 export { default as CheckoutCard } from "./components/molecules/CheckoutCard/CheckoutCard";
 export { CourseCard } from "./components/molecules/CourseCard/CourseCard";
-export { default as CourseTopNav } from "./components/molecules/CourseTopNav/CourseTopNav";
+export { CourseTopNav } from "./components/molecules/CourseTopNav/CourseTopNav";
 export { default as Description } from "./components/molecules/Description/Description";
 export { default as Downloads } from "./components/molecules/Downloads/Downloads";
 export { Dropdown } from "./components/molecules/Dropdown/Dropdown";
@@ -48,7 +48,6 @@ export { Rate } from "./components/molecules/Rate/Rate";
 export { Ratings } from "./components/molecules/Ratings/Ratings";
 export { default as Steps } from "./components/molecules/Steps/Steps";
 export { Tutor } from "./components/molecules/Tutor/Tutor";
-export { default as VideoPlayer } from "./components/molecules/VideoPlayer/VideoPlayer";
 
 //ORGANISMS
 export { default as CourseAgenda } from "./components/organisms/CourseAgenda/CourseAgenda";
@@ -56,3 +55,5 @@ export { default as LoginForm } from "./components/organisms/LoginForm/LoginForm
 export { default as NoteEditor } from "./components/organisms/NoteEditor/NoteEditor";
 export { default as RegisterForm } from "./components/organisms/RegisterForm/RegisterForm";
 export { default as ResetPasswordForm } from "./components/organisms/ResetPasswordForm/ResetPasswordForm";
+
+//ADVANCED
