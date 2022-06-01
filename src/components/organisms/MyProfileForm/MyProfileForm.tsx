@@ -1,5 +1,5 @@
 import { Formik, FormikErrors } from "formik";
-import { useContext, useState, useEffect, useCallback, useRef } from "react";
+import { useContext, useState, useEffect, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import type { DefaultResponseError } from "@escolalms/sdk/lib/types/api";
@@ -8,15 +8,7 @@ import { Container, Row, Col } from "react-grid-system";
 import { Upload } from "../../atoms/Upload/Upload";
 import styled, { withTheme } from "styled-components";
 
-import {
-  Input,
-  Button,
-  Title,
-  Link,
-  Text,
-  Checkbox,
-  TextArea,
-} from "../../../";
+import { Input, Button, Title, Text, Checkbox, TextArea } from "../../../";
 
 const StyledFormHeader = styled.div<{ mobile: boolean }>`
   text-align: center;
@@ -68,7 +60,6 @@ const StyledDiv = styled.div<{ mobile: boolean }>`
   }
   form {
     width: 100%;
-    // max-width: 440px;
     margin-bottom: 15px;
   }
 `;
@@ -99,10 +90,8 @@ const convertValuesFromResponseToForm: (
 export const MyProfileForm: React.FC<{
   onError?: (err: ResponseError<DefaultResponseError>) => void;
   onSuccess?: () => void;
-  onLoginLink?: () => void;
   mobile?: boolean;
-  return_url?: string;
-}> = ({ onSuccess, onError, onLoginLink, mobile = false, return_url = "" }) => {
+}> = ({ onSuccess, onError, mobile = false }) => {
   const [initialValues, setInitialValues] = useState<
     FormValues & Record<string, string | boolean>
   >({

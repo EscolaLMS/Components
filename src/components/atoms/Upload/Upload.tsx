@@ -9,19 +9,11 @@ export interface InputProps
 
 const StyledDiv = styled("div")<InputProps>`
   &.lsm-input {
+    display: block;
   }
 `;
 
 export const Upload: React.FC<InputProps> = (props) => {
-  // const { label, helper, container, error, required } = props;
-
-  /*
-  const generateRandomInputId = useMemo(() => {
-    const randomString = (Math.random() + 1).toString(36).substring(3);
-    return `lms-input-id-${randomString}`;
-  }, []);
-  */
-
   return (
     <StyledDiv>
       <input type="file" {...props} />
