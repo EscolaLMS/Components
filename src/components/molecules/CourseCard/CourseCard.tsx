@@ -320,7 +320,7 @@ export const CourseCard: React.FC<CourseCardProps> = (props) => {
               </div>
             )}
           </div>
-          <RatioBox ratio={66 / 100}>
+          <RatioBox ratio={mobile ? 66 / 100 : 1}>
             <img
               className="image"
               src={imageSrc}
