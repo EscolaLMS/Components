@@ -48,6 +48,7 @@ export { Rate } from "./components/molecules/Rate/Rate";
 export { Ratings } from "./components/molecules/Ratings/Ratings";
 export { default as Steps } from "./components/molecules/Steps/Steps";
 export { Tutor } from "./components/molecules/Tutor/Tutor";
+export { Search } from "./components/molecules/Search/Search";
 
 //ORGANISMS
 export { default as CourseAgenda } from "./components/organisms/CourseAgenda/CourseAgenda";

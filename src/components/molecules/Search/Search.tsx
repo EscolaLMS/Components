@@ -11,12 +11,12 @@ interface StyledSearchProps {
 }
 
 export interface SearchProps extends StyledSearchProps {
-  onSearch: (value: string) => void;
-  onChange: (value: string) => void;
-  onSubmit: (value: string) => void;
+  onSearch?: (value: string) => void;
+  onChange?: (value: string) => void;
+  onSubmit?: (value: string) => void;
   filterOptions?: () => void;
   placeholder: string;
-  children: ReactNode;
+  children?: ReactNode;
   icon?: ReactNode;
 }
 
@@ -87,11 +87,12 @@ const StyledSearch = styled("div")<StyledSearchProps>`
     display: ${({ isFocused }) => (isFocused ? "block" : "none")};
     background-color: ${({ theme }) =>
       theme.mode == "light" ? theme.gray5 : theme.gray1};
-    border: 0.5px solid
-      ${({ theme }) =>
-        theme.mode == "light"
-          ? chroma(theme.gray3).alpha(0.5).css()
-          : chroma(theme.white).alpha(0.6).css()};
+    border-width: 0.5px;
+    border-style: solid;
+    border-color: ${({ theme }) =>
+      theme.mode == "light"
+        ? chroma(theme.gray3).alpha(0.5).css()
+        : chroma(theme.white).alpha(0.6).css()};
     border-top: none;
     box-sizing: border-box;
     border-bottom-left-radius: ${({ theme }) => theme.inputRadius}px;
@@ -173,10 +174,13 @@ export const Search: React.FC<SearchProps> = (props) => {
       .map((child) => {
         if (React.isValidElement(child)) {
           return React.cloneElement(child, {
-            onClick: () => {
-              onChange(child.props.children);
+            onClick: (e: Event) => {
+              onChange && onChange(child.props.children);
               toggleFocus();
               setValue(child.props.children);
+              if (child.props.onClick) {
+                child.props.onClick(e);
+              }
             },
           });
         }
@@ -192,11 +196,11 @@ export const Search: React.FC<SearchProps> = (props) => {
           onChange={(e: { target: { value: string } }) => {
             const { value } = e.target;
             setValue(value);
-            onSearch(value);
+            onSearch && onSearch(value);
           }}
           value={value}
           onKeyDown={(e: { key: string }) =>
-            e.key === "Enter" && onSubmit(value)
+            e.key === "Enter" && onSubmit && onSubmit(value)
           }
           onFocus={() => toggleFocus()}
         />
@@ -205,7 +209,7 @@ export const Search: React.FC<SearchProps> = (props) => {
           type={"button"}
           className={"search-input-button"}
           onClick={() => {
-            onSubmit(value);
+            onSubmit && onSubmit(value);
           }}
         >
           {loading ? <Spin color={"currentColor"} /> : icon || <IconSearch />}
