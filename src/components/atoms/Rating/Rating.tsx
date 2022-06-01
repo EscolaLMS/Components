@@ -69,20 +69,10 @@ const StyledRating = styled.span<RatingProps>`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
-    color: ${(props) => {
-      if (props.theme.mode === "dark") {
-        return props.theme.white;
-      }
-      return props.theme.primaryColor;
-    }};
     display: inline-flex;
     align-items: center;
     .filled-star-icon {
-      ${(props) => {
-        if (props.theme.mode === "dark") {
-          return `color: red;`;
-        }
-      }}
+      color: ${({ theme }) => theme.primaryColor};
     }
     svg {
       font-size: ${(props) => (props.size ? props.size : "15px")};

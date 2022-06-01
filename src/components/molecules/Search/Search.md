@@ -1,9 +1,17 @@
 ```js
 import { ImageModal, ThemeTester } from "../../../styleguide";
+import { useState } from "react";
 import img1 from "./Search.png";
+
+const [loading, setLoading] = useState(false);
 
 const onSearch = (value) => {
   console.log(`Search: ${value}`);
+  setLoading(true);
+
+  setTimeout(() => {
+    setLoading(false);
+  }, 1500);
 };
 
 const onSubmit = (value) => {
@@ -21,6 +29,7 @@ const onChange = (value) => {
       onChange={(e) => onChange(e)}
       onSearch={(e) => onSearch(e)}
       placeholder="Select a course"
+      loading={loading}
     >
       <div>football</div>
       <div>voleyball</div>
