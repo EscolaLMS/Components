@@ -30,10 +30,6 @@ import { EscolaLMSContextProvider } from "@escolalms/sdk/lib/react/context";
         <ResponsiveImage 
             path={"course/55/images/depression-at-work-1.jpg"}
             srcSizes={[500, 750, 1000]}
-<<<<<<< HEAD
-            onClick={() => setOpen(true)}
-=======
->>>>>>> c8882ff1a107ede8e518b581231b6ceef2482e6f
         />
     </div>
 </EscolaLMSContextProvider>
