@@ -120,8 +120,6 @@ const StyledCourseCard = styled("div")<StyledCourseCardProps>`
     font-size: 14px;
   }
   .image {
-    width: 100%;
-    height: auto;
     border-radius: ${({ theme }) => theme.cardRadius}px;
   }
   .course-section {
