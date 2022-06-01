@@ -262,7 +262,7 @@ export const CourseCard: React.FC<CourseCardProps> = (props) => {
         {lessonCount && (
           <div className="lesson-container">
             <IconOpenBook />
-            <Text className="lessons-count">
+            <Text className="lessons-count" size={"14"}>
               {t("CourseCard.lesson", { count: lessonCount })}
             </Text>
           </div>
