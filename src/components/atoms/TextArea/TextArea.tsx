@@ -147,7 +147,14 @@ export const TextArea: React.FC<TextAreaProps> = (props) => {
   }, [generateRandomTextAreatId, label, required]);
 
   return (
-    <StyledTextArea disabled={disabled} error={error} required={required}>
+    <StyledTextArea
+      disabled={disabled}
+      error={error}
+      required={required}
+      className={`lsm-input ${helper ? "has-helper" : ""} ${
+        error ? "has-error" : ""
+      } `}
+    >
       <div className={`textarea-container ${addFilledClass()}`}>
         {renderLabel()}
         <textarea
