@@ -55,10 +55,11 @@
     "react-dropdown": "^1.10.0",
     "react-grid-system": "^8.1.4",
     "react-i18next": "^11.16.7",
+    "react-image-lightbox": "^5.1.4",
     "react-markdown": "^8.0.3",
+    "react-pdf": "^5.7.2",
     "react-player": "^2.0.0",
     "react-slick": "^0.29.0",
-    "react-image-lightbox": "^5.1.4",
     "react-styleguidist": "^11.2.0",
     "screenfull": "6.0.1",
     "source-map-loader": "^3.0.1",
@@ -70,8 +71,7 @@
     "stylelint-processor-styled-components": "^1.10.0",
     "ts-loader": "^9.2.8",
     "typescript": "^4.6.4",
-    "webpack": "^5.72.0",
-    "react-pdf": "^5.7.2"
+    "webpack": "^5.72.0"
   },
   "homepage": "https://escolalms.github.io/components",
   "dependencies": {}

@@ -1,9 +1,8 @@
-import { Search } from "../../..";
 import React, { useCallback, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { course as fetchCourses } from "@escolalms/sdk/lib/services/courses";
 import { API } from "@escolalms/sdk/lib";
-import { Button } from "../../..";
+import { Button, Search as InputSearch } from "../../..";
 import styled from "styled-components";
 
 const ItemButton = styled(Button)`
@@ -15,7 +14,7 @@ const ItemButton = styled(Button)`
   }
 `;
 
-export const SearchAutocomplete: React.FC<{
+export const SearchCourses: React.FC<{
   onItemSelected: (item: API.Course) => void;
   onInputSubmitted: (phrase: string) => void;
 }> = ({ onItemSelected, onInputSubmitted }) => {
@@ -58,7 +57,7 @@ export const SearchAutocomplete: React.FC<{
   const onSubmit = useCallback((val: string) => onInputSubmitted(val), []);
   const { t } = useTranslation();
   return (
-    <Search
+    <InputSearch
       loading={fetching}
       onSearch={onSearch}
       onSubmit={onSubmit}
@@ -76,8 +75,8 @@ export const SearchAutocomplete: React.FC<{
           {course.title}
         </ItemButton>
       ))}
-    </Search>
+    </InputSearch>
   );
 };
 
-export default SearchAutocomplete;
+export default SearchCourses;
