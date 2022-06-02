@@ -204,7 +204,7 @@ export const MyProfileForm: React.FC<{
                 return errors;
               }}
               onSubmit={(values, { setSubmitting, resetForm, setErrors }) => {
-                console.log("onSubmit", values);
+               
                 updateProfile({
                   ...values,
                 })
