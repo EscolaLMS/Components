@@ -23,7 +23,7 @@ interface CategoriesProps extends StyledCategoriesProps {
   label?: string;
   labelPrefix?: string;
   selectedCategories?: number[];
-  handleChange?: (selectedCategories: number[]) => void;
+  handleChange?: (newValue: number[]) => void;
 }
 
 const IconArrowBottom = () => {
@@ -250,28 +250,21 @@ const CategoryTreeOptions: React.FC<CategoriesProps> = (props) => {
     mobile,
   } = props;
 
-  const [collapseState, setCollapseState] = React.useState<{
-    [key: number]: boolean;
-  }>({});
-
-  const handleCollapse = (id: number) => {
-    setCollapseState({
-      ...collapseState,
-      [id]: !collapseState[id],
-    });
-  };
+  const [childOpen, setChildOpen] = React.useState<boolean>(false);
 
   const onInternalChange = React.useCallback(
     (id: number) => {
-      handleChange &&
+      if (handleChange) {
         handleChange(
           selectedCategories.includes(id)
             ? selectedCategories.filter((pid) => pid !== id)
             : [...selectedCategories, id]
         );
+      }
     },
     [selectedCategories]
   );
+
   return (
     <StyledCategoryTreeOptions
       className={
@@ -293,36 +286,35 @@ const CategoryTreeOptions: React.FC<CategoriesProps> = (props) => {
         <div key={category.id}>
           <Checkbox
             value={category.id}
-            onChange={() => {
-              onInternalChange(category.id);
-            }}
             label={
               labelPrefix ? `${labelPrefix}${category.name}` : category.name
             }
             checked={selectedCategories.includes(category.id)}
+            onChange={() => onInternalChange(category.id)}
           />
 
           {category &&
             category.subcategories &&
             category.subcategories.length > 0 && (
-              <React.Fragment>
-                <button
-                  type={"button"}
-                  onClick={() => handleCollapse(category.id)}
-                  className={`categories-collapse ${
-                    collapseState[category.id] && "active"
-                  }`}
-                >
-                  <IconArrowBottom />
-                </button>
-                {collapseState[category.id] && (
-                  <CategoryTreeOptions
-                    categories={category.subcategories}
-                    handleChange={handleChange}
-                    mobile={mobile}
-                  />
-                )}
-              </React.Fragment>
+              <button
+                type={"button"}
+                onClick={() => setChildOpen((prevState) => !prevState)}
+                className={`categories-collapse ${childOpen && "active"}`}
+              >
+                <IconArrowBottom />
+              </button>
+            )}
+
+          {category &&
+            category.subcategories &&
+            category.subcategories.length > 0 &&
+            childOpen && (
+              <CategoryTreeOptions
+                categories={category.subcategories}
+                handleChange={handleChange}
+                selectedCategories={selectedCategories}
+                mobile={mobile}
+              />
             )}
         </div>
       ))}
