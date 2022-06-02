@@ -15,7 +15,7 @@ const ItemButton = styled(Button)`
   }
 `;
 
-const SearchAutocomplete: React.FC<{
+export const SearchAutocomplete: React.FC<{
   onItemSelected: (item: API.Course) => void;
   onInputSubmitted: (phrase: string) => void;
 }> = ({ onItemSelected, onInputSubmitted }) => {
