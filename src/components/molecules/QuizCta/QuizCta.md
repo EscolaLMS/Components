@@ -1,5 +1,4 @@
 ```js
-import { GlobalThemeProvider } from "../../../theme/provider";
 import ImageModal from "../../../styleguide/ImageModal";
 import ThemeTester from "../../../styleguide/ThemeTester";
 import Text from "../../atoms/Typography/Text";
@@ -23,7 +22,7 @@ const props = {
   },
 };
 
-<GlobalThemeProvider>
+<React.Fragment>
   <ThemeTester>
     <div style={{ width: "100%", marginBottom: "20px" }}>
       <QuizCta
@@ -48,5 +47,5 @@ const props = {
     </div>
   </ThemeTester>
   <ImageModal images={[img1]} />
-</GlobalThemeProvider>;
+<React.Fragment>;
 ```

@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import styled, { withTheme } from "styled-components";
 import { Spin, Link } from "../../..";
 import { useTranslation } from "react-i18next";
@@ -116,6 +116,10 @@ export const Upload: React.FC<InputProps> = (props) => {
 
   const [src, setSrc] = useState<string | undefined>(url);
 
+  useEffect(() => {
+    setSrc(url);
+  }, [url]);
+
   const onInternalChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       if (e.target.files && e.target.files[0]) {
@@ -132,7 +136,7 @@ export const Upload: React.FC<InputProps> = (props) => {
     []
   );
   return (
-    <StyledDiv>
+    <StyledDiv className="upload">
       <input type="file" {...props} onChange={onInternalChange} />
       <div className="wrapper">
         <div className="border">
