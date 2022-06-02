@@ -30,20 +30,6 @@ const StyledDiv = styled("div")<InputProps>`
     opacity: 0.001;
   }
 
-  &:hover {
-    .wrapper .border > svg {
-      transform: scale(1.5);
-      z-index: ${zIndexTop - 1};
-    }
-    img {
-      transform: scale(1.1);
-    }
-    a:after {
-      transform: scaleX(0);
-      transform-origin: bottom left;
-    }
-  }
-
   .wrapper {
     width: 100%;
     position: relative;
@@ -90,6 +76,20 @@ const StyledDiv = styled("div")<InputProps>`
         position: relative;
         z-index: ${zIndexTop - 2};
       }
+    }
+  }
+
+  &:hover {
+    .wrapper .border > svg {
+      transform: scale(1.5);
+      z-index: ${zIndexTop - 1};
+    }
+    img {
+      transform: scale(1.1);
+    }
+    a:after {
+      transform: scaleX(0);
+      transform-origin: bottom left;
     }
   }
 `;
