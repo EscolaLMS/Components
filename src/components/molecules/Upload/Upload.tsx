@@ -137,7 +137,7 @@ export const Upload: React.FC<InputProps> = (props) => {
       <div className="wrapper">
         <div className="border">
           {loading && <Spin />}
-          {src && <img src={src} />}
+          {src && <img src={src} alt="Upload image preview" />}
           <UploadIcon />
         </div>
       </div>
