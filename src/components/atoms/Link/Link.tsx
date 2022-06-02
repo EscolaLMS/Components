@@ -23,6 +23,13 @@ const StyledAnchor = styled("a")<LinkProps>`
   display: inline-block;
   position: relative;
 
+  & > * {
+    vertical-align: middle;
+  }
+  & > svg {
+    margin: 0 0.5em;
+  }
+
   &:after {
     content: "";
     position: absolute;
