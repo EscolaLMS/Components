@@ -13,7 +13,7 @@ import json from "./mock.json";
           {
             categories: json.data,
             label: "Długość trwania",
-            selectedValues: [4],
+            selectedValues: [4, 16],
             handleChange: (value) => console.log(`change ${value}`),
           },
           {

@@ -161,6 +161,12 @@ const StyledCategoryTreeOptions = styled("div")<StyledCategoriesProps>`
     appearance: none;
     background-color: transparent;
     border: none;
+    cursor: pointer;
+    transition: opacity 0.2s ease-in-out;
+
+    &:hover {
+      opacity: 0.8;
+    }
 
     svg path {
       stroke: ${({ theme }) =>
