@@ -5,7 +5,7 @@ import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import type { DefaultResponseError } from "@escolalms/sdk/lib/types/api";
 import type { ResponseError } from "umi-request";
 import { Container, Row, Col } from "react-grid-system";
-import { Upload } from "../../atoms/Upload/Upload";
+import { Upload } from "../../molecules/Upload/Upload";
 import styled, { withTheme } from "styled-components";
 
 import { Input, Button, Title, Text, Checkbox, TextArea } from "../../../";
@@ -20,6 +20,9 @@ const StyledFormHeader = styled.div<{ mobile: boolean }>`
   }
   p {
     margin: 15px 0;
+  }
+  .upload {
+    padding-top: ${(props) => (props.mobile ? "15px" : "30px")};
   }
 `;
 
@@ -150,13 +153,15 @@ export const MyProfileForm: React.FC<{
         </Col>
       </Row>
       <Row>
-        <Col sm={mobile ? 12 : 2}>
-          <Upload
-            path={initialValues.path_avatar}
-            url={initialValues.avatar}
-            accept="image/*"
-            onChange={onAvatarChange}
-          />
+        <Col sm={mobile ? 12 : 2} className="upload-column">
+          <StyledFormHeader mobile={mobile}>
+            <Upload
+              path={initialValues.path_avatar}
+              url={initialValues.avatar}
+              accept="image/*"
+              onChange={onAvatarChange}
+            />
+          </StyledFormHeader>
         </Col>
         <Col sm={mobile ? 12 : 8}>
           <StyledDiv mobile={mobile}>
@@ -204,7 +209,6 @@ export const MyProfileForm: React.FC<{
                 return errors;
               }}
               onSubmit={(values, { setSubmitting, resetForm, setErrors }) => {
-               
                 updateProfile({
                   ...values,
                 })
