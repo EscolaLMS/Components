@@ -16,9 +16,9 @@ module.exports = {
       }
     });
   },
-  propsParser: require("react-docgen-typescript").withDefaultConfig({
-    savePropValueAsString: true,
-  }).parse,
+  propsParser: require("react-docgen-typescript").withCustomConfig(
+    "./tsconfig.json"
+  ).parse,
   webpackConfig: Object.assign({}, require("./webpack.config"), {}),
 
   styleguideComponents: {
