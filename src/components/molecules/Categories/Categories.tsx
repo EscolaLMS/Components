@@ -5,7 +5,7 @@ import styled, {
   ThemeContext,
   withTheme,
 } from "styled-components";
-import { useRef } from "react";
+import { ReactNode, useRef } from "react";
 import { useOnClickOutside } from "../../../hooks/useOnClickOutside";
 import { contrast } from "chroma-js";
 import { Title, Checkbox, Button } from "../../../";
@@ -24,6 +24,7 @@ interface CategoriesProps extends StyledCategoriesProps {
   labelPrefix?: string;
   selectedCategories?: number[];
   handleChange?: (newValue: number[]) => void;
+  drawerTitle?: ReactNode;
 }
 
 const IconArrowBottom = () => {
@@ -250,7 +251,16 @@ const CategoryTreeOptions: React.FC<CategoriesProps> = (props) => {
     mobile,
   } = props;
 
-  const [childOpen, setChildOpen] = React.useState<boolean>(false);
+  const [collapseState, setCollapseState] = React.useState<{
+    [key: number]: boolean;
+  }>({});
+
+  const handleCollapse = (id: number) => {
+    setCollapseState({
+      ...collapseState,
+      [id]: !collapseState[id],
+    });
+  };
 
   const onInternalChange = React.useCallback(
     (id: number) => {
@@ -296,25 +306,25 @@ const CategoryTreeOptions: React.FC<CategoriesProps> = (props) => {
           {category &&
             category.subcategories &&
             category.subcategories.length > 0 && (
-              <button
-                type={"button"}
-                onClick={() => setChildOpen((prevState) => !prevState)}
-                className={`categories-collapse ${childOpen && "active"}`}
-              >
-                <IconArrowBottom />
-              </button>
-            )}
-
-          {category &&
-            category.subcategories &&
-            category.subcategories.length > 0 &&
-            childOpen && (
-              <CategoryTreeOptions
-                categories={category.subcategories}
-                handleChange={handleChange}
-                selectedCategories={selectedCategories}
-                mobile={mobile}
-              />
+              <React.Fragment>
+                <button
+                  type={"button"}
+                  onClick={() => handleCollapse(category.id)}
+                  className={`categories-collapse ${
+                    collapseState[category.id] && "active"
+                  }`}
+                >
+                  <IconArrowBottom />
+                </button>
+                {collapseState[category.id] && (
+                  <CategoryTreeOptions
+                    categories={category.subcategories}
+                    handleChange={handleChange}
+                    selectedCategories={selectedCategories}
+                    mobile={mobile}
+                  />
+                )}
+              </React.Fragment>
             )}
         </div>
       ))}
@@ -360,7 +370,11 @@ const CategoriesDropdown: React.FC<CategoriesProps> = (props) => {
         className={"categories-dropdown-button"}
         onClick={toggleOpen}
       >
-        {label} <IconArrowBottom />
+        {label}{" "}
+        {selectedCategories &&
+          selectedCategories.length > 0 &&
+          `(${selectedCategories.length})`}
+        <IconArrowBottom />
       </button>
       <CategoryTreeOptions
         categories={categories}
@@ -379,6 +393,7 @@ const CategoriesDrawer: React.FC<CategoriesProps> = (props) => {
     label,
     handleChange,
     selectedCategories,
+    drawerTitle,
     mobile,
   } = props;
   const [showDrawer, setShowDrawer] = React.useState(false);
@@ -391,7 +406,10 @@ const CategoriesDrawer: React.FC<CategoriesProps> = (props) => {
     <React.Fragment>
       <StyledCategoriesDrawer />
       <Button type={"button"} mode={"outline"} onClick={onToggleDrawer}>
-        Filtruj
+        Filtruj{" "}
+        {selectedCategories &&
+          selectedCategories.length > 0 &&
+          `(${selectedCategories.length})`}
       </Button>
       <Drawer
         open={showDrawer}
@@ -407,15 +425,7 @@ const CategoriesDrawer: React.FC<CategoriesProps> = (props) => {
           >
             <IconArrowLeft />
           </button>
-          <Title
-            level={5}
-            noMargin
-            styl={{
-              fontSize: "14px",
-            }}
-          >
-            Filtry
-          </Title>
+          {drawerTitle && <React.Fragment>{drawerTitle}</React.Fragment>}
         </div>
         <div className={"drawer-content-inner"}>
           <CategoryTreeOptions

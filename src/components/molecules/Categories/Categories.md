@@ -28,6 +28,17 @@ const [selected, setSelected] = useState([4, 5]);
         categories={json.data}
         label={"Czas trwania"}
         selectedCategories={selected}
+        drawerTitle={
+          <Title
+            level={5}
+            noMargin
+            styl={{
+              fontSize: "14px",
+            }}
+          >
+            Filtry
+          </Title>
+        }
         handleChange={(value) => {
           setSelected(value);
           console.log("selected", value);
