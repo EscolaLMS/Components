@@ -1,65 +1,39 @@
 import * as React from "react";
 import type { Category } from "@escolalms/sdk/lib/types/api";
-import styled, { ThemeContext, withTheme } from "styled-components";
-import { Checkbox } from "../../atoms/Option/Checkbox";
+import styled, {
+  createGlobalStyle,
+  ThemeContext,
+  withTheme,
+} from "styled-components";
 import { useRef } from "react";
 import { useOnClickOutside } from "../../../hooks/useOnClickOutside";
 import { contrast } from "chroma-js";
 import Drawer from "rc-drawer";
+import { Title, Checkbox, Button } from "../../../";
 
 interface StyledCategoriesProps {
   mobile?: boolean;
-  isFocused?: boolean;
+  open?: boolean;
   lightContrast?: boolean;
   backgroundColor?: React.CSSProperties["backgroundColor"];
 }
 
 interface CategoryTreeOptionsProps extends StyledCategoriesProps {
   categories: Category[];
-  id?: number;
+  selectedValues?: [];
+  labelPrefix?: string;
+  label?: string;
+  handleChange?: (value: number) => void;
 }
 
 interface CategoriesProps extends StyledCategoriesProps {
-  categories: Category[];
-  onChange: (value: string) => void;
-  label: string;
-  id?: number;
+  content: CategoryTreeOptionsProps[];
+  drawerTitle?: React.ReactNode;
+  handleDrawerBtnClick?: () => void;
+  drawerBtnText?: string;
 }
 
-const CategoryTreeOptions: React.FC<CategoryTreeOptionsProps> = (props) => {
-  const { categories } = props;
-  const [ids, setIds] = React.useState<Array<number>>([]);
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedId = Number(event.target.value);
-
-    if (ids.includes(selectedId)) {
-      const newIds = ids.filter((id) => id !== selectedId);
-      setIds(newIds);
-    } else {
-      const newIds = [...ids];
-      newIds.push(selectedId);
-      setIds(newIds);
-    }
-  };
-
-  return (
-    <React.Fragment>
-      {categories.map((category: Category) => (
-        <React.Fragment key={category.id}>
-          <Checkbox
-            id={`category-${category.id}`}
-            onChange={handleChange}
-            value={category.id}
-            label={category.name}
-          />
-        </React.Fragment>
-      ))}
-    </React.Fragment>
-  );
-};
-
-const IconArrow = () => {
+const IconArrowBottom = () => {
   return (
     <svg
       width="24"
@@ -79,16 +53,36 @@ const IconArrow = () => {
   );
 };
 
-const StyledCategories = styled("div")<StyledCategoriesProps>`
+const IconArrowLeft = () => {
+  return (
+    <svg
+      width="8"
+      height="14"
+      viewBox="0 0 8 14"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M7 1L1 7L7 13"
+        stroke="#4A4A4A"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
+
+const StyledCategoriesDropdown = styled("div")<StyledCategoriesProps>`
   position: relative;
   min-width: 150px;
   color: ${(props) =>
     props.lightContrast ? props.theme.gray4 : props.theme.gray2};
   border: ${(props) =>
-    `1px solid ${props.isFocused ? "currentColor" : "transparent"}`};
+    `1px solid ${props.open ? "currentColor" : "transparent"}`};
   background-color: ${(props) => props.backgroundColor};
 
-  .category-dropdown-button {
+  .categories-dropdown-button {
     position: relative;
     justify-content: space-between;
     padding: 7px 10px;
@@ -105,7 +99,7 @@ const StyledCategories = styled("div")<StyledCategoriesProps>`
 
     svg {
       margin-left: 10px;
-      transform: ${(props) => (props.isFocused ? "rotate(180deg)" : "none")};
+      transform: ${(props) => (props.open ? "rotate(180deg)" : "none")};
 
       path {
         stroke: currentColor;
@@ -118,29 +112,29 @@ const StyledCategories = styled("div")<StyledCategoriesProps>`
       left: 10px;
       right: 10px;
       height: 1px;
-      display: ${(props) => (props.isFocused ? "block" : "none")};
+      display: ${(props) => (props.open ? "block" : "none")};
       background-color: currentColor;
       content: "";
     }
   }
 
-  .category-dropdown-options {
+  > .categories-dropdown-options {
     padding: 7px 10px;
     position: absolute;
     top: 100%;
     left: -1px;
     width: calc(100% + 2px);
-    max-height: ${(props) => (props.isFocused ? "200px" : "auto")};
-    height: ${(props) => (props.isFocused ? "auto" : "0")};
-    overflow-y: ${(props) => (props.isFocused ? "auto" : "hidden")};
-    display: ${(props) => (props.isFocused ? "block" : "none")};
+    max-height: ${(props) => (props.open ? "200px" : "auto")};
+    height: ${(props) => (props.open ? "auto" : "0")};
+    overflow-y: ${(props) => (props.open ? "auto" : "hidden")};
+    display: ${(props) => (props.open ? "block" : "none")};
     box-sizing: border-box;
     background-color: ${(props) => props.backgroundColor};
     border: 1px solid currentColor;
     border-top: none;
-    z-index: ${(props) => (props.isFocused ? "1" : "0")};
+    z-index: ${(props) => (props.open ? "1" : "0")};
 
-    > div[type="checkbox"] {
+    input {
       color: currentColor;
     }
 
@@ -148,56 +142,318 @@ const StyledCategories = styled("div")<StyledCategoriesProps>`
       word-break: break-word;
     }
   }
+
+  .categories-dropdown-options .categories-dropdown-options {
+    margin-left: 20px;
+  }
 `;
 
-export const Categories: React.FC<CategoriesProps> = (props) => {
+const StyledCategoryTreeOptions = styled("div")<StyledCategoriesProps>`
+  label {
+    color: ${({ theme }) =>
+      theme.mode === "light" ? theme.gray1 : theme.white};
+  }
+
+  .categories-collapse {
+    position: absolute;
+    right: 0;
+    top: 0;
+    appearance: none;
+    background-color: transparent;
+    border: none;
+
+    svg path {
+      stroke: ${({ theme }) =>
+        theme.mode === "light" ? theme.gray1 : theme.white};
+    }
+
+    &.active {
+      svg {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  > div {
+    position: relative;
+  }
+`;
+
+const CategoryTreeOptions: React.FC<CategoryTreeOptionsProps> = (props) => {
+  const {
+    categories,
+    label,
+    labelPrefix,
+    mobile,
+    selectedValues,
+    handleChange,
+  } = props;
+
+  const [ids, setIds] = React.useState<Array<number>>(selectedValues || []);
+  const [collapseState, setCollapseState] = React.useState<{
+    [key: number]: boolean;
+  }>({});
+
+  const handleCollapse = (id: number) => {
+    setCollapseState({
+      ...collapseState,
+      [id]: !collapseState[id],
+    });
+  };
+
+  const handleCheckboxChange = (id: number) => {
+    if (ids.includes(id)) {
+      setIds(ids.filter((value) => value !== id));
+    } else {
+      setIds([...ids, id]);
+    }
+
+    handleChange && handleChange(id);
+  };
+
+  return (
+    <StyledCategoryTreeOptions
+      className={
+        mobile ? "categories-drawer-list" : "categories-dropdown-options"
+      }
+    >
+      {mobile && label && (
+        <Title
+          level={5}
+          style={{
+            marginTop: "32px",
+            marginBottom: "17px",
+          }}
+        >
+          {label}
+        </Title>
+      )}
+      {categories.map((category: Category) => (
+        <div key={category.id}>
+          <Checkbox
+            value={category.id}
+            onChange={() => {
+              handleCheckboxChange(category.id);
+            }}
+            label={
+              labelPrefix ? `${labelPrefix}${category.name}` : category.name
+            }
+            checked={ids.includes(category.id)}
+          />
+
+          {category &&
+            category.subcategories &&
+            category.subcategories.length > 0 && (
+              <React.Fragment>
+                <button
+                  type={"button"}
+                  onClick={() => handleCollapse(category.id)}
+                  className={`categories-collapse ${
+                    collapseState[category.id] && "active"
+                  }`}
+                >
+                  <IconArrowBottom />
+                </button>
+                {collapseState[category.id] && (
+                  <CategoryTreeOptions
+                    categories={category.subcategories}
+                    selectedValues={selectedValues}
+                    mobile={mobile}
+                    handleChange={handleChange}
+                  />
+                )}
+              </React.Fragment>
+            )}
+        </div>
+      ))}
+    </StyledCategoryTreeOptions>
+  );
+};
+
+const CategoriesDropdown: React.FC<CategoryTreeOptionsProps> = (props) => {
   const theme = React.useContext(ThemeContext);
   const {
-    mobile,
     categories,
-    id,
+    selectedValues,
+    labelPrefix,
     label,
     backgroundColor = theme.mode === "light"
       ? theme.backgroundLight
       : theme.backgroundDark,
+    handleChange,
   } = props;
-  const [isFocused, setIsFocused] = React.useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-
-  const toggleFocus = () => {
-    setIsFocused(!isFocused);
-  };
 
   const cts = React.useMemo(() => {
     return contrast("#fff", backgroundColor) >= 1.85;
   }, [backgroundColor]);
 
-  useOnClickOutside(ref, () => setIsFocused(false));
+  const [open, setOpen] = React.useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  const toggleOpen = () => {
+    setOpen((open) => !open);
+  };
+
+  useOnClickOutside(ref, () => setOpen(false));
 
   return (
-    <StyledCategories
-      isFocused={isFocused}
-      backgroundColor={backgroundColor}
+    <StyledCategoriesDropdown
       lightContrast={cts}
+      backgroundColor={backgroundColor}
+      open={open}
+      ref={ref}
     >
-      {mobile ? (
-        <button type={"button"}>Filtruj</button>
-      ) : (
-        <div className={"category-dropdown"} ref={ref}>
+      <button
+        type={`button`}
+        className={"categories-dropdown-button"}
+        onClick={toggleOpen}
+      >
+        {label} <IconArrowBottom />
+      </button>
+
+      <CategoryTreeOptions
+        categories={categories}
+        labelPrefix={labelPrefix}
+        selectedValues={selectedValues}
+        handleChange={handleChange}
+      />
+    </StyledCategoriesDropdown>
+  );
+};
+
+const StyledCategoriesDrawer = createGlobalStyle<StyledCategoriesProps>`
+  width: 100%;
+  box-sizing: border-box;
+  
+  * {
+    box-sizing: border-box;
+  }
+  
+  .drawer-content-wrapper {
+    left: 0;
+    width: 100%;
+  }
+  
+  .categories-drawer-list {
+    > div {
+      margin-bottom: 4px;
+    }
+  
+    .categories-drawer-list {
+      margin-left: 20px;
+    }
+  }
+  
+  .drawer-content {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .drawer-content-header {
+    position: relative;
+    padding: 22px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px -2px 15px 0px #0000001A;
+  }
+  
+  .drawer-content-btn {
+    position: absolute;
+    left: 22px;
+    appearance: none;
+    background-color: transparent;
+    border: none;
+    
+    svg path {
+      stroke: ${({ theme }) =>
+        theme.mode === "light" ? theme.gray1 : theme.white};
+      }
+  }
+  
+  .drawer-content-inner {
+    padding: 0 16px 32px 16px;
+    flex: 1;
+    overflow: auto;
+  }
+  
+  .drawer-content-footer {
+    padding: 16px;
+    box-shadow: 0px -2px 15px 0px #0000001A;
+  }
+`;
+
+const CategoriesDrawer: React.FC<CategoriesProps> = (props) => {
+  const { children, drawerTitle, handleDrawerBtnClick, drawerBtnText } = props;
+  const [showDrawer, setShowDrawer] = React.useState(false);
+
+  const onToggleDrawer = () => {
+    setShowDrawer((value) => !value);
+  };
+
+  return (
+    <React.Fragment>
+      <StyledCategoriesDrawer />
+      <Button type={"button"} mode={"outline"} onClick={onToggleDrawer}>
+        Filtruj
+      </Button>
+      <Drawer
+        open={showDrawer}
+        handler={false}
+        onClose={onToggleDrawer}
+        level={null}
+      >
+        <div className={"drawer-content-header"}>
           <button
             type={"button"}
-            className={"category-dropdown-button"}
-            onClick={toggleFocus}
+            onClick={onToggleDrawer}
+            className={"drawer-content-btn"}
           >
-            {label}
-            <IconArrow />
+            <IconArrowLeft />
           </button>
-          <div className={"category-dropdown-options"}>
-            <CategoryTreeOptions categories={categories} id={id} />
-          </div>
+          <React.Fragment>{drawerTitle && drawerTitle}</React.Fragment>
         </div>
+        <div className={"drawer-content-inner"}>{children}</div>
+        {handleDrawerBtnClick && drawerBtnText && (
+          <div className={"drawer-content-footer"}>
+            <Button
+              block
+              mode={"secondary"}
+              onClick={() => {
+                handleDrawerBtnClick && handleDrawerBtnClick();
+                onToggleDrawer();
+              }}
+            >
+              {drawerBtnText}
+            </Button>
+          </div>
+        )}
+      </Drawer>
+    </React.Fragment>
+  );
+};
+
+export const Categories: React.FC<CategoriesProps> = (props) => {
+  const { content, mobile } = props;
+
+  return (
+    <React.Fragment>
+      {mobile ? (
+        <CategoriesDrawer {...props}>
+          {content.map((category: CategoryTreeOptionsProps) => (
+            <React.Fragment key={category.label}>
+              <CategoryTreeOptions {...category} mobile={true} />
+            </React.Fragment>
+          ))}
+        </CategoriesDrawer>
+      ) : (
+        <React.Fragment>
+          {content.map((category: CategoryTreeOptionsProps) => (
+            <CategoriesDropdown key={category.label} {...category} />
+          ))}
+        </React.Fragment>
       )}
-    </StyledCategories>
+    </React.Fragment>
   );
 };
 
