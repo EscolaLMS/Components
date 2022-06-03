@@ -33,6 +33,7 @@ interface AudioVideoPlayerControlsProps {
   onToggle?: () => void;
   onVolume?: (volume: number) => void;
   onFullscreen?: () => void;
+  audio?: boolean;
 }
 
 const initialVideoState: AudioVideoState = {
@@ -60,11 +61,14 @@ export interface AudioVideoPlayerProps
 const StyledAudioVideoPlayer = styled("div")<AudioVideoPlayerControlsProps>`
   position: relative;
 
+  ${(props) =>
+    !props.audio &&
+    `
   &:hover {
     .video-player-controls {
       opacity: 1;
     }
-  }
+  }`};
 
   .react-player__preview {
     &:before {
@@ -94,7 +98,7 @@ const StyledAudioVideoPlayer = styled("div")<AudioVideoPlayerControlsProps>`
     background-color: ${(props) =>
       props.state.controls ? "rgba(0, 0, 0, 0.5)" : "transparent"};
     transition: ${(props) => (props.state.ready ? "opacity 0.3s" : "none")};
-    opacity: ${(props) => (props.state.playing ? "0" : "1")};
+    opacity: ${(props) => (props.state.playing ? (props.audio ? 1 : 0) : 1)};
 
     * {
       color: ${({ theme }) => theme.white};
@@ -148,7 +152,7 @@ const StyledVideoControls = styled("div")<AudioVideoPlayerControlsProps>`
   width: 100%;
   padding: 20px;
   display: flex;
-  opacity: ${(props) => (props.state.playing ? 0 : 1)};
+  opacity: ${(props) => (props.state.playing ? (props.audio ? 1 : 0) : 1)};
   justify-content: end;
   flex-direction: column;
   background-color: rgba(0, 0, 0, 0.5);
@@ -708,7 +712,7 @@ const AudioVideoPlayerControls: React.FC<AudioVideoPlayerControlsProps> = (
 };
 
 export const AudioVideoPlayer: React.FC<AudioVideoPlayerProps> = (props) => {
-  const { children, mobile } = props;
+  const { children, mobile, audio = false } = props;
 
   const ref = React.useRef<ReactPlayer>(null);
   const refWrapper = React.useRef<HTMLDivElement>(null);
@@ -732,7 +736,11 @@ export const AudioVideoPlayer: React.FC<AudioVideoPlayerProps> = (props) => {
   }, []);
 
   return (
-    <StyledAudioVideoPlayer state={audioVideoState} ref={refWrapper}>
+    <StyledAudioVideoPlayer
+      state={audioVideoState}
+      ref={refWrapper}
+      audio={audio}
+    >
       <RatioBox ratio={9 / 16}>
         <ReactPlayer
           {...props}
@@ -746,7 +754,7 @@ export const AudioVideoPlayer: React.FC<AudioVideoPlayerProps> = (props) => {
           playbackRate={audioVideoState.playbackRate}
           onReady={() => {
             setAudioVideoState((prevState) => ({ ...prevState, ready: true }));
-            checkQuality(ref.current as ReactPlayer);
+            !audio && checkQuality(ref.current as ReactPlayer);
           }}
           onDuration={(duration) =>
             setAudioVideoState((prevState) => ({ ...prevState, duration }))
@@ -785,6 +793,7 @@ export const AudioVideoPlayer: React.FC<AudioVideoPlayerProps> = (props) => {
       </RatioBox>
       {!mobile && audioVideoState.controls && (
         <AudioVideoPlayerControls
+          audio={audio}
           state={audioVideoState}
           onVolume={(volume) => {
             setAudioVideoState((prevState) => ({ ...prevState, volume }));
