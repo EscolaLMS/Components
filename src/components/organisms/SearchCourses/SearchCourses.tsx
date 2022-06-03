@@ -61,7 +61,7 @@ export const SearchCourses: React.FC<{
       loading={fetching}
       onSearch={onSearch}
       onSubmit={onSubmit}
-      placeholder={t("Search.placeholder")}
+      placeholder={t<string>("Search.placeholder")}
     >
       {foundCourses.map((course) => (
         <ItemButton

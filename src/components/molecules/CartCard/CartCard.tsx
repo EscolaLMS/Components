@@ -165,7 +165,7 @@ export const CartCard: React.FC<CartCardProps> = (props) => {
         loading={loading}
         onClick={() => onBuyClick(id)}
       >
-        {t("CartCard.buyButton")}
+        {t<string>("CartCard.buyButton")}
       </Button>
       {discount && (
         <>
@@ -173,7 +173,7 @@ export const CartCard: React.FC<CartCardProps> = (props) => {
             <>
               <Text className="discount-granted-info">
                 <ReactMarkdown components={{ p: "span" }}>
-                  {t("CartCard.discountGranted")}
+                  {t<string>("CartCard.discountGranted")}
                 </ReactMarkdown>
                 <span
                   className={"discount-remove"}
@@ -200,7 +200,7 @@ export const CartCard: React.FC<CartCardProps> = (props) => {
             role="button"
             tabIndex={0}
           >
-            {t("CartCard.addDiscountButton")}
+            {t<string>("CartCard.addDiscountButton")}
             <span className="open-discount-state-container">
               {isDiscountOpen ? <ArrowOpenIcon /> : <ArrowClosedIcon />}{" "}
             </span>
@@ -223,7 +223,7 @@ export const CartCard: React.FC<CartCardProps> = (props) => {
                   loading={loading}
                   onClick={() => discount.onDiscountClick(discountInput)}
                 >
-                  {t("CartCard.realizeButton")}
+                  {t<string>("CartCard.realizeButton")}
                 </Button>
               )}
             </div>

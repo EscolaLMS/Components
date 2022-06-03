@@ -150,13 +150,13 @@ export const NoteEditor: React.FC<NoteEditorProps> = ({ onSuccess }) => {
           setFieldValue,
         }) => (
           <form onSubmit={handleSubmit}>
-            <Text className="form-title">{t("NoteEditor.Title")}</Text>
+            <Text className="form-title">{t<string>("NoteEditor.Title")}</Text>
             <Input
               type="text"
-              label={t("NoteEditor.titleInputLabel")}
+              label={t<string>("NoteEditor.titleInputLabel")}
               id="title"
               name="title"
-              placeholder={t("NoteEditor.titleInputPlaceholder")}
+              placeholder={t<string>("NoteEditor.titleInputPlaceholder")}
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.title}
@@ -165,8 +165,8 @@ export const NoteEditor: React.FC<NoteEditorProps> = ({ onSuccess }) => {
             <TextArea
               id="description"
               name="description"
-              placeholder={t("NoteEditor.descInputPlaceholder")}
-              label={t("NoteEditor.descInputLabel")}
+              placeholder={t<string>("NoteEditor.descInputPlaceholder")}
+              label={t<string>("NoteEditor.descInputLabel")}
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.description}
@@ -174,7 +174,7 @@ export const NoteEditor: React.FC<NoteEditorProps> = ({ onSuccess }) => {
               rows={8}
             />
             <ColorPicker>
-              <div className="label">{t("NoteEditor.MarkColor")}</div>
+              <div className="label">{t<string>("NoteEditor.MarkColor")}</div>
               <div className="colors-container">
                 {colors.map((color, index) => (
                   <button
@@ -195,9 +195,9 @@ export const NoteEditor: React.FC<NoteEditorProps> = ({ onSuccess }) => {
             </ColorPicker>
             <div className="buttons-container">
               <Button type="submit" loading={isSubmitting} mode="secondary">
-                {t("NoteEditor.Save")}
+                {t<string>("NoteEditor.Save")}
               </Button>
-              <Link>{t("NoteEditor.Discard")}</Link>
+              <Link>{t<string>("NoteEditor.Discard")}</Link>
             </div>
           </form>
         )}

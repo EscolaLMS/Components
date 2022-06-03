@@ -3,6 +3,7 @@ import * as React from "react";
 import styled, { withTheme, ThemeContext } from "styled-components";
 import { getFontFromTheme } from "../../../theme/provider";
 import { default as chroma } from "chroma-js";
+import { PropsWithChildren } from "react";
 
 import Spin from "../Spin/Spin";
 
@@ -210,7 +211,7 @@ const StyledButton = styled("button")<ButtonProps>`
 `;
 
 // Main button with styles
-export const Button: React.FC<ButtonProps> = ({
+export const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
   children,
   mode = "primary",
   invert,
@@ -240,6 +241,4 @@ export const Button: React.FC<ButtonProps> = ({
   );
 };
 
-const NewButton = styled(Button)<{ mode: string }>``;
-
-export default withTheme(NewButton);
+export default withTheme(styled(Button)<{ mode: string }>``);
