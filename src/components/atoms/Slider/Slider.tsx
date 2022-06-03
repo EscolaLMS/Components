@@ -1,6 +1,7 @@
 import * as React from "react";
 import styled, { withTheme, css } from "styled-components";
 import SlickSlider, { Settings } from "react-slick";
+import { PropsWithChildren } from "react";
 
 interface StyledSliderProps {
   mobile?: boolean;
@@ -345,7 +346,7 @@ const StyledDiv = styled("div")<SliderProps>`
   }
 `;
 
-export const Slider: React.FC<SliderProps> = (props) => {
+export const Slider: React.FC<PropsWithChildren<SliderProps>> = (props) => {
   const { children, settings } = props;
 
   return (

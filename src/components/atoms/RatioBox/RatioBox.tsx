@@ -1,5 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
+import { PropsWithChildren } from "react";
 
 export interface RatioBoxProps {
   ratio: number;
@@ -24,7 +25,7 @@ const StyledDiv = styled("div")<RatioBoxProps>`
   }
 `;
 
-export const RatioBox: React.FC<RatioBoxProps> = (props) => {
+export const RatioBox: React.FC<PropsWithChildren<RatioBoxProps>> = (props) => {
   const { children } = props;
 
   return <StyledDiv {...props}>{children}</StyledDiv>;
