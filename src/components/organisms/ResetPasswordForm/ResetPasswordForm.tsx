@@ -1,4 +1,4 @@
-import { Formik } from "formik";
+import { Formik, FormikErrors } from "formik";
 import { useCallback, useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
@@ -79,18 +79,25 @@ export const ResetPasswordForm: React.FC<{
   const { t } = useTranslation();
   const { forgot, reset } = useContext(EscolaLMSContext);
 
-  const handleFirstStep = useCallback((values, setSubmitting, setErrors) => {
-    forgot({
-      email: values.email,
-      return_url: `${window.location.origin}/${return_url}`,
-    })
-      .then(() => onFirstStepSuccess && onFirstStepSuccess())
-      .catch((err: ResponseError<DefaultResponseError>) => {
-        setErrors({ error: err.data.message, ...err.data.errors });
-        onFirstStepError && onFirstStepError(err);
+  const handleFirstStep = useCallback(
+    (
+      values: MyFormValues,
+      setSubmitting: (isSubmitting: boolean) => void,
+      setErrors: (errors: FormikErrors<MyFormValues>) => void
+    ) => {
+      forgot({
+        email: values.email,
+        return_url: `${window.location.origin}/${return_url}`,
       })
-      .finally(() => setSubmitting(false));
-  }, []);
+        .then(() => onFirstStepSuccess && onFirstStepSuccess())
+        .catch((err: ResponseError<DefaultResponseError>) => {
+          setErrors({ error: err.data.message, ...err.data.errors });
+          onFirstStepError && onFirstStepError(err);
+        })
+        .finally(() => setSubmitting(false));
+    },
+    []
+  );
 
   const handleSecondStep = useCallback((values, setSubmitting, setErrors) => {
     reset({
