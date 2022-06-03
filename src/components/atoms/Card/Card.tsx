@@ -1,4 +1,6 @@
 import * as React from "react";
+import { PropsWithChildren } from "react";
+
 import styled from "styled-components";
 
 export interface CardProps {
@@ -42,7 +44,7 @@ const StyledCard = styled.div<CardProps>`
         ? props.theme.cardBackgroundColorDark
         : props.theme.cardBackgroundColorLight};
     color: ${(props) =>
-          props.theme.mode !== "dark" ? props.theme.gray1 : props.theme.white};
+      props.theme.mode !== "dark" ? props.theme.gray1 : props.theme.white};
     &:before,
     &:after {
       background: ${(props) => {
@@ -105,7 +107,7 @@ const StyledCard = styled.div<CardProps>`
   }
 `;
 
-export const Card: React.FC<CardProps> = ({
+export const Card: React.FC<PropsWithChildren<CardProps>> = ({
   wings,
   children,
   style,
