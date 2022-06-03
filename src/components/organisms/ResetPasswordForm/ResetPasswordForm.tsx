@@ -110,7 +110,7 @@ export const ResetPasswordForm: React.FC<{
 
   return (
     <StyledDiv mobile={mobile}>
-      <Title level={3}>{t("ResetForm.ResetPassword")}</Title>{" "}
+      <Title level={3}>{t<string>("ResetForm.ResetPassword")}</Title>{" "}
       <Formik
         initialValues={initialValues}
         validate={(values) => {
@@ -162,7 +162,7 @@ export const ResetPasswordForm: React.FC<{
             )}
 
             <Button mode="secondary" type="submit" loading={isSubmitting} block>
-              {t("ResetForm.ResetPassword")}
+              {t<string>("ResetForm.ResetPassword")}
             </Button>
           </form>
         )}
@@ -171,13 +171,13 @@ export const ResetPasswordForm: React.FC<{
         <>
           <Text size="14">
             <Link underline onClick={() => backToLogin && backToLogin()}>
-              {t("ResetForm.BackToLogin")}
+              {t<string>("ResetForm.BackToLogin")}
             </Link>
           </Text>
           <Text size="14">
-            {t("ResetForm.NotHavingAccount")}{" "}
+            {t<string>("ResetForm.NotHavingAccount")}{" "}
             <Link underline onClick={() => onRegisterLink && onRegisterLink()}>
-              {t("ResetForm.Register")}
+              {t<string>("ResetForm.Register")}
             </Link>
           </Text>
         </>

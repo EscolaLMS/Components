@@ -147,8 +147,8 @@ export const MyProfileForm: React.FC<{
       <Row>
         <Col sm={12}>
           <StyledFormHeader mobile={mobile}>
-            <Title level={3}>{t("MyProfileForm")}</Title>
-            <Text level={3}>{t("MyProfileForm.Subtitle")}</Text>
+            <Title level={3}>{t<string>("MyProfileForm")}</Title>
+            <Text level={3}>{t<string>("MyProfileForm.Subtitle")}</Text>
           </StyledFormHeader>
         </Col>
       </Row>
@@ -239,7 +239,7 @@ export const MyProfileForm: React.FC<{
                     <Text type="danger">{errors.error}</Text>
                   )}
                   <Input
-                    label={t("MyProfileForm.First name")}
+                    label={t<string>("MyProfileForm.First name")}
                     type="text"
                     name="first_name"
                     onChange={handleChange}
@@ -250,7 +250,7 @@ export const MyProfileForm: React.FC<{
                   />
 
                   <Input
-                    label={t("MyProfileForm.Last name")}
+                    label={t<string>("MyProfileForm.Last name")}
                     type="text"
                     name="last_name"
                     onChange={handleChange}
@@ -261,7 +261,7 @@ export const MyProfileForm: React.FC<{
                   />
 
                   <Input
-                    label={t("Email")}
+                    label={t<string>("Email")}
                     className="form-control grey"
                     type="email"
                     name="email"
@@ -273,7 +273,7 @@ export const MyProfileForm: React.FC<{
                   />
 
                   <Input
-                    label={t("MyProfileForm.Phone")}
+                    label={t<string>("MyProfileForm.Phone")}
                     type="text"
                     name="phone"
                     onChange={handleChange}
@@ -351,7 +351,7 @@ export const MyProfileForm: React.FC<{
                     loading={isSubmitting || isFetching}
                     block
                   >
-                    {t("MyProfileForm.Update")}
+                    {t<string>("MyProfileForm.Update")}
                   </Button>
                 </form>
               )}

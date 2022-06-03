@@ -30,7 +30,7 @@ export const Orders: React.FC<OrdersProps> = (props) => {
       {data.length === 0 && (
         <tbody className="empty">
           <tr>
-            <td>{t("Orders.noRecords")}</td>
+            <td>{t<string>("Orders.noRecords")}</td>
           </tr>
         </tbody>
       )}
@@ -38,17 +38,17 @@ export const Orders: React.FC<OrdersProps> = (props) => {
         <React.Fragment>
           <thead>
             <th>
-              <td>{t("Orders.title")}</td>
+              <td>{t<string>("Orders.title")}</td>
             </th>
             <th>
-              <td>{t("Orders.date")}</td>
+              <td>{t<string>("Orders.date")}</td>
             </th>
             <th>
-              <td>{t("Orders.price")}</td>
+              <td>{t<string>("Orders.price")}</td>
             </th>
             {hasActions && (
               <th>
-                <td>{t("Orders.actions")}</td>
+                <td>{t<string>("Orders.actions")}</td>
               </th>
             )}
           </thead>

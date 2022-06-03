@@ -325,7 +325,7 @@ const CourseAgendaTopic: React.FC<CourseAgendaTopicProps> = ({
             mode="outline"
             onClick={() => onMarkFinished && onMarkFinished(topic)}
           >
-            {t("Course.markAsFinished")}
+            {t<string>("Course.markAsFinished")}
           </Button>
         )}
       </div>
@@ -366,7 +366,7 @@ const CourseAgendaLesson: React.FC<CourseAgendaLessonProps> = (props) => {
         <h6 className="lesson__title">
           <small>
             <span className="lesson__index">
-              {t("Course.Lesson")} {index + 1}
+              {t<string>("Course.Lesson")} {index + 1}
             </span>
             {lesson.duration && (
               <span className="lesson__duration">
@@ -447,11 +447,11 @@ export const CourseAgenda: React.FC<CourseAgendaProps> = (props) => {
           <IconTitle
             level={5}
             icon={<ProgramIcon />}
-            title={t("Course.Agenda")}
+            title={t<string>("Course.Agenda")}
           />
           <div>
             <Text mode="secondary">
-              {t("Course.Finished")} {percentage}%
+              {t<string>("Course.Finished")} {percentage}%
             </Text>
             <ProgressRing percentage={percentage} />
           </div>

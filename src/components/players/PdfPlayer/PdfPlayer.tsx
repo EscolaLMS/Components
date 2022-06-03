@@ -40,14 +40,14 @@ export const PdfPlayer: React.FunctionComponent<PdfPlayerProps> = ({
   }, [allPages, currentPage]);
 
   if (!url) {
-    return <p>{t("PdfPlayer.notFound")}</p>;
+    return <p>{t<string>("PdfPlayer.notFound")}</p>;
   }
 
   return (
     <StyledWrapper>
       {isMounted && url && (
         <Document
-          loading={t("Loading")}
+          loading={t<string>("Loading")}
           onLoadSuccess={({ numPages }) => setAllPages(numPages)}
           file={url}
         >
@@ -58,7 +58,7 @@ export const PdfPlayer: React.FunctionComponent<PdfPlayerProps> = ({
       {allPages && allPages > 1 && (
         <div className="pagination-area">
           <Text>
-            <strong>{currentPage}</strong> {t("PdfPlayer.of")}{" "}
+            <strong>{currentPage}</strong> {t<string>("PdfPlayer.of")}{" "}
             <strong>{allPages}</strong>
           </Text>
 
@@ -69,7 +69,7 @@ export const PdfPlayer: React.FunctionComponent<PdfPlayerProps> = ({
               className="nav-btn-modal"
               onClick={() => setCurrentPage(currentPage - 1)}
             >
-              {t("Prev")}
+              {t<string>("Prev")}
             </Button>
             <Button
               mode="secondary"
@@ -77,7 +77,7 @@ export const PdfPlayer: React.FunctionComponent<PdfPlayerProps> = ({
               className="nav-btn-modal"
               onClick={() => setCurrentPage(currentPage + 1)}
             >
-              {t("Next")}
+              {t<string>("Next")}
             </Button>
           </div>
         </div>

@@ -127,8 +127,8 @@ export const RegisterForm: React.FC<{
 
   return (
     <StyledDiv mobile={mobile}>
-      <Title level={3}>{t("Registration")}</Title>
-      <Text level={3}>{t("Registration.Subtitle")}</Text>
+      <Title level={3}>{t<string>("Registration")}</Title>
+      <Text level={3}>{t<string>("Registration.Subtitle")}</Text>
       <Formik
         enableReinitialize
         initialValues={initialValues}
@@ -210,7 +210,7 @@ export const RegisterForm: React.FC<{
               <Text type="danger">{errors.error}</Text>
             )}
             <Input
-              label={t("RegisterForm.First name")}
+              label={t<string>("RegisterForm.First name")}
               type="text"
               name="first_name"
               onChange={handleChange}
@@ -221,7 +221,7 @@ export const RegisterForm: React.FC<{
             />
 
             <Input
-              label={t("RegisterForm.Last name")}
+              label={t<string>("RegisterForm.Last name")}
               type="text"
               name="last_name"
               onChange={handleChange}
@@ -232,7 +232,7 @@ export const RegisterForm: React.FC<{
             />
 
             <Input
-              label={t("Email")}
+              label={t<string>("Email")}
               className="form-control grey"
               type="email"
               name="email"
@@ -244,19 +244,19 @@ export const RegisterForm: React.FC<{
             />
 
             <Input
-              label={t("Password")}
+              label={t<string>("Password")}
               type="password"
               name="password"
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.password}
               error={touched.password && errors.password}
-              helper={t("RegisterForm.Password validation")}
+              helper={t<string>("RegisterForm.Password validation")}
               required
             />
 
             <Input
-              label={t("RegisterForm.Repeat password")}
+              label={t<string>("RegisterForm.Repeat password")}
               type="password"
               name="password_confirmation"
               onChange={handleChange}
@@ -269,7 +269,7 @@ export const RegisterForm: React.FC<{
             />
 
             <Input
-              label={t("RegisterForm.Phone")}
+              label={t<string>("RegisterForm.Phone")}
               type="text"
               name="phone"
               onChange={handleChange}
@@ -334,15 +334,15 @@ export const RegisterForm: React.FC<{
                 )}
 
             <Button mode="secondary" type="submit" loading={isSubmitting} block>
-              {t("RegisterForm.Sign up")}
+              {t<string>("RegisterForm.Sign up")}
             </Button>
           </form>
         )}
       </Formik>
       <Text size="14">
-        {t("RegisterForm.Already have account")}{" "}
+        {t<string>("RegisterForm.Already have account")}{" "}
         <Link underline onClick={() => onLoginLink && onLoginLink()}>
-          {t("Login")}
+          {t<string>("Login")}
         </Link>
       </Text>
     </StyledDiv>
