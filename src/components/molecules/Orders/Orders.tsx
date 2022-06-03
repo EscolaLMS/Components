@@ -1,6 +1,7 @@
 import React, { ReactNode, useMemo } from "react";
 import styled, { withTheme } from "styled-components";
 import { useTranslation } from "react-i18next";
+import { Text } from "../../atoms/Typography/Text";
 
 interface OrdersProps extends React.InputHTMLAttributes<HTMLTableElement> {
   mobile?: boolean;
@@ -12,8 +13,58 @@ interface OrdersProps extends React.InputHTMLAttributes<HTMLTableElement> {
   }[];
 }
 
-const StyledTable = styled("table")<{ mobile: boolean }>`
+const StyledOrders = styled("div")<{ mobile: boolean }>`
+  .labels-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px 12px 40px;
+    .single-label {
+      &:first-of-type {
+        flex: 0 0 40%;
+        max-width: 40%;
+      }
+      &:nth-of-type(2),
+      &:nth-of-type(3) {
+        flex: 0 0 15%;
+        max-width: 15%;
+      }
+      &:last-of-type {
+        flex: 0 0 20%;
+        max-width: 20%;
+      }
+    }
+  }
+`;
+
+const SingleOrderCard = styled("div")<{ mobile: boolean }>`
+  display: flex;
+  flex-direction: ${({ mobile }) => (mobile ? "column" : "row")};
   width: 100%;
+  justify-content: ${({ mobile }) => (mobile ? "flex-start" : "space-between")};
+  align-items: ${({ mobile }) => (mobile ? "flex-start" : "center")};
+  margin-bottom: 10px;
+  padding: ${({ mobile }) => (mobile ? "20px 15px" : "12px 40px")};
+  background: ${({ theme }) =>
+    theme.mode === "dark" ? theme.gray1 : theme.gray5};
+  .single-content {
+    &:not(:last-child) {
+      margin-bottom: ${({ mobile }) => (mobile ? "15px" : 0)};
+    }
+    &:first-of-type {
+      flex: ${({ mobile }) => (mobile ? "0 0 100%" : "0 0 40%")};
+      max-width: ${({ mobile }) => (mobile ? "100%" : "40%")};
+    }
+    &:nth-of-type(2),
+    &:nth-of-type(3) {
+      flex: ${({ mobile }) => (mobile ? "0 0 100%" : "0 0 15%")};
+      max-width: ${({ mobile }) => (mobile ? "100%" : "15%")};
+    }
+    &:last-of-type {
+      flex: ${({ mobile }) => (mobile ? "0 0 100%" : "0 0 20%")};
+      max-width: ${({ mobile }) => (mobile ? "100%" : "20%")};
+    }
+  }
 `;
 
 export const Orders: React.FC<OrdersProps> = (props) => {
@@ -26,45 +77,33 @@ export const Orders: React.FC<OrdersProps> = (props) => {
   }, [data]);
 
   return (
-    <StyledTable mobile={mobile}>
-      {data.length === 0 && (
-        <tbody className="empty">
-          <tr>
-            <td>{t("Orders.noRecords")}</td>
-          </tr>
-        </tbody>
-      )}
+    <StyledOrders mobile={mobile}>
+      {data.length === 0 && <Text>{t("Orders.noRecords")}</Text>}
       {data.length > 0 && (
         <React.Fragment>
-          <thead>
-            <th>
-              <td>{t("Orders.title")}</td>
-            </th>
-            <th>
-              <td>{t("Orders.date")}</td>
-            </th>
-            <th>
-              <td>{t("Orders.price")}</td>
-            </th>
-            {hasActions && (
-              <th>
-                <td>{t("Orders.actions")}</td>
-              </th>
-            )}
-          </thead>
-          <tbody>
-            {data.map((record) => (
-              <tr key={record.title?.toString()}>
-                <td>{record.title}</td>
-                <td>{record.date}</td>
-                <td>{record.price}</td>
-                {record.actions && <td>{record.actions}</td>}
-              </tr>
-            ))}
-          </tbody>
+          {!mobile && (
+            <div className="labels-row">
+              <div className="single-label">{t("Orders.title")}</div>
+              <div className="single-label">{t("Orders.date")}</div>
+              <div className="single-label">{t("Orders.price")}</div>
+              {hasActions && (
+                <div className="single-label">{t("Orders.actions")}</div>
+              )}
+            </div>
+          )}
+          {data.map((record) => (
+            <SingleOrderCard mobile={mobile}>
+              <div className="single-content">{record.title}</div>
+              <div className="single-content">{record.date}</div>
+              <div className="single-content">{record.price}</div>
+              {hasActions && (
+                <div className="single-content">{record.actions}</div>
+              )}
+            </SingleOrderCard>
+          ))}
         </React.Fragment>
       )}
-    </StyledTable>
+    </StyledOrders>
   );
 };
 
