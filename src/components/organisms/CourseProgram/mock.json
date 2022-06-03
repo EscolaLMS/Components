@@ -1,0 +1,214 @@
+{
+  "id": 47,
+  "title": "Obieranie pomidora",
+  "summary": null,
+  "image_path": "course/47/images/1.jpg",
+  "image_url": "https://startup-academy-stage.s3.eu-central-1.amazonaws.com/course/47/images/1.jpg",
+  "video_path": null,
+  "video_url": null,
+  "duration": "4h",
+  "author_id": 146,
+  "authors": [
+    {
+      "id": 146,
+      "first_name": "Asmolina",
+      "last_name": "Demonhunter",
+      "email": "nfm65504@jiooq.com",
+      "path_avatar": "avatars/146/konsultant2.jpeg",
+      "interests": [],
+      "contact": "\"\"",
+      "bio": "bio bio bio"
+    }
+  ],
+  "scorm_sco_id": null,
+  "scorm_sco": {},
+  "status": "published",
+  "subtitle": null,
+  "language": null,
+  "description": null,
+  "level": null,
+  "lessons": [
+    {
+      "id": 76,
+      "title": "Wprowadzenie do zajęć",
+      "summary": "Aciuu",
+      "duration": null,
+      "active": true,
+      "topics": [
+        {
+          "id": 1683,
+          "title": "Zasady rachunkowośći",
+          "lesson_id": 76,
+          "active": true,
+          "preview": false,
+          "topicable_id": null,
+          "topicable_type": null,
+          "topicable": null,
+          "summary": null,
+          "introduction": null,
+          "description": null,
+          "resources": [],
+          "order": 1,
+          "json": null,
+          "can_skip": false
+        }
+      ],
+      "order": 0
+    },
+    {
+      "id": 77,
+      "title": "Wprowadzenie do ćwiczeń",
+      "summary": null,
+      "duration": null,
+      "active": true,
+      "topics": [
+        {
+          "id": 2683,
+          "title": "Początki i historia zmian prawnych w Polsce",
+          "lesson_id": 76,
+          "active": true,
+          "preview": false,
+          "topicable_id": null,
+          "topicable_type": null,
+          "topicable": null,
+          "summary": null,
+          "introduction": null,
+          "description": null,
+          "resources": [],
+          "order": 1,
+          "json": null,
+          "can_skip": false
+        }
+      ],
+      "order": 2
+    },
+    {
+      "id": 78,
+      "title": "Projekt 1: Rozliczenie podatkowe miesięczne",
+      "summary": null,
+      "duration": "15 minutes",
+      "active": true,
+      "topics": [
+        {
+          "id": 683,
+          "title": "Zmora podatku ZUS",
+          "lesson_id": 78,
+          "active": true,
+          "preview": true,
+          "topicable_id": null,
+          "topicable_type": null,
+          "topicable": null,
+          "summary": null,
+          "introduction": null,
+          "description": null,
+          "resources": [],
+          "order": 1,
+          "json": null,
+          "can_skip": false
+        },
+        {
+          "id": 684,
+          "title": "Rodzaje rozliczeń miesięcznych",
+          "lesson_id": 78,
+          "active": true,
+          "preview": false,
+          "topicable_id": null,
+          "topicable_type": null,
+          "topicable": null,
+          "summary": null,
+          "introduction": null,
+          "description": null,
+          "resources": [],
+          "order": 2,
+          "json": null,
+          "can_skip": false
+        },
+        {
+          "id": 693,
+          "title": "Add new title here",
+          "lesson_id": 78,
+          "active": true,
+          "preview": false,
+          "topicable_id": 100,
+          "topicable_type": "EscolaLms\\TopicTypes\\Models\\TopicContent\\Image",
+          "topicable": {
+            "id": 100,
+            "value": "course/47/topic/693/image/1sjzVuRXDLFcwm99BqN267voT0i1TqW3i9SfT2f8.jpg",
+            "url": "https://startup-academy-stage.s3.eu-central-1.amazonaws.com/course/47/topic/693/image/1sjzVuRXDLFcwm99BqN267voT0i1TqW3i9SfT2f8.jpg",
+            "width": 1000,
+            "height": 1500
+          },
+          "summary": "null",
+          "introduction": "null",
+          "description": "null",
+          "resources": [],
+          "order": 3,
+          "json": null,
+          "can_skip": false
+        },
+        {
+          "id": 694,
+          "title": "Add new title here",
+          "lesson_id": 78,
+          "active": true,
+          "preview": false,
+          "topicable_id": 101,
+          "topicable_type": "EscolaLms\\TopicTypes\\Models\\TopicContent\\Image",
+          "topicable": {
+            "id": 101,
+            "value": "course/47/topic/694/image/vSbki8wj0OWI7oAIpbXyiAlIvMDbmlVP68m4mzxa.jpg",
+            "url": "https://startup-academy-stage.s3.eu-central-1.amazonaws.com/course/47/topic/694/image/vSbki8wj0OWI7oAIpbXyiAlIvMDbmlVP68m4mzxa.jpg",
+            "width": 1920,
+            "height": 1281
+          },
+          "summary": "null",
+          "introduction": "null",
+          "description": "null",
+          "resources": [],
+          "order": 4,
+          "json": null,
+          "can_skip": false
+        },
+        {
+          "id": 697,
+          "title": "Add new title here",
+          "lesson_id": 78,
+          "active": true,
+          "preview": true,
+          "topicable_id": 69,
+          "topicable_type": "EscolaLms\\TopicTypes\\Models\\TopicContent\\Video",
+          "topicable": {
+            "id": 69,
+            "value": "course/47/topic/697/video/hls.m3u8",
+            "url": "https://startup-academy-stage.s3.eu-central-1.amazonaws.com/course/47/topic/697/video/hls.m3u8",
+            "poster": null,
+            "poster_url": null,
+            "width": null,
+            "height": null
+          },
+          "summary": null,
+          "introduction": null,
+          "description": null,
+          "resources": [],
+          "order": 5,
+          "json": {
+            "ffmpeg": {
+              "state": "finished",
+              "path": "course/47/topic/697/video/hls.m3u8"
+            }
+          },
+          "can_skip": false
+        }
+      ],
+      "order": 3
+    }
+  ],
+  "poster_path": "course/47/posters/poster.jpg",
+  "poster_url": "https://startup-academy-stage.s3.eu-central-1.amazonaws.com/course/47/posters/poster.jpg",
+  "active_from": null,
+  "active_to": null,
+  "hours_to_complete": null,
+  "findable": true,
+  "target_group": null,
+  "teaser_url": null
+}
