@@ -99,21 +99,28 @@ export const ResetPasswordForm: React.FC<{
     []
   );
 
-  const handleSecondStep = useCallback((values, setSubmitting, setErrors) => {
-    reset({
-      password: values.password,
-      email: String(email),
-      token: String(token),
-    })
-      .then(() => {
-        onSecondStepSuccess && onSecondStepSuccess();
+  const handleSecondStep = useCallback(
+    (
+      values: MyFormValues,
+      setSubmitting: (isSubmitting: boolean) => void,
+      setErrors: (errors: FormikErrors<MyFormValues>) => void
+    ) => {
+      reset({
+        password: values.password,
+        email: String(email),
+        token: String(token),
       })
-      .catch((err: ResponseError<DefaultResponseError>) => {
-        setErrors({ error: err.data.message, ...err.data.errors });
-        onSecondStepError && onSecondStepError(err);
-      })
-      .finally(() => setSubmitting(false));
-  }, []);
+        .then(() => {
+          onSecondStepSuccess && onSecondStepSuccess();
+        })
+        .catch((err: ResponseError<DefaultResponseError>) => {
+          setErrors({ error: err.data.message, ...err.data.errors });
+          onSecondStepError && onSecondStepError(err);
+        })
+        .finally(() => setSubmitting(false));
+    },
+    []
+  );
 
   return (
     <StyledDiv mobile={mobile}>
