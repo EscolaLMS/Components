@@ -1,4 +1,4 @@
-import { Button, IconTitle, ProgressRing, Text } from "../../..";
+import { Button, IconTitle } from "../../..";
 import * as React from "react";
 import styled, { withTheme } from "styled-components";
 import { useTranslation } from "react-i18next";
