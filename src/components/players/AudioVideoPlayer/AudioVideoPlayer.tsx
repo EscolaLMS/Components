@@ -798,7 +798,7 @@ export const AudioVideoPlayer: React.FC<AudioVideoPlayerProps> = (props) => {
           onSeek={(time) => ref.current?.seekTo(time)}
           onFullscreen={() => {
             refWrapper.current &&
-              screenfull.request(findDOMNode(refWrapper.current) as Element);
+              screenfull.toggle(findDOMNode(refWrapper.current) as Element);
           }}
         />
       )}
