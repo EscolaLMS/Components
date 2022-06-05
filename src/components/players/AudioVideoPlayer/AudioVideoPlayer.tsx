@@ -58,8 +58,12 @@ export interface AudioVideoPlayerProps
     AudioVideoPlayerControlsProps,
     ReactPlayerProps {}
 
-const StyledAudioVideoPlayer = styled("div")<AudioVideoPlayerControlsProps>`
+const StyledAudioVideoPlayer = styled("div")<AudioVideoPlayerProps>`
   position: relative;
+  background: ${(props) =>
+    props.audio &&
+    props.light &&
+    `url(${props.light}) no-repeat center / cover`};
 
   ${(props) =>
     !props.audio &&
@@ -712,7 +716,7 @@ const AudioVideoPlayerControls: React.FC<AudioVideoPlayerControlsProps> = (
 };
 
 export const AudioVideoPlayer: React.FC<AudioVideoPlayerProps> = (props) => {
-  const { children, mobile, audio = false } = props;
+  const { children, mobile, audio = false, light } = props;
 
   const ref = React.useRef<ReactPlayer>(null);
   const refWrapper = React.useRef<HTMLDivElement>(null);
@@ -740,6 +744,7 @@ export const AudioVideoPlayer: React.FC<AudioVideoPlayerProps> = (props) => {
       state={audioVideoState}
       ref={refWrapper}
       audio={audio}
+      light={light}
     >
       <RatioBox ratio={9 / 16}>
         <ReactPlayer
