@@ -325,7 +325,7 @@ const LightBoxOverwirte = createGlobalStyle`
 .ril__loadingCirclePoint:nth-of-type(12)::before {
   animation-delay: -133ms;
 }
-/* eslint-disable no-alert, no-console */
+/* eslint-disable-next-line */
 .ril__loadingCirclePoint:nth-of-type(7) {
   transform: rotate(180deg);
 }
