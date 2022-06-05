@@ -72,6 +72,7 @@ export const PdfPlayer: React.FunctionComponent<PdfPlayerProps> = ({
               {t<string>("Prev")}
             </Button>
             <Button
+              style={{ marginLeft: "10px" }}
               mode="secondary"
               disabled={!(allPages > currentPage)}
               className="nav-btn-modal"
