@@ -74,7 +74,6 @@ const LightBoxOverwirte = createGlobalStyle`
   max-width: none;
   -ms-content-zooming: none;
   user-select: none;
-    /* stylelint-disable property-no-vendor-prefix */
   -ms-user-select: none;
   -ms-touch-select: none;
   touch-action: none;
@@ -321,7 +320,7 @@ const LightBoxOverwirte = createGlobalStyle`
 .ril__loadingCirclePoint:nth-of-type(12) {
   transform: rotate(330deg);
 }
-  /* stylelint-disable property-no-vendor-prefix */
+
 .ril__loadingCirclePoint:nth-of-type(6)::before,
 .ril__loadingCirclePoint:nth-of-type(12)::before {
   animation-delay: -133ms;
