@@ -2,6 +2,7 @@ import * as React from "react";
 
 import styled, { withTheme } from "styled-components";
 import { getFontFromTheme } from "../../../theme/provider";
+import { PropsWithChildren } from "react";
 
 export type LinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
   underline?: boolean;
@@ -22,6 +23,13 @@ const StyledAnchor = styled("a")<LinkProps>`
   text-decoration: none;
   display: inline-block;
   position: relative;
+
+  & > * {
+    vertical-align: middle;
+  }
+  & > svg {
+    margin: 0 0.5em;
+  }
 
   &:after {
     content: "";
@@ -49,7 +57,10 @@ const StyledAnchor = styled("a")<LinkProps>`
   }
 `;
 
-export const Link: React.FC<LinkProps> = ({ underline = false, ...props }) => {
+export const Link: React.FC<PropsWithChildren<LinkProps>> = ({
+  underline = false,
+  ...props
+}) => {
   return (
     <StyledAnchor underline={underline} {...props}>
       {props.children}
@@ -57,6 +68,4 @@ export const Link: React.FC<LinkProps> = ({ underline = false, ...props }) => {
   );
 };
 
-const NewButton = styled(Link)``;
-
-export default withTheme(NewButton);
+export default withTheme(styled(Link)``);

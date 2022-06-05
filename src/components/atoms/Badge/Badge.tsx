@@ -3,6 +3,7 @@ import * as React from "react";
 import styled, { withTheme, ThemeContext } from "styled-components";
 import { getFontFromTheme } from "../../../theme/provider";
 import { contrast } from "chroma-js";
+import { PropsWithChildren } from "react";
 
 export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
   children?: React.ReactNode;
@@ -29,7 +30,11 @@ const StyledDiv = styled("div")<BadgeProps>`
   text-transform: uppercase;
 `;
 
-export const Badge: React.FC<BadgeProps> = ({ children, color, ...props }) => {
+export const Badge: React.FC<PropsWithChildren<BadgeProps>> = ({
+  children,
+  color,
+  ...props
+}) => {
   const theme = React.useContext(ThemeContext);
 
   const cts = React.useMemo(() => {

@@ -42,16 +42,18 @@ const StyledHeader = styled.h3<StyledHeader>`
         : props.theme.gray1;
     }};
     .icon {
-      width: 0.7em;
+      width: 0.9em;
       display: flex;
       align-items: center;
-      margin-right: 14px;
+      margin-right: 0.6em;
       svg {
         fill: ${(props) => {
           return props.theme.mode !== "light"
             ? props.theme.white
             : props.theme.black;
         }};
+        max-width: 100%;
+        height: auto;
         flex-shrink: 0;
       }
     }

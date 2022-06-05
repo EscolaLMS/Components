@@ -41,11 +41,7 @@ const StyledRatingsDesktop = styled.div`
     margin-bottom: 20px;
   }
   .title {
-    ${(props) => {
-      if (props.theme.mode === "dark") {
-        return `color: red`;
-      }
-    }}
+    color: ${({ theme }) => theme.primaryColor};
   }
   .average-rate-container {
     background: ${(props) =>
@@ -91,7 +87,7 @@ const RatingsDesktop: React.FC<RatingsViewProps> = (props) => {
           </Title>
           <Rating ratingValue={avgRate} />
           <Text className="average-rate-label">
-            {t("Ratings.averageRateLabel")}
+            {t<string>("Ratings.averageRateLabel")}
           </Text>
         </div>
         <div className="rate-with-interval-container">
@@ -107,11 +103,7 @@ const StyledRatingsMobile = styled.div`
     margin-bottom: 14px;
   }
   .title {
-    ${(props) => {
-      if (props.theme.mode === "dark") {
-        return `color: red`;
-      }
-    }}
+    color: ${({ theme }) => theme.primaryColor};
   }
   .rate-row {
     display: flex;
@@ -159,7 +151,7 @@ const RatingsMobile: React.FC<RatingsViewProps> = (props) => {
         <div>
           <Rating ratingValue={avgRate} />
           <Text className="average-rate-label">
-            {t("Ratings.averageRateLabel")}
+            {t<string>("Ratings.averageRateLabel")}
           </Text>
         </div>
       </div>

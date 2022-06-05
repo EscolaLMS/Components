@@ -35,10 +35,7 @@ const StyledInterval = styled.div<IntervalProps>`
     position: absolute;
     top: -3px;
     height: 7px;
-    background: ${(props) =>
-      props.theme.mode !== "dark"
-        ? props.theme.primaryColor
-        : props.theme.backgroundDarkInterval};
+    background: ${(props) => props.theme.primaryColor};
     width: ${({ max, current }) => {
       return `${calcPercentage(current, max)}`;
     }};

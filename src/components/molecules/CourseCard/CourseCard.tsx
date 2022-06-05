@@ -2,7 +2,7 @@ import { contrast } from "chroma-js";
 import * as React from "react";
 import { ReactNode, useMemo, useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import styled from "styled-components";
+import styled, { ThemeContext } from "styled-components";
 import { Badge } from "../../atoms/Badge/Badge";
 import { Button } from "../../atoms/Button/Button";
 import { Card } from "../../atoms/Card/Card";
@@ -13,6 +13,7 @@ import {
 import { RatioBox } from "../../atoms/RatioBox/RatioBox";
 import { Text } from "../../atoms/Typography/Text";
 import { Title } from "../../atoms/Typography/Title";
+import { Link } from "../../atoms/Link/Link";
 
 const IconOpenBook = () => {
   return (
@@ -63,23 +64,36 @@ interface Categories {
   categoryElements: Category[];
 }
 
-export interface CourseCardProps {
+interface StyledCourseCardProps {
+  mobile?: boolean;
+  hideImage?: boolean;
+}
+
+export interface CourseCardProps extends StyledCourseCardProps {
   id: number;
   image?: Image;
   title: ReactNode;
-  categories: Categories;
+  categories?: Categories;
   tags?: Tag[];
-  lessonCount: number;
-  subtitle: ReactNode;
+  lessonCount?: number;
+  subtitle?: ReactNode;
   //TODO: add params if needed to onImageClick
-  hideImage?: boolean;
   onImageClick?: () => void;
   onTagClick?: (tagId: number) => void;
   onButtonClick?: (cardId: number) => void;
+  buttonText?: string;
+  onSecondaryButtonClick?: () => void;
+  secondaryButtonText?: string;
   progress?: ProgressBarProps;
 }
 
-const StyledCourseCard = styled("div")`
+const StyledCourseCard = styled("div")<StyledCourseCardProps>`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: ${(props) => (props.mobile ? "272px" : "100%")};
+  flex-shrink: 0;
+
   .image-section {
     position: relative;
   }
@@ -106,11 +120,13 @@ const StyledCourseCard = styled("div")`
     font-size: 14px;
   }
   .image {
-    width: 100%;
-    height: auto;
+    border-radius: ${({ theme }) => theme.cardRadius}px;
   }
   .course-section {
-    margin-top: 28px;
+    margin-top: ${(props) => (props.mobile ? "15px" : "28px")};
+    flex: 1;
+    display: flex;
+    flex-direction: column;
   }
   .title {
     margin-bottom: 15px;
@@ -118,19 +134,14 @@ const StyledCourseCard = styled("div")`
   .categories {
     font-size: 14px;
     line-height: 17px;
-    color: ${({ theme }) => {
-      const backgroundColor =
-        theme.mode === "dark"
-          ? theme.cardBackgroundColorDark
-          : theme.cardBackgroundColorLight;
-      return contrast("#fff", backgroundColor) >= 2.5 ? "#fff" : theme.gray3;
-    }};
+    color: ${(props) =>
+      props.hideImage ? props.theme.gray2 : props.theme.gray3};
     margin-bottom: 15px;
   }
   .lesson-container {
     display: flex;
     align-items: center;
-    margin-bottom: 30px;
+    margin-bottom: ${(props) => (props.mobile ? "15px" : "30px")};
   }
   .lessons-count {
     font-weight: 700;
@@ -142,11 +153,34 @@ const StyledCourseCard = styled("div")`
   .tag {
     cursor: pointer;
   }
+
+  .card-subtitle {
+    color: ${(props) => {
+      return !props.hideImage && props.theme.primaryColor;
+    }};
+  }
+
+  .course-card-buttons-group {
+    margin: -8px;
+    width: calc(100% + 16px);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+
+    > * {
+      margin: 8px;
+    }
+  }
+
+  .card-course-footer {
+    margin-top: auto;
+  }
 `;
 
 export const CourseCard: React.FC<CourseCardProps> = (props) => {
   const {
     id,
+    mobile,
     lessonCount,
     title,
     image,
@@ -155,10 +189,14 @@ export const CourseCard: React.FC<CourseCardProps> = (props) => {
     onImageClick,
     onTagClick,
     onButtonClick,
+    onSecondaryButtonClick,
+    secondaryButtonText,
+    buttonText,
     progress,
     hideImage,
   } = props;
 
+  const theme = React.useContext(ThemeContext);
   const { t } = useTranslation();
 
   const tagClick = useCallback(
@@ -194,53 +232,69 @@ export const CourseCard: React.FC<CourseCardProps> = (props) => {
   const renderCourseSection = () => {
     return (
       <>
-        <Title level={4} className="title">
+        <Title level={mobile ? 5 : 4} className="title">
           {title}
         </Title>
-        <Text className="categories">
-          {categories.categoryElements.map((category, index) => {
-            return (
-              <>
-                <span
-                  className="category"
-                  key={category.id}
-                  onClick={() => categories.onCategoryClick(category.id)}
-                  onKeyDown={() => categories.onCategoryClick(category.id)}
-                  role="button"
-                  tabIndex={0}
-                >
-                  {category.name}
-                </span>
-                {categories.categoryElements.length !== index + 1 && (
-                  <span> / </span>
-                )}
-              </>
-            );
-          })}
-        </Text>
-        <div className="lesson-container">
-          <IconOpenBook />
-          <Text className="lessons-count">
-            {t("CourseCard.lesson", { count: lessonCount })}
+
+        {categories && (
+          <Text className="categories">
+            {categories.categoryElements.map((category, index) => {
+              return (
+                <>
+                  <span
+                    className="category"
+                    key={category.id}
+                    onClick={() => categories.onCategoryClick(category.id)}
+                    onKeyDown={() => categories.onCategoryClick(category.id)}
+                    role="button"
+                    tabIndex={0}
+                  >
+                    {category.name}
+                  </span>
+                  {categories.categoryElements.length !== index + 1 && (
+                    <span> / </span>
+                  )}
+                </>
+              );
+            })}
           </Text>
-        </div>
-        {progress ? (
-          <ProgressBar {...progress} />
-        ) : (
-          <>
-            {onButtonClick && (
-              <Button mode="secondary" onClick={() => onButtonClick(id)}>
-                {t("CourseCard.startNow")}
-              </Button>
-            )}
-          </>
         )}
+        {lessonCount && (
+          <div className="lesson-container">
+            <IconOpenBook />
+            <Text className="lessons-count" size={"14"}>
+              {t<string>("CourseCard.lesson", { count: lessonCount })}
+            </Text>
+          </div>
+        )}
+        <div className={"card-course-footer"}>
+          {progress ? (
+            <ProgressBar {...progress} />
+          ) : (
+            <div className={"course-card-buttons-group"}>
+              {onButtonClick && buttonText && (
+                <div>
+                  <Button mode="secondary" onClick={() => onButtonClick(id)}>
+                    {buttonText}
+                  </Button>
+                </div>
+              )}
+              {onSecondaryButtonClick && secondaryButtonText && (
+                <div>
+                  <Link onClick={onSecondaryButtonClick}>
+                    {secondaryButtonText}
+                  </Link>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
       </>
     );
   };
 
   return (
-    <StyledCourseCard>
+    <StyledCourseCard hideImage={hideImage} mobile={mobile}>
       {!hideImage && (
         <div className="image-section" {...imageSectionProps}>
           <div className="information-in-image">
@@ -250,6 +304,7 @@ export const CourseCard: React.FC<CourseCardProps> = (props) => {
                   className="tag"
                   key={tag.id}
                   onClick={(e) => tagClick(e, tag.id)}
+                  color={theme.gray2}
                 >
                   {tag.title}
                 </Badge>
@@ -257,11 +312,13 @@ export const CourseCard: React.FC<CourseCardProps> = (props) => {
             </div>
             {props.subtitle && (
               <div className="card">
-                <Card wings="small">{props.subtitle}</Card>
+                <Card wings="small">
+                  <div className={"card-subtitle"}>{props.subtitle}</div>
+                </Card>
               </div>
             )}
           </div>
-          <RatioBox ratio={1}>
+          <RatioBox ratio={mobile ? 66 / 100 : 1}>
             <img
               className="image"
               src={imageSrc}

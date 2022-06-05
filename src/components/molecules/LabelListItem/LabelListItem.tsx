@@ -9,12 +9,11 @@ import { IconTitle } from "../../atoms/IconTitle/IconTitle";
 export interface TitleProps extends React.HTMLProps<HTMLDivElement> {
   variant?: "header" | "label";
   icon?: React.ReactNode;
+  mobile?: boolean;
 }
 
 const StyledLabelListItem = styled("div")<TitleProps>`
-  display: flex;
-  flex-direction: column;
-  flex: 1;
+  margin-bottom: 20px;
 
   .lms-icon-title {
     margin-bottom: 5px;
@@ -22,15 +21,30 @@ const StyledLabelListItem = styled("div")<TitleProps>`
 `;
 
 export const LabelListItem: React.FC<TitleProps> = (props) => {
-  const { children, variant = "header", title, icon } = props;
+  const { children, variant = "header", title, icon, mobile = false } = props;
   const theme = React.useContext(ThemeContext);
 
   return (
     <StyledLabelListItem>
       {variant === "header" ? (
         <React.Fragment>
-          {title && <IconTitle level={4} title={title} icon={icon} as={"h4"} />}
-          <Text noMargin={true}>{children}</Text>
+          {title && (
+            <IconTitle
+              level={mobile ? 5 : 4}
+              title={title}
+              icon={icon}
+              as={mobile ? "h5" : "h4"}
+            />
+          )}
+          <Text
+            noMargin={true}
+            size={mobile ? "12" : "14"}
+            style={{
+              marginLeft: mobile ? "24px" : "0",
+            }}
+          >
+            {children}
+          </Text>
         </React.Fragment>
       ) : (
         <React.Fragment>
@@ -38,18 +52,18 @@ export const LabelListItem: React.FC<TitleProps> = (props) => {
             style={{
               textTransform: "uppercase",
               marginBottom: "8px",
-              fontSize: "12px",
             }}
+            size={"12"}
           >
             {title}
           </Text>
           <Title
-            level={4}
+            level={5}
             style={{
               marginBottom: "0",
               color: theme.primaryColor,
             }}
-            as={"h4"}
+            as={"h5"}
           >
             {children}
           </Title>

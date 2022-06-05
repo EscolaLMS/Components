@@ -1,7 +1,14 @@
+import * as React from "react";
 import styled, { withTheme, css } from "styled-components";
 import SlickSlider, { Settings } from "react-slick";
+import { PropsWithChildren } from "react";
 
-export interface SliderProps {
+interface StyledSliderProps {
+  mobile?: boolean;
+  borderRadius?: React.CSSProperties["borderRadius"];
+}
+
+export interface SliderProps extends StyledSliderProps {
   settings: Settings;
   dotsPosition?:
     | "top"
@@ -283,15 +290,16 @@ const StyledDiv = styled("div")<SliderProps>`
 
     display: inline-block;
 
-    width: 13px;
-    height: 13px;
+    width: ${(props) => (props.mobile ? "9px" : "13px")};
+    height: ${(props) => (props.mobile ? "9px" : "13px")};
     margin: 0 4px;
     padding: 0;
 
     cursor: pointer;
 
     box-sizing: border-box;
-    border-radius: 100%;
+    border-radius: ${(props) =>
+      props.borderRadius ? props.borderRadius : "50%"};
     border: 1px solid ${(props) => props.theme.gray3 || "#000000"};
 
     background: transparent;
@@ -338,7 +346,7 @@ const StyledDiv = styled("div")<SliderProps>`
   }
 `;
 
-export const Slider: React.FC<SliderProps> = (props) => {
+export const Slider: React.FC<PropsWithChildren<SliderProps>> = (props) => {
   const { children, settings } = props;
 
   return (

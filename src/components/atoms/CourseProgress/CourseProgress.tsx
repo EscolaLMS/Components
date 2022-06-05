@@ -2,6 +2,8 @@ import * as React from "react";
 
 import styled, { withTheme } from "styled-components";
 import { getFontFromTheme } from "../../../theme/provider";
+import { PropsWithChildren } from "react";
+
 export interface TitleProps {
   progress: number;
   title: string;
@@ -30,8 +32,7 @@ const StyledDiv = styled.div<TitleProps>`
     margin-left: ${(props) => (props.icon ? "11px" : 0)};
   }
   .description {
-   
-    &, 
+    &,
     & > * {
       font-size: 12px;
     }
@@ -89,7 +90,9 @@ const StyledDiv = styled.div<TitleProps>`
   }
 `;
 
-export const CourseProgress: React.FC<TitleProps> = (props) => {
+export const CourseProgress: React.FC<PropsWithChildren<TitleProps>> = (
+  props
+) => {
   const { title, children, icon, progress } = props;
 
   return (
@@ -110,8 +113,4 @@ export const CourseProgress: React.FC<TitleProps> = (props) => {
   );
 };
 
-// https://styled-components.com/docs/api#using-custom-props
-const NewComponent = styled(CourseProgress)<TitleProps>``;
-
-// Main button with styles
-export default withTheme(NewComponent);
+export default withTheme(styled(CourseProgress)<TitleProps>``);

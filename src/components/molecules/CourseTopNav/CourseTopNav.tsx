@@ -188,7 +188,7 @@ export const CourseTopNav: React.FC<CourseTopNavProps> = (props) => {
                   fill="currentColor"
                 />
               </svg>
-              {!mobile && <>{t("CourseTopNav.prev")} </>}
+              {!mobile && <>{t<string>("CourseTopNav.prev")} </>}
             </Button>
           </Col>
           <Col xs={addNotes ? 8 : 6} className="col-mid-actions">
@@ -213,7 +213,7 @@ export const CourseTopNav: React.FC<CourseTopNavProps> = (props) => {
               onClick={() => onNext && onNext()}
               disabled={!hasNext}
             >
-              {!mobile && <>{t("CourseTopNav.next")} </>}
+              {!mobile && <>{t<string>("CourseTopNav.next")} </>}
               <svg
                 className="icon-next"
                 width="8"

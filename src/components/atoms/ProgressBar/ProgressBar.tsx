@@ -21,7 +21,10 @@ const StyledDiv = styled.div`
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   .progress-container {
-    margin-bottom: 6px;
+    &:not(:last-child) {
+      margin-bottom: 6px;
+    }
+
     display: flex;
     align-items: center;
     .progress-bars {
@@ -41,10 +44,7 @@ const StyledDiv = styled.div`
       .filled {
         position: absolute;
         top: 0;
-        background: ${(props) =>
-          props.theme.mode === "dark"
-            ? props.theme.backgroundDarkProgress
-            : props.theme.primaryColor};
+        background: ${(props) => props.theme.primaryColor};
         display: block;
         height: 100%;
         border-radius: 10px;
