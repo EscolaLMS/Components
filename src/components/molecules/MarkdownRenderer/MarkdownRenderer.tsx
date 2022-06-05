@@ -19,23 +19,6 @@ const StyledMarkdownRenderer = styled("div")<StyledMarkdownRendererProps>`
   font-size: 14px;
   line-height: 1.55em;
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    margin-bottom: 0;
-    font-weight: bold;
-    line-height: 125%;
-    color: ${({ theme }) =>
-      theme.mode !== "light" ? theme.white : theme.gray1};
-
-    &:first-child {
-      margin-top: 0;
-    }
-  }
-
   h1 {
     font-size: ${(props) => setFontSizeByHeaderLevel(1, props.mobile)};
   }
@@ -54,6 +37,23 @@ const StyledMarkdownRenderer = styled("div")<StyledMarkdownRendererProps>`
 
   h5 {
     font-size: ${setFontSizeByHeaderLevel(5)};
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin-bottom: 0;
+    font-weight: bold;
+    line-height: 125%;
+    color: ${({ theme }) =>
+      theme.mode !== "light" ? theme.white : theme.gray1};
+
+    &:first-child {
+      margin-top: 0;
+    }
   }
 `;
 
