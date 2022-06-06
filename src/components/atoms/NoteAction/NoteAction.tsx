@@ -23,9 +23,11 @@ const StyledNote = styled("div")<StyledNoteProps>`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
-  border-radius: ${(props) => props.theme.noteRadius}px;
-  background: ${(props) =>
-    props.theme.mode !== "dark" ? props.theme.gray5 : props.theme.gray1};
+  border-radius: ${(props) => props.theme.cardRadius}px;
+  background: ${({ theme }) =>
+    theme.mode === "light"
+      ? theme.cardBackgroundColorDark
+      : theme.cardBackgroundColorLight};
   > div:first-child {
     padding-right: 30px;
   }

@@ -16,15 +16,15 @@ const StyledPricingCard = styled("div")<StyledPricingCardProps>`
   padding: ${(props) => (props.mobile ? "10px 16px" : "40px")};
   box-shadow: ${(props) =>
     props.mobile ? "0px -2px 15px 0px rgba(0, 0, 0, .1);" : "none"};
-  border-radius: ${({ theme }) => theme.cardRadius};
+  border-radius: ${({ theme }) => theme.cardRadius}px;
   background-color: ${({ theme, mobile }) =>
     mobile
       ? theme.mode === "light"
         ? theme.backgroundLight
         : theme.backgroundDark
       : theme.mode === "light"
-      ? chroma(theme.backgroundLight).darken(0.2).hex()
-      : chroma(theme.backgroundDark).brighten(1).hex()};
+      ? theme.cardBackgroundColorDark
+      : theme.cardBackgroundColorLight};
 
   .pricing-card-price {
     margin-top: 10px;
@@ -36,7 +36,7 @@ const StyledPricingCard = styled("div")<StyledPricingCardProps>`
   .pricing-card-discount {
     margin-left: ${(props) => (props.mobile ? "0" : "15px")};
     text-decoration: ${(props) => (props.free ? "none" : "line-through")};
-    &, 
+    &,
     & > * {
       color: ${({ theme }) =>
         theme.mode === "light" ? theme.primaryColor : ""};

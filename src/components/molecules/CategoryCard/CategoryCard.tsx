@@ -36,8 +36,8 @@ export const CategoryCard: React.FC<CategoryCardProps> = (props) => {
               : chroma(theme.backgroundDark).brighten(1).hex()
           } 0%, transparent 100%)`
         : theme.mode === "light"
-        ? chroma(theme.backgroundLight).darken(0.2).hex()
-        : chroma(theme.backgroundDark).brighten(1).hex()};
+        ? theme.cardBackgroundColorDark
+        : theme.cardBackgroundColorLight};
 
     .category-card-title {
       margin-top: 34px;

@@ -62,7 +62,7 @@ const StyledNotifications = styled.section`
     width: 585px;
     padding: 48px 30px 38px 38px;
     background-color: ${({ theme }) =>
-      theme.mode === "light" ? theme.backgroundLight : theme.backgroundDark};
+      theme.mode === "light" ? theme.gray5 : theme.gray1};
     &:before {
       position: absolute;
       top: -20px;

@@ -44,12 +44,13 @@ const StyledRatingsDesktop = styled.div`
     color: ${({ theme }) => theme.primaryColor};
   }
   .average-rate-container {
-    background: ${(props) =>
-      props.theme.mode !== "dark" ? props.theme.gray5 : props.theme.gray2};
+    background: ${({ theme }) =>
+      theme.mode === "light"
+        ? theme.cardBackgroundColorDark
+        : theme.cardBackgroundColorLight};
     padding: 24px 34px;
     text-align: center;
-    border-radius: ${(props) =>
-      props.theme.mode !== "dark" ? "10px" : "20px"};
+    border-radius: ${({ theme }) => theme.cardRadius}px;
   }
   .average-rate-label {
     font-size: 14px;
@@ -117,11 +118,12 @@ const StyledRatingsMobile = styled.div`
   .average-rate-container {
     display: flex;
     align-items: center;
-    background: ${(props) =>
-      props.theme.mode !== "dark" ? props.theme.gray5 : props.theme.gray2};
+    background: ${({ theme }) =>
+      theme.mode === "light"
+        ? theme.cardBackgroundColorDark
+        : theme.cardBackgroundColorLight};
     padding: 15px 20px;
-    border-radius: ${(props) =>
-      props.theme.mode !== "dark" ? "10px" : "20px"};
+    border-radius: ${({ theme }) => theme.cardRadius}px;
     > div {
       padding-left: 20px;
     }

@@ -47,5 +47,5 @@ const props = {
     </div>
   </ThemeTester>
   <ImageModal images={[img1]} />
-<React.Fragment>;
+</React.Fragment>;
 ```

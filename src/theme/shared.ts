@@ -4,7 +4,6 @@ export const sharedTheme: SharedDefaultTheme = {
   buttonRadius: 0,
   checkboxRadius: 0,
   inputRadius: 0,
-  noteRadius: 0,
   cardRadius: 0,
   backgroundDark: "#000000",
   backgroundLight: "#FFFFFF",

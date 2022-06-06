@@ -27,7 +27,9 @@ const StyledNotification = styled.section<{
   position: relative;
   font-family: ${({ theme }) => getFontFromTheme(theme).fontFamily};
   background-color: ${({ theme }) =>
-    theme.mode === "light" ? theme.backgroundLight : theme.backgroundDark};
+    theme.mode === "light"
+      ? theme.cardBackgroundColorDark
+      : theme.cardBackgroundColorLight};
   display: flex;
   width: 100%;
   align-items: flex-start;

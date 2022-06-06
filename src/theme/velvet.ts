@@ -10,8 +10,8 @@ export const velvetTheme: DefaultTheme = {
   headerColor: "#111111",
   backgroundDark: "#4A4A4A",
   backgroundLight: "#F2F2F2",
-  cardBackgroundColorLight: chroma("#4A4A4A").brighten(1).hex(),
-  cardBackgroundColorDark: chroma("#F2F2F2").darken(1).hex(),
+  cardBackgroundColorLight: sharedTheme.gray2,
+  cardBackgroundColorDark: sharedTheme.white,
   textColorDark: "#FFF",
   textColorLight: "#000",
 };

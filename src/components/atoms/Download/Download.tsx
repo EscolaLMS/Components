@@ -14,11 +14,10 @@ const StyledDiv = styled.div<ComponentProps>`
   margin-bottom: 20px;
   font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
   .download-btn {
-    background: ${(props) => {
-      return props.theme.mode !== "dark"
-        ? chroma(props.theme.backgroundLight).darken(0.2).hex()
-        : chroma(props.theme.backgroundDark).brighten(1).hex();
-    }};
+    background: ${({ theme }) =>
+      theme.mode === "light"
+        ? theme.cardBackgroundColorDark
+        : theme.cardBackgroundColorLight};
     color: ${(props) => {
       return props.theme.mode !== "light"
         ? props.theme.white
