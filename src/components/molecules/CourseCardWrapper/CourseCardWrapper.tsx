@@ -108,10 +108,24 @@ const StyledCourseCardWrapper = styled("div")<StyledCourseCardWrapperProps>`
     display: flex;
     flex-direction: column;
   }
+  .card-subtitle {
+    color: ${(props) => !props.hideImage && props.theme.primaryColor};
+    & > a {
+      color: ${(props) => !props.hideImage && props.theme.primaryColor};
+
+      text-decoration: none;
+    }
+    & > a:hover {
+      text-decoration: underline;
+    }
+  }
+
   .title {
     margin-bottom: 15px;
+    /* stylelint-disable */
     a {
       text-decoration: none;
+      /* stylelint-disable */
       &:hover {
         text-decoration: underline;
       }
@@ -146,18 +160,6 @@ const StyledCourseCardWrapper = styled("div")<StyledCourseCardWrapperProps>`
   }
   .tag {
     cursor: pointer;
-  }
-
-  .card-subtitle {
-    color: ${(props) => !props.hideImage && props.theme.primaryColor};
-    & > a {
-      color: ${(props) => !props.hideImage && props.theme.primaryColor};
-
-      text-decoration: none;
-    }
-    & > a:hover {
-      text-decoration: underline;
-    }
   }
 
   .course-card-buttons-group {
