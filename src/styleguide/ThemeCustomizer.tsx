@@ -57,11 +57,10 @@ export const ThemeCustomizer: React.FC<{
   const [props, set] = useControls(() => ({
     theme: {
       label: "Theme",
-      value: initData.theme || "all",
-      options: ["all", ...Object.keys(themes), "custom"],
+      value: initData.theme || Object.keys(themes)[0],
+      options: [...Object.keys(themes), "custom"],
       onChange: (theme: string) => {
         switch (theme) {
-          case "all":
           case "custom":
             break;
           default:
