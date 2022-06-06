@@ -28,7 +28,7 @@ interface AudioVideoState {
 }
 
 interface AudioVideoPlayerControlsProps {
-  state: AudioVideoState;
+  state?: AudioVideoState;
   onSeek?: (time: number) => void;
   onToggle?: () => void;
   onVolume?: (volume: number) => void;
@@ -93,16 +93,16 @@ const StyledAudioVideoPlayer = styled("div")<AudioVideoPlayerProps>`
   .video-player-overlay {
     position: absolute;
     padding: 20px;
-    bottom: ${(props) => (props.state.controls ? "120px" : "20px")};
-    right: ${(props) => (props.state.controls ? "0" : "")};
-    top: ${(props) => (props.state.controls ? "0" : "")};
+    bottom: ${(props) => (props.state?.controls ? "120px" : "20px")};
+    right: ${(props) => (props.state?.controls ? "0" : "")};
+    top: ${(props) => (props.state?.controls ? "0" : "")};
     display: flex;
     align-items: flex-end;
     left: 0;
     background-color: ${(props) =>
-      props.state.controls ? "rgba(0, 0, 0, 0.5)" : "transparent"};
-    transition: ${(props) => (props.state.ready ? "opacity 0.3s" : "none")};
-    opacity: ${(props) => (props.state.playing ? (props.audio ? 1 : 0) : 1)};
+      props.state?.controls ? "rgba(0, 0, 0, 0.5)" : "transparent"};
+    transition: ${(props) => (props.state?.ready ? "opacity 0.3s" : "none")};
+    opacity: ${(props) => (props.state?.playing ? (props.audio ? 1 : 0) : 1)};
 
     * {
       color: ${({ theme }) => theme.white};
@@ -156,7 +156,7 @@ const StyledVideoControls = styled("div")<AudioVideoPlayerControlsProps>`
   width: 100%;
   padding: 20px;
   display: flex;
-  opacity: ${(props) => (props.state.playing ? (props.audio ? 1 : 0) : 1)};
+  opacity: ${(props) => (props.state?.playing ? (props.audio ? 1 : 0) : 1)};
   justify-content: end;
   flex-direction: column;
   background-color: rgba(0, 0, 0, 0.5);
@@ -557,7 +557,13 @@ const IconFullscreen = () => {
 const AudioVideoPlayerControls: React.FC<AudioVideoPlayerControlsProps> = (
   props
 ) => {
-  const { state, onSeek, onToggle, onVolume, onFullscreen } = props;
+  const {
+    state = initialVideoState,
+    onSeek,
+    onToggle,
+    onVolume,
+    onFullscreen,
+  } = props;
 
   const getBackgroundSize = (value: number, max: number) => {
     return {
@@ -716,7 +722,7 @@ const AudioVideoPlayerControls: React.FC<AudioVideoPlayerControlsProps> = (
 };
 
 export const AudioVideoPlayer: React.FC<AudioVideoPlayerProps> = (props) => {
-  const { children, mobile, audio = false, light } = props;
+  const { children, mobile, audio = false, light = true } = props;
 
   const ref = React.useRef<ReactPlayer>(null);
   const refWrapper = React.useRef<HTMLDivElement>(null);
@@ -744,7 +750,6 @@ export const AudioVideoPlayer: React.FC<AudioVideoPlayerProps> = (props) => {
       state={audioVideoState}
       ref={refWrapper}
       audio={audio}
-      light={light}
     >
       <RatioBox ratio={9 / 16}>
         <ReactPlayer
@@ -753,6 +758,7 @@ export const AudioVideoPlayer: React.FC<AudioVideoPlayerProps> = (props) => {
           width={"100%"}
           height={"100%"}
           controls={!!mobile}
+          light={light}
           playIcon={IconPlayCircle()}
           playing={audioVideoState.playing}
           volume={audioVideoState.volume}
