@@ -14,8 +14,11 @@ const markdown = `### Czego się dowiesz i nauczysz?
 
 <React.Fragment>
   <ThemeTester>
-    <MarkdownRenderer children={markdown} />
-    <MarkdownRenderer>{markdown}</MarkdownRenderer>
+    <MarkdownPlayer
+      children={markdown}
+      onLoad={() => console.log("MarkdownPlayer onLoad")}
+    />
+    <MarkdownPlayer mobile>{markdown}</MarkdownPlayer>
   </ThemeTester>
 </React.Fragment>;
 ```
