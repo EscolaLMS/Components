@@ -1,4 +1,3 @@
-import { contrast } from "chroma-js";
 import * as React from "react";
 import { ReactNode, useMemo, useCallback } from "react";
 import { useTranslation } from "react-i18next";
@@ -342,11 +341,11 @@ export const CourseCard: React.FC<CourseCardProps> = (props) => {
           <ImgWrapper>
             <RatioBox ratio={mobile ? 66 / 100 : 1}>
               <img
-                onClick={() => onButtonClick && onButtonClick(id)}
+                onClick={() => onImageClick && onImageClick()}
                 className="image"
                 src={imageSrc}
                 alt={image ? image.alt : undefined}
-              />{" "}
+              />
             </RatioBox>
           </ImgWrapper>
         </div>
