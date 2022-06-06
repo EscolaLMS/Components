@@ -51,9 +51,9 @@ import img2 from "./VideoPlayerPoster.png";
     <div style={{ width: "100%" }}>
       <Title level={3}>Audio</Title>
       <AudioVideoPlayer
+        audio
         url="http://commondatastorage.googleapis.com/codeskulptor-assets/Epoq-Lepidoptera.ogg"
         light={img2}
-        audio={true}
       >
         <div className="video-player-overlay">
           <div className="video-player-overlay-inner">
