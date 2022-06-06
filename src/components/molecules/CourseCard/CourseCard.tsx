@@ -1,4 +1,3 @@
-import { contrast } from "chroma-js";
 import * as React from "react";
 import { ReactNode, useMemo, useCallback } from "react";
 import { useTranslation } from "react-i18next";

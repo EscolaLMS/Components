@@ -1,7 +1,6 @@
 import * as React from "react";
 import styled, { withTheme } from "styled-components";
 import { getFontFromTheme } from "../../../theme/provider";
-import chroma from "chroma-js";
 
 export interface ComponentProps {
   href: string;

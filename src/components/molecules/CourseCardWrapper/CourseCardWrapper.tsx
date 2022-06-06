@@ -1,7 +1,5 @@
-import { contrast } from "chroma-js";
 import * as React from "react";
 import { ReactNode, ReactChild, useMemo, useCallback } from "react";
-import { useTranslation } from "react-i18next";
 import styled, { ThemeContext } from "styled-components";
 import { Badge } from "../../atoms/Badge/Badge";
 import { Button } from "../../atoms/Button/Button";
@@ -14,35 +12,6 @@ import { RatioBox } from "../../atoms/RatioBox/RatioBox";
 import { Text } from "../../atoms/Typography/Text";
 import { Title } from "../../atoms/Typography/Title";
 import { Link } from "../../atoms/Link/Link";
-
-const IconOpenBook = () => {
-  return (
-    <svg
-      width="18"
-      height="17"
-      viewBox="0 0 18 17"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M1.5 1.98621H6C6.79565 1.98621 7.55871 2.30228 8.12132 2.86489C8.68393 3.42749 9 4.19056 9 4.98621V15.4862C9 14.8895 8.76295 14.3172 8.34099 13.8952C7.91903 13.4733 7.34674 13.2362 6.75 13.2362H1.5V1.98621Z"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      />
-      <path
-        d="M16.5 1.98621H12C11.2044 1.98621 10.4413 2.30228 9.87868 2.86489C9.31607 3.42749 9 4.19056 9 4.98621V15.4862C9 14.8895 9.23705 14.3172 9.65901 13.8952C10.081 13.4733 10.6533 13.2362 11.25 13.2362H16.5V1.98621Z"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      />
-    </svg>
-  );
-};
-
-//TODO: add alt to image to api
 
 type ImageObject = {
   path?: string;
@@ -180,16 +149,16 @@ const StyledCourseCardWrapper = styled("div")<StyledCourseCardWrapperProps>`
   }
 
   .card-subtitle {
-    &,
-    & > a {
-      color: ${(props) => !props.hideImage && props.theme.primaryColor};
-    }
-
     & > a {
       text-decoration: none;
       &:hover {
         text-decoration: underline;
       }
+    }
+
+    &,
+    & > a {
+      color: ${(props) => !props.hideImage && props.theme.primaryColor};
     }
   }
 
@@ -232,7 +201,10 @@ export const CourseCardWrapper: React.FC<CourseCardWrapperProps> = (props) => {
   } = props;
 
   const theme = React.useContext(ThemeContext);
-  const { t } = useTranslation();
+
+  React.useEffect(() => {
+    console.warn("dont use lessonCount is DECREPITATED");
+  }, [lessonCount]);
 
   const tagClick = useCallback(
     (e: React.MouseEvent<HTMLDivElement, MouseEvent>, id: number) => {
