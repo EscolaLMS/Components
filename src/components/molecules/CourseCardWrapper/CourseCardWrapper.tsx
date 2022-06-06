@@ -151,11 +151,11 @@ const StyledCourseCardWrapper = styled("div")<StyledCourseCardWrapperProps>`
   .card-subtitle {
     color: ${(props) => !props.hideImage && props.theme.primaryColor};
     & > a {
-      color: ${(props) => !props.hideImage && props.theme.primaryColor};
-      text-decoration: none;
       &:hover {
         text-decoration: underline;
       }
+      color: ${(props) => !props.hideImage && props.theme.primaryColor};
+      text-decoration: none;
     }
   }
 

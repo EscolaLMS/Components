@@ -76,7 +76,6 @@ const Icon1 = () => (
                 <Badge color={"#6d6d6d"}>New</Badge>
               </React.Fragment>
             }
-            lessonCount={1}
             subtitle={<a href="#!!!">100% online</a>}
             title={<a href="#!!!">Best course ever</a>}
             categories={
