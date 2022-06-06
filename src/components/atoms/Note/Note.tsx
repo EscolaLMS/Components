@@ -22,8 +22,10 @@ const StyledNote = styled("div")<StyledNoteProps>`
   justify-content: space-between;
   margin-bottom: 10px;
   border-radius: ${(props) => props.theme.noteRadius}px;
-  background: ${(props) =>
-    props.theme.mode !== "dark" ? props.theme.gray5 : props.theme.gray1};
+  background: ${({ theme }) =>
+    theme.mode === "light"
+      ? theme.cardBackgroundColorDark
+      : theme.cardBackgroundColorLight};
   .description {
     margin: 0;
     font-size: 14px;

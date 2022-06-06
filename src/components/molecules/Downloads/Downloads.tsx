@@ -1,13 +1,9 @@
 import * as React from "react";
 import styled, { withTheme } from "styled-components";
-import { setConfiguration, Row, Col } from "react-grid-system";
+import { Row, Col } from "react-grid-system";
 import { IconTitle } from "../../atoms/IconTitle/IconTitle";
 import { Download } from "../../atoms/Download/Download";
 import { ComponentProps } from "../../atoms/Download/Download";
-
-setConfiguration({
-  gutterWidth: 20,
-});
 
 export interface DownloadsProps {
   title: string;

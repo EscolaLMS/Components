@@ -10,8 +10,8 @@ export const orangeTheme: DefaultTheme = {
   headerColor: "#111111",
   backgroundDark: "#4A4A4A",
   backgroundLight: "#FFFFFF",
-  cardBackgroundColorLight: chroma("#4A4A4A").brighten(1).hex(),
-  cardBackgroundColorDark: chroma("#FFFFFF").darken(1).hex(),
+  cardBackgroundColorLight: sharedTheme.gray2,
+  cardBackgroundColorDark: sharedTheme.gray5,
   textColorDark: "#FFF",
   textColorLight: "#000",
 };

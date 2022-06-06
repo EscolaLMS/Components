@@ -84,8 +84,10 @@ const StyledCardCard = styled.div`
     font-weight: 700;
   }
   border-radius: ${(props) => props.theme.cardRadius}px;
-  background: ${(props) =>
-    props.theme.mode !== "dark" ? props.theme.white : props.theme.gray1};
+  background: ${({ theme }) =>
+    theme.mode === "light"
+      ? theme.cardBackgroundColorDark
+      : theme.cardBackgroundColorLight};
   padding: 40px;
   .buy-button {
     margin-bottom: 23px;

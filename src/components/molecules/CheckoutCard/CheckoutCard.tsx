@@ -29,8 +29,11 @@ const StyledCheckoutCard = styled("div")<StyledCheckoutCardProps>`
   padding: 15px;
   width: 100%;
   box-sizing: border-box;
-  background-color: ${(props) =>
-    props.theme.mode == "light" ? props.theme.gray5 : props.theme.gray1};
+  border-radius: ${({ theme }) => theme.cardRadius}px;
+  background-color: ${({ theme }) =>
+    theme.mode == "light"
+      ? theme.cardBackgroundColorDark
+      : theme.cardBackgroundColorLight};
 
   &:not(:last-child) {
     margin-bottom: 20px;

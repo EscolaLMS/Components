@@ -46,7 +46,9 @@ const SingleOrderCard = styled("div")<{ mobile: boolean }>`
   margin-bottom: 10px;
   padding: ${({ mobile }) => (mobile ? "20px 15px" : "12px 40px")};
   background: ${({ theme }) =>
-    theme.mode === "dark" ? theme.gray1 : theme.gray5};
+    theme.mode === "dark"
+      ? theme.cardBackgroundColorLight
+      : theme.cardBackgroundColorDark};
   .single-content {
     &:not(:last-child) {
       margin-bottom: ${({ mobile }) => (mobile ? "15px" : 0)};

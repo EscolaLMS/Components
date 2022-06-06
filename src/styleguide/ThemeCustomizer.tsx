@@ -12,6 +12,8 @@ const allowedKeys: (keyof DefaultTheme & string)[] = [
   "secondaryColor",
   "backgroundDark",
   "backgroundLight",
+  "cardBackgroundColorLight",
+  "cardBackgroundColorDark",
   "textColorDark",
   "textColorLight",
   "errorColor",
@@ -87,6 +89,10 @@ export const ThemeCustomizer: React.FC<{
           secondaryColor: initData.secondaryColor || "#000000",
           backgroundDark: initData.backgroundDark || "#000000",
           backgroundLight: initData.backgroundLight || "#000000",
+          cardBackgroundColorLight:
+            initData.cardBackgroundColorLight || "#000000",
+          cardBackgroundColorDark:
+            initData.cardBackgroundColorDark || "#000000",
           textColorDark: initData.textColorDark || "#000000",
           textColorLight: initData.textColorLight || "#000000",
           errorColor: initData.errorColor || "#EB5757",
@@ -123,12 +129,6 @@ export const ThemeCustomizer: React.FC<{
             max: 100,
             step: 1,
             value: initData.inputRadius || 0,
-          },
-          noteRadius: {
-            min: 0,
-            max: 100,
-            step: 1,
-            value: initData.noteRadius || 0,
           },
           cardRadius: {
             min: 0,
