@@ -15,8 +15,10 @@ const markdown = `### Czego się dowiesz i nauczysz?
 <React.Fragment>
   <ThemeTester>
     <MarkdownRenderer children={markdown} />
-
     <MarkdownRenderer>{markdown}</MarkdownRenderer>
+    <MarkdownRenderer
+      components={{ p: React.Fragment }}
+    >{`**8h 12 min** time left`}</MarkdownRenderer>
   </ThemeTester>
 </React.Fragment>;
 ```

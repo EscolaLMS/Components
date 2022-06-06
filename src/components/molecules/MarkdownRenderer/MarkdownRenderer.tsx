@@ -4,7 +4,6 @@ import ReactMarkdown from "react-markdown";
 import { getFontFromTheme } from "../../../theme/provider";
 import { setFontSizeByHeaderLevel } from "../../../utils/components/primitives/titleUtils";
 import { ReactMarkdownOptions } from "react-markdown/lib/react-markdown";
-import { PropsWithChildren } from "react";
 
 interface StyledMarkdownRendererProps {
   mobile?: boolean;
@@ -58,14 +57,12 @@ const StyledMarkdownRenderer = styled("div")<StyledMarkdownRendererProps>`
   }
 `;
 
-export const MarkdownRenderer: React.FC<
-  PropsWithChildren<MarkdownRendererProps>
-> = (props) => {
-  const { mobile = false, children } = props;
+export const MarkdownRenderer: React.FC<MarkdownRendererProps> = (props) => {
+  const { mobile = false } = props;
 
   return (
     <StyledMarkdownRenderer mobile={mobile}>
-      <ReactMarkdown {...props} children={children} />
+      <ReactMarkdown {...props} />
     </StyledMarkdownRenderer>
   );
 };
