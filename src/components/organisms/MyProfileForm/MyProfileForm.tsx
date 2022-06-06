@@ -147,7 +147,7 @@ export const MyProfileForm: React.FC<{
       <Row>
         <Col sm={12}>
           <StyledFormHeader mobile={mobile}>
-            <Title level={3}>{t<string>("MyProfileForm")}</Title>
+            <Title level={3}>{t<string>("MyProfileForm.Heading")}</Title>
             <Text level={3}>{t<string>("MyProfileForm.Subtitle")}</Text>
           </StyledFormHeader>
         </Col>
@@ -239,7 +239,7 @@ export const MyProfileForm: React.FC<{
                     <Text type="danger">{errors.error}</Text>
                   )}
                   <Input
-                    label={t<string>("MyProfileForm.First name")}
+                    label={t<string>("First name")}
                     type="text"
                     name="first_name"
                     onChange={handleChange}
@@ -250,7 +250,7 @@ export const MyProfileForm: React.FC<{
                   />
 
                   <Input
-                    label={t<string>("MyProfileForm.Last name")}
+                    label={t<string>("Last name")}
                     type="text"
                     name="last_name"
                     onChange={handleChange}
@@ -273,7 +273,7 @@ export const MyProfileForm: React.FC<{
                   />
 
                   <Input
-                    label={t<string>("MyProfileForm.Phone")}
+                    label={t<string>("Phone")}
                     type="text"
                     name="phone"
                     onChange={handleChange}
