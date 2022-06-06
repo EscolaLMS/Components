@@ -125,11 +125,11 @@ const StyledCourseCardWrapper = styled("div")<StyledCourseCardWrapperProps>`
     /* stylelint-disable */
     a {
       text-decoration: none;
-      /* stylelint-disable */
       &:hover {
         text-decoration: underline;
       }
     }
+    /* stylelint-enable */
   }
   .categories {
     font-size: 14px;
