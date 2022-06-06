@@ -341,6 +341,7 @@ export const CourseCard: React.FC<CourseCardProps> = (props) => {
           <ImgWrapper>
             <RatioBox ratio={mobile ? 66 / 100 : 1}>
               <img
+                aria-hidden="true"
                 onClick={() => onImageClick && onImageClick()}
                 className="image"
                 src={imageSrc}
