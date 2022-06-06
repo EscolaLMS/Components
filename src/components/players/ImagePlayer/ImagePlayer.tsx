@@ -22,7 +22,8 @@ const StyledImagePlayer = styled("div")`
   }
 `;
 
-const LightBoxOverwirte = createGlobalStyle`
+const LightBoxOverwrite = createGlobalStyle`
+
 @keyframes closeWindow {
   0% {
     opacity: 1;
@@ -388,7 +389,7 @@ export const ImagePlayer: React.FC<ImagePlayerProps> = ({ topic, onLoad }) => {
 
   return (
     <StyledImagePlayer>
-      <LightBoxOverwirte />
+      <LightBoxOverwrite />
       <Image
         path={topic.topicable.value}
         srcSizes={[500, 750, 1000]}
