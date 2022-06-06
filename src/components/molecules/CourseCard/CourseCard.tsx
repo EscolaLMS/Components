@@ -79,7 +79,7 @@ export interface CourseCardProps extends StyledCourseCardProps {
   subtitle?: ReactNode;
   //TODO: add params if needed to onImageClick
   onImageClick?: () => void;
-  onTagClick?: (tagId: number) => void;
+  onTagClick?: (title: string) => void;
   onButtonClick?: (cardId: number) => void;
   buttonText?: string;
   onSecondaryButtonClick?: () => void;
@@ -96,6 +96,7 @@ const StyledCourseCard = styled("div")<StyledCourseCardProps>`
 
   .image-section {
     position: relative;
+    z-index: 0;
   }
   .information-in-image {
     position: absolute;
@@ -112,7 +113,7 @@ const StyledCourseCard = styled("div")<StyledCourseCardProps>`
     align-self: end;
     display: flex;
     gap: 10px;
-    z-index: 1;
+    z-index: 200;
   }
   .card {
     padding: 13px 10px;
@@ -177,6 +178,25 @@ const StyledCourseCard = styled("div")<StyledCourseCardProps>`
   }
 `;
 
+const ImgWrapper = styled.div`
+  img {
+    cursor: pointer;
+    transition: 0.3s transform ease;
+    &:hover {
+      transform: scale(1.03);
+    }
+  }
+`;
+
+const StyledCategory = styled.span`
+  transition: 0.3s color ease-in-out;
+  &:hover {
+    color: ${(props) => {
+      return props.theme.primaryColor;
+    }};
+  }
+`;
+
 export const CourseCard: React.FC<CourseCardProps> = (props) => {
   const {
     id,
@@ -200,10 +220,9 @@ export const CourseCard: React.FC<CourseCardProps> = (props) => {
   const { t } = useTranslation();
 
   const tagClick = useCallback(
-    (e: React.MouseEvent<HTMLDivElement, MouseEvent>, id: number) => {
-      e.stopPropagation();
+    (e: React.MouseEvent<HTMLDivElement, MouseEvent>, title: string) => {
       if (onTagClick) {
-        onTagClick(id);
+        onTagClick(title);
       }
     },
     []
@@ -241,7 +260,7 @@ export const CourseCard: React.FC<CourseCardProps> = (props) => {
             {categories.categoryElements.map((category, index) => {
               return (
                 <>
-                  <span
+                  <StyledCategory
                     className="category"
                     key={category.id}
                     onClick={() => categories.onCategoryClick(category.id)}
@@ -250,7 +269,7 @@ export const CourseCard: React.FC<CourseCardProps> = (props) => {
                     tabIndex={0}
                   >
                     {category.name}
-                  </span>
+                  </StyledCategory>
                   {categories.categoryElements.length !== index + 1 && (
                     <span> / </span>
                   )}
@@ -267,6 +286,7 @@ export const CourseCard: React.FC<CourseCardProps> = (props) => {
             </Text>
           </div>
         )}
+
         <div className={"card-course-footer"}>
           {progress ? (
             <ProgressBar {...progress} />
@@ -303,7 +323,7 @@ export const CourseCard: React.FC<CourseCardProps> = (props) => {
                 <Badge
                   className="tag"
                   key={tag.id}
-                  onClick={(e) => tagClick(e, tag.id)}
+                  onClick={(e) => tagClick(e, tag.title)}
                   color={theme.gray2}
                 >
                   {tag.title}
@@ -318,13 +338,17 @@ export const CourseCard: React.FC<CourseCardProps> = (props) => {
               </div>
             )}
           </div>
-          <RatioBox ratio={mobile ? 66 / 100 : 1}>
-            <img
-              className="image"
-              src={imageSrc}
-              alt={image ? image.alt : undefined}
-            />
-          </RatioBox>
+
+          <ImgWrapper>
+            <RatioBox ratio={mobile ? 66 / 100 : 1}>
+              <img
+                onClick={() => onButtonClick && onButtonClick(id)}
+                className="image"
+                src={imageSrc}
+                alt={image ? image.alt : undefined}
+              />{" "}
+            </RatioBox>
+          </ImgWrapper>
         </div>
       )}
       {hideImage ? (
