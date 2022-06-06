@@ -4,7 +4,7 @@ import { initReactI18next } from "react-i18next";
 // the translations
 // (tip move them in a JSON file and import them,
 // or even better, manage them separated from your code: https://react.i18next.com/guides/multiple-translation-files)
-const resources = {
+export const resources = {
   en: {
     translation: {
       Loading: "Loading",
@@ -104,6 +104,23 @@ const resources = {
       "Ratings.averageRateLabel": "Średnia ocena",
       "PdfPlayer.notFound": "Dokument nie został znaleziony",
       "PdfPlayer.of": "z",
+      Required: "Wymagane",
+      "Wrong email": "Zły adres email",
+      "Wrong phone number": "Zły numer telefonu",
+      "First name": "Imię",
+      "Last name": "Nazwisko",
+      Phone: "Telefon",
+      MyProfileForm: {
+        Heading: "Moje dane",
+        Subtitle: "Uzupełnij informacje na swój temat",
+        contact: "Dane kontaktowe",
+        country: "Kraj",
+        address: "Adres zamieszkania",
+        "Privacy Policy": "Politykę prywatności",
+        "Terms of Service": "Regulamin serwisu",
+        bio: "Biogram",
+        Update: "Zapisz zmiany",
+      },
     },
   },
 };

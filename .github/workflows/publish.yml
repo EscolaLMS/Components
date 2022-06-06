@@ -15,11 +15,11 @@ jobs:
           node-version: "16.x"
           registry-url: "https://registry.npmjs.org"
       - run: git config --global user.email "github@escolalms.com" &&   git config --global user.name "Github"
-      - run: npm i
+      - run: npm i --legacy-peer-deps
       - run: npm run lib
       - run: npm version ${{github.ref_name}}
       - run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - run: git push
+      - run: git push --force
