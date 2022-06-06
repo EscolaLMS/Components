@@ -1,6 +1,6 @@
 {
   "name": "@escolalms/components",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "main": "lib/index.js",
   "license": "MIT",
   "scripts": {
@@ -55,7 +55,6 @@
     "react-pdf": "^5.7.2",
     "react-player": "^2.0.0",
     "react-slick": "^0.29.0",
-    "react-image-lightbox": "^5.1.4",
     "react-styleguidist": "^11.2.0",
     "react-tiny-oembed": "^1.1.0",
     "rehype-raw": "^6.1.1",
