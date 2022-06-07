@@ -3,7 +3,7 @@ import { getFontFromTheme } from "../../../theme/provider";
 import styled, { withTheme } from "styled-components";
 import Notification, {
   NotificationProps,
-} from "../../atoms/Notification/Notification";
+} from "../../molecules/Notification/Notification";
 import { useOnClickOutside } from "../../../hooks/useOnClickOutside";
 import { Title, Text, Link } from "../../../";
 
