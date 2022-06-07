@@ -20,6 +20,7 @@ const ModalWrapper = () => {
         animation="zoom"
         maskAnimation="fade"
         destroyOnClose={true}
+        width={800}
       >
         <Title level={4} className="modal-title">
           Modal title
