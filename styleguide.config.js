@@ -63,16 +63,6 @@ module.exports = {
           content: "doc/components/players.md",
           components: "src/components/players/**/*.tsx",
         },
-        {
-          name: "Templates",
-          content: "doc/components/templates.md",
-          components: "src/components/templates/**/*.tsx",
-        },
-        {
-          name: "Pages",
-          content: "doc/components/pages.md",
-          components: "src/components/pages/**/*.tsx",
-        },
       ],
     },
 

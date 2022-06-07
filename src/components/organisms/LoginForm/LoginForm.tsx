@@ -154,7 +154,4 @@ export const LoginForm: React.FC<{
   );
 };
 
-// https://styled-components.com/docs/api#using-custom-props
-
-// Main button with styles
 export default withTheme(styled(LoginForm)<{ mobile: boolean }>``);

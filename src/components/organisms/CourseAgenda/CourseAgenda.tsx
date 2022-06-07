@@ -103,7 +103,7 @@ interface CourseAgendaTopicProps extends SharedComponentProps {
   mode: "pending" | "current" | "finished";
 }
 
-const StyledSection = styled("section")<CourseAgendaProps>`
+const StyledSection = styled("section")`
   width: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -402,6 +402,7 @@ const CourseAgendaLesson: React.FC<CourseAgendaLessonProps> = (props) => {
 
           return (
             <CourseAgendaTopic
+              key={topicIndex}
               topic={topic}
               index={topicIndex + 1}
               mode={mode}
@@ -441,7 +442,7 @@ export const CourseAgenda: React.FC<CourseAgendaProps> = (props) => {
   }, [flatTopics, finishedTopicIds]);
 
   return (
-    <StyledSection {...props}>
+    <StyledSection>
       {!mobile && (
         <header>
           <IconTitle

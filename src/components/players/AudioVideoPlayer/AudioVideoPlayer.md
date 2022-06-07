@@ -45,13 +45,13 @@ import img2 from "./VideoPlayerPoster.png";
       <AudioVideoPlayer
         url="https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
         light={img2}
-        mobile
+        mobile={+true}
       ></AudioVideoPlayer>
     </div>
     <div style={{ width: "100%" }}>
       <Title level={3}>Audio</Title>
       <AudioVideoPlayer
-        audio
+        audio={+true}
         url="http://commondatastorage.googleapis.com/codeskulptor-assets/Epoq-Lepidoptera.ogg"
       >
         <div className="video-player-overlay">
