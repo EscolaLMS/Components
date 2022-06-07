@@ -21,7 +21,7 @@ const StyledNote = styled("div")<StyledNoteProps>`
   box-sizing: border-box;
   justify-content: space-between;
   margin-bottom: 10px;
-  border-radius: ${(props) => props.theme.noteRadius}px;
+  border-radius: ${(props) => props.theme.cardRadius}px;
   background: ${({ theme }) =>
     theme.mode === "light"
       ? theme.cardBackgroundColorDark
