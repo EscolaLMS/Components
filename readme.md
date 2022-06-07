@@ -8,4 +8,4 @@ Collections of components used to develop E-learning Course Applications that co
 ![npm](https://img.shields.io/npm/v/@escolalms/components)
 ![npm](https://img.shields.io/npm/dm/@escolalms/components)
 
-[http://components.wellms.io/](http://components.wellms.io/)
+[https://components.wellms.io/](https://components.wellms.io/)
