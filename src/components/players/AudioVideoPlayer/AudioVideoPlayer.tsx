@@ -148,7 +148,7 @@ const StyledAudioVideoPlayer = styled("div")<AudioVideoPlayerProps>`
   }
 `;
 
-const StyledVideoControls = styled("div")<AudioVideoPlayerControlsProps>`
+const StyledVideoControls = styled("div")<AudioVideoPlayerProps>`
   position: absolute;
   left: 0;
   bottom: 0;
@@ -168,10 +168,8 @@ const StyledVideoControls = styled("div")<AudioVideoPlayerControlsProps>`
     height: 3px;
     background: grey;
     border-radius: 3px;
-    background-image: linear-gradient(
-      ${({ theme }) => theme.primaryColor},
-      ${({ theme }) => theme.primaryColor}
-    );
+    background-image: ${({ theme }) =>
+      `linear-gradient(${theme.primaryColor}, ${theme.primaryColor})`};
     background-repeat: no-repeat;
 
     &::-webkit-slider-thumb {
@@ -750,15 +748,16 @@ export const AudioVideoPlayer: React.FC<AudioVideoPlayerProps> = (props) => {
       state={audioVideoState}
       ref={refWrapper}
       audio={audio}
+      light={light}
     >
       <RatioBox ratio={9 / 16}>
         <ReactPlayer
           {...props}
+          light={light}
           ref={ref}
           width={"100%"}
           height={"100%"}
           controls={!!mobile}
-          light={light}
           playIcon={IconPlayCircle()}
           playing={audioVideoState.playing}
           volume={audioVideoState.volume}
