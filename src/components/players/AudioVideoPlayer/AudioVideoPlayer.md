@@ -53,7 +53,6 @@ import img2 from "./VideoPlayerPoster.png";
       <AudioVideoPlayer
         audio
         url="http://commondatastorage.googleapis.com/codeskulptor-assets/Epoq-Lepidoptera.ogg"
-        light={img2}
       >
         <div className="video-player-overlay">
           <div className="video-player-overlay-inner">
