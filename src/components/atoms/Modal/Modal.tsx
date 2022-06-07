@@ -1,7 +1,5 @@
 import * as React from "react";
-
 import styled, { createGlobalStyle, withTheme } from "styled-components";
-
 import Dialog, { DialogProps } from "rc-dialog";
 import chroma from "chroma-js";
 
@@ -22,7 +20,7 @@ const CloseBtn = () => (
   </svg>
 );
 
-const StyledGlobal = createGlobalStyle`
+const StyledGlobal = createGlobalStyle<ModalProps>`
   .rc-dialog {
     position: relative;
 
@@ -53,10 +51,10 @@ const StyledGlobal = createGlobalStyle`
       background-color: ${({ theme }) =>
         theme.mode === "light" ? theme.white : theme.black};
       border: none;
-      border-radius: ${({ theme }) => theme.cardRadius};
+      border-radius: ${({ theme }) => theme.cardRadius}px;
       background-clip: padding-box;
       width: 100%;
-      max-width: 468px;
+      max-width: ${(props) => (props.width ? props.width : "468px")};
       box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.1);
     }
 
@@ -227,13 +225,13 @@ const StyledGlobal = createGlobalStyle`
 `;
 
 export const Modal: React.FC<ModalProps> = (props) => {
-  const { children } = props;
+  const { children, width } = props;
   const wrapper = React.useRef<HTMLDivElement>(null);
   return (
     <React.Fragment>
       <div ref={wrapper}>
         <Dialog {...props} closeIcon={<CloseBtn />}>
-          <StyledGlobal />
+          <StyledGlobal width={width} />
           {children}
         </Dialog>
       </div>
@@ -241,6 +239,4 @@ export const Modal: React.FC<ModalProps> = (props) => {
   );
 };
 
-const NewModal = styled(Modal)<ModalProps>``;
-
-export default withTheme(NewModal);
+export default withTheme(styled(Modal)<ModalProps>``);
