@@ -25,6 +25,30 @@ import Notifications from "./Notifications";
               "Kursu BHP przy produkcji Big Mac Vege. Pamiętaj, że kurs jest obowiązkowy. Termin ukończenia upływa 31 marca 2022",
             dateTime: new Date(Date.now() - 86400000),
           },
+          {
+            id: "324244",
+            unread: false,
+            title: "Masz do zrobienia kurs BHP",
+            description:
+              "Kursu BHP przy produkcji Big Mac Vege. Pamiętaj, że kurs jest obowiązkowy. Termin ukończenia upływa 31 marca 2022",
+            dateTime: new Date(Date.now() - 86400000),
+          },
+          {
+            id: "324244",
+            unread: false,
+            title: "Masz do zrobienia kurs BHP",
+            description:
+              "Kursu BHP przy produkcji Big Mac Vege. Pamiętaj, że kurs jest obowiązkowy. Termin ukończenia upływa 31 marca 2022",
+            dateTime: new Date(Date.now() - 86400000),
+          },
+          {
+            id: "324244",
+            unread: false,
+            title: "Masz do zrobienia kurs BHP",
+            description:
+              "Kursu BHP przy produkcji Big Mac Vege. Pamiętaj, że kurs jest obowiązkowy. Termin ukończenia upływa 31 marca 2022",
+            dateTime: new Date(Date.now() - 86400000),
+          },
         ]}
         showAllLink="/"
       />
