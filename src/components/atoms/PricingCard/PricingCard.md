@@ -276,7 +276,7 @@ const props = {
         <Title level={5} as={"h5"}>
           {props.title}
         </Title>
-        <div class="pricing-card-footer">
+        <div className="pricing-card-footer">
           <div>
             <div className="pricing-card-discount">
               <Title level={5} as={"h5"}>

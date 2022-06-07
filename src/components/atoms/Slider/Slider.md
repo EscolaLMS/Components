@@ -37,7 +37,7 @@ const [dotsOption, setDotOption] = useState("top");
       onChange={(v) => setDotOption(v.target.value)}
     >
       {dotsOptions.map((o) => (
-        <option>{o}</option>
+        <option key={o}>{o}</option>
       ))}
     </select>
   </div>

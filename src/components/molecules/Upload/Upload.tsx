@@ -112,7 +112,13 @@ const UploadIcon = () => (
 export const Upload: React.FC<InputProps> = (props) => {
   const { t } = useTranslation();
 
-  const { onChange, url, loading, buttonTitle = t("Upload.button") } = props;
+  const {
+    onChange,
+    url,
+    loading,
+    buttonTitle = t("Upload.button"),
+    ...rest
+  } = props;
 
   const [src, setSrc] = useState<string | undefined>(url);
 
@@ -137,7 +143,7 @@ export const Upload: React.FC<InputProps> = (props) => {
   );
   return (
     <StyledDiv className="upload">
-      <input type="file" {...props} onChange={onInternalChange} />
+      <input type="file" {...rest} onChange={onInternalChange} />
       <div className="wrapper">
         <div className="border">
           {loading && <Spin />}

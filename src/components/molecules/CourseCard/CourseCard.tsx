@@ -270,7 +270,7 @@ export const CourseCard: React.FC<CourseCardProps> = (props) => {
             <Text className="categories">
               {categories.categoryElements.map((category, index) => {
                 return (
-                  <>
+                  <React.Fragment key={index}>
                     <StyledCategory
                       className="category"
                       key={category.id}
@@ -284,7 +284,7 @@ export const CourseCard: React.FC<CourseCardProps> = (props) => {
                     {categories.categoryElements.length !== index + 1 && (
                       <span> / </span>
                     )}
-                  </>
+                  </React.Fragment>
                 );
               })}
             </Text>
@@ -292,16 +292,6 @@ export const CourseCard: React.FC<CourseCardProps> = (props) => {
         )}
 
         {footer && <footer className="footer">{footer}</footer>}
-
-        {/** TODO remove this is future as well as lessonCount props */}
-        {/*lessonCount && ( 
-          <div className="lesson-container">
-            <IconOpenBook />
-            <Text className="lessons-count" size={"14"}>
-              {t<string>("CourseCard.lesson", { count: lessonCount })}
-            </Text>
-          </div>
-        )*/}
 
         <div className={"card-course-footer"}>
           {actions && (

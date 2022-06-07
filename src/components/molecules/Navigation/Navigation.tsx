@@ -245,9 +245,9 @@ export const Navigation: React.FC<NavigationProps> = (props) => {
     return (
       <nav>
         <ul className="drawer-menu-list">
-          {_menuItems.map((menuItem) => {
+          {_menuItems.map((menuItem, i) => {
             return (
-              <li>
+              <li key={i}>
                 <div
                   role={menuItem.children && "button"}
                   className="drawer-menu-item"

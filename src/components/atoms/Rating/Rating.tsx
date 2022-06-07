@@ -98,7 +98,11 @@ export const Rating: React.FC<RatingProps> = (props) => {
   } = props;
   const startToRender = Array.from(Array(count).keys());
   return (
-    <StyledRating {...props} className="lsm-rating">
+    <StyledRating
+      size={props.size}
+      ratingValue={ratingValue}
+      className="lsm-rating"
+    >
       <>
         {startToRender.map((index) => {
           return index + 1 <= Math.round(ratingValue) ? (

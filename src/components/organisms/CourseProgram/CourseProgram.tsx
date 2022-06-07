@@ -201,7 +201,7 @@ interface CourseProgramTopicProps extends SharedComponentProps {
   topic: Topic;
 }
 
-const StyledSection = styled("section")<CourseProgramProps>`
+const StyledSection = styled("section")`
   width: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -430,6 +430,7 @@ const CourseProgramLesson: React.FC<CourseProgramLessonProps> = (props) => {
         {lesson.topics?.map((topic, topicIndex) => {
           return (
             <CourseProgramTopic
+              key={topicIndex}
               topic={topic}
               index={topicIndex + 1}
               onTopicClick={onTopicClick}
@@ -446,7 +447,7 @@ export const CourseProgram: React.FC<CourseProgramProps> = (props) => {
   const { t } = useTranslation();
 
   return (
-    <StyledSection {...props}>
+    <StyledSection>
       {!mobile && (
         <header>
           <IconTitle
