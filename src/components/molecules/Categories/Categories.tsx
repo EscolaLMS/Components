@@ -25,6 +25,8 @@ interface CategoriesProps extends StyledCategoriesProps {
   selectedCategories?: number[];
   handleChange?: (newValue: number[]) => void;
   drawerTitle?: ReactNode;
+  handleDrawerButtonClick?: () => void;
+  drawerButtonText?: string;
 }
 
 const IconArrowBottom = () => {
@@ -392,7 +394,9 @@ const CategoriesDrawer: React.FC<CategoriesProps> = (props) => {
     labelPrefix,
     label,
     handleChange,
+    handleDrawerButtonClick,
     selectedCategories,
+    drawerButtonText,
     drawerTitle,
     mobile,
   } = props;
@@ -437,17 +441,20 @@ const CategoriesDrawer: React.FC<CategoriesProps> = (props) => {
             mobile={mobile}
           />
         </div>
-        <div className={"drawer-content-footer"}>
-          <Button
-            block
-            mode={"secondary"}
-            onClick={() => {
-              onToggleDrawer();
-            }}
-          >
-            Test
-          </Button>
-        </div>
+        {drawerButtonText && handleDrawerButtonClick && (
+          <div className={"drawer-content-footer"}>
+            <Button
+              block
+              mode={"secondary"}
+              onClick={() => {
+                onToggleDrawer();
+                handleDrawerButtonClick && handleDrawerButtonClick();
+              }}
+            >
+              {drawerButtonText && drawerButtonText}
+            </Button>
+          </div>
+        )}
       </Drawer>
     </React.Fragment>
   );
