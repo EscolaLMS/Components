@@ -3,8 +3,9 @@ import { getFontFromTheme } from "../../../theme/provider";
 import styled, { withTheme } from "styled-components";
 import Notification, {
   NotificationProps,
-} from "../../atoms/Notification/Notification";
+} from "../../molecules/Notification/Notification";
 import { useOnClickOutside } from "../../../hooks/useOnClickOutside";
+import { Title, Text, Link } from "../../../";
 
 export interface ComponentProps {
   notifications: NotificationProps[];
@@ -59,10 +60,15 @@ const StyledNotifications = styled.section`
   z-index: 9999;
   > div {
     position: relative;
+    box-sizing: border-box;
     width: 585px;
-    padding: 48px 30px 38px 38px;
+    padding: 30px 26px 30px 38px;
+    border-radius: ${({ theme }) => theme.cardRadius}px;
     background-color: ${({ theme }) =>
-      theme.mode === "light" ? theme.gray5 : theme.gray1};
+      theme.mode === "light"
+        ? theme.cardBackgroundColorDark
+        : theme.cardBackgroundColorLight};
+
     &:before {
       position: absolute;
       top: -20px;
@@ -75,18 +81,20 @@ const StyledNotifications = styled.section`
       border-right: 80px solid
         ${({ theme }) =>
           theme.mode === "light"
-            ? theme.backgroundLight
-            : theme.backgroundDark};
+            ? theme.cardBackgroundColorDark
+            : theme.cardBackgroundColorLight};
     }
   }
   ul {
     list-style: none;
-    padding: 0;
+    padding: 0 10px 0 0;
     margin: 0;
+    max-height: 400px;
+    overflow-y: auto;
+
     li {
-      margin-bottom: 42px;
-      &:last-child {
-        margin-bottom: 0;
+      &:not(:last-child) {
+        margin-bottom: 30px;
       }
     }
   }
@@ -95,53 +103,12 @@ const StyledNotifications = styled.section`
 const StyledNotificationsHeader = styled.div`
   position: relative;
   padding-bottom: 23px;
-  border-bottom: 1px solid ${({ theme }) => theme.textColorDark};
-  margin-bottom: 40px;
+  border-bottom: 1px solid
+    ${({ theme }) => (theme.mode === "light" ? theme.gray1 : theme.gray2)};
+  margin-bottom: 36px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  h5 {
-    font-size: 20px;
-    font-weight: 700;
-    line-height: 24px;
-    margin: 0;
-  }
-`;
-
-const StyledNoNotifications = styled.p`
-  font-size: 20px;
-  line-height: 24px;
-  font-weight: 400;
-`;
-
-const StyledLink = styled.a`
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  font-size: 14px;
-  line-height: 17px;
-  font-weight: 500;
-  color: ${({ theme }) => theme.textColorLight};
-  transition: color 0.4s;
-
-  /* stylelint-disable */
-  svg {
-    /* stylelint-enable */
-    margin-left: 8px;
-    /* stylelint-disable */
-    path {
-      /* stylelint-enable */
-      transition: fill 0.4s;
-    }
-  }
-  &:hover {
-    color: ${({ theme }) => theme.primaryColor};
-    svg {
-      path {
-        fill: ${({ theme }) => theme.primaryColor};
-      }
-    }
-  }
 `;
 
 export const Notifications: React.FC<ComponentProps> = (props) => {
@@ -181,9 +148,11 @@ export const Notifications: React.FC<ComponentProps> = (props) => {
         <StyledNotifications>
           <div>
             <StyledNotificationsHeader>
-              <h5>Powiadomienia</h5>
+              <Title level={4} noMargin>
+                Powiadomienia
+              </Title>
               {showAllLink && (
-                <StyledLink href={showAllLink}>
+                <Link href={showAllLink}>
                   Pokaż wszystkie
                   <svg
                     width="12"
@@ -199,7 +168,7 @@ export const Notifications: React.FC<ComponentProps> = (props) => {
                       fill="black"
                     />
                   </svg>
-                </StyledLink>
+                </Link>
               )}
             </StyledNotificationsHeader>
             {notifications.length ? (
@@ -216,9 +185,7 @@ export const Notifications: React.FC<ComponentProps> = (props) => {
                 ))}
               </ul>
             ) : (
-              <StyledNoNotifications>
-                Brak Nowych powiadomień
-              </StyledNoNotifications>
+              <Text>Brak Nowych powiadomień</Text>
             )}
           </div>
         </StyledNotifications>

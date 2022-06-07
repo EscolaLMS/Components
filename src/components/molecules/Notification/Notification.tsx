@@ -3,6 +3,7 @@ import { getFontFromTheme } from "../../../theme/provider";
 import styled, { withTheme, css } from "styled-components";
 import format from "date-fns/format";
 import isToday from "date-fns/isToday";
+import { Title, Text } from "../../../";
 
 export interface ComponentProps {
   notification: NotificationProps;
@@ -25,7 +26,6 @@ const StyledNotification = styled.section<{
 }>`
   cursor: pointer;
   position: relative;
-  font-family: ${({ theme }) => getFontFromTheme(theme).fontFamily};
   background-color: ${({ theme }) =>
     theme.mode === "light"
       ? theme.cardBackgroundColorDark
@@ -33,6 +33,7 @@ const StyledNotification = styled.section<{
   display: flex;
   width: 100%;
   align-items: flex-start;
+  border-radius: ${({ theme }) => theme.cardRadius}px;
   padding: ${({ modularView }) => (modularView ? "0" : "23px 68px 24px 17px")};
   justify-content: ${(props) =>
     props.modularView ? "space-between" : "flex-start"};
@@ -69,32 +70,14 @@ const StyledNotification = styled.section<{
         left: -23px;
       }
     `}
-`;
-
-const StyledTitle = styled.h5`
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 19px;
-  margin-top: 0;
-  margin-bottom: 7px;
-`;
-
-const StyledDescription = styled.div`
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 17px;
-`;
-
-const StyledDate = styled.span<{
-  modularView: boolean;
-}>`
-  font-size: 12px;
-  line-height: 14px;
-  font-weight: 300;
-  display: inline-block;
-  min-width: 60px;
-  text-align: left;
-  margin-left: ${({ modularView }) => (modularView ? "38px" : "auto")};
+    
+  .date {
+    display: inline-block;
+    opacity: 0.8;
+    min-width: 60px;
+    text-align: left;
+    margin-left: ${({ modularView }) => (modularView ? "38px" : "auto")};
+  }
 `;
 
 export const Notification: React.FC<ComponentProps> = ({
@@ -112,16 +95,23 @@ export const Notification: React.FC<ComponentProps> = ({
       onClick={onClick}
     >
       <div>
-        <StyledTitle>{title}</StyledTitle>
-        <StyledDescription>
+        <Title
+          level={5}
+          style={{
+            marginBottom: "6px",
+          }}
+        >
+          {title}
+        </Title>
+        <Text size={"14"} noMargin>
           {maxLengthDesc && description.length > maxLengthDesc
             ? `${description.substring(0, maxLengthDesc)}...`
             : description}
-        </StyledDescription>
+        </Text>
       </div>
-      <StyledDate modularView={modularView}>
+      <Text size={"12"} className={"date"}>
         {format(dateTime, isToday(dateTime) ? "hh:mm" : "dd.MM.yyyy")}
-      </StyledDate>
+      </Text>
     </StyledNotification>
   );
 };

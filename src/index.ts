@@ -14,7 +14,7 @@ export { default as Interval } from "./components/atoms/Input/Input";
 export { default as Link } from "./components/atoms/Link/Link";
 export { default as Logo } from "./components/atoms/Logo/Logo";
 export { default as Note } from "./components/atoms/Logo/Logo";
-export { default as Notification } from "./components/atoms/Notification/Notification";
+export { default as Notification } from "./components/molecules/Notification/Notification";
 export { default as Option } from "./components/atoms/Option/Option";
 export { Checkbox as Checkbox } from "./components/atoms/Option/Checkbox";
 export { Radio as Radio } from "./components/atoms/Option/Radio";
