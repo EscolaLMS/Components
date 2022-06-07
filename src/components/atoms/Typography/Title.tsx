@@ -20,13 +20,19 @@ const StyledHeader = styled.h1<StyledHeader>`
   padding: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: ${(props) => {
-    return props.theme.mode !== "light" ? props.theme.white : props.theme.gray1;
-  }};
+
   font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
   font-weight: bold;
   font-size: ${(props) => setFontSizeByHeaderLevel(props.level, props.mobile)};
   line-height: 125%;
+  &,
+  & > * {
+    color: ${(props) => {
+      return props.theme.mode !== "light"
+        ? props.theme.white
+        : props.theme.gray1;
+    }};
+  }
 `;
 
 export const Title: React.FC<TitleProps> = (props) => {

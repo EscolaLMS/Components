@@ -2,6 +2,7 @@
 
 export { default as Avatar } from "./components/atoms/Avatar/Avatar";
 export { default as Badge } from "./components/atoms/Badge/Badge";
+export { default as BreadCrumbs } from "./components/atoms/BreadCrumbs/BreadCrumbs";
 export { default as Button } from "./components/atoms/Button/Button";
 export { default as Card } from "./components/atoms/Button/Button";
 export { default as CourseProgress } from "./components/atoms/CourseProgress/CourseProgress";

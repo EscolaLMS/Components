@@ -1,6 +1,5 @@
 import * as React from "react";
-import { ReactNode, useMemo, useCallback } from "react";
-import { useTranslation } from "react-i18next";
+import { ReactNode, ReactChild, useMemo, useCallback } from "react";
 import styled, { ThemeContext } from "styled-components";
 import { Badge } from "../../atoms/Badge/Badge";
 import { Button } from "../../atoms/Button/Button";
@@ -14,39 +13,12 @@ import { Text } from "../../atoms/Typography/Text";
 import { Title } from "../../atoms/Typography/Title";
 import { Link } from "../../atoms/Link/Link";
 
-const IconOpenBook = () => {
-  return (
-    <svg
-      width="18"
-      height="17"
-      viewBox="0 0 18 17"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M1.5 1.98621H6C6.79565 1.98621 7.55871 2.30228 8.12132 2.86489C8.68393 3.42749 9 4.19056 9 4.98621V15.4862C9 14.8895 8.76295 14.3172 8.34099 13.8952C7.91903 13.4733 7.34674 13.2362 6.75 13.2362H1.5V1.98621Z"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      />
-      <path
-        d="M16.5 1.98621H12C11.2044 1.98621 10.4413 2.30228 9.87868 2.86489C9.31607 3.42749 9 4.19056 9 4.98621V15.4862C9 14.8895 9.23705 14.3172 9.65901 13.8952C10.081 13.4733 10.6533 13.2362 11.25 13.2362H16.5V1.98621Z"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      />
-    </svg>
-  );
-};
-
-//TODO: add alt to image to api
-interface Image {
+type ImageObject = {
   path?: string;
   url?: string;
   alt?: string;
-}
+};
+type Image = ImageObject | ReactChild;
 
 interface Tag {
   id: number;
@@ -68,12 +40,19 @@ interface StyledCourseCardProps {
   hideImage?: boolean;
 }
 
+// type guard
+function isCategories(
+  categories: Categories | ReactChild
+): categories is Categories {
+  return !React.isValidElement(categories);
+}
+
 export interface CourseCardProps extends StyledCourseCardProps {
   id: number;
   image?: Image;
   title: ReactNode;
-  categories?: Categories;
-  tags?: Tag[];
+  categories?: Categories | ReactChild;
+  tags?: Tag[] | ReactChild;
   lessonCount?: number;
   subtitle?: ReactNode;
   //TODO: add params if needed to onImageClick
@@ -84,6 +63,8 @@ export interface CourseCardProps extends StyledCourseCardProps {
   onSecondaryButtonClick?: () => void;
   secondaryButtonText?: string;
   progress?: ProgressBarProps;
+  actions?: ReactNode;
+  footer?: ReactNode;
 }
 
 const StyledCourseCard = styled("div")<StyledCourseCardProps>`
@@ -128,8 +109,28 @@ const StyledCourseCard = styled("div")<StyledCourseCardProps>`
     display: flex;
     flex-direction: column;
   }
+  .card-subtitle {
+    color: ${(props) => !props.hideImage && props.theme.primaryColor};
+    & > a {
+      color: ${(props) => !props.hideImage && props.theme.primaryColor};
+
+      text-decoration: none;
+    }
+    & > a:hover {
+      text-decoration: underline;
+    }
+  }
+
   .title {
     margin-bottom: 15px;
+    /* stylelint-disable */
+    a {
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    /* stylelint-enable */
   }
   .categories {
     font-size: 14px;
@@ -137,11 +138,19 @@ const StyledCourseCard = styled("div")<StyledCourseCardProps>`
     color: ${(props) =>
       props.hideImage ? props.theme.gray2 : props.theme.gray3};
     margin-bottom: 15px;
+    * {
+      font-size: 14px;
+      line-height: 17px;
+      color: ${(props) =>
+        props.hideImage ? props.theme.gray2 : props.theme.gray3};
+    }
   }
+  .footer,
   .lesson-container {
     display: flex;
     align-items: center;
     margin-bottom: ${(props) => (props.mobile ? "15px" : "30px")};
+    gap: ${(props) => (props.mobile ? "15px" : "30px")};
   }
   .lessons-count {
     font-weight: 700;
@@ -152,12 +161,6 @@ const StyledCourseCard = styled("div")<StyledCourseCardProps>`
   }
   .tag {
     cursor: pointer;
-  }
-
-  .card-subtitle {
-    color: ${(props) => {
-      return !props.hideImage && props.theme.primaryColor;
-    }};
   }
 
   .course-card-buttons-group {
@@ -213,10 +216,15 @@ export const CourseCard: React.FC<CourseCardProps> = (props) => {
     buttonText,
     progress,
     hideImage,
+    actions,
+    footer,
   } = props;
 
   const theme = React.useContext(ThemeContext);
-  const { t } = useTranslation();
+
+  React.useEffect(() => {
+    console.warn("dont use lessonCount is DECREPITATED");
+  }, [lessonCount]);
 
   const tagClick = useCallback(
     (e: React.MouseEvent<HTMLDivElement, MouseEvent>, title: string) => {
@@ -228,8 +236,8 @@ export const CourseCard: React.FC<CourseCardProps> = (props) => {
   );
 
   const imageSrc = useMemo(() => {
-    if (image) {
-      const { path, url } = image;
+    if (image && ((image as ImageObject).path || (image as ImageObject).url)) {
+      const { path, url } = image as ImageObject;
       return path || url;
     }
   }, [image]);
@@ -254,39 +262,51 @@ export const CourseCard: React.FC<CourseCardProps> = (props) => {
           {title}
         </Title>
 
-        {categories && (
-          <Text className="categories">
-            {categories.categoryElements.map((category, index) => {
-              return (
-                <>
-                  <StyledCategory
-                    className="category"
-                    key={category.id}
-                    onClick={() => categories.onCategoryClick(category.id)}
-                    onKeyDown={() => categories.onCategoryClick(category.id)}
-                    role="button"
-                    tabIndex={0}
-                  >
-                    {category.name}
-                  </StyledCategory>
-                  {categories.categoryElements.length !== index + 1 && (
-                    <span> / </span>
-                  )}
-                </>
-              );
-            })}
-          </Text>
+        {React.isValidElement(categories) ? (
+          <div className="categories">{categories}</div>
+        ) : (
+          categories &&
+          isCategories(categories) && (
+            <Text className="categories">
+              {categories.categoryElements.map((category, index) => {
+                return (
+                  <>
+                    <StyledCategory
+                      className="category"
+                      key={category.id}
+                      onClick={() => categories.onCategoryClick(category.id)}
+                      onKeyDown={() => categories.onCategoryClick(category.id)}
+                      role="button"
+                      tabIndex={0}
+                    >
+                      {category.name}
+                    </StyledCategory>
+                    {categories.categoryElements.length !== index + 1 && (
+                      <span> / </span>
+                    )}
+                  </>
+                );
+              })}
+            </Text>
+          )
         )}
-        {lessonCount && (
+
+        {footer && <footer className="footer">{footer}</footer>}
+
+        {/** TODO remove this is future as well as lessonCount props */}
+        {/*lessonCount && ( 
           <div className="lesson-container">
             <IconOpenBook />
             <Text className="lessons-count" size={"14"}>
               {t<string>("CourseCard.lesson", { count: lessonCount })}
             </Text>
           </div>
-        )}
+        )*/}
 
         <div className={"card-course-footer"}>
+          {actions && (
+            <div className={"course-card-buttons-group"}>{actions}</div>
+          )}
           {progress ? (
             <ProgressBar {...progress} />
           ) : (
@@ -315,19 +335,22 @@ export const CourseCard: React.FC<CourseCardProps> = (props) => {
   return (
     <StyledCourseCard hideImage={hideImage} mobile={mobile}>
       {!hideImage && (
-        <div className="image-section" {...imageSectionProps}>
+        <div className="image-section">
           <div className="information-in-image">
             <div className="badges">
-              {tags.map((tag: Tag) => (
-                <Badge
-                  className="tag"
-                  key={tag.id}
-                  onClick={(e) => tagClick(e, tag.title)}
-                  color={theme.gray2}
-                >
-                  {tag.title}
-                </Badge>
-              ))}
+              {React.isValidElement(tags)
+                ? tags
+                : Array.isArray(tags) &&
+                  tags.map((tag: Tag) => (
+                    <Badge
+                      className="tag"
+                      key={tag.id}
+                      onClick={(e) => tagClick(e, tag.title)}
+                      color={theme.gray2}
+                    >
+                      {tag.title}
+                    </Badge>
+                  ))}
             </div>
             {props.subtitle && (
               <div className="card">
@@ -337,16 +360,18 @@ export const CourseCard: React.FC<CourseCardProps> = (props) => {
               </div>
             )}
           </div>
-
           <ImgWrapper>
             <RatioBox ratio={mobile ? 66 / 100 : 1}>
-              <img
-                aria-hidden="true"
-                onClick={() => onImageClick && onImageClick()}
-                className="image"
-                src={imageSrc}
-                alt={image ? image.alt : undefined}
-              />
+              {React.isValidElement(image) ? (
+                image
+              ) : (
+                <img
+                  {...imageSectionProps}
+                  className="image"
+                  src={imageSrc}
+                  alt={image ? (image as ImageObject).alt : undefined}
+                />
+              )}
             </RatioBox>
           </ImgWrapper>
         </div>
