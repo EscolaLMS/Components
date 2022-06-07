@@ -8,6 +8,8 @@ export interface OEmbedPlayerProps extends EmbedProps {
 }
 
 const StyledOEmbedPlayer = styled("div")`
+  width: 100%;
+
   iframe {
     width: 100%;
     height: 100%;
