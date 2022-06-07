@@ -1,5 +1,4 @@
 import React from "react";
-import { getFontFromTheme } from "../../../theme/provider";
 import styled, { withTheme, css } from "styled-components";
 import format from "date-fns/format";
 import isToday from "date-fns/isToday";

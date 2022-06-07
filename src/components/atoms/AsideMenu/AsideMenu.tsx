@@ -15,7 +15,6 @@ const StyledDiv = styled("div")<AsideMenuProps>`
   width: 100%;
   box-sizing: border-box;
   justify-content: space-between;
-  margin-bottom: 10px;
   border-radius: ${(props) => props.theme.cardRadius}px;
 
   border-left-color: ${(props) =>
