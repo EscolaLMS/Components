@@ -250,11 +250,6 @@ const StyledSection = styled("section")`
           text-decoration: underline;
         }
 
-        & > div > p {
-          padding-left: 30px;
-          margin: 0 0 10px 0;
-        }
-
         .lesson__description {
           display: flex;
 
