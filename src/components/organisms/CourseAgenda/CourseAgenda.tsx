@@ -3,6 +3,7 @@ import * as React from "react";
 import styled, { withTheme } from "styled-components";
 import { useTranslation } from "react-i18next";
 import type { Lesson, Topic } from "@escolalms/sdk/lib/types/api";
+import chroma from "chroma-js";
 
 const ProgramIcon = () => (
   <svg
@@ -38,6 +39,7 @@ const CurrentIcon = () => (
     viewBox="0 0 17 17"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
+    className={"current-icon"}
   >
     <path
       d="M8.4987 0.708496C6.95766 0.708496 5.45122 1.16547 4.16988 2.02163C2.88855 2.87779 1.88987 4.09468 1.30014 5.51842C0.710407 6.94216 0.556106 8.50881 0.856749 10.0202C1.15739 11.5317 1.89948 12.92 2.98916 14.0097C4.07885 15.0994 5.46719 15.8415 6.97862 16.1421C8.49006 16.4428 10.0567 16.2885 11.4804 15.6987C12.9042 15.109 14.1211 14.1103 14.9772 12.829C15.8334 11.5476 16.2904 10.0412 16.2904 8.50016C16.2879 6.43443 15.4662 4.45401 14.0056 2.99331C12.5449 1.53262 10.5644 0.710933 8.4987 0.708496ZM8.4987 14.8752C7.23785 14.8752 6.0053 14.5013 4.95694 13.8008C3.90858 13.1003 3.09148 12.1046 2.60897 10.9398C2.12646 9.77489 2.00021 8.49309 2.2462 7.25646C2.49218 6.01983 3.09934 4.88392 3.9909 3.99236C4.88246 3.1008 6.01837 2.49364 7.255 2.24766C8.49163 2.00168 9.77343 2.12792 10.9383 2.61043C12.1032 3.09294 13.0988 3.91004 13.7993 4.9584C14.4998 6.00677 14.8737 7.23931 14.8737 8.50016C14.8716 10.1903 14.1993 11.8106 13.0042 13.0057C11.8091 14.2008 10.1888 14.8731 8.4987 14.8752ZM7.08204 5.66683L11.332 8.50016L7.08204 11.3335V5.66683Z"
@@ -53,6 +55,7 @@ const PendingIcon = () => (
     viewBox="0 0 13 13"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
+    className={"pending-icon"}
   >
     <path
       d="M1.54036 12.1668H11.457C11.6449 12.1668 11.8251 12.0922 11.9579 11.9594C12.0907 11.8265 12.1654 11.6464 12.1654 11.4585V1.54183C12.1654 1.35397 12.0907 1.1738 11.9579 1.04096C11.8251 0.908124 11.6449 0.833496 11.457 0.833496H1.54036C1.3525 0.833496 1.17234 0.908124 1.0395 1.04096C0.906659 1.1738 0.832031 1.35397 0.832031 1.54183V11.4585C0.832031 11.6464 0.906659 11.8265 1.0395 11.9594C1.17234 12.0922 1.3525 12.1668 1.54036 12.1668ZM2.2487 2.25016H10.7487V10.7502H2.2487V2.25016Z"
@@ -107,6 +110,7 @@ const StyledSection = styled("section")`
   width: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
   & > header {
     display: flex;
     flex-direction: row;
@@ -114,6 +118,7 @@ const StyledSection = styled("section")`
     justify-content: space-between;
     align-items: flex-start;
     align-content: flex-start;
+    margin-bottom: 20px;
 
     .lms-icon-title {
       margin: 0;
@@ -122,21 +127,23 @@ const StyledSection = styled("section")`
     & > div {
       display: inline-flex;
       align-items: center;
+
       p {
-        font-size: 14px;
-        margin: 0;
         margin-right: 6px;
-        text-align: right;
       }
     }
   }
   .lesson__item {
-    background: ${(props) => props.theme.gray5};
+    background: ${({ theme }) =>
+      theme.mode === "light"
+        ? theme.cardBackgroundColorDark
+        : theme.cardBackgroundColorLight};
     border-left: 2px solid ${(props) => props.theme.primaryColor};
-    padding: 10px 10px 0 10px;
+    padding: 10px;
     margin: 10px 0;
     overflow: hidden;
     border-radius: ${(props) => props.theme.cardRadius}px;
+    
     .duration {
       margin: 1px 0;
     }
@@ -144,24 +151,42 @@ const StyledSection = styled("section")`
     & > header {
       display: flex;
       flex-direction: row;
-      flex-wrap: nowrap;
-      justify-content: space-between;
+      flex-wrap: nowrap
       align-items: flex-start;
       align-content: flex-start;
-      margin-bottom: 10px;
+      
       button {
+        margin-left: auto;
+        margin-top: 7px;
+        display: flex;
+        flex-shrink: 0;
         appearance: none;
         border: none;
         background: transparent;
-        padding: 10px 10px 0 10px;
-        margin-right: -10px;
-        margin-top: -10px;
         cursor: pointer;
         svg {
           transition: transform 0.2s ease-in;
           transform: rotate(180deg);
+          
+          path {
+            fill: ${({ theme }) =>
+              theme.mode === "light" ? theme.gray1 : theme.white};
+            }
         }
       }
+      
+      .lesson__details {
+        flex-shrink: 0;
+        margin-right: 10px;
+        
+        > p:first-child {
+          margin-bottom: 2px;
+          margin-top: 3px;
+          text-transform: uppercase;
+          color: ${({ theme }) => theme.primaryColor};
+        }
+      }
+      
       .lesson__title {
         font-size: 14px;
         color: ${(props) => props.theme.gray1};
@@ -199,81 +224,102 @@ const StyledSection = styled("section")`
       padding: 0;
       transition: all 0.5s;
       li {
-        padding: 10px 10px 10px 10px;
+        padding: 10px;
         background: transparent;
-        border-bottom: 2px solid ${(props) => props.theme.white};
         position: relative;
         cursor: pointer;
+        display: flex;
+        flex-direction: column;
 
-        &:last-child {
+        &:last-child:not(.lesson__topic-current) {
+          padding-bottom: 0;
           border-bottom: none;
         }
-
+        
+        &:first-child {
+          margin-top: 10px;
+        }
+        
         & > div > p {
           padding-left: 30px;
           margin: 0 0 10px 0;
         }
-        .topic__icon {
-          position: absolute;
-          left: 20px;
-          top: 8px;
-        }
-        &.lesson__topic-pending .topic__icon {
-          left: 20px;
-          top: 11px;
-        }
-        &.lesson__topic-finished .topic__icon {
-          left: 16px;
-          top: 8px;
+        
+        .lesson__description {
+          display: flex;
+          
           svg {
-            width: 15px;
-            height: auto;
+            margin-right: 7px;
+            width: 17px;
+            flex-shrink: 0;
+            
+            &.current-icon path {
+              fill: ${({ theme }) => theme.primaryColor};
+            }
+          }
+          
+          .lesson__index {
+            opacity: 0.5;
+            margin-right: 4px;
           }
         }
-        &.lesson__topic-current .topic__icon {
-          left: 20px;
-          top: 8px;
+        
+        &:hover p:last-child {
+          text-decoration: underline;  
         }
-
-        .topic__title {
-          color: ${(props) => props.theme.gray2};
-        }
-        .topic__index {
-          color: ${(props) => props.theme.gray3};
-        }
-
-        &:hover {
-          .topic__title {
-            text-decoration: underline;
+        
+        &.lesson__topic-pending svg {
+          margin-top: 4px;
+          
+          path {
+            fill: ${({ theme }) =>
+              theme.mode === "light" ? theme.gray1 : theme.white};
           }
+        }
+        
+        &.lesson__topic-finished svg {
+          margin-top: 7px;
+        }
+        
+        &.lesson__topic-current svg {
+          margin-top: 2px;
+        }
+        
+        &:not(.lesson__topic-current):not(:last-child) {
+          border-bottom: 2px solid ${({ theme }) =>
+            theme.mode === "light" ? theme.white : theme.gray2};
         }
 
         &.lesson__topic-current {
-          background: ${(props) => props.theme.white};
+          background: ${({ theme }) =>
+            theme.mode === "light"
+              ? theme.white
+              : chroma(theme.cardBackgroundColorLight).brighten(0.4).hex()};
+          border-radius: ${(props) => props.theme.cardRadius}px;
           cursor: default;
           button {
-            margin-top: 6px;
+            margin-top: 10px;
             border-width: 1px;
             font-weight: normal;
-            color: ${(props) => props.theme.gray1};
           }
-          &:hover {
-            .topic__title {
-              text-decoration: none;
-            }
+          &:hover,
+         .lesson__description p:last-child{
+            text-decoration: none;
           }
         }
       }
     }
-
-    &.open .lesson__topics {
-      max-height: 100vh;
-      transition: all 0.35s ease-in;
-    }
-    &.closed .lesson__topics {
-      max-height: 0;
-      transition: all 0.35s ease-out;
-    }
+  }
+  
+  .lesson__item.open .lesson__topics {
+    max-height: 100vh;
+    transition: all 0.35s ease-in;
+  }
+  
+  .lesson__item.closed .lesson__topics {
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.35s ease-out;
   }
 `;
 
@@ -312,13 +358,16 @@ const CourseAgendaTopic: React.FC<CourseAgendaTopicProps> = ({
         onKeyDown={(e) => e.key === "Enter" && onClick()}
         role="button"
       >
-        <div className="topic__icon">
+        <div className={"lesson__description"}>
           <TopicIcon mode={mode} />
+          <Text className={"lesson__index"} size={"14"} noMargin>
+            {index}
+          </Text>
+          <Text size={"14"} noMargin>
+            {topic.title}
+          </Text>
         </div>
-        <p>
-          <span className="topic__index">{index}. </span>
-          <span className="topic__title">{topic.title}</span>
-        </p>
+
         {mode === "current" && (
           <Button
             block
@@ -335,7 +384,7 @@ const CourseAgendaTopic: React.FC<CourseAgendaTopicProps> = ({
 
 const CourseAgendaLesson: React.FC<CourseAgendaLessonProps> = (props) => {
   const {
-    // mobile = false,
+    mobile = false,
     lesson,
     index,
     finishedTopicIds,
@@ -362,32 +411,32 @@ const CourseAgendaLesson: React.FC<CourseAgendaLessonProps> = (props) => {
       role="button"
       tabIndex={0}
     >
-      <header>
-        <h6 className="lesson__title">
-          <small>
-            <span className="lesson__index">
+      {!mobile && (
+        <header>
+          <div className={"lesson__details"}>
+            <Text noMargin size={"12"}>
               {t<string>("Course.Lesson")} {index + 1}
-            </span>
-            {lesson.duration && (
-              <span className="lesson__duration">
-                <br />
-                {lesson.duration}
-              </span>
-            )}
-          </small>
-
-          <span>{lesson.title}</span>
-        </h6>
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            e.preventDefault();
-            setOpen(!open);
-          }}
-        >
-          <ChevronIcon />
-        </button>
-      </header>
+            </Text>
+            <Text noMargin size={"12"}>
+              {lesson.duration && lesson.duration}
+            </Text>
+          </div>
+          <div>
+            <Text size={"14"} bold noMargin>
+              {lesson.title}
+            </Text>
+          </div>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              e.preventDefault();
+              setOpen(!open);
+            }}
+          >
+            <ChevronIcon />
+          </button>
+        </header>
+      )}
       <ul className="lesson__topics">
         {lesson.topics?.map((topic, topicIndex) => {
           let mode: CourseAgendaTopicProps["mode"] = "pending";
@@ -451,7 +500,7 @@ export const CourseAgenda: React.FC<CourseAgendaProps> = (props) => {
             title={t<string>("Course.Agenda")}
           />
           <div>
-            <Text mode="secondary">
+            <Text mode="secondary" size={"14"} noMargin>
               {t<string>("Course.Finished")} {percentage}%
             </Text>
             <ProgressRing percentage={percentage} />
