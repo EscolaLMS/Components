@@ -231,13 +231,23 @@ const StyledSection = styled("section")`
         display: flex;
         flex-direction: column;
 
+        &:first-child {
+          margin-top: 10px;
+        }
+
         &:last-child:not(.lesson__topic-current) {
           padding-bottom: 0;
           border-bottom: none;
         }
 
-        &:first-child {
-          margin-top: 10px;
+        &:not(.lesson__topic-current):not(:last-child) {
+          border-bottom: 2px solid
+            ${({ theme }) =>
+              theme.mode === "light" ? theme.white : theme.gray2};
+        }
+
+        &:hover p:last-child {
+          text-decoration: underline;
         }
 
         & > div > p {
@@ -264,10 +274,6 @@ const StyledSection = styled("section")`
           }
         }
 
-        &:hover p:last-child {
-          text-decoration: underline;
-        }
-
         &.lesson__topic-pending svg {
           margin-top: 4px;
 
@@ -283,12 +289,6 @@ const StyledSection = styled("section")`
 
         &.lesson__topic-current svg {
           margin-top: 2px;
-        }
-
-        &:not(.lesson__topic-current):not(:last-child) {
-          border-bottom: 2px solid
-            ${({ theme }) =>
-              theme.mode === "light" ? theme.white : theme.gray2};
         }
 
         &.lesson__topic-current {
