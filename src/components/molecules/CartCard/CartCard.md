@@ -33,9 +33,10 @@ const Subtitle = () => {
         display: "flex",
         alignItems: "center",
         flexWrap: "no-wrap",
-        fontSize: 14,
         gap: 4,
       }}
+      size={"14"}
+      noMargin
     >
       <ClockIcon />
       <ReactMarkdown components={{ p: React.Fragment }}>
@@ -109,6 +110,19 @@ const cartCardContainerStyle = {
     <div style={cartCardContainerStyle}>
       <CartCard
         id={3}
+        {...cartCardProps}
+        title="29,99 zł"
+        discount={{
+          ...cartCardProps.discount,
+          status: "granted",
+          isOpen: true,
+        }}
+      />
+    </div>
+    <div style={{ width: 375 }}>
+      <CartCard
+        mobile
+        id={4}
         {...cartCardProps}
         title="29,99 zł"
         discount={{

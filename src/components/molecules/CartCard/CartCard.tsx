@@ -6,6 +6,8 @@ import styled from "styled-components";
 import { Button } from "../../atoms/Button/Button";
 import { Input } from "../../atoms/Input/Input";
 import { Text } from "../../atoms/Typography/Text";
+import { Title } from "../../../";
+import chroma from "chroma-js";
 
 const ArrowOpenIcon: React.FC = () => {
   return (
@@ -60,6 +62,10 @@ const IconBin = () => {
 
 declare type DiscountStatus = "error" | "granted";
 
+interface StyledCartCardProps {
+  mobile?: boolean;
+}
+
 interface Discount {
   onDiscountClick: (discountValue: string) => void;
   onDeleteDiscountClick: (id: number) => void;
@@ -67,7 +73,7 @@ interface Discount {
   isOpen?: boolean;
 }
 
-interface CartCardProps {
+interface CartCardProps extends StyledCartCardProps {
   id: number;
   title: string;
   subtitle?: ReactNode;
@@ -77,21 +83,29 @@ interface CartCardProps {
   loading?: boolean;
 }
 
-const StyledCardCard = styled.div`
-  .title {
-    font-size: 30px;
-    margin-bottom: 20px;
-    font-weight: 700;
-  }
+const StyledCardCard = styled.div<StyledCartCardProps>`
   border-radius: ${(props) => props.theme.cardRadius}px;
-  background: ${({ theme }) =>
-    theme.mode === "light"
+  box-shadow: ${({ mobile }) => mobile && "0px -2px 15px 0px #0000001A;"};
+  background: ${({ theme, mobile }) =>
+    mobile
+      ? theme.mode === "light"
+        ? theme.backgroundLight
+        : theme.backgroundDark
+      : theme.mode === "light"
       ? theme.cardBackgroundColorDark
       : theme.cardBackgroundColorLight};
-  padding: 40px;
-  .buy-button {
-    margin-bottom: 23px;
+  padding: ${(props) => (props.mobile ? "15px" : "40px")};
+
+  .title {
+    font-size: ${(props) => (props.mobile ? "16px" : "30px")};
+    margin-bottom: ${(props) => (props.mobile ? "10px" : "20px")};
+    font-weight: 700;
   }
+
+  .buy-button {
+    margin-bottom: ${(props) => (props.mobile ? "8px" : "23px")};
+  }
+
   .separator {
     height: 1px;
     width: 24px;
@@ -109,7 +123,7 @@ const StyledCardCard = styled.div`
     gap: 28px;
   }
   .discount-toggle {
-    display: inline-block;
+    display: flex;
     padding: 6px 0;
     cursor: pointer;
   }
@@ -131,11 +145,32 @@ const StyledCardCard = styled.div`
     color: #27ae60;
     font-size: 12px;
   }
+
+  .cart-card-subtitle {
+    margin-bottom: ${(props) => (props.mobile ? "10px" : "20px")};
+    padding-bottom: ${(props) => (props.mobile ? "6px" : "0")};
+    border-bottom: ${({ theme, mobile }) =>
+      `2px solid ${
+        mobile
+          ? theme.mode === "light"
+            ? chroma(theme.backgroundLight).darken(0.2).hex()
+            : theme.gray2
+          : "transparent"
+      }`};
+  }
 `;
 
 export const CartCard: React.FC<CartCardProps> = (props) => {
-  const { id, title, subtitle, onBuyClick, description, discount, loading } =
-    props;
+  const {
+    id,
+    title,
+    subtitle,
+    onBuyClick,
+    description,
+    discount,
+    loading,
+    mobile = false,
+  } = props;
   const { t } = useTranslation();
 
   const initialDiscountOpen = useMemo(() => {
@@ -157,42 +192,65 @@ export const CartCard: React.FC<CartCardProps> = (props) => {
   };
 
   return (
-    <StyledCardCard>
-      <Text className="title">{title}</Text>
-      {subtitle}
-      <Button
-        mode="secondary"
-        block
-        className="buy-button"
-        loading={loading}
-        onClick={() => onBuyClick(id)}
+    <StyledCardCard mobile={mobile}>
+      {!mobile && <Text className="title">{title}</Text>}
+      <div className={"cart-card-subtitle"}>{subtitle}</div>
+      <div
+        style={{
+          display: "flex",
+        }}
       >
-        {t<string>("CartCard.buyButton")}
-      </Button>
-      {discount && (
-        <>
-          {discount.status === "granted" && (
+        {mobile && (
+          <Title
+            level={4}
+            style={{
+              marginRight: 42,
+            }}
+          >
+            {title}
+          </Title>
+        )}
+        <div
+          style={{
+            flex: 1,
+            textAlign: mobile ? "center" : "left",
+          }}
+        >
+          <Button
+            mode="secondary"
+            block
+            className="buy-button"
+            loading={loading}
+            onClick={() => onBuyClick(id)}
+          >
+            {t<string>("CartCard.buyButton")}
+          </Button>
+          {!mobile && discount && (
             <>
-              <Text className="discount-granted-info">
-                <ReactMarkdown components={{ p: "span" }}>
-                  {t<string>("CartCard.discountGranted")}
-                </ReactMarkdown>
-                <span
-                  className={"discount-remove"}
-                  onClick={removeDiscountClick}
-                  onKeyUp={removeDiscountClick}
-                  role="button"
-                  tabIndex={0}
-                >
-                  <IconBin />
-                </span>
-              </Text>
+              {discount.status === "granted" && (
+                <>
+                  <Text className="discount-granted-info">
+                    <ReactMarkdown components={{ p: "span" }}>
+                      {t<string>("CartCard.discountGranted")}
+                    </ReactMarkdown>
+                    <span
+                      className={"discount-remove"}
+                      onClick={removeDiscountClick}
+                      onKeyUp={removeDiscountClick}
+                      role="button"
+                      tabIndex={0}
+                    >
+                      <IconBin />
+                    </span>
+                  </Text>
+                </>
+              )}
             </>
           )}
-        </>
-      )}
-      {description}
-      {discount && discount.status !== "granted" && (
+          {description}
+        </div>
+      </div>
+      {!mobile && discount && discount.status !== "granted" && (
         <>
           <div className="separator"></div>
           <div
@@ -202,7 +260,9 @@ export const CartCard: React.FC<CartCardProps> = (props) => {
             role="button"
             tabIndex={0}
           >
-            {t<string>("CartCard.addDiscountButton")}
+            <Text size={"12"} noMargin>
+              {t<string>("CartCard.addDiscountButton")}
+            </Text>
             <span className="open-discount-state-container">
               {isDiscountOpen ? <ArrowOpenIcon /> : <ArrowClosedIcon />}{" "}
             </span>
