@@ -143,7 +143,7 @@ const StyledSection = styled("section")`
     margin: 10px 0;
     overflow: hidden;
     border-radius: ${(props) => props.theme.cardRadius}px;
-    
+
     .duration {
       margin: 1px 0;
     }
@@ -151,10 +151,10 @@ const StyledSection = styled("section")`
     & > header {
       display: flex;
       flex-direction: row;
-      flex-wrap: nowrap
+      flex-wrap: nowrap;
       align-items: flex-start;
       align-content: flex-start;
-      
+
       button {
         margin-left: auto;
         margin-top: 7px;
@@ -167,18 +167,18 @@ const StyledSection = styled("section")`
         svg {
           transition: transform 0.2s ease-in;
           transform: rotate(180deg);
-          
+
           path {
             fill: ${({ theme }) =>
               theme.mode === "light" ? theme.gray1 : theme.white};
-            }
+          }
         }
       }
-      
+
       .lesson__details {
         flex-shrink: 0;
         margin-right: 10px;
-        
+
         > p:first-child {
           margin-bottom: 2px;
           margin-top: 3px;
@@ -186,7 +186,7 @@ const StyledSection = styled("section")`
           color: ${({ theme }) => theme.primaryColor};
         }
       }
-      
+
       .lesson__title {
         font-size: 14px;
         color: ${(props) => props.theme.gray1};
@@ -235,59 +235,60 @@ const StyledSection = styled("section")`
           padding-bottom: 0;
           border-bottom: none;
         }
-        
+
         &:first-child {
           margin-top: 10px;
         }
-        
+
         & > div > p {
           padding-left: 30px;
           margin: 0 0 10px 0;
         }
-        
+
         .lesson__description {
           display: flex;
-          
+
           svg {
             margin-right: 7px;
             width: 17px;
             flex-shrink: 0;
-            
+
             &.current-icon path {
               fill: ${({ theme }) => theme.primaryColor};
             }
           }
-          
+
           .lesson__index {
             opacity: 0.5;
             margin-right: 4px;
           }
         }
-        
+
         &:hover p:last-child {
-          text-decoration: underline;  
+          text-decoration: underline;
         }
-        
+
         &.lesson__topic-pending svg {
           margin-top: 4px;
-          
+
           path {
             fill: ${({ theme }) =>
               theme.mode === "light" ? theme.gray1 : theme.white};
           }
         }
-        
+
         &.lesson__topic-finished svg {
           margin-top: 7px;
         }
-        
+
         &.lesson__topic-current svg {
           margin-top: 2px;
         }
-        
+
         &:not(.lesson__topic-current):not(:last-child) {
-          border-bottom: 2px solid ${({ theme }) =>
-            theme.mode === "light" ? theme.white : theme.gray2};
+          border-bottom: 2px solid
+            ${({ theme }) =>
+              theme.mode === "light" ? theme.white : theme.gray2};
         }
 
         &.lesson__topic-current {
@@ -303,19 +304,19 @@ const StyledSection = styled("section")`
             font-weight: normal;
           }
           &:hover,
-         .lesson__description p:last-child{
+          .lesson__description p:last-child {
             text-decoration: none;
           }
         }
       }
     }
   }
-  
+
   .lesson__item.open .lesson__topics {
     max-height: 100vh;
     transition: all 0.35s ease-in;
   }
-  
+
   .lesson__item.closed .lesson__topics {
     max-height: 0;
     overflow: hidden;
