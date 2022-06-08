@@ -250,6 +250,19 @@ const StyledSection = styled("section")`
           text-decoration: underline;
         }
 
+        &.lesson__topic-pending svg {
+          margin-top: 4px;
+
+          path {
+            fill: ${({ theme }) =>
+              theme.mode === "light" ? theme.gray1 : theme.white};
+          }
+        }
+
+        &.lesson__topic-finished svg {
+          margin-top: 7px;
+        }
+
         .lesson__description {
           display: flex;
 
@@ -269,23 +282,6 @@ const StyledSection = styled("section")`
           }
         }
 
-        &.lesson__topic-pending svg {
-          margin-top: 4px;
-
-          path {
-            fill: ${({ theme }) =>
-              theme.mode === "light" ? theme.gray1 : theme.white};
-          }
-        }
-
-        &.lesson__topic-finished svg {
-          margin-top: 7px;
-        }
-
-        &.lesson__topic-current svg {
-          margin-top: 2px;
-        }
-
         &.lesson__topic-current {
           background: ${({ theme }) =>
             theme.mode === "light"
@@ -301,6 +297,10 @@ const StyledSection = styled("section")`
           &:hover,
           .lesson__description p:last-child {
             text-decoration: none;
+          }
+
+          svg {
+            margin-top: 2px;
           }
         }
       }
