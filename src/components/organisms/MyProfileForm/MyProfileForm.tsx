@@ -298,7 +298,7 @@ export const MyProfileForm: React.FC<{
                             <Input
                               key={`${field}${index}`}
                               required={isAdditionalRequiredField(field)}
-                              label={t(`MyProfileForm.${field.name}`)}
+                              label={t(`AdditionalFields.${field.name}`)}
                               type="text"
                               name={field.name}
                               onChange={handleChange}
@@ -311,7 +311,7 @@ export const MyProfileForm: React.FC<{
                               rows={10}
                               key={`${field}${index}`}
                               required={isAdditionalRequiredField(field)}
-                              label={t(`MyProfileForm.${field.name}`)}
+                              label={t(`AdditionalFields.${field.name}`)}
                               name={field.name}
                               onChange={handleChange}
                               onBlur={handleBlur}
@@ -336,7 +336,7 @@ export const MyProfileForm: React.FC<{
                           <Checkbox
                             checked={!!values[field.name]}
                             key={`${field.id}${index}`}
-                            label={t(`MyProfileForm.${field.name}`)}
+                            label={t(`AdditionalFields.${field.name}`)}
                             id={field.name}
                             name={field.name}
                             onChange={handleChange}

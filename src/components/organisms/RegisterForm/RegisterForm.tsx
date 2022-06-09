@@ -127,8 +127,10 @@ export const RegisterForm: React.FC<{
 
   return (
     <StyledDiv mobile={mobile}>
-      <Title level={3}>{t<string>("Registration")}</Title>
-      <Text level={3}>{t<string>("Registration.Subtitle")}</Text>
+      <Title level={3} style={{ maxWidth: "480px", textAlign: "center" }}>
+        {t<string>("RegisterForm.Header")}
+      </Title>
+      <Text level={3}>{t<string>("RegisterForm.Subtitle")}</Text>
       <Formik
         enableReinitialize
         initialValues={initialValues}
@@ -210,7 +212,7 @@ export const RegisterForm: React.FC<{
               <Text type="danger">{errors.error}</Text>
             )}
             <Input
-              label={t<string>("RegisterForm.First name")}
+              label={t<string>("First name")}
               type="text"
               name="first_name"
               onChange={handleChange}
@@ -221,7 +223,7 @@ export const RegisterForm: React.FC<{
             />
 
             <Input
-              label={t<string>("RegisterForm.Last name")}
+              label={t<string>("Last name")}
               type="text"
               name="last_name"
               onChange={handleChange}
@@ -251,12 +253,12 @@ export const RegisterForm: React.FC<{
               onBlur={handleBlur}
               value={values.password}
               error={touched.password && errors.password}
-              helper={t<string>("RegisterForm.Password validation")}
+              helper={t<string>("Password validation")}
               required
             />
 
             <Input
-              label={t<string>("RegisterForm.Repeat password")}
+              label={t<string>("Repeat password")}
               type="password"
               name="password_confirmation"
               onChange={handleChange}
@@ -269,7 +271,7 @@ export const RegisterForm: React.FC<{
             />
 
             <Input
-              label={t<string>("RegisterForm.Phone")}
+              label={t<string>("Phone")}
               type="text"
               name="phone"
               onChange={handleChange}
@@ -299,7 +301,7 @@ export const RegisterForm: React.FC<{
                     <Input
                       key={`${field}${index}`}
                       required={isAdditionalRequiredField(field)}
-                      label={t(`RegisterForm.${field.name}`)}
+                      label={t(`AdditionalFields.${field.name}`)}
                       type="text"
                       name={field.name}
                       onChange={handleChange}
@@ -324,7 +326,7 @@ export const RegisterForm: React.FC<{
                   ) => (
                     <Checkbox
                       key={`${field.id}${index}`}
-                      label={t(`RegisterForm.${field.name}`)}
+                      label={t(`AdditionalFields.${field.name}`)}
                       id={field.name}
                       name={field.name}
                       onChange={handleChange}
@@ -334,7 +336,7 @@ export const RegisterForm: React.FC<{
                 )}
 
             <Button mode="secondary" type="submit" loading={isSubmitting} block>
-              {t<string>("RegisterForm.Sign up")}
+              {t<string>("Login.Signup")}
             </Button>
           </form>
         )}
@@ -342,7 +344,7 @@ export const RegisterForm: React.FC<{
       <Text size="14">
         {t<string>("RegisterForm.Already have account")}{" "}
         <Link underline onClick={() => onLoginLink && onLoginLink()}>
-          {t<string>("Login")}
+          {t<string>("Login.Signin")}
         </Link>
       </Text>
     </StyledDiv>

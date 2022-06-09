@@ -6,6 +6,7 @@ import { Link } from "../../atoms/Link/Link";
 import { Row, Col } from "react-grid-system";
 import { RatioBox } from "../../atoms/RatioBox/RatioBox";
 import { ReactNode } from "react";
+import { useTranslation } from "react-i18next";
 
 interface StyledCertificateProps {
   mobile?: boolean;
@@ -118,10 +119,12 @@ export const Certificate: React.FC<CertificateProps> = (props) => {
     mobile = false,
   } = props;
 
+  const { t } = useTranslation();
+
   return (
     <StyledCertificate mobile={mobile}>
       <Title level={4} as={"h4"} style={{ marginBottom: "20px" }}>
-        Certificates
+        {t("Certificate.Title")}
       </Title>
       <Row>
         <Col
@@ -165,7 +168,7 @@ export const Certificate: React.FC<CertificateProps> = (props) => {
               <div className="certificate-link">
                 <Icon1 />
                 <Link style={{ marginLeft: "14px" }} onClick={handleDownload}>
-                  Pobierz lub wydrukuj jako plik PDF
+                  {t("Certificate.Download")}
                 </Link>
               </div>
             )}
@@ -173,7 +176,7 @@ export const Certificate: React.FC<CertificateProps> = (props) => {
               <div className="certificate-link">
                 <Icon2 />
                 <Link style={{ marginLeft: "14px" }} onClick={handleShare}>
-                  Udostępnij jako zdjęcie online
+                  {t("Certificate.Share")}
                 </Link>
               </div>
             )}

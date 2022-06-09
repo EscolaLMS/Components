@@ -10,6 +10,7 @@ import { useOnClickOutside } from "../../../hooks/useOnClickOutside";
 import { contrast } from "chroma-js";
 import { Title, Checkbox, Button } from "../../../";
 import Drawer from "rc-drawer";
+import { useTranslation } from "react-i18next";
 
 interface StyledCategoriesProps {
   mobile?: boolean;
@@ -401,7 +402,7 @@ const CategoriesDrawer: React.FC<CategoriesProps> = (props) => {
     mobile,
   } = props;
   const [showDrawer, setShowDrawer] = React.useState(false);
-
+  const { t } = useTranslation();
   const onToggleDrawer = () => {
     setShowDrawer((value) => !value);
   };
@@ -410,7 +411,7 @@ const CategoriesDrawer: React.FC<CategoriesProps> = (props) => {
     <React.Fragment>
       <StyledCategoriesDrawer />
       <Button type={"button"} mode={"outline"} onClick={onToggleDrawer}>
-        Filtruj{" "}
+        {t("Categories.Filter")}{" "}
         {selectedCategories &&
           selectedCategories.length > 0 &&
           `(${selectedCategories.length})`}
