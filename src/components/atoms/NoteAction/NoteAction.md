@@ -1,6 +1,6 @@
 ```js
 import { ImageModal, ThemeTester } from "../../../styleguide";
-import { Link } from "../../../";
+import { Link, Title, Text } from "../../../";
 const DownloadIcon = () => (
   <svg
     width="16"
@@ -34,8 +34,8 @@ const Download2Icon = () => (
 <React.Fragment>
   <ThemeTester>
     <NoteAction
-      title={"Note without color"}
-      subtitle="luty 2018"
+      title={<Title level={4}>"Note without color"</Title>}
+      subtitle={<Text size={"14"}>"luty 2018"</Text>}
       actions={
         <React.Fragment>
           <Link>
@@ -47,11 +47,21 @@ const Download2Icon = () => (
         </React.Fragment>
       }
     />
-    <NoteAction title={"Note with color"} actions={"action"} color={"red"} />
     <NoteAction
-      subtitle="luty 2018"
+      title={<Title level={4}>"Note with color"</Title>}
+      actions={"action"}
+      color={"red"}
+    />
+    <NoteAction
+      subtitle={<Text size={"14"}>"luty 2018"</Text>}
       title={
-        "Note with color and long text t is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English."
+        <Title level={4}>
+          "Note with color and long text t is a long established fact that a
+          reader will be distracted by the readable content of a page when
+          looking at its layout. The point of using Lorem Ipsum is that it has a
+          more-or-less normal distribution of letters, as opposed to using
+          'Content here, content here', making it look like readable English."
+        </Title>
       }
       actions={"15:20"}
       color={"#09c3bc"}
