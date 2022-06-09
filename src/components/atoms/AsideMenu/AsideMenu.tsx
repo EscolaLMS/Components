@@ -4,7 +4,7 @@ import styled, { withTheme } from "styled-components";
 import { default as chroma } from "chroma-js";
 
 interface AsideMenuProps {
-  active?: string;
+  active?: boolean;
 }
 
 const StyledDiv = styled("div")<AsideMenuProps>`
