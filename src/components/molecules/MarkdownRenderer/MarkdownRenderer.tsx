@@ -56,6 +56,11 @@ const StyledMarkdownRenderer = styled("div")<StyledMarkdownRendererProps>`
       margin-top: 0;
     }
   }
+
+  strong,
+  b {
+    font-weight: bold;
+  }
 `;
 
 export const MarkdownRenderer: React.FC<MarkdownRendererProps> = (props) => {

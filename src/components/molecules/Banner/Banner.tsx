@@ -2,24 +2,19 @@ import * as React from "react";
 import ReactMarkdown from "react-markdown";
 import styled, { withTheme } from "styled-components";
 import { Row, Col } from "react-grid-system";
-import { Title } from "../../atoms/Typography/Title";
 import { Button } from "../../atoms/Button/Button";
 import { ReactNode } from "react";
 
 interface StyledBannerProps {
   mobile?: boolean;
   background?: React.CSSProperties["background"];
-}
-
-interface BannerImgProps {
-  src: string;
-  alt: string;
+  reverse?: boolean;
 }
 
 export interface BannerProps extends StyledBannerProps {
-  title: string;
+  title: ReactNode;
   btnText: string;
-  img: BannerImgProps | ReactNode;
+  asset: ReactNode;
   handleBtn: () => void;
 }
 
@@ -30,31 +25,45 @@ const StyledBanner = styled("div")<StyledBannerProps>`
     margin-top: ${(props) => (props.mobile ? "22px" : "52px")};
   }
 
-  .banner-img {
-    max-width: ${(props) => (props.mobile ? "80%" : "100%")};
-    height: auto;
+  .banner-text h1 {
+    font-weight: normal;
   }
 `;
 
 export const Banner: React.FC<BannerProps> = (props) => {
-  const { title, img, btnText, handleBtn, background, mobile = false } = props;
+  const {
+    title,
+    asset,
+    btnText,
+    handleBtn,
+    background,
+    reverse = false,
+    mobile = false,
+  } = props;
 
   return (
     <StyledBanner mobile={mobile} background={background}>
-      <Row align={"center"} direction={mobile ? "column-reverse" : "row"}>
-        <Col xs={12} md={mobile ? 12 : 6}>
-          <Title
-            level={1}
-            as={"h1"}
-            mobile={mobile}
-            style={{ fontWeight: "normal" }}
+      <Row
+        align={"center"}
+        direction={reverse ? "row-reverse" : mobile ? "column-reverse" : "row"}
+      >
+        <Col
+          xs={12}
+          md={mobile ? 12 : 6}
+          className={"banner-text"}
+          style={{
+            marginTop: mobile ? "20px" : "0",
+          }}
+        >
+          {React.isValidElement(title) && (
+            <React.Fragment>{title}</React.Fragment>
+          )}
+          <Button
+            mode={mobile ? "secondary" : "primary"}
+            className={"banner-btn"}
+            onClick={handleBtn}
+            block={mobile}
           >
-            <ReactMarkdown
-              components={{ p: React.Fragment }}
-              children={title}
-            />
-          </Title>
-          <Button className={"banner-btn"} onClick={handleBtn}>
             {btnText}
           </Button>
         </Col>
@@ -65,14 +74,8 @@ export const Banner: React.FC<BannerProps> = (props) => {
             textAlign: mobile ? "center" : "left",
           }}
         >
-          {React.isValidElement(img) ? (
-            <React.Fragment>{img}</React.Fragment>
-          ) : (
-            <img
-              className={"banner-img"}
-              src={(img as BannerImgProps).src}
-              alt={(img as BannerImgProps).alt}
-            />
+          {React.isValidElement(asset) && (
+            <React.Fragment>{asset}</React.Fragment>
           )}
         </Col>
       </Row>
@@ -80,6 +83,4 @@ export const Banner: React.FC<BannerProps> = (props) => {
   );
 };
 
-const NewBanner = styled(Banner)<BannerProps>``;
-
-export default withTheme(NewBanner);
+export default withTheme(styled(Banner)<BannerProps>``);
