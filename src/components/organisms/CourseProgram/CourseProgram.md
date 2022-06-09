@@ -13,6 +13,13 @@ import "../../../styleguide/i18n.ts";
         onTopicClick={(topic) => console.log("onTopicClick topic", topic)}
       />
     </div>
+    <div style={{ width: "375px" }}>
+      <CourseProgram
+        mobile
+        lessons={data.lessons}
+        onTopicClick={(topic) => console.log("onTopicClick topic", topic)}
+      />
+    </div>
   </ThemeTester>
 </React.Fragment>;
 ```
