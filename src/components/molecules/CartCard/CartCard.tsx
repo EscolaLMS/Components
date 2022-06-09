@@ -1,13 +1,13 @@
 import * as React from "react";
 import { ReactNode, useState, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import ReactMarkdown from "react-markdown";
 import styled from "styled-components";
 import { Button } from "../../atoms/Button/Button";
 import { Input } from "../../atoms/Input/Input";
 import { Text } from "../../atoms/Typography/Text";
 import { Title } from "../../../";
 import chroma from "chroma-js";
+import { MarkdownRenderer } from "../../molecules/MarkdownRenderer/MarkdownRenderer";
 
 const ArrowOpenIcon: React.FC = () => {
   return (
@@ -230,9 +230,9 @@ export const CartCard: React.FC<CartCardProps> = (props) => {
               {discount.status === "granted" && (
                 <>
                   <Text className="discount-granted-info">
-                    <ReactMarkdown components={{ p: "span" }}>
+                    <MarkdownRenderer components={{ p: React.Fragment }}>
                       {t<string>("CartCard.discountGranted")}
-                    </ReactMarkdown>
+                    </MarkdownRenderer>
                     <span
                       className={"discount-remove"}
                       onClick={removeDiscountClick}

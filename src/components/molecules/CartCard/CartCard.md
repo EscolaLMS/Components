@@ -2,7 +2,7 @@
 import ThemeTester from "../../../styleguide/ThemeTester";
 import ImageModal from "../../../styleguide/ImageModal";
 import { Text } from "../../atoms/Typography/Text";
-import ReactMarkdown from "react-markdown";
+import { MarkdownRenderer } from "../../molecules/MarkdownRenderer/MarkdownRenderer";
 import img1 from "./CartCard.png";
 import { useState } from "react";
 
@@ -39,9 +39,9 @@ const Subtitle = () => {
       noMargin
     >
       <ClockIcon />
-      <ReactMarkdown components={{ p: React.Fragment }}>
+      <MarkdownRenderer components={{ p: React.Fragment }}>
         **8h 12 min** time left
-      </ReactMarkdown>
+      </MarkdownRenderer>
     </Text>
   );
 };
