@@ -1,5 +1,4 @@
 import * as React from "react";
-import ReactMarkdown from "react-markdown";
 import styled, { withTheme } from "styled-components";
 import { Row, Col } from "react-grid-system";
 import { Button } from "../../atoms/Button/Button";
