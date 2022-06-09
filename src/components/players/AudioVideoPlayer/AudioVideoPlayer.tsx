@@ -56,7 +56,9 @@ const initialVideoState: AudioVideoState = {
 export interface AudioVideoPlayerProps
   extends StyledAudioVideoPlayerProps,
     AudioVideoPlayerControlsProps,
-    ReactPlayerProps {}
+    ReactPlayerProps {
+  ratio?: number;
+}
 
 const StyledAudioVideoPlayer = styled("div")<AudioVideoPlayerProps>`
   position: relative;
@@ -720,7 +722,13 @@ const AudioVideoPlayerControls: React.FC<AudioVideoPlayerControlsProps> = (
 };
 
 export const AudioVideoPlayer: React.FC<AudioVideoPlayerProps> = (props) => {
-  const { children, mobile, audio = false, light = true } = props;
+  const {
+    children,
+    mobile,
+    audio = false,
+    light = true,
+    ratio = 9 / 16,
+  } = props;
 
   const ref = React.useRef<ReactPlayer>(null);
   const refWrapper = React.useRef<HTMLDivElement>(null);
@@ -750,7 +758,7 @@ export const AudioVideoPlayer: React.FC<AudioVideoPlayerProps> = (props) => {
       audio={audio}
       light={light}
     >
-      <RatioBox ratio={9 / 16}>
+      <RatioBox ratio={ratio}>
         <ReactPlayer
           {...props}
           light={light}
