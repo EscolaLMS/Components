@@ -69,9 +69,7 @@ export const LoginForm: React.FC<{
 
   return (
     <StyledDiv mobile={mobile}>
-      <Title level={3}>
-        {t<string>("Zaloguj się do swojego konta Wellms")}
-      </Title>{" "}
+      <Title level={3}>{t("Login.Header")}</Title>{" "}
       <Formik
         initialValues={initialValues}
         validate={(values) => {
@@ -131,7 +129,7 @@ export const LoginForm: React.FC<{
               error={touched.password && errors.password}
             />
             <Button mode="secondary" type="submit" loading={isSubmitting} block>
-              {t<string>("Zaloguj się")}
+              {t<string>("Login.Signin")}
             </Button>
           </form>
         )}
@@ -141,13 +139,13 @@ export const LoginForm: React.FC<{
           underline
           onClick={() => onResetPasswordLink && onResetPasswordLink()}
         >
-          {t<string>("Nie pamiętam hasła")}
+          {t<string>("Login.NotRemember")}
         </Link>
       </Text>
       <Text size="14">
-        {t<string>("Nie posiadasz konta?")}{" "}
+        {t<string>("Login.NoAccount")}{" "}
         <Link underline onClick={() => onRegisterLink && onRegisterLink()}>
-          {t<string>("Zarejestruj się")}
+          {t<string>("Login.Signup")}
         </Link>
       </Text>
     </StyledDiv>

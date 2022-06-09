@@ -6,6 +6,7 @@ import Notification, {
 } from "../../molecules/Notification/Notification";
 import { useOnClickOutside } from "../../../hooks/useOnClickOutside";
 import { Title, Text, Link } from "../../../";
+import { useTranslation } from "react-i18next";
 
 export interface ComponentProps {
   notifications: NotificationProps[];
@@ -116,7 +117,7 @@ export const Notifications: React.FC<ComponentProps> = (props) => {
   const ref = useRef(null);
   const [active, setActive] = useState(false);
   const [unreadCount, setUnreadCount] = useState<number>(0);
-
+  const { t } = useTranslation();
   useOnClickOutside(ref, () => setActive(false));
 
   useEffect(() => {
@@ -128,7 +129,6 @@ export const Notifications: React.FC<ComponentProps> = (props) => {
     console.log("click");
   }, []);
 
-  // TODO add react-i18n
   return (
     <StyledWrapper ref={ref}>
       <StyledIcon onClick={() => setActive(!active)}>
@@ -149,11 +149,11 @@ export const Notifications: React.FC<ComponentProps> = (props) => {
           <div>
             <StyledNotificationsHeader>
               <Title level={4} noMargin>
-                Powiadomienia
+                {t("Notifications.Notifications")}
               </Title>
               {showAllLink && (
                 <Link href={showAllLink}>
-                  Pokaż wszystkie
+                  {t("Notifications.ShowAll")}
                   <svg
                     width="12"
                     height="12"
@@ -185,7 +185,7 @@ export const Notifications: React.FC<ComponentProps> = (props) => {
                 ))}
               </ul>
             ) : (
-              <Text>Brak Nowych powiadomień</Text>
+              <Text> {t("Notifications.Empty")}</Text>
             )}
           </div>
         </StyledNotifications>
