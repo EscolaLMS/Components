@@ -41,6 +41,13 @@ const StyledDropdown = styled("div")`
     }
   }
 
+  .arrows {
+    position: absolute;
+    right: 10px;
+    top: calc(50% - 4px);
+    transition: opacity 0.2s ease-in-out;
+  }
+
   &:hover .arrows {
     opacity: 0.6;
   }
@@ -71,12 +78,6 @@ const StyledDropdown = styled("div")`
       props.theme.mode !== "dark"
         ? props.theme.backgroundLight
         : props.theme.backgroundDark};
-  }
-  .arrows {
-    position: absolute;
-    right: 10px;
-    top: calc(50% - 4px);
-    transition: opacity 0.2s ease-in-out;
   }
 `;
 

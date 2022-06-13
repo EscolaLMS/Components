@@ -94,10 +94,6 @@ const StyledCategoriesDropdown = styled("div")<StyledCategoriesProps>`
     cursor: pointer;
     color: currentColor;
 
-    &:hover svg {
-      opacity: 0.6;
-    }
-
     svg {
       margin-left: 10px;
       transform: ${(props) => (props.open ? "rotate(180deg)" : "none")};
@@ -106,6 +102,10 @@ const StyledCategoriesDropdown = styled("div")<StyledCategoriesProps>`
       path {
         stroke: currentColor;
       }
+    }
+
+    &:hover svg {
+      opacity: 0.6;
     }
 
     &:after {
