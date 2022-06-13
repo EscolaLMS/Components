@@ -12,6 +12,7 @@ const StyledAvatar = styled("img")<AvatarProps>`
   border-radius: 50%;
   width: ${(props) => setAvatarBySize(props.size)};
   height: ${(props) => setAvatarBySize(props.size)};
+  object-fit: cover;
 `;
 
 export const Avatar: React.FC<AvatarProps> = (props) => {
