@@ -233,7 +233,9 @@ const StyledSection = styled("section")`
         &:not(.lesson__topic-current):not(:last-child) {
           border-bottom: 2px solid
             ${({ theme }) =>
-              theme.mode === "light" ? theme.white : theme.gray2};
+              theme.mode === "light"
+                ? theme.white
+                : chroma(theme.white).alpha(0.2).hex()};
         }
 
         &:hover p:last-child {
@@ -347,7 +349,7 @@ const CourseAgendaTopic: React.FC<CourseAgendaTopicProps> = ({
         <div className={"lesson__description"}>
           <TopicIcon mode={mode} />
           <Text className={"lesson__index"} size={"14"} noMargin>
-            {index}
+            {index}.{" "}
           </Text>
           <Text size={"14"} noMargin>
             {topic.title}
