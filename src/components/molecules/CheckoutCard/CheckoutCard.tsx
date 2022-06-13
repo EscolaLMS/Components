@@ -5,6 +5,7 @@ import { Col, Row } from "react-grid-system";
 import { ReactNode } from "react";
 import { IconText } from "../../atoms/IconText/IconText";
 import { RatioBox } from "../../atoms/RatioBox/RatioBox";
+import { Button } from "../../atoms/Button/Button";
 
 interface StyledCheckoutCardProps {
   mobile?: boolean;
@@ -50,7 +51,6 @@ const StyledCheckoutCard = styled("div")<StyledCheckoutCardProps>`
 
   .checkout-card-remove {
     margin-left: 40px;
-    cursor: pointer;
   }
 
   .checkout-card-summary {
@@ -227,14 +227,15 @@ export const CheckoutCard: React.FC<CheckoutCardProps> = (props) => {
                     </Title>
                   </div>
                 )}
-                <div
-                  tabIndex={0}
-                  role="button"
-                  className={"checkout-card-remove"}
-                  onClick={handleDelete}
-                  onKeyDown={(e) => e.key === "Enter" && handleDelete()}
-                >
-                  <IconBin />
+                <div>
+                  <Button
+                    mode={"icon"}
+                    className={"checkout-card-remove"}
+                    onClick={handleDelete}
+                    onKeyDown={(e) => e.key === "Enter" && handleDelete()}
+                  >
+                    <IconBin />
+                  </Button>
                 </div>
               </div>
             </Col>

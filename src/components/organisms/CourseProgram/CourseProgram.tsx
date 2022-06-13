@@ -248,13 +248,7 @@ const StyledSection = styled("section")`
       align-content: flex-start;
       margin-bottom: 10px;
       button {
-        appearance: none;
-        border: none;
-        background: transparent;
-        padding: 10px 10px 0 10px;
-        margin-right: -10px;
-        margin-top: -10px;
-        cursor: pointer;
+        margin-top: -4px;
         svg {
           transition: transform 0.2s ease-in;
           transform: rotate(180deg);
@@ -416,15 +410,19 @@ const CourseProgramLesson: React.FC<CourseProgramLessonProps> = (props) => {
 
           <span>{lesson.title}</span>
         </h6>
-        <button
-          onClick={(e) => {
+        <Button
+          onClick={(e: {
+            stopPropagation: () => void;
+            preventDefault: () => void;
+          }) => {
             e.stopPropagation();
             e.preventDefault();
             setOpen(!open);
           }}
+          mode="icon"
         >
           <ChevronIcon />
-        </button>
+        </Button>
       </header>
       <ul className="lesson__topics">
         {lesson.topics?.map((topic, topicIndex) => {

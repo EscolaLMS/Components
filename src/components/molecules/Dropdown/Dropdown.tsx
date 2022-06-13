@@ -10,6 +10,7 @@ const StyledDropdown = styled("div")`
   font-size: 16px;
   line-height: 20px;
   .control {
+    cursor: pointer;
     transition: none;
     border-color: transparent;
     color: ${(props) =>
@@ -39,6 +40,11 @@ const StyledDropdown = styled("div")`
       }
     }
   }
+
+  &:hover .arrows {
+    opacity: 0.6;
+  }
+
   .Dropdown-option {
     padding: 5px 10px;
     color: ${(props) =>
@@ -70,6 +76,7 @@ const StyledDropdown = styled("div")`
     position: absolute;
     right: 10px;
     top: calc(50% - 4px);
+    transition: opacity 0.2s ease-in-out;
   }
 `;
 
