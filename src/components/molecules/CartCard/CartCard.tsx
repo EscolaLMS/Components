@@ -124,7 +124,7 @@ const StyledCardCard = styled.div<StyledCartCardProps>`
   }
   .discount-toggle {
     display: flex;
-    padding: 6px 0;
+    align-items: center;
     cursor: pointer;
   }
   .discount-granted-info {
@@ -263,9 +263,9 @@ export const CartCard: React.FC<CartCardProps> = (props) => {
             <Text size={"12"} noMargin>
               {t<string>("CartCard.addDiscountButton")}
             </Text>
-            <span className="open-discount-state-container">
+            <Button mode={"icon"} className="open-discount-state-container">
               {isDiscountOpen ? <ArrowOpenIcon /> : <ArrowClosedIcon />}{" "}
-            </span>
+            </Button>
           </div>
           {isDiscountOpen && (
             <div className="discount-form-container">

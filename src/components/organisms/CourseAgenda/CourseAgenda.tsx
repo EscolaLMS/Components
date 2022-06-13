@@ -74,7 +74,7 @@ const ChevronIcon = () => (
   >
     <path
       d="M5.88128 0.381282C6.22299 0.0395728 6.77701 0.0395728 7.11872 0.381282L12.3687 5.63128C12.7104 5.97299 12.7104 6.52701 12.3687 6.86872C12.027 7.21043 11.473 7.21043 11.1313 6.86872L6.5 2.23744L1.86872 6.86872C1.52701 7.21043 0.97299 7.21043 0.631282 6.86872C0.289573 6.52701 0.289573 5.97299 0.631282 5.63128L5.88128 0.381282Z"
-      fill="#4A4A4A"
+      fill="currentColor"
     />
   </svg>
 );
@@ -157,21 +157,11 @@ const StyledSection = styled("section")`
 
       button {
         margin-left: auto;
-        margin-top: 7px;
-        display: flex;
-        flex-shrink: 0;
-        appearance: none;
-        border: none;
-        background: transparent;
-        cursor: pointer;
+        margin-top: -4px;
+
         svg {
           transition: transform 0.2s ease-in;
           transform: rotate(180deg);
-
-          path {
-            fill: ${({ theme }) =>
-              theme.mode === "light" ? theme.gray1 : theme.white};
-          }
         }
       }
 
@@ -424,15 +414,19 @@ const CourseAgendaLesson: React.FC<CourseAgendaLessonProps> = (props) => {
               {lesson.title}
             </Text>
           </div>
-          <button
-            onClick={(e) => {
+          <Button
+            onClick={(e: {
+              stopPropagation: () => void;
+              preventDefault: () => void;
+            }) => {
               e.stopPropagation();
               e.preventDefault();
               setOpen(!open);
             }}
+            mode={"icon"}
           >
             <ChevronIcon />
-          </button>
+          </Button>
         </header>
       )}
       <ul className="lesson__topics">

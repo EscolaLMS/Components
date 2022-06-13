@@ -253,22 +253,10 @@ const StyledSection = styled("section")<SharedComponentProps>`
       align-content: flex-start;
 
       button {
-        margin-left: auto;
-        margin-top: 7px;
-        display: flex;
-        flex-shrink: 0;
-        appearance: none;
-        border: none;
-        background: transparent;
-        cursor: pointer;
+        margin-top: -4px;
         svg {
           transition: transform 0.2s ease-in;
           transform: rotate(180deg);
-
-          path {
-            fill: ${({ theme }) =>
-              theme.mode === "light" ? theme.gray1 : theme.white};
-          }
         }
       }
 
@@ -459,15 +447,19 @@ const CourseProgramLesson: React.FC<CourseProgramLessonProps> = (props) => {
             {lesson.title}
           </Text>
         </div>
-        <button
-          onClick={(e) => {
+        <Button
+          onClick={(e: {
+            stopPropagation: () => void;
+            preventDefault: () => void;
+          }) => {
             e.stopPropagation();
             e.preventDefault();
             setOpen(!open);
           }}
+          mode="icon"
         >
           <ChevronIcon />
-        </button>
+        </Button>
       </header>
       <ul className="lesson__topics">
         {lesson.topics?.map((topic, topicIndex) => {
