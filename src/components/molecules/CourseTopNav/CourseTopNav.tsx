@@ -31,6 +31,10 @@ const StyledAside = styled.aside<StyledAsideProps>`
       ${({ theme }) =>
         theme.mode === "light" ? theme.white : theme.backgroundDark};
 
+    svg {
+      transform: scale(${(props) => (props.mobile ? "0.8" : "1")});
+    }
+
     button {
       border-radius: 6px 6px 0 0;
       width: ${(props) => (props.mobile ? "60px" : "120px")};
@@ -44,10 +48,6 @@ const StyledAside = styled.aside<StyledAsideProps>`
         svg {
           opacity: 0.65;
         }
-      }
-
-      svg {
-        transform: scale(${(props) => (props.mobile ? "0.8" : "1")});
       }
 
       &.closed {
