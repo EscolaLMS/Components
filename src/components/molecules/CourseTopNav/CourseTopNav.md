@@ -13,6 +13,7 @@ const onNoteClick = () => console.log("onNoteClick");
 <React.Fragment>
   <ThemeTester childrenListStyle={{ display: "block" }}>
     <CourseTopNav
+      addNotes={false}
       hasNext
       hasPrev
       isFinished
@@ -22,12 +23,14 @@ const onNoteClick = () => console.log("onNoteClick");
     />
     <div style={{ marginTop: 20 }}>
       <CourseTopNav
+        addNotes
         hasNext
         hasPrev
-        isFinished={false}
+        isFinished
         onNext={onNext}
         onPrev={onPrev}
         onFinish={onFinish}
+        onNoteClick={onNoteClick}
       />
     </div>
     <div style={{ marginTop: 20 }}>
@@ -43,15 +46,16 @@ const onNoteClick = () => console.log("onNoteClick");
     <div style={{ marginTop: 20 }}>
       <CourseTopNav
         hasNext
-        hasPrev={false}
+        hasPrev
         isFinished={false}
         onNext={onNext}
         addNotes
+        onNoteClick={onNoteClick}
         onPrev={onPrev}
         onFinish={onFinish}
       />
     </div>
-    <div style={{ margin: "20px auto 0", maxWidth: 360 }}>
+    <div style={{ margin: "20px auto 0", width: 375 }}>
       <CourseTopNav
         mobile
         hasNext
@@ -63,14 +67,13 @@ const onNoteClick = () => console.log("onNoteClick");
         onFinish={onFinish}
       />
     </div>
-    <div style={{ margin: "20px auto 0", maxWidth: 360 }}>
+    <div style={{ margin: "20px auto 0", width: 375 }}>
       <CourseTopNav
         mobile
-        hasNext
+        hasPrev={false}
         hasPrev
         isFinished
         onNoteClick
-        onNext={onNext}
         onPrev={onPrev}
         onFinish={onFinish}
       />

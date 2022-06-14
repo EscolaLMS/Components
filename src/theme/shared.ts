@@ -9,8 +9,6 @@ export const sharedTheme: SharedDefaultTheme = {
   backgroundLight: "#FFFFFF",
   cardBackgroundColorLight: "#4A4A4A",
   cardBackgroundColorDark: "#F2F2F2",
-  backgroundDarkCourseNav: "#6D6D6D",
-  backgroundLightCourseNav: "#FFFFFF",
   errorColor: "#EB5757",
   invertColor: "#FFCC00",
   white: "#FFFFFF",
