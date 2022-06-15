@@ -68,7 +68,12 @@ const StyledButton = styled("button")<ButtonProps>`
     }
     return "18px";
   }};
-  line-height: 1.55em;
+  line-height: ${(props) => {
+    if (props.mode === "icon") {
+      return "1.5";
+    }
+    return "1.55em";
+  }};
   cursor: pointer;
   padding: ${(props) => {
     if (props.mode === "primary") {
