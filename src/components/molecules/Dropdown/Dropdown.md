@@ -6,8 +6,13 @@ import img2 from "./Dropdown2.png";
 
 <ThemeTester flexDirection={"column"}>
   <Dropdown
-    options={["item1", "item2", "item3", "item4", "item5", "item6"]}
-    placeholder="Select from string"
+    options={[
+      "dropdown option with long text",
+      "dropdown option with long text",
+      "dropdown option with text",
+      "dropdown option with text",
+    ]}
+    placeholder="Select"
   />
   <Dropdown
     options={[
