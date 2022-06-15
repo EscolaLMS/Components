@@ -9,6 +9,7 @@ const StyledDropdown = styled("div")`
   font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
   font-size: 16px;
   line-height: 20px;
+  min-width: 150px;
   .control {
     cursor: pointer;
     transition: none;
