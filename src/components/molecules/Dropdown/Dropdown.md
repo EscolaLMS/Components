@@ -16,6 +16,16 @@ import img2 from "./Dropdown2.png";
   />
   <Dropdown
     options={[
+      "dropdown option with long text",
+      "dropdown option with long text",
+      "dropdown option with text",
+      "dropdown option with text",
+    ]}
+    placeholder="Select"
+    direction={"up"}
+  />
+  <Dropdown
+    options={[
       { label: "item1", value: 1 },
       { label: "item2", value: 2 },
       { label: "item3", value: 3 },

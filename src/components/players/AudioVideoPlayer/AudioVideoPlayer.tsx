@@ -688,7 +688,11 @@ const AudioVideoPlayerControls: React.FC<AudioVideoPlayerControlsProps> = (
                 onChange={(option) =>
                   (state.playbackRate = Number(option.value))
                 }
+                direction={"up"}
                 className={`dropdown-playback-rate`}
+                styles={{
+                  minWidth: "40px",
+                }}
               />
             </div>
             {state.quality > 0 && (
