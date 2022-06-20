@@ -8,44 +8,29 @@ import chroma from "chroma-js";
 const StyledDropdown = styled("div")`
   font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
   font-size: 16px;
-  line-height: 20px;
   min-width: 150px;
+
   .control {
     cursor: pointer;
     transition: none;
     border-color: transparent;
-    color: ${(props) =>
-      props.theme.mode !== "dark" ? props.theme.gray1 : props.theme.white};
-    padding: 6px 39px 6px 10px;
-    background: ${(props) =>
-      props.theme.mode !== "dark"
-        ? props.theme.backgroundLight
-        : props.theme.backgroundDark};
-    &:after {
-      position: absolute;
-      content: "";
-      bottom: 0;
-      left: 10px;
-      width: calc(100% - 20px);
-      background: ${(props) =>
-        props.theme.mode !== "dark" ? props.theme.gray3 : props.theme.white};
-    }
-  }
-  .is-open {
-    .control {
-      border-color: ${(props) =>
-        props.theme.mode !== "dark" ? props.theme.gray3 : props.theme.white};
-      border-bottom-color: transparent;
-      &:after {
-        height: 1px;
-      }
-    }
+    color: ${({ theme }) =>
+      theme.mode === "light" ? theme.gray2 : theme.gray4};
+    padding: 8px 39px 8px 10px;
+    background-color: ${({ theme }) =>
+      theme.mode === "light" ? theme.backgroundLight : theme.backgroundDark};
   }
 
-  .arrows {
+  .is-open .control {
+    border: 1px solid currentColor;
+    border-bottom: none;
+  }
+
+  .Dropdown-arrow-wrapper {
     position: absolute;
     right: 10px;
-    top: calc(50% - 4px);
+    top: 50%;
+    transform: translateY(-50%);
     transition: opacity 0.2s ease-in-out;
   }
 
@@ -53,32 +38,38 @@ const StyledDropdown = styled("div")`
     opacity: 0.6;
   }
 
+  .Dropdown-control {
+    &:hover {
+      box-shadow: none;
+    }
+  }
+
+  .Dropdown-menu {
+    background-color: ${({ theme }) =>
+      theme.mode === "light" ? theme.backgroundLight : theme.backgroundDark};
+  }
+
   .Dropdown-option {
-    padding: 5px 10px;
+    padding: 7px 10px;
     color: ${(props) =>
-      props.theme.mode !== "dark" ? props.theme.gray1 : props.theme.white};
+      props.theme.mode !== "dark" ? props.theme.gray2 : props.theme.gray4};
     &:hover {
       background: ${(props) =>
         props.theme.mode !== "dark"
           ? chroma(props.theme.backgroundLight).darken(0.5).hex()
-          : chroma(props.theme.backgroundDark).brighten(2).hex()};
+          : chroma(props.theme.backgroundDark).brighten(1).hex()};
     }
     &.is-selected {
       background: ${(props) =>
         props.theme.mode !== "dark"
           ? chroma(props.theme.backgroundLight).darken(0.5).hex()
-          : chroma(props.theme.backgroundDark).brighten(2).hex()};
+          : chroma(props.theme.backgroundDark).brighten(1).hex()};
     }
   }
   .menu {
-    border-color: ${(props) =>
-      props.theme.mode !== "dark" ? props.theme.gray3 : props.theme.white};
-    border-top: 0;
-    font-size: 14px;
-    background: ${(props) =>
-      props.theme.mode !== "dark"
-        ? props.theme.backgroundLight
-        : props.theme.backgroundDark};
+    border: 1px solid currentColor;
+    border-top: none;
+    font-size: 16px;
   }
 `;
 
