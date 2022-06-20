@@ -25,33 +25,30 @@ import img1 from "./ImageBubble.png";
         }
       >
         <CourseCard
-            id={1}
-            image={{
-              path: backgroundImage1,
-            }}
-            tags={[
-              {
-                title: "Bestseller",
-                id: 1,
-              },
-            ]}
-            lessonCount={1}
-            subtitle={"100% Online"}
-            title={"Best course ever"}
-            hideImage
-            categories={{
-              onCategoryClick: (id) => console.log("Category click id: ", id),
-              categoryElements: [
-                { id: 1, name: "Programming" },
-                { id: 2, name: "Front-end" },
-              ],
-            }}
-            onTagClick={(tagId) => console.log("onTagClick :", { tagId })}
-            onImageClick={() => console.log("onImageClick")}
-            onButtonClick={(cardId) =>
-              console.log("onButtonClick :", { cardId })
-            }
-          />
+          id={1}
+          image={{
+            path: backgroundImage1,
+          }}
+          tags={[
+            {
+              title: "Bestseller",
+              id: 1,
+            },
+          ]}
+          subtitle={"100% Online"}
+          title={"Best course ever"}
+          hideImage
+          categories={{
+            onCategoryClick: (id) => console.log("Category click id: ", id),
+            categoryElements: [
+              { id: 1, name: "Programming" },
+              { id: 2, name: "Front-end" },
+            ],
+          }}
+          onTagClick={(tagId) => console.log("onTagClick :", { tagId })}
+          onImageClick={() => console.log("onImageClick")}
+          onButtonClick={(cardId) => console.log("onButtonClick :", { cardId })}
+        />
       </ImageBubble>
     </div>
   </ThemeTester>
