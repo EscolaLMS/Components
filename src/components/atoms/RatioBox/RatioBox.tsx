@@ -17,11 +17,27 @@ const StyledDiv = styled("div")<RatioBoxProps>`
     left: 0;
     top: 0;
     position: absolute;
-    object-fit: cover;
-    object-position: ${(props) => props.objectPosition || "center"};
     display: block;
     width: 100%;
     height: 100%;
+    &,
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: ${(props) => props.objectPosition || "center"};
+      transition: transform 0.4s ease-out;
+    }
+  }
+
+  & > a,
+  & > button {
+    cursor: pointer;
+    &:hover {
+      img {
+        transform: scale(1.1);
+      }
+    }
   }
 `;
 

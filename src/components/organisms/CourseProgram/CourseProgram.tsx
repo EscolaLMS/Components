@@ -2,7 +2,9 @@ import { Button, IconTitle } from "../../..";
 import * as React from "react";
 import styled, { withTheme } from "styled-components";
 import { useTranslation } from "react-i18next";
+import { Text } from "../../../";
 import type { Lesson, Topic } from "@escolalms/sdk/lib/types/api";
+import chroma from "chroma-js";
 
 const TextIcon = () => (
   <svg
@@ -201,10 +203,11 @@ interface CourseProgramTopicProps extends SharedComponentProps {
   topic: Topic;
 }
 
-const StyledSection = styled("section")<CourseProgramProps>`
+const StyledSection = styled("section")<SharedComponentProps>`
   width: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
   & > header {
     display: flex;
     flex-direction: row;
@@ -212,6 +215,7 @@ const StyledSection = styled("section")<CourseProgramProps>`
     justify-content: space-between;
     align-items: flex-start;
     align-content: flex-start;
+    margin-bottom: 20px;
 
     .lms-icon-title {
       margin: 0;
@@ -220,21 +224,23 @@ const StyledSection = styled("section")<CourseProgramProps>`
     & > div {
       display: inline-flex;
       align-items: center;
+
       p {
-        font-size: 14px;
-        margin: 0;
         margin-right: 6px;
-        text-align: right;
       }
     }
   }
   .lesson__item {
-    background: ${(props) => props.theme.gray5};
+    background: ${({ theme }) =>
+      theme.mode === "light"
+        ? theme.cardBackgroundColorDark
+        : theme.cardBackgroundColorLight};
     border-left: 2px solid ${(props) => props.theme.primaryColor};
-    padding: 10px 10px 0 10px;
+    padding: 10px;
     margin: 10px 0;
     overflow: hidden;
     border-radius: ${(props) => props.theme.cardRadius}px;
+
     .duration {
       margin: 1px 0;
     }
@@ -243,23 +249,29 @@ const StyledSection = styled("section")<CourseProgramProps>`
       display: flex;
       flex-direction: row;
       flex-wrap: nowrap;
-      justify-content: space-between;
       align-items: flex-start;
       align-content: flex-start;
-      margin-bottom: 10px;
+
       button {
-        appearance: none;
-        border: none;
-        background: transparent;
-        padding: 10px 10px 0 10px;
-        margin-right: -10px;
-        margin-top: -10px;
-        cursor: pointer;
+        margin-top: -4px;
         svg {
           transition: transform 0.2s ease-in;
           transform: rotate(180deg);
         }
       }
+
+      .lesson__details {
+        flex-shrink: 0;
+        margin-right: 10px;
+
+        > p:first-child {
+          margin-bottom: 2px;
+          margin-top: 3px;
+          text-transform: uppercase;
+          color: ${({ theme }) => theme.primaryColor};
+        }
+      }
+
       .lesson__title {
         font-size: 14px;
         color: ${(props) => props.theme.gray1};
@@ -287,69 +299,89 @@ const StyledSection = styled("section")<CourseProgramProps>`
     &.closed > header button svg {
       transform: rotate(0);
     }
-    &.closed {
-      cursor: pointer;
-    }
 
     .lesson__topics {
       list-style: none;
       margin: 0;
       padding: 0;
       transition: all 0.5s;
-      li {
-        padding: 10px 10px 10px 10px;
-        background: transparent;
-        border-bottom: 2px solid ${(props) => props.theme.white};
-        position: relative;
 
-        &:last-child {
+      li {
+        padding: 10px;
+        position: relative;
+        display: flex;
+        flex-direction: ${(props) => (props.mobile ? "column" : "row")};
+
+        &:first-child {
+          margin-top: 10px;
+        }
+
+        &:last-child:not(.lesson__topic-current) {
+          padding-bottom: 0;
           border-bottom: none;
         }
 
-        & > div {
-          display: flex;
-          flex-direction: row;
-          flex-wrap: nowrap;
-          justify-content: space-between;
-          align-items: center;
-          align-content: center;
+        &:not(.lesson__topic-current):not(:last-child) {
+          border-bottom: 2px solid
+            ${({ theme }) =>
+              theme.mode === "light"
+                ? theme.white
+                : chroma(theme.white).alpha(0.2).hex()};
         }
 
-        & > div > button {
+        button {
+          margin-left: ${(props) => (props.mobile ? "0" : "auto")};
+          margin-top: ${(props) => (props.mobile ? "6px" : "0")};
           font-size: 12px;
           padding: 3px 10px;
         }
 
-        & > div > p {
-          padding: 5px 30px 5px 15px;
-          margin: 0;
-          flex-grow: 1;
-        }
-        .topic__icon {
-          svg {
-            height: 16px;
-            width: auto;
-            display: block;
+        &.lesson__topic-pending svg {
+          margin-top: 4px;
+
+          path {
+            fill: ${({ theme }) =>
+              theme.mode === "light" ? theme.gray1 : theme.white};
           }
         }
 
-        .topic__title {
-          color: ${(props) => props.theme.gray2};
+        &.lesson__topic-finished svg {
+          margin-top: 7px;
         }
-        .topic__index {
-          color: ${(props) => props.theme.gray3};
+
+        .lesson__description {
+          display: flex;
+          align-items: center;
+
+          svg {
+            margin-right: 7px;
+            width: 17px;
+            flex-shrink: 0;
+
+            path {
+              fill: ${({ theme }) =>
+                theme.mode === "light" ? theme.gray1 : theme.white};
+            }
+          }
+
+          .lesson__index {
+            opacity: 0.5;
+            margin-right: 4px;
+          }
         }
       }
     }
+  }
 
-    &.open .lesson__topics {
-      max-height: 100vh;
-      transition: all 0.35s ease-in;
-    }
-    &.closed .lesson__topics {
-      max-height: 0;
-      transition: all 0.35s ease-out;
-    }
+  .lesson__item.open .lesson__topics {
+    max-height: 100vh;
+    transition: all 0.35s ease-in;
+  }
+
+  .lesson__item.closed .lesson__topics {
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.35s ease-out;
   }
 `;
 
@@ -357,35 +389,36 @@ const CourseProgramTopic: React.FC<CourseProgramTopicProps> = ({
   index,
   topic,
   onTopicClick,
+  mobile,
 }) => {
   const { t } = useTranslation();
 
   return (
     <li className={`lesson__topic`}>
-      <div>
-        <div className="topic__icon">{getIconType(topic.topicable_type)}</div>
-        <p>
-          <span className="topic__index">{index}. </span>
-          <span className="topic__title">{topic.title}</span>
-        </p>
-        {topic.preview && (
-          <Button mode="outline" onClick={() => onTopicClick(topic)}>
-            {t<string>("Course.topicPreview")}
-          </Button>
-        )}
+      <div className={"lesson__description"}>
+        {getIconType(topic.topicable_type)}
+        <Text className={"lesson__index"} size={"14"} noMargin>
+          {index}.{" "}
+        </Text>
+        <Text size={"14"} noMargin>
+          {topic.title}
+        </Text>
       </div>
+      {topic.preview && (
+        <Button
+          mode="outline"
+          onClick={() => onTopicClick(topic)}
+          block={mobile}
+        >
+          {t<string>("Course.topicPreview")}
+        </Button>
+      )}
     </li>
   );
 };
 
 const CourseProgramLesson: React.FC<CourseProgramLessonProps> = (props) => {
-  const {
-    // mobile = false,
-    lesson,
-    index,
-    defaultOpen = true,
-    onTopicClick,
-  } = props;
+  const { lesson, index, defaultOpen = true, onTopicClick } = props;
   const { t } = useTranslation();
   const [open, setOpen] = React.useState(defaultOpen);
   const onClick = React.useCallback(() => {
@@ -401,35 +434,38 @@ const CourseProgramLesson: React.FC<CourseProgramLessonProps> = (props) => {
       tabIndex={0}
     >
       <header>
-        <h6 className="lesson__title">
-          <small>
-            <span className="lesson__index">
-              {t<string>("Course.Lesson")} {index + 1}
-            </span>
-            {lesson.duration && (
-              <span className="lesson__duration">
-                <br />
-                {lesson.duration}
-              </span>
-            )}
-          </small>
-
-          <span>{lesson.title}</span>
-        </h6>
-        <button
-          onClick={(e) => {
+        <div className={"lesson__details"}>
+          <Text noMargin size={"12"}>
+            {t<string>("Course.Lesson")} {index + 1}
+          </Text>
+          <Text noMargin size={"12"}>
+            {lesson.duration && lesson.duration}
+          </Text>
+        </div>
+        <div>
+          <Text size={"14"} bold noMargin>
+            {lesson.title}
+          </Text>
+        </div>
+        <Button
+          onClick={(e: {
+            stopPropagation: () => void;
+            preventDefault: () => void;
+          }) => {
             e.stopPropagation();
             e.preventDefault();
             setOpen(!open);
           }}
+          mode="icon"
         >
           <ChevronIcon />
-        </button>
+        </Button>
       </header>
       <ul className="lesson__topics">
         {lesson.topics?.map((topic, topicIndex) => {
           return (
             <CourseProgramTopic
+              key={topicIndex}
               topic={topic}
               index={topicIndex + 1}
               onTopicClick={onTopicClick}

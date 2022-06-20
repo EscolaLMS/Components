@@ -4,10 +4,9 @@ import { useState } from "react";
 import ImageModal from "../../../styleguide/ImageModal";
 import img1 from "./ProgressBar.png";
 import ThemeTester from "../../../styleguide/ThemeTester";
-import ProgressBar from "./ProgressBar";
 import Button from "../Button/Button";
 
-const [currentProgreses, setCurrentProgreses] = useState({
+const [currentProgresses, setCurrentProgresses] = useState({
   progress1: 10,
   progress2: 5,
   progress3: 1.4,
@@ -16,7 +15,7 @@ const [currentProgreses, setCurrentProgreses] = useState({
 const randomProgress = () => (Math.random() * 10).toFixed(2);
 
 const setRandomProgresses = () => {
-  setCurrentProgreses({
+  setCurrentProgresses({
     progress1: randomProgress(),
     progress2: randomProgress(),
     progress3: randomProgress(),
@@ -26,15 +25,15 @@ const setRandomProgresses = () => {
 <GlobalThemeProvider>
   <ThemeTester childrenListStyle={{ display: "block" }}>
     <ProgressBar
-      currentProgress={currentProgreses.progress1}
+      currentProgress={currentProgresses.progress1}
       maxProgress={10}
     />
     <ProgressBar
-      currentProgress={currentProgreses.progress2}
+      currentProgress={currentProgresses.progress2}
       maxProgress={10}
     />
     <ProgressBar
-      currentProgress={currentProgreses.progress3}
+      currentProgress={currentProgresses.progress3}
       maxProgress={10}
     />
     <hr />

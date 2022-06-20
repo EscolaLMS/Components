@@ -18,8 +18,6 @@ const allowedKeys: (keyof DefaultTheme & string)[] = [
   "textColorLight",
   "errorColor",
   "invertColor",
-  "backgroundDarkCourseNav",
-  "backgroundLightCourseNav",
   "white",
   "gray5",
   "gray4",
@@ -104,10 +102,6 @@ export const ThemeCustomizer: React.FC<{
           textColorLight: initData.textColorLight || "#000000",
           errorColor: initData.errorColor || "#EB5757",
           invertColor: initData.invertColor || "#000000",
-          backgroundDarkCourseNav:
-            initData.backgroundDarkCourseNav || "#000000",
-          backgroundLightCourseNav:
-            initData.backgroundLightCourseNav || "#000000",
         }),
         "Body Colors": folder({
           white: initData.white || "#000000",

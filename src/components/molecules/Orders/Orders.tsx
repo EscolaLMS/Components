@@ -95,8 +95,8 @@ export const Orders: React.FC<OrdersProps> = (props) => {
               )}
             </div>
           )}
-          {data.map((record) => (
-            <SingleOrderCard mobile={mobile}>
+          {data.map((record, i) => (
+            <SingleOrderCard mobile={mobile} key={i}>
               <div className="single-content">{record.title}</div>
               <div className="single-content">{record.date}</div>
               <div className="single-content">{record.price}</div>

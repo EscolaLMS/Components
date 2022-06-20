@@ -2,7 +2,7 @@
 import { ThemeTester, ImageModal } from "../../../styleguide";
 import { useState } from "react";
 
-import { Title } from "../../../";
+import { Text } from "../../../";
 import img1 from "./Categories.png";
 import img2 from "./Categories-2.png";
 import json from "./mock.json";
@@ -29,20 +29,16 @@ const [selected, setSelected] = useState([4, 5]);
         label={"Czas trwania"}
         selectedCategories={selected}
         drawerTitle={
-          <Title
-            level={5}
-            noMargin
-            styl={{
-              fontSize: "14px",
-            }}
-          >
+          <Text noMargin size={"14"} bold>
             Filtry
-          </Title>
+          </Text>
         }
+        drawerButtonText={"Pokaż wyniki"}
         handleChange={(value) => {
           setSelected(value);
           console.log("selected", value);
         }}
+        handleDrawerButtonClick={() => console.log("click")}
       />
     </div>
   </ThemeTester>

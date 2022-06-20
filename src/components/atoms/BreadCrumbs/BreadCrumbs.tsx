@@ -1,9 +1,7 @@
 import * as React from "react";
 
-import styled, { withTheme, ThemeContext } from "styled-components";
+import styled, { withTheme } from "styled-components";
 import { getFontFromTheme } from "../../../theme/provider";
-import { contrast } from "chroma-js";
-import { PropsWithChildren } from "react";
 
 type BreadCrumbsProps = {
   items: React.ReactNode[];

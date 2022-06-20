@@ -1,10 +1,10 @@
 ```js
 import { useState } from "react";
-import ReactMarkdown from "react-markdown";
 import { Row, Col } from "react-grid-system";
 import { ThemeTester, ImageModal } from "../../../styleguide";
 import { IconText, Button, CourseProgress, Link, Text } from "../../..";
 import { Title } from "../../atoms/Typography/Title";
+import { MarkdownRenderer } from "../../molecules/MarkdownRenderer/MarkdownRenderer";
 import img1 from "./PricingCard.png";
 
 const [progress, setProgress] = useState(0.5);
@@ -139,9 +139,9 @@ const props = {
             <IconText
               icon={<IconTime />}
               text={
-                <ReactMarkdown components={{ p: React.Fragment }}>
+                <MarkdownRenderer components={{ p: React.Fragment }}>
                   **8h 12 min** time left
-                </ReactMarkdown>
+                </MarkdownRenderer>
               }
             />
             <Button
@@ -213,9 +213,9 @@ const props = {
             <IconText
               icon={<IconTime />}
               text={
-                <ReactMarkdown components={{ p: React.Fragment }}>
+                <MarkdownRenderer components={{ p: React.Fragment }}>
                   **8h 12 min** time left
-                </ReactMarkdown>
+                </MarkdownRenderer>
               }
             />
             <Button
@@ -276,7 +276,7 @@ const props = {
         <Title level={5} as={"h5"}>
           {props.title}
         </Title>
-        <div class="pricing-card-footer">
+        <div className="pricing-card-footer">
           <div>
             <div className="pricing-card-discount">
               <Title level={5} as={"h5"}>

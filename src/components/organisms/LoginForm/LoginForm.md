@@ -2,7 +2,6 @@
 import img1 from "./LoginForm.png";
 import { ImageModal, ThemeTester } from "../../../styleguide";
 import { EscolaLMSContextProvider } from "@escolalms/sdk/lib/react/context";
-import { LoginForm } from "./LoginForm";
 
 import { Text } from "../../../";
 

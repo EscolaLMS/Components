@@ -47,13 +47,23 @@ const generateRandomData = () => {
       rnd
     </Button>
 
-    <div style={{ width: 300 }}>
+    <div style={{ width: "100%" }}>
       <CourseAgenda
         lessons={data.lessons}
         finishedTopicIds={state.finishedTopicIds}
         currentTopicId={state.currentTopicId}
         onTopicClick={(topic) => console.log("onTopicClick topic", topic)}
         onMarkFinished={(topic) => console.log("onMarkFinished topic", topic)}
+      />
+    </div>
+    <div style={{ width: 375 }}>
+      <CourseAgenda
+          mobile
+          lessons={data.lessons}
+          finishedTopicIds={state.finishedTopicIds}
+          currentTopicId={state.currentTopicId}
+          onTopicClick={(topic) => console.log("onTopicClick topic", topic)}
+          onMarkFinished={(topic) => console.log("onMarkFinished topic", topic)}
       />
     </div>
   </ThemeTester>

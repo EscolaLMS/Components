@@ -24,8 +24,6 @@ export interface SharedDefaultTheme {
   black: string;
   errorColor: string;
   invertColor: string;
-  backgroundDarkCourseNav: string;
-  backgroundLightCourseNav: string;
 }
 
 declare module "styled-components" {

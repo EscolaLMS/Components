@@ -181,7 +181,7 @@ export const Ratings: React.FC<RatingsProps> = (props) => {
     return roundPercentageList(percentagesValues)
       .map((rate: number, index: number) => {
         return (
-          <div className="rate-row">
+          <div className="rate-row" key={index}>
             <div className="interval">
               <Interval current={rate} max={100} />
             </div>

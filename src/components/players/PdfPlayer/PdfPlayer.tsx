@@ -11,6 +11,7 @@ interface PdfPlayerProps {
 
 const StyledWrapper = styled("div")`
   max-width: 90%;
+
   .pagination-area {
     margin-top: 5px;
     display: flex;

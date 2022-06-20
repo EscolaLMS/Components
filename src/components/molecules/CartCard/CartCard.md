@@ -2,7 +2,7 @@
 import ThemeTester from "../../../styleguide/ThemeTester";
 import ImageModal from "../../../styleguide/ImageModal";
 import { Text } from "../../atoms/Typography/Text";
-import ReactMarkdown from "react-markdown";
+import { MarkdownRenderer } from "../../molecules/MarkdownRenderer/MarkdownRenderer";
 import img1 from "./CartCard.png";
 import { useState } from "react";
 
@@ -33,14 +33,15 @@ const Subtitle = () => {
         display: "flex",
         alignItems: "center",
         flexWrap: "no-wrap",
-        fontSize: 14,
         gap: 4,
       }}
+      size={"14"}
+      noMargin
     >
       <ClockIcon />
-      <ReactMarkdown components={{ p: React.Fragment }}>
+      <MarkdownRenderer components={{ p: React.Fragment }}>
         **8h 12 min** time left
-      </ReactMarkdown>
+      </MarkdownRenderer>
     </Text>
   );
 };
@@ -109,6 +110,19 @@ const cartCardContainerStyle = {
     <div style={cartCardContainerStyle}>
       <CartCard
         id={3}
+        {...cartCardProps}
+        title="29,99 zł"
+        discount={{
+          ...cartCardProps.discount,
+          status: "granted",
+          isOpen: true,
+        }}
+      />
+    </div>
+    <div style={{ width: 375 }}>
+      <CartCard
+        mobile
+        id={4}
         {...cartCardProps}
         title="29,99 zł"
         discount={{

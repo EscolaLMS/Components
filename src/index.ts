@@ -2,6 +2,7 @@
 
 export { default as Avatar } from "./components/atoms/Avatar/Avatar";
 export { default as Badge } from "./components/atoms/Badge/Badge";
+export { default as BreadCrumbs } from "./components/atoms/BreadCrumbs/BreadCrumbs";
 export { default as Button } from "./components/atoms/Button/Button";
 export { default as Card } from "./components/atoms/Button/Button";
 export { default as CourseProgress } from "./components/atoms/CourseProgress/CourseProgress";
@@ -13,7 +14,7 @@ export { default as Interval } from "./components/atoms/Input/Input";
 export { default as Link } from "./components/atoms/Link/Link";
 export { default as Logo } from "./components/atoms/Logo/Logo";
 export { default as Note } from "./components/atoms/Logo/Logo";
-export { default as Notification } from "./components/atoms/Notification/Notification";
+export { default as Notification } from "./components/molecules/Notification/Notification";
 export { default as Option } from "./components/atoms/Option/Option";
 export { Checkbox as Checkbox } from "./components/atoms/Option/Checkbox";
 export { Radio as Radio } from "./components/atoms/Option/Radio";

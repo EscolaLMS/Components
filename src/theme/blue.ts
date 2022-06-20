@@ -1,5 +1,5 @@
 import { DefaultTheme } from "styled-components";
-import { blend, default as chroma } from "chroma-js";
+import { blend } from "chroma-js";
 import { sharedTheme } from "./shared";
 
 export const blueTheme: DefaultTheme = {

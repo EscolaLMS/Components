@@ -157,7 +157,7 @@ export const ResetPasswordForm: React.FC<{
               <Input
                 type="email"
                 name="email"
-                label="email"
+                label={t<string>("Email")}
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.email}
@@ -167,7 +167,7 @@ export const ResetPasswordForm: React.FC<{
               <Input
                 type="password"
                 name="password"
-                label="password"
+                label={t<string>("Password")}
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.password}
@@ -176,7 +176,7 @@ export const ResetPasswordForm: React.FC<{
             )}
 
             <Button mode="secondary" type="submit" loading={isSubmitting} block>
-              {t<string>("ResetForm.ResetPassword")}
+              {t<string>("ResetForm.Reset")}
             </Button>
           </form>
         )}
@@ -189,9 +189,9 @@ export const ResetPasswordForm: React.FC<{
             </Link>
           </Text>
           <Text size="14">
-            {t<string>("ResetForm.NotHavingAccount")}{" "}
+            {t<string>("Login.NoAccount")}{" "}
             <Link underline onClick={() => onRegisterLink && onRegisterLink()}>
-              {t<string>("ResetForm.Register")}
+              {t<string>("Login.Signup")}
             </Link>
           </Text>
         </>

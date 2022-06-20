@@ -5,6 +5,7 @@ import { getFontFromTheme } from "../../../theme/provider";
 import { setFontSizeByHeaderLevel } from "../../../utils/components/primitives/titleUtils";
 import { ReactMarkdownOptions } from "react-markdown/lib/react-markdown";
 import rehypeRaw from "rehype-raw";
+import { fixContentForMarkdown } from "../../../utils/components/markdown";
 
 interface StyledMarkdownRendererProps {
   mobile?: boolean;
@@ -56,6 +57,11 @@ const StyledMarkdownRenderer = styled("div")<StyledMarkdownRendererProps>`
       margin-top: 0;
     }
   }
+
+  strong,
+  b {
+    font-weight: bold;
+  }
 `;
 
 export const MarkdownRenderer: React.FC<MarkdownRendererProps> = (props) => {
@@ -63,7 +69,9 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = (props) => {
 
   return (
     <StyledMarkdownRenderer mobile={mobile}>
-      <ReactMarkdown rehypePlugins={[rehypeRaw]} {...props} />
+      <ReactMarkdown rehypePlugins={[rehypeRaw]} {...props}>
+        {fixContentForMarkdown(props.children)}
+      </ReactMarkdown>
     </StyledMarkdownRenderer>
   );
 };

@@ -28,7 +28,7 @@ interface AudioVideoState {
 }
 
 interface AudioVideoPlayerControlsProps {
-  state: AudioVideoState;
+  state?: AudioVideoState;
   onSeek?: (time: number) => void;
   onToggle?: () => void;
   onVolume?: (volume: number) => void;
@@ -56,7 +56,9 @@ const initialVideoState: AudioVideoState = {
 export interface AudioVideoPlayerProps
   extends StyledAudioVideoPlayerProps,
     AudioVideoPlayerControlsProps,
-    ReactPlayerProps {}
+    ReactPlayerProps {
+  ratio?: number;
+}
 
 const StyledAudioVideoPlayer = styled("div")<AudioVideoPlayerProps>`
   position: relative;
@@ -93,16 +95,16 @@ const StyledAudioVideoPlayer = styled("div")<AudioVideoPlayerProps>`
   .video-player-overlay {
     position: absolute;
     padding: 20px;
-    bottom: ${(props) => (props.state.controls ? "120px" : "20px")};
-    right: ${(props) => (props.state.controls ? "0" : "")};
-    top: ${(props) => (props.state.controls ? "0" : "")};
+    bottom: ${(props) => (props.state?.controls ? "120px" : "20px")};
+    right: ${(props) => (props.state?.controls ? "0" : "")};
+    top: ${(props) => (props.state?.controls ? "0" : "")};
     display: flex;
     align-items: flex-end;
     left: 0;
     background-color: ${(props) =>
-      props.state.controls ? "rgba(0, 0, 0, 0.5)" : "transparent"};
-    transition: ${(props) => (props.state.ready ? "opacity 0.3s" : "none")};
-    opacity: ${(props) => (props.state.playing ? (props.audio ? 1 : 0) : 1)};
+      props.state?.controls ? "rgba(0, 0, 0, 0.5)" : "transparent"};
+    transition: ${(props) => (props.state?.ready ? "opacity 0.3s" : "none")};
+    opacity: ${(props) => (props.state?.playing ? (props.audio ? 1 : 0) : 1)};
 
     * {
       color: ${({ theme }) => theme.white};
@@ -148,7 +150,7 @@ const StyledAudioVideoPlayer = styled("div")<AudioVideoPlayerProps>`
   }
 `;
 
-const StyledVideoControls = styled("div")<AudioVideoPlayerControlsProps>`
+const StyledVideoControls = styled("div")<AudioVideoPlayerProps>`
   position: absolute;
   left: 0;
   bottom: 0;
@@ -156,7 +158,7 @@ const StyledVideoControls = styled("div")<AudioVideoPlayerControlsProps>`
   width: 100%;
   padding: 20px;
   display: flex;
-  opacity: ${(props) => (props.state.playing ? (props.audio ? 1 : 0) : 1)};
+  opacity: ${(props) => (props.state?.playing ? (props.audio ? 1 : 0) : 1)};
   justify-content: end;
   flex-direction: column;
   background-color: rgba(0, 0, 0, 0.5);
@@ -168,10 +170,8 @@ const StyledVideoControls = styled("div")<AudioVideoPlayerControlsProps>`
     height: 3px;
     background: grey;
     border-radius: 3px;
-    background-image: linear-gradient(
-      ${({ theme }) => theme.primaryColor},
-      ${({ theme }) => theme.primaryColor}
-    );
+    background-image: ${({ theme }) =>
+      `linear-gradient(${theme.primaryColor}, ${theme.primaryColor})`};
     background-repeat: no-repeat;
 
     &::-webkit-slider-thumb {
@@ -557,7 +557,13 @@ const IconFullscreen = () => {
 const AudioVideoPlayerControls: React.FC<AudioVideoPlayerControlsProps> = (
   props
 ) => {
-  const { state, onSeek, onToggle, onVolume, onFullscreen } = props;
+  const {
+    state = initialVideoState,
+    onSeek,
+    onToggle,
+    onVolume,
+    onFullscreen,
+  } = props;
 
   const getBackgroundSize = (value: number, max: number) => {
     return {
@@ -716,7 +722,13 @@ const AudioVideoPlayerControls: React.FC<AudioVideoPlayerControlsProps> = (
 };
 
 export const AudioVideoPlayer: React.FC<AudioVideoPlayerProps> = (props) => {
-  const { children, mobile, audio = false, light } = props;
+  const {
+    children,
+    mobile,
+    audio = false,
+    light = true,
+    ratio = 9 / 16,
+  } = props;
 
   const ref = React.useRef<ReactPlayer>(null);
   const refWrapper = React.useRef<HTMLDivElement>(null);
@@ -746,9 +758,10 @@ export const AudioVideoPlayer: React.FC<AudioVideoPlayerProps> = (props) => {
       audio={audio}
       light={light}
     >
-      <RatioBox ratio={9 / 16}>
+      <RatioBox ratio={ratio}>
         <ReactPlayer
           {...props}
+          light={light}
           ref={ref}
           width={"100%"}
           height={"100%"}

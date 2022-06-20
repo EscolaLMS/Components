@@ -10,6 +10,7 @@ import { useOnClickOutside } from "../../../hooks/useOnClickOutside";
 import { contrast } from "chroma-js";
 import { Title, Checkbox, Button } from "../../../";
 import Drawer from "rc-drawer";
+import { useTranslation } from "react-i18next";
 
 interface StyledCategoriesProps {
   mobile?: boolean;
@@ -25,6 +26,8 @@ interface CategoriesProps extends StyledCategoriesProps {
   selectedCategories?: number[];
   handleChange?: (newValue: number[]) => void;
   drawerTitle?: ReactNode;
+  handleDrawerButtonClick?: () => void;
+  drawerButtonText?: string;
 }
 
 const IconArrowBottom = () => {
@@ -94,10 +97,15 @@ const StyledCategoriesDropdown = styled("div")<StyledCategoriesProps>`
     svg {
       margin-left: 10px;
       transform: ${(props) => (props.open ? "rotate(180deg)" : "none")};
+      transition: opacity 0.2s ease-in-out;
 
       path {
         stroke: currentColor;
       }
+    }
+
+    &:hover svg {
+      opacity: 0.6;
     }
 
     &:after {
@@ -392,12 +400,14 @@ const CategoriesDrawer: React.FC<CategoriesProps> = (props) => {
     labelPrefix,
     label,
     handleChange,
+    handleDrawerButtonClick,
     selectedCategories,
+    drawerButtonText,
     drawerTitle,
     mobile,
   } = props;
   const [showDrawer, setShowDrawer] = React.useState(false);
-
+  const { t } = useTranslation();
   const onToggleDrawer = () => {
     setShowDrawer((value) => !value);
   };
@@ -406,7 +416,7 @@ const CategoriesDrawer: React.FC<CategoriesProps> = (props) => {
     <React.Fragment>
       <StyledCategoriesDrawer />
       <Button type={"button"} mode={"outline"} onClick={onToggleDrawer}>
-        Filtruj{" "}
+        {t("Categories.Filter")}{" "}
         {selectedCategories &&
           selectedCategories.length > 0 &&
           `(${selectedCategories.length})`}
@@ -437,17 +447,20 @@ const CategoriesDrawer: React.FC<CategoriesProps> = (props) => {
             mobile={mobile}
           />
         </div>
-        <div className={"drawer-content-footer"}>
-          <Button
-            block
-            mode={"secondary"}
-            onClick={() => {
-              onToggleDrawer();
-            }}
-          >
-            Test
-          </Button>
-        </div>
+        {drawerButtonText && handleDrawerButtonClick && (
+          <div className={"drawer-content-footer"}>
+            <Button
+              block
+              mode={"secondary"}
+              onClick={() => {
+                onToggleDrawer();
+                handleDrawerButtonClick && handleDrawerButtonClick();
+              }}
+            >
+              {drawerButtonText && drawerButtonText}
+            </Button>
+          </div>
+        )}
       </Drawer>
     </React.Fragment>
   );

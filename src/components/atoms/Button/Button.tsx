@@ -10,7 +10,7 @@ import Spin from "../Spin/Spin";
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children?: React.ReactNode;
-  mode?: "primary" | "secondary" | "outline" | "white";
+  mode?: "primary" | "secondary" | "outline" | "white" | "icon";
   invert?: boolean;
   loading?: boolean;
   block?: boolean;
@@ -27,6 +27,9 @@ const StyledButton = styled("button")<ButtonProps>`
     if (props.mode === "white") {
       return props.theme.white;
     }
+    if (props.mode === "icon") {
+      return "transparent";
+    }
     return props.theme?.primaryColor || "black";
   }};
   color: ${(props) => {
@@ -41,6 +44,11 @@ const StyledButton = styled("button")<ButtonProps>`
     }
     if (props.mode === "white") {
       return props.theme.gray1;
+    }
+    if (props.mode === "icon") {
+      return props.theme.mode === "light"
+        ? props.theme.gray1
+        : props.theme.white;
     }
     return props.theme.white;
   }};
@@ -60,10 +68,21 @@ const StyledButton = styled("button")<ButtonProps>`
     }
     return "18px";
   }};
-  line-height: 1.55em;
+  line-height: ${(props) => {
+    if (props.mode === "icon") {
+      return "1.5";
+    }
+    return "1.55em";
+  }};
   cursor: pointer;
-  padding: ${(props) =>
-    props.mode === "primary" ? "0.75em 2em" : "0.65em 1.3em"};
+  padding: ${(props) => {
+    if (props.mode === "primary") {
+      return "0.75em 2em";
+    } else if (props.mode === "icon") {
+      return "4px";
+    }
+    return "0.65em 1.3em";
+  }};
   border-radius: ${(props) => props.theme?.buttonRadius || 2}px;
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
@@ -84,15 +103,19 @@ const StyledButton = styled("button")<ButtonProps>`
     if (props.mode === "white") {
       return props.theme.white;
     }
+    if (props.mode === "icon") {
+      return "transparent";
+    }
     return props.theme?.primaryColor || "black";
   }};
   transition: box-shadow 0.2s ease-in-out, border 0.2s ease-in,
-    background 0.2s ease-in, color 0.2s ease-in;
+    background 0.2s ease-in, color 0.2s ease-in, opacity 0.2s ease-in;
 
   display: inline-flex;
   align-items: center;
   justify-content: center;
   text-align: center;
+  flex-shrink: 0;
 
   ${(props) => (props.block ? "width:100%;" : "")}
 
@@ -104,7 +127,12 @@ const StyledButton = styled("button")<ButtonProps>`
   }};
 
   & > svg {
-    margin: 0 9px;
+    margin: ${(props) => {
+      if (props.mode === "icon") {
+        return "0";
+      }
+      return "0 9px";
+    }};
     height: ${(props) => {
       if (props.mode) {
         switch (props.mode) {
@@ -118,7 +146,12 @@ const StyledButton = styled("button")<ButtonProps>`
       }
       return "18px";
     }};
-    width: auto;
+    width: ${(props) => {
+      if (props.mode === "icon") {
+        return "14px";
+      }
+      return "18px";
+    }};
   }
 
   &:focus,
@@ -128,6 +161,8 @@ const StyledButton = styled("button")<ButtonProps>`
     border-color: ${(props) => {
       if (props.invert && props.mode !== "outline") {
         return props.theme.gray1;
+      } else if (props.mode === "icon") {
+        return "transparent";
       }
       return props.theme.white;
     }};
@@ -135,7 +170,11 @@ const StyledButton = styled("button")<ButtonProps>`
   }
 
   &:hover {
-    color: ${(props) => props.theme.primaryColor};
+    color: ${(props) => {
+      if (props.mode !== "icon") {
+        return props.theme.primaryColor;
+      }
+    }};
     border-color: transparent;
     ${(props) => {
       if (props.theme) {
@@ -156,6 +195,11 @@ const StyledButton = styled("button")<ButtonProps>`
             background: ${chroma(props.theme.white).alpha(0.85).hex()};
             color: ${props.theme.gray1};
           `;
+        } else if (props.mode === "icon") {
+          return `
+            background: transparent;
+            opacity: 0.6;
+            `;
         } else {
           if (props.mode === "outline") {
             return `
