@@ -98,6 +98,7 @@ export const resources = {
         "Privacy Policy": "Privacy policy",
         "Terms of Service": "Terms of service",
         bio: "Bio",
+        Newsletter: "Subscribe to newsletter",
       },
       ResetForm: {
         ResetPassword: "Reset password",
@@ -207,6 +208,7 @@ export const resources = {
         "Privacy Policy": "Politykę prywatności",
         "Terms of Service": "Regulamin serwisu",
         bio: "Biogram",
+        Newsletter: "Zapisz się do newslettera",
       },
       ResetForm: {
         ResetPassword: "Zresetuj hasło",
