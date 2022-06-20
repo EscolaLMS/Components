@@ -92,7 +92,6 @@ const Icon1 = () => (
                 id: 1,
               },
             ]}
-            lessonCount={1}
             subtitle={"100% Online"}
             title={"Best course ever"}
             hideImage
@@ -127,7 +126,6 @@ const Icon1 = () => (
             image={{
               path: backgroundImage2,
             }}
-            lessonCount={3}
             tags={[
               {
                 title: "Bestseller",
@@ -170,7 +168,6 @@ const Icon1 = () => (
               path: backgroundImage2,
             }}
             subtitle={"100% Online"}
-            lessonCount={3}
             tags={[
               {
                 title: "Bestseller",
@@ -249,7 +246,6 @@ const Icon1 = () => (
         image={{
           path: backgroundImage2,
         }}
-        lessonCount={3}
         tags={[
           {
             title: "Bestseller",
@@ -283,7 +279,6 @@ const Icon1 = () => (
         image={{
           path: backgroundImage2,
         }}
-        lessonCount={3}
         tags={[
           {
             title: "Bestseller",

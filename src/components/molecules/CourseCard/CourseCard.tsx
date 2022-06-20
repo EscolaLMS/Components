@@ -53,7 +53,6 @@ export interface CourseCardProps extends StyledCourseCardProps {
   title: ReactNode;
   categories?: Categories | ReactChild;
   tags?: Tag[] | ReactChild;
-  lessonCount?: number;
   subtitle?: ReactNode;
   //TODO: add params if needed to onImageClick
   onImageClick?: () => void;
@@ -203,7 +202,6 @@ export const CourseCard: React.FC<CourseCardProps> = (props) => {
   const {
     id,
     mobile,
-    lessonCount,
     title,
     image,
     categories,
@@ -221,10 +219,6 @@ export const CourseCard: React.FC<CourseCardProps> = (props) => {
   } = props;
 
   const theme = React.useContext(ThemeContext);
-
-  React.useEffect(() => {
-    console.warn("dont use lessonCount is DECREPITATED");
-  }, [lessonCount]);
 
   const tagClick = useCallback(
     (e: React.MouseEvent<HTMLDivElement, MouseEvent>, title: string) => {

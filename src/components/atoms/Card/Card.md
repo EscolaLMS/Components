@@ -44,7 +44,6 @@ import img1 from "./Card.png";
             id: 1,
           },
         ]}
-        lessonCount={1}
         subtitle={"100% Online"}
         title={"Best course ever"}
         hideImage
