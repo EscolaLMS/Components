@@ -47,18 +47,26 @@ const filterInputData = (input: DefaultTheme) => {
 
 export const ThemeCustomizer: React.FC<{
   onUpdate: (theme: DefaultTheme) => void;
-}> = ({ onUpdate }) => {
+  showAllThemes?: boolean;
+}> = ({ onUpdate, showAllThemes = true }) => {
   const [localTheme] = useLocalTheme();
 
   const initData = useMemo(() => {
     return filterInputData(localTheme);
   }, []);
+  
+  const checkThemes = () => {
+    if (showAllThemes) {
+      return initData.theme || "all"
+    }
+    return initData.theme || Object.keys(themes)[1];
+  }
 
   const [props, set] = useControls(() => ({
     theme: {
       label: "Theme",
-      value: initData.theme || Object.keys(themes)[0],
-      options: [...Object.keys(themes), "custom"],
+      value: checkThemes(),
+      options: [showAllThemes && "all", ...Object.keys(themes), "custom"].filter(Boolean),
       onChange: (theme: string) => {
         switch (theme) {
           case "custom":
