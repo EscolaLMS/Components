@@ -57,7 +57,9 @@ export const ThemeCustomizer: React.FC<{
   const [props, set] = useControls(() => ({
     theme: {
       label: "Theme",
-      value: hasAll ? initData.theme || "all" : initData.theme,
+      value: hasAll
+        ? initData.theme || "all"
+        : initData.theme || Object.keys(themes)[0],
       options: hasAll
         ? ["all", ...Object.keys(themes), "custom"]
         : [...Object.keys(themes), "custom"],
