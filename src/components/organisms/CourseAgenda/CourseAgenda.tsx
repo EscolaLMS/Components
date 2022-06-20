@@ -157,7 +157,7 @@ const StyledSection = styled("section")`
 
       button {
         margin-left: auto;
-        margin-top: -4px;
+        margin-top: -2px;
 
         svg {
           transition: transform 0.2s ease-in;
@@ -199,11 +199,9 @@ const StyledSection = styled("section")`
       }
     }
     &.open > header button svg {
-      transform: rotate(180deg);
-    }
-    &.closed > header button svg {
       transform: rotate(0);
     }
+
     &.closed {
       cursor: pointer;
     }

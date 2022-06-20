@@ -1,22 +1,16 @@
 import * as React from "react";
 import type { Category } from "@escolalms/sdk/lib/types/api";
-import styled, {
-  createGlobalStyle,
-  ThemeContext,
-  withTheme,
-} from "styled-components";
+import styled, { createGlobalStyle, withTheme } from "styled-components";
 import { ReactNode, useRef } from "react";
 import { useOnClickOutside } from "../../../hooks/useOnClickOutside";
-import { contrast } from "chroma-js";
 import { Title, Checkbox, Button } from "../../../";
 import Drawer from "rc-drawer";
 import { useTranslation } from "react-i18next";
+import { getFontFromTheme } from "../../../theme/provider";
 
 interface StyledCategoriesProps {
   mobile?: boolean;
   open?: boolean;
-  lightContrast?: boolean;
-  backgroundColor?: React.CSSProperties["backgroundColor"];
 }
 
 interface CategoriesProps extends StyledCategoriesProps {
@@ -73,12 +67,11 @@ const IconArrowLeft = () => {
 const StyledCategoriesDropdown = styled("div")<StyledCategoriesProps>`
   position: relative;
   min-width: 150px;
-  color: ${(props) =>
-    props.lightContrast ? props.theme.gray4 : props.theme.gray2};
+  color: ${({ theme }) => (theme.mode === "light" ? theme.gray2 : theme.gray4)};
   border: ${(props) =>
     `1px solid ${props.open ? "currentColor" : "transparent"}`};
-  background-color: ${(props) => props.backgroundColor};
-
+  background-color: ${({ theme }) =>
+    theme.mode === "light" ? theme.backgroundLight : theme.backgroundDark};
   .categories-dropdown-button {
     position: relative;
     justify-content: space-between;
@@ -90,9 +83,11 @@ const StyledCategoriesDropdown = styled("div")<StyledCategoriesProps>`
     appearance: none;
     background-color: transparent;
     border: none;
-    font-weight: bold;
+    font-weight: normal;
     cursor: pointer;
     color: currentColor;
+    font-size: 16px;
+    font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
 
     svg {
       margin-left: 10px;
@@ -131,7 +126,8 @@ const StyledCategoriesDropdown = styled("div")<StyledCategoriesProps>`
     overflow-y: ${(props) => (props.open ? "auto" : "hidden")};
     display: ${(props) => (props.open ? "block" : "none")};
     box-sizing: border-box;
-    background-color: ${(props) => props.backgroundColor};
+    background-color: ${({ theme }) =>
+      theme.mode === "light" ? theme.backgroundLight : theme.backgroundDark};
     border: 1px solid currentColor;
     border-top: none;
     z-index: ${(props) => (props.open ? "1" : "0")};
@@ -341,21 +337,8 @@ const CategoryTreeOptions: React.FC<CategoriesProps> = (props) => {
 };
 
 const CategoriesDropdown: React.FC<CategoriesProps> = (props) => {
-  const theme = React.useContext(ThemeContext);
-  const {
-    categories,
-    labelPrefix,
-    label,
-    selectedCategories,
-    backgroundColor = theme.mode === "light"
-      ? theme.backgroundLight
-      : theme.backgroundDark,
-    handleChange,
-  } = props;
-
-  const cts = React.useMemo(() => {
-    return contrast("#fff", backgroundColor) >= 1.85;
-  }, [backgroundColor]);
+  const { categories, labelPrefix, label, selectedCategories, handleChange } =
+    props;
 
   const [open, setOpen] = React.useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -367,12 +350,7 @@ const CategoriesDropdown: React.FC<CategoriesProps> = (props) => {
   useOnClickOutside(ref, () => setOpen(false));
 
   return (
-    <StyledCategoriesDropdown
-      lightContrast={cts}
-      backgroundColor={backgroundColor}
-      open={open}
-      ref={ref}
-    >
+    <StyledCategoriesDropdown open={open} ref={ref}>
       <button
         type={`button`}
         className={"categories-dropdown-button"}

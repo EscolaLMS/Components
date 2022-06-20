@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo } from "react";
 import { DefaultTheme } from "styled-components";
 import themes from "../theme";
-import { useControls, folder } from "leva";
+import { useControls, folder, Leva } from "leva";
 import { useLocalTheme } from "./useLocalTheme";
 
 const allowedKeys: (keyof DefaultTheme & string)[] = [
@@ -45,7 +45,9 @@ const filterInputData = (input: DefaultTheme) => {
 
 export const ThemeCustomizer: React.FC<{
   onUpdate: (theme: DefaultTheme) => void;
-}> = ({ onUpdate }) => {
+  hasAll?: boolean;
+  hidden?: boolean;
+}> = ({ onUpdate, hasAll = false, hidden = false }) => {
   const [localTheme] = useLocalTheme();
 
   const initData = useMemo(() => {
@@ -55,8 +57,12 @@ export const ThemeCustomizer: React.FC<{
   const [props, set] = useControls(() => ({
     theme: {
       label: "Theme",
-      value: initData.theme || "all",
-      options: ["all", ...Object.keys(themes), "custom"],
+      value: hasAll
+        ? initData.theme || "all"
+        : initData.theme || Object.keys(themes)[0],
+      options: hasAll
+        ? ["all", ...Object.keys(themes), "custom"]
+        : [...Object.keys(themes), "custom"],
       onChange: (theme: string) => {
         switch (theme) {
           case "all":
@@ -143,7 +149,7 @@ export const ThemeCustomizer: React.FC<{
     onUpdate(props as DefaultTheme);
   }, [props]);
 
-  return <React.Fragment />;
+  return <Leva hidden={hidden} />;
 };
 
 export default ThemeCustomizer;

@@ -177,7 +177,7 @@ const ChevronIcon = () => (
   >
     <path
       d="M5.88128 0.381282C6.22299 0.0395728 6.77701 0.0395728 7.11872 0.381282L12.3687 5.63128C12.7104 5.97299 12.7104 6.52701 12.3687 6.86872C12.027 7.21043 11.473 7.21043 11.1313 6.86872L6.5 2.23744L1.86872 6.86872C1.52701 7.21043 0.97299 7.21043 0.631282 6.86872C0.289573 6.52701 0.289573 5.97299 0.631282 5.63128L5.88128 0.381282Z"
-      fill="#4A4A4A"
+      fill="currentColor"
     />
   </svg>
 );
@@ -253,10 +253,11 @@ const StyledSection = styled("section")<SharedComponentProps>`
       align-content: flex-start;
 
       button {
-        margin-top: -4px;
+        margin-left: auto;
+        margin-top: -2px;
         svg {
-          transition: transform 0.2s ease-in;
           transform: rotate(180deg);
+          transition: transform 0.2s ease-in;
         }
       }
 
@@ -294,9 +295,6 @@ const StyledSection = styled("section")<SharedComponentProps>`
       }
     }
     &.open > header button svg {
-      transform: rotate(180deg);
-    }
-    &.closed > header button svg {
       transform: rotate(0);
     }
 
