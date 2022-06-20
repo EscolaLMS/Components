@@ -4,6 +4,7 @@ import styled, { ThemeProvider, ThemeContext } from "styled-components";
 import { GlobalThemeProvider } from "../theme/provider";
 import { default as chroma } from "chroma-js";
 import { useLocalTheme } from "./useLocalTheme";
+import themes from "../theme";
 
 type Mode = ("light" | "dark")[];
 
@@ -109,7 +110,26 @@ export const ThemeTester: React.FC<ThemeTesterProps> = (props) => {
 
   return (
     <div>
-      {localTheme.theme !== "custom" && (
+      {localTheme.theme === "all" &&
+        Object.entries(themes).map((theme) =>
+          modes.map((mode) => (
+            <ThemeProvider
+              theme={{ ...theme[1], mode }}
+              key={`${theme[0]}${mode}`}
+            >
+              <ThemeTesterWrapper
+                flexDirection={flexDirection}
+                alignItems={alignItems}
+                name={theme[0].split("Theme").join("")}
+                mode={mode}
+                childrenListStyle={childrenListStyle}
+              >
+                {children}
+              </ThemeTesterWrapper>
+            </ThemeProvider>
+          ))
+        )}
+      {localTheme.theme !== "all" && localTheme.theme !== "custom" && (
         <ThemeProvider theme={{ ...localTheme }}>
           <ThemeTesterWrapper
             flexDirection={flexDirection}

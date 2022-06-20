@@ -42,6 +42,7 @@ export const Logo: React.FC = () => {
   return (
     <React.Fragment>
       <ThemeCustomizer
+        showAllThemes
         onUpdate={(theme) => {
           setTheme(theme);
         }}
