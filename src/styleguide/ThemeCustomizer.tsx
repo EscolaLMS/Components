@@ -48,7 +48,7 @@ const filterInputData = (input: DefaultTheme) => {
 export const ThemeCustomizer: React.FC<{
   onUpdate: (theme: DefaultTheme) => void;
   showAllThemes?: boolean;
-}> = ({ onUpdate, showAllThemes = true }) => {
+}> = ({ onUpdate, showAllThemes = false }) => {
   const [localTheme] = useLocalTheme();
 
   const initData = useMemo(() => {
