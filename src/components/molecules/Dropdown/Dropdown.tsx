@@ -6,11 +6,11 @@ import { getFontFromTheme } from "../../../theme/provider";
 import chroma from "chroma-js";
 
 export interface DropdownProps extends ReactDropdownProps {
-  direction?: "up" | "down";
+  placement?: "up" | "down";
   styles?: React.CSSProperties;
 }
 
-const StyledDropdown = styled("div")<{ direction?: "up" | "down" }>`
+const StyledDropdown = styled("div")<{ placement?: "up" | "down" }>`
   font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
   font-size: 16px;
   line-height: 20px;
@@ -29,7 +29,7 @@ const StyledDropdown = styled("div")<{ direction?: "up" | "down" }>`
     &:after {
       position: absolute;
       content: "";
-      bottom: ${(props) => (props.direction === "down" ? "0" : "96%")};
+      bottom: ${(props) => (props.placement === "down" ? "0" : "96%")};
       left: 10px;
       width: calc(100% - 20px);
       background: ${(props) =>
@@ -41,8 +41,8 @@ const StyledDropdown = styled("div")<{ direction?: "up" | "down" }>`
       border-color: ${(props) =>
         props.theme.mode !== "dark" ? props.theme.gray3 : props.theme.white};
       border-bottom-color: ${(props) =>
-        props.direction === "down" && "transparent"};
-      border-top-color: ${(props) => props.direction === "up" && "transparent"};
+        props.placement === "down" && "transparent"};
+      border-top-color: ${(props) => props.placement === "up" && "transparent"};
       &:after {
         height: 1px;
       }
@@ -61,8 +61,8 @@ const StyledDropdown = styled("div")<{ direction?: "up" | "down" }>`
   }
 
   .Dropdown-control {
-    border-radius: ${({ direction, theme }) =>
-      direction === "down"
+    border-radius: ${({ placement, theme }) =>
+      placement === "down"
         ? `${theme.inputRadius}px ${theme.inputRadius}px 0 0`
         : `0 0 ${theme.inputRadius}px ${theme.inputRadius}px`};
   }
@@ -87,8 +87,8 @@ const StyledDropdown = styled("div")<{ direction?: "up" | "down" }>`
   .menu {
     border-color: ${(props) =>
       props.theme.mode !== "dark" ? props.theme.gray3 : props.theme.white};
-    border-top: ${(props) => props.direction === "down" && "none"};
-    border-bottom: ${(props) => props.direction === "up" && "none"};
+    border-top: ${(props) => props.placement === "down" && "none"};
+    border-bottom: ${(props) => props.placement === "up" && "none"};
     font-size: 14px;
     background: ${(props) =>
       props.theme.mode !== "dark"
@@ -97,16 +97,16 @@ const StyledDropdown = styled("div")<{ direction?: "up" | "down" }>`
   }
 
   .Dropdown-menu {
-    top: ${(props) => (props.direction === "up" ? "auto" : "100%")};
-    bottom: ${(props) => (props.direction === "up" ? "100%" : "auto")};
+    top: ${(props) => (props.placement === "up" ? "auto" : "100%")};
+    bottom: ${(props) => (props.placement === "up" ? "100%" : "auto")};
     box-shadow: none;
   }
 `;
 
 export const Dropdown: React.FC<DropdownProps> = (props) => {
-  const { direction = "down", styles } = props;
+  const { placement = "down", styles } = props;
   return (
-    <StyledDropdown direction={direction} style={styles}>
+    <StyledDropdown placement={placement} style={styles}>
       <ReactDropdown
         {...props}
         menuClassName="menu"

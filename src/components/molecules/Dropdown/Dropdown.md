@@ -22,7 +22,7 @@ import img2 from "./Dropdown2.png";
       "dropdown option with text",
     ]}
     placeholder="Select"
-    direction={"up"}
+    placement={"up"}
   />
   <Dropdown
     options={[
