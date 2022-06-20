@@ -254,7 +254,7 @@ const StyledSection = styled("section")<SharedComponentProps>`
 
       button {
         margin-left: auto;
-        margin-top: -4px;
+        margin-top: -2px;
         svg {
           transform: rotate(180deg);
           transition: transform 0.2s ease-in;
