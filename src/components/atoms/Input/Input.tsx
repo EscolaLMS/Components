@@ -26,6 +26,9 @@ const StyledDiv = styled("div")<InputProps>`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
+    color: ${({ theme }) =>
+      theme.mode === "dark" ? theme.textColorDark : theme.textColorLight};
+
     * {
       outline: none;
     }
@@ -37,6 +40,10 @@ const StyledDiv = styled("div")<InputProps>`
     }
     .required {
       color: ${(props) => props.theme.errorColor};
+    }
+
+    .helper {
+      font-size: 12px;
     }
 
     .input-and-fieldset {
@@ -111,6 +118,7 @@ const StyledDiv = styled("div")<InputProps>`
         left: 0px;
         top: 0px;
         transform: translate(12px, 12px) scale(1);
+        font-size: 12px;
         z-index: 1;
         transition: 0.2s all;
         color: ${(props) => {
@@ -224,7 +232,7 @@ export const Input: React.FC<InputProps> = (props) => {
           )}
         </div>
       </div>
-      {helper && <span>{helper}</span>}
+      {helper && <span className="helper">{helper}</span>}
       {error && <div className="error">{error}</div>}
     </StyledDiv>
   );
