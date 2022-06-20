@@ -335,7 +335,12 @@ export const RegisterForm: React.FC<{
                   )
                 )}
 
-            <Button mode="secondary" type="submit" loading={isSubmitting} block>
+            <Button
+              mode="secondary"
+              type="submit"
+              loading={isSubmitting || fields.loading}
+              block
+            >
               {t<string>("Login.Signup")}
             </Button>
           </form>
