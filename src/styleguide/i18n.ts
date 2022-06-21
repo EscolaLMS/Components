@@ -108,6 +108,9 @@ export const resources = {
       Search: {
         Placeholder: "Search for courses",
       },
+      VideoPlayer: {
+        Error: "Error loading material. Please try again later.",
+      },
     },
   },
   fr: {
@@ -217,6 +220,9 @@ export const resources = {
       },
       Search: {
         Placeholder: "Szukaj kursów",
+      },
+      VideoPlayer: {
+        Error: "Błąd podczas ładowania materiału. Spróbuj ponownie później.",
       },
     },
   },
