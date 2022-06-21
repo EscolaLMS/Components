@@ -42,7 +42,7 @@ const StyledNav = styled("nav")`
     padding: 0;
     display: flex;
     flex-direction: row;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     justify-content: flex-start;
     align-items: center;
     align-content: center;
