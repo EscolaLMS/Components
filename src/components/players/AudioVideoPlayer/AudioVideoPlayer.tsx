@@ -5,6 +5,7 @@ import { Dropdown, RatioBox, Text } from "../../..";
 import format from "date-fns/format";
 import screenfull from "screenfull";
 import { findDOMNode } from "react-dom";
+import { useTranslation } from "react-i18next";
 
 interface StyledAudioVideoPlayerProps {
   mobile?: boolean;
@@ -25,6 +26,7 @@ interface AudioVideoState {
   playbackRate: number;
   level: number;
   quality: number;
+  error: boolean;
 }
 
 interface AudioVideoPlayerControlsProps {
@@ -51,6 +53,7 @@ const initialVideoState: AudioVideoState = {
   playbackRate: 1.0,
   level: 0,
   quality: 0,
+  error: false,
 };
 
 export interface AudioVideoPlayerProps
@@ -147,6 +150,13 @@ const StyledAudioVideoPlayer = styled("div")<AudioVideoPlayerProps>`
         content: ">";
       }
     }
+  }
+
+  .video-player-error {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
   }
 `;
 
@@ -739,6 +749,8 @@ export const AudioVideoPlayer: React.FC<AudioVideoPlayerProps> = (props) => {
   const [audioVideoState, setAudioVideoState] =
     React.useState<AudioVideoState>(initialVideoState);
 
+  const { t } = useTranslation();
+
   const checkQuality = React.useCallback((player: ReactPlayer) => {
     if (player?.getInternalPlayer("hls")) {
       const hls = player?.getInternalPlayer("hls");
@@ -804,6 +816,12 @@ export const AudioVideoPlayer: React.FC<AudioVideoPlayerProps> = (props) => {
             }));
             ref.current?.showPreview();
           }}
+          onError={() => {
+            setAudioVideoState((prevState) => ({
+              ...prevState,
+              error: true,
+            }));
+          }}
           onClickPreview={() =>
             setAudioVideoState((prevState) => ({
               ...prevState,
@@ -813,7 +831,7 @@ export const AudioVideoPlayer: React.FC<AudioVideoPlayerProps> = (props) => {
           }
         />
       </RatioBox>
-      {!mobile && audioVideoState.controls && (
+      {!mobile && audioVideoState.controls && !audioVideoState.error && (
         <AudioVideoPlayerControls
           audio={audio}
           state={audioVideoState}
@@ -833,7 +851,7 @@ export const AudioVideoPlayer: React.FC<AudioVideoPlayerProps> = (props) => {
           }}
         />
       )}
-      {!mobile && (
+      {!mobile && !audioVideoState.error && (
         <div
           onClick={() =>
             audioVideoState.ready &&
@@ -848,6 +866,12 @@ export const AudioVideoPlayer: React.FC<AudioVideoPlayerProps> = (props) => {
           }}
         >
           {children}
+        </div>
+      )}
+
+      {audioVideoState.error && (
+        <div className="video-player-error">
+          <Text size="16">{t<string>("VideoPlayer.Error")}</Text>
         </div>
       )}
     </StyledAudioVideoPlayer>
