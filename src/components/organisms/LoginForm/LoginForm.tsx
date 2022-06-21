@@ -113,7 +113,7 @@ export const LoginForm: React.FC<{
             <Input
               type="email"
               name="email"
-              label="email"
+              label="Email"
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.email}
@@ -122,7 +122,7 @@ export const LoginForm: React.FC<{
             <Input
               type="password"
               name="password"
-              label="password"
+              label={t<string>("Password")}
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.password}

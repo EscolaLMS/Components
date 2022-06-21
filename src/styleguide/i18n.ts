@@ -81,11 +81,11 @@ export const resources = {
         Empty: "No new notifications",
       },
       Login: {
-        Header: "Zaloguj się do swojego konta Wellms",
-        Signin: "Zaloguj się",
-        NotRemember: "Nie pamiętam hasła",
-        NoAccount: "Nie posiadasz konta?",
-        Signup: "Zarejestruj się",
+        Header: "Log in to your Wellms account",
+        Signin: "Log in",
+        NotRemember: "I forgot my password",
+        NoAccount: "No account?",
+        Signup: "Register",
       },
       RegisterForm: {
         Header: "Log in to your Wellms account",
