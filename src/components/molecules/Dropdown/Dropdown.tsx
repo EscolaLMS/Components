@@ -6,11 +6,11 @@ import { getFontFromTheme } from "../../../theme/provider";
 import chroma from "chroma-js";
 
 export interface DropdownProps extends ReactDropdownProps {
-  placement?: "up" | "down";
+  placement?: "top" | "bottom";
   styles?: React.CSSProperties;
 }
 
-const StyledDropdown = styled("div")<{ placement?: "up" | "down" }>`
+const StyledDropdown = styled("div")<{ placement?: "top" | "bottom" }>`
   font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
   font-size: 16px;
   min-width: 150px;
@@ -28,7 +28,7 @@ const StyledDropdown = styled("div")<{ placement?: "up" | "down" }>`
     &:after {
       position: absolute;
       content: "";
-      bottom: ${(props) => (props.placement === "down" ? "0" : "96%")};
+      bottom: ${(props) => (props.placement === "bottom" ? "0" : "96%")};
       left: 10px;
       width: calc(100% - 20px);
       background: ${(props) =>
@@ -38,8 +38,8 @@ const StyledDropdown = styled("div")<{ placement?: "up" | "down" }>`
 
   .is-open .control {
     border-color: currentColor;
-    border-bottom: ${(props) => props.placement === "down" && "none"};
-    border-top: ${(props) => props.placement === "up" && "none"};
+    border-bottom: ${(props) => props.placement === "bottom" && "none"};
+    border-top: ${(props) => props.placement === "top" && "none"};
     &:after {
       height: 1px;
     }
@@ -59,7 +59,7 @@ const StyledDropdown = styled("div")<{ placement?: "up" | "down" }>`
 
   .Dropdown-control {
     border-radius: ${({ placement, theme }) =>
-      placement === "down"
+      placement === "bottom"
         ? `${theme.inputRadius}px ${theme.inputRadius}px 0 0`
         : `0 0 ${theme.inputRadius}px ${theme.inputRadius}px`};
 
@@ -69,12 +69,12 @@ const StyledDropdown = styled("div")<{ placement?: "up" | "down" }>`
   }
 
   .Dropdown-menu {
-    top: ${(props) => (props.placement === "up" ? "auto" : "100%")};
-    bottom: ${(props) => (props.placement === "up" ? "100%" : "auto")};
+    top: ${(props) => (props.placement === "top" ? "auto" : "100%")};
+    bottom: ${(props) => (props.placement === "top" ? "100%" : "auto")};
     border-color: ${({ theme }) =>
       theme.mode === "light" ? theme.gray2 : theme.white};
-    border-top: ${(props) => props.placement === "down" && "none"};
-    border-bottom: ${(props) => props.placement === "up" && "none"};
+    border-top: ${(props) => props.placement === "bottom" && "none"};
+    border-bottom: ${(props) => props.placement === "top" && "none"};
     box-shadow: none;
     background-color: ${({ theme }) =>
       theme.mode === "light" ? theme.backgroundLight : theme.backgroundDark};
@@ -101,7 +101,7 @@ const StyledDropdown = styled("div")<{ placement?: "up" | "down" }>`
 `;
 
 export const Dropdown: React.FC<DropdownProps> = (props) => {
-  const { placement = "down", styles } = props;
+  const { placement = "bottom", styles } = props;
   return (
     <StyledDropdown placement={placement} style={styles}>
       <ReactDropdown
