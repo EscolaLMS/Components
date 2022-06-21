@@ -9,6 +9,7 @@ import remarkGfm from "remark-gfm";
 import { fixContentForMarkdown } from "../../../utils/components/markdown";
 import Lightbox from "react-image-lightbox";
 import { useState } from "react";
+import chroma from "chroma-js";
 
 interface StyledMarkdownRendererProps {
   mobile?: boolean;
@@ -71,12 +72,18 @@ const StyledMarkdownRenderer = styled("div")<StyledMarkdownRendererProps>`
     tr,
     th {
       border: 1px solid
-        ${({ theme }) => (theme.mode === "dark" ? theme.gray1 : theme.gray3)};
+        ${({ theme }) =>
+          theme.mode === "dark"
+            ? chroma(theme.white).alpha(0.2).css()
+            : theme.gray3};
       padding: 5px 10px;
     }
     table {
       border: 1px solid
-        ${({ theme }) => (theme.mode === "dark" ? theme.gray1 : theme.gray3)};
+        ${({ theme }) =>
+          theme.mode === "dark"
+            ? chroma(theme.white).alpha(0.2).css()
+            : theme.gray3};
       border-collapse: collapse;
     }
   }
