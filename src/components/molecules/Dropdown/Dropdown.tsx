@@ -24,11 +24,25 @@ const StyledDropdown = styled("div")<{ placement?: "up" | "down" }>`
     padding: 8px 39px 8px 10px;
     background-color: ${({ theme }) =>
       theme.mode === "light" ? theme.backgroundLight : theme.backgroundDark};
+
+    &:after {
+      position: absolute;
+      content: "";
+      bottom: ${(props) => (props.placement === "down" ? "0" : "96%")};
+      left: 10px;
+      width: calc(100% - 20px);
+      background: ${(props) =>
+        props.theme.mode !== "dark" ? props.theme.gray2 : props.theme.white};
+    }
   }
 
   .is-open .control {
-    border: 1px solid currentColor;
-    border-bottom: none;
+    border-color: currentColor;
+    border-bottom: ${(props) => props.placement === "down" && "none"};
+    border-top: ${(props) => props.placement === "up" && "none"};
+    &:after {
+      height: 1px;
+    }
   }
 
   .Dropdown-arrow-wrapper {
@@ -44,22 +58,27 @@ const StyledDropdown = styled("div")<{ placement?: "up" | "down" }>`
   }
 
   .Dropdown-control {
-  border-radius: ${({ placement, theme }) =>
-  placement === "down"
-    ? `${theme.inputRadius}px ${theme.inputRadius}px 0 0`
-    : `0 0 ${theme.inputRadius}px ${theme.inputRadius}px`};
-    
+    border-radius: ${({ placement, theme }) =>
+      placement === "down"
+        ? `${theme.inputRadius}px ${theme.inputRadius}px 0 0`
+        : `0 0 ${theme.inputRadius}px ${theme.inputRadius}px`};
+
     &:hover {
       box-shadow: none;
     }
   }
 
   .Dropdown-menu {
-  top: ${(props) => (props.placement === "up" ? "auto" : "100%")};
+    top: ${(props) => (props.placement === "up" ? "auto" : "100%")};
     bottom: ${(props) => (props.placement === "up" ? "100%" : "auto")};
+    border-color: ${({ theme }) =>
+      theme.mode === "light" ? theme.gray2 : theme.white};
+    border-top: ${(props) => props.placement === "down" && "none"};
+    border-bottom: ${(props) => props.placement === "up" && "none"};
     box-shadow: none;
     background-color: ${({ theme }) =>
       theme.mode === "light" ? theme.backgroundLight : theme.backgroundDark};
+    font-size: 14px;
   }
 
   .Dropdown-option {
@@ -78,17 +97,6 @@ const StyledDropdown = styled("div")<{ placement?: "up" | "down" }>`
           ? chroma(props.theme.backgroundLight).darken(0.5).hex()
           : chroma(props.theme.backgroundDark).brighten(1).hex()};
     }
-  }
-  .menu {
-    border-color: ${(props) =>
-  props.theme.mode !== "dark" ? props.theme.gray3 : props.theme.white};
-    border-top: ${(props) => props.placement === "down" && "none"};
-    border-bottom: ${(props) => props.placement === "up" && "none"};
-    font-size: 14px;
-    background: ${(props) =>
-  props.theme.mode !== "dark"
-    ? props.theme.backgroundLight
-    : props.theme.backgroundDark};
   }
 `;
 
