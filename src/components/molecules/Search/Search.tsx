@@ -3,7 +3,9 @@ import styled, { withTheme } from "styled-components";
 import { ReactNode, useRef } from "react";
 import { Input, Spin } from "../../../";
 import chroma from "chroma-js";
+import { Text } from "../../../";
 import { useOnClickOutside } from "../../../hooks/useOnClickOutside";
+import { useTranslation } from "react-i18next";
 
 interface StyledSearchProps {
   isFocused?: boolean;
@@ -150,6 +152,7 @@ export const Search: React.FC<SearchProps> = (props) => {
   const [isFocused, setIsFocused] = React.useState(false);
   const childrenList = React.Children.toArray(children);
   const ref = useRef(null);
+  const { t } = useTranslation();
 
   useOnClickOutside(ref, () => setIsFocused(false));
 
@@ -216,7 +219,11 @@ export const Search: React.FC<SearchProps> = (props) => {
         </button>
       </div>
       <div className={"search-input-options"}>
-        {filterChildren(childrenList)}
+        {filterChildren(childrenList).length ? (
+          filterChildren(childrenList)
+        ) : (
+          <Text size={"12"}>{t<string>("Search.NoResults")}</Text>
+        )}
       </div>
     </StyledSearch>
   );
