@@ -107,6 +107,7 @@ export const resources = {
       },
       Search: {
         Placeholder: "Search for courses",
+        NoResults: "No results",
       },
       VideoPlayer: {
         Error: "Error loading material. Please try again later.",
@@ -220,6 +221,7 @@ export const resources = {
       },
       Search: {
         Placeholder: "Szukaj kursów",
+        NoResults: "Brak wyników",
       },
       VideoPlayer: {
         Error: "Błąd podczas ładowania materiału. Spróbuj ponownie później.",
