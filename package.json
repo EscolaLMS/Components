@@ -1,6 +1,6 @@
 {
   "name": "@escolalms/components",
-  "version": "0.0.25",
+  "version": "0.0.32",
   "main": "lib/index.js",
   "license": "MIT",
   "scripts": {
@@ -64,6 +64,7 @@
     "react-styleguidist": "^11.2.0",
     "react-tiny-oembed": "^1.1.0",
     "rehype-raw": "^6.1.1",
+    "remark-gfm": "^3.0.1",
     "screenfull": "6.0.1",
     "source-map-loader": "^3.0.1",
     "style-loader": "^3.3.1",

@@ -5,7 +5,11 @@ import { getFontFromTheme } from "../../../theme/provider";
 import { setFontSizeByHeaderLevel } from "../../../utils/components/primitives/titleUtils";
 import { ReactMarkdownOptions } from "react-markdown/lib/react-markdown";
 import rehypeRaw from "rehype-raw";
+import remarkGfm from "remark-gfm";
 import { fixContentForMarkdown } from "../../../utils/components/markdown";
+import Lightbox from "react-image-lightbox";
+import { useState } from "react";
+import chroma from "chroma-js";
 
 interface StyledMarkdownRendererProps {
   mobile?: boolean;
@@ -62,15 +66,81 @@ const StyledMarkdownRenderer = styled("div")<StyledMarkdownRendererProps>`
   b {
     font-weight: bold;
   }
+
+  .table-responsive {
+    td,
+    tr,
+    th {
+      border: 1px solid
+        ${({ theme }) =>
+          theme.mode === "dark"
+            ? chroma(theme.white).alpha(0.2).css()
+            : theme.gray3};
+      padding: 5px 10px;
+    }
+    table {
+      border: 1px solid
+        ${({ theme }) =>
+          theme.mode === "dark"
+            ? chroma(theme.white).alpha(0.2).css()
+            : theme.gray3};
+      border-collapse: collapse;
+    }
+  }
 `;
 
+export const MarkdownImage: React.ComponentType<
+  React.ClassAttributes<HTMLImageElement> &
+    React.ImgHTMLAttributes<HTMLImageElement>
+> = (props) => {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <div
+      onClick={() => setIsOpen(true)}
+      onKeyDown={() => setIsOpen(true)}
+      role="button"
+      tabIndex={-1}
+    >
+      <img src={props.src} alt={props.alt} style={{ cursor: "pointer" }} />
+      {isOpen && props.src && (
+        <Lightbox mainSrc={props.src} onCloseRequest={() => setIsOpen(false)} />
+      )}
+    </div>
+  );
+};
+
+export const MarkdownTable: React.ComponentType<
+  React.TableHTMLAttributes<HTMLTableElement>
+> = (props) => {
+  return (
+    <div className="table-responsive">
+      <table className={`table ${props.className || ""}`} {...props}>
+        {props.children}
+      </table>
+    </div>
+  );
+};
+
 export const MarkdownRenderer: React.FC<MarkdownRendererProps> = (props) => {
-  const { mobile = false } = props;
+  const { mobile = false, children } = props;
 
   return (
     <StyledMarkdownRenderer mobile={mobile}>
-      <ReactMarkdown rehypePlugins={[rehypeRaw]} {...props}>
-        {fixContentForMarkdown(props.children)}
+      <ReactMarkdown
+        linkTarget="_blank"
+        rehypePlugins={[rehypeRaw]}
+        remarkPlugins={[remarkGfm]}
+        components={{
+          img: (props) => {
+            return <MarkdownImage {...props} />;
+          },
+          table: (props) => {
+            return <MarkdownTable {...props} />;
+          },
+        }}
+        {...props}
+      >
+        {fixContentForMarkdown(children)}
       </ReactMarkdown>
     </StyledMarkdownRenderer>
   );

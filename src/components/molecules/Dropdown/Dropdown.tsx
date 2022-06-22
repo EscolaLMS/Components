@@ -5,7 +5,12 @@ import "react-dropdown/style.css";
 import { getFontFromTheme } from "../../../theme/provider";
 import chroma from "chroma-js";
 
-const StyledDropdown = styled("div")`
+export interface DropdownProps extends ReactDropdownProps {
+  placement?: "top" | "bottom";
+  styles?: React.CSSProperties;
+}
+
+const StyledDropdown = styled("div")<{ placement?: "top" | "bottom" }>`
   font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
   font-size: 16px;
   min-width: 150px;
@@ -19,11 +24,25 @@ const StyledDropdown = styled("div")`
     padding: 8px 39px 8px 10px;
     background-color: ${({ theme }) =>
       theme.mode === "light" ? theme.backgroundLight : theme.backgroundDark};
+
+    &:after {
+      position: absolute;
+      content: "";
+      bottom: ${(props) => (props.placement === "bottom" ? "0" : "96%")};
+      left: 10px;
+      width: calc(100% - 20px);
+      background: ${(props) =>
+        props.theme.mode !== "dark" ? props.theme.gray2 : props.theme.white};
+    }
   }
 
   .is-open .control {
-    border: 1px solid currentColor;
-    border-bottom: none;
+    border-color: currentColor;
+    border-bottom: ${(props) => props.placement === "bottom" && "none"};
+    border-top: ${(props) => props.placement === "top" && "none"};
+    &:after {
+      height: 1px;
+    }
   }
 
   .Dropdown-arrow-wrapper {
@@ -39,14 +58,27 @@ const StyledDropdown = styled("div")`
   }
 
   .Dropdown-control {
+    border-radius: ${({ placement, theme }) =>
+      placement === "bottom"
+        ? `${theme.inputRadius}px ${theme.inputRadius}px 0 0`
+        : `0 0 ${theme.inputRadius}px ${theme.inputRadius}px`};
+
     &:hover {
       box-shadow: none;
     }
   }
 
   .Dropdown-menu {
+    top: ${(props) => (props.placement === "top" ? "auto" : "100%")};
+    bottom: ${(props) => (props.placement === "top" ? "100%" : "auto")};
+    border-color: ${({ theme }) =>
+      theme.mode === "light" ? theme.gray2 : theme.white};
+    border-top: ${(props) => props.placement === "bottom" && "none"};
+    border-bottom: ${(props) => props.placement === "top" && "none"};
+    box-shadow: none;
     background-color: ${({ theme }) =>
       theme.mode === "light" ? theme.backgroundLight : theme.backgroundDark};
+    font-size: 14px;
   }
 
   .Dropdown-option {
@@ -66,16 +98,12 @@ const StyledDropdown = styled("div")`
           : chroma(props.theme.backgroundDark).brighten(1).hex()};
     }
   }
-  .menu {
-    border: 1px solid currentColor;
-    border-top: none;
-    font-size: 16px;
-  }
 `;
 
-export const Dropdown: React.FC<ReactDropdownProps> = (props) => {
+export const Dropdown: React.FC<DropdownProps> = (props) => {
+  const { placement = "bottom", styles } = props;
   return (
-    <StyledDropdown>
+    <StyledDropdown placement={placement} style={styles}>
       <ReactDropdown
         {...props}
         menuClassName="menu"

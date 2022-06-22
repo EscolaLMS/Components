@@ -81,11 +81,11 @@ export const resources = {
         Empty: "No new notifications",
       },
       Login: {
-        Header: "Zaloguj się do swojego konta Wellms",
-        Signin: "Zaloguj się",
-        NotRemember: "Nie pamiętam hasła",
-        NoAccount: "Nie posiadasz konta?",
-        Signup: "Zarejestruj się",
+        Header: "Log in to your Wellms account",
+        Signin: "Log in",
+        NotRemember: "I forgot my password",
+        NoAccount: "No account?",
+        Signup: "Register",
       },
       RegisterForm: {
         Header: "Log in to your Wellms account",
@@ -98,6 +98,7 @@ export const resources = {
         "Privacy Policy": "Privacy policy",
         "Terms of Service": "Terms of service",
         bio: "Bio",
+        Newsletter: "Subscribe to newsletter",
       },
       ResetForm: {
         ResetPassword: "Reset password",
@@ -106,6 +107,9 @@ export const resources = {
       },
       Search: {
         Placeholder: "Search for courses",
+      },
+      VideoPlayer: {
+        Error: "Error loading material. Please try again later.",
       },
     },
   },
@@ -207,6 +211,7 @@ export const resources = {
         "Privacy Policy": "Politykę prywatności",
         "Terms of Service": "Regulamin serwisu",
         bio: "Biogram",
+        Newsletter: "Zapisz się do newslettera",
       },
       ResetForm: {
         ResetPassword: "Zresetuj hasło",
@@ -215,6 +220,9 @@ export const resources = {
       },
       Search: {
         Placeholder: "Szukaj kursów",
+      },
+      VideoPlayer: {
+        Error: "Błąd podczas ładowania materiału. Spróbuj ponownie później.",
       },
     },
   },

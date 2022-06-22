@@ -83,19 +83,17 @@ interface SharedComponentProps {
   mobile?: boolean;
   onMarkFinished: (topic: Topic) => void;
   onTopicClick: (topic: Topic) => void;
+  finishedTopicIds: number[];
 }
 
 interface CourseAgendaProps extends SharedComponentProps {
   lessons: Lesson[];
-  finishedTopicIds: number[];
   currentTopicId: number;
 }
 
 interface CourseAgendaLessonProps extends SharedComponentProps {
   lesson: Lesson;
   index: number;
-  mobile?: boolean;
-  finishedTopicIds: number[];
   currentTopicId: number;
   defaultOpen?: boolean;
 }
@@ -157,7 +155,7 @@ const StyledSection = styled("section")`
 
       button {
         margin-left: auto;
-        margin-top: -4px;
+        margin-top: -2px;
 
         svg {
           transition: transform 0.2s ease-in;
@@ -199,11 +197,9 @@ const StyledSection = styled("section")`
       }
     }
     &.open > header button svg {
-      transform: rotate(180deg);
-    }
-    &.closed > header button svg {
       transform: rotate(0);
     }
+
     &.closed {
       cursor: pointer;
     }
@@ -328,6 +324,7 @@ const CourseAgendaTopic: React.FC<CourseAgendaTopicProps> = ({
   index,
   topic,
   mode,
+  finishedTopicIds,
   onMarkFinished,
   onTopicClick,
 }) => {
@@ -356,7 +353,7 @@ const CourseAgendaTopic: React.FC<CourseAgendaTopicProps> = ({
           </Text>
         </div>
 
-        {mode === "current" && (
+        {mode === "current" && !finishedTopicIds.includes(topic.id) && (
           <Button
             block
             mode="outline"
@@ -449,6 +446,7 @@ const CourseAgendaLesson: React.FC<CourseAgendaLessonProps> = (props) => {
               mode={mode}
               onMarkFinished={onMarkFinished}
               onTopicClick={onTopicClick}
+              finishedTopicIds={finishedTopicIds}
             />
           );
         })}

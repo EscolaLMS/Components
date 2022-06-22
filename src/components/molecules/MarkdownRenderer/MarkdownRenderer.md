@@ -1,5 +1,6 @@
 ```js
 import { ThemeTester } from "../../../styleguide";
+import { MarkdownTable } from "../../../";
 
 const markdown = `### Czego się dowiesz i nauczysz?
 
@@ -12,13 +13,23 @@ const markdown = `### Czego się dowiesz i nauczysz?
 * Dla osób które swoją karierę zawodową chcą związać z pracą w księgowości
 * Dla osób pracujących w działach IT wdrażających systemy księgowe`;
 
+const markdownTable = `
+| First Header  | Second Header |
+| ------------- | ------------- |
+| Content Cell  | Content Cell  |
+| Content Cell  | Content Cell  |`;
+
+const markdownImage = `![alt text](https://placekitten.com/g/600/600)`;
+
 <React.Fragment>
-  <ThemeTester>
+  <ThemeTester flexDirection={"column"} alignItems={"start"}>
     <MarkdownRenderer children={markdown} />
     <MarkdownRenderer>{markdown}</MarkdownRenderer>
     <MarkdownRenderer
       components={{ p: React.Fragment }}
     >{`**8h 12 min** time left`}</MarkdownRenderer>
+    <MarkdownRenderer children={markdownTable} />
+    <MarkdownRenderer children={markdownImage} />
   </ThemeTester>
 </React.Fragment>;
 ```
