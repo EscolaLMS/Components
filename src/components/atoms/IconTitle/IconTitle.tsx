@@ -35,7 +35,7 @@ const StyledHeader = styled.h3<StyledHeader>`
     margin: 0 0 20px 0;
     font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     color: ${(props) => {
       return props.theme.mode !== "light"
         ? props.theme.white
