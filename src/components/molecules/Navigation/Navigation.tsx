@@ -110,6 +110,12 @@ const GlobalStyle = createGlobalStyle`
   
   .drawer-search {
     padding: 24px 16px;
+     border-bottom: ${({ theme }) =>
+       `1px solid ${
+         theme.mode !== "dark"
+           ? chroma(theme.backgroundLight).darken(0.3).css()
+           : chroma(theme.white).alpha(0.15).css()
+       }`};
   }
 
   .drawer,
@@ -154,18 +160,9 @@ const GlobalStyle = createGlobalStyle`
     border-bottom: ${({ theme }) =>
       `1px solid ${
         theme.mode !== "dark"
-          ? theme.gray4
+          ? chroma(theme.backgroundLight).darken(0.3).css()
           : chroma(theme.white).alpha(0.15).css()
       }`};
-      
-      &:first-child {
-        border-top: ${({ theme }) =>
-          `1px solid ${
-            theme.mode !== "dark"
-              ? theme.gray4
-              : chroma(theme.white).alpha(0.15).css()
-          }`};
-      }
       
     a {
       text-decoration: none;
@@ -206,6 +203,11 @@ const StyledNavigation = styled("div")`
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    transition: opacity 0.2s ease-in-out;
+
+    &:hover {
+      opacity: 0.65;
+    }
   }
   .menu-bar {
     width: 19px;

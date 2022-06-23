@@ -71,7 +71,7 @@ const menuItems = [
 ];
 
 <ThemeTester childrenListStyle={{ display: "block" }}>
-  <div style={{ margin: "auto" }}>
+  <div style={{ width: 375, margin: "auto" }}>
     <Navigation
       mobile
       logo={{
@@ -88,9 +88,9 @@ const menuItems = [
           placeholder="Select a course"
           loading={loading}
         >
-          <div>football</div>
-          <div>voleyball</div>
-          <div>basketball</div>
+          <Text noMargin>football</Text>
+          <Text noMargin>voleyball</Text>
+          <Text noMargin>basketball</Text>
         </Search>
       }
     />
