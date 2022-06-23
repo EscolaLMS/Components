@@ -80,17 +80,23 @@ export const Orders: React.FC<OrdersProps> = (props) => {
 
   return (
     <StyledOrders mobile={mobile}>
-      {data.length === 0 && <Text>{t<string>("Orders.noRecords")}</Text>}
+      {data.length === 0 && <Text>{t<string>("Orders.NoRecords")}</Text>}
       {data.length > 0 && (
         <React.Fragment>
           {!mobile && (
             <div className="labels-row">
-              <div className="single-label">{t<string>("Orders.title")}</div>
-              <div className="single-label">{t<string>("Orders.date")}</div>
-              <div className="single-label">{t<string>("Orders.price")}</div>
+              <div className="single-label">
+                <Text size={"14"}>{t<string>("Orders.Title")}</Text>
+              </div>
+              <div className="single-label">
+                <Text size={"14"}>{t<string>("Orders.Date")}</Text>
+              </div>
+              <div className="single-label">
+                <Text size={"14"}>{t<string>("Orders.Price")}</Text>
+              </div>
               {hasActions && (
                 <div className="single-label">
-                  {t<string>("Orders.actions")}
+                  <Text size={"14"}>{t<string>("Orders.Actions")}</Text>
                 </div>
               )}
             </div>

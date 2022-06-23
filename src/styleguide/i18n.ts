@@ -87,6 +87,13 @@ export const resources = {
         NoAccount: "No account?",
         Signup: "Register",
       },
+      Orders: {
+        Title: "Title",
+        Date: "Date",
+        Price: "Price",
+        Actions: "Actions",
+        NoRecords: "No records",
+      },
       RegisterForm: {
         Header: "Log in to your Wellms account",
         Subtitle: "Many users have already trusted us",
@@ -200,6 +207,13 @@ export const resources = {
         NotRemember: "Nie pamiętam hasła",
         NoAccount: "Nie posiadasz konta?",
         Signup: "Zarejestruj się",
+      },
+      Orders: {
+        Title: "Tytuł",
+        Date: "Data",
+        Price: "Cena",
+        Actions: "Akcje",
+        NoRecords: "Brak zamówień",
       },
       RegisterForm: {
         Header: "Dołącz do Wellms, największej plaformy szkoleniowej!",
