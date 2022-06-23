@@ -1,5 +1,5 @@
 import * as React from "react";
-import styled, { withTheme } from "styled-components";
+import styled, { createGlobalStyle, withTheme } from "styled-components";
 import ReactMarkdown from "react-markdown";
 import { getFontFromTheme } from "../../../theme/provider";
 import { setFontSizeByHeaderLevel } from "../../../utils/components/primitives/titleUtils";
@@ -11,6 +11,7 @@ import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
 import { useState } from "react";
 import chroma from "chroma-js";
+import { SharedLightboxStyle } from "../../../utils/utils";
 
 interface StyledMarkdownRendererProps {
   mobile?: boolean;
@@ -90,6 +91,10 @@ const StyledMarkdownRenderer = styled("div")<StyledMarkdownRendererProps>`
   }
 `;
 
+const LightBoxOverwrite = createGlobalStyle`
+${SharedLightboxStyle}
+`;
+
 export const MarkdownImage: React.ComponentType<
   React.ClassAttributes<HTMLImageElement> &
     React.ImgHTMLAttributes<HTMLImageElement>
@@ -104,7 +109,13 @@ export const MarkdownImage: React.ComponentType<
     >
       <img src={props.src} alt={props.alt} style={{ cursor: "pointer" }} />
       {isOpen && props.src && (
-        <Lightbox mainSrc={props.src} onCloseRequest={() => setIsOpen(false)} />
+        <>
+          <LightBoxOverwrite />
+          <Lightbox
+            mainSrc={props.src}
+            onCloseRequest={() => setIsOpen(false)}
+          />
+        </>
       )}
     </div>
   );
