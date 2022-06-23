@@ -5,6 +5,8 @@ import { Logo, LogoProps } from "../../atoms/Logo/Logo";
 import Drawer from "rc-drawer";
 import "rc-drawer/assets/index.css";
 import { Col, Row } from "react-grid-system";
+import { Text } from "../../../";
+import chroma from "chroma-js";
 
 const ArrowLeftIcon = () => {
   return (
@@ -18,15 +20,15 @@ const ArrowLeftIcon = () => {
       <path
         d="M7 1L1 7L7 13"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
 };
 
-const ArrowRigthIcon = () => {
+const ArrowRightIcon = () => {
   return (
     <svg
       width="8"
@@ -38,9 +40,9 @@ const ArrowRigthIcon = () => {
       <path
         d="M1.5 11L6.5 6L1.5 1"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -92,84 +94,101 @@ export interface NavigationProps {
   mobile?: boolean;
   logo: LogoProps;
   menuItems: MenuItem[];
+  search?: ReactNode;
 }
 
 const GlobalStyle = createGlobalStyle`
-.drawer-content {
-  background: ${({ theme }) =>
-    theme.mode !== "dark" ? theme.backgroundLight : theme.backgroundDark};
-}
-.drawer-header {
-  display: inline-flex;
-  width: 100%;
-  align-items: center;
-  background: ${({ theme }) =>
-    theme.mode !== "dark" ? theme.backgroundLight : theme.backgroundDark};
-  justify-content: space-between;
-  padding: 15px 16px;
-  box-sizing: border-box;
-  box-shadow: 0px -2px 15px rgba(0, 0, 0, 0.1);
-  ${({ theme }) => {
-    if (theme.mode === "dark") {
-      return `border-bottom: 1px solid ${theme.gray1}`;
+
+  svg {
+    transition: opacity 0.2s ease-in-out;
+  
+    &:hover {
+      opacity: 0.65;
+      cursor: pointer;
     }
-  }};
-  * {
-    color: ${({ theme }) =>
-      theme.mode !== "dark" ? theme.gray2 : theme.white};
-    font-weight: 700;
   }
   
-}
-.menu-drawer-close {
-  cursor: pointer;
-  padding: 0 6px;
-}
-.drawer-menu-item {
-  box-sizing: border-box;
-  display: flex;
-  cursor: pointer;
-  background: ${({ theme }) =>
-    theme.mode !== "dark" ? theme.backgroundLight : theme.backgroundDark};
-    font-weight: 700;
-    
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  border-bottom: ${({ theme }) =>
-    `1px solid ${theme.mode !== "dark" ? theme.gray3 : theme.gray1}`};
-}
-.drawer-menu-item__subtitle {
-  padding: 18px 16px;
-  color: ${({ theme }) => (theme.mode !== "dark" ? theme.gray2 : theme.white)};
-}
-.drawer-menu-item__title {
-  width: 100%;
-  * {
-  color: ${({ theme }) => (theme.mode !== "dark" ? theme.gray2 : theme.white)};
-    padding: 18px 16px;
-    display: block;
-    box-sizing: border-box;
-    width: 100%;
-    text-decoration: none;
+  .drawer-search {
+    padding: 24px 16px;
   }
-}
-.drawer-nested-submenu-header-container {
-  width: 100%;
-  cursor: pointer;
-}
-.drawer-nested-submenu-header {
-  text-align:center;
-}
-.drawer-menu-list {
-  margin: 0;
-  list-style-type: none;
-  padding: 0;
-}
-.drawer-menu-item__icon {
-  padding-right: 16px;
-  color: ${({ theme }) => (theme.mode !== "dark" ? theme.gray2 : theme.white)};
-}
+
+  .drawer,
+  .drawer-content-wrapper {
+    box-sizing: border-box;
+  }
+
+  .drawer-content-wrapper {
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .drawer-header {
+    display: inline-flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 16px;
+    box-sizing: border-box;
+    box-shadow: 0px -2px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .drawer-content {
+    background: ${({ theme }) =>
+      theme.mode !== "dark" ? theme.backgroundLight : theme.backgroundDark};
+  }
+  
+  .drawer-menu-list {
+    margin: 0;
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .drawer-menu-item {
+    padding: 15px 16px;
+    box-sizing: border-box;
+    display: flex;
+    cursor: pointer;      
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    border-bottom: ${({ theme }) =>
+      `1px solid ${
+        theme.mode !== "dark"
+          ? theme.gray4
+          : chroma(theme.white).alpha(0.15).css()
+      }`};
+      
+      &:first-child {
+        border-top: ${({ theme }) =>
+          `1px solid ${
+            theme.mode !== "dark"
+              ? theme.gray4
+              : chroma(theme.white).alpha(0.15).css()
+          }`};
+      }
+      
+    a {
+      text-decoration: none;
+    }
+  }
+  
+  .drawer-nested-submenu-header-container {
+    width: 100%;
+  }
+
+  .drawer-nested-submenu-header {
+    text-align: center;
+  }
+  
+  .drawer-menu-item__icon svg path,
+  .menu-drawer-prev svg path {
+    stroke: ${({ theme }) =>
+      theme.mode === "dark" ? theme.white : theme.gray1};
+  }
+  
+  .menu-drawer-close svg path {
+    fill: ${({ theme }) => (theme.mode === "dark" ? theme.white : theme.gray1)};
+  }
 `;
 
 const StyledNavigation = styled("div")`
@@ -192,13 +211,14 @@ const StyledNavigation = styled("div")`
     width: 19px;
     height: 2px;
     margin: 2px 0;
-    background: ${(props) => props.theme.gray1};
+    background: ${({ theme }) =>
+      theme.mode === "dark" ? theme.white : theme.gray2};
     cursor: pointer;
   }
 `;
 
 export const Navigation: React.FC<NavigationProps> = (props) => {
-  const { mobile, logo, menuItems } = props;
+  const { mobile, logo, menuItems, search } = props;
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const [drawerSubmenuHistory, setDrawerSubmenuHistory] =
     useState<DrawerSubmenuHistory>({});
@@ -265,15 +285,20 @@ export const Navigation: React.FC<NavigationProps> = (props) => {
                 >
                   {menuItem.children ? (
                     <>
-                      <span className="drawer-menu-item__subtitle">
+                      <Text
+                        className="drawer-menu-item__subtitle"
+                        noMargin
+                        bold
+                      >
                         {menuItem.title}
-                      </span>
+                      </Text>
                       <span className="drawer-menu-item__icon">
-                        <ArrowRigthIcon />
+                        <ArrowRightIcon />
                       </span>
                     </>
                   ) : (
-                    <span
+                    <Text
+                      size={"14"}
                       className="drawer-menu-item__title"
                       onClick={onCloseDrawer}
                       onKeyUp={onCloseDrawer}
@@ -281,7 +306,7 @@ export const Navigation: React.FC<NavigationProps> = (props) => {
                       role="link"
                     >
                       {menuItem.title}
-                    </span>
+                    </Text>
                   )}
                 </div>
               </li>
@@ -311,7 +336,8 @@ export const Navigation: React.FC<NavigationProps> = (props) => {
               <span className="menu-bar"></span>
             </span>
           </div>
-          <Drawer open={mobileMenuOpen} handler={false} width="100%">
+
+          <Drawer open={mobileMenuOpen} handler={false} className={"drawer"}>
             <div className="drawer-header">
               {Object.keys(drawerSubmenuHistory).length > 0 ? (
                 <div
@@ -321,16 +347,20 @@ export const Navigation: React.FC<NavigationProps> = (props) => {
                   role="button"
                   tabIndex={0}
                 >
-                  <Row>
+                  <Row align={"center"}>
                     <Col xs={2}>
-                      <ArrowLeftIcon />
+                      <div className="menu-drawer-prev">
+                        <ArrowLeftIcon />
+                      </div>
                     </Col>
                     <Col xs={8} className="drawer-nested-submenu-header">
-                      {
-                        drawerSubmenuHistory[
-                          Object.keys(drawerSubmenuHistory).length - 1
-                        ].title
-                      }
+                      <Text size="14" bold>
+                        {
+                          drawerSubmenuHistory[
+                            Object.keys(drawerSubmenuHistory).length - 1
+                          ].title
+                        }
+                      </Text>
                     </Col>
                   </Row>
                 </div>
@@ -348,6 +378,9 @@ export const Navigation: React.FC<NavigationProps> = (props) => {
                   </span>
                 </>
               )}
+            </div>
+            <div className="drawer-search">
+              <React.Fragment>{search}</React.Fragment>
             </div>
             <div>{renderMobileMenu(currentMenuItems)}</div>
           </Drawer>
