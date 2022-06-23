@@ -8,7 +8,6 @@ import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
 import { fixContentForMarkdown } from "../../../utils/components/markdown";
 import Lightbox from "react-image-lightbox";
-import "react-image-lightbox/style.css";
 import { useState } from "react";
 import chroma from "chroma-js";
 import { SharedLightboxStyle } from "../../../utils/utils";
