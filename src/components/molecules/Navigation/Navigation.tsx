@@ -381,9 +381,11 @@ export const Navigation: React.FC<NavigationProps> = (props) => {
                 </>
               )}
             </div>
-            <div className="drawer-search">
-              <React.Fragment>{search}</React.Fragment>
-            </div>
+            {search && (
+              <div className="drawer-search">
+                <React.Fragment>{search}</React.Fragment>
+              </div>
+            )}
             <div>{renderMobileMenu(currentMenuItems)}</div>
           </Drawer>
         </StyledNavigation>
