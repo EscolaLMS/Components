@@ -10,8 +10,6 @@
     "eslint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "stylelint": "stylelint './src/**/*.tsx'",
     "lib": "tsc --noEmit false --outDir lib --module commonjs",
-    "test": "axe http://localhost:6060/#!/Theme%20Colors --exit",
-    "test2": "npm run dev && npm run test",
     "prepare": "husky install"
   },
   "files": [
