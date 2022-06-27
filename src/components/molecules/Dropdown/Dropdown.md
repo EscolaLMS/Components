@@ -7,19 +7,19 @@ import img2 from "./Dropdown2.png";
 <ThemeTester flexDirection={"column"}>
   <Dropdown
     options={[
-      "dropdown option with long text",
-      "dropdown option with long text",
-      "dropdown option with text",
-      "dropdown option with text",
+      "dropdown option with long text 1",
+      "dropdown option with long text 2",
+      "dropdown option with text 3",
+      "dropdown option with text 4",
     ]}
     placeholder="Select"
   />
   <Dropdown
     options={[
-      "dropdown option with long text",
-      "dropdown option with long text",
-      "dropdown option with text",
-      "dropdown option with text",
+      "dropdown option with long text 1",
+      "dropdown option with long text 2",
+      "dropdown option with text 3",
+      "dropdown option with text 4",
     ]}
     placeholder="Select"
     placement={"top"}

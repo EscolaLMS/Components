@@ -34,6 +34,7 @@ const StyledDiv = styled.div<OptionType>`
     border: 1px solid rgba(0, 0, 0, 0.2);
     position: relative;
     margin: 0;
+    flex-shrink: 0;
     background-color: ${(props) => props.theme.white};
     border-radius: ${(props) => props.theme.checkboxRadius || "0"}px;
     ${(props) => (props.type === "radio" ? "border-radius:100%" : "")};
