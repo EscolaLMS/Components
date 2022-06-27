@@ -79,5 +79,5 @@ jobs:
       - run: npm run dev & npx wait-on http://localhost:6060/
       - name: Run axe
         run: |
-          npm install -g @axe-core/cli
+          npm install @axe-core/cli
           axe http://localhost:6060 --exit
