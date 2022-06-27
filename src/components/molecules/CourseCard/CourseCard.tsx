@@ -93,6 +93,7 @@ const StyledCourseCard = styled("div")<StyledCourseCardProps>`
     display: flex;
     gap: 10px;
     z-index: 200;
+    flex-wrap: wrap;
   }
   .card {
     padding: 13px 10px;
