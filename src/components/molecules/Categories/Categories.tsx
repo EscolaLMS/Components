@@ -71,6 +71,33 @@ const IconArrowLeft = () => {
   );
 };
 
+const StyledCategoryTreeOptions = styled("div")<StyledCategoriesProps>`
+  .categories-collapse {
+    position: absolute;
+    right: 0;
+    top: 0;
+    appearance: none;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s ease-in-out;
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    &.active {
+      svg {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  > div {
+    position: relative;
+  }
+`;
+
 const StyledCategoriesDropdown = styled("div")<StyledCategoriesProps>`
   position: relative;
   min-width: 150px;
@@ -156,33 +183,6 @@ const StyledCategoriesDropdown = styled("div")<StyledCategoriesProps>`
 
   .categories-dropdown-options .categories-dropdown-options {
     margin-left: 20px;
-  }
-`;
-
-const StyledCategoryTreeOptions = styled("div")<StyledCategoriesProps>`
-  .categories-collapse {
-    position: absolute;
-    right: 0;
-    top: 0;
-    appearance: none;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    transition: opacity 0.2s ease-in-out;
-
-    &:hover {
-      opacity: 0.8;
-    }
-
-    &.active {
-      svg {
-        transform: rotate(180deg);
-      }
-    }
-  }
-
-  > div {
-    position: relative;
   }
 `;
 
