@@ -76,9 +76,5 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Npm install
         run: npm i --legacy-peer-deps
-      - name: Npm run
-        run: npm run dev & npx wait-on http://localhost:6060/
       - name: Run axe
-        run: |
-          npm install --location=global @axe-core/cli
-          axe http://localhost:6060/#!/Theme%20Colors --exit
+        run: npm run ci

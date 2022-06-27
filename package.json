@@ -10,6 +10,8 @@
     "eslint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "stylelint": "stylelint './src/**/*.tsx'",
     "lib": "tsc --noEmit false --outDir lib --module commonjs",
+    "test": "axe http://localhost:6060/",
+    "ci": "start-server-and-test dev http://localhost:6060/ test",
     "prepare": "husky install"
   },
   "files": [
@@ -69,6 +71,7 @@
     "remark-gfm": "^3.0.1",
     "screenfull": "6.0.1",
     "source-map-loader": "^3.0.1",
+    "start-server-and-test": "1.14.0",
     "style-loader": "^3.3.1",
     "styled-components": "^5.3.5",
     "stylelint": "^14.8.2",
