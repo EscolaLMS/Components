@@ -143,6 +143,10 @@ const StyledCategoriesDropdown = styled("div")<StyledCategoriesProps>`
     border-top: none;
     z-index: ${(props) => (props.open ? "1" : "0")};
 
+    div {
+      position: relative;
+    }
+
     input {
       color: currentColor;
     }
@@ -174,6 +178,7 @@ const StyledCategoriesDrawer = createGlobalStyle<StyledCategoriesProps>`
   
   .categories-drawer-list {
     > div {
+      position: relative;
       margin-bottom: 4px;
     }
   
@@ -251,10 +256,6 @@ const StyledCategoryTreeOptions = styled("div")<StyledCategoriesProps>`
         transform: rotate(180deg);
       }
     }
-  }
-
-  > div {
-    position: relative;
   }
 `;
 
