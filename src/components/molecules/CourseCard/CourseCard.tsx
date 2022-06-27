@@ -120,6 +120,7 @@ const StyledCourseCard = styled("div")<StyledCourseCardProps>`
     }
   }
 
+  /* stylelint-disable */
   .title {
     margin-bottom: 15px;
     display: -webkit-box;
@@ -135,6 +136,7 @@ const StyledCourseCard = styled("div")<StyledCourseCardProps>`
       }
     }
   }
+  /* stylelint-enable */
   .categories {
     font-size: 14px;
     line-height: 17px;
