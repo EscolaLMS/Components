@@ -74,7 +74,8 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - run: npm run build
+      - name: Npm install
+        run: npm i --legacy-peer-deps
       - run: npm dev & npx wait-on http://localhost:6060
       - name: Run axe
         run: |
