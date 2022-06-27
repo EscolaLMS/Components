@@ -136,7 +136,7 @@ const Icon1 = () => (
                 id: 2,
               },
             ]}
-            title={"Best course ever"}
+            title={"Best course ever with a couple of lines"}
             categories={{
               onCategoryClick: (id) => {
                 console.log("Category click id: ", id);
@@ -178,7 +178,9 @@ const Icon1 = () => (
                 id: 2,
               },
             ]}
-            title={"Best course ever"}
+            title={
+              "Best course ever with a couple of lines and long title should be truncated with a dots"
+            }
             onTagClick={(tagId) => console.log("onTagClick :", { tagId })}
             onButtonClick={(cardId) =>
               console.log("onButtonClick :", { cardId })
@@ -231,81 +233,6 @@ const Icon1 = () => (
           />
         </Col>
       </Row>
-    </div>
-    <div
-      style={{
-        width: 400,
-        overflow: "auto",
-        display: "flex",
-        gap: "1rem",
-      }}
-    >
-      <CourseCard
-        id={23}
-        mobile
-        image={{
-          path: backgroundImage2,
-        }}
-        tags={[
-          {
-            title: "Bestseller",
-            id: 1,
-          },
-          {
-            title: "Best Price",
-            id: 2,
-          },
-        ]}
-        title={"Best course ever"}
-        categories={{
-          onCategoryClick: (id) => {
-            console.log("Category click id: ", id);
-          },
-          categoryElements: [
-            { id: 1, name: "Programming" },
-            { id: 2, name: "Front-end" },
-          ],
-        }}
-        onTagClick={(tagId) => console.log("onTagClick :", { tagId })}
-        onImageClick={() => console.log("onImageClick")}
-        progress={{
-          currentProgress: 0.43,
-          maxProgress: 1,
-        }}
-      />
-      <CourseCard
-        id={23}
-        mobile
-        image={{
-          path: backgroundImage2,
-        }}
-        tags={[
-          {
-            title: "Bestseller",
-            id: 1,
-          },
-          {
-            title: "Best Price",
-            id: 2,
-          },
-        ]}
-        title={"Best course ever"}
-        categories={{
-          onCategoryClick: (id) => {
-            console.log("Category click id: ", id);
-          },
-          categoryElements: [
-            { id: 1, name: "Programming" },
-            { id: 2, name: "Front-end" },
-          ],
-        }}
-        onTagClick={(tagId) => console.log("onTagClick :", { tagId })}
-        onImageClick={() => console.log("onImageClick")}
-        progress={{
-          currentProgress: 0.43,
-          maxProgress: 1,
-        }}
-      />
     </div>
   </ThemeTester>
   <ImageModal images={[img1, img2, img3, img4]} />

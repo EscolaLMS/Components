@@ -122,14 +122,18 @@ const StyledCourseCard = styled("div")<StyledCourseCardProps>`
 
   .title {
     margin-bottom: 15px;
-    /* stylelint-disable */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    height: 75px;
+
     a {
       text-decoration: none;
       &:hover {
         text-decoration: underline;
       }
     }
-    /* stylelint-enable */
   }
   .categories {
     font-size: 14px;
