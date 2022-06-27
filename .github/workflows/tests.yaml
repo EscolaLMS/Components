@@ -76,8 +76,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Npm install
         run: npm i --legacy-peer-deps
-      - run: npm run build
-      - run: npm dev & npx wait-on http://localhost:6060
+      - run: npm dev
       - name: Run axe
         run: |
           npm install -g @axe-core/cli
