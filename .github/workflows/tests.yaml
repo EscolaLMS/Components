@@ -74,7 +74,6 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - run: npm ci
       - run: npm run build
       - run: npm dev & npx wait-on http://localhost:6060
       - name: Run axe
