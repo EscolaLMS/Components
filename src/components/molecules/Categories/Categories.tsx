@@ -1,8 +1,13 @@
 import * as React from "react";
 import type { Category } from "@escolalms/sdk/lib/types/api";
-import styled, { createGlobalStyle, withTheme } from "styled-components";
+import styled, {
+  createGlobalStyle,
+  ThemeContext,
+  withTheme,
+} from "styled-components";
 import { ReactNode, useRef } from "react";
 import { useOnClickOutside } from "../../../hooks/useOnClickOutside";
+import { contrast } from "chroma-js";
 import { Title, Checkbox, Button } from "../../../";
 import Drawer from "rc-drawer";
 import { useTranslation } from "react-i18next";
@@ -11,6 +16,8 @@ import { getFontFromTheme } from "../../../theme/provider";
 interface StyledCategoriesProps {
   mobile?: boolean;
   open?: boolean;
+  lightContrast?: boolean;
+  backgroundColor?: React.CSSProperties["backgroundColor"];
 }
 
 interface CategoriesProps extends StyledCategoriesProps {
@@ -35,7 +42,7 @@ const IconArrowBottom = () => {
     >
       <path
         d="M6 9L12 15L18 9"
-        stroke="#F2F2F2"
+        stroke="currentColor"
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -67,11 +74,16 @@ const IconArrowLeft = () => {
 const StyledCategoriesDropdown = styled("div")<StyledCategoriesProps>`
   position: relative;
   min-width: 150px;
-  color: ${({ theme }) => (theme.mode === "light" ? theme.gray2 : theme.gray4)};
+  color: ${(props) =>
+    props.lightContrast ? props.theme.gray4 : props.theme.gray2};
   border: ${(props) =>
     `1px solid ${props.open ? "currentColor" : "transparent"}`};
-  background-color: ${({ theme }) =>
-    theme.mode === "light" ? theme.backgroundLight : theme.backgroundDark};
+  background-color: ${(props) => props.backgroundColor};
+
+  .categories-collapse {
+    color: currentColor;
+  }
+
   .categories-dropdown-button {
     position: relative;
     justify-content: space-between;
@@ -126,11 +138,14 @@ const StyledCategoriesDropdown = styled("div")<StyledCategoriesProps>`
     overflow-y: ${(props) => (props.open ? "auto" : "hidden")};
     display: ${(props) => (props.open ? "block" : "none")};
     box-sizing: border-box;
-    background-color: ${({ theme }) =>
-      theme.mode === "light" ? theme.backgroundLight : theme.backgroundDark};
+    background-color: ${(props) => props.backgroundColor};
     border: 1px solid currentColor;
     border-top: none;
     z-index: ${(props) => (props.open ? "1" : "0")};
+
+    div {
+      position: relative;
+    }
 
     input {
       color: currentColor;
@@ -138,48 +153,13 @@ const StyledCategoriesDropdown = styled("div")<StyledCategoriesProps>`
 
     span {
       word-break: break-word;
+      color: ${(props) =>
+        props.lightContrast ? props.theme.gray4 : props.theme.gray2};
     }
   }
 
   .categories-dropdown-options .categories-dropdown-options {
     margin-left: 20px;
-  }
-`;
-
-const StyledCategoryTreeOptions = styled("div")<StyledCategoriesProps>`
-  label {
-    color: ${({ theme }) =>
-      theme.mode === "light" ? theme.gray1 : theme.white};
-  }
-
-  .categories-collapse {
-    position: absolute;
-    right: 0;
-    top: 0;
-    appearance: none;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    transition: opacity 0.2s ease-in-out;
-
-    &:hover {
-      opacity: 0.8;
-    }
-
-    svg path {
-      stroke: ${({ theme }) =>
-        theme.mode === "light" ? theme.gray1 : theme.white};
-    }
-
-    &.active {
-      svg {
-        transform: rotate(180deg);
-      }
-    }
-  }
-
-  > div {
-    position: relative;
   }
 `;
 
@@ -198,6 +178,7 @@ const StyledCategoriesDrawer = createGlobalStyle<StyledCategoriesProps>`
   
   .categories-drawer-list {
     > div {
+      position: relative;
       margin-bottom: 4px;
     }
   
@@ -242,6 +223,39 @@ const StyledCategoriesDrawer = createGlobalStyle<StyledCategoriesProps>`
   .drawer-content-footer {
     padding: 16px;
     box-shadow: 0px -2px 15px 0px #0000001A;
+  }
+  
+  .categories-collapse {
+    color: ${({ theme }) =>
+      theme.mode === "light" ? theme.gray1 : theme.white};
+  }
+  
+  label {
+    color: ${({ theme }) =>
+      theme.mode === "light" ? theme.gray1 : theme.white};
+  }
+`;
+
+const StyledCategoryTreeOptions = styled("div")<StyledCategoriesProps>`
+  .categories-collapse {
+    position: absolute;
+    right: 0;
+    top: 0;
+    appearance: none;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s ease-in-out;
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    &.active {
+      svg {
+        transform: rotate(180deg);
+      }
+    }
   }
 `;
 
@@ -314,9 +328,7 @@ const CategoryTreeOptions: React.FC<CategoriesProps> = (props) => {
                 <button
                   type={"button"}
                   onClick={() => handleCollapse(category.id)}
-                  className={`categories-collapse ${
-                    collapseState[category.id] && "active"
-                  }`}
+                  className="categories-collapse"
                 >
                   <IconArrowBottom />
                 </button>
@@ -337,8 +349,22 @@ const CategoryTreeOptions: React.FC<CategoriesProps> = (props) => {
 };
 
 const CategoriesDropdown: React.FC<CategoriesProps> = (props) => {
-  const { categories, labelPrefix, label, selectedCategories, handleChange } =
-    props;
+  const theme = React.useContext(ThemeContext);
+
+  const {
+    categories,
+    labelPrefix,
+    label,
+    selectedCategories,
+    handleChange,
+    backgroundColor = theme.mode === "light"
+      ? theme.backgroundLight
+      : theme.backgroundDark,
+  } = props;
+
+  const cts = React.useMemo(() => {
+    return contrast("#fff", backgroundColor) >= 1.85;
+  }, [backgroundColor]);
 
   const [open, setOpen] = React.useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -350,7 +376,12 @@ const CategoriesDropdown: React.FC<CategoriesProps> = (props) => {
   useOnClickOutside(ref, () => setOpen(false));
 
   return (
-    <StyledCategoriesDropdown open={open} ref={ref}>
+    <StyledCategoriesDropdown
+      open={open}
+      ref={ref}
+      lightContrast={cts}
+      backgroundColor={backgroundColor}
+    >
       <button
         type={`button`}
         className={"categories-dropdown-button"}

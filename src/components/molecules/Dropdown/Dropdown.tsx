@@ -1,16 +1,22 @@
 import * as React from "react";
 import ReactDropdown, { ReactDropdownProps } from "react-dropdown";
-import styled from "styled-components";
+import styled, { ThemeContext } from "styled-components";
 import "react-dropdown/style.css";
 import { getFontFromTheme } from "../../../theme/provider";
-import chroma from "chroma-js";
+import chroma, { contrast } from "chroma-js";
 
 export interface DropdownProps extends ReactDropdownProps {
   placement?: "top" | "bottom";
   styles?: React.CSSProperties;
+  lightContrast?: boolean;
+  backgroundColor?: React.CSSProperties["backgroundColor"];
 }
 
-const StyledDropdown = styled("div")<{ placement?: "top" | "bottom" }>`
+const StyledDropdown = styled("div")<{
+  placement?: "top" | "bottom";
+  lightContrast: boolean;
+  backgroundColor: React.CSSProperties["backgroundColor"];
+}>`
   font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
   font-size: 16px;
   min-width: 150px;
@@ -19,11 +25,10 @@ const StyledDropdown = styled("div")<{ placement?: "top" | "bottom" }>`
     cursor: pointer;
     transition: none;
     border-color: transparent;
-    color: ${({ theme }) =>
-      theme.mode === "light" ? theme.gray2 : theme.gray4};
-    padding: 8px 39px 8px 10px;
-    background-color: ${({ theme }) =>
-      theme.mode === "light" ? theme.backgroundLight : theme.backgroundDark};
+    color: ${(props) =>
+      props.lightContrast ? props.theme.gray4 : props.theme.gray2};
+    padding: 7px 39px 7px 10px;
+    background-color: ${(props) => props.backgroundColor};
 
     &:after {
       position: absolute;
@@ -31,8 +36,7 @@ const StyledDropdown = styled("div")<{ placement?: "top" | "bottom" }>`
       bottom: ${(props) => (props.placement === "bottom" ? "0" : "96%")};
       left: 10px;
       width: calc(100% - 20px);
-      background: ${(props) =>
-        props.theme.mode !== "dark" ? props.theme.gray2 : props.theme.white};
+      background: ${(props) => props.backgroundColor};
     }
   }
 
@@ -71,39 +75,55 @@ const StyledDropdown = styled("div")<{ placement?: "top" | "bottom" }>`
   .Dropdown-menu {
     top: ${(props) => (props.placement === "top" ? "auto" : "100%")};
     bottom: ${(props) => (props.placement === "top" ? "100%" : "auto")};
-    border-color: ${({ theme }) =>
-      theme.mode === "light" ? theme.gray2 : theme.white};
+    border-color: ${(props) =>
+      props.lightContrast ? props.theme.gray4 : props.theme.gray2};
     border-top: ${(props) => props.placement === "bottom" && "none"};
     border-bottom: ${(props) => props.placement === "top" && "none"};
     box-shadow: none;
-    background-color: ${({ theme }) =>
-      theme.mode === "light" ? theme.backgroundLight : theme.backgroundDark};
+    background-color: ${(props) => props.backgroundColor};
     font-size: 14px;
   }
 
   .Dropdown-option {
     padding: 7px 10px;
     color: ${(props) =>
-      props.theme.mode !== "dark" ? props.theme.gray2 : props.theme.gray4};
+      props.lightContrast ? props.theme.gray4 : props.theme.gray2};
     &:hover {
       background: ${(props) =>
-        props.theme.mode !== "dark"
-          ? chroma(props.theme.backgroundLight).darken(0.5).hex()
-          : chroma(props.theme.backgroundDark).brighten(1).hex()};
+        props.lightContrast
+          ? chroma(props.theme.white).alpha(0.3).hex()
+          : chroma(props.theme.black).alpha(0.2).hex()};
     }
     &.is-selected {
       background: ${(props) =>
-        props.theme.mode !== "dark"
-          ? chroma(props.theme.backgroundLight).darken(0.5).hex()
-          : chroma(props.theme.backgroundDark).brighten(1).hex()};
+        props.lightContrast
+          ? chroma(props.theme.white).alpha(0.3).hex()
+          : chroma(props.theme.black).alpha(0.3).hex()};
     }
   }
 `;
 
 export const Dropdown: React.FC<DropdownProps> = (props) => {
-  const { placement = "bottom", styles } = props;
+  const theme = React.useContext(ThemeContext);
+  const {
+    placement = "bottom",
+    styles,
+    backgroundColor = theme.mode === "light"
+      ? theme.backgroundLight
+      : theme.backgroundDark,
+  } = props;
+
+  const cts = React.useMemo(() => {
+    return contrast("#fff", backgroundColor) >= 1.85;
+  }, [backgroundColor]);
+
   return (
-    <StyledDropdown placement={placement} style={styles}>
+    <StyledDropdown
+      placement={placement}
+      style={styles}
+      lightContrast={cts}
+      backgroundColor={backgroundColor}
+    >
       <ReactDropdown
         {...props}
         menuClassName="menu"
