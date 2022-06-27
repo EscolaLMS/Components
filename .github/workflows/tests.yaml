@@ -66,15 +66,14 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [ 16.x ]
+        node-version: [16.x]
 
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-          cache: "npm"
       - run: npm ci
       - run: npm run build
       - run: npm dev & npx wait-on http://localhost:6060
