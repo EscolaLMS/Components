@@ -77,6 +77,9 @@ jobs:
       - name: Npm install
         run: npm i --legacy-peer-deps
       - name: Update Chrome
-        run: sudo apt-get update && sudo apt-get install -y chromium-browser
+        run: |
+          VERSION_STRING="103.0.5060.53"
+          wget "https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_${VERSION_STRING}-1_amd64.deb"
+          sudo dpkg -i "google-chrome-stable_${VERSION_STRING}-1_amd64.deb"
       - name: Run axe
         run: npm run ci
