@@ -77,6 +77,6 @@ jobs:
       - name: Npm install
         run: npm i --legacy-peer-deps
       - name: Update Chrome
-        run: sudo apt-get update && sudo apt-get install -y google-chrome-stable
+        run: sudo apt-get update && sudo apt-get install -y chromium-browser
       - name: Run axe
         run: npm run ci
