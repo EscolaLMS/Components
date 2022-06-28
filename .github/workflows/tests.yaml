@@ -63,8 +63,6 @@ jobs:
 
   axe:
     runs-on: ubuntu-latest
-    container:
-      image: yukinying/chrome-headless-browser
 
     strategy:
       matrix:
@@ -78,5 +76,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Npm install
         run: npm i --legacy-peer-deps
+      - name: Update Chrome
+        run: sudo apt-get update && sudo apt-get install -y google-chrome-stable
       - name: Run axe
         run: npm run ci
