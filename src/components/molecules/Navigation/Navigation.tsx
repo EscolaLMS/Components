@@ -327,7 +327,7 @@ export const Navigation: React.FC<NavigationProps> = (props) => {
           <div className="header">
             <Logo {...logo} />
             <span
-              className="menu-button"
+              className="menu-button extra-class"
               onClick={() => setMobileMenuOpen(true)}
               onKeyUp={() => setMobileMenuOpen(true)}
               role="menubar"
