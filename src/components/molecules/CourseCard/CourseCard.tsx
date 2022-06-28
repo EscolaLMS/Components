@@ -70,7 +70,7 @@ const StyledCourseCard = styled("div")<StyledCourseCardProps>`
   display: flex;
   flex-direction: column;
   height: 100%;
-  width: ${(props) => (props.mobile ? "272px" : "100%")};
+  width: 100%;
   flex-shrink: 0;
 
   .image-section {
