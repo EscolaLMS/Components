@@ -10,9 +10,8 @@
     "eslint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "stylelint": "stylelint './src/**/*.tsx'",
     "lib": "tsc --noEmit false --outDir lib --module commonjs",
-    "test": "axe http://localhost:6060/ --show-errors",
+    "test": "axe http://localhost:6060/#!/Navigation --show-errors",
     "ci": "start-server-and-test dev http://localhost:6060/ test",
-    "test2": "google-chrome --version",
     "prepare": "husky install"
   },
   "files": [
