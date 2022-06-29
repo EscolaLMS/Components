@@ -4,7 +4,7 @@ import { ImageModal, ThemeTester } from "../../../styleguide";
 import img1 from "./Navigation.png";
 import logoImage from "./logo-placeholder.png";
 import { useState } from "react";
-import { Text, Search } from "../../../";
+import { Text, Search, Button } from "../../../";
 
 const [loading, setLoading] = useState(false);
 
@@ -47,11 +47,19 @@ const menuItems = [
     key: "menu-2",
   },
   {
-    title: "menu-3",
+    title: (
+      <Text noMargin bold>
+        menu-3
+      </Text>
+    ),
     key: "menu-3",
     children: [
       {
-        title: "submenu-1",
+        title: (
+          <Text noMargin bold>
+            submenu-1
+          </Text>
+        ),
         key: "submenu-1",
         children: [
           {
@@ -67,6 +75,14 @@ const menuItems = [
         ],
       },
     ],
+  },
+  {
+    title: (
+      <Button block mode={"secondary"}>
+        Block button
+      </Button>
+    ),
+    key: "block-button",
   },
 ];
 

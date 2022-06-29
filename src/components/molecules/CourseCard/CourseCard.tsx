@@ -184,6 +184,7 @@ const StyledCourseCard = styled("div")<StyledCourseCardProps>`
   .card-course-footer {
     margin-top: auto;
     display: flex;
+    flex-direction: column;
   }
 `;
 
