@@ -186,6 +186,10 @@ const GlobalStyle = createGlobalStyle`
   .menu-drawer-close svg path {
     fill: ${({ theme }) => (theme.mode === "dark" ? theme.white : theme.gray1)};
   }
+  
+  .drawer-menu-item__wrapper {
+    width: 100%;
+  }
 `;
 
 const StyledNavigation = styled("div")`
@@ -269,49 +273,44 @@ export const Navigation: React.FC<NavigationProps> = (props) => {
         <ul className="drawer-menu-list">
           {_menuItems.map((menuItem, i) => {
             return (
-              <li key={i}>
-                <div
-                  role={menuItem.children && "button"}
-                  className="drawer-menu-item"
-                  onClick={() =>
-                    menuItem.children
-                      ? onDrawerSubMenuClick(menuItem, _menuItems)
-                      : undefined
-                  }
-                  onKeyUp={() =>
-                    menuItem.children
-                      ? onDrawerSubMenuClick(menuItem, _menuItems)
-                      : undefined
-                  }
-                  key={menuItem.key}
-                >
-                  {menuItem.children ? (
-                    <>
-                      <Text
-                        className="drawer-menu-item__subtitle"
-                        noMargin
-                        bold
+              Object.keys(menuItem).length > 0 && (
+                <li key={i}>
+                  <div
+                    role={menuItem.children && "button"}
+                    className="drawer-menu-item"
+                    onClick={() =>
+                      menuItem.children
+                        ? onDrawerSubMenuClick(menuItem, _menuItems)
+                        : undefined
+                    }
+                    onKeyUp={() =>
+                      menuItem.children
+                        ? onDrawerSubMenuClick(menuItem, _menuItems)
+                        : undefined
+                    }
+                    key={menuItem.key}
+                  >
+                    {menuItem.children ? (
+                      <>
+                        {menuItem.title}
+                        <span className="drawer-menu-item__icon">
+                          <ArrowRightIcon />
+                        </span>
+                      </>
+                    ) : (
+                      <div
+                        className={"drawer-menu-item__wrapper"}
+                        onClick={onCloseDrawer}
+                        onKeyUp={onCloseDrawer}
+                        tabIndex={0}
+                        role="link"
                       >
                         {menuItem.title}
-                      </Text>
-                      <span className="drawer-menu-item__icon">
-                        <ArrowRightIcon />
-                      </span>
-                    </>
-                  ) : (
-                    <Text
-                      size={"14"}
-                      className="drawer-menu-item__title"
-                      onClick={onCloseDrawer}
-                      onKeyUp={onCloseDrawer}
-                      tabIndex={0}
-                      role="link"
-                    >
-                      {menuItem.title}
-                    </Text>
-                  )}
-                </div>
-              </li>
+                      </div>
+                    )}
+                  </div>
+                </li>
+              )
             );
           })}
         </ul>
@@ -339,7 +338,12 @@ export const Navigation: React.FC<NavigationProps> = (props) => {
             </span>
           </div>
 
-          <Drawer open={mobileMenuOpen} handler={false} className={"drawer"}>
+          <Drawer
+            open={mobileMenuOpen}
+            handler={false}
+            className={"drawer"}
+            level={null}
+          >
             <div className="drawer-header">
               {Object.keys(drawerSubmenuHistory).length > 0 ? (
                 <div

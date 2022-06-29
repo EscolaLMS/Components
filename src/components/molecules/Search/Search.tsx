@@ -99,6 +99,7 @@ const StyledSearch = styled("div")<StyledSearchProps>`
     box-sizing: border-box;
     border-bottom-left-radius: ${({ theme }) => theme.inputRadius}px;
     border-bottom-right-radius: ${({ theme }) => theme.inputRadius}px;
+    z-index: 1;
 
     > * {
       padding: 15px;
