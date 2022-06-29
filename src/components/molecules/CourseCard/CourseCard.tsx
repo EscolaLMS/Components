@@ -185,6 +185,7 @@ const StyledCourseCard = styled("div")<StyledCourseCardProps>`
     margin-top: auto;
     display: flex;
     flex-direction: column;
+    min-height: 43px;
   }
 `;
 
