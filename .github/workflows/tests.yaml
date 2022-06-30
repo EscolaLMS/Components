@@ -70,6 +70,9 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: "npm"
+    - name: Npm install
+      run: npm i --legacy-peer-deps
+    - name: Run Server
     - run: npm run build --if-present
     - run: npm dev & npx wait-on http://localhost:6060
     - name: Run Axe
