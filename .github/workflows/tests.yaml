@@ -63,23 +63,17 @@ jobs:
 
   axe:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [16.x]
-
     steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-      - name: Npm install
-        run: npm i --legacy-peer-deps
-      - name: Update Chrome
-        run: |
-          VERSION_STRING="103.0.5060.53"
-          wget "https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_${VERSION_STRING}-1_amd64.deb"
-          sudo dpkg -i "google-chrome-stable_${VERSION_STRING}-1_amd64.deb"
-      - name: Run axe
-        run: npm run ci
+    - uses: actions/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: "npm"
+    - run: npm ci
+    - run: npm run build --if-present
+    - run: npm dev & npx wait-on http://localhost:6060
+    - name: Run Axe
+      run: |
+        npm install -g @axe-core/cli
+        axe http://localhost:6060 --exit
