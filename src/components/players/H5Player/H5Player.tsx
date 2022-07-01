@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useMemo } from "react";
 import styled, { withTheme, ThemeContext } from "styled-components";
 import { XAPIEvent, Player } from "@escolalms/h5p-react";
-//import { Player } from "./player";
 
 import * as API from "@escolalms/sdk/lib/types/api";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
@@ -34,6 +33,7 @@ export const H5Player: React.FC<H5PProps> = ({
   const themeContext = useContext(ThemeContext);
 
   const h5pThemeCSSOverwriteSrc = useMemo(() => {
+    // TODO - this is a hack to get the theme css to work. reolace this with actual css
     const css = `
     .h5p-baq-intro-page {
       background: ${themeContext.secondaryColor} !important;
