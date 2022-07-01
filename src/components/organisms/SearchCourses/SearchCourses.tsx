@@ -1,7 +1,8 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useContext, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { course as fetchCourses } from "@escolalms/sdk/lib/services/courses";
 import { API } from "@escolalms/sdk/lib";
+import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { Button, Search as InputSearch } from "../../..";
 import styled from "styled-components";
 
@@ -21,6 +22,7 @@ export const SearchCourses: React.FC<{
   const abortController = useRef<AbortController>();
   const [fetching, setFetching] = useState(false);
   const [foundCourses, setFoundCourses] = useState<API.Course[]>([]);
+  const { apiUrl } = useContext(EscolaLMSContext);
 
   const setCoursesFromResponse = useCallback(
     (responseCourses: API.Course[]) => {
@@ -41,7 +43,11 @@ export const SearchCourses: React.FC<{
     }
 
     abortController.current = new AbortController();
-    fetchCourses({ title: search }, { signal: abortController.current.signal })
+    fetchCourses
+      .bind(null, apiUrl)(
+        { title: search },
+        { signal: abortController.current.signal }
+      )
       .then((response) => {
         if (response && response.success) {
           setCoursesFromResponse(response.data);

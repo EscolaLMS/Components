@@ -7,7 +7,7 @@ import ThemeTester from "../../../styleguide/ThemeTester";
 <React.Fragment>
   <EscolaLMSContextProvider apiUrl="https://api-stage.escolalms.com/">
     <ThemeTester>
-      <H5P onXAPI={(e) => console.log(e)} id={"4"} />
+      <H5Player onXAPI={(e) => console.log(e)} id={"4"} />
     </ThemeTester>
   </EscolaLMSContextProvider>
 </React.Fragment>;
