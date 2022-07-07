@@ -12,6 +12,14 @@ import { Button, Title, Text } from "../../..";
         <Title level={4}>Essay</Title>
         <H5Player onXAPI={(e) => console.log(e)} id={"228"} />
       </div>
+      <div style={{ marginBottom: 30, width: "100%" }}>
+        <Title level={4}>Essay</Title>
+        <H5Player onXAPI={(e) => console.log(e)} id={"7"} />
+      </div>
+      <div style={{ marginBottom: 30, width: "100%" }}>
+        <Title level={4}>Essay</Title>
+        <H5Player onXAPI={(e) => console.log(e)} id={"74"} />
+      </div>
     </ThemeTester>
   </EscolaLMSContextProvider>
 </React.Fragment>;
