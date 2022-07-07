@@ -66,6 +66,21 @@ const Download2Icon = () => (
       actions={"15:20"}
       color={"#09c3bc"}
     />
+    <NoteAction
+      loading
+      title={<Title level={4}>"Note without color"</Title>}
+      subtitle={<Text size={"14"}>"luty 2018"</Text>}
+      actions={
+        <React.Fragment>
+          <Link>
+            <DownloadIcon /> (.pdf)
+          </Link>{" "}
+          <Link>
+            <Download2Icon />
+          </Link>
+        </React.Fragment>
+      }
+    />
   </ThemeTester>
 </React.Fragment>;
 ```

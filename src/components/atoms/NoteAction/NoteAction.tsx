@@ -1,6 +1,7 @@
 import * as React from "react";
 import { ReactNode } from "react";
-import styled from "styled-components";
+import styled, { useTheme } from "styled-components";
+import Spin from "../Spin/Spin";
 
 interface StyledNoteProps {
   color?: string;
@@ -10,6 +11,7 @@ export interface NoteProps extends StyledNoteProps {
   title: ReactNode;
   subtitle?: ReactNode;
   actions: ReactNode;
+  loading?: boolean;
 }
 
 const StyledNote = styled("div")<StyledNoteProps>`
@@ -37,14 +39,15 @@ const StyledNote = styled("div")<StyledNoteProps>`
 `;
 
 export const NoteAction: React.FC<NoteProps> = (props) => {
-  const { title, subtitle, color, actions } = props;
+  const { title, subtitle, color, actions, loading } = props;
+  const theme = useTheme();
   return (
     <StyledNote color={color}>
       <div>
         <div>{title}</div>
         {subtitle && <div className={"subtitle"}>{subtitle}</div>}
       </div>
-      <div>{actions}</div>
+      {loading ? <Spin color={theme.secondaryColor} /> : <div>{actions}</div>}
     </StyledNote>
   );
 };
