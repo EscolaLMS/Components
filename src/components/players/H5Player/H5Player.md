@@ -10,11 +10,7 @@ import { Button, Title, Text } from "../../..";
     <ThemeTester flexDirection="column">
       <div style={{ marginBottom: 30, width: "100%" }}>
         <Title level={4}>Essay</Title>
-        <H5Player onXAPI={(e) => console.log(e)} id={"74"} />
-      </div>
-      <div style={{ marginBottom: 30, width: "100%" }}>
-        <Title level={4}>Dialog Cards</Title>
-        <H5Player onXAPI={(e) => console.log(e)} id={"7"} />
+        <H5Player onXAPI={(e) => console.log(e)} id={"228"} />
       </div>
     </ThemeTester>
   </EscolaLMSContextProvider>

@@ -4,7 +4,7 @@ import { XAPIEvent, Player } from "@escolalms/h5p-react";
 
 import * as API from "@escolalms/sdk/lib/types/api";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
-import theme from "theme";
+import { getFontFromTheme } from "../../../theme/provider";
 
 const StyledH5P = styled("div")`
   border-radius: ${(props) => props.theme.buttonRadius || 0}px;
@@ -45,6 +45,15 @@ export const H5Player: React.FC<H5PProps> = ({
 
   const h5pThemeCSSOverwriteSrc = useMemo(() => {
     const css = `
+    *{
+      font-family: ${getFontFromTheme(themeContext).fontFamily}!important;
+    }
+    button {
+      border-radius: ${themeContext.buttonRadius}px!important;
+    }
+    input, textarea {
+      border-radius: ${themeContext.inputRadius}px!important;
+    }
     .h5p-baq-intro-page {
       background: ${themeContext.secondaryColor} !important;
       color: ${themeContext.primaryColor} !important;
@@ -53,6 +62,10 @@ export const H5Player: React.FC<H5PProps> = ({
       background: ${themeContext.primaryColor} !important;
       border-bottom: none!important;
       text-shadow: none!important;
+      border-radius: ${themeContext.buttonRadius}px!important;
+    }
+    .h5p-joubelui-button {
+      border-radius: ${themeContext.buttonRadius}px!important;
     }
     .h5p-baq-intro-page-title {
       text-shadow: none!important;
@@ -243,6 +256,32 @@ export const H5Player: React.FC<H5PProps> = ({
    }
    .draggabled .image-desc .text {
     color: ${fontColor}!important;
+   }
+   .h5p-guess-answer {
+    background: ${backgroundColor} !important;
+   }
+   .h5p-content {
+    background: ${backgroundColor} !important;
+   }
+   .h5p-guess-answer-title {
+    color: ${fontColor}!important;
+   }
+   .show-solution-button {
+    background: ${themeContext.primaryColor} !important;
+    color: ${themeContext.white}!important;
+   }
+   .solution-text {
+    color: ${themeContext.primaryColor}!important;
+   }
+   .h5p-image-slider-progress-element {
+    background: transparent !important;
+    border: 1px solid ${themeContext.primaryColor}!important;
+    border-radius: ${themeContext.buttonRadius}px!important;
+    width: 9px!important;
+    height: 9px!important;
+   }
+   .h5p-image-slider-current-progress-element {
+    background: ${themeContext.primaryColor} !important;
    }
   `;
     return `data:text/css;base64,${btoa(css)}`;
