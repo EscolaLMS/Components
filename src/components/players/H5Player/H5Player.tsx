@@ -218,6 +218,7 @@ export const H5Player: React.FC<H5PProps> = ({
     color: ${
       themeContext.mode === "dark" ? themeContext.gray4 : themeContext.gray2
     }!important;
+    border-radius: ${themeContext.checkboxRadius}!important;
    }
    .h5p-question-feedback {
     color: ${themeContext.primaryColor}!important;
