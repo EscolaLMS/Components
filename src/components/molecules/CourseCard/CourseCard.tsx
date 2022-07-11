@@ -76,6 +76,10 @@ const StyledCourseCard = styled("div")<StyledCourseCardProps>`
   .image-section {
     position: relative;
     z-index: 0;
+
+    a > div {
+      height: 100%;
+    }
   }
   .information-in-image {
     position: absolute;
@@ -187,12 +191,17 @@ const StyledCourseCard = styled("div")<StyledCourseCardProps>`
     flex-direction: column;
     min-height: 43px;
   }
+
+  .escolalms-image {
+    height: 100%;
+  }
 `;
 
 const ImgWrapper = styled.div`
   img {
     cursor: pointer;
     transition: 0.3s transform ease;
+    border-radius: ${({ theme }) => theme.cardRadius}px;
     &:hover {
       transform: scale(1.03);
     }
