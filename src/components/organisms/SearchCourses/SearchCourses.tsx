@@ -10,8 +10,10 @@ const ItemButton = styled(Button)`
   padding: 10px !important;
   justify-content: flex-start;
   border: inherit;
+  border-radius: 0;
   &:hover {
     text-decoration: underline;
+    background-color: ${({ theme }) => theme.white} !important;
   }
 `;
 

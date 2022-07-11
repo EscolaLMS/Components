@@ -84,6 +84,10 @@ const StyledDropdown = styled("div")<{
     box-shadow: none;
     background-color: ${(props) => props.backgroundColor};
     font-size: 14px;
+    border-radius: ${({ placement, theme }) =>
+      placement === "bottom"
+        ? `0 0 ${theme.inputRadius}px ${theme.inputRadius}px`
+        : `${theme.inputRadius}px ${theme.inputRadius}px 0 0`};
   }
 
   .Dropdown-option {
