@@ -1,4 +1,4 @@
-import { Formik, FormikConfig, FormikProps } from "formik";
+import { Formik, FormikProps } from "formik";
 import { useContext, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
@@ -6,7 +6,7 @@ import type {
   DefaultResponseError,
   DefaultResponse,
 } from "@escolalms/sdk/lib/types/api";
-import type { ResponseError } from "umi-request";
+import type { ResponseError, RequestResponse } from "umi-request";
 
 import styled, { withTheme } from "styled-components";
 
@@ -75,12 +75,13 @@ export const LoginForm: React.FC<{
   useEffect(() => {
     if (user.error) {
       formikRef.current?.setErrors({
-        //@ts-ignore, unconsistend API response in this edge case
+        // @ts-ignore
         error: user.error.data.message || user.error.message,
         ...user.error.errors,
       });
       onError && onError(user.error);
     } else {
+      formikRef.current?.setErrors({});
     }
   }, [user.error]);
 
