@@ -278,6 +278,7 @@ export const RegisterForm: React.FC<{
               onBlur={handleBlur}
               value={values.phone}
               error={touched.phone && errors.phone}
+              required
             />
 
             {fields &&
