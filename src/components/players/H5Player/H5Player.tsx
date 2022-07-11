@@ -45,6 +45,10 @@ export const H5Player: React.FC<H5PProps> = ({
 
   const h5pThemeCSSOverwriteSrc = useMemo(() => {
     const css = `
+    @import url("https://fonts.googleapis.com/css2?family=${
+      themeContext.font
+    }:wght@400;500;700&display=swap");
+
     *{
       font-family: ${getFontFromTheme(themeContext).fontFamily}!important;
     }
