@@ -163,9 +163,7 @@ export const RegisterForm: React.FC<{
             errors.password_confirmation = t("Different passwords");
           }
 
-          if (!values.phone) {
-            errors.phone = t("Required");
-          } else if (!/\d{9}$/i.test(values.phone)) {
+          if (values.phone && !/\d{9}$/i.test(values.phone)) {
             errors.phone = t("Wrong phone number");
           }
 
