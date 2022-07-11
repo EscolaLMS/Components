@@ -114,7 +114,7 @@ export const ThemeCustomizer: React.FC<{
         Radiuses: folder({
           buttonRadius: {
             min: 0,
-            max: 100,
+            max: 16,
             step: 1,
             value: initData.buttonRadius || 0,
           },
@@ -126,13 +126,13 @@ export const ThemeCustomizer: React.FC<{
           },
           inputRadius: {
             min: 0,
-            max: 100,
+            max: 16,
             step: 1,
             value: initData.inputRadius || 0,
           },
           cardRadius: {
             min: 0,
-            max: 100,
+            max: 16,
             step: 1,
             value: initData.cardRadius || 0,
           },

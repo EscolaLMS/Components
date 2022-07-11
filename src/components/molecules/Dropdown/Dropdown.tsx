@@ -44,6 +44,11 @@ const StyledDropdown = styled("div")<{
     border-color: currentColor;
     border-bottom: ${(props) => props.placement === "bottom" && "none"};
     border-top: ${(props) => props.placement === "top" && "none"};
+    border-radius: ${({ placement, theme }) =>
+      placement === "bottom"
+        ? `${theme.inputRadius}px ${theme.inputRadius}px 0 0`
+        : `0 0 ${theme.inputRadius}px ${theme.inputRadius}px`};
+
     &:after {
       height: 1px;
     }
@@ -62,10 +67,7 @@ const StyledDropdown = styled("div")<{
   }
 
   .Dropdown-control {
-    border-radius: ${({ placement, theme }) =>
-      placement === "bottom"
-        ? `${theme.inputRadius}px ${theme.inputRadius}px 0 0`
-        : `0 0 ${theme.inputRadius}px ${theme.inputRadius}px`};
+    border-radius: ${({ theme }) => theme.inputRadius}px;
 
     &:hover {
       box-shadow: none;
