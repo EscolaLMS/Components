@@ -77,7 +77,7 @@ const StyledCourseCard = styled("div")<StyledCourseCardProps>`
     position: relative;
     z-index: 0;
 
-    a > * {
+    a > div {
       height: 100%;
     }
   }
