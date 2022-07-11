@@ -79,6 +79,10 @@ const StyledCategoriesDropdown = styled("div")<StyledCategoriesProps>`
   border: ${(props) =>
     `1px solid ${props.open ? "currentColor" : "transparent"}`};
   background-color: ${(props) => props.backgroundColor};
+  border-radius: ${({ theme, open }) =>
+    open
+      ? `${theme.inputRadius}px ${theme.inputRadius}px 0 0`
+      : `${theme.inputRadius}px`};
 
   .categories-collapse {
     color: currentColor;
@@ -142,7 +146,8 @@ const StyledCategoriesDropdown = styled("div")<StyledCategoriesProps>`
     border: 1px solid currentColor;
     border-top: none;
     z-index: ${(props) => (props.open ? "1" : "0")};
-
+    border-radius: ${({ theme }) =>
+      `0 0 ${theme.inputRadius}px ${theme.inputRadius}px`};
     div {
       position: relative;
     }
