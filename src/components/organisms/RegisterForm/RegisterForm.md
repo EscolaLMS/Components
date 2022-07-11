@@ -7,10 +7,10 @@ import { Text } from "../../../";
 const fieldLabels = {
   email: <strong>Overwrite email label</strong>,
   "AdditionalFields.Privacy Policy": (
-    <p>
+    <Text>
       By checking this fields you accept{" "}
       <a href="https://wellms.io">Privacy Policy</a>
-    </p>
+    </Text>
   ),
 };
 

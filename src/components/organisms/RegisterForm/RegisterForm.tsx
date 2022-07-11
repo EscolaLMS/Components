@@ -39,6 +39,9 @@ const StyledDiv = styled.div<{ mobile: boolean }>`
     margin: 15px 0;
   }
   p,
+  label p {
+    margin: 0;
+  }
   a {
     font-size: 14px;
   }
