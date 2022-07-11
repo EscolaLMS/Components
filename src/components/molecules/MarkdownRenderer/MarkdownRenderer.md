@@ -21,6 +21,8 @@ const markdownTable = `
 
 const markdownImage = `![alt text](https://placekitten.com/g/600/600)`;
 
+const markdownLink = `My favorite search engine is [Duck Duck Go](https://duckduckgo.com "The best search engine for privacy").`;
+
 <React.Fragment>
   <ThemeTester flexDirection={"column"} alignItems={"start"}>
     <MarkdownRenderer children={markdown} />
@@ -28,6 +30,7 @@ const markdownImage = `![alt text](https://placekitten.com/g/600/600)`;
     <MarkdownRenderer
       components={{ p: React.Fragment }}
     >{`**8h 12 min** time left`}</MarkdownRenderer>
+    <MarkdownRenderer children={markdownLink} />
     <MarkdownRenderer children={markdownTable} />
     <MarkdownRenderer children={markdownImage} />
   </ThemeTester>

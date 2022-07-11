@@ -11,6 +11,7 @@ import Lightbox from "react-image-lightbox";
 import { useState } from "react";
 import chroma from "chroma-js";
 import { SharedLightboxStyle } from "../../../utils/utils";
+import { Link } from "../../../";
 
 interface StyledMarkdownRendererProps {
   mobile?: boolean;
@@ -147,6 +148,9 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = (props) => {
           },
           table: (props) => {
             return <MarkdownTable {...props} />;
+          },
+          a: (props) => {
+            return <Link {...props} />;
           },
         }}
         {...props}
