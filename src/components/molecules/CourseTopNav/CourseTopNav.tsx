@@ -78,6 +78,8 @@ const StyledAside = styled.aside<StyledAsideProps>`
 
   .nav-finish-btn {
     flex: ${({ mobile }) => (mobile ? "1" : "none")};
+    padding-left: ${({ mobile }) => mobile && "10px"};
+    padding-right: ${({ mobile }) => mobile && "10px"};
   }
 
   .note-btn {
@@ -125,9 +127,7 @@ export const CourseTopNav: React.FC<CourseTopNavProps> = (props) => {
         onClick={() => onFinish && onFinish()}
         className={"nav-finish-btn"}
       >
-        {isFinished
-          ? t("CourseTopNav.finished")
-          : t("CourseTopNav.finishLesson")}
+        {isFinished ? t("CourseTopNav.finished") : t("Course.markAsFinished")}
       </Button>
     );
   };
