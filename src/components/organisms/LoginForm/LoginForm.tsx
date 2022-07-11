@@ -75,6 +75,8 @@ export const LoginForm: React.FC<{
   useEffect(() => {
     if (user.error) {
       formikRef.current?.setErrors({
+        // WTF. Error from the API is not consisted with rest of the responses
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         error: user.error.data.message || user.error.message,
         ...user.error.errors,
