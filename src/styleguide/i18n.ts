@@ -98,6 +98,7 @@ export const resources = {
       RegisterForm: {
         Header: "Log in to your Wellms account",
         Subtitle: "Many users have already trusted us",
+        "Already have account": "Already have account?",
       },
       AdditionalFields: {
         contact: "Contact details",
@@ -220,6 +221,7 @@ export const resources = {
       RegisterForm: {
         Header: "Dołącz do Wellms, największej plaformy szkoleniowej!",
         Subtitle: "Zaufało nam już sporo użytkowników",
+        "Already have account": "Masz już konto?",
       },
       AdditionalFields: {
         contact: "Dane kontaktowe",
