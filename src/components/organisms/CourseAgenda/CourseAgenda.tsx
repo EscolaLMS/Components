@@ -296,7 +296,6 @@ const StyledSection = styled("section")`
   }
 
   .lesson__item.open .lesson__topics {
-    max-height: 100vh;
     transition: all 0.35s ease-in;
   }
 
