@@ -39,6 +39,9 @@ const StyledDiv = styled.div<{ mobile: boolean }>`
     margin: 15px 0;
   }
   p,
+  label p {
+    margin: 0;
+  }
   a {
     font-size: 14px;
   }
@@ -64,13 +67,24 @@ type FormValues = {
   error?: string;
 };
 
-export const RegisterForm: React.FC<{
+export type RegisterFormProps = {
   onError?: (err: ResponseError<DefaultResponseError>) => void;
   onSuccess?: () => void;
   onLoginLink?: () => void;
   mobile?: boolean;
   return_url?: string;
-}> = ({ onSuccess, onError, onLoginLink, mobile = false, return_url = "" }) => {
+  /** Additional labels you can overwrite fields labels. Usable for additional fields.  */
+  fieldLabels?: Record<string, React.ReactNode>;
+};
+
+export const RegisterForm: React.FC<RegisterFormProps> = ({
+  onSuccess,
+  onError,
+  onLoginLink,
+  mobile = false,
+  return_url = "",
+  fieldLabels = {},
+}) => {
   const [initialValues, setInitialValues] = useState<
     FormValues & Record<string, string | boolean>
   >({
@@ -210,7 +224,7 @@ export const RegisterForm: React.FC<{
               <Text type="danger">{errors.error}</Text>
             )}
             <Input
-              label={t<string>("First name")}
+              label={fieldLabels["first_name"] || t<string>("First name")}
               type="text"
               name="first_name"
               onChange={handleChange}
@@ -221,7 +235,7 @@ export const RegisterForm: React.FC<{
             />
 
             <Input
-              label={t<string>("Last name")}
+              label={fieldLabels["last_name"] || t<string>("Last name")}
               type="text"
               name="last_name"
               onChange={handleChange}
@@ -232,7 +246,7 @@ export const RegisterForm: React.FC<{
             />
 
             <Input
-              label={t<string>("Email")}
+              label={fieldLabels["email"] || t<string>("Email")}
               className="form-control grey"
               type="email"
               name="email"
@@ -244,7 +258,7 @@ export const RegisterForm: React.FC<{
             />
 
             <Input
-              label={t<string>("Password")}
+              label={fieldLabels["password"] || t<string>("Password")}
               type="password"
               name="password"
               onChange={handleChange}
@@ -269,7 +283,7 @@ export const RegisterForm: React.FC<{
             />
 
             <Input
-              label={t<string>("Phone")}
+              label={fieldLabels["phone"] || t<string>("Phone")}
               type="text"
               name="phone"
               onChange={handleChange}
@@ -299,7 +313,10 @@ export const RegisterForm: React.FC<{
                     <Input
                       key={`${field}${index}`}
                       required={isAdditionalRequiredField(field)}
-                      label={t(`AdditionalFields.${field.name}`)}
+                      label={
+                        fieldLabels[`AdditionalFields.${field.name}`] ||
+                        t(`AdditionalFields.${field.name}`)
+                      }
                       type="text"
                       name={field.name}
                       onChange={handleChange}
@@ -324,7 +341,10 @@ export const RegisterForm: React.FC<{
                   ) => (
                     <Checkbox
                       key={`${field.id}${index}`}
-                      label={t(`AdditionalFields.${field.name}`)}
+                      label={
+                        fieldLabels[`AdditionalFields.${field.name}`] ||
+                        t(`AdditionalFields.${field.name}`)
+                      }
                       id={field.name}
                       name={field.name}
                       onChange={handleChange}
