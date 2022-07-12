@@ -121,6 +121,9 @@ export const resources = {
       VideoPlayer: {
         Error: "Error loading material. Please try again later.",
       },
+      Upload: {
+        button: "Choose a file",
+      },
     },
   },
   fr: {
@@ -243,6 +246,9 @@ export const resources = {
       },
       VideoPlayer: {
         Error: "Błąd podczas ładowania materiału. Spróbuj ponownie później.",
+      },
+      Upload: {
+        button: "Wybierz plik",
       },
     },
   },

@@ -63,7 +63,11 @@ const StyledCheckoutCard = styled("div")<StyledCheckoutCardProps>`
     width: ${(props) => (props.mobile ? "45px" : "100%")};
     margin-right: ${(props) => (props.mobile ? "15px" : "0")};
     flex-shrink: 0;
-    background-color: ${({ theme }) => theme.white};
+
+    svg {
+      fill: ${({ theme }) =>
+        theme.mode == "light" ? theme.gray2 : theme.white};
+    }
 
     img {
       max-width: 100%;
