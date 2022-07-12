@@ -59,6 +59,25 @@ const StyledCheckoutCard = styled("div")<StyledCheckoutCardProps>`
     border-top: 1px solid ${({ theme }) => theme.gray3};
   }
 
+  svg {
+    path {
+      fill: currentColor;
+    }
+
+    &.icon-primary {
+      path {
+        fill: ${({ theme }) => theme.primaryColor};
+      }
+    }
+
+    &.icon-stroke {
+      path {
+        stroke: currentColor;
+        fill: none;
+      }
+    }
+  }
+
   .checkout-card-img {
     width: ${(props) => (props.mobile ? "45px" : "100%")};
     margin-right: ${(props) => (props.mobile ? "15px" : "0")};
@@ -77,25 +96,6 @@ const StyledCheckoutCard = styled("div")<StyledCheckoutCardProps>`
 
   .checkout-card-summary-item {
     margin-right: ${(props) => (props.mobile ? "10px" : "25px")};
-  }
-
-  svg {
-    path {
-      fill: currentColor;
-    }
-
-    &.icon-primary {
-      path {
-        fill: ${({ theme }) => theme.primaryColor};
-      }
-    }
-
-    &.icon-stroke {
-      path {
-        stroke: currentColor;
-        fill: none;
-      }
-    }
   }
 `;
 
