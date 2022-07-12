@@ -147,6 +147,21 @@ export const H5Player: React.FC<H5PProps> = ({
    .h5p-question-explanation-item {
     background: ${backgroundColor} !important;
    }
+   .h5p-accordion .h5p-panel-title {
+    color: ${fontColor}!important;
+   }
+   .h5p-panel-content h5p-advanced-text {
+    color: ${fontColor}!important;
+   }
+   .h5p-status dt {
+    color: ${fontColor}!important;  
+   }
+   .h5p-status dd {
+    color: ${fontColor}!important;  
+   }
+   .h5p-accordion .h5p-panel-title:before {
+    color: ${themeContext.primaryColor}!important;
+   }
    .h5p-accordion {
     background: ${backgroundColor} !important;
     color: ${fontColor}!important;

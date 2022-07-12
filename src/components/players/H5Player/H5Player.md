@@ -8,6 +8,10 @@ import { Title } from "../../..";
 
 const ids = [
   {
+    name: "Accordion",
+    id: 1,
+  },
+  {
     name: "Essey",
     id: 74,
   },
