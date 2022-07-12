@@ -147,6 +147,9 @@ export const H5Player: React.FC<H5PProps> = ({
    .h5p-question-explanation-item {
     background: ${backgroundColor} !important;
    }
+   .h5p-accordion .h5p-panel-content {
+    color: ${fontColor}!important;
+   }
    .h5p-accordion .h5p-panel-title {
     color: ${fontColor}!important;
    }
