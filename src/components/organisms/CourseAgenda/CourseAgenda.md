@@ -54,16 +54,18 @@ const generateRandomData = () => {
         currentTopicId={state.currentTopicId}
         onTopicClick={(topic) => console.log("onTopicClick topic", topic)}
         onMarkFinished={(topic) => console.log("onMarkFinished topic", topic)}
+        onGoToNextTopic={(topic) => console.log("onGoToNextTopic topic", topic)}
       />
     </div>
     <div style={{ width: 375 }}>
       <CourseAgenda
-          mobile
-          lessons={data.lessons}
-          finishedTopicIds={state.finishedTopicIds}
-          currentTopicId={state.currentTopicId}
-          onTopicClick={(topic) => console.log("onTopicClick topic", topic)}
-          onMarkFinished={(topic) => console.log("onMarkFinished topic", topic)}
+        mobile
+        lessons={data.lessons}
+        finishedTopicIds={state.finishedTopicIds}
+        currentTopicId={state.currentTopicId}
+        onTopicClick={(topic) => console.log("onTopicClick topic", topic)}
+        onMarkFinished={(topic) => console.log("onMarkFinished topic", topic)}
+        onGoToNextTopic={(topic) => console.log("onGoToNextTopic topic", topic)}
       />
     </div>
   </ThemeTester>

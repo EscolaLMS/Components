@@ -83,6 +83,7 @@ interface SharedComponentProps {
   mobile?: boolean;
   onMarkFinished: (topic: Topic) => void;
   onTopicClick: (topic: Topic) => void;
+  onGoToNextTopic: (topic: Topic) => void;
   finishedTopicIds: number[];
 }
 
@@ -325,6 +326,7 @@ const CourseAgendaTopic: React.FC<CourseAgendaTopicProps> = ({
   mode,
   finishedTopicIds,
   onMarkFinished,
+  onGoToNextTopic,
   onTopicClick,
 }) => {
   const { t } = useTranslation();
@@ -333,6 +335,10 @@ const CourseAgendaTopic: React.FC<CourseAgendaTopicProps> = ({
       onTopicClick && onTopicClick(topic);
     }
   }, [mode]);
+
+  const [visibleGoToNextTopic, setVisibleGoToNextTopic] = React.useState(
+    finishedTopicIds.includes(topic.id)
+  );
 
   return (
     <li className={`lesson__topic lesson__topic-${mode}`}>
@@ -357,15 +363,30 @@ const CourseAgendaTopic: React.FC<CourseAgendaTopicProps> = ({
           </Text>
         </div>
 
-        {mode === "current" && !finishedTopicIds.includes(topic.id) && (
-          <Button
-            block
-            mode="outline"
-            onClick={() => onMarkFinished && onMarkFinished(topic)}
-          >
-            {t<string>("Course.markAsFinished")}
-          </Button>
-        )}
+        {mode === "current" &&
+          !finishedTopicIds.includes(topic.id) &&
+          (!visibleGoToNextTopic ? (
+            <Button
+              block
+              mode="outline"
+              onClick={() => {
+                onMarkFinished && onMarkFinished(topic);
+                setVisibleGoToNextTopic(true);
+              }}
+            >
+              {t<string>("Course.markAsFinished")}
+            </Button>
+          ) : (
+            <Button
+              block
+              mode="secondary"
+              onClick={() => {
+                onGoToNextTopic && onGoToNextTopic(topic);
+              }}
+            >
+              {t<string>("Course.goToNextTopic")}
+            </Button>
+          ))}
       </div>
     </li>
   );
@@ -381,6 +402,7 @@ const CourseAgendaLesson: React.FC<CourseAgendaLessonProps> = (props) => {
     defaultOpen = false,
     onMarkFinished,
     onTopicClick,
+    onGoToNextTopic,
   } = props;
   const { t } = useTranslation();
   const [open, setOpen] = React.useState(defaultOpen);
@@ -450,6 +472,7 @@ const CourseAgendaLesson: React.FC<CourseAgendaLessonProps> = (props) => {
               mode={mode}
               onMarkFinished={onMarkFinished}
               onTopicClick={onTopicClick}
+              onGoToNextTopic={onGoToNextTopic}
               finishedTopicIds={finishedTopicIds}
             />
           );
@@ -467,6 +490,7 @@ export const CourseAgenda: React.FC<CourseAgendaProps> = (props) => {
     currentTopicId,
     onMarkFinished,
     onTopicClick,
+    onGoToNextTopic,
   } = props;
   const { t } = useTranslation();
 
@@ -515,6 +539,7 @@ export const CourseAgenda: React.FC<CourseAgendaProps> = (props) => {
               currentTopicId,
               onMarkFinished,
               onTopicClick,
+              onGoToNextTopic,
             }}
           />
         ))}
