@@ -306,6 +306,26 @@ export const H5Player: React.FC<H5PProps> = ({
    .h5p-image-slider-current-progress-element {
     background: ${themeContext.primaryColor} !important;
    }
+   .h5p-memory-reset {
+    background: ${themeContext.primaryColor} !important;
+    color: "#fff"!important;
+   }
+   .h5p-feedback h5p-show {
+    color: ${themeContext.primaryColor}!important;
+   }
+   .h5p-memory-game .h5p-memory-top {
+    background: ${
+      themeContext.mode === "dark" ? themeContext.gray2 : themeContext.gray4
+    } !important;
+   }
+   .h5p-memory-game .h5p-memory-pop {
+    background: ${
+      themeContext.mode === "dark" ? themeContext.gray1 : themeContext.gray3
+    } !important;
+   }
+   .h5p-memory-game .h5p-programatically-focusable {
+    color: ${themeContext.primaryColor}!important;
+   }
   `;
     return `data:text/css;base64,${btoa(css)}`;
   }, [themeContext]);
