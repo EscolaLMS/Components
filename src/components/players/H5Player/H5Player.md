@@ -63,6 +63,10 @@ const ids = [
     name: "Collage",
     id: 6,
   },
+  {
+    name: "Memory Game",
+    id: 335,
+  },
 ];
 
 const [id, setId] = useState(ids[0].id);
