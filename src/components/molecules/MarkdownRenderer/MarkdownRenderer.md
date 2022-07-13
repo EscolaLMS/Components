@@ -25,7 +25,7 @@ const markdownLink = `My favorite search engine is [Duck Duck Go](https://duckdu
 
 <React.Fragment>
   <ThemeTester flexDirection={"column"} alignItems={"start"}>
-    <MarkdownRenderer children={markdown} />
+    <MarkdownRenderer fontSize={"20"} children={markdown} />
     <MarkdownRenderer>{markdown}</MarkdownRenderer>
     <MarkdownRenderer
       components={{ p: React.Fragment }}
