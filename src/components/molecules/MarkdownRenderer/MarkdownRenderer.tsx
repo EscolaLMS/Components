@@ -15,36 +15,46 @@ import { Link } from "../../../";
 
 interface StyledMarkdownRendererProps {
   mobile?: boolean;
+  fontSize?: string;
 }
 
 export interface MarkdownRendererProps
   extends ReactMarkdownOptions,
     StyledMarkdownRendererProps {}
 
+const pxToEm = (px: string) => {
+  const pxNumber = parseFloat(px);
+  const emNumber = pxNumber / 14;
+  return emNumber.toFixed(2);
+};
+
 const StyledMarkdownRenderer = styled("div")<StyledMarkdownRendererProps>`
   color: ${({ theme }) => (theme.mode !== "light" ? theme.white : "#111")};
   font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
-  font-size: 14px;
+  font-size: ${(props) => props.fontSize && `${pxToEm(props.fontSize)}em`};
   line-height: 1.55em;
 
   h1 {
-    font-size: ${(props) => setFontSizeByHeaderLevel(1, props.mobile)};
+    font-size: ${(props) =>
+      `${pxToEm(setFontSizeByHeaderLevel(1, props.mobile))}em`};
   }
 
   h2 {
-    font-size: ${(props) => setFontSizeByHeaderLevel(2, props.mobile)};
+    font-size: ${(props) =>
+      `${pxToEm(setFontSizeByHeaderLevel(2, props.mobile))}em`};
   }
 
   h3 {
-    font-size: ${(props) => setFontSizeByHeaderLevel(3, props.mobile)};
+    font-size: ${(props) =>
+      `${pxToEm(setFontSizeByHeaderLevel(3, props.mobile))}em`};
   }
 
   h4 {
-    font-size: ${setFontSizeByHeaderLevel(4)};
+    font-size: ${pxToEm(setFontSizeByHeaderLevel(4))}em;
   }
 
   h5 {
-    font-size: ${setFontSizeByHeaderLevel(5)};
+    font-size: ${pxToEm(setFontSizeByHeaderLevel(5))}em;
   }
 
   h1,
@@ -134,10 +144,10 @@ export const MarkdownTable: React.ComponentType<
 };
 
 export const MarkdownRenderer: React.FC<MarkdownRendererProps> = (props) => {
-  const { mobile = false, children } = props;
+  const { mobile = false, fontSize = "16", children } = props;
 
   return (
-    <StyledMarkdownRenderer mobile={mobile}>
+    <StyledMarkdownRenderer mobile={mobile} fontSize={fontSize}>
       <ReactMarkdown
         linkTarget="_blank"
         rehypePlugins={[rehypeRaw]}
