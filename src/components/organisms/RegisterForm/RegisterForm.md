@@ -19,7 +19,7 @@ const fieldLabels = {
     <ThemeTester flexDirection="column">
       <RegisterForm
         fieldLabels={fieldLabels}
-        onSuccess={() => console.log("onSuccess")}
+        onSuccess={(res, email) => console.log("onSuccess form", res, email)}
         onError={(err) => console.log("onError", err.data)}
         onLoginLink={() => console.log("onLoginLink")}
         return_url="?action=_after_click_from_email"

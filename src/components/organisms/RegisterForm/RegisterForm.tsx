@@ -2,7 +2,11 @@ import { Formik, FormikErrors } from "formik";
 import { useContext, useState, useEffect, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
-import type { DefaultResponseError } from "@escolalms/sdk/lib/types/api";
+import type {
+  DefaultResponse,
+  DefaultResponseError,
+  RegisterResponse,
+} from "@escolalms/sdk/lib/types/api";
 import type { ResponseError } from "umi-request";
 
 //import "@escolalms/ts-models";
@@ -69,7 +73,7 @@ type FormValues = {
 
 export type RegisterFormProps = {
   onError?: (err: ResponseError<DefaultResponseError>) => void;
-  onSuccess?: () => void;
+  onSuccess?: (res: DefaultResponse<RegisterResponse>, values: string) => void;
   onLoginLink?: () => void;
   mobile?: boolean;
   return_url?: string;
@@ -197,9 +201,9 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
             ...values,
             return_url: `${window.location.origin}${return_url}`,
           })
-            .then(() => {
+            .then((res: DefaultResponse<RegisterResponse>) => {
               resetForm();
-              onSuccess && onSuccess();
+              onSuccess?.(res, values.email);
             })
             .catch((err: ResponseError<DefaultResponseError>) => {
               setErrors({ error: err.data.message, ...err.data.errors });
