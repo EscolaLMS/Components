@@ -73,7 +73,10 @@ type FormValues = {
 
 export type RegisterFormProps = {
   onError?: (err: ResponseError<DefaultResponseError>) => void;
-  onSuccess?: (res: DefaultResponse<RegisterResponse>, values: string) => void;
+  onSuccess?: (
+    res: DefaultResponse<RegisterResponse>,
+    values: FormValues & Record<string, string | boolean>
+  ) => void;
   onLoginLink?: () => void;
   mobile?: boolean;
   return_url?: string;
@@ -203,7 +206,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
           })
             .then((res: DefaultResponse<RegisterResponse>) => {
               resetForm();
-              onSuccess?.(res, values.email);
+              onSuccess?.(res, values);
             })
             .catch((err: ResponseError<DefaultResponseError>) => {
               setErrors({ error: err.data.message, ...err.data.errors });
