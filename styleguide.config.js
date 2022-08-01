@@ -21,6 +21,8 @@ module.exports = {
   ).parse,
   webpackConfig: Object.assign({}, require("./webpack.config"), {}),
 
+  require: [path.join(__dirname, "./tests.config.js")],
+
   styleguideComponents: {
     Logo: __dirname + "/src/styleguide/Logo.tsx",
   },

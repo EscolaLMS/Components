@@ -10,6 +10,8 @@
     "eslint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "stylelint": "stylelint './src/**/*.tsx'",
     "lib": "tsc --noEmit false --outDir lib --module commonjs",
+    "test": "axe http://localhost:6060/ --show-errors --exit",
+    "ci": "start-server-and-test dev http://localhost:6060/ test",
     "prepare": "husky install"
   },
   "files": [
@@ -22,6 +24,8 @@
     "react-dom": "17.0.2"
   },
   "devDependencies": {
+    "@axe-core/cli": "^4.4.3",
+    "@axe-core/react": "^4.4.3",
     "@escolalms/h5p-react": "^0.2.3",
     "@escolalms/sdk": "^0.3.8",
     "@stylelint/postcss-css-in-js": "stylelint/postcss-css-in-js",
@@ -67,6 +71,7 @@
     "remark-gfm": "^3.0.1",
     "screenfull": "6.0.1",
     "source-map-loader": "^3.0.1",
+    "start-server-and-test": "1.14.0",
     "style-loader": "^3.3.1",
     "styled-components": "^5.3.5",
     "stylelint": "^14.8.2",
