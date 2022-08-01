@@ -96,7 +96,7 @@ export const resources = {
         NoRecords: "No records",
       },
       RegisterForm: {
-        Header: "Log in to your Wellms account",
+        Header: "Sign up for your Wellms account",
         Subtitle: "Many users have already trusted us",
         "Already have account": "Already have account?",
       },
