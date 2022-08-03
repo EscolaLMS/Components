@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useMemo } from "react";
 import styled, { withTheme, ThemeContext } from "styled-components";
-import { XAPIEvent, Player } from "@escolalms/h5p-react";
+import { XAPIEvent, ContextlessPlayer as Player } from "@escolalms/h5p-react";
 
 import * as API from "@escolalms/sdk/lib/types/api";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { getFontFromTheme } from "../../../theme/provider";
+import { Spin } from "../../atoms/Spin/Spin";
 
 const StyledH5P = styled("div")`
   border-radius: ${(props) => props.theme.buttonRadius || 0}px;
@@ -13,23 +14,27 @@ const StyledH5P = styled("div")`
 `;
 
 export interface H5PProps {
-  id: string;
+  loading?: boolean;
+  uuid: string;
   onXAPI?: (e: XAPIEvent) => void;
   overwriteFileName?: string;
   h5pObject?: API.H5PObject;
 }
 
 export const H5Player: React.FC<H5PProps> = ({
-  id,
+  uuid,
   onXAPI,
   overwriteFileName = "h5p_overwrite.css",
   h5pObject,
+  loading = false,
 }) => {
   const { fetchH5P, h5p } = useContext(EscolaLMSContext);
 
   useEffect(() => {
-    fetchH5P(id);
-  }, [id, fetchH5P]);
+    if (uuid) {
+      fetchH5P(uuid);
+    }
+  }, [uuid, fetchH5P]);
 
   const themeContext = useContext(ThemeContext);
   const fontColor =
@@ -332,11 +337,15 @@ export const H5Player: React.FC<H5PProps> = ({
 
   return (
     <StyledH5P>
+      {((h5p && h5p.loading) || loading) && (
+        <div className="h5p-loading">
+          <Spin />
+        </div>
+      )}
       {(h5p.value || h5pObject) && (
         <Player
           key={h5pThemeCSSOverwriteSrc} // this is required to force a re-render when the theme changes
-          h5pObject={h5p.value || h5pObject}
-          id={id}
+          state={h5p.value || h5pObject}
           onXAPI={(event: XAPIEvent) => onXAPI && onXAPI(event)}
           styles={[
             `${window.location.origin}/${overwriteFileName}`,
