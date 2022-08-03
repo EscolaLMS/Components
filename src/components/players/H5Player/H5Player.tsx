@@ -15,7 +15,7 @@ const StyledH5P = styled("div")`
 
 export interface H5PProps {
   loading?: boolean;
-  uuid: string;
+  uuid?: string;
   onXAPI?: (e: XAPIEvent) => void;
   overwriteFileName?: string;
   h5pObject?: API.H5PObject;
