@@ -372,7 +372,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
         )}
       </Formik>
       <Text size="14">
-        {t<string>("RegisterForm.Already have account")}{" "}
+        {t<string>("RegisterForm.Already have an account")}{" "}
         <Link underline onClick={() => onLoginLink && onLoginLink()}>
           {t<string>("Login.Signin")}
         </Link>
