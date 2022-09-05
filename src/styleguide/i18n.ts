@@ -16,6 +16,7 @@ export const resources = {
       "CartCard.discountGranted": "**Discount code** applied",
       "CartCard.realizeButton": "Realize",
       "Course.Agenda": "Agenda",
+      "Course.topicPreview": "Preview",
       "Course.Finished": "Finished",
       "Course.Lesson": "Module",
       "Course.markAsFinished": "Mark as finished",
@@ -95,8 +96,9 @@ export const resources = {
         NoRecords: "No records",
       },
       RegisterForm: {
-        Header: "Log in to your Wellms account",
+        Header: "Sign up for your Wellms account",
         Subtitle: "Many users have already trusted us",
+        "Already have an account": "Already have an account?",
       },
       AdditionalFields: {
         contact: "Contact details",
@@ -119,6 +121,9 @@ export const resources = {
       VideoPlayer: {
         Error: "Error loading material. Please try again later.",
       },
+      Upload: {
+        button: "Choose a file",
+      },
     },
   },
   fr: {
@@ -137,6 +142,7 @@ export const resources = {
       "CartCard.discountGranted": "**Kod rabatowy** zastosowany",
       "CartCard.realizeButton": "Realizuj",
       "Course.Agenda": "Plan kursu",
+      "Course.topicPreview": "Podgląd",
       "Course.Finished": "Ukończono",
       "Course.Lesson": "Moduł",
       "Course.markAsFinished": "Oznacz jako ukończone",
@@ -218,6 +224,7 @@ export const resources = {
       RegisterForm: {
         Header: "Dołącz do Wellms, największej plaformy szkoleniowej!",
         Subtitle: "Zaufało nam już sporo użytkowników",
+        "Already have an account": "Masz już konto?",
       },
       AdditionalFields: {
         contact: "Dane kontaktowe",
@@ -239,6 +246,9 @@ export const resources = {
       },
       VideoPlayer: {
         Error: "Błąd podczas ładowania materiału. Spróbuj ponownie później.",
+      },
+      Upload: {
+        button: "Wybierz plik",
       },
     },
   },

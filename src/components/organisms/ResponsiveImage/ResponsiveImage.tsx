@@ -4,12 +4,11 @@ import styled, { withTheme } from "styled-components";
 
 import Image from "@escolalms/sdk/lib/react/components/Image";
 
-type ImageProps = {
+interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   path: string;
   size?: number;
   srcSizes?: number[];
-  alt?: string;
-};
+}
 
 const StyledDiv = styled("div")`
   &,

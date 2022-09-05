@@ -84,6 +84,10 @@ const StyledTextArea = styled("div")<TextAreaProps>`
       if (props.error) {
         return props.theme.errorColor;
       }
+
+      return props.theme.mode === "dark"
+        ? props.theme.white
+        : props.theme.gray1;
     }};
   }
   .textarea-container {

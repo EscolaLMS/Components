@@ -8,6 +8,7 @@ import img4 from "./CourseCard-4.png";
 import backgroundImage1 from "./bgImage1.png";
 import backgroundImage2 from "./bgImage2.png";
 import { Row, Col } from "react-grid-system";
+import { ResponsiveImage } from "../../organisms/ResponsiveImage/ResponsiveImage";
 import {
   Badge,
   BreadCrumbs,
@@ -16,6 +17,9 @@ import {
   IconText,
   IconTitle,
 } from "../../..";
+
+import Image from "@escolalms/sdk/lib/react/components/Image";
+import { EscolaLMSContextProvider } from "@escolalms/sdk/lib/react/context";
 
 const Icon1 = () => (
   <svg viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -28,57 +32,62 @@ const Icon1 = () => (
     <div style={{ width: "100%" }}>
       <Row>
         <Col>
-          <CourseCard
-            id={1}
-            image={
-              <a onClick={() => console.log("on image click")}>
-                <img src={backgroundImage1} alt="whatever" />
-              </a>
-            }
-            tags={
-              <React.Fragment>
-                <Badge
-                  onClick={(e) => console.log("onTag click")}
-                  color={"#ff0000"}
-                >
-                  Bestseller
-                </Badge>
-                <Badge color={"#6d6d6d"}>New</Badge>
-              </React.Fragment>
-            }
-            subtitle={<a href="#!!!">100% online</a>}
-            title={<a href="#!!!">Best course ever</a>}
-            categories={
-              <BreadCrumbs
-                hyphen="/"
-                items={[
-                  <a href="#!!!!">Wellms</a>,
-                  <Link>courses</Link>,
-                  "super course",
-                  "lesson XXX",
-                ]}
-              />
-            }
-            actions={
-              <React.Fragment>
-                <Button
-                  mode="secondary"
-                  onClick={() => console.log("onButton Click")}
-                >
-                  Click me
-                </Button>
-                <Link onClick={() => console.log("onButton 2 Click")}>
-                  Click me as well
+          <EscolaLMSContextProvider apiUrl="https://api-stage.escolalms.com/">
+            <CourseCard
+              id={1}
+              image={
+                <Link to={`#`}>
+                  <ResponsiveImage
+                    path={"course/74/images/tlologistyka1.png"}
+                    srcSizes={[500, 750, 1000]}
+                  />
                 </Link>
-              </React.Fragment>
-            }
-            footer={
-              <React.Fragment>
-                <IconText icon={<Icon1 />} text="666 USers" />{" "}
-                <IconText icon={<Icon1 />} text="666 Lessons" />
-              </React.Fragment>
-            }
-          />
+              }
+              tags={
+                <React.Fragment>
+                  <Badge
+                    onClick={(e) => console.log("onTag click")}
+                    color={"#ff0000"}
+                  >
+                    Bestseller
+                  </Badge>
+                  <Badge color={"#6d6d6d"}>New</Badge>
+                </React.Fragment>
+              }
+              subtitle={<a href="#!!!">100% online</a>}
+              title={<a href="#!!!">Best course ever</a>}
+              categories={
+                <BreadCrumbs
+                  hyphen="/"
+                  items={[
+                    <a href="#!!!!">Wellms</a>,
+                    <Link>courses</Link>,
+                    "super course",
+                    "lesson XXX",
+                  ]}
+                />
+              }
+              actions={
+                <React.Fragment>
+                  <Button
+                    mode="secondary"
+                    onClick={() => console.log("onButton Click")}
+                  >
+                    Click me
+                  </Button>
+                  <Link onClick={() => console.log("onButton 2 Click")}>
+                    Click me as well
+                  </Link>
+                </React.Fragment>
+              }
+              footer={
+                <React.Fragment>
+                  <IconText icon={<Icon1 />} text="666 USers" />{" "}
+                  <IconText icon={<Icon1 />} text="666 Lessons" />
+                </React.Fragment>
+              }
+            />
+          </EscolaLMSContextProvider>
         </Col>
         <Col xs={6}>
           <CourseCard
@@ -136,7 +145,7 @@ const Icon1 = () => (
                 id: 2,
               },
             ]}
-            title={"Best course ever"}
+            title={"Best course ever with a couple of lines"}
             categories={{
               onCategoryClick: (id) => {
                 console.log("Category click id: ", id);
@@ -178,7 +187,9 @@ const Icon1 = () => (
                 id: 2,
               },
             ]}
-            title={"Best course ever"}
+            title={
+              "Best course ever with a couple of lines and long title should be truncated with a dots"
+            }
             onTagClick={(tagId) => console.log("onTagClick :", { tagId })}
             onButtonClick={(cardId) =>
               console.log("onButtonClick :", { cardId })
@@ -231,81 +242,6 @@ const Icon1 = () => (
           />
         </Col>
       </Row>
-    </div>
-    <div
-      style={{
-        width: 400,
-        overflow: "auto",
-        display: "flex",
-        gap: "1rem",
-      }}
-    >
-      <CourseCard
-        id={23}
-        mobile
-        image={{
-          path: backgroundImage2,
-        }}
-        tags={[
-          {
-            title: "Bestseller",
-            id: 1,
-          },
-          {
-            title: "Best Price",
-            id: 2,
-          },
-        ]}
-        title={"Best course ever"}
-        categories={{
-          onCategoryClick: (id) => {
-            console.log("Category click id: ", id);
-          },
-          categoryElements: [
-            { id: 1, name: "Programming" },
-            { id: 2, name: "Front-end" },
-          ],
-        }}
-        onTagClick={(tagId) => console.log("onTagClick :", { tagId })}
-        onImageClick={() => console.log("onImageClick")}
-        progress={{
-          currentProgress: 0.43,
-          maxProgress: 1,
-        }}
-      />
-      <CourseCard
-        id={23}
-        mobile
-        image={{
-          path: backgroundImage2,
-        }}
-        tags={[
-          {
-            title: "Bestseller",
-            id: 1,
-          },
-          {
-            title: "Best Price",
-            id: 2,
-          },
-        ]}
-        title={"Best course ever"}
-        categories={{
-          onCategoryClick: (id) => {
-            console.log("Category click id: ", id);
-          },
-          categoryElements: [
-            { id: 1, name: "Programming" },
-            { id: 2, name: "Front-end" },
-          ],
-        }}
-        onTagClick={(tagId) => console.log("onTagClick :", { tagId })}
-        onImageClick={() => console.log("onImageClick")}
-        progress={{
-          currentProgress: 0.43,
-          maxProgress: 1,
-        }}
-      />
     </div>
   </ThemeTester>
   <ImageModal images={[img1, img2, img3, img4]} />

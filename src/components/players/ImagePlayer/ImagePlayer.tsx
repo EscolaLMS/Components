@@ -2,10 +2,10 @@ import * as React from "react";
 import { useCallback } from "react";
 import Lightbox from "react-image-lightbox";
 import styled, { withTheme, createGlobalStyle } from "styled-components";
-import Image from "@escolalms/sdk/lib/react/components/Image";
 import { API } from "@escolalms/sdk/lib";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { SharedLightboxStyle } from "../../../utils/utils";
+import { ResponsiveImage } from "../../organisms/ResponsiveImage/ResponsiveImage";
 
 const StyledImagePlayer = styled("div")`
   > div {
@@ -43,7 +43,7 @@ export const ImagePlayer: React.FC<ImagePlayerProps> = ({ topic, onLoad }) => {
 
   return (
     <StyledImagePlayer>
-      <Image
+      <ResponsiveImage
         path={topic.topicable.value}
         srcSizes={[500, 750, 1000]}
         onClick={() => setOpen(true)}

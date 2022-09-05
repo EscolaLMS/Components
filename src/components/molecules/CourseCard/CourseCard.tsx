@@ -70,12 +70,16 @@ const StyledCourseCard = styled("div")<StyledCourseCardProps>`
   display: flex;
   flex-direction: column;
   height: 100%;
-  width: ${(props) => (props.mobile ? "272px" : "100%")};
+  width: 100%;
   flex-shrink: 0;
 
   .image-section {
     position: relative;
     z-index: 0;
+
+    a > div {
+      height: 100%;
+    }
   }
   .information-in-image {
     position: absolute;
@@ -93,6 +97,7 @@ const StyledCourseCard = styled("div")<StyledCourseCardProps>`
     display: flex;
     gap: 10px;
     z-index: 200;
+    flex-wrap: wrap;
   }
   .card {
     padding: 13px 10px;
@@ -120,17 +125,23 @@ const StyledCourseCard = styled("div")<StyledCourseCardProps>`
     }
   }
 
+  /* stylelint-disable */
   .title {
     margin-bottom: 15px;
-    /* stylelint-disable */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    height: 75px;
+
     a {
       text-decoration: none;
       &:hover {
         text-decoration: underline;
       }
     }
-    /* stylelint-enable */
   }
+  /* stylelint-enable */
   .categories {
     font-size: 14px;
     line-height: 17px;
@@ -176,6 +187,13 @@ const StyledCourseCard = styled("div")<StyledCourseCardProps>`
 
   .card-course-footer {
     margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    min-height: 43px;
+  }
+
+  .escolalms-image {
+    height: 100%;
   }
 `;
 
@@ -183,6 +201,7 @@ const ImgWrapper = styled.div`
   img {
     cursor: pointer;
     transition: 0.3s transform ease;
+    border-radius: ${({ theme }) => theme.cardRadius}px;
     &:hover {
       transform: scale(1.03);
     }

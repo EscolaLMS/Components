@@ -10,7 +10,7 @@ interface PdfPlayerProps {
 }
 
 const StyledWrapper = styled("div")`
-  max-width: 90%;
+  display: inline-block;
 
   .pagination-area {
     margin-top: 5px;

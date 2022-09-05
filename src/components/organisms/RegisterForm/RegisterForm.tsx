@@ -2,7 +2,11 @@ import { Formik, FormikErrors } from "formik";
 import { useContext, useState, useEffect, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
-import type { DefaultResponseError } from "@escolalms/sdk/lib/types/api";
+import type {
+  DefaultResponse,
+  DefaultResponseError,
+  RegisterResponse,
+} from "@escolalms/sdk/lib/types/api";
 import type { ResponseError } from "umi-request";
 
 //import "@escolalms/ts-models";
@@ -39,6 +43,9 @@ const StyledDiv = styled.div<{ mobile: boolean }>`
     margin: 15px 0;
   }
   p,
+  label p {
+    margin: 0;
+  }
   a {
     font-size: 14px;
   }
@@ -64,13 +71,27 @@ type FormValues = {
   error?: string;
 };
 
-export const RegisterForm: React.FC<{
+export type RegisterFormProps = {
   onError?: (err: ResponseError<DefaultResponseError>) => void;
-  onSuccess?: () => void;
+  onSuccess?: (
+    res: DefaultResponse<RegisterResponse>,
+    values: FormValues & Record<string, string | boolean>
+  ) => void;
   onLoginLink?: () => void;
   mobile?: boolean;
   return_url?: string;
-}> = ({ onSuccess, onError, onLoginLink, mobile = false, return_url = "" }) => {
+  /** Additional labels you can overwrite fields labels. Usable for additional fields.  */
+  fieldLabels?: Record<string, React.ReactNode>;
+};
+
+export const RegisterForm: React.FC<RegisterFormProps> = ({
+  onSuccess,
+  onError,
+  onLoginLink,
+  mobile = false,
+  return_url = "",
+  fieldLabels = {},
+}) => {
   const [initialValues, setInitialValues] = useState<
     FormValues & Record<string, string | boolean>
   >({
@@ -163,9 +184,7 @@ export const RegisterForm: React.FC<{
             errors.password_confirmation = t("Different passwords");
           }
 
-          if (!values.phone) {
-            errors.phone = t("Required");
-          } else if (!/\d{9}$/i.test(values.phone)) {
+          if (values.phone && !/\d{9}$/i.test(values.phone)) {
             errors.phone = t("Wrong phone number");
           }
 
@@ -185,9 +204,9 @@ export const RegisterForm: React.FC<{
             ...values,
             return_url: `${window.location.origin}${return_url}`,
           })
-            .then(() => {
+            .then((res: DefaultResponse<RegisterResponse>) => {
               resetForm();
-              onSuccess && onSuccess();
+              onSuccess?.(res, values);
             })
             .catch((err: ResponseError<DefaultResponseError>) => {
               setErrors({ error: err.data.message, ...err.data.errors });
@@ -212,7 +231,7 @@ export const RegisterForm: React.FC<{
               <Text type="danger">{errors.error}</Text>
             )}
             <Input
-              label={t<string>("First name")}
+              label={fieldLabels["first_name"] || t<string>("First name")}
               type="text"
               name="first_name"
               onChange={handleChange}
@@ -223,7 +242,7 @@ export const RegisterForm: React.FC<{
             />
 
             <Input
-              label={t<string>("Last name")}
+              label={fieldLabels["last_name"] || t<string>("Last name")}
               type="text"
               name="last_name"
               onChange={handleChange}
@@ -234,7 +253,7 @@ export const RegisterForm: React.FC<{
             />
 
             <Input
-              label={t<string>("Email")}
+              label={fieldLabels["email"] || t<string>("Email")}
               className="form-control grey"
               type="email"
               name="email"
@@ -246,7 +265,7 @@ export const RegisterForm: React.FC<{
             />
 
             <Input
-              label={t<string>("Password")}
+              label={fieldLabels["password"] || t<string>("Password")}
               type="password"
               name="password"
               onChange={handleChange}
@@ -271,7 +290,7 @@ export const RegisterForm: React.FC<{
             />
 
             <Input
-              label={t<string>("Phone")}
+              label={fieldLabels["phone"] || t<string>("Phone")}
               type="text"
               name="phone"
               onChange={handleChange}
@@ -301,7 +320,10 @@ export const RegisterForm: React.FC<{
                     <Input
                       key={`${field}${index}`}
                       required={isAdditionalRequiredField(field)}
-                      label={t(`AdditionalFields.${field.name}`)}
+                      label={
+                        fieldLabels[`AdditionalFields.${field.name}`] ||
+                        t(`AdditionalFields.${field.name}`)
+                      }
                       type="text"
                       name={field.name}
                       onChange={handleChange}
@@ -326,7 +348,10 @@ export const RegisterForm: React.FC<{
                   ) => (
                     <Checkbox
                       key={`${field.id}${index}`}
-                      label={t(`AdditionalFields.${field.name}`)}
+                      label={
+                        fieldLabels[`AdditionalFields.${field.name}`] ||
+                        t(`AdditionalFields.${field.name}`)
+                      }
                       id={field.name}
                       name={field.name}
                       onChange={handleChange}
@@ -347,7 +372,7 @@ export const RegisterForm: React.FC<{
         )}
       </Formik>
       <Text size="14">
-        {t<string>("RegisterForm.Already have account")}{" "}
+        {t<string>("RegisterForm.Already have an account")}{" "}
         <Link underline onClick={() => onLoginLink && onLoginLink()}>
           {t<string>("Login.Signin")}
         </Link>

@@ -59,22 +59,6 @@ const StyledCheckoutCard = styled("div")<StyledCheckoutCardProps>`
     border-top: 1px solid ${({ theme }) => theme.gray3};
   }
 
-  .checkout-card-img {
-    width: ${(props) => (props.mobile ? "45px" : "100%")};
-    margin-right: ${(props) => (props.mobile ? "15px" : "0")};
-    flex-shrink: 0;
-    background-color: ${({ theme }) => theme.white};
-
-    img {
-      max-width: 100%;
-      height: auto;
-    }
-  }
-
-  .checkout-card-summary-item {
-    margin-right: ${(props) => (props.mobile ? "10px" : "25px")};
-  }
-
   svg {
     path {
       fill: currentColor;
@@ -92,6 +76,26 @@ const StyledCheckoutCard = styled("div")<StyledCheckoutCardProps>`
         fill: none;
       }
     }
+  }
+
+  .checkout-card-img {
+    width: ${(props) => (props.mobile ? "45px" : "100%")};
+    margin-right: ${(props) => (props.mobile ? "15px" : "0")};
+    flex-shrink: 0;
+
+    svg {
+      fill: ${({ theme }) =>
+        theme.mode == "light" ? theme.gray2 : theme.white};
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+
+  .checkout-card-summary-item {
+    margin-right: ${(props) => (props.mobile ? "10px" : "25px")};
   }
 `;
 

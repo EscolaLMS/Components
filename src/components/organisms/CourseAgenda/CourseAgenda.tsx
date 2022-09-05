@@ -296,7 +296,6 @@ const StyledSection = styled("section")`
   }
 
   .lesson__item.open .lesson__topics {
-    max-height: 100vh;
     transition: all 0.35s ease-in;
   }
 
@@ -345,10 +344,15 @@ const CourseAgendaTopic: React.FC<CourseAgendaTopicProps> = ({
       >
         <div className={"lesson__description"}>
           <TopicIcon mode={mode} />
-          <Text className={"lesson__index"} size={"14"} noMargin>
+          <Text
+            className={"lesson__index"}
+            size={"14"}
+            noMargin
+            bold={mode === "current"}
+          >
             {index}.{" "}
           </Text>
-          <Text size={"14"} noMargin>
+          <Text size={"14"} noMargin bold={mode === "current"}>
             {topic.title}
           </Text>
         </div>

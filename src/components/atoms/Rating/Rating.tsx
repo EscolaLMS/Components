@@ -65,7 +65,7 @@ export interface RatingProps extends StyledRating {
 }
 
 const StyledRating = styled.span<RatingProps>`
-  &.lsm-rating {
+  &.lms-rating {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
@@ -77,6 +77,8 @@ const StyledRating = styled.span<RatingProps>`
     svg {
       font-size: ${(props) => (props.size ? props.size : "15px")};
       padding-right: 2px;
+      color: ${({ theme }) =>
+        theme.mode === "dark" ? theme.white : theme.gray1};
     }
     .label {
       min-width: 48px;
@@ -101,7 +103,7 @@ export const Rating: React.FC<RatingProps> = (props) => {
     <StyledRating
       size={props.size}
       ratingValue={ratingValue}
-      className="lsm-rating"
+      className="lms-rating"
     >
       <>
         {startToRender.map((index) => {

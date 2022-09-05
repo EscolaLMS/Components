@@ -1,9 +1,12 @@
-import { Formik } from "formik";
-import { useContext } from "react";
+import { Formik, FormikProps } from "formik";
+import { useContext, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
-import type { DefaultResponseError } from "@escolalms/sdk/lib/types/api";
-import type { ResponseError } from "umi-request";
+import type {
+  DefaultResponseError,
+  DefaultResponse,
+} from "@escolalms/sdk/lib/types/api";
+import type { ResponseError, RequestResponse } from "umi-request";
 
 import styled, { withTheme } from "styled-components";
 
@@ -51,7 +54,7 @@ interface MyFormValues {
 }
 
 export const LoginForm: React.FC<{
-  onError?: (err: ResponseError<DefaultResponseError>) => void;
+  onError?: (err: DefaultResponse<DefaultResponseError>) => void;
   onSuccess?: () => void;
   onResetPasswordLink?: () => void;
   onRegisterLink?: () => void;
@@ -65,12 +68,36 @@ export const LoginForm: React.FC<{
 }) => {
   const initialValues: MyFormValues = { email: "", password: "" };
   const { t } = useTranslation();
-  const { login } = useContext(EscolaLMSContext);
+  const { login, user } = useContext(EscolaLMSContext);
+
+  const formikRef = useRef<FormikProps<MyFormValues>>(null);
+
+  useEffect(() => {
+    if (user.error) {
+      formikRef.current?.setErrors({
+        // WTF. Error from the API is not consisted with rest of the responses
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        error: user.error.data.message || user.error.message,
+        ...user.error.errors,
+      });
+      onError && onError(user.error);
+    } else {
+      formikRef.current?.setErrors({});
+    }
+  }, [user.error]);
+
+  useEffect(() => {
+    if (user.value) {
+      onSuccess && onSuccess();
+    }
+  }, [user.value, onSuccess]);
 
   return (
     <StyledDiv mobile={mobile}>
       <Title level={3}>{t("Login.Header")}</Title>{" "}
       <Formik
+        innerRef={formikRef}
         initialValues={initialValues}
         validate={(values) => {
           const errors: Partial<MyFormValues> = {};
@@ -87,10 +114,10 @@ export const LoginForm: React.FC<{
         }}
         onSubmit={(values, { setSubmitting, setErrors }) => {
           login(values)
-            .then(() => onSuccess && onSuccess())
+            .finally(() => setSubmitting(false))
             .catch((err: ResponseError<DefaultResponseError>) => {
               setErrors({ error: err.data.message, ...err.data.errors });
-              onError && onError(err);
+              onError && onError(err.data);
             })
             .finally(() => setSubmitting(false));
         }}
@@ -128,7 +155,12 @@ export const LoginForm: React.FC<{
               value={values.password}
               error={touched.password && errors.password}
             />
-            <Button mode="secondary" type="submit" loading={isSubmitting} block>
+            <Button
+              mode="secondary"
+              type="submit"
+              loading={isSubmitting || user.loading}
+              block
+            >
               {t<string>("Login.Signin")}
             </Button>
           </form>
