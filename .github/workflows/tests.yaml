@@ -82,4 +82,4 @@ jobs:
     - name: Run Axe
       run: |
         npm install -g @axe-core/cli
-        axe http://localhost:6060 --exit
+        axe http://localhost:6060 --exit --show-errors
