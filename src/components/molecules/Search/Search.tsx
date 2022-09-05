@@ -161,9 +161,7 @@ export const Search: React.FC<SearchProps> = (props) => {
     setIsFocused((isFocused) => !isFocused);
   };
 
-  const filterChildren = (
-    childrenList: (React.ReactChild | React.ReactFragment | React.ReactPortal)[]
-  ) => {
+  const filterChildren = (childrenList: ReactNode[]) => {
     return childrenList
       .filter((child) => {
         if (React.isValidElement(child)) {
