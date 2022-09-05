@@ -178,6 +178,7 @@ export const Search: React.FC<SearchProps> = (props) => {
       .map((child) => {
         if (React.isValidElement(child)) {
           return React.cloneElement(child, {
+            // @ts-ignore
             onClick: (e: Event) => {
               onChange && onChange(child.props.children);
               toggleFocus();
