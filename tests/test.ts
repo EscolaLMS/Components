@@ -29,7 +29,20 @@ let page: Page;
 
   reportViolations(violations, reporter);
 
-  fs.writeFileSync("tests/violations.md", reporter.markdown);
+  if (violations.length) {
+    fs.writeFileSync(
+      "tests/violations.md",
+      `## AXE a11y errors violations
+    
+    There were ${violations.length} accessibility violations were detected
+
+    ${reporter.markdown}
+    
+    `
+    );
+  } else {
+    fs.writeFileSync("tests/violations.md", "no AXE a11y errors");
+  }
 
   assert.strictEqual(violations.length, 0);
 

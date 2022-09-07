@@ -96,8 +96,8 @@ jobs:
    
     - name: Run Axe
       run: ./node_modules/.bin/npm-run-all --parallel serve-docs test-a11y
-      continue-on-error: true
 
     - uses: marocchino/sticky-pull-request-comment@v2
+      if: ${{ always() }}
       with:
         path: tests/violations.md
