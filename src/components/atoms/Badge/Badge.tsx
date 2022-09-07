@@ -42,7 +42,12 @@ export const Badge: React.FC<PropsWithChildren<BadgeProps>> = ({
   }, [color || theme.primaryColor]);
 
   return (
-    <StyledDiv lightContrast={cts} color={color} {...props}>
+    <StyledDiv
+      className="wellms-component"
+      lightContrast={cts}
+      color={color}
+      {...props}
+    >
       {children}
     </StyledDiv>
   );

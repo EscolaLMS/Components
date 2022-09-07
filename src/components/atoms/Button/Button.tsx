@@ -273,6 +273,7 @@ export const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
   }, [mode, theme]);
   return (
     <StyledButton
+      className="wellms-component"
       invert={invert}
       mode={mode}
       loading={loading}

@@ -12,7 +12,9 @@
     "lib": "tsc --noEmit false --outDir lib --module commonjs",
     "test": "axe http://localhost:6060/ --show-errors --exit",
     "ci": "start-server-and-test dev http://localhost:6060/ test",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "clear-dts": "find ./src -name '*.d.ts' -delete",
+    "test-a11y": "./node_modules/.bin/tsc --project tests/tsconfig.a11y.json && node tests/test.js"
   },
   "files": [
     "src/**/*",
@@ -80,8 +82,9 @@
     "stylelint-processor-styled-components": "^1.10.0",
     "ts-loader": "^9.2.8",
     "typescript": "^4.6.4",
-    "webpack": "^5.72.0"
+    "webpack": "^5.72.0",
+    "axe-playwright": "^1.1.11",
+    "playwright": "^1.25.2"
   },
-  "homepage": "https://escolalms.github.io/components",
-  "dependencies": {}
+  "homepage": "https://escolalms.github.io/components"
 }

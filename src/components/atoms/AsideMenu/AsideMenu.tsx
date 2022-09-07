@@ -46,7 +46,11 @@ export const AsideMenu: React.FC<PropsWithChildren<AsideMenuProps>> = (
   props
 ) => {
   const { children, active } = props;
-  return <StyledDiv active={active}>{children}</StyledDiv>;
+  return (
+    <StyledDiv className="wellms-component" active={active}>
+      {children}
+    </StyledDiv>
+  );
 };
 
 export default withTheme(styled(AsideMenu)<AsideMenuProps>``);

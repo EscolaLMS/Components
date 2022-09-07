@@ -1,0 +1,230 @@
+type Options = {
+  align?: string | (string | null | undefined)[] | null | undefined;
+
+  padding?: boolean | undefined;
+
+  delimiterStart?: boolean | undefined;
+
+  delimiterEnd?: boolean | undefined;
+
+  alignDelimiters?: boolean | undefined;
+
+  stringLength?: ((value: string) => number) | undefined;
+};
+
+// md table start
+export function markdownTable(
+  table: Array<Array<string | null | undefined>>,
+  options: Options | undefined = {}
+) {
+  const align = (options.align || []).concat();
+  const stringLength = options.stringLength || defaultStringLength;
+  const alignments: Array<number> = [];
+  const cellMatrix: Array<Array<string>> = [];
+  const sizeMatrix: Array<Array<number>> = [];
+  const longestCellByColumn: Array<number> = [];
+  let mostCellsPerRow = 0;
+  let rowIndex = -1;
+
+  while (++rowIndex < table.length) {
+    const row: Array<string> = [];
+    const sizes: Array<number> = [];
+    let columnIndex = -1;
+
+    if (table[rowIndex].length > mostCellsPerRow) {
+      mostCellsPerRow = table[rowIndex].length;
+    }
+
+    while (++columnIndex < table[rowIndex].length) {
+      const cell = serialize(table[rowIndex][columnIndex]);
+
+      if (options.alignDelimiters !== false) {
+        const size = stringLength(cell);
+        sizes[columnIndex] = size;
+
+        if (
+          longestCellByColumn[columnIndex] === undefined ||
+          size > longestCellByColumn[columnIndex]
+        ) {
+          longestCellByColumn[columnIndex] = size;
+        }
+      }
+
+      row.push(cell);
+    }
+
+    cellMatrix[rowIndex] = row;
+    sizeMatrix[rowIndex] = sizes;
+  }
+
+  let columnIndex = -1;
+
+  if (typeof align === "object" && "length" in align) {
+    while (++columnIndex < mostCellsPerRow) {
+      alignments[columnIndex] = toAlignment(align[columnIndex]);
+    }
+  } else {
+    const code = toAlignment(align);
+
+    while (++columnIndex < mostCellsPerRow) {
+      alignments[columnIndex] = code;
+    }
+  }
+
+  columnIndex = -1;
+  const row: Array<string> = [];
+  const sizes: Array<number> = [];
+
+  while (++columnIndex < mostCellsPerRow) {
+    const code = alignments[columnIndex];
+    let before = "";
+    let after = "";
+
+    if (code === 99 /* `c` */) {
+      before = ":";
+      after = ":";
+    } else if (code === 108 /* `l` */) {
+      before = ":";
+    } else if (code === 114 /* `r` */) {
+      after = ":";
+    }
+
+    let size =
+      options.alignDelimiters === false
+        ? 1
+        : Math.max(
+            1,
+            longestCellByColumn[columnIndex] - before.length - after.length
+          );
+
+    const cell = before + "-".repeat(size) + after;
+
+    if (options.alignDelimiters !== false) {
+      size = before.length + size + after.length;
+
+      if (size > longestCellByColumn[columnIndex]) {
+        longestCellByColumn[columnIndex] = size;
+      }
+
+      sizes[columnIndex] = size;
+    }
+
+    row[columnIndex] = cell;
+  }
+
+  // Inject the alignment row.
+  cellMatrix.splice(1, 0, row);
+  sizeMatrix.splice(1, 0, sizes);
+
+  rowIndex = -1;
+  const lines: Array<string> = [];
+
+  while (++rowIndex < cellMatrix.length) {
+    const row = cellMatrix[rowIndex];
+    const sizes = sizeMatrix[rowIndex];
+    columnIndex = -1;
+    const line: Array<string> = [];
+
+    while (++columnIndex < mostCellsPerRow) {
+      const cell = row[columnIndex] || "";
+      let before = "";
+      let after = "";
+
+      if (options.alignDelimiters !== false) {
+        const size =
+          longestCellByColumn[columnIndex] - (sizes[columnIndex] || 0);
+        const code = alignments[columnIndex];
+
+        if (code === 114 /* `r` */) {
+          before = " ".repeat(size);
+        } else if (code === 99 /* `c` */) {
+          if (size % 2) {
+            before = " ".repeat(size / 2 + 0.5);
+            after = " ".repeat(size / 2 - 0.5);
+          } else {
+            before = " ".repeat(size / 2);
+            after = before;
+          }
+        } else {
+          after = " ".repeat(size);
+        }
+      }
+
+      if (options.delimiterStart !== false && !columnIndex) {
+        line.push("|");
+      }
+
+      if (
+        options.padding !== false &&
+        // Don’t add the opening space if we’re not aligning and the cell is
+        // empty: there will be a closing space.
+        !(options.alignDelimiters === false && cell === "") &&
+        (options.delimiterStart !== false || columnIndex)
+      ) {
+        line.push(" ");
+      }
+
+      if (options.alignDelimiters !== false) {
+        line.push(before);
+      }
+
+      line.push(cell);
+
+      if (options.alignDelimiters !== false) {
+        line.push(after);
+      }
+
+      if (options.padding !== false) {
+        line.push(" ");
+      }
+
+      if (
+        options.delimiterEnd !== false ||
+        columnIndex !== mostCellsPerRow - 1
+      ) {
+        line.push("|");
+      }
+    }
+
+    lines.push(
+      options.delimiterEnd === false
+        ? line.join("").replace(/ +$/, "")
+        : line.join("")
+    );
+  }
+
+  return lines.join("\n");
+}
+
+/**
+ * @param {string|null|undefined} [value]
+ * @returns {string}
+ */
+function serialize(value: string | null | undefined) {
+  return value === null || value === undefined ? "" : String(value);
+}
+
+/**
+ * @param {string} value
+ * @returns {number}
+ */
+function defaultStringLength(value: string) {
+  return value.length;
+}
+
+/**
+ * @param {string|null|undefined} value
+ * @returns {number}
+ */
+function toAlignment(value: string | null | undefined) {
+  const code = typeof value === "string" ? value.codePointAt(0) : 0;
+
+  return code === 67 /* `C` */ || code === 99 /* `c` */
+    ? 99 /* `c` */
+    : code === 76 /* `L` */ || code === 108 /* `l` */
+    ? 108 /* `l` */
+    : code === 82 /* `R` */ || code === 114 /* `r` */
+    ? 114 /* `r` */
+    : 0;
+}
+// md table finish

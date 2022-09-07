@@ -74,7 +74,7 @@ export const IconTitle: React.FC<IconTitleProps> = (props) => {
     <StyledHeader
       as={tagName}
       level={level}
-      className="lms-icon-title"
+      className="lms-icon-title wellms-component"
       style={styles?.container}
     >
       <span className="icon" style={styles?.icon}>

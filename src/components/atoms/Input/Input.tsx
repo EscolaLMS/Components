@@ -207,7 +207,7 @@ export const Input: React.FC<InputProps> = (props) => {
       disabled={props.disabled}
       required={required}
       label={label}
-      className={`lsm-input ${helper ? "has-helper" : ""} ${
+      className={`wellms-component lsm-input ${helper ? "has-helper" : ""} ${
         error ? "has-error" : ""
       } ${container?.className ? container.className : ""}`}
       type={props.type}

@@ -17,7 +17,7 @@ const StyledAvatar = styled("img")<AvatarProps>`
 
 export const Avatar: React.FC<AvatarProps> = (props) => {
   const { size } = props;
-  return <StyledAvatar {...props} size={size} />;
+  return <StyledAvatar className="wellms-component" {...props} size={size} />;
 };
 
 const NewAvatar = styled(Avatar)<{ size: string }>``;

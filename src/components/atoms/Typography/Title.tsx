@@ -40,7 +40,13 @@ export const Title: React.FC<TitleProps> = (props) => {
   const tagName: HeaderLevelStr = `h${level}`;
 
   return (
-    <StyledHeader {...props} as={tagName} level={level} mobile={mobile}>
+    <StyledHeader
+      className="wellms-component"
+      {...props}
+      as={tagName}
+      level={level}
+      mobile={mobile}
+    >
       {children}
     </StyledHeader>
   );

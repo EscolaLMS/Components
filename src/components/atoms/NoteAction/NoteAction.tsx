@@ -39,7 +39,7 @@ const StyledNote = styled("div")<StyledNoteProps>`
 export const NoteAction: React.FC<NoteProps> = (props) => {
   const { title, subtitle, color, actions } = props;
   return (
-    <StyledNote color={color}>
+    <StyledNote className="wellms-component" color={color}>
       <div>
         <div>{title}</div>
         {subtitle && <div className={"subtitle"}>{subtitle}</div>}

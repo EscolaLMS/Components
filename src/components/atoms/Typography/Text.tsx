@@ -44,6 +44,7 @@ export const Text: React.FC<TextProps> = (props) => {
   } = props;
   return (
     <StyledP
+      className="wellms-component"
       style={style}
       noMargin={noMargin}
       bold={bold}

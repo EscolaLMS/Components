@@ -350,7 +350,7 @@ export const Slider: React.FC<PropsWithChildren<SliderProps>> = (props) => {
   const { children, settings } = props;
 
   return (
-    <StyledDiv {...props}>
+    <StyledDiv className="wellms-component" {...props}>
       <SlickSlider {...settings}>{children}</SlickSlider>
     </StyledDiv>
   );

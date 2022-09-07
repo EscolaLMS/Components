@@ -70,7 +70,7 @@ export const Tabs: React.FC<TabsProps> = (props) => {
   const panel = tabs && tabs.find((tab) => tab.key === selectedTab);
 
   return (
-    <StyledTabs>
+    <StyledTabs className="wellms-component">
       <div className={"tabs-menu"}>
         <div className={"tabs-menu-inner"}>
           {tabs.map((tab) => {

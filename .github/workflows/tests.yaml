@@ -70,16 +70,33 @@ jobs:
         
     steps:
     - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
+
+    - name: Cache node modules
+      id: cache-npm
+      uses: actions/cache@v3
+      env:
+        cache-name: cache-node-modules
       with:
-        node-version: ${{ matrix.node-version }}
-        cache: "npm"
+        # npm cache files are stored in `~/.npm` on Linux/macOS
+        path: ~/.npm
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-build-${{ env.cache-name }}-
+          ${{ runner.os }}-build-
+          ${{ runner.os }}-
+
+    - if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
+      name: List the state of node modules
+      continue-on-error: true
+      run: npm list
+
     - name: Npm install
-      run: npm i --legacy-peer-deps
-#    - run: npm run build --if-present
-    - run: npm run dev & npx wait-on http://localhost:6060
+      run: npm i --legacy-peer-deps && npm i serve
+    - run: npm run build
+    - run: npx serve docs
     - name: Run Axe
-      run: |
-        npm install -g @axe-core/cli
-        axe http://localhost:6060 --exit --show-errors
+      run: npm run test-a11y
+
+      uses: marocchino/sticky-pull-request-comment@v2
+      with:
+        path: tests/violations.md

@@ -85,7 +85,10 @@ export const ProgressBar: React.FC<ProgressBarProps> = (props) => {
   );
 
   return (
-    <StyledDiv {...props} className={`lms-progress-bar ${props.className}`}>
+    <StyledDiv
+      {...props}
+      className={`wellms-component lms-progress-bar ${props.className}`}
+    >
       {renderLabel()}
       <div className="progress-container">
         <span className="progress-bars">

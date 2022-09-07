@@ -155,7 +155,7 @@ export const TextArea: React.FC<TextAreaProps> = (props) => {
       disabled={disabled}
       error={error}
       required={required}
-      className={`lsm-input ${helper ? "has-helper" : ""} ${
+      className={`wellms-component lsm-input ${helper ? "has-helper" : ""} ${
         error ? "has-error" : ""
       } `}
     >

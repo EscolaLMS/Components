@@ -29,7 +29,7 @@ const ProgressRing: React.FC<ProgressRingType> = ({
 
   return (
     <StyledSvg
-      className="progress-ring"
+      className="wellms-component progress-ring"
       width={size}
       height={size}
       viewBox={viewBox}
