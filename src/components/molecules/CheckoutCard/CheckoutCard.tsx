@@ -174,7 +174,7 @@ export const CheckoutCard: React.FC<CheckoutCardProps> = (props) => {
   };
 
   return (
-    <StyledCheckoutCard mobile={mobile}>
+    <StyledCheckoutCard className="wellms-component" mobile={mobile}>
       <Row align={"center"}>
         {!mobile && (
           <Col xs={12} md={2}>

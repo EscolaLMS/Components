@@ -142,7 +142,7 @@ export const Upload: React.FC<InputProps> = (props) => {
     []
   );
   return (
-    <StyledDiv className="upload">
+    <StyledDiv className="wellms-component upload">
       <input type="file" {...rest} onChange={onInternalChange} />
       <div className="wrapper">
         <div className="border">

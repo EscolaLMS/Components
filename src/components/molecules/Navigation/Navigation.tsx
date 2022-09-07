@@ -321,7 +321,7 @@ export const Navigation: React.FC<NavigationProps> = (props) => {
   return (
     <>
       {mobile ? (
-        <StyledNavigation>
+        <StyledNavigation className="wellms-component">
           <GlobalStyle />
           <div className="header">
             <Logo {...logo} />

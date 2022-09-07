@@ -114,7 +114,12 @@ export const Card: React.FC<PropsWithChildren<CardProps>> = ({
   inline,
 }) => {
   return (
-    <StyledCard wings={wings} style={style} inline={inline}>
+    <StyledCard
+      className="wellms-component"
+      wings={wings}
+      style={style}
+      inline={inline}
+    >
       <div className="content">{children}</div>
     </StyledCard>
   );

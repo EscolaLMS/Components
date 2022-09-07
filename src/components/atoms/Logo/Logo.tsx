@@ -10,7 +10,9 @@ const StyledLogo = styled("img")<LogoProps>`
   max-height: ${(props) => (props.isSmall ? "50px" : "75px")};
 `;
 
-export const Logo: React.FC<LogoProps> = (props) => <StyledLogo {...props} />;
+export const Logo: React.FC<LogoProps> = (props) => (
+  <StyledLogo className="wellms-component" {...props} />
+);
 
 const NewStyledLogo = styled(Logo)<LogoProps>``;
 

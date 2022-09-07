@@ -125,6 +125,7 @@ export const Dropdown: React.FC<DropdownProps> = (props) => {
 
   return (
     <StyledDropdown
+      className="wellms-component"
       placement={placement}
       style={styles}
       lightContrast={cts}

@@ -62,7 +62,7 @@ export const BreadCrumbs: React.FC<BreadCrumbsProps> = ({
   hyphen = <HyphenIcon />,
 }) => {
   return (
-    <StyledNav>
+    <StyledNav className="wellms-component">
       <ul>
         {items.map((node, i) => (
           <React.Fragment key={i}>

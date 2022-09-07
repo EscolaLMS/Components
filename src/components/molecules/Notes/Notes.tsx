@@ -50,7 +50,7 @@ export const Notes: React.FC<NotesProps> = (props) => {
   const { t } = useTranslation();
 
   return (
-    <StyledNotes>
+    <StyledNotes className="wellms-component">
       {noteGroups.map((noteGroup, index) => {
         return (
           <div key={index} className="notes-container">

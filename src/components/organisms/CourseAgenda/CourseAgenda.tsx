@@ -485,7 +485,7 @@ export const CourseAgenda: React.FC<CourseAgendaProps> = (props) => {
   }, [flatTopics, finishedTopicIds]);
 
   return (
-    <StyledSection>
+    <StyledSection className="wellms-component">
       {!mobile && (
         <header>
           <IconTitle

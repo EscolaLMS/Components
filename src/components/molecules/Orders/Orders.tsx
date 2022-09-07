@@ -79,7 +79,7 @@ export const Orders: React.FC<OrdersProps> = (props) => {
   }, [data]);
 
   return (
-    <StyledOrders mobile={mobile}>
+    <StyledOrders className="wellms-component" mobile={mobile}>
       {data.length === 0 && <Text>{t<string>("Orders.NoRecords")}</Text>}
       {data.length > 0 && (
         <React.Fragment>

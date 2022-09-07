@@ -147,7 +147,11 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = (props) => {
   const { mobile = false, fontSize = "16", children } = props;
 
   return (
-    <StyledMarkdownRenderer mobile={mobile} fontSize={fontSize}>
+    <StyledMarkdownRenderer
+      className="wellms-component"
+      mobile={mobile}
+      fontSize={fontSize}
+    >
       <ReactMarkdown
         linkTarget="_blank"
         rehypePlugins={[rehypeRaw]}

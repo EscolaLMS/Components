@@ -90,7 +90,7 @@ export const PricingCard: React.FC<PricingCardProps> = (props) => {
   const { children, mobile, free } = props;
 
   return (
-    <StyledPricingCard mobile={mobile} free={free}>
+    <StyledPricingCard className="wellms-component" mobile={mobile} free={free}>
       {children}
     </StyledPricingCard>
   );

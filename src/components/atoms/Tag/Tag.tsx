@@ -46,7 +46,7 @@ const StyledSpan = styled("span")<{ isButton: boolean }>`
 export const Tag: React.FC<LinkProps> = (props) => {
   const isButton = typeof props.onClick === "function";
   return (
-    <StyledSpan {...props} isButton={isButton}>
+    <StyledSpan className="wellms-component" {...props} isButton={isButton}>
       {props.children}
     </StyledSpan>
   );

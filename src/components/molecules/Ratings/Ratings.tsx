@@ -75,7 +75,7 @@ const RatingsDesktop: React.FC<RatingsViewProps> = (props) => {
 
   const { t } = useTranslation();
   return (
-    <StyledRatingsDesktop>
+    <StyledRatingsDesktop className="wellms-component">
       {header && (
         <Title className="header" level={4}>
           {header}
@@ -140,7 +140,7 @@ const RatingsMobile: React.FC<RatingsViewProps> = (props) => {
   const { t } = useTranslation();
 
   return (
-    <StyledRatingsMobile>
+    <StyledRatingsMobile className="wellms-component">
       {header && (
         <Title className="header" level={4}>
           {header}

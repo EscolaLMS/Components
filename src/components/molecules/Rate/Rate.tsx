@@ -55,7 +55,7 @@ export const Rate: React.FC<Props> = (props) => {
   }, [selectedRate, hoverRate]);
 
   return (
-    <StyledRate>
+    <StyledRate className="wellms-component">
       <Title className="title" level={4}>
         {t(header)}
       </Title>

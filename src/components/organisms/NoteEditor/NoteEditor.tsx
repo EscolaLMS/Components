@@ -121,7 +121,7 @@ export const NoteEditor: React.FC<NoteEditorProps> = ({ onSuccess }) => {
     { color: "#56CCF2" },
   ];
   return (
-    <StyledPopup>
+    <StyledPopup className="wellms-component">
       <Formik
         initialValues={initialValues}
         validate={(values) => {

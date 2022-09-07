@@ -65,7 +65,7 @@ export const Download: React.FC<ComponentProps> = (props) => {
   }, [href, fileName]);
 
   return (
-    <StyledDiv {...props}>
+    <StyledDiv className="wellms-component" {...props}>
       <a className="download-btn" download href={href} target="_blank">
         <span className="name">{name}</span>
         <span className="icon">

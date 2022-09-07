@@ -123,7 +123,7 @@ export const ResetPasswordForm: React.FC<{
   );
 
   return (
-    <StyledDiv mobile={mobile}>
+    <StyledDiv className="wellms-component" mobile={mobile}>
       <Title level={3}>{t<string>("ResetForm.ResetPassword")}</Title>{" "}
       <Formik
         initialValues={initialValues}

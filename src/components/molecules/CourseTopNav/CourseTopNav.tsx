@@ -146,7 +146,10 @@ export const CourseTopNav: React.FC<CourseTopNavProps> = (props) => {
   };
 
   return (
-    <StyledAside mobile={mobile} className={isClosed ? "closed" : ""}>
+    <StyledAside
+      mobile={mobile}
+      className={`wellms-component ${isClosed ? "closed" : ""}`}
+    >
       <div className="toggle-btn-container">
         <Button
           onClick={() => setIsClosed((prev) => !prev)}

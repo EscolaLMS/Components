@@ -94,7 +94,7 @@ export const LoginForm: React.FC<{
   }, [user.value, onSuccess]);
 
   return (
-    <StyledDiv mobile={mobile}>
+    <StyledDiv className="wellms-component" mobile={mobile}>
       <Title level={3}>{t("Login.Header")}</Title>{" "}
       <Formik
         innerRef={formikRef}

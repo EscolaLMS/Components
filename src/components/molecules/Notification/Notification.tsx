@@ -89,6 +89,7 @@ export const Notification: React.FC<ComponentProps> = ({
 
   return (
     <StyledNotification
+      className="wellms-component"
       unread={unread}
       modularView={modularView}
       onClick={onClick}

@@ -10,7 +10,12 @@
     "eslint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "stylelint": "stylelint './src/**/*.tsx'",
     "lib": "tsc --noEmit false --outDir lib --module commonjs",
-    "prepare": "husky install"
+    "test": "axe http://localhost:6060/ --show-errors --exit",
+    "ci": "start-server-and-test dev http://localhost:6060/ test",
+    "prepare": "husky install",
+    "clear-dts": "find ./src -name '*.d.ts' -delete",
+    "test-a11y": "./node_modules/.bin/tsc --project tests/tsconfig.a11y.json && node tests/test.js",
+    "serve-docs": "./node_modules/.bin/serve docs"
   },
   "files": [
     "src/**/*",
@@ -22,6 +27,8 @@
     "react-dom": "17.0.2"
   },
   "devDependencies": {
+    "@axe-core/cli": "^4.4.3",
+    "@axe-core/react": "^4.4.3",
     "@escolalms/h5p-react": "^0.2.11",
     "@escolalms/sdk": "^0.4.0",
     "@stylelint/postcss-css-in-js": "stylelint/postcss-css-in-js",
@@ -33,6 +40,7 @@
     "@types/styled-components": "^5.1.25",
     "@typescript-eslint/eslint-plugin": "^5.22.0",
     "@typescript-eslint/parser": "^5.22.0",
+    "axe-playwright": "^1.1.11",
     "chroma-js": "^2.4.2",
     "css-loader": "^6.7.1",
     "date-fns": "^2.28.0",
@@ -44,6 +52,7 @@
     "i18next": "^21.6.16",
     "leva": "^0.9.24",
     "lodash.flow": "^3.5.0",
+    "playwright": "^1.25.2",
     "postcss": "^8.4.13",
     "postcss-scss": "^4.0.4",
     "postcss-styled": "^0.34.0",
@@ -67,6 +76,7 @@
     "remark-gfm": "^3.0.1",
     "screenfull": "6.0.1",
     "source-map-loader": "^3.0.1",
+    "start-server-and-test": "1.14.0",
     "style-loader": "^3.3.1",
     "styled-components": "^5.3.5",
     "stylelint": "^14.8.2",
@@ -77,6 +87,5 @@
     "typescript": "^4.6.4",
     "webpack": "^5.72.0"
   },
-  "homepage": "https://escolalms.github.io/components",
-  "dependencies": {}
+  "homepage": "https://escolalms.github.io/components"
 }

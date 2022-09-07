@@ -39,7 +39,7 @@ const StyledDiv = styled("div")<ImageBubbleProps>`
 export const ImageBubble: React.FC<ImageBubbleProps> = ({ ...props }) => {
   const { children, image, ratio = 1, header } = props;
   return (
-    <StyledDiv {...props}>
+    <StyledDiv className="wellms-component" {...props}>
       <RatioBox ratio={ratio}>
         {React.isValidElement(image) ? (
           <React.Fragment>{image}</React.Fragment>

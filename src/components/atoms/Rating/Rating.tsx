@@ -103,7 +103,7 @@ export const Rating: React.FC<RatingProps> = (props) => {
     <StyledRating
       size={props.size}
       ratingValue={ratingValue}
-      className="lms-rating"
+      className="wellms-component lms-rating"
     >
       <>
         {startToRender.map((index) => {

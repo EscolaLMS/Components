@@ -25,7 +25,7 @@ export const LabelListItem: React.FC<TitleProps> = (props) => {
   const theme = React.useContext(ThemeContext);
 
   return (
-    <StyledLabelListItem>
+    <StyledLabelListItem className="wellms-component">
       {variant === "header" ? (
         <React.Fragment>
           {title && (

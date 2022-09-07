@@ -89,7 +89,7 @@ const StepsOption: React.FC<StepsOptionProps> = (props) => {
   const { value, label, checked } = props;
 
   return (
-    <StyledStepsOption>
+    <StyledStepsOption className="wellms-component">
       <Radio
         value={value}
         checked={checked}
@@ -109,7 +109,11 @@ export const Steps: React.FC<StepsProps> = (props) => {
   )}%`;
 
   return (
-    <StyledSteps options={options} checked={checked}>
+    <StyledSteps
+      className="wellms-component"
+      options={options}
+      checked={checked}
+    >
       <div className={"progress-bar"} style={{ width: progressBarWidth }} />
       {options.map((option, index) => (
         <StepsOption

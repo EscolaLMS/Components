@@ -42,7 +42,7 @@ export const ImagePlayer: React.FC<ImagePlayerProps> = ({ topic, onLoad }) => {
   }, []);
 
   return (
-    <StyledImagePlayer>
+    <StyledImagePlayer className="wellms-component">
       <ResponsiveImage
         path={topic.topicable.value}
         srcSizes={[500, 750, 1000]}
