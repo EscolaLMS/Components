@@ -4,7 +4,7 @@ import { describeViolations } from "axe-playwright/src/utils";
 import { Result } from "axe-core";
 
 export default class DefaultTerminalReporter implements Reporter {
-  public markdown: string;
+  public markdown!: string;
 
   async report(violations: Result[]): Promise<void> {
     const violationData = violations.map(

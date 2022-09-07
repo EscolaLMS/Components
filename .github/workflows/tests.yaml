@@ -91,11 +91,11 @@ jobs:
       run: npm list
 
     - name: Npm install
-      run: npm i --legacy-peer-deps && npm i serve
+      run: npm i --legacy-peer-deps && npm i serve npm-run-all
     - run: npm run build
-    - run: npx serve docs
+   
     - name: Run Axe
-      run: npm run test-a11y
+      run: ./node_modules/.bin/npm-run-all --parallel serve-docs test-a11y
 
     - uses: marocchino/sticky-pull-request-comment@v2
       with:
