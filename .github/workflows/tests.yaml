@@ -97,6 +97,6 @@ jobs:
     - name: Run Axe
       run: npm run test-a11y
 
-      uses: marocchino/sticky-pull-request-comment@v2
+    - uses: marocchino/sticky-pull-request-comment@v2
       with:
         path: tests/violations.md
