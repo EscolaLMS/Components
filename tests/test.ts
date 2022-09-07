@@ -34,11 +34,11 @@ let page: Page;
       "tests/violations.md",
       `## AXE a11y errors violations
     
-    There were ${violations.length} accessibility violations were detected
+There were ${violations.length} accessibility violations were detected
 
-    ${reporter.markdown}
+${reporter.markdown}
     
-    `
+`
     );
   } else {
     fs.writeFileSync("tests/violations.md", "no AXE a11y errors");
