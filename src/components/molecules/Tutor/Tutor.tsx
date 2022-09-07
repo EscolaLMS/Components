@@ -61,7 +61,7 @@ export const Tutor: React.FC<TutorProps> = (props) => {
     props;
 
   return (
-    <StyledTutor className="lms-tutor" mobile={mobile}>
+    <StyledTutor className="wellms-component lms-tutor" mobile={mobile}>
       <Title as="h3" level={4} className="title">
         {title}
       </Title>

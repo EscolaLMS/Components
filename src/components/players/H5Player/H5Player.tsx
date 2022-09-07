@@ -336,7 +336,7 @@ export const H5Player: React.FC<H5PProps> = ({
   }, [themeContext]);
 
   return (
-    <StyledH5P>
+    <StyledH5P className="wellms-component">
       {((h5p && h5p.loading) || loading) && (
         <div className="h5p-loading">
           <Spin />

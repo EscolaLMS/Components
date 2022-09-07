@@ -147,7 +147,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
   );
 
   return (
-    <StyledDiv mobile={mobile}>
+    <StyledDiv className="wellms-component" mobile={mobile}>
       <Title level={3} style={{ maxWidth: "480px", textAlign: "center" }}>
         {t<string>("RegisterForm.Header")}
       </Title>

@@ -24,7 +24,7 @@ export const Description: React.FC<PropsWithChildren<DescriptionProps>> = (
   const theme = React.useContext(ThemeContext);
 
   return (
-    <StyledDescription>
+    <StyledDescription className="wellms-component">
       <Text
         style={{
           textTransform: "uppercase",

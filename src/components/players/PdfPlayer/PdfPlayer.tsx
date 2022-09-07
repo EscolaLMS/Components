@@ -45,7 +45,7 @@ export const PdfPlayer: React.FunctionComponent<PdfPlayerProps> = ({
   }
 
   return (
-    <StyledWrapper>
+    <StyledWrapper className="wellms-component">
       {isMounted && url && (
         <Document
           loading={t<string>("Loading")}

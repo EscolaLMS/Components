@@ -73,7 +73,11 @@ export const CategoryCard: React.FC<CategoryCardProps> = (props) => {
     mobile = false,
   } = props;
   return (
-    <StyledCategoryCard mobile={mobile} variant={variant}>
+    <StyledCategoryCard
+      className="wellms-component"
+      mobile={mobile}
+      variant={variant}
+    >
       <div className={"category-card-icon"}>{icon}</div>
       <Title as={"h4"} level={4} className={"category-card-title"}>
         {title}

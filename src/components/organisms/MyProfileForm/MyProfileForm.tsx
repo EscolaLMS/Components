@@ -146,7 +146,7 @@ export const MyProfileForm: React.FC<{
     <Container>
       <Row>
         <Col sm={12}>
-          <StyledFormHeader mobile={mobile}>
+          <StyledFormHeader className="wellms-component" mobile={mobile}>
             <Title level={3}>{t<string>("MyProfileForm.Heading")}</Title>
             <Text level={3}>{t<string>("MyProfileForm.Subtitle")}</Text>
           </StyledFormHeader>
@@ -154,7 +154,7 @@ export const MyProfileForm: React.FC<{
       </Row>
       <Row>
         <Col sm={mobile ? 12 : 2} className="upload-column">
-          <StyledFormHeader mobile={mobile}>
+          <StyledFormHeader className="wellms-component" mobile={mobile}>
             <Upload
               path={initialValues.path_avatar}
               url={initialValues.avatar}
@@ -164,7 +164,7 @@ export const MyProfileForm: React.FC<{
           </StyledFormHeader>
         </Col>
         <Col sm={mobile ? 12 : 8}>
-          <StyledDiv mobile={mobile}>
+          <StyledDiv className="wellms-component" mobile={mobile}>
             <Formik
               enableReinitialize
               initialValues={initialValues}

@@ -130,7 +130,7 @@ export const Notifications: React.FC<ComponentProps> = (props) => {
   }, []);
 
   return (
-    <StyledWrapper ref={ref}>
+    <StyledWrapper className="wellms-component" ref={ref}>
       <StyledIcon onClick={() => setActive(!active)}>
         <svg
           width="19"
@@ -145,9 +145,9 @@ export const Notifications: React.FC<ComponentProps> = (props) => {
       </StyledIcon>
 
       {active && (
-        <StyledNotifications>
+        <StyledNotifications className="wellms-component">
           <div>
-            <StyledNotificationsHeader>
+            <StyledNotificationsHeader className="wellms-component">
               <Title level={4} noMargin>
                 {t("Notifications.Notifications")}
               </Title>

@@ -122,7 +122,7 @@ export const Certificate: React.FC<CertificateProps> = (props) => {
   const { t } = useTranslation();
 
   return (
-    <StyledCertificate mobile={mobile}>
+    <StyledCertificate className="wellms-component" mobile={mobile}>
       <Title level={4} as={"h4"} style={{ marginBottom: "20px" }}>
         {t("Certificate.Title")}
       </Title>

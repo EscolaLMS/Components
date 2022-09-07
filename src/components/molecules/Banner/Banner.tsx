@@ -41,7 +41,11 @@ export const Banner: React.FC<BannerProps> = (props) => {
   } = props;
 
   return (
-    <StyledBanner mobile={mobile} background={background}>
+    <StyledBanner
+      className="wellms-component"
+      mobile={mobile}
+      background={background}
+    >
       <Row
         align={"center"}
         direction={reverse ? "row-reverse" : mobile ? "column-reverse" : "row"}

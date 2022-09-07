@@ -336,7 +336,11 @@ export const CourseCard: React.FC<CourseCardProps> = (props) => {
   };
 
   return (
-    <StyledCourseCard hideImage={hideImage} mobile={mobile}>
+    <StyledCourseCard
+      className="wellms-component"
+      hideImage={hideImage}
+      mobile={mobile}
+    >
       {!hideImage && (
         <div className="image-section">
           <div className="information-in-image">

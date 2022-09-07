@@ -34,7 +34,7 @@ let page: Page;
       "tests/violations.md",
       `## AXE a11y errors violations
     
-There were ${violations.length} accessibility violations were detected
+${violations.length} accessibility violations were detected
 
 ${reporter.markdown}
     

@@ -108,7 +108,11 @@ export const QuizCta: React.FC<QuizCtaCardProps> = (props) => {
   }, [theme.primaryColor]);
 
   return (
-    <StyledQuizCta mobile={mobile} lightContrast={cts}>
+    <StyledQuizCta
+      className="wellms-component"
+      mobile={mobile}
+      lightContrast={cts}
+    >
       <Row align={"center"}>
         <Col
           xs={12}

@@ -30,7 +30,7 @@ export const OEmbedPlayer: React.FC<OEmbedPlayerProps> = (props) => {
   const { ratio = 9 / 16 } = props;
 
   return (
-    <StyledOEmbedPlayer>
+    <StyledOEmbedPlayer className="wellms-component">
       <RatioBox ratio={ratio}>
         <Embed {...props} />
       </RatioBox>

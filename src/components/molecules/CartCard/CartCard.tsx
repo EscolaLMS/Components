@@ -192,7 +192,7 @@ export const CartCard: React.FC<CartCardProps> = (props) => {
   };
 
   return (
-    <StyledCardCard mobile={mobile}>
+    <StyledCardCard className="wellms-component" mobile={mobile}>
       {!mobile && <Text className="title">{title}</Text>}
       <div className={"cart-card-subtitle"}>{subtitle}</div>
       <div

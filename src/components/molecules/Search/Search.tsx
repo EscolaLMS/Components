@@ -178,7 +178,7 @@ export const Search: React.FC<SearchProps> = (props) => {
       .map((child) => {
         if (React.isValidElement(child)) {
           return React.cloneElement(child, {
-            // TODO fix this, but how ? 
+            // TODO fix this, but how ?
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             onClick: (e: Event) => {
@@ -196,7 +196,12 @@ export const Search: React.FC<SearchProps> = (props) => {
   };
 
   return (
-    <StyledSearch ref={ref} isFocused={isFocused} loading={loading}>
+    <StyledSearch
+      className="wellms-component"
+      ref={ref}
+      isFocused={isFocused}
+      loading={loading}
+    >
       <div className="search-input-wrapper">
         <Input
           placeholder={placeholder}

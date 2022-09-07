@@ -769,6 +769,7 @@ export const AudioVideoPlayer: React.FC<AudioVideoPlayerProps> = (props) => {
 
   return (
     <StyledAudioVideoPlayer
+      className="wellms-component"
       state={audioVideoState}
       ref={refWrapper}
       audio={audio}
