@@ -1,18 +1,9 @@
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
-import ReactDOM from "react-dom";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import styled, { ThemeProvider, ThemeContext } from "styled-components";
 import { GlobalThemeProvider } from "../theme/provider";
 import { default as chroma } from "chroma-js";
 import { useLocalTheme } from "./useLocalTheme";
 import themes from "../theme";
-import { guid } from "./../utils/utils";
-//import axe from "@axe-core/react";
 import axeCore from "axe-core";
 import Spin from "../components/atoms/Spin/Spin";
 import Badge from "../components/atoms/Badge/Badge";
@@ -93,7 +84,7 @@ const StyledDiv = styled.div<{
       display: flex;
       justify-content: flex-end;
       button {
-        -webkit-appearance: none;
+        appearance: none;
         padding: 4px;
         border: none;
         cursor: pointer;

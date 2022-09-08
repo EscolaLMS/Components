@@ -1,6 +1,5 @@
 import { markdownTable } from "./mdtable";
 import Reporter from "axe-playwright/src/types";
-import { describeViolations } from "axe-playwright/src/utils";
 import { Result } from "axe-core";
 
 export default class DefaultTerminalReporter implements Reporter {
