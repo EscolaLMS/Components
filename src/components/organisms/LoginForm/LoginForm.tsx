@@ -6,7 +6,7 @@ import type {
   DefaultResponseError,
   DefaultResponse,
 } from "@escolalms/sdk/lib/types/api";
-import type { ResponseError, RequestResponse } from "umi-request";
+import type { ResponseError } from "umi-request";
 
 import styled, { withTheme } from "styled-components";
 
