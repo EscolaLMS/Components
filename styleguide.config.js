@@ -87,6 +87,10 @@ module.exports = {
           name: "Translations",
           content: "doc/advanced/translations.md",
         },
+        {
+          name: "Accessibility ",
+          content: "doc/advanced/a11y.md",
+        },
       ],
     },
   ],
