@@ -1,5 +1,11 @@
 import { css } from "styled-components";
 
+export const guid = () =>
+  Math.random()
+    .toString(36)
+    .replace(/[^a-z]+/g, "")
+    .substr(2, 10);
+
 export const calcPercentage = (current: number, max: number): string => {
   if (max === 0) {
     return "0%";

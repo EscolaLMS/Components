@@ -43,10 +43,10 @@ export const Badge: React.FC<PropsWithChildren<BadgeProps>> = ({
 
   return (
     <StyledDiv
-      className="wellms-component"
       lightContrast={cts}
       color={color}
       {...props}
+      className="wellms-component"
     >
       {children}
     </StyledDiv>
