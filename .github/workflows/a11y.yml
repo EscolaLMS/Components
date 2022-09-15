@@ -41,7 +41,7 @@ jobs:
       run: npm i --legacy-peer-deps && npm i serve npm-run-all
     - run: npm run build
 
-    - run: npx playwright install-deps && apt install xsel 
+    - run: npx playwright install-deps && apt-get install xsel 
    
     - name: Run Axe
       run: ./node_modules/.bin/npm-run-all --parallel serve-docs test-a11y
