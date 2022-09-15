@@ -38,10 +38,10 @@ jobs:
       run: npm list
 
     - name: Npm install
-      run: npm i --legacy-peer-deps && npm i serve npm-run-all
+      run: npm i --legacy-peer-deps && npm i local-web-server npm-run-all
     - run: npm run build
 
-    - run: npx playwright install-deps && sudo apt-get install xsel -y
+#    - run: npx playwright install-deps && sudo apt-get install xsel -y
    
     - name: Run Axe
       run: ./node_modules/.bin/npm-run-all --parallel serve-docs test-a11y
