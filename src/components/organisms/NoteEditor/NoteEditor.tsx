@@ -184,6 +184,7 @@ export const NoteEditor: React.FC<NoteEditorProps> = ({ onSuccess }) => {
                       setSelectedColor(color.color);
                       setFieldValue("color", color.color);
                     }}
+                    aria-label={color.color}
                   >
                     <SingleColor
                       color={color.color}

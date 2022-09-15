@@ -126,6 +126,9 @@ export const CourseTopNav: React.FC<CourseTopNavProps> = (props) => {
         mode={isFinished ? "secondary" : mobile ? "secondary" : "outline"}
         onClick={() => onFinish && onFinish()}
         className={"nav-finish-btn"}
+        aria-label={
+          isFinished ? t("CourseTopNav.finished") : t("Course.markAsFinished")
+        }
       >
         {isFinished ? t("CourseTopNav.finished") : t("Course.markAsFinished")}
       </Button>
@@ -138,6 +141,7 @@ export const CourseTopNav: React.FC<CourseTopNavProps> = (props) => {
         mode={mobile ? "outline" : "icon"}
         className="note-btn"
         onClick={() => onNoteClick && onNoteClick()}
+        aria-label={t(`CourseTopNav.addNote${mobile ? "Mobile" : ""}`)}
       >
         {!mobile && <IconNote />}
         {t(`CourseTopNav.addNote${mobile ? "Mobile" : ""}`)}
@@ -155,6 +159,7 @@ export const CourseTopNav: React.FC<CourseTopNavProps> = (props) => {
           onClick={() => setIsClosed((prev) => !prev)}
           onKeyDown={() => setIsClosed((prev) => !prev)}
           className={isClosed ? "closed" : ""}
+          aria-label={t<string>(isClosed ? "Actions.Show" : "Actions.Hide")}
           mode={"icon"}
         >
           <svg
@@ -192,6 +197,7 @@ export const CourseTopNav: React.FC<CourseTopNavProps> = (props) => {
                 mode="icon"
                 onClick={() => onPrev && onPrev()}
                 disabled={!hasPrev}
+                aria-label={t<string>("Actions.ShowPrevious")}
               >
                 <svg
                   width="8"
@@ -217,6 +223,7 @@ export const CourseTopNav: React.FC<CourseTopNavProps> = (props) => {
                 mode="icon"
                 onClick={() => onNext && onNext()}
                 disabled={!hasNext}
+                aria-label={t<string>("Actions.ShowNext")}
               >
                 {!mobile && <>{t<string>("CourseTopNav.next")} </>}
                 <svg

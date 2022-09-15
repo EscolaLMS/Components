@@ -223,6 +223,7 @@ export const Search: React.FC<SearchProps> = (props) => {
           onClick={() => {
             onSubmit && onSubmit(value);
           }}
+          aria-label={t<string>("Search.Search")}
         >
           {loading ? <Spin color={"currentColor"} /> : icon || <IconSearch />}
         </button>

@@ -398,6 +398,7 @@ const CourseAgendaLesson: React.FC<CourseAgendaLessonProps> = (props) => {
       onClick={onClick}
       onKeyDown={(e) => e.key === "Enter" && onClick()}
       role="button"
+      aria-label={`${t<string>("Course.Lesson")} ${index + 1}`}
       tabIndex={0}
     >
       {!mobile && (
@@ -425,6 +426,7 @@ const CourseAgendaLesson: React.FC<CourseAgendaLessonProps> = (props) => {
               setOpen(!open);
             }}
             mode={"icon"}
+            aria-label={t<string>(open ? "Actions.Hide" : "Action.Show")}
           >
             <ChevronIcon />
           </Button>

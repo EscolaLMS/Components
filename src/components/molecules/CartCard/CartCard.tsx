@@ -263,7 +263,13 @@ export const CartCard: React.FC<CartCardProps> = (props) => {
             <Text size={"12"} noMargin>
               {t<string>("CartCard.addDiscountButton")}
             </Text>
-            <Button mode={"icon"} className="open-discount-state-container">
+            <Button
+              mode={"icon"}
+              className="open-discount-state-container"
+              aria-label={t<string>(
+                isDiscountOpen ? "Actions.Hide" : "Actions.Show"
+              )}
+            >
               {isDiscountOpen ? <ArrowOpenIcon /> : <ArrowClosedIcon />}{" "}
             </Button>
           </div>
