@@ -41,11 +41,11 @@ export const Title: React.FC<TitleProps> = (props) => {
 
   return (
     <StyledHeader
-      className="wellms-component"
       {...props}
       as={tagName}
       level={level}
       mobile={mobile}
+      className="wellms-component"
     >
       {children}
     </StyledHeader>

@@ -25,11 +25,17 @@ const allowedKeys: (keyof DefaultTheme & string)[] = [
   "gray2",
   "gray1",
   "black",
+  "inputDisabledBg",
   "buttonRadius",
   "checkboxRadius",
   "inputRadius",
   "noteRadius",
   "cardRadius",
+  "labelListValueColor",
+  "primaryButtonDisabled",
+  "outlineButtonColor",
+  "outlineButtonInvertColor",
+  "breadcrumbsColor",
 ];
 
 const filterInputData = (input: DefaultTheme) => {
@@ -110,6 +116,12 @@ export const ThemeCustomizer: React.FC<{
           gray2: initData.gray2 || "#000000",
           gray1: initData.gray1 || "#000000",
           black: initData.black || "#000000",
+          inputDisabledBg: initData.inputDisabledBg || "#000000",
+          labelListValueColor: initData.labelListValueColor || "#000000",
+          primaryButtonDisabled: initData.primaryButtonDisabled || "#000000",
+          outlineButtonColor: initData.outlineButtonColor || "#000000",
+          outlineButtonInvertColor: initData.outlineButtonColor || "#000000",
+          breadcrumbsColor: initData.breadcrumbsColor || "#000000",
         }),
         Radiuses: folder({
           buttonRadius: {

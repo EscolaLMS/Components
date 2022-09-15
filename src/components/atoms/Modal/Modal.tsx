@@ -231,9 +231,9 @@ export const Modal: React.FC<ModalProps> = (props) => {
     <React.Fragment>
       <div ref={wrapper}>
         <Dialog
-          className="wellms-component"
           {...props}
           closeIcon={<CloseBtn />}
+          className="wellms-component"
         >
           <StyledGlobal width={width} />
           {children}

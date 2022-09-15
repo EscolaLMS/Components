@@ -115,10 +115,10 @@ export const Card: React.FC<PropsWithChildren<CardProps>> = ({
 }) => {
   return (
     <StyledCard
-      className="wellms-component"
       wings={wings}
       style={style}
       inline={inline}
+      className="wellms-component"
     >
       <div className="content">{children}</div>
     </StyledCard>

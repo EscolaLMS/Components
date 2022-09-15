@@ -2,9 +2,10 @@ import { DefaultTheme } from "styled-components";
 import { blend } from "chroma-js";
 import { sharedTheme } from "./shared";
 
-export const blueTheme: DefaultTheme = {
+export const contrastTheme: DefaultTheme = {
   ...sharedTheme,
-  primaryColor: "#56CCF2",
+  primaryColor: "#157493",
+
   secondaryColor: blend("#56CCF2", "#BDBDBD", "multiply").hex(),
   font: "Mulish",
   headerColor: "#111111",
@@ -16,7 +17,15 @@ export const blueTheme: DefaultTheme = {
 
   textColorDark: "#FFF",
   textColorLight: "#000",
-  labelListValueColor: "#56CCF2",
+
+  errorColor: "#b30000",
+  gray2: "#2d2c2c",
+  inputDisabledBg: "#1f1f1f",
+  labelListValueColor: "#157493",
+  primaryButtonDisabled: "#ff0000",
+  outlineButtonColor: "#000000",
+  outlineButtonInvertColor: "#23298e",
+  breadcrumbsColor: "#000000",
 };
 
-export default blueTheme;
+export default contrastTheme;

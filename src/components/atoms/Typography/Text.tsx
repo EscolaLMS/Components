@@ -44,13 +44,13 @@ export const Text: React.FC<TextProps> = (props) => {
   } = props;
   return (
     <StyledP
-      className="wellms-component"
+      {...props}
       style={style}
       noMargin={noMargin}
       bold={bold}
       size={size}
       type={type}
-      {...props}
+      className="wellms-component"
     >
       {children}
     </StyledP>
