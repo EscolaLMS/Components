@@ -42,7 +42,7 @@ jobs:
     - run: npm run build
    
     - name: Run Axe
-      run: ./node_modules/.bin/npm-run-all --parallel serve-docs test-a11y
+      run: ./node_modules/.bin/npm-run-all --parallel serve-docs
 
     - uses: marocchino/sticky-pull-request-comment@v2
       if: ${{ always() }}
