@@ -68,7 +68,7 @@ export const Download: React.FC<ComponentProps> = (props) => {
     <StyledDiv {...props} className="wellms-component">
       <a className="download-btn" download href={href} target="_blank">
         <span className="name">{name}</span>
-        <span className="icon">
+        <span className="icon" role="button" aria-label={name as string}>
           <svg
             width="16"
             height="18"

@@ -238,6 +238,7 @@ export const CartCard: React.FC<CartCardProps> = (props) => {
                       onClick={removeDiscountClick}
                       onKeyUp={removeDiscountClick}
                       role="button"
+                      aria-label={t<string>("CartCard.remove")}
                       tabIndex={0}
                     >
                       <IconBin />
@@ -258,6 +259,7 @@ export const CartCard: React.FC<CartCardProps> = (props) => {
             onClick={() => setIsDiscountOpen(!isDiscountOpen)}
             onKeyUp={() => setIsDiscountOpen(!isDiscountOpen)}
             role="button"
+            aria-label={t<string>("CartCard.addDiscountButton")}
             tabIndex={0}
           >
             <Text size={"12"} noMargin>

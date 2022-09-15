@@ -265,7 +265,6 @@ export const CourseCard: React.FC<CourseCardProps> = (props) => {
         return {
           onClick: onImageClick,
           onKeyUp: onImageClick,
-          role: "button",
           tabIndex: 0,
         };
       }
