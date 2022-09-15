@@ -11,7 +11,7 @@ interface Styles {
 export interface IconTextProps
   extends React.HTMLAttributes<HTMLParagraphElement> {
   icon: ReactNode;
-  text: string;
+  text: string | JSX.Element;
   styles?: Styles;
   noMargin?: boolean;
 }
@@ -51,7 +51,12 @@ export const IconText: React.FC<IconTextProps> = (props) => {
 
   return (
     <StyledText className="wellms-component" {...props}>
-      <span className="icon" style={styles?.icon} role="button">
+      <span
+        className="icon"
+        style={styles?.icon}
+        role="button"
+        aria-label={typeof text === "string" ? text : text?.props?.children}
+      >
         {icon}
       </span>
       <span className="text" style={styles?.text}>
