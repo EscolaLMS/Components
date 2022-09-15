@@ -64,7 +64,10 @@ export const ThemeCustomizer: React.FC<{
     theme: {
       label: "Theme",
       value: hasAll
-        ? initData.theme || "all"
+        ? initData.theme ||
+          (Object.keys(themes).includes(window.location.hash.substr(1))
+            ? window.location.hash.substr(1)
+            : "all")
         : initData.theme || Object.keys(themes)[0],
       options: hasAll
         ? ["all", ...Object.keys(themes), "custom"]

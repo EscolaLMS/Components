@@ -18,7 +18,7 @@ let page: Page;
 (async () => {
   browser = await chromium.launch();
   page = await browser.newPage();
-  await page.goto(`http://0.0.0.0:3000`, {
+  await page.goto(`http://0.0.0.0:3000/#contrastTheme`, {
     timeout: 60000,
     waitUntil: "domcontentloaded",
   });
