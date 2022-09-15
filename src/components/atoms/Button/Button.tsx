@@ -33,6 +33,15 @@ const StyledButton = styled("button")<ButtonProps>`
     return props.theme?.primaryColor || "black";
   }};
   color: ${(props) => {
+    if (
+      props.mode === "outline" &&
+      props.theme?.outlineButtonInvertColor &&
+      props.theme?.outlineButtonColor
+    ) {
+      return props.invert
+        ? props.theme.outlineButtonInvertColor
+        : props.theme.outlineButtonColor;
+    }
     if (props.mode === "outline" && props.invert) {
       return props.theme.white;
     }
@@ -89,6 +98,15 @@ const StyledButton = styled("button")<ButtonProps>`
   border-style: solid;
   border-width: 2px;
   border-color: ${(props) => {
+    if (
+      props.mode === "outline" &&
+      props.theme?.outlineButtonInvertColor &&
+      props.theme?.outlineButtonColor
+    ) {
+      return props.invert
+        ? props.theme.outlineButtonInvertColor
+        : props.theme.outlineButtonColor;
+    }
     if (props.invert && props.mode === "outline") {
       return props.theme.white;
     }
@@ -228,6 +246,9 @@ const StyledButton = styled("button")<ButtonProps>`
     border-color: transparent;
     ${(props) => {
       if (props.theme) {
+        if (props.theme.primaryButtonDisabled) {
+          return `background: ${props.theme.primaryButtonDisabled}`;
+        }
         return `background: rgba(${chroma(props.theme.gray1)
           .rgb()
           .join(",")}, 0.2);`;
@@ -238,19 +259,18 @@ const StyledButton = styled("button")<ButtonProps>`
         return `color: ${props.theme.white};`;
       }
     }}
-    &,
-    &:hover,
-    &:focus,
-    &:active {
-      ${(props) => {
-        if (props.theme) {
-          return `background: rgba(${chroma(props.theme.gray1)
-            .rgb()
-            .join(",")}, 0.2);`;
-        }
-      }}
-      color: ${(props) => props.theme.white}
-    }
+  }
+  &:hover,
+  &:focus,
+  &:active {
+    ${(props) => {
+      if (props.theme) {
+        return `background: rgba(${chroma(props.theme.gray1)
+          .rgb()
+          .join(",")}, 0.2);`;
+      }
+    }}
+    color: ${(props) => props.theme.white}
   }
 `;
 
@@ -273,12 +293,12 @@ export const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
   }, [mode, theme]);
   return (
     <StyledButton
-      className="wellms-component"
       invert={invert}
       mode={mode}
       loading={loading}
       block={block}
       {...props}
+      className="wellms-component"
     >
       {loading && <Spin color={loadingColor} />}
       {children}

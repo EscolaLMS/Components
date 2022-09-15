@@ -37,6 +37,12 @@ declare module "styled-components" {
     radius?: number;
     font: "Inter" | "Mulish" | "Titillium";
     headerColor?: string;
+    inputDisabledBg?: string;
+    labelListValueColor?: string;
+    primaryButtonDisabled?: string;
+    outlineButtonColor?: string;
+    outlineButtonInvertColor?: string;
+    breadcrumbsColor?: string;
   }
 }
 
