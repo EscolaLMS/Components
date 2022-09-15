@@ -125,6 +125,9 @@ export const resources = {
       Upload: {
         button: "Choose a file",
       },
+      Navigation: {
+        ShowHideMenu: "Show/hide menu",
+      },
     },
   },
   fr: {
@@ -251,6 +254,9 @@ export const resources = {
       },
       Upload: {
         button: "Wybierz plik",
+      },
+      Navigation: {
+        ShowHideMenu: "Pokaż/ukryj menu",
       },
     },
   },

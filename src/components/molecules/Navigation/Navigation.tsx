@@ -7,6 +7,7 @@ import "rc-drawer/assets/index.css";
 import { Col, Row } from "react-grid-system";
 import { Text } from "../../../";
 import chroma from "chroma-js";
+import { t } from "i18next";
 
 const ArrowLeftIcon = () => {
   return (
@@ -329,7 +330,8 @@ export const Navigation: React.FC<NavigationProps> = (props) => {
               className="menu-button"
               onClick={() => setMobileMenuOpen(true)}
               onKeyUp={() => setMobileMenuOpen(true)}
-              role="menubar"
+              role="button"
+              aria-label={t<string>("Navigation.ShowHideMenu")}
               tabIndex={0}
             >
               <span className="menu-bar"></span>
