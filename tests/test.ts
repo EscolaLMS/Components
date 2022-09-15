@@ -18,7 +18,7 @@ let page: Page;
 (async () => {
   browser = await chromium.launch();
   page = await browser.newPage();
-  await page.goto(`http://127.0.0.1:3000`, { timeout: 60000 });
+  await page.goto(`http://0.0.0.0:3000`, { timeout: 60000 });
   await injectAxe(page);
 
   await checkA11y(page, undefined, undefined, true);
