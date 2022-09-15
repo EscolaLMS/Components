@@ -352,7 +352,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
                         fieldLabels[`AdditionalFields.${field.name}`] ||
                         t(`AdditionalFields.${field.name}`)
                       }
-                      id={field.name}
+                      id={field.name + Date.now()}
                       name={field.name}
                       onChange={handleChange}
                       onBlur={handleBlur}

@@ -337,7 +337,7 @@ export const MyProfileForm: React.FC<{
                             checked={!!values[field.name]}
                             key={`${field.id}${index}`}
                             label={t(`AdditionalFields.${field.name}`)}
-                            id={field.name}
+                            id={field.name + Date.now()}
                             name={field.name}
                             onChange={handleChange}
                             onBlur={handleBlur}
