@@ -14,6 +14,7 @@ export const velvetTheme: DefaultTheme = {
   cardBackgroundColorDark: sharedTheme.white,
   textColorDark: "#FFF",
   textColorLight: "#000",
+  labelListValueColor: "#600CAE",
 };
 
 export default velvetTheme;

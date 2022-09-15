@@ -45,7 +45,7 @@ export const RatioBox: React.FC<PropsWithChildren<RatioBoxProps>> = (props) => {
   const { children } = props;
 
   return (
-    <StyledDiv className="wellms-component" {...props}>
+    <StyledDiv {...props} className="wellms-component">
       {children}
     </StyledDiv>
   );

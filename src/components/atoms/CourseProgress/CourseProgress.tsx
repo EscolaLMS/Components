@@ -96,7 +96,7 @@ export const CourseProgress: React.FC<PropsWithChildren<TitleProps>> = (
   const { title, children, icon, progress } = props;
 
   return (
-    <StyledDiv className="wellms-component" {...props}>
+    <StyledDiv {...props} className="wellms-component">
       <div className="header">
         {icon}
         <span className="title">{title}</span>

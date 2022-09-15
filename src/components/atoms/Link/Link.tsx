@@ -62,7 +62,7 @@ export const Link: React.FC<PropsWithChildren<LinkProps>> = ({
   ...props
 }) => {
   return (
-    <StyledAnchor className="wellms-component" underline={underline} {...props}>
+    <StyledAnchor underline={underline} {...props} className="wellms-component">
       {props.children}
     </StyledAnchor>
   );

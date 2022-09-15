@@ -28,7 +28,6 @@ const StyledNav = styled("nav")`
 
   font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
   color: ${({ theme }) => (theme.mode !== "dark" ? theme.gray2 : theme.gray3)};
-
   font-size: 12px;
   line-height: 1em;
 

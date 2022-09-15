@@ -14,6 +14,7 @@ export const orangeTheme: DefaultTheme = {
   cardBackgroundColorDark: sharedTheme.gray5,
   textColorDark: "#FFF",
   textColorLight: "#000",
+  labelListValueColor: "#F47820",
 };
 
 export default orangeTheme;

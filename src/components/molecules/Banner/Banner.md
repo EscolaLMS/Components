@@ -52,6 +52,8 @@ const props = {
         }
       />
     </div>
+    {/*
+    // TODO this example should be update
     <div style={{ width: 375 }}>
       <Banner
         mobile
@@ -75,6 +77,7 @@ const props = {
         handleBtn={props.handleBtn}
       />
     </div>
+    */}
     <div style={{ width: 375 }}>
       <Banner
         mobile

@@ -45,7 +45,7 @@ const StyledInterval = styled.div<IntervalProps>`
 
 export const Interval: React.FC<IntervalProps> = (props) => {
   return (
-    <StyledInterval className="wellms-component" {...props}>
+    <StyledInterval {...props} className="wellms-component">
       <div></div>
     </StyledInterval>
   );
