@@ -51,7 +51,7 @@ export const IconText: React.FC<IconTextProps> = (props) => {
 
   return (
     <StyledText className="wellms-component" {...props}>
-      <span className="icon" style={styles?.icon}>
+      <span className="icon" style={styles?.icon} role="button">
         {icon}
       </span>
       <span className="text" style={styles?.text}>
