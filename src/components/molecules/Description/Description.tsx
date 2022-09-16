@@ -38,7 +38,10 @@ export const Description: React.FC<PropsWithChildren<DescriptionProps>> = (
         level={5}
         style={{
           marginBottom: 0,
-          color: theme.primaryColor,
+          color:
+            theme.mode === "dark" && theme.primaryColorDark
+              ? theme.primaryColorDark
+              : theme.primaryColor,
         }}
         as={"h5"}
       >

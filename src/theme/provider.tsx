@@ -23,6 +23,7 @@ export interface SharedDefaultTheme {
   gray1: string;
   black: string;
   errorColor: string;
+  errorColorDark?: string;
   invertColor: string;
 }
 
@@ -31,18 +32,22 @@ declare module "styled-components" {
     mode?: "light" | "dark";
     textColorLight: string;
     textColorDark: string;
-
     primaryColor: string;
+    primaryColorDark?: string;
     secondaryColor?: string;
     radius?: number;
     font: "Inter" | "Mulish" | "Titillium";
     headerColor?: string;
     inputDisabledBg?: string;
     labelListValueColor?: string;
+    labelListValueColorDark?: string;
     primaryButtonDisabled?: string;
     outlineButtonColor?: string;
     outlineButtonInvertColor?: string;
+    outlineButtonColorDark?: string;
+    outlineButtonInvertColorDark?: string;
     breadcrumbsColor?: string;
+    breadcrumbsColorDark?: string;
   }
 }
 

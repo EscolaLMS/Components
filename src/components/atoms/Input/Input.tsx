@@ -33,13 +33,19 @@ const StyledDiv = styled("div")<InputProps>`
       outline: none;
     }
     .error {
-      color: ${(props) => props.theme.errorColor};
+      color: ${({ theme }) =>
+        theme.mode === "dark" && theme.errorColorDark
+          ? theme.errorColorDark
+          : theme.errorColor};
       padding-left: 12px;
       font-size: 12px;
       line-height: 15px;
     }
     .required {
-      color: ${(props) => props.theme.errorColor};
+      color: ${({ theme }) =>
+        theme.mode === "dark" && theme.errorColorDark
+          ? theme.errorColorDark
+          : theme.errorColor};
     }
 
     .helper {
@@ -93,10 +99,12 @@ const StyledDiv = styled("div")<InputProps>`
         margin: 0px;
         padding: 0px 8px;
         border: ${(props) => {
-          const { mode, gray4, gray5 } = props.theme;
+          const { mode, gray4, gray5, errorColorDark, errorColor } =
+            props.theme;
           let borderColor = mode !== "dark" ? gray4 : gray5;
           if (props.error) {
-            borderColor = props.theme.errorColor;
+            borderColor =
+              mode === "dark" && errorColorDark ? errorColorDark : errorColor;
           }
           return `1px solid ${borderColor}`;
         }};
@@ -132,12 +140,13 @@ const StyledDiv = styled("div")<InputProps>`
         font-size: 12px;
         z-index: 1;
         transition: 0.2s all;
-        color: ${(props) => {
-          if (props.error) {
-            return props.theme.errorColor;
+        color: ${({ theme, error }) => {
+          if (error) {
+            return theme.mode === "dark" && theme.errorColorDark
+              ? theme.errorColorDark
+              : theme.errorColor;
           }
-        }};
-      }
+        }}
 
       &.filled,
       &:focus-within {

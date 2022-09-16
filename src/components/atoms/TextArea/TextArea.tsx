@@ -31,13 +31,19 @@ const StyledTextArea = styled("div")<TextAreaProps>`
     box-sizing: content-box;
   }
   .error {
-    color: ${(props) => props.theme.errorColor};
+    color: ${({ theme }) =>
+      theme.mode === "dark" && theme.errorColorDark
+        ? theme.errorColorDark
+        : theme.errorColor};
     padding-left: 12px;
     font-size: 12px;
     line-height: 15px;
   }
   .required {
-    color: ${(props) => props.theme.errorColor};
+    color: ${({ theme }) =>
+      theme.mode === "dark" && theme.errorColorDark
+        ? theme.errorColorDark
+        : theme.errorColor};
   }
   textarea {
     box-sizing: border-box;
@@ -62,10 +68,11 @@ const StyledTextArea = styled("div")<TextAreaProps>`
     color: ${(props) =>
       props.theme.mode !== "dark" ? props.theme.gray1 : props.theme.white};
     border: ${(props) => {
-      const { mode, gray4, gray5 } = props.theme;
+      const { mode, gray4, gray5, errorColor, errorColorDark } = props.theme;
       let borderColor = mode !== "dark" ? gray4 : gray5;
       if (props.error) {
-        borderColor = props.theme.errorColor;
+        borderColor =
+          mode === "dark" && errorColorDark ? errorColorDark : errorColor;
       }
       return `1px solid ${borderColor}`;
     }};
@@ -83,14 +90,13 @@ const StyledTextArea = styled("div")<TextAreaProps>`
     transform: translate(12px, 12px) scale(1);
     z-index: 1;
     transition: 0.2s all;
-    color: ${(props) => {
-      if (props.error) {
-        return props.theme.errorColor;
+    color: ${({ theme, error }) => {
+      if (error) {
+        return theme.mode === "dark" && theme.errorColorDark
+          ? theme.errorColorDark
+          : theme.errorColor;
       }
-
-      return props.theme.mode === "dark"
-        ? props.theme.white
-        : props.theme.gray1;
+      return theme.mode === "dark" ? theme.white : theme.gray1;
     }};
   }
   .textarea-container {
@@ -112,14 +118,16 @@ const StyledTextArea = styled("div")<TextAreaProps>`
         }}
       }
       textarea {
-        border-color: ${(props) => {
-          if (props.error) {
-            return props.theme.errorColor;
+        border-color: ${({ error, theme, disabled }) => {
+          if (error) {
+            return theme.mode === "dark" && theme.errorColorDark
+              ? theme.errorColorDark
+              : theme.errorColor;
           }
-          if (props.disabled) {
+          if (disabled) {
             return "transparent;";
           }
-          return props.theme.mode !== "dark" ? props.theme.gray3 : undefined;
+          return theme.mode !== "dark" ? theme.gray3 : undefined;
         }};
       }
     }

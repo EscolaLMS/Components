@@ -48,6 +48,10 @@ const StyledDiv = styled.div<{ mobile: boolean }>`
   }
   a {
     font-size: 14px;
+    color: ${({ theme }) =>
+      theme.mode === "dark" && theme.primaryColorDark
+        ? theme.primaryColorDark
+        : theme.primaryColor};
   }
   h2,
   h3,

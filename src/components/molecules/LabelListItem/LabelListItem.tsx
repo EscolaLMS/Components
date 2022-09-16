@@ -61,7 +61,10 @@ export const LabelListItem: React.FC<TitleProps> = (props) => {
             level={5}
             style={{
               marginBottom: "0",
-              color: theme?.labelListValueColor ?? theme.primaryColor,
+              color:
+                theme.mode === "dark" && theme.labelListValueColorDark
+                  ? theme.labelListValueColorDark
+                  : theme.labelListValueColor ?? theme.primaryColor,
             }}
             as={"h5"}
           >

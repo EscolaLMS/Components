@@ -145,17 +145,19 @@ const StyledCourseCard = styled("div")<StyledCourseCardProps>`
   .categories {
     font-size: 14px;
     line-height: 17px;
-    color: ${(props) =>
-      props.hideImage ? props.theme.gray2 : props.theme.gray3};
+    color: ${({ theme, hideImage }) => (hideImage ? theme.gray2 : theme.gray3)};
     margin-bottom: 15px;
     * {
       font-size: 14px;
       line-height: 17px;
-      color: ${(props) => {
-        if (props.theme?.breadcrumbsColor) {
-          return props.theme.breadcrumbsColor;
+      color: ${({ theme, hideImage }) => {
+        if (theme.mode === "dark" && theme.breadcrumbsColorDark) {
+          return theme.breadcrumbsColorDark;
         }
-        return props.hideImage ? props.theme.gray2 : props.theme.gray3;
+        if (theme.breadcrumbsColor) {
+          return theme.breadcrumbsColor;
+        }
+        return hideImage ? theme.gray2 : theme.gray3;
       }};
     }
   }

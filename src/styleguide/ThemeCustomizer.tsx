@@ -9,6 +9,7 @@ const allowedKeys: (keyof DefaultTheme & string)[] = [
   "theme",
   "mode",
   "primaryColor",
+  "primaryColorDark",
   "secondaryColor",
   "backgroundDark",
   "backgroundLight",
@@ -32,10 +33,14 @@ const allowedKeys: (keyof DefaultTheme & string)[] = [
   "noteRadius",
   "cardRadius",
   "labelListValueColor",
+  "labelListValueColorDark",
   "primaryButtonDisabled",
   "outlineButtonColor",
   "outlineButtonInvertColor",
+  "outlineButtonColorDark",
+  "outlineButtonInvertColorDark",
   "breadcrumbsColor",
+  "breadcrumbsColorDark",
 ];
 
 const filterInputData = (input: DefaultTheme) => {
@@ -96,6 +101,7 @@ export const ThemeCustomizer: React.FC<{
         },
         "Main Colors": folder({
           primaryColor: initData.primaryColor || "#000000",
+          primaryColorDark: initData.primaryColorDark || "#000000",
           secondaryColor: initData.secondaryColor || "#000000",
           backgroundDark: initData.backgroundDark || "#000000",
           backgroundLight: initData.backgroundLight || "#000000",
@@ -106,6 +112,7 @@ export const ThemeCustomizer: React.FC<{
           textColorDark: initData.textColorDark || "#000000",
           textColorLight: initData.textColorLight || "#000000",
           errorColor: initData.errorColor || "#EB5757",
+          errorColorDark: initData.errorColorDark || "#EB5757",
           invertColor: initData.invertColor || "#000000",
         }),
         "Body Colors": folder({
@@ -118,10 +125,16 @@ export const ThemeCustomizer: React.FC<{
           black: initData.black || "#000000",
           inputDisabledBg: initData.inputDisabledBg || "#000000",
           labelListValueColor: initData.labelListValueColor || "#000000",
+          labelListValueColorDark: initData.labelListValueColor || "#000000",
           primaryButtonDisabled: initData.primaryButtonDisabled || "#000000",
           outlineButtonColor: initData.outlineButtonColor || "#000000",
-          outlineButtonInvertColor: initData.outlineButtonColor || "#000000",
+          outlineButtonInvertColor:
+            initData.outlineButtonInvertColor || "#000000",
+          outlineButtonColorDark: initData.outlineButtonColorDark || "#000000",
+          outlineButtonInvertColorDark:
+            initData.outlineButtonInvertColorDark || "#000000",
           breadcrumbsColor: initData.breadcrumbsColor || "#000000",
+          breadcrumbsColorDark: initData.breadcrumbsColorDark || "#000000",
         }),
         Radiuses: folder({
           buttonRadius: {

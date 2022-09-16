@@ -9,7 +9,12 @@ export interface LinkProps extends React.ButtonHTMLAttributes<HTMLSpanElement> {
 
 // Main button with styles
 const StyledSpan = styled("span")<{ isButton: boolean }>`
-  color: ${(props) => props.theme.primaryColor || "black"};
+  color: ${({ theme }) => {
+    if (theme.mode === "dark" && theme.primaryColorDark) {
+      return theme.primaryColorDark;
+    }
+    return theme.primaryColor || "black";
+  }};
   font-family: ${(props) =>
     props.theme ? getFontFromTheme(props.theme).fontFamily : "sans-serif"};
   font-weight: 700;

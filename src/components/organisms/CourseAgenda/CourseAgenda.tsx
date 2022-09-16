@@ -171,7 +171,10 @@ const StyledSection = styled("section")`
           margin-bottom: 2px;
           margin-top: 3px;
           text-transform: uppercase;
-          color: ${({ theme }) => theme.primaryColor};
+          color: ${({ theme }) =>
+            theme.mode === "dark" && theme.primaryColorDark
+              ? theme.primaryColorDark
+              : theme.primaryColor};
         }
       }
 
