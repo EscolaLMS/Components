@@ -1,5 +1,6 @@
 import * as React from "react";
 import styled, { withTheme } from "styled-components";
+import { getStylesBasedOnTheme } from "../../../utils/utils";
 import { getFontFromTheme } from "../../../theme/provider";
 import { HeaderLevelInt, HeaderLevelStr } from "../../../types/titleTypes";
 import { setFontSizeByHeaderLevel } from "../../../utils/components/primitives/titleUtils";
@@ -27,11 +28,8 @@ const StyledHeader = styled.h1<StyledHeader>`
   line-height: 125%;
   &,
   & > * {
-    color: ${(props) => {
-      return props.theme.mode !== "light"
-        ? props.theme.white
-        : props.theme.gray1;
-    }};
+    color: ${({ theme }) =>
+      getStylesBasedOnTheme(theme.mode, theme.white, theme.gray1)};
   }
 `;
 

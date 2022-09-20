@@ -1,4 +1,4 @@
-import { css } from "styled-components";
+import { css, DefaultTheme } from "styled-components";
 
 export const guid = () =>
   Math.random()
@@ -446,3 +446,67 @@ export const SharedLightboxStyle = css`
     transform: translateX(-50%) translateY(-50%);
   }
 `;
+
+type StylesBasedOnThemeArgs =
+  | [
+      mode: DefaultTheme["mode"],
+      valueIfDarkTheme: undefined,
+      valueIfLightTheme: undefined,
+      fallbackColor: string
+    ]
+  | [
+      mode: DefaultTheme["mode"],
+      valueIfDarkTheme: string,
+      valueIfLightTheme: string,
+      fallbackColor?: string
+    ]
+  | [
+      mode: DefaultTheme["mode"],
+      valueIfDarkTheme: string,
+      valueIfLightTheme: undefined,
+      fallbackColor: string
+    ]
+  | [
+      mode: DefaultTheme["mode"],
+      valueIfDarkTheme: undefined,
+      valueIfLightTheme: string,
+      fallbackColor: string
+    ];
+
+export function getStylesBasedOnTheme(...args: StylesBasedOnThemeArgs) {
+  const [mode = "light", valueIfDarkTheme, valueIfLightTheme, fallbackColor] =
+    args;
+
+  const isDarkMode = mode === "dark";
+  let returnValue = "";
+
+  // if (typeof fallbackColor === "undefined") {
+  //   if (valueIfDarkTheme && valueIfLightTheme) {
+  //     returnValue = mode === "dark" ? valueIfDarkTheme : valueIfLightTheme;
+  //   }
+  // } else if (valueIfDarkTheme) {
+  //   returnValue = mode === "dark" ? valueIfDarkTheme : fallbackColor;
+  // } else if (valueIfLightTheme) {
+  //   returnValue = mode === "light" ? valueIfLightTheme : fallbackColor;
+  // } else {
+  //   returnValue = fallbackColor;
+  // }
+
+  if (typeof fallbackColor === "undefined") {
+    if (valueIfDarkTheme && isDarkMode) {
+      returnValue = valueIfDarkTheme;
+    } else if (valueIfLightTheme && !isDarkMode) {
+      returnValue = valueIfLightTheme;
+    }
+  } else if (valueIfDarkTheme) {
+    returnValue = isDarkMode
+      ? valueIfDarkTheme
+      : valueIfLightTheme ?? fallbackColor;
+  } else if (valueIfLightTheme) {
+    returnValue = mode === "light" ? valueIfLightTheme : fallbackColor;
+  } else {
+    returnValue = fallbackColor;
+  }
+
+  return returnValue;
+}

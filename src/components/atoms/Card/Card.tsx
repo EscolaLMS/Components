@@ -2,6 +2,7 @@ import * as React from "react";
 import { PropsWithChildren } from "react";
 
 import styled from "styled-components";
+import { getStylesBasedOnTheme } from "../../../utils/utils";
 
 export interface CardProps {
   // size of wings for a card
@@ -39,19 +40,23 @@ const StyledCard = styled.div<CardProps>`
     }};
     z-index: 1;
     border-radius: ${(props) => props.theme.cardRadius}px;
-    background: ${(props) =>
-      props.theme.mode !== "dark"
-        ? props.theme.cardBackgroundColorDark
-        : props.theme.cardBackgroundColorLight};
-    color: ${(props) =>
-      props.theme.mode !== "dark" ? props.theme.gray1 : props.theme.white};
+    background: ${({ theme }) =>
+      getStylesBasedOnTheme(
+        theme.mode,
+        theme.dm__cardBackgroundColor,
+        theme.cardBackgroundColor
+      )};
+    color: ${({ theme }) =>
+      getStylesBasedOnTheme(theme.mode, theme.white, theme.gray1)};
     &:before,
     &:after {
-      background: ${(props) => {
-        if (props.wings) {
-          return props.theme.mode !== "dark"
-            ? props.theme.cardBackgroundColorDark
-            : props.theme.cardBackgroundColorLight;
+      background: ${({ wings, theme }) => {
+        if (wings) {
+          return getStylesBasedOnTheme(
+            theme.mode,
+            theme.dm__cardBackgroundColor,
+            theme.cardBackgroundColor
+          );
         }
         return "transparent";
       }};

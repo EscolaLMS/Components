@@ -1,24 +1,48 @@
 import React, { useEffect, useMemo } from "react";
 import { DefaultTheme } from "styled-components";
+// TODO UNDO
 import themes from "../theme";
 import { useControls, folder, Leva } from "leva";
 import { useLocalTheme } from "./useLocalTheme";
+
+// TODO Remove
+// const themes = { blueTheme: _themes.blueTheme };
 
 const allowedKeys: (keyof DefaultTheme & string)[] = [
   "font",
   "theme",
   "mode",
   "primaryColor",
-  "primaryColorDark",
+  "dm__primaryColor",
   "secondaryColor",
-  "backgroundDark",
-  "backgroundLight",
-  "cardBackgroundColorLight",
-  "cardBackgroundColorDark",
-  "textColorDark",
-  "textColorLight",
+  "dm__secondaryColor",
+  "background",
+  "dm__background",
+  "cardBackgroundColor",
+  "dm__cardBackgroundColor",
+  "textColor",
+  "dm__textColor",
   "errorColor",
+  "dm__errorColor",
   "invertColor",
+  "inputDisabledBg",
+  "dm__inputDisabledBg",
+  "labelListValueColor",
+  "dm__labelListValueColor",
+  "outlineButtonColor",
+  "dm__outlineButtonInvertColor",
+  "breadcrumbsColor",
+  "dm__breadcrumbsColor",
+  "primaryButtonDisabled",
+  "dm__primaryButtonDisabled",
+  "outlineButtonColor",
+  "dm__outlineButtonColor",
+  "outlineButtonInvertColor",
+  "buttonRadius",
+  "checkboxRadius",
+  "inputRadius",
+  "noteRadius",
+  "cardRadius",
   "white",
   "gray5",
   "gray4",
@@ -26,21 +50,6 @@ const allowedKeys: (keyof DefaultTheme & string)[] = [
   "gray2",
   "gray1",
   "black",
-  "inputDisabledBg",
-  "buttonRadius",
-  "checkboxRadius",
-  "inputRadius",
-  "noteRadius",
-  "cardRadius",
-  "labelListValueColor",
-  "labelListValueColorDark",
-  "primaryButtonDisabled",
-  "outlineButtonColor",
-  "outlineButtonInvertColor",
-  "outlineButtonColorDark",
-  "outlineButtonInvertColorDark",
-  "breadcrumbsColor",
-  "breadcrumbsColorDark",
 ];
 
 const filterInputData = (input: DefaultTheme) => {
@@ -101,21 +110,40 @@ export const ThemeCustomizer: React.FC<{
         },
         "Main Colors": folder({
           primaryColor: initData.primaryColor || "#000000",
-          primaryColorDark: initData.primaryColorDark || "#000000",
+          dm__primaryColor: initData.dm__primaryColor || "#000000",
           secondaryColor: initData.secondaryColor || "#000000",
-          backgroundDark: initData.backgroundDark || "#000000",
-          backgroundLight: initData.backgroundLight || "#000000",
-          cardBackgroundColorLight:
-            initData.cardBackgroundColorLight || "#000000",
-          cardBackgroundColorDark:
-            initData.cardBackgroundColorDark || "#000000",
-          textColorDark: initData.textColorDark || "#000000",
-          textColorLight: initData.textColorLight || "#000000",
+          dm__secondaryColor: initData.dm__secondaryColor || "#000000",
+          background: initData.background || "#000000",
+          dm__background: initData.dm__background || "#000000",
+          cardBackgroundColor: initData.cardBackgroundColor || "#000000",
+          dm__cardBackgroundColor:
+            initData.dm__cardBackgroundColor || "#000000",
+          textColor: initData.textColor || "#000000",
+          dm__textColor: initData.dm__textColor || "#000000",
           errorColor: initData.errorColor || "#EB5757",
-          errorColorDark: initData.errorColorDark || "#EB5757",
+          dm__errorColor: initData.dm__errorColor || "#EB5757",
           invertColor: initData.invertColor || "#000000",
         }),
         "Body Colors": folder({
+          inputDisabledBg: initData.inputDisabledBg || "#000000",
+          dm__inputDisabledBg: initData.dm__inputDisabledBg || "#000000",
+          labelListValueColor: initData.labelListValueColor || "#000000",
+          dm__labelListValueColor:
+            initData.dm__labelListValueColor || "#000000",
+          primaryButtonDisabled: initData.primaryButtonDisabled || "#000000",
+          dm__primaryButtonDisabled:
+            initData.dm__primaryButtonDisabled || "#000000",
+          outlineButtonColor: initData.outlineButtonColor || "#000000",
+          dm__outlineButtonColor: initData.dm__outlineButtonColor || "#000000",
+          outlineButtonInvertColor:
+            initData.outlineButtonInvertColor || "#000000",
+          dm__outlineButtonInvertColor:
+            initData.dm__outlineButtonInvertColor || "#000000",
+          // breadcrumbsColor: initData.breadcrumbsColor || "#000000",
+          breadcrumbsColor: initData.breadcrumbsColor || "#bbbbbb",
+          dm__breadcrumbsColor: initData.dm__breadcrumbsColor || "#000000",
+        }),
+        "Utility Colors": folder({
           white: initData.white || "#000000",
           gray5: initData.gray5 || "#000000",
           gray4: initData.gray4 || "#000000",
@@ -123,18 +151,6 @@ export const ThemeCustomizer: React.FC<{
           gray2: initData.gray2 || "#000000",
           gray1: initData.gray1 || "#000000",
           black: initData.black || "#000000",
-          inputDisabledBg: initData.inputDisabledBg || "#000000",
-          labelListValueColor: initData.labelListValueColor || "#000000",
-          labelListValueColorDark: initData.labelListValueColor || "#000000",
-          primaryButtonDisabled: initData.primaryButtonDisabled || "#000000",
-          outlineButtonColor: initData.outlineButtonColor || "#000000",
-          outlineButtonInvertColor:
-            initData.outlineButtonInvertColor || "#000000",
-          outlineButtonColorDark: initData.outlineButtonColorDark || "#000000",
-          outlineButtonInvertColorDark:
-            initData.outlineButtonInvertColorDark || "#000000",
-          breadcrumbsColor: initData.breadcrumbsColor || "#000000",
-          breadcrumbsColorDark: initData.breadcrumbsColorDark || "#000000",
         }),
         Radiuses: folder({
           buttonRadius: {

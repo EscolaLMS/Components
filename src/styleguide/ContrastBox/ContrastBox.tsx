@@ -5,6 +5,7 @@ import styled, { withTheme, ThemeContext } from "styled-components";
 import { contrast } from "chroma-js";
 
 import { getFontFromTheme } from "../../theme/provider";
+import { getStylesBasedOnTheme } from "../../utils/utils";
 
 export interface TitleProps extends React.HTMLAttributes<HTMLHeadingElement> {
   children?: React.ReactNode;
@@ -16,7 +17,13 @@ const StyledDiv = styled.div<TitleProps>`
   padding: 50px;
   color: ${(props) => (props.lightContrast ? "#fff" : "#000")};
   font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
-  background: ${(props) => props.theme.primaryColor};
+  background: ${({ theme }) =>
+    getStylesBasedOnTheme(
+      theme.mode,
+      theme.dm__primaryColor,
+      theme.primaryColor,
+      theme.primaryColor
+    )};
   text-transform: uppercase;
 `;
 

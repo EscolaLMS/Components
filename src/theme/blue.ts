@@ -1,5 +1,5 @@
 import { DefaultTheme } from "styled-components";
-import { blend } from "chroma-js";
+import chroma, { blend } from "chroma-js";
 import { sharedTheme } from "./shared";
 
 export const blueTheme: DefaultTheme = {
@@ -8,15 +8,26 @@ export const blueTheme: DefaultTheme = {
   secondaryColor: blend("#56CCF2", "#BDBDBD", "multiply").hex(),
   font: "Mulish",
   headerColor: "#111111",
-  backgroundDark: "#232225",
-  backgroundLight: "#F2F2F2",
+  dm__background: "#232225",
+  background: "#F2F2F2",
 
-  cardBackgroundColorLight: sharedTheme.gray1,
-  cardBackgroundColorDark: sharedTheme.gray5,
+  cardBackgroundColor: sharedTheme.gray5,
+  dm__cardBackgroundColor: sharedTheme.gray1,
 
-  textColorDark: "#FFF",
-  textColorLight: "#000",
+  primaryButtonDisabled: `rgba(${chroma(sharedTheme.gray1)
+    .rgb()
+    .join(",")}, 0.2)`,
+  dm__primaryButtonDisabled: `rgba(${chroma(sharedTheme.gray1)
+    .rgb()
+    .join(",")}, 0.2)`,
+
+  dm__textColor: "#FFF",
+  textColor: "#000",
   labelListValueColor: "#56CCF2",
+
+  // breadcrumbsColor: "green",
+
+  outlineButtonInvertColor: sharedTheme.white,
 };
 
 export default blueTheme;

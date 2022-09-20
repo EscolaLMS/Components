@@ -2,6 +2,7 @@ import { mix } from "chroma-js";
 import * as React from "react";
 import { useCallback, useMemo } from "react";
 import styled from "styled-components";
+import { getStylesBasedOnTheme } from "../../../utils/utils";
 import { getFontFromTheme } from "../../../theme/provider";
 
 const notTextAreaProps = {
@@ -32,18 +33,22 @@ const StyledTextArea = styled("div")<TextAreaProps>`
   }
   .error {
     color: ${({ theme }) =>
-      theme.mode === "dark" && theme.errorColorDark
-        ? theme.errorColorDark
-        : theme.errorColor};
+      getStylesBasedOnTheme(
+        theme.mode,
+        theme.dm__cardBackgroundColor,
+        theme.errorColor
+      )};
     padding-left: 12px;
     font-size: 12px;
     line-height: 15px;
   }
   .required {
     color: ${({ theme }) =>
-      theme.mode === "dark" && theme.errorColorDark
-        ? theme.errorColorDark
-        : theme.errorColor};
+      getStylesBasedOnTheme(
+        theme.mode,
+        theme.dm__cardBackgroundColor,
+        theme.errorColor
+      )};
   }
   textarea {
     box-sizing: border-box;
@@ -56,23 +61,33 @@ const StyledTextArea = styled("div")<TextAreaProps>`
     caret-color: #e60037;
     border-radius: ${(props) => props.theme.inputRadius}px;
     background: ${(props) => {
-      const { mode, gray1, gray5 } = props.theme;
+      const { mode, gray1, gray5, inputDisabledBg, dm__inputDisabledBg } =
+        props.theme;
       if (props.disabled) {
         if (props.theme?.inputDisabledBg) {
-          return props.theme.inputDisabledBg;
+          return getStylesBasedOnTheme(
+            mode,
+            inputDisabledBg,
+            dm__inputDisabledBg,
+            gray1
+          );
         }
         return mix(gray1, "#fff").hex();
       }
-      return mode !== "dark" ? gray5 : gray1;
+      return getStylesBasedOnTheme(mode, gray1, gray5);
     }};
-    color: ${(props) =>
-      props.theme.mode !== "dark" ? props.theme.gray1 : props.theme.white};
+    color: ${({ theme }) =>
+      getStylesBasedOnTheme(theme.mode, theme.white, theme.gray1)};
     border: ${(props) => {
-      const { mode, gray4, gray5, errorColor, errorColorDark } = props.theme;
-      let borderColor = mode !== "dark" ? gray4 : gray5;
+      const { mode, gray4, gray5, errorColor, dm__cardBackgroundColor } =
+        props.theme;
+      let borderColor = getStylesBasedOnTheme(mode, gray5, gray4);
       if (props.error) {
-        borderColor =
-          mode === "dark" && errorColorDark ? errorColorDark : errorColor;
+        borderColor = getStylesBasedOnTheme(
+          mode,
+          dm__cardBackgroundColor,
+          errorColor
+        );
       }
       return `1px solid ${borderColor}`;
     }};
@@ -92,11 +107,13 @@ const StyledTextArea = styled("div")<TextAreaProps>`
     transition: 0.2s all;
     color: ${({ theme, error }) => {
       if (error) {
-        return theme.mode === "dark" && theme.errorColorDark
-          ? theme.errorColorDark
-          : theme.errorColor;
+        return getStylesBasedOnTheme(
+          theme.mode,
+          theme.dm__cardBackgroundColor,
+          theme.errorColor
+        );
       }
-      return theme.mode === "dark" ? theme.white : theme.gray1;
+      return getStylesBasedOnTheme(theme.mode, theme.white, theme.gray1);
     }};
   }
   .textarea-container {
@@ -108,9 +125,12 @@ const StyledTextArea = styled("div")<TextAreaProps>`
     &:focus-within {
       label {
         transform: translate(12px, -7px) scale(0.75);
-        ${(props) => {
-          const backgroundLabel =
-            props.theme.mode === "dark" ? props.theme.black : props.theme.white;
+        ${({ theme }) => {
+          const backgroundLabel = getStylesBasedOnTheme(
+            theme.mode,
+            theme.black,
+            theme.white
+          );
           return `
             background: ${backgroundLabel};
             box-shadow: -5px 0px 0px 0px ${backgroundLabel}, 5px 0px 0px 0px ${backgroundLabel};
@@ -120,14 +140,16 @@ const StyledTextArea = styled("div")<TextAreaProps>`
       textarea {
         border-color: ${({ error, theme, disabled }) => {
           if (error) {
-            return theme.mode === "dark" && theme.errorColorDark
-              ? theme.errorColorDark
-              : theme.errorColor;
+            return getStylesBasedOnTheme(
+              theme.mode,
+              theme.dm__cardBackgroundColor,
+              theme.errorColor
+            );
           }
           if (disabled) {
             return "transparent;";
           }
-          return theme.mode !== "dark" ? theme.gray3 : undefined;
+          return getStylesBasedOnTheme(theme.mode, undefined, theme.gray3, "");
         }};
       }
     }

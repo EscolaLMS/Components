@@ -5,6 +5,7 @@ import styled, { withTheme, ThemeContext } from "styled-components";
 import { Title } from "../../atoms/Typography/Title";
 import { Text } from "../../atoms/Typography/Text";
 import { IconTitle } from "../../atoms/IconTitle/IconTitle";
+import { getStylesBasedOnTheme } from "../../../utils/utils";
 
 export interface TitleProps extends React.HTMLProps<HTMLDivElement> {
   variant?: "header" | "label";
@@ -61,10 +62,12 @@ export const LabelListItem: React.FC<TitleProps> = (props) => {
             level={5}
             style={{
               marginBottom: "0",
-              color:
-                theme.mode === "dark" && theme.labelListValueColorDark
-                  ? theme.labelListValueColorDark
-                  : theme.labelListValueColor ?? theme.primaryColor,
+              color: getStylesBasedOnTheme(
+                theme.mode,
+                theme.dm__labelListValueColor,
+                theme.labelListValueColor,
+                theme.primaryColor
+              ),
             }}
             as={"h5"}
           >

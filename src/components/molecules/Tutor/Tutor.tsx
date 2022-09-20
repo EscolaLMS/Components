@@ -5,6 +5,7 @@ import { Avatar, AvatarProps } from "../../atoms/Avatar/Avatar";
 import { RatingProps, Rating } from "../../atoms/Rating/Rating";
 import { ReactNode } from "react";
 import { Text } from "../../atoms/Typography/Text";
+import { getStylesBasedOnTheme } from "../../../utils/utils";
 
 interface StyledTourProps {
   mobile?: boolean;
@@ -42,8 +43,13 @@ const StyledTutor = styled.div<StyledTourProps>`
       margin: 10px 0;
     }
     .course-info {
-      color: ${(props) =>
-        props.theme.mode !== "dark" ? props.theme.primaryColor : "red"};
+      color: ${({ theme }) =>
+        getStylesBasedOnTheme(
+          theme.mode,
+          theme.dm__primaryColor,
+          theme.primaryColor,
+          "red"
+        )};
       margin: ${(props) => (props.mobile ? "0" : "0 0 0 25px")};
       font-weight: 700;
     }

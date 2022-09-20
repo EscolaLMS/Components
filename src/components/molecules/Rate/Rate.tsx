@@ -2,6 +2,7 @@ import * as React from "react";
 import { useState, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
+import { getStylesBasedOnTheme } from "../../../utils/utils";
 import { Button } from "../../atoms/Button/Button";
 import { Rating } from "../../atoms/Rating/Rating";
 import { Text } from "../../atoms/Typography/Text";
@@ -16,10 +17,10 @@ interface Props {
 const StyledRate = styled.div`
   text-align: center;
   .title {
-    ${(props) => {
-      if (props.theme.mode !== "dark") {
+    ${({ theme }) => {
+      if (theme.mode !== "dark") {
         return `
-        color: ${props.theme.primaryColor};
+        color: ${theme.primaryColor};
       `;
       }
     }}

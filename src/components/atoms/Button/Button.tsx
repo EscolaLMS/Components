@@ -6,6 +6,7 @@ import { default as chroma } from "chroma-js";
 import { PropsWithChildren } from "react";
 
 import Spin from "../Spin/Spin";
+import { getStylesBasedOnTheme } from "../../../utils/utils";
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -32,37 +33,30 @@ const StyledButton = styled("button")<ButtonProps>`
     }
     return props.theme?.primaryColor || "black";
   }};
-  color: ${({ mode, theme, invert }) => {
-    if (mode === "outline" && theme?.outlineButtonColor) {
-      if (theme.mode === "light") {
-        return invert && theme?.outlineButtonInvertColor
-          ? theme.outlineButtonInvertColor
-          : theme.outlineButtonColor;
-      }
+  color: ${(props) => {
+    if (props.mode === "outline" && props.invert) {
+      return props.theme.white;
     }
-    if (mode === "outline" && theme?.outlineButtonColorDark) {
-      if (theme.mode === "dark") {
-        return invert && theme?.outlineButtonInvertColorDark
-          ? theme.outlineButtonInvertColorDark
-          : theme.outlineButtonColorDark;
-      }
+    if (props.invert) {
+      return props.theme.gray1;
     }
-    if (mode === "outline" && invert) {
-      return theme.white;
+    if (props.mode === "outline" && props.theme.mode === "light") {
+      return props.theme.gray1;
     }
-    if (invert) {
-      return theme.gray1;
+    if (props.mode === "white") {
+      return props.theme.gray1;
     }
-    if (mode === "outline" && theme.mode === "light") {
-      return theme.gray1;
+    if (props.mode === "icon") {
+      return getStylesBasedOnTheme(
+        props.theme.mode,
+        props.theme.white,
+        props.theme.gray1
+      );
+      // return props.theme.mode === "light"
+      //   ? props.theme.gray1
+      //   : props.theme.white;
     }
-    if (mode === "white") {
-      return theme.gray1;
-    }
-    if (mode === "icon") {
-      return theme.mode === "light" ? theme.gray1 : theme.white;
-    }
-    return theme.white;
+    return props.theme.white;
   }};
   font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
   font-weight: bold;
@@ -101,24 +95,6 @@ const StyledButton = styled("button")<ButtonProps>`
   border-style: solid;
   border-width: 2px;
   border-color: ${(props) => {
-    if (props.mode === "outline" && props.theme.outlineButtonColor) {
-      if (props.theme.mode === "light") {
-        return props.invert && props.theme.outlineButtonInvertColor
-          ? props.theme.outlineButtonInvertColor
-          : props.theme.outlineButtonColor;
-      }
-    }
-    if (props.mode === "outline" && props.theme.outlineButtonColorDark) {
-      if (props.theme.mode === "dark") {
-        // if (props.invert && props.theme.outlineButtonInvertColorDark) {
-        //   return props.theme.outlineButtonInvertColorDark;
-        // }
-        return props.invert && props.theme.outlineButtonInvertColorDark
-          ? props.theme.outlineButtonInvertColorDark
-          : props.theme.outlineButtonColorDark;
-      }
-    }
-    return props.mode;
     if (props.invert && props.mode === "outline") {
       return props.theme.white;
     }
@@ -126,9 +102,14 @@ const StyledButton = styled("button")<ButtonProps>`
       return props.theme.invertColor;
     }
     if (props.mode === "outline") {
-      return props.theme.mode === "light"
-        ? props.theme.gray1
-        : props.theme.white;
+      return getStylesBasedOnTheme(
+        props.theme.mode,
+        props.theme.white,
+        props.theme.gray1
+      );
+      // return props.theme.mode === "light"
+      //   ? props.theme.gray1
+      //   : props.theme.white;
     }
     if (props.mode === "white") {
       return props.theme.white;
@@ -234,14 +215,24 @@ const StyledButton = styled("button")<ButtonProps>`
           if (props.mode === "outline") {
             return `
               background: ${
-                props.theme.mode !== "dark"
-                  ? props.theme.black
-                  : props.theme.white
+                getStylesBasedOnTheme(
+                  props.theme.mode,
+                  props.theme.white,
+                  props.theme.black
+                )
+                // props.theme.mode !== "dark"
+                //   ? props.theme.black
+                //   : props.theme.white
               };
               color: ${
-                props.theme.mode !== "dark"
-                  ? props.theme.white
-                  : props.theme.black
+                getStylesBasedOnTheme(
+                  props.theme.mode,
+                  props.theme.black,
+                  props.theme.white
+                )
+                // props.theme.mode !== "dark"
+                //   ? props.theme.white
+                //   : props.theme.black
               };
             `;
           }
@@ -258,9 +249,6 @@ const StyledButton = styled("button")<ButtonProps>`
     border-color: transparent;
     ${(props) => {
       if (props.theme) {
-        if (props.theme.primaryButtonDisabled) {
-          return `background: ${props.theme.primaryButtonDisabled}`;
-        }
         return `background: rgba(${chroma(props.theme.gray1)
           .rgb()
           .join(",")}, 0.2);`;
@@ -271,20 +259,299 @@ const StyledButton = styled("button")<ButtonProps>`
         return `color: ${props.theme.white};`;
       }
     }}
-  }
-  &:hover,
-  &:focus,
-  &:active {
-    ${(props) => {
-      if (props.theme) {
-        return `background: rgba(${chroma(props.theme.gray1)
-          .rgb()
-          .join(",")}, 0.2);`;
-      }
-    }}
-    color: ${(props) => props.theme.white}
+    &,
+    &:hover,
+    &:focus,
+    &:active {
+      ${(props) => {
+        if (props.theme) {
+          return `background: rgba(${chroma(props.theme.gray1)
+            .rgb()
+            .join(",")}, 0.2);`;
+        }
+      }}
+      color: ${(props) => props.theme.white}
+    }
   }
 `;
+
+// const StyledButton = styled("button")<ButtonProps>`
+//   background: ${({ mode, invert, theme }) => {
+//     if (mode === "outline") {
+//       return "transparent";
+//     }
+//     if (invert) {
+//       return theme.invertColor;
+//     }
+//     if (mode === "white") {
+//       return theme.white;
+//     }
+//     if (mode === "icon") {
+//       return "transparent";
+//     }
+//     return getStylesBasedOnTheme(
+//       theme.mode,
+//       theme.dm__primaryColor,
+//       theme.primaryColor,
+//       "black"
+//     );
+//   }};
+//   color: ${({ mode, theme, invert }) => {
+//     if (
+//       mode === "outline" &&
+//       (theme.outlineButtonColor || theme.dm__outlineButtonColor)
+//     ) {
+//       return getStylesBasedOnTheme(
+//         theme.mode,
+//         invert
+//           ? theme.dm__outlineButtonInvertColor
+//           : theme.dm__outlineButtonColor,
+//         invert ? theme.outlineButtonInvertColor : theme.outlineButtonColor,
+//         theme.primaryColor
+//       );
+//     }
+//     if (mode === "outline" && invert) {
+//       return theme.white;
+//     }
+//     if (invert) {
+//       return theme.gray1;
+//     }
+//     if (mode === "outline" && theme.mode === "light") {
+//       return theme.gray1;
+//     }
+//     if (mode === "white") {
+//       return theme.gray1;
+//     }
+//     if (mode === "icon") {
+//       return theme.mode === "light" ? theme.gray1 : theme.white;
+//     }
+//     return theme.white;
+//   }};
+//   font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
+//   font-weight: bold;
+//   font-size: ${(props) => {
+//     if (props.mode) {
+//       switch (props.mode) {
+//         case "primary":
+//           return "18px";
+//         case "secondary":
+//         case "outline":
+//         case "white":
+//         default:
+//           return "14px";
+//       }
+//     }
+//     return "18px";
+//   }};
+//   line-height: ${(props) => {
+//     if (props.mode === "icon") {
+//       return "1.5";
+//     }
+//     return "1.55em";
+//   }};
+//   cursor: pointer;
+//   padding: ${(props) => {
+//     if (props.mode === "primary") {
+//       return "0.75em 2em";
+//     } else if (props.mode === "icon") {
+//       return "4px";
+//     }
+//     return "0.65em 1.3em";
+//   }};
+//   border-radius: ${(props) => props.theme?.buttonRadius || 2}px;
+//   -webkit-font-smoothing: antialiased;
+//   box-sizing: border-box;
+//   border-style: solid;
+//   border-width: 2px;
+//   border-color: ${({ mode, theme, invert }) => {
+//     if (
+//       mode === "outline" &&
+//       (theme.outlineButtonColor || theme.dm__outlineButtonColor)
+//     ) {
+//       return getStylesBasedOnTheme(
+//         theme.mode,
+//         invert
+//           ? theme.dm__outlineButtonInvertColor
+//           : theme.dm__outlineButtonColor,
+//         invert ? theme.outlineButtonInvertColor : theme.outlineButtonColor,
+//         theme.primaryColor
+//       );
+//     }
+//     if (invert && mode === "outline") {
+//       return theme.white;
+//     }
+//     if (invert) {
+//       return theme.invertColor;
+//     }
+//     if (mode === "outline") {
+//       return getStylesBasedOnTheme(theme.mode, theme.white, theme.gray1);
+//     }
+//     if (mode === "white") {
+//       return theme.white;
+//     }
+//     if (mode === "icon") {
+//       return "transparent";
+//     }
+//     return getStylesBasedOnTheme(
+//       theme.mode,
+//       theme.dm__primaryColor,
+//       theme.primaryColor,
+//       "black"
+//     );
+//   }};
+//   transition: box-shadow 0.2s ease-in-out, border 0.2s ease-in,
+//     background 0.2s ease-in, color 0.2s ease-in, opacity 0.2s ease-in;
+
+//   display: inline-flex;
+//   align-items: center;
+//   justify-content: center;
+//   text-align: center;
+//   flex-shrink: 0;
+
+//   ${(props) => (props.block ? "width:100%;" : "")}
+
+//   pointer-events: ${(props) => {
+//     if (props.loading) {
+//       return "none";
+//     }
+//     return "auto";
+//   }};
+
+//   & > svg {
+//     margin: ${(props) => {
+//       if (props.mode === "icon") {
+//         return "0";
+//       }
+//       return "0 9px";
+//     }};
+//     height: ${(props) => {
+//       if (props.mode) {
+//         switch (props.mode) {
+//           case "primary":
+//             return "18px";
+//           case "secondary":
+//           case "outline":
+//           default:
+//             return "14px";
+//         }
+//       }
+//       return "18px";
+//     }};
+//     width: ${(props) => {
+//       if (props.mode === "icon") {
+//         return "14px";
+//       }
+//       return "18px";
+//     }};
+//   }
+
+//   &:focus,
+//   &:active {
+//     border-style: solid;
+//     border-width: 2px;
+//     border-color: ${(props) => {
+//       if (props.invert && props.mode !== "outline") {
+//         return props.theme.gray1;
+//       } else if (props.mode === "icon") {
+//         return "transparent";
+//       }
+//       return props.theme.white;
+//     }};
+//     box-shadow: none !important;
+//   }
+
+//   &:disabled {
+//     cursor: not-allowed;
+//     border-color: transparent;
+//     background: ${({ theme, mode }) => {
+//       if (mode === "primary") {
+//         return getStylesBasedOnTheme(
+//           theme.mode,
+//           theme.dm__primaryButtonDisabled,
+//           theme.primaryButtonDisabled,
+//           `rgba(${chroma(theme.gray1).rgb().join(",")}, 0.2)`
+//         );
+//       }
+//       return `rgba(${chroma(theme.gray1).rgb().join(",")}, 0.2)`;
+//     }};
+//     ${(props) => {
+//       if (props.invert) {
+//         return `color: ${props.theme.white};`;
+//       }
+//     }};
+//   }
+
+//   &:hover {
+//     color: ${({ mode, theme }) => {
+//       if (mode !== "icon") {
+//         return getStylesBasedOnTheme(
+//           theme.mode,
+//           theme.dm__primaryColor,
+//           theme.primaryColor,
+//           theme.primaryColor
+//         );
+//       }
+//     }};
+//     border-color: transparent;
+//     ${(props) => {
+//       "background: pink;";
+//       if (props.invert) {
+//         if (props.mode === "outline") {
+//           return `
+//               background: ${props.theme.white};
+//               color: ${props.theme.gray1};
+//             `;
+//         }
+//         return `
+//             background: ${chroma(props.theme.invertColor).alpha(0.3).hex()};
+//             color: ${props.theme.invertColor};
+//             text-decoration:none;
+//           `;
+//       } else if (props.mode === "white") {
+//         return `
+//             background: ${chroma(props.theme.white).alpha(0.85).hex()};
+//             color: ${props.theme.gray1};
+//           `;
+//       } else if (props.mode === "icon") {
+//         return `
+//             background: transparent;
+//             opacity: 0.6;
+//             `;
+//       } else {
+//         if (props.mode === "outline") {
+//           return `
+//               background: ${getStylesBasedOnTheme(
+//                 props.theme.mode,
+//                 props.theme.white,
+//                 props.theme.black
+//               )};
+//               color: ${getStylesBasedOnTheme(
+//                 props.theme.mode,
+//                 props.theme.black,
+//                 props.theme.white
+//               )};
+//             `;
+//         }
+//         return `
+//             background: ${chroma(props.theme.primaryColor).alpha(0.3).hex()};
+//           `;
+//       }
+//     }}
+//   }
+
+//   &:hover,
+//   &:focus,
+//   &:active {
+//     ${(props) => {
+//       if (props.theme) {
+//         return `background: rgba(${chroma(props.theme.gray1)
+//           .rgb()
+//           .join(",")}, 0.2);`;
+//       }
+//     }}
+//     color: ${(props) => props.theme.white}
+//   }
+// `;
 
 // Main button with styles
 export const Button: React.FC<PropsWithChildren<ButtonProps>> = ({

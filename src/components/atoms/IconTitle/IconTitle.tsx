@@ -1,5 +1,6 @@
 import * as React from "react";
 import styled, { withTheme } from "styled-components";
+import { getStylesBasedOnTheme } from "../../../utils/utils";
 import { getFontFromTheme } from "../../../theme/provider";
 import { HeaderLevelInt, HeaderLevelStr } from "../../../types/titleTypes";
 import { setFontSizeByHeaderLevel } from "../../../utils/components/primitives/titleUtils";
@@ -36,22 +37,16 @@ const StyledHeader = styled.h3<StyledHeader>`
     font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
     display: flex;
     flex-wrap: nowrap;
-    color: ${(props) => {
-      return props.theme.mode !== "light"
-        ? props.theme.white
-        : props.theme.gray1;
-    }};
+    color: ${({ theme }) =>
+      getStylesBasedOnTheme(theme.mode, theme.white, theme.gray1)};
     .icon {
       width: 0.9em;
       display: flex;
       align-items: center;
       margin-right: 0.6em;
       svg {
-        fill: ${(props) => {
-          return props.theme.mode !== "light"
-            ? props.theme.white
-            : props.theme.black;
-        }};
+        fill: ${({ theme }) =>
+          getStylesBasedOnTheme(theme.mode, theme.white, theme.black)};
         max-width: 100%;
         height: auto;
         flex-shrink: 0;

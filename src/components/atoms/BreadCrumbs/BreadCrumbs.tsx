@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import styled, { withTheme } from "styled-components";
+import { getStylesBasedOnTheme } from "../../../utils/utils";
 import { getFontFromTheme } from "../../../theme/provider";
 
 type BreadCrumbsProps = {
@@ -27,7 +28,8 @@ const StyledNav = styled("nav")`
   /* Adapt the colors based on primary prop */
 
   font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
-  color: ${({ theme }) => (theme.mode !== "dark" ? theme.gray2 : theme.gray3)};
+  color: ${({ theme }) =>
+    getStylesBasedOnTheme(theme.mode, theme.gray3, theme.gray2)};
   font-size: 12px;
   line-height: 1em;
 

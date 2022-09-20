@@ -2,6 +2,7 @@ import * as React from "react";
 import { PropsWithChildren } from "react";
 import styled, { withTheme } from "styled-components";
 import { default as chroma } from "chroma-js";
+import { getStylesBasedOnTheme } from "../../../utils/utils";
 
 interface AsideMenuProps {
   active?: boolean;
@@ -17,22 +18,36 @@ const StyledDiv = styled("div")<AsideMenuProps>`
   justify-content: space-between;
   border-radius: ${(props) => props.theme.cardRadius}px;
 
-  border-left-color: ${(props) =>
-    props.active ? props.theme.primaryColor : "transparent"};
+  border-left-color: ${({ active, theme }) =>
+    active
+      ? getStylesBasedOnTheme(
+          theme.mode,
+          theme.dm__primaryColor,
+          theme.primaryColor,
+          theme.primaryColor
+        )
+      : "transparent"};
   border-left-width: 3px;
   border-left-style: solid;
 
   transition: border-left 0.4s;
 
   background: ${({ theme }) =>
-    theme.mode === "light"
-      ? theme.cardBackgroundColorDark
-      : theme.cardBackgroundColorLight};
+    getStylesBasedOnTheme(
+      theme.mode,
+      theme.dm__cardBackgroundColor,
+      theme.cardBackgroundColor
+    )};
   &:hover {
-    border-left-color: ${(props) =>
-      props.active
-        ? props.theme.primaryColor
-        : chroma(props.theme.primaryColor).alpha(0.5).css()};
+    border-left-color: ${({ active, theme }) =>
+      active
+        ? getStylesBasedOnTheme(
+            theme.mode,
+            theme.dm__primaryColor,
+            theme.primaryColor,
+            theme.primaryColor
+          )
+        : chroma(theme.primaryColor).alpha(0.5).css()};
   }
   a {
     text-decoration: none;

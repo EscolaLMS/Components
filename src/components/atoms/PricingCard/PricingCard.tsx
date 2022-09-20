@@ -2,6 +2,7 @@ import * as React from "react";
 import styled, { withTheme } from "styled-components";
 import { ReactNode } from "react";
 import chroma from "chroma-js";
+import { getStylesBasedOnTheme } from "../../../utils/utils";
 
 interface StyledPricingCardProps {
   mobile?: boolean;
@@ -19,13 +20,16 @@ const StyledPricingCard = styled("div")<StyledPricingCardProps>`
   border-radius: ${({ theme }) => theme.cardRadius}px;
   background-color: ${({ theme, mobile }) =>
     mobile
-      ? theme.mode === "light"
-        ? theme.backgroundLight
-        : theme.backgroundDark
-      : theme.mode === "light"
-      ? theme.cardBackgroundColorDark
-      : theme.cardBackgroundColorLight};
-
+      ? getStylesBasedOnTheme(
+          theme.mode,
+          theme.dm__background,
+          theme.background
+        )
+      : getStylesBasedOnTheme(
+          theme.mode,
+          theme.cardBackgroundColor,
+          theme.dm__cardBackgroundColor
+        )};
   .pricing-card-price {
     margin-top: 10px;
     margin-bottom: 16px;
@@ -73,7 +77,7 @@ const StyledPricingCard = styled("div")<StyledPricingCardProps>`
       ${({ theme }) =>
         theme.mode === "light"
           ? theme.gray4
-          : chroma(theme.backgroundDark).brighten(1).hex()};
+          : chroma(theme.dm__background).brighten(1).hex()};
 
     > div:first-child {
       width: 30%;

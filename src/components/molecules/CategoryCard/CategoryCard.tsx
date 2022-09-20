@@ -4,6 +4,7 @@ import { ReactNode } from "react";
 import { Title } from "../../atoms/Typography/Title";
 import { Button } from "../../atoms/Button/Button";
 import chroma from "chroma-js";
+import { getStylesBasedOnTheme } from "../../../utils/utils";
 
 interface StyledCategoryCardProps {
   mobile?: boolean;
@@ -32,12 +33,14 @@ export const CategoryCard: React.FC<CategoryCardProps> = (props) => {
       variant === "gradient"
         ? `linear-gradient(180deg, ${
             theme.mode === "light"
-              ? chroma(theme.backgroundLight).darken(0.2).hex()
-              : chroma(theme.backgroundDark).brighten(1).hex()
+              ? chroma(theme.background).darken(0.2).hex()
+              : chroma(theme.dm__background).brighten(1).hex()
           } 0%, transparent 100%)`
-        : theme.mode === "light"
-        ? theme.cardBackgroundColorDark
-        : theme.cardBackgroundColorLight};
+        : getStylesBasedOnTheme(
+            theme.mode,
+            theme.dm__background,
+            theme.background
+          )};
 
     .category-card-title {
       margin-top: 34px;
@@ -47,7 +50,7 @@ export const CategoryCard: React.FC<CategoryCardProps> = (props) => {
     .category-card-icon {
       svg path {
         fill: ${({ theme }) =>
-          theme.mode === "light" ? theme.gray1 : theme.white};
+          getStylesBasedOnTheme(theme.mode, theme.white, theme.gray1)};
       }
     }
 

@@ -6,6 +6,7 @@ import { Link } from "../../atoms/Link/Link";
 import { Button } from "../../atoms/Button/Button";
 import { ReactNode } from "react";
 import { contrast } from "chroma-js";
+import { getStylesBasedOnTheme } from "../../../utils/utils";
 
 interface StyledQuizCtaCardProps {
   mobile?: boolean;
@@ -23,7 +24,13 @@ export interface QuizCtaCardProps extends StyledQuizCtaCardProps {
 
 const StyledQuizCta = styled("div")<StyledQuizCtaCardProps>`
   padding: ${(props) => (props.mobile ? "22px" : "55px 45px")};
-  background-color: ${(props) => props.theme.primaryColor};
+  background-color: ${({ theme }) =>
+    getStylesBasedOnTheme(
+      theme.mode,
+      theme.dm__primaryColor,
+      theme.primaryColor,
+      theme.primaryColor
+    )};
   border-radius: ${(props) => props.theme.cardRadius}px;
 
   *:not(button) {

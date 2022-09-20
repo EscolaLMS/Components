@@ -8,12 +8,12 @@ export const velvetTheme: DefaultTheme = {
   secondaryColor: blend("#600CAE", "#BDBDBD", "multiply").hex(),
   font: "Mulish",
   headerColor: "#111111",
-  backgroundDark: "#4A4A4A",
-  backgroundLight: "#F2F2F2",
-  cardBackgroundColorLight: sharedTheme.gray2,
-  cardBackgroundColorDark: sharedTheme.white,
-  textColorDark: "#FFF",
-  textColorLight: "#000",
+  dm__background: "#4A4A4A",
+  background: "#F2F2F2",
+  cardBackgroundColor: sharedTheme.gray2,
+  dm__cardBackgroundColor: sharedTheme.white,
+  dm__textColor: "#FFF",
+  textColor: "#000",
   labelListValueColor: "#600CAE",
 };
 

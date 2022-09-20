@@ -1,17 +1,28 @@
 import * as React from "react";
 
 import styled, { withTheme } from "styled-components";
+import { getStylesBasedOnTheme } from "../../utils/utils";
 
 import { getFontFromTheme } from "../../theme/provider";
 
 const StyledDiv = styled.div<{ mode: string }>`
   /* Adapt the colors based on primary prop */
-  background: ${(props) => {
-    if (props.mode === "primary" && props.theme.primaryColor) {
-      return props.theme.primaryColor;
+  background: ${({ theme, mode }) => {
+    if (mode === "primary") {
+      return getStylesBasedOnTheme(
+        theme.mode,
+        theme.dm__primaryColor,
+        theme.primaryColor,
+        theme.primaryColor
+      );
     }
-    if (props.mode === "secondary" && props.theme.secondaryColor) {
-      return props.theme.secondaryColor;
+    if (mode === "secondary") {
+      return getStylesBasedOnTheme(
+        theme.mode,
+        theme.dm__secondaryColor,
+        theme.secondaryColor,
+        theme.primaryColor
+      );
     }
     return "black";
   }};

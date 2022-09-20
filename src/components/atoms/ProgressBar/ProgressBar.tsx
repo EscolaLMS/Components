@@ -3,7 +3,7 @@ import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 import { getFontFromTheme } from "../../../theme/provider";
-import { calcPercentage } from "../../../utils/utils";
+import { calcPercentage, getStylesBasedOnTheme } from "../../../utils/utils";
 
 export interface ProgressBarProps extends React.HTMLAttributes<HTMLDivElement> {
   hideLabel?: boolean;
@@ -15,8 +15,8 @@ export interface ProgressBarProps extends React.HTMLAttributes<HTMLDivElement> {
 const StyledDiv = styled.div`
   margin: 0;
   padding: 0;
-  color: ${(props) =>
-    props.theme.mode !== "dark" ? props.theme.gray1 : props.theme.white};
+  color: ${({ theme }) =>
+    getStylesBasedOnTheme(theme.mode, theme.white, theme.gray1)};
   font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -33,18 +33,21 @@ const StyledDiv = styled.div`
       position: relative;
       .empty {
         display: block;
-        background: ${(props) => {
-          return props.theme.mode !== "dark"
-            ? props.theme.white
-            : props.theme.gray2;
-        }};
+        background: ${({ theme }) =>
+          getStylesBasedOnTheme(theme.mode, theme.gray2, theme.white)};
         height: 100%;
         border-radius: 10px;
       }
       .filled {
         position: absolute;
         top: 0;
-        background: ${(props) => props.theme.primaryColor};
+        background: ${({ theme }) =>
+          getStylesBasedOnTheme(
+            theme.mode,
+            theme.dm__primaryColor,
+            theme.primaryColor,
+            theme.primaryColor
+          )};
         display: block;
         height: 100%;
         border-radius: 10px;

@@ -10,7 +10,10 @@ import { fixContentForMarkdown } from "../../../utils/components/markdown";
 import Lightbox from "react-image-lightbox";
 import { useState } from "react";
 import chroma from "chroma-js";
-import { SharedLightboxStyle } from "../../../utils/utils";
+import {
+  getStylesBasedOnTheme,
+  SharedLightboxStyle,
+} from "../../../utils/utils";
 import { Link } from "../../../";
 
 interface StyledMarkdownRendererProps {
@@ -67,7 +70,7 @@ const StyledMarkdownRenderer = styled("div")<StyledMarkdownRendererProps>`
     font-weight: bold;
     line-height: 125%;
     color: ${({ theme }) =>
-      theme.mode !== "light" ? theme.white : theme.gray1};
+      getStylesBasedOnTheme(theme.mode, theme.white, theme.gray1)};
 
     &:first-child {
       margin-top: 0;
@@ -85,17 +88,21 @@ const StyledMarkdownRenderer = styled("div")<StyledMarkdownRendererProps>`
     th {
       border: 1px solid
         ${({ theme }) =>
-          theme.mode === "dark"
-            ? chroma(theme.white).alpha(0.2).css()
-            : theme.gray3};
+          getStylesBasedOnTheme(
+            theme.mode,
+            chroma(theme.white).alpha(0.2).css(),
+            theme.gray3
+          )};
       padding: 5px 10px;
     }
     table {
       border: 1px solid
         ${({ theme }) =>
-          theme.mode === "dark"
-            ? chroma(theme.white).alpha(0.2).css()
-            : theme.gray3};
+          getStylesBasedOnTheme(
+            theme.mode,
+            chroma(theme.white).alpha(0.2).css(),
+            theme.gray3
+          )};
       border-collapse: collapse;
     }
   }

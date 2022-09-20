@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { Text } from "../../../";
 import type { Lesson, Topic } from "@escolalms/sdk/lib/types/api";
 import chroma from "chroma-js";
+import { getStylesBasedOnTheme } from "../../../utils/utils";
 
 const TextIcon = () => (
   <svg
@@ -232,10 +233,19 @@ const StyledSection = styled("section")<SharedComponentProps>`
   }
   .lesson__item {
     background: ${({ theme }) =>
-      theme.mode === "light"
-        ? theme.cardBackgroundColorDark
-        : theme.cardBackgroundColorLight};
-    border-left: 2px solid ${(props) => props.theme.primaryColor};
+      getStylesBasedOnTheme(
+        theme.mode,
+        theme.cardBackgroundColor,
+        theme.dm__cardBackgroundColor
+      )};
+    border-left: 2px solid
+      ${({ theme }) =>
+        getStylesBasedOnTheme(
+          theme.mode,
+          theme.dm__primaryColor,
+          theme.primaryColor,
+          theme.primaryColor
+        )}
     padding: 10px;
     margin: 10px 0;
     overflow: hidden;
@@ -269,11 +279,13 @@ const StyledSection = styled("section")<SharedComponentProps>`
           margin-bottom: 2px;
           margin-top: 3px;
           text-transform: uppercase;
-          // color: ${({ theme }) => theme.primaryColor};
           color: ${({ theme }) =>
-            theme.mode === "dark" && theme.primaryColorDark
-              ? theme.primaryColorDark
-              : theme.primaryColor};
+            getStylesBasedOnTheme(
+              theme.mode,
+              theme.dm__primaryColor,
+              theme.primaryColor,
+              theme.primaryColor
+            )}
         }
       }
 
@@ -288,7 +300,13 @@ const StyledSection = styled("section")<SharedComponentProps>`
           font-weight: 300;
           .lesson__index {
             text-transform: uppercase;
-            color: ${(props) => props.theme.primaryColor};
+            color: ${({ theme }) =>
+              getStylesBasedOnTheme(
+                theme.mode,
+                theme.dm__primaryColor,
+                theme.primaryColor,
+                theme.primaryColor
+              )};
             white-space: nowrap;
           }
           .lesson__duration {
@@ -326,9 +344,11 @@ const StyledSection = styled("section")<SharedComponentProps>`
         &:not(.lesson__topic-current):not(:last-child) {
           border-bottom: 2px solid
             ${({ theme }) =>
-              theme.mode === "light"
-                ? theme.white
-                : chroma(theme.white).alpha(0.2).hex()};
+              getStylesBasedOnTheme(
+                theme.mode,
+                chroma(theme.white).alpha(0.2).hex(),
+                theme.white
+              )};
         }
 
         button {
@@ -343,7 +363,7 @@ const StyledSection = styled("section")<SharedComponentProps>`
 
           path {
             fill: ${({ theme }) =>
-              theme.mode === "light" ? theme.gray1 : theme.white};
+              getStylesBasedOnTheme(theme.mode, theme.white, theme.gray1)};
           }
         }
 
@@ -362,7 +382,7 @@ const StyledSection = styled("section")<SharedComponentProps>`
 
             path {
               fill: ${({ theme }) =>
-                theme.mode === "light" ? theme.gray1 : theme.white};
+                getStylesBasedOnTheme(theme.mode, theme.white, theme.gray1)};
             }
           }
 

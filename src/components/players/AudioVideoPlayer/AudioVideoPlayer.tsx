@@ -6,6 +6,7 @@ import format from "date-fns/format";
 import screenfull from "screenfull";
 import { findDOMNode } from "react-dom";
 import { useTranslation } from "react-i18next";
+import { getStylesBasedOnTheme } from "../../../utils/utils";
 
 interface StyledAudioVideoPlayerProps {
   mobile?: boolean;
@@ -181,7 +182,18 @@ const StyledVideoControls = styled("div")<AudioVideoPlayerProps>`
     background: grey;
     border-radius: 3px;
     background-image: ${({ theme }) =>
-      `linear-gradient(${theme.primaryColor}, ${theme.primaryColor})`};
+      `linear-gradient(${getStylesBasedOnTheme(
+        theme.mode,
+        theme.dm__primaryColor,
+        theme.primaryColor,
+        theme.primaryColor
+      )}
+     , ${getStylesBasedOnTheme(
+       theme.mode,
+       theme.dm__primaryColor,
+       theme.primaryColor,
+       theme.primaryColor
+     )}`};
     background-repeat: no-repeat;
 
     &::-webkit-slider-thumb {

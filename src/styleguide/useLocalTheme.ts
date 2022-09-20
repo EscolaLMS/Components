@@ -14,7 +14,8 @@ export const getThemeFromLocalStorage = (
     try {
       theme = {
         mode: "light",
-        theme: "all",
+        // theme: "all",
+        theme: "blueTheme",
         ...defaultTheme,
         ...JSON.parse(window.localStorage.getItem("theme") || ""),
       };

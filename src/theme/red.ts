@@ -8,13 +8,13 @@ export const redTheme: DefaultTheme = {
   secondaryColor: blend("#E60037", "#BDBDBD", "multiply").hex(),
   font: "Titillium",
   headerColor: "#111111",
-  backgroundDark: "#232225",
-  backgroundLight: "#F2F2F2",
-  cardBackgroundColorLight: sharedTheme.gray1,
-  cardBackgroundColorDark: sharedTheme.gray5,
+  dm__background: "#232225",
+  background: "#F2F2F2",
+  cardBackgroundColor: sharedTheme.gray5,
+  dm__cardBackgroundColor: sharedTheme.gray1,
 
-  textColorDark: "#FFF",
-  textColorLight: "#000",
+  dm__textColor: "#FFF",
+  textColor: "#000",
 };
 
 export default redTheme;

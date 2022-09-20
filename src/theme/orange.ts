@@ -8,12 +8,12 @@ export const orangeTheme: DefaultTheme = {
   secondaryColor: blend("#F47820", "#BDBDBD", "multiply").hex(),
   font: "Inter",
   headerColor: "#111111",
-  backgroundDark: "#4A4A4A",
-  backgroundLight: "#FFFFFF",
-  cardBackgroundColorLight: sharedTheme.gray2,
-  cardBackgroundColorDark: sharedTheme.gray5,
-  textColorDark: "#FFF",
-  textColorLight: "#000",
+  dm__background: "#4A4A4A",
+  background: "#FFFFFF",
+  cardBackgroundColor: sharedTheme.gray5,
+  dm__cardBackgroundColor: sharedTheme.gray2,
+  dm__textColor: "#FFF",
+  textColor: "#000",
   labelListValueColor: "#F47820",
 };
 

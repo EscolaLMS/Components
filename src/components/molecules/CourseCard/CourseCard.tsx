@@ -12,6 +12,7 @@ import { RatioBox } from "../../atoms/RatioBox/RatioBox";
 import { Text } from "../../atoms/Typography/Text";
 import { Title } from "../../atoms/Typography/Title";
 import { Link } from "../../atoms/Link/Link";
+import { getStylesBasedOnTheme } from "../../../utils/utils";
 
 type ImageObject = {
   path?: string;
@@ -114,10 +115,23 @@ const StyledCourseCard = styled("div")<StyledCourseCardProps>`
     flex-direction: column;
   }
   .card-subtitle {
-    color: ${(props) => !props.hideImage && props.theme.primaryColor};
-    & > a {
-      color: ${(props) => !props.hideImage && props.theme.primaryColor};
-
+    color: ${({ theme, hideImage }) =>
+      !hideImage &&
+      getStylesBasedOnTheme(
+        theme.mode,
+        theme.dm__primaryColor,
+        theme.primaryColor,
+        theme.primaryColor
+      )}
+      & > a {
+      color: ${({ theme, hideImage }) =>
+        !hideImage &&
+        getStylesBasedOnTheme(
+          theme.mode,
+          theme.dm__primaryColor,
+          theme.primaryColor,
+          theme.primaryColor
+        )}
       text-decoration: none;
     }
     & > a:hover {
@@ -150,15 +164,13 @@ const StyledCourseCard = styled("div")<StyledCourseCardProps>`
     * {
       font-size: 14px;
       line-height: 17px;
-      color: ${({ theme, hideImage }) => {
-        if (theme.mode === "dark" && theme.breadcrumbsColorDark) {
-          return theme.breadcrumbsColorDark;
-        }
-        if (theme.breadcrumbsColor) {
-          return theme.breadcrumbsColor;
-        }
-        return hideImage ? theme.gray2 : theme.gray3;
-      }};
+      color: ${({ theme, hideImage }) =>
+        getStylesBasedOnTheme(
+          theme.mode,
+          theme.dm__breadcrumbsColor,
+          theme.breadcrumbsColor,
+          hideImage ? theme.gray2 : theme.gray3
+        )};
     }
   }
   .footer,
@@ -217,9 +229,13 @@ const ImgWrapper = styled.div`
 const StyledCategory = styled.span`
   transition: 0.3s color ease-in-out;
   &:hover {
-    color: ${(props) => {
-      return props.theme.primaryColor;
-    }};
+    color: ${({ theme }) =>
+      getStylesBasedOnTheme(
+        theme.mode,
+        theme.dm__primaryColor,
+        theme.primaryColor,
+        theme.primaryColor
+      )};
   }
 `;
 

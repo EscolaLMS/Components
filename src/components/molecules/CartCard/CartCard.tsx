@@ -8,6 +8,7 @@ import { Text } from "../../atoms/Typography/Text";
 import { Title } from "../../../";
 import chroma from "chroma-js";
 import { MarkdownRenderer } from "../../molecules/MarkdownRenderer/MarkdownRenderer";
+import { getStylesBasedOnTheme } from "../../../utils/utils";
 
 const ArrowOpenIcon: React.FC = () => {
   return (
@@ -88,12 +89,16 @@ const StyledCardCard = styled.div<StyledCartCardProps>`
   box-shadow: ${({ mobile }) => mobile && "0px -2px 15px 0px #0000001A;"};
   background: ${({ theme, mobile }) =>
     mobile
-      ? theme.mode === "light"
-        ? theme.backgroundLight
-        : theme.backgroundDark
-      : theme.mode === "light"
-      ? theme.cardBackgroundColorDark
-      : theme.cardBackgroundColorLight};
+      ? getStylesBasedOnTheme(
+          theme.mode,
+          theme.dm__background,
+          theme.background
+        )
+      : getStylesBasedOnTheme(
+          theme.mode,
+          theme.dm__cardBackgroundColor,
+          theme.cardBackgroundColor
+        )};
   padding: ${(props) => (props.mobile ? "15px" : "40px")};
 
   .title {
@@ -109,8 +114,8 @@ const StyledCardCard = styled.div<StyledCartCardProps>`
   .separator {
     height: 1px;
     width: 24px;
-    background: ${(props) =>
-      props.theme.mode !== "dark" ? props.theme.gray1 : props.theme.white};
+    background: ${({ theme }) =>
+      getStylesBasedOnTheme(theme.mode, theme.white, theme.gray1)};
     margin: 20px 0 14px 0;
   }
   .open-discount-state-container {
@@ -153,7 +158,7 @@ const StyledCardCard = styled.div<StyledCartCardProps>`
       `2px solid ${
         mobile
           ? theme.mode === "light"
-            ? chroma(theme.backgroundLight).darken(0.2).hex()
+            ? chroma(theme.background).darken(0.2).hex()
             : theme.gray2
           : "transparent"
       }`};

@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import styled, { withTheme } from "styled-components";
+import { getStylesBasedOnTheme } from "../../../utils/utils";
 import { Radio } from "../../atoms/Option/Radio";
 
 export interface StepsOptionProps {
@@ -37,7 +38,13 @@ const StyledSteps = styled("div")<StepsProps>`
 
   .progress-bar {
     transition: width 0.2s ease-in-out;
-    background-color: ${({ theme }) => theme.primaryColor};
+    background-color: ${({ theme }) =>
+      getStylesBasedOnTheme(
+        theme.mode,
+        theme.dm__primaryColor,
+        theme.primaryColor,
+        theme.primaryColor
+      )};
   }
 `;
 
@@ -55,11 +62,8 @@ const StyledStepsOption = styled("div")`
     position: absolute;
     left: 10px;
     transform: translateX(-50%);
-    color: ${(props) => {
-      return props.theme.mode !== "light"
-        ? props.theme.white
-        : props.theme.gray1;
-    }};
+    color: ${({ theme }) =>
+      getStylesBasedOnTheme(theme.mode, theme.white, theme.gray1)};
     font-weight: bold;
     white-space: nowrap;
     opacity: 0;

@@ -2,6 +2,7 @@ import * as React from "react";
 import styled, { withTheme } from "styled-components";
 import { ReactNode } from "react";
 import { getFontFromTheme } from "../../../theme/provider";
+import { getStylesBasedOnTheme } from "../../../utils/utils";
 
 interface TabProps {
   label: string;
@@ -25,7 +26,8 @@ const StyledTabs = styled("div")`
     &-inner {
       display: flex;
       border-bottom: 2px solid
-        ${({ theme }) => (theme.mode === "light" ? theme.gray3 : theme.gray2)};
+        ${({ theme }) =>
+          getStylesBasedOnTheme(theme.mode, theme.gray2, theme.gray3)};
     }
   }
 
@@ -40,7 +42,7 @@ const StyledTabs = styled("div")`
     white-space: nowrap;
     font-family: ${({ theme }) => getFontFromTheme(theme).fontFamily};
     color: ${({ theme }) =>
-      theme.mode === "light" ? theme.gray1 : theme.white};
+      getStylesBasedOnTheme(theme.mode, theme.white, theme.gray1)};
 
     &.active {
       font-weight: bold;

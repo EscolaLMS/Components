@@ -2,6 +2,7 @@ import React, { ReactNode, useMemo } from "react";
 import styled, { withTheme } from "styled-components";
 import { useTranslation } from "react-i18next";
 import { Text } from "../../atoms/Typography/Text";
+import { getStylesBasedOnTheme } from "../../../utils/utils";
 
 interface OrdersProps extends React.InputHTMLAttributes<HTMLTableElement> {
   mobile?: boolean;
@@ -46,9 +47,11 @@ const SingleOrderCard = styled("div")<{ mobile: boolean }>`
   margin-bottom: 10px;
   padding: ${({ mobile }) => (mobile ? "20px 15px" : "12px 40px")};
   background: ${({ theme }) =>
-    theme.mode === "dark"
-      ? theme.cardBackgroundColorLight
-      : theme.cardBackgroundColorDark};
+    getStylesBasedOnTheme(
+      theme.mode,
+      theme.dm__cardBackgroundColor,
+      theme.cardBackgroundColor
+    )};
   .single-content {
     &:not(:last-child) {
       margin-bottom: ${({ mobile }) => (mobile ? "15px" : 0)};

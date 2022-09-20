@@ -6,15 +6,20 @@ import { useLocalTheme } from "../styleguide/useLocalTheme";
 
 export interface SharedDefaultTheme {
   theme?: string;
-  backgroundLight: string;
-  backgroundDark: string;
-  cardBackgroundColorLight: string;
-  cardBackgroundColorDark: string;
+  background: string;
+  dm__background: string;
+  cardBackgroundColor: string;
+  dm__cardBackgroundColor: string;
+  errorColor: string;
+  dm__errorColor?: string;
+  invertColor: string;
+
   buttonRadius?: number;
   inputRadius?: number;
   noteRadius?: number;
   checkboxRadius?: number;
   cardRadius?: number;
+
   white: string;
   gray5: string;
   gray4: string;
@@ -22,32 +27,33 @@ export interface SharedDefaultTheme {
   gray2: string;
   gray1: string;
   black: string;
-  errorColor: string;
-  errorColorDark?: string;
-  invertColor: string;
 }
 
 declare module "styled-components" {
   export interface DefaultTheme extends SharedDefaultTheme {
     mode?: "light" | "dark";
-    textColorLight: string;
-    textColorDark: string;
-    primaryColor: string;
-    primaryColorDark?: string;
-    secondaryColor?: string;
-    radius?: number;
     font: "Inter" | "Mulish" | "Titillium";
+    radius?: number;
+    textColor: string;
+    dm__textColor: string;
+    primaryColor: string;
+    dm__primaryColor?: string;
+    secondaryColor?: string;
+    dm__secondaryColor?: string;
     headerColor?: string;
+    dm__headerColor?: string;
     inputDisabledBg?: string;
+    dm__inputDisabledBg?: string;
     labelListValueColor?: string;
-    labelListValueColorDark?: string;
+    dm__labelListValueColor?: string;
     primaryButtonDisabled?: string;
+    dm__primaryButtonDisabled?: string;
     outlineButtonColor?: string;
+    dm__outlineButtonColor?: string;
     outlineButtonInvertColor?: string;
-    outlineButtonColorDark?: string;
-    outlineButtonInvertColorDark?: string;
+    dm__outlineButtonInvertColor?: string;
     breadcrumbsColor?: string;
-    breadcrumbsColorDark?: string;
+    dm__breadcrumbsColor?: string;
   }
 }
 

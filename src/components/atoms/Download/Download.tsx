@@ -1,5 +1,6 @@
 import * as React from "react";
 import styled, { withTheme } from "styled-components";
+import { getStylesBasedOnTheme } from "../../../utils/utils";
 import { getFontFromTheme } from "../../../theme/provider";
 
 export interface ComponentProps {
@@ -14,14 +15,13 @@ const StyledDiv = styled.div<ComponentProps>`
   font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
   .download-btn {
     background: ${({ theme }) =>
-      theme.mode === "light"
-        ? theme.cardBackgroundColorDark
-        : theme.cardBackgroundColorLight};
-    color: ${(props) => {
-      return props.theme.mode !== "light"
-        ? props.theme.white
-        : props.theme.black;
-    }};
+      getStylesBasedOnTheme(
+        theme.mode,
+        theme.dm__cardBackgroundColor,
+        theme.cardBackgroundColor
+      )};
+    color: ${({ theme }) =>
+      getStylesBasedOnTheme(theme.mode, theme.white, theme.black)};
     text-decoration: none;
     border-radius: ${(props) => props.theme?.buttonRadius || 0}px;
     padding: 16px 10px 16px 20px;
@@ -34,11 +34,8 @@ const StyledDiv = styled.div<ComponentProps>`
     cursor: pointer;
     transition: all 0.3s;
     &:hover {
-      background: ${(props) => {
-        return props.theme.mode !== "light"
-          ? props.theme.gray2
-          : props.theme.gray3;
-      }};
+      background: ${({ theme }) =>
+        getStylesBasedOnTheme(theme.mode, theme.gray2, theme.gray3)};
       font-weight: 700;
     }
     .icon {
@@ -47,11 +44,8 @@ const StyledDiv = styled.div<ComponentProps>`
       align-items: center;
       justify-content: space-between;
       svg {
-        fill: ${(props) => {
-          return props.theme.mode !== "light"
-            ? props.theme.white
-            : props.theme.black;
-        }};
+        fill: ${({ theme }) =>
+          getStylesBasedOnTheme(theme.mode, theme.white, theme.black)};
       }
     }
   }

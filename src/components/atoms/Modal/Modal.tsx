@@ -2,6 +2,7 @@ import * as React from "react";
 import styled, { createGlobalStyle, withTheme } from "styled-components";
 import Dialog, { DialogProps } from "rc-dialog";
 import chroma from "chroma-js";
+import { getStylesBasedOnTheme } from "../../../utils/utils";
 
 export type ModalProps = DialogProps;
 
@@ -49,7 +50,7 @@ const StyledGlobal = createGlobalStyle<ModalProps>`
     &-content {
       position: relative;
       background-color: ${({ theme }) =>
-        theme.mode === "light" ? theme.white : theme.black};
+        getStylesBasedOnTheme(theme.mode, theme.black, theme.white)};
       border: none;
       border-radius: ${({ theme }) => theme.cardRadius}px;
       background-clip: padding-box;
@@ -69,7 +70,7 @@ const StyledGlobal = createGlobalStyle<ModalProps>`
       font-weight: 700;
       line-height: 1;
       color: ${({ theme }) =>
-        theme.mode === "light" ? theme.black : theme.white};
+        getStylesBasedOnTheme(theme.mode, theme.white, theme.black)};
       text-shadow: 0 1px 0 #fff;
       opacity: ${({ theme }) => (theme.mode === "light" ? 0.2 : 0.4)};
       text-decoration: none;
@@ -219,8 +220,13 @@ const StyledGlobal = createGlobalStyle<ModalProps>`
     .modal-title {
       margin-bottom: 30px;
       text-align: center;
-      color: ${({ theme }) => theme.primaryColor};
-    }
+      color: ${({ theme }) =>
+        getStylesBasedOnTheme(
+          theme.mode,
+          theme.dm__primaryColor,
+          theme.primaryColor,
+          theme.primaryColor
+        )}
   }
 `;
 
