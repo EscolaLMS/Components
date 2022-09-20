@@ -382,9 +382,9 @@ const CategoriesDropdown: React.FC<CategoriesProps> = (props) => {
 
   return (
     <StyledCategoriesDropdown
-      className="wellms-component"
       open={open}
       ref={ref}
+      className="wellms-component"
       lightContrast={cts}
       backgroundColor={backgroundColor}
     >

@@ -15,6 +15,7 @@ export const resources = {
       "CartCard.discountError": "The code provided is invalid",
       "CartCard.discountGranted": "**Discount code** applied",
       "CartCard.realizeButton": "Realize",
+      "CartCard.remove": "Remove discount code",
       "Course.Agenda": "Agenda",
       "Course.topicPreview": "Preview",
       "Course.Finished": "Finished",
@@ -132,6 +133,9 @@ export const resources = {
         ShowNext: "Show next",
         Remove: "Remove",
       },
+      Navigation: {
+        ShowHideMenu: "Show/hide menu",
+      },
     },
   },
   fr: {
@@ -149,6 +153,7 @@ export const resources = {
       "CartCard.discountError": "Podany kod jest nieprawidłowy",
       "CartCard.discountGranted": "**Kod rabatowy** zastosowany",
       "CartCard.realizeButton": "Realizuj",
+      "CartCard.remove": "Usuń kod rabatowy",
       "Course.Agenda": "Plan kursu",
       "Course.topicPreview": "Podgląd",
       "Course.Finished": "Ukończono",
@@ -265,6 +270,9 @@ export const resources = {
         ShowPrevious: "Pokaż poprzedni",
         ShowNext: "Pokaż następny",
         Remove: "Usuń",
+      },
+      Navigation: {
+        ShowHideMenu: "Pokaż/ukryj menu",
       },
     },
   },

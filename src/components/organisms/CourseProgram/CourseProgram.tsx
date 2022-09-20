@@ -480,7 +480,7 @@ export const CourseProgram: React.FC<CourseProgramProps> = (props) => {
   const { t } = useTranslation();
 
   return (
-    <StyledSection className="wellms-component" {...props}>
+    <StyledSection {...props} className="wellms-component">
       {!mobile && (
         <header>
           <IconTitle

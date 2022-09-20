@@ -151,8 +151,12 @@ const StyledCourseCard = styled("div")<StyledCourseCardProps>`
     * {
       font-size: 14px;
       line-height: 17px;
-      color: ${(props) =>
-        props.hideImage ? props.theme.gray2 : props.theme.gray3};
+      color: ${(props) => {
+        if (props.theme?.breadcrumbsColor) {
+          return props.theme.breadcrumbsColor;
+        }
+        return props.hideImage ? props.theme.gray2 : props.theme.gray3;
+      }};
     }
   }
   .footer,
@@ -261,7 +265,6 @@ export const CourseCard: React.FC<CourseCardProps> = (props) => {
         return {
           onClick: onImageClick,
           onKeyUp: onImageClick,
-          role: "button",
           tabIndex: 0,
         };
       }

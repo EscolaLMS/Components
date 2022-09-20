@@ -64,12 +64,23 @@ const StyledDiv = styled("div")<InputProps>`
         background: ${(props) => {
           const { mode, gray1, gray5 } = props.theme;
           if (props.disabled) {
+            if (props.theme?.inputDisabledBg) {
+              return props.theme.inputDisabledBg;
+            }
             return mix(gray1, "#fff").hex();
           }
           return mode !== "dark" ? gray5 : gray1;
         }};
-        color: ${(props) =>
-          props.theme.mode !== "dark" ? props.theme.gray1 : props.theme.white};
+        color: ${(props) => {
+          if (props.disabled) {
+            return props.theme.mode !== "dark"
+              ? props.theme.gray5
+              : props.theme.black;
+          }
+          return props.theme.mode !== "dark"
+            ? props.theme.gray1
+            : props.theme.white;
+        }};
         &:disabled {
           cursor: not-allowed;
         }

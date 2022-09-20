@@ -11,7 +11,7 @@ const StyledLogo = styled("img")<LogoProps>`
 `;
 
 export const Logo: React.FC<LogoProps> = (props) => (
-  <StyledLogo className="wellms-component" {...props} />
+  <StyledLogo {...props} className="wellms-component" />
 );
 
 const NewStyledLogo = styled(Logo)<LogoProps>``;

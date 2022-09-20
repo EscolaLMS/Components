@@ -52,6 +52,9 @@ const StyledTextArea = styled("div")<TextAreaProps>`
     background: ${(props) => {
       const { mode, gray1, gray5 } = props.theme;
       if (props.disabled) {
+        if (props.theme?.inputDisabledBg) {
+          return props.theme.inputDisabledBg;
+        }
         return mix(gray1, "#fff").hex();
       }
       return mode !== "dark" ? gray5 : gray1;

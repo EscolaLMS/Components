@@ -77,7 +77,12 @@ export const IconTitle: React.FC<IconTitleProps> = (props) => {
       className="lms-icon-title wellms-component"
       style={styles?.container}
     >
-      <span className="icon" style={styles?.icon}>
+      <span
+        className="icon"
+        style={styles?.icon}
+        role="button"
+        aria-label={title}
+      >
         {icon}
       </span>
       <span className="full-title">
