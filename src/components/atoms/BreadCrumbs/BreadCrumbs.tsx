@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import styled, { withTheme } from "styled-components";
+import { getUniqueId } from "../../../utils/utils";
 import { getFontFromTheme } from "../../../theme/provider";
 
 type BreadCrumbsProps = {
@@ -61,7 +62,7 @@ export const BreadCrumbs: React.FC<BreadCrumbsProps> = ({
   hyphen = <HyphenIcon />,
 }) => {
   return (
-    <StyledNav className="wellms-component">
+    <StyledNav className="wellms-component" aria-label={getUniqueId("nav")}>
       <ul>
         {items.map((node, i) => (
           <React.Fragment key={i}>

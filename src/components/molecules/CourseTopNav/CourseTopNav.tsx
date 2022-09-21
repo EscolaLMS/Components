@@ -6,6 +6,7 @@ import styled from "styled-components";
 
 import { Button } from "../../../";
 import chroma from "chroma-js";
+import { getUniqueId } from "../../../utils/utils";
 
 interface StyledAsideProps {
   mobile?: boolean;
@@ -151,6 +152,7 @@ export const CourseTopNav: React.FC<CourseTopNavProps> = (props) => {
 
   return (
     <StyledAside
+      aria-label={getUniqueId("aside")}
       mobile={mobile}
       className={`wellms-component ${isClosed ? "closed" : ""}`}
     >
