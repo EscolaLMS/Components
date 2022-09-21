@@ -16,7 +16,7 @@ import { Link } from "../../atoms/Link/Link";
 type ImageObject = {
   path?: string;
   url?: string;
-  alt?: string;
+  alt: string;
 };
 type Image = ImageObject | ReactChild;
 

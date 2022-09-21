@@ -96,10 +96,11 @@ export const Notification: React.FC<ComponentProps> = ({
     >
       <div>
         <Title
-          level={5}
           style={{
             marginBottom: "6px",
           }}
+          level={5}
+          as="h1"
         >
           {title}
         </Title>

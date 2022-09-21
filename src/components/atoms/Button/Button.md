@@ -6,6 +6,9 @@ React component example:
 import img1 from "./Button.png";
 import ImageModal from "../../../styleguide/ImageModal";
 import ThemeTester from "../../../styleguide/ThemeTester";
+import { useTranslation } from "react-i18next";
+
+const { t } = useTranslation();
 
 const Icon = () => {
   return (
@@ -57,7 +60,7 @@ const Icon = () => {
     <Button mode="secondary" disabled invert>
       Secondary Invert Button disabled
     </Button>
-    <Button mode="icon">
+    <Button mode="icon" aria-label={t("Actions.Hide")}>
       <Icon />
     </Button>
   </ThemeTester>

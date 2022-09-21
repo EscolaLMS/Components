@@ -118,12 +118,20 @@ export const resources = {
       Search: {
         Placeholder: "Search for courses",
         NoResults: "No results",
+        Search: "Search",
       },
       VideoPlayer: {
         Error: "Error loading material. Please try again later.",
       },
       Upload: {
         button: "Choose a file",
+      },
+      Actions: {
+        Show: "Show",
+        Hide: "Hide",
+        ShowPrevious: "Show previous",
+        ShowNext: "Show next",
+        Remove: "Remove",
       },
       Navigation: {
         ShowHideMenu: "Show/hide menu",
@@ -248,12 +256,20 @@ export const resources = {
       Search: {
         Placeholder: "Szukaj kursów",
         NoResults: "Brak wyników",
+        Search: "Szukaj",
       },
       VideoPlayer: {
         Error: "Błąd podczas ładowania materiału. Spróbuj ponownie później.",
       },
       Upload: {
         button: "Wybierz plik",
+      },
+      Actions: {
+        Show: "Pokaż",
+        Hide: "Ukryj",
+        ShowPrevious: "Pokaż poprzedni",
+        ShowNext: "Pokaż następny",
+        Remove: "Usuń",
       },
       Navigation: {
         ShowHideMenu: "Pokaż/ukryj menu",

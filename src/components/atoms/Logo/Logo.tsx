@@ -3,6 +3,7 @@ import styled, { withTheme } from "styled-components";
 
 export interface LogoProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   isSmall?: boolean;
+  alt: string;
 }
 
 const StyledLogo = styled("img")<LogoProps>`

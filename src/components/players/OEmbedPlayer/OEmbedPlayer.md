@@ -15,7 +15,7 @@ import { Row, Col } from "react-grid-system";
       <Row>
         <Col xs={12} md={12}>
           <OEmbedPlayer
-            url="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+            url="https://www.youtube.com/watch?v=E8gmARGvPlI"
             ratio={1}
           />
         </Col>

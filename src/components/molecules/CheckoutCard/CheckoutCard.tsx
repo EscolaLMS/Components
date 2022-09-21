@@ -6,6 +6,7 @@ import { ReactNode } from "react";
 import { IconText } from "../../atoms/IconText/IconText";
 import { RatioBox } from "../../atoms/RatioBox/RatioBox";
 import { Button } from "../../atoms/Button/Button";
+import { t } from "i18next";
 
 interface StyledCheckoutCardProps {
   mobile?: boolean;
@@ -237,6 +238,7 @@ export const CheckoutCard: React.FC<CheckoutCardProps> = (props) => {
                     className={"checkout-card-remove"}
                     onClick={handleDelete}
                     onKeyDown={(e) => e.key === "Enter" && handleDelete()}
+                    aria-label={t<string>("Actions.Remove")}
                   >
                     <IconBin />
                   </Button>

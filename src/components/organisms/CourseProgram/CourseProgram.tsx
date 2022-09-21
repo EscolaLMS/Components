@@ -419,18 +419,9 @@ const CourseProgramLesson: React.FC<CourseProgramLessonProps> = (props) => {
   const { lesson, index, defaultOpen = true, onTopicClick } = props;
   const { t } = useTranslation();
   const [open, setOpen] = React.useState(defaultOpen);
-  const onClick = React.useCallback(() => {
-    setOpen(true);
-  }, []);
 
   return (
-    <div
-      className={`lesson__item ${open ? "open" : "closed"}`}
-      onClick={onClick}
-      onKeyDown={(e) => e.key === "Enter" && onClick()}
-      role="button"
-      tabIndex={0}
-    >
+    <div className={`lesson__item ${open ? "open" : "closed"}`}>
       <header>
         <div className={"lesson__details"}>
           <Text noMargin size={"12"}>
@@ -455,6 +446,7 @@ const CourseProgramLesson: React.FC<CourseProgramLessonProps> = (props) => {
             setOpen(!open);
           }}
           mode="icon"
+          aria-label={t(open ? "Actions.Hide" : "Actions.Hide")}
         >
           <ChevronIcon />
         </Button>
@@ -485,6 +477,7 @@ export const CourseProgram: React.FC<CourseProgramProps> = (props) => {
         <header>
           <IconTitle
             level={5}
+            as="h1"
             icon={<ProgramIcon />}
             title={t<string>("Course.Agenda")}
           />

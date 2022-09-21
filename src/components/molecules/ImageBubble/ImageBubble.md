@@ -28,6 +28,7 @@ import img1 from "./ImageBubble.png";
           id={1}
           image={{
             path: backgroundImage1,
+            alt: "Man sitting on the chair",
           }}
           tags={[
             {

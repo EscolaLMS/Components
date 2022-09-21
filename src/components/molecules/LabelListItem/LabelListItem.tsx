@@ -33,7 +33,7 @@ export const LabelListItem: React.FC<TitleProps> = (props) => {
               level={mobile ? 5 : 4}
               title={title}
               icon={icon}
-              as={mobile ? "h5" : "h4"}
+              as={"h1"}
             />
           )}
           <Text
@@ -63,7 +63,7 @@ export const LabelListItem: React.FC<TitleProps> = (props) => {
               marginBottom: "0",
               color: theme?.labelListValueColor ?? theme.primaryColor,
             }}
-            as={"h5"}
+            as={"h1"}
           >
             {children}
           </Title>

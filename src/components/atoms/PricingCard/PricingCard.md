@@ -123,15 +123,15 @@ const props = {
       <Row>
         <Col xs={12} md={4}>
           <PricingCard>
-            <Title level={4} as={"h4"}>
+            <Title level={4} as={"h1"}>
               {props.title}
             </Title>
             <div className="pricing-card-price">
-              <Title level={3} as={"h3"}>
+              <Title level={3} as={"h2"}>
                 {props.price}
               </Title>
               <div className="pricing-card-discount">
-                <Title level={5} as={"h5"}>
+                <Title level={5} as={"h2"}>
                   {props.oldPrice}
                 </Title>
               </div>
@@ -197,15 +197,15 @@ const props = {
         </Col>
         <Col xs={12} md={4}>
           <PricingCard free>
-            <Title level={4} as={"h4"}>
+            <Title level={4} as={"h1"}>
               Księgowość dla początkujących
             </Title>
             <div className="pricing-card-price">
-              <Title level={3} as={"h3"}>
+              <Title level={3} as={"h2"}>
                 0 zł
               </Title>
               <div className="pricing-card-discount">
-                <Title level={5} as={"h5"}>
+                <Title level={5} as={"h2"}>
                   za darmo
                 </Title>
               </div>
@@ -273,17 +273,17 @@ const props = {
     </div>
     <div style={{ width: 375 }}>
       <PricingCard mobile>
-        <Title level={5} as={"h5"}>
+        <Title level={5} as={"h1"}>
           {props.title}
         </Title>
         <div className="pricing-card-footer">
           <div>
             <div className="pricing-card-discount">
-              <Title level={5} as={"h5"}>
+              <Title level={5} as={"h2"}>
                 {props.oldPrice}
               </Title>
             </div>
-            <Title level={4} as={"h4"}>
+            <Title level={4} as={"h2"}>
               {props.price}
             </Title>
           </div>

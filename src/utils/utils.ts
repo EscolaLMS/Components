@@ -446,3 +446,16 @@ export const SharedLightboxStyle = css`
     transform: translateX(-50%) translateY(-50%);
   }
 `;
+
+let time = Date.now();
+const usedIds: string[] = [];
+export const getUniqueId = (uniqueName: string, twoIds?: boolean) => {
+  const newId = `${time}--${uniqueName}`;
+  if (usedIds.filter((id) => id === newId).length > (twoIds ? 1 : 0)) {
+    time = Date.now();
+    usedIds.push(`${time}--${uniqueName}`);
+    return `${time}--${uniqueName}`;
+  }
+  usedIds.push(newId);
+  return newId;
+};

@@ -77,13 +77,13 @@ const RatingsDesktop: React.FC<RatingsViewProps> = (props) => {
   return (
     <StyledRatingsDesktop className="wellms-component">
       {header && (
-        <Title className="header" level={4}>
+        <Title className="header" level={4} as="h1">
           {header}
         </Title>
       )}
       <div className="ratings-container">
         <div className="average-rate-container">
-          <Title className="title" level={1}>
+          <Title className="title" level={1} as="h2">
             {avgRate}
           </Title>
           <Rating ratingValue={avgRate} />
@@ -142,7 +142,7 @@ const RatingsMobile: React.FC<RatingsViewProps> = (props) => {
   return (
     <StyledRatingsMobile className="wellms-component">
       {header && (
-        <Title className="header" level={4}>
+        <Title className="header" level={4} as="h2">
           {header}
         </Title>
       )}
