@@ -94,6 +94,7 @@ const Icon1 = () => (
             id={1}
             image={{
               path: backgroundImage1,
+              alt: "Man sitting on the chair",
             }}
             tags={[
               {
@@ -134,6 +135,7 @@ const Icon1 = () => (
             id={2}
             image={{
               path: backgroundImage2,
+              alt: "Girl sitting on the chair",
             }}
             tags={[
               {
@@ -175,6 +177,7 @@ const Icon1 = () => (
             id={3}
             image={{
               path: backgroundImage2,
+              alt: "Girl sitting on the chair",
             }}
             subtitle={"100% Online"}
             tags={[
@@ -212,6 +215,7 @@ const Icon1 = () => (
             id={4}
             image={{
               path: backgroundImage2,
+              alt: "Girl sitting on the chair",
             }}
             tags={[
               {

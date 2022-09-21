@@ -2,6 +2,7 @@ import * as React from "react";
 import styled, { withTheme } from "styled-components";
 import { ReactNode } from "react";
 import { getFontFromTheme } from "../../../theme/provider";
+import { getUniqueId } from "../../../utils/utils";
 
 interface TabProps {
   label: string;
@@ -81,7 +82,7 @@ export const Tabs: React.FC<TabsProps> = (props) => {
                   selectedTab === tab.key ? "active" : ""
                 }`}
                 key={tab.key}
-                id={`tab-menu-${tab.key}${Date.now()}`}
+                id={getUniqueId(`tab-menu-${tab.key}`)}
                 onClick={() => {
                   setSelectedTab(tab.key);
                   onClick && onClick(tab.key);

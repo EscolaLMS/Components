@@ -8,6 +8,7 @@ import { Text } from "../../atoms/Typography/Text";
 import { Title } from "../../../";
 import chroma from "chroma-js";
 import { MarkdownRenderer } from "../../molecules/MarkdownRenderer/MarkdownRenderer";
+import { getUniqueId } from "../../../utils/utils";
 
 const ArrowOpenIcon: React.FC = () => {
   return (
@@ -191,6 +192,8 @@ export const CartCard: React.FC<CartCardProps> = (props) => {
     }
   };
 
+  const uniqueId = getUniqueId("discount-code");
+
   return (
     <StyledCardCard className="wellms-component" mobile={mobile}>
       {!mobile && <Text className="title">{title}</Text>}
@@ -262,15 +265,13 @@ export const CartCard: React.FC<CartCardProps> = (props) => {
             aria-label={t<string>("CartCard.addDiscountButton")}
             tabIndex={0}
           >
-            <Text size={"12"} noMargin>
+            <Text size={"12"} noMargin id={uniqueId}>
               {t<string>("CartCard.addDiscountButton")}
             </Text>
             <Button
+              as="div"
               mode={"icon"}
               className="open-discount-state-container"
-              aria-label={t<string>(
-                isDiscountOpen ? "Actions.Hide" : "Actions.Show"
-              )}
             >
               {isDiscountOpen ? <ArrowOpenIcon /> : <ArrowClosedIcon />}{" "}
             </Button>
@@ -278,6 +279,7 @@ export const CartCard: React.FC<CartCardProps> = (props) => {
           {isDiscountOpen && (
             <div className="discount-form-container">
               <Input
+                aria-labelledby={uniqueId}
                 type="text"
                 value={discountInput}
                 onChange={(e) => setDiscountInput(e.target.value)}

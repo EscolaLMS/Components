@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import styled, { withTheme } from "styled-components";
 import { Spin, Link } from "../../..";
 import { useTranslation } from "react-i18next";
+import { getUniqueId } from "../../../utils/utils";
 
 export interface InputProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "type"> {
@@ -141,9 +142,19 @@ export const Upload: React.FC<InputProps> = (props) => {
     },
     []
   );
+
+  const id = buttonTitle ? getUniqueId("upload") : null;
+
   return (
     <StyledDiv className="wellms-component upload">
-      <input type="file" {...rest} onChange={onInternalChange} />
+      <input
+        type="file"
+        {...rest}
+        onChange={onInternalChange}
+        {...(id
+          ? { "aria-labelledby": id }
+          : { "aria-label": t("Upload.button") })}
+      />
       <div className="wrapper">
         <div className="border">
           {loading && <Spin />}
@@ -151,7 +162,11 @@ export const Upload: React.FC<InputProps> = (props) => {
           <UploadIcon />
         </div>
       </div>
-      {buttonTitle && <Link underline>{buttonTitle}</Link>}
+      {buttonTitle && (
+        <Link underline id={id}>
+          {buttonTitle}
+        </Link>
+      )}
     </StyledDiv>
   );
 };

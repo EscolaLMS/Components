@@ -10,10 +10,12 @@ import Spin from "../Spin/Spin";
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children?: React.ReactNode;
-  mode?: "primary" | "secondary" | "outline" | "white" | "icon";
   invert?: boolean;
   loading?: boolean;
   block?: boolean;
+  mode?: "primary" | "secondary" | "outline" | "white" | "icon";
+  as?: React.ElementType;
+  "aria-label"?: string;
 }
 
 const StyledButton = styled("button")<ButtonProps>`
@@ -276,6 +278,7 @@ const StyledButton = styled("button")<ButtonProps>`
 
 // Main button with styles
 export const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
+  as,
   children,
   mode = "primary",
   invert,
@@ -294,6 +297,7 @@ export const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
   return (
     <StyledButton
       invert={invert}
+      as={as ?? "button"}
       mode={mode}
       loading={loading}
       block={block}

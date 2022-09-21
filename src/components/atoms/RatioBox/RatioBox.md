@@ -51,22 +51,22 @@ const rndCat = () =>
   </p>
 
   <RatioBox ratio={ratio} objectPosition={objectPosition}>
-    <img src={rndCat()} />
+    <img src={rndCat()} alt="Cat" />
   </RatioBox>
 
   <p>Ratio 1 = Square</p>
   <RatioBox ratio={1}>
-    <img src={rndCat()} />
+    <img src={rndCat()} alt="Cat" />
   </RatioBox>
 
   <p>Ratio 1.5 = Rectangle vertical</p>
   <RatioBox ratio={1.5}>
-    <img src={rndCat()} />
+    <img src={rndCat()} alt="Cat" />
   </RatioBox>
 
   <p>Ratio 0.5 = Rectangle horizontal</p>
   <RatioBox ratio={0.5}>
-    <img src={rndCat()} />
+    <img src={rndCat()} alt="Cat" />
   </RatioBox>
 </div>;
 ```

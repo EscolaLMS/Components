@@ -40,7 +40,7 @@ export const Description: React.FC<PropsWithChildren<DescriptionProps>> = (
           marginBottom: 0,
           color: theme.primaryColor,
         }}
-        as={"h5"}
+        as={"h1"}
       >
         {children}
       </Title>

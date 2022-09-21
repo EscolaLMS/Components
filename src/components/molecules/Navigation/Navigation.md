@@ -94,6 +94,7 @@ const menuItems = [
         src: logoImage,
         width: 33,
         heigth: 33,
+        alt: "Logo",
       }}
       menuItems={menuItems}
       search={

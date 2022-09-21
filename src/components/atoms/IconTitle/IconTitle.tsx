@@ -68,8 +68,8 @@ const StyledHeader = styled.h3<StyledHeader>`
 `;
 
 export const IconTitle: React.FC<IconTitleProps> = (props) => {
-  const { title, subtitle, icon, level = 3, styles } = props;
-  const tagName: HeaderLevelStr = `h${level}`;
+  const { title, subtitle, icon, level = 3, styles, as } = props;
+  const tagName: HeaderLevelStr = (as as HeaderLevelStr) ?? `h${level}`;
   return (
     <StyledHeader
       as={tagName}
