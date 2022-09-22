@@ -9,6 +9,7 @@ import { Upload } from "../../molecules/Upload/Upload";
 import styled, { withTheme } from "styled-components";
 
 import { Input, Button, Title, Text, Checkbox, TextArea } from "../../../";
+import { ExtendableStyledComponent } from "types/component";
 
 const StyledFormHeader = styled.div<{ mobile: boolean }>`
   text-align: center;
@@ -77,11 +78,18 @@ type FormValues = {
   avatar?: string;
 } & Record<string, boolean | number | string>;
 
-export const MyProfileForm: React.FC<{
+interface Props extends ExtendableStyledComponent {
   onError?: (err: ResponseError<DefaultResponseError>) => void;
   onSuccess?: () => void;
   mobile?: boolean;
-}> = ({ onSuccess, onError, mobile = false }) => {
+}
+
+export const MyProfileForm: React.FC<Props> = ({
+  onSuccess,
+  onError,
+  mobile = false,
+  className = "",
+}) => {
   const [initialValues, setInitialValues] = useState<
     FormValues & Record<string, string | boolean>
   >({
@@ -146,7 +154,10 @@ export const MyProfileForm: React.FC<{
     <Container>
       <Row>
         <Col sm={12}>
-          <StyledFormHeader className="wellms-component" mobile={mobile}>
+          <StyledFormHeader
+            className={`wellms-component ${className}`}
+            mobile={mobile}
+          >
             <Title level={3}>{t<string>("MyProfileForm.Heading")}</Title>
             <Text level={3}>{t<string>("MyProfileForm.Subtitle")}</Text>
           </StyledFormHeader>

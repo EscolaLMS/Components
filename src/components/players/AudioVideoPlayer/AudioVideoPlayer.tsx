@@ -6,6 +6,7 @@ import format from "date-fns/format";
 import screenfull from "screenfull";
 import { findDOMNode } from "react-dom";
 import { useTranslation } from "react-i18next";
+import { ExtendableStyledComponent } from "types/component";
 
 interface StyledAudioVideoPlayerProps {
   mobile?: boolean;
@@ -59,7 +60,8 @@ const initialVideoState: AudioVideoState = {
 export interface AudioVideoPlayerProps
   extends StyledAudioVideoPlayerProps,
     AudioVideoPlayerControlsProps,
-    ReactPlayerProps {
+    ReactPlayerProps,
+    ExtendableStyledComponent {
   ratio?: number;
 }
 
@@ -742,6 +744,7 @@ export const AudioVideoPlayer: React.FC<AudioVideoPlayerProps> = (props) => {
     audio = false,
     light = true,
     ratio = 9 / 16,
+    className = "",
   } = props;
 
   const ref = React.useRef<ReactPlayer>(null);
@@ -769,7 +772,7 @@ export const AudioVideoPlayer: React.FC<AudioVideoPlayerProps> = (props) => {
 
   return (
     <StyledAudioVideoPlayer
-      className="wellms-component"
+      className={`wellms-component ${className}`}
       state={audioVideoState}
       ref={refWrapper}
       audio={audio}

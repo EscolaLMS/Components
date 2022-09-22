@@ -1,10 +1,13 @@
 import * as React from "react";
 
 import styled, { withTheme } from "styled-components";
+import { ExtendableStyledComponent } from "types/component";
 import { AvatarTypesStr } from "../../../types/AvatarTypes";
 import { setAvatarBySize } from "../../../utils/components/primitives/avatarUtils";
 
-export interface AvatarProps extends React.ImgHTMLAttributes<HTMLImageElement> {
+export interface AvatarProps
+  extends React.ImgHTMLAttributes<HTMLImageElement>,
+    ExtendableStyledComponent {
   size?: AvatarTypesStr;
 }
 
@@ -16,8 +19,14 @@ const StyledAvatar = styled("img")<AvatarProps>`
 `;
 
 export const Avatar: React.FC<AvatarProps> = (props) => {
-  const { size } = props;
-  return <StyledAvatar {...props} size={size} className="wellms-component" />;
+  const { size, className = "" } = props;
+  return (
+    <StyledAvatar
+      {...props}
+      size={size}
+      className={`wellms-component ${className}`}
+    />
+  );
 };
 
 const NewAvatar = styled(Avatar)<{ size: string }>``;

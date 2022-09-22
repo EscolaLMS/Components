@@ -5,8 +5,11 @@ import styled, { withTheme, ThemeContext } from "styled-components";
 import { Title } from "../../atoms/Typography/Title";
 import { Text } from "../../atoms/Typography/Text";
 import { PropsWithChildren } from "react";
+import { ExtendableStyledComponent } from "types/component";
 
-export type DescriptionProps = React.HTMLProps<HTMLDivElement>;
+export interface DescriptionProps
+  extends React.HTMLProps<HTMLDivElement>,
+    ExtendableStyledComponent {}
 
 const StyledDescription = styled("div")`
   display: flex;
@@ -20,11 +23,11 @@ const StyledDescription = styled("div")`
 export const Description: React.FC<PropsWithChildren<DescriptionProps>> = (
   props
 ) => {
-  const { children, title } = props;
+  const { children, title, className = "" } = props;
   const theme = React.useContext(ThemeContext);
 
   return (
-    <StyledDescription className="wellms-component">
+    <StyledDescription className={`wellms-component ${className}`}>
       <Text
         style={{
           textTransform: "uppercase",

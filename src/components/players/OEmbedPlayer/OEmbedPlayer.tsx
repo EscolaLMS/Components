@@ -1,9 +1,12 @@
 import * as React from "react";
 import Embed, { EmbedProps } from "react-tiny-oembed";
 import styled, { withTheme } from "styled-components";
+import { ExtendableStyledComponent } from "types/component";
 import { RatioBox } from "../../../";
 
-export interface OEmbedPlayerProps extends EmbedProps {
+export interface OEmbedPlayerProps
+  extends EmbedProps,
+    ExtendableStyledComponent {
   ratio?: number;
 }
 
@@ -27,10 +30,10 @@ const StyledOEmbedPlayer = styled("div")`
 `;
 
 export const OEmbedPlayer: React.FC<OEmbedPlayerProps> = (props) => {
-  const { ratio = 9 / 16 } = props;
+  const { ratio = 9 / 16, className = "" } = props;
 
   return (
-    <StyledOEmbedPlayer className="wellms-component">
+    <StyledOEmbedPlayer className={`wellms-component ${className}`}>
       <RatioBox ratio={ratio}>
         <Embed {...props} />
       </RatioBox>

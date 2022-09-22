@@ -8,6 +8,7 @@ import type { ResponseError } from "umi-request";
 import styled, { withTheme } from "styled-components";
 
 import { Input, Button, Title, Link, Text } from "../../../";
+import { ExtendableStyledComponent } from "types/component";
 
 const StyledDiv = styled.div<{ mobile: boolean }>`
   margin: 0;
@@ -50,7 +51,7 @@ interface MyFormValues {
   error?: string;
 }
 
-export const ResetPasswordForm: React.FC<{
+interface Props extends ExtendableStyledComponent {
   onFirstStepError?: (err: ResponseError<DefaultResponseError>) => void;
   onSecondStepError?: (err: ResponseError<DefaultResponseError>) => void;
   onFirstStepSuccess?: () => void;
@@ -62,7 +63,9 @@ export const ResetPasswordForm: React.FC<{
   secondStep?: boolean;
   email?: string;
   token?: string;
-}> = ({
+}
+
+export const ResetPasswordForm: React.FC<Props> = ({
   onFirstStepError,
   onSecondStepError,
   onFirstStepSuccess,
@@ -74,6 +77,7 @@ export const ResetPasswordForm: React.FC<{
   secondStep,
   email,
   token,
+  className = "",
 }) => {
   const initialValues: MyFormValues = { email: "", password: "" };
   const { t } = useTranslation();
@@ -123,7 +127,7 @@ export const ResetPasswordForm: React.FC<{
   );
 
   return (
-    <StyledDiv className="wellms-component" mobile={mobile}>
+    <StyledDiv className={`wellms-component ${className}`} mobile={mobile}>
       <Title level={3}>{t<string>("ResetForm.ResetPassword")}</Title>{" "}
       <Formik
         initialValues={initialValues}

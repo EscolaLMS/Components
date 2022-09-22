@@ -2,6 +2,7 @@ import * as React from "react";
 import { ReactNode, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
+import { ExtendableStyledComponent } from "types/component";
 import { roundPercentageList } from "../../../utils/utils";
 import { Interval } from "../../atoms/Interval/Interval";
 import { Rating } from "../../atoms/Rating/Rating";
@@ -25,7 +26,7 @@ export interface RatingsProps extends StyledRatings {
   rates: Rates;
 }
 
-interface RatingsViewProps extends RatingsProps {
+interface RatingsViewProps extends RatingsProps, ExtendableStyledComponent {
   renderRateWithInterval: () => JSX.Element[];
 }
 
@@ -71,11 +72,11 @@ const StyledRatingsDesktop = styled.div`
 `;
 
 const RatingsDesktop: React.FC<RatingsViewProps> = (props) => {
-  const { avgRate, header, renderRateWithInterval } = props;
+  const { avgRate, header, renderRateWithInterval, className = "" } = props;
 
   const { t } = useTranslation();
   return (
-    <StyledRatingsDesktop className="wellms-component">
+    <StyledRatingsDesktop className={`wellms-component ${className}`}>
       {header && (
         <Title className="header" level={4} as="h1">
           {header}

@@ -2,8 +2,9 @@ import * as React from "react";
 import { PropsWithChildren } from "react";
 
 import styled from "styled-components";
+import { ExtendableStyledComponent } from "types/component";
 
-export interface CardProps {
+export interface CardProps extends ExtendableStyledComponent {
   // size of wings for a card
   wings?: "small" | "large" | "hidden";
   // overwrite default css style
@@ -112,13 +113,14 @@ export const Card: React.FC<PropsWithChildren<CardProps>> = ({
   children,
   style,
   inline,
+  className = "",
 }) => {
   return (
     <StyledCard
       wings={wings}
       style={style}
       inline={inline}
-      className="wellms-component"
+      className={`wellms-component ${className}`}
     >
       <div className="content">{children}</div>
     </StyledCard>

@@ -3,8 +3,9 @@ import styled, { withTheme } from "styled-components";
 import { Document, Page, pdfjs } from "react-pdf";
 import { Button, Text } from "../../..";
 import { useTranslation } from "react-i18next";
+import { ExtendableStyledComponent } from "types/component";
 
-interface PdfPlayerProps {
+interface PdfPlayerProps extends ExtendableStyledComponent {
   url: string;
   onLoad?: () => void;
 }
@@ -22,6 +23,7 @@ const StyledWrapper = styled("div")`
 export const PdfPlayer: React.FunctionComponent<PdfPlayerProps> = ({
   url,
   onLoad,
+  className = "",
 }): React.ReactElement => {
   const [allPages, setAllPages] = React.useState<number | null>(null);
   const [currentPage, setCurrentPage] = React.useState(1);
@@ -45,7 +47,7 @@ export const PdfPlayer: React.FunctionComponent<PdfPlayerProps> = ({
   }
 
   return (
-    <StyledWrapper className="wellms-component">
+    <StyledWrapper className={`wellms-component ${className}`}>
       {isMounted && url && (
         <Document
           loading={t<string>("Loading")}

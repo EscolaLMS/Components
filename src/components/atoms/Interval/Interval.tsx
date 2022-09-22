@@ -1,8 +1,9 @@
 import * as React from "react";
 import styled from "styled-components";
+import { ExtendableStyledComponent } from "types/component";
 import { calcPercentage } from "../../../utils/utils";
 
-export interface IntervalProps {
+export interface IntervalProps extends ExtendableStyledComponent {
   current: number;
   max: number;
 }
@@ -45,7 +46,10 @@ const StyledInterval = styled.div<IntervalProps>`
 
 export const Interval: React.FC<IntervalProps> = (props) => {
   return (
-    <StyledInterval {...props} className="wellms-component">
+    <StyledInterval
+      {...props}
+      className={`wellms-component ${props.className ?? ""}`}
+    >
       <div></div>
     </StyledInterval>
   );

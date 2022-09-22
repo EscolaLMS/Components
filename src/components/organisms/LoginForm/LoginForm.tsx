@@ -11,6 +11,7 @@ import type { ResponseError } from "umi-request";
 import styled, { withTheme } from "styled-components";
 
 import { Input, Button, Title, Link, Text } from "../../../";
+import { ExtendableStyledComponent } from "types/component";
 
 const StyledDiv = styled.div<{ mobile: boolean }>`
   margin: 0;
@@ -53,18 +54,21 @@ interface MyFormValues {
   error?: string;
 }
 
-export const LoginForm: React.FC<{
+interface Props extends ExtendableStyledComponent {
   onError?: (err: DefaultResponse<DefaultResponseError>) => void;
   onSuccess?: () => void;
   onResetPasswordLink?: () => void;
   onRegisterLink?: () => void;
   mobile?: boolean;
-}> = ({
+}
+
+export const LoginForm: React.FC<Props> = ({
   onSuccess,
   onError,
   onResetPasswordLink,
   onRegisterLink,
   mobile = false,
+  className = "",
 }) => {
   const initialValues: MyFormValues = { email: "", password: "" };
   const { t } = useTranslation();
@@ -94,7 +98,7 @@ export const LoginForm: React.FC<{
   }, [user.value, onSuccess]);
 
   return (
-    <StyledDiv className="wellms-component" mobile={mobile}>
+    <StyledDiv className={`wellms-component ${className}`} mobile={mobile}>
       <Title level={3}>{t("Login.Header")}</Title>{" "}
       <Formik
         innerRef={formikRef}

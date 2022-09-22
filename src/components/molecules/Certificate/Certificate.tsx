@@ -7,6 +7,7 @@ import { Row, Col } from "react-grid-system";
 import { RatioBox } from "../../atoms/RatioBox/RatioBox";
 import { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
+import { ExtendableStyledComponent } from "types/component";
 
 interface StyledCertificateProps {
   mobile?: boolean;
@@ -17,7 +18,9 @@ interface CertificateImgProps {
   alt: string;
 }
 
-export interface CertificateProps extends StyledCertificateProps {
+export interface CertificateProps
+  extends StyledCertificateProps,
+    ExtendableStyledComponent {
   img: CertificateImgProps | ReactNode;
   title?: ReactNode;
   description: ReactNode;
@@ -117,12 +120,16 @@ export const Certificate: React.FC<CertificateProps> = (props) => {
     handleShare,
     handleDownload,
     mobile = false,
+    className = "",
   } = props;
 
   const { t } = useTranslation();
 
   return (
-    <StyledCertificate className="wellms-component" mobile={mobile}>
+    <StyledCertificate
+      className={`wellms-component ${className}`}
+      mobile={mobile}
+    >
       <Title level={4} as={"h4"} style={{ marginBottom: "20px" }}>
         {t("Certificate.Title")}
       </Title>

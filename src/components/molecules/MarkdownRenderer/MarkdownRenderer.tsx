@@ -12,6 +12,7 @@ import { useState } from "react";
 import chroma from "chroma-js";
 import { SharedLightboxStyle } from "../../../utils/utils";
 import { Link } from "../../../";
+import { ExtendableStyledComponent } from "types/component";
 
 interface StyledMarkdownRendererProps {
   mobile?: boolean;
@@ -20,7 +21,8 @@ interface StyledMarkdownRendererProps {
 
 export interface MarkdownRendererProps
   extends ReactMarkdownOptions,
-    StyledMarkdownRendererProps {}
+    StyledMarkdownRendererProps,
+    ExtendableStyledComponent {}
 
 const pxToEm = (px: string) => {
   const pxNumber = parseFloat(px);
@@ -136,7 +138,7 @@ export const MarkdownTable: React.ComponentType<
 > = (props) => {
   return (
     <div className="table-responsive">
-      <table className={`table ${props.className || ""}`} {...props}>
+      <table className={`table ${props.className ?? ""}`} {...props}>
         {props.children}
       </table>
     </div>
@@ -144,11 +146,11 @@ export const MarkdownTable: React.ComponentType<
 };
 
 export const MarkdownRenderer: React.FC<MarkdownRendererProps> = (props) => {
-  const { mobile = false, fontSize = "16", children } = props;
+  const { mobile = false, fontSize = "16", children, className } = props;
 
   return (
     <StyledMarkdownRenderer
-      className="wellms-component"
+      className={`wellms-component ${className}`}
       mobile={mobile}
       fontSize={fontSize}
     >

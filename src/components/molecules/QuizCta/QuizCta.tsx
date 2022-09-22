@@ -6,13 +6,16 @@ import { Link } from "../../atoms/Link/Link";
 import { Button } from "../../atoms/Button/Button";
 import { ReactNode } from "react";
 import { contrast } from "chroma-js";
+import { ExtendableStyledComponent } from "types/component";
 
 interface StyledQuizCtaCardProps {
   mobile?: boolean;
   lightContrast?: boolean;
 }
 
-export interface QuizCtaCardProps extends StyledQuizCtaCardProps {
+export interface QuizCtaCardProps
+  extends StyledQuizCtaCardProps,
+    ExtendableStyledComponent {
   title: ReactNode;
   children: ReactNode;
   primaryButtonText: ReactNode;
@@ -99,6 +102,7 @@ export const QuizCta: React.FC<QuizCtaCardProps> = (props) => {
     secondaryButtonText,
     onSecondaryButtonClick,
     mobile = false,
+    className = "",
   } = props;
 
   const theme = React.useContext(ThemeContext);
@@ -109,7 +113,7 @@ export const QuizCta: React.FC<QuizCtaCardProps> = (props) => {
 
   return (
     <StyledQuizCta
-      className="wellms-component"
+      className={`wellms-component ${className}`}
       mobile={mobile}
       lightContrast={cts}
     >

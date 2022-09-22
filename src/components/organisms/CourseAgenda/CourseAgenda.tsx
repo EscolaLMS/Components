@@ -4,6 +4,7 @@ import styled, { withTheme } from "styled-components";
 import { useTranslation } from "react-i18next";
 import type { Lesson, Topic } from "@escolalms/sdk/lib/types/api";
 import chroma from "chroma-js";
+import { ExtendableStyledComponent } from "types/component";
 
 const ProgramIcon = () => (
   <svg
@@ -86,7 +87,9 @@ interface SharedComponentProps {
   finishedTopicIds: number[];
 }
 
-interface CourseAgendaProps extends SharedComponentProps {
+interface CourseAgendaProps
+  extends SharedComponentProps,
+    ExtendableStyledComponent {
   lessons: Lesson[];
   currentTopicId: number;
 }
@@ -457,6 +460,7 @@ export const CourseAgenda: React.FC<CourseAgendaProps> = (props) => {
     currentTopicId,
     onMarkFinished,
     onTopicClick,
+    className = "",
   } = props;
   const { t } = useTranslation();
 
@@ -475,7 +479,7 @@ export const CourseAgenda: React.FC<CourseAgendaProps> = (props) => {
   }, [flatTopics, finishedTopicIds]);
 
   return (
-    <StyledSection className="wellms-component">
+    <StyledSection className={`wellms-component ${className}`}>
       {!mobile && (
         <header>
           <IconTitle

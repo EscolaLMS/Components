@@ -1,10 +1,13 @@
 import * as React from "react";
 
 import styled, { withTheme } from "styled-components";
+import { ExtendableStyledComponent } from "types/component";
 
 import { getFontFromTheme } from "../../../theme/provider";
 
-export interface TextProps extends React.HTMLAttributes<HTMLParagraphElement> {
+export interface TextProps
+  extends React.HTMLAttributes<HTMLParagraphElement>,
+    ExtendableStyledComponent {
   noMargin?: boolean;
   bold?: boolean;
   size?: "16" | "14" | "12";
@@ -44,7 +47,7 @@ export const Text: React.FC<TextProps> = (props) => {
     bold,
     size = "16",
     type = "primary",
-    className,
+    className = "",
   } = props;
   return (
     <StyledP
@@ -54,7 +57,7 @@ export const Text: React.FC<TextProps> = (props) => {
       size={size}
       type={type}
       {...props}
-      className={`${className} wellms-component`}
+      className={`wellms-component ${className}`}
     >
       {children}
     </StyledP>

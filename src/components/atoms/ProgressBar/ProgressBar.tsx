@@ -2,10 +2,13 @@ import * as React from "react";
 import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
+import { ExtendableStyledComponent } from "types/component";
 import { getFontFromTheme } from "../../../theme/provider";
 import { calcPercentage } from "../../../utils/utils";
 
-export interface ProgressBarProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface ProgressBarProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+    ExtendableStyledComponent {
   hideLabel?: boolean;
   label?: string | React.ReactNode;
   currentProgress: number;
@@ -70,6 +73,7 @@ export const ProgressBar: React.FC<ProgressBarProps> = (props) => {
     maxProgress,
     hideLabel,
     label = t("ProgressBar.defaultLabel"),
+    className = "",
   } = props;
 
   const renderLabel = useCallback(() => {
@@ -87,7 +91,7 @@ export const ProgressBar: React.FC<ProgressBarProps> = (props) => {
   return (
     <StyledDiv
       {...props}
-      className={`wellms-component lms-progress-bar ${props.className}`}
+      className={`wellms-component lms-progress-bar ${className}`}
     >
       {renderLabel()}
       <div className="progress-container">

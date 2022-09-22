@@ -2,8 +2,9 @@ import * as React from "react";
 import styled, { createGlobalStyle, withTheme } from "styled-components";
 import Dialog, { DialogProps } from "rc-dialog";
 import chroma from "chroma-js";
+import { ExtendableStyledComponent } from "types/component";
 
-export type ModalProps = DialogProps;
+export interface ModalProps extends DialogProps, ExtendableStyledComponent {}
 
 const CloseBtn = () => (
   <svg
@@ -225,7 +226,7 @@ const StyledGlobal = createGlobalStyle<ModalProps>`
 `;
 
 export const Modal: React.FC<ModalProps> = (props) => {
-  const { children, width } = props;
+  const { children, width, className = "" } = props;
   const wrapper = React.useRef<HTMLDivElement>(null);
   return (
     <React.Fragment>
@@ -233,7 +234,7 @@ export const Modal: React.FC<ModalProps> = (props) => {
         <Dialog
           {...props}
           closeIcon={<CloseBtn />}
-          className="wellms-component"
+          className={`wellms-component ${className}`}
         >
           <StyledGlobal width={width} />
           {children}

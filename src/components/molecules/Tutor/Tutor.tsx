@@ -5,11 +5,12 @@ import { Avatar, AvatarProps } from "../../atoms/Avatar/Avatar";
 import { RatingProps, Rating } from "../../atoms/Rating/Rating";
 import { ReactNode } from "react";
 import { Text } from "../../atoms/Typography/Text";
+import { ExtendableStyledComponent } from "types/component";
 
 interface StyledTourProps {
   mobile?: boolean;
 }
-export interface TutorProps extends StyledTourProps {
+export interface TutorProps extends StyledTourProps, ExtendableStyledComponent {
   title: ReactNode | string;
   fullName: ReactNode | string;
   avatar: AvatarProps;
@@ -57,11 +58,22 @@ const StyledTutor = styled.div<StyledTourProps>`
 `;
 
 export const Tutor: React.FC<TutorProps> = (props) => {
-  const { title, fullName, avatar, rating, coursesInfo, description, mobile } =
-    props;
+  const {
+    title,
+    fullName,
+    avatar,
+    rating,
+    coursesInfo,
+    description,
+    mobile,
+    className = "",
+  } = props;
 
   return (
-    <StyledTutor className="wellms-component lms-tutor" mobile={mobile}>
+    <StyledTutor
+      className={`wellms-component lms-tutor ${className}`}
+      mobile={mobile}
+    >
       <Title as="h3" level={4} className="title">
         {title}
       </Title>

@@ -6,6 +6,7 @@ import * as API from "@escolalms/sdk/lib/types/api";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { getFontFromTheme } from "../../../theme/provider";
 import { Spin } from "../../atoms/Spin/Spin";
+import { ExtendableStyledComponent } from "types/component";
 
 const StyledH5P = styled("div")`
   border-radius: ${(props) => props.theme.buttonRadius || 0}px;
@@ -13,7 +14,7 @@ const StyledH5P = styled("div")`
   width: 100%;
 `;
 
-export interface H5PProps {
+export interface H5PProps extends ExtendableStyledComponent {
   loading?: boolean;
   uuid?: string;
   onXAPI?: (e: XAPIEvent) => void;
@@ -27,6 +28,7 @@ export const H5Player: React.FC<H5PProps> = ({
   overwriteFileName = "h5p_overwrite.css",
   h5pObject,
   loading = false,
+  className = "",
 }) => {
   const { fetchH5P, h5p } = useContext(EscolaLMSContext);
 
@@ -336,7 +338,7 @@ export const H5Player: React.FC<H5PProps> = ({
   }, [themeContext]);
 
   return (
-    <StyledH5P className="wellms-component">
+    <StyledH5P className={`wellms-component ${className}`}>
       {((h5p && h5p.loading) || loading) && (
         <div className="h5p-loading">
           <Spin />

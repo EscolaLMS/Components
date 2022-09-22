@@ -6,6 +6,7 @@ import { API } from "@escolalms/sdk/lib";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { SharedLightboxStyle } from "../../../utils/utils";
 import { ResponsiveImage } from "../../organisms/ResponsiveImage/ResponsiveImage";
+import { ExtendableStyledComponent } from "types/component";
 
 const StyledImagePlayer = styled("div")`
   > div {
@@ -27,12 +28,16 @@ const LightBoxOverwrite = createGlobalStyle`
 ${SharedLightboxStyle}
 `;
 
-interface ImagePlayerProps {
+interface ImagePlayerProps extends ExtendableStyledComponent {
   topic: API.TopicImage;
   onLoad: () => void;
 }
 
-export const ImagePlayer: React.FC<ImagePlayerProps> = ({ topic, onLoad }) => {
+export const ImagePlayer: React.FC<ImagePlayerProps> = ({
+  topic,
+  onLoad,
+  className = "",
+}) => {
   const [open, setOpen] = React.useState<boolean>(false);
   const onCloseRequest = useCallback(() => setOpen(false), []);
   const { apiUrl } = React.useContext(EscolaLMSContext);
@@ -42,7 +47,7 @@ export const ImagePlayer: React.FC<ImagePlayerProps> = ({ topic, onLoad }) => {
   }, []);
 
   return (
-    <StyledImagePlayer className="wellms-component">
+    <StyledImagePlayer className={`wellms-component ${className}`}>
       <ResponsiveImage
         path={topic.topicable.value}
         srcSizes={[500, 750, 1000]}

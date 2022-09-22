@@ -6,9 +6,11 @@ import { default as chroma } from "chroma-js";
 import { PropsWithChildren } from "react";
 
 import Spin from "../Spin/Spin";
+import { ExtendableStyledComponent } from "types/component";
 
 export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    ExtendableStyledComponent {
   children?: React.ReactNode;
   invert?: boolean;
   loading?: boolean;
@@ -284,6 +286,7 @@ export const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
   invert,
   loading = false,
   block = false,
+  className = "",
   ...props
 }) => {
   const theme = React.useContext(ThemeContext);
@@ -302,7 +305,7 @@ export const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
       loading={loading}
       block={block}
       {...props}
-      className="wellms-component"
+      className={`wellms-component ${className}`}
     >
       {loading && <Spin color={loadingColor} />}
       {children}

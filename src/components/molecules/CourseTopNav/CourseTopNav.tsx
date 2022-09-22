@@ -7,12 +7,15 @@ import styled from "styled-components";
 import { Button } from "../../../";
 import chroma from "chroma-js";
 import { getUniqueId } from "../../../utils/utils";
+import { ExtendableStyledComponent } from "types/component";
 
 interface StyledAsideProps {
   mobile?: boolean;
 }
 
-export interface CourseTopNavProps extends StyledAsideProps {
+export interface CourseTopNavProps
+  extends StyledAsideProps,
+    ExtendableStyledComponent {
   isFinished: boolean;
   hasNext: boolean;
   hasPrev: boolean;
@@ -116,6 +119,7 @@ export const CourseTopNav: React.FC<CourseTopNavProps> = (props) => {
     onNoteClick,
     addNotes = true,
     mobile,
+    className = "",
   } = props;
 
   const [isClosed, setIsClosed] = React.useState<boolean>(false);
@@ -154,7 +158,7 @@ export const CourseTopNav: React.FC<CourseTopNavProps> = (props) => {
     <StyledAside
       aria-label={getUniqueId("aside")}
       mobile={mobile}
-      className={`wellms-component ${isClosed ? "closed" : ""}`}
+      className={`wellms-component ${isClosed ? "closed" : ""} ${className}`}
     >
       <div className="toggle-btn-container">
         <Button
