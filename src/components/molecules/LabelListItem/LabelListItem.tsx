@@ -10,6 +10,7 @@ export interface TitleProps extends React.HTMLProps<HTMLDivElement> {
   variant?: "header" | "label";
   icon?: React.ReactNode;
   mobile?: boolean;
+  titleTag?: keyof JSX.IntrinsicElements;
 }
 
 const StyledLabelListItem = styled("div")<TitleProps>`
@@ -21,7 +22,14 @@ const StyledLabelListItem = styled("div")<TitleProps>`
 `;
 
 export const LabelListItem: React.FC<TitleProps> = (props) => {
-  const { children, variant = "header", title, icon, mobile = false } = props;
+  const {
+    children,
+    variant = "header",
+    title,
+    icon,
+    mobile = false,
+    titleTag,
+  } = props;
   const theme = React.useContext(ThemeContext);
 
   return (
@@ -33,7 +41,7 @@ export const LabelListItem: React.FC<TitleProps> = (props) => {
               level={mobile ? 5 : 4}
               title={title}
               icon={icon}
-              as={"h1"}
+              as={titleTag ?? "h1"}
             />
           )}
           <Text
