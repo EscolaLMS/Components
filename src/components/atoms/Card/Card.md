@@ -45,7 +45,11 @@ import img1 from "./Card.png";
           },
         ]}
         subtitle={"100% Online"}
-        title={{ node: "Best course ever", titleTag: "h1" }}
+        title={
+          <Title level={4} as="h2" className="title">
+            Best course ever
+          </Title>
+        }
         hideImage
         categories={{
           onCategoryClick: (id) => {

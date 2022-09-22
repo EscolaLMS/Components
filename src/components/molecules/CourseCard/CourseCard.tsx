@@ -47,15 +47,10 @@ function isCategories(
   return !React.isValidElement(categories);
 }
 
-export interface TitleNode {
-  node: ReactNode;
-  titleTag: keyof JSX.IntrinsicElements;
-}
-
 export interface CourseCardProps extends StyledCourseCardProps {
   id: number;
   image?: Image;
-  title?: ReactNode | TitleNode;
+  title?: ReactNode;
   categories?: Categories | ReactChild;
   tags?: Tag[] | ReactChild;
   subtitle?: ReactNode;
@@ -279,13 +274,11 @@ export const CourseCard: React.FC<CourseCardProps> = (props) => {
   const renderCourseSection = () => {
     return (
       <>
-        {!!title && (
-          <Title
-            level={mobile ? 5 : 4}
-            as={(title as TitleNode)?.titleTag ?? "h1"}
-            className="title"
-          >
-            {(title as TitleNode)?.node ?? (title as ReactNode)}
+        {React.isValidElement(title) ? (
+          title
+        ) : (
+          <Title level={mobile ? 5 : 4} as="h1" className="title">
+            {title}
           </Title>
         )}
 

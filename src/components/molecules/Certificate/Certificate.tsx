@@ -7,7 +7,6 @@ import { Row, Col } from "react-grid-system";
 import { RatioBox } from "../../atoms/RatioBox/RatioBox";
 import { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
-import { TitleNode } from "../CourseCard/CourseCard";
 
 interface StyledCertificateProps {
   mobile?: boolean;
@@ -20,7 +19,7 @@ interface CertificateImgProps {
 
 export interface CertificateProps extends StyledCertificateProps {
   img: CertificateImgProps | ReactNode;
-  title?: ReactNode | TitleNode;
+  title?: ReactNode;
   description: ReactNode;
   handleDownload: () => void;
   handleShare: () => void;
@@ -149,15 +148,19 @@ export const Certificate: React.FC<CertificateProps> = (props) => {
             )}
           </div>
           <div className={"certificate-left-col"}>
-            <Title
-              level={4}
-              as={(title as TitleNode)?.titleTag ?? "h4"}
-              style={{
-                marginBottom: "5px",
-              }}
-            >
-              {(title as TitleNode)?.node ?? (title as ReactNode)}
-            </Title>
+            {React.isValidElement(title) ? (
+              title
+            ) : (
+              <Title
+                level={4}
+                as="h4"
+                style={{
+                  marginBottom: "5px",
+                }}
+              >
+                {title}
+              </Title>
+            )}
             <Text size={"14"} noMargin={true}>
               {description}
             </Text>
