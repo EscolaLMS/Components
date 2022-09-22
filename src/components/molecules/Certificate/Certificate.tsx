@@ -19,7 +19,7 @@ interface CertificateImgProps {
 
 export interface CertificateProps extends StyledCertificateProps {
   img: CertificateImgProps | ReactNode;
-  title: ReactNode;
+  title?: ReactNode;
   description: ReactNode;
   handleDownload: () => void;
   handleShare: () => void;
@@ -148,15 +148,19 @@ export const Certificate: React.FC<CertificateProps> = (props) => {
             )}
           </div>
           <div className={"certificate-left-col"}>
-            <Title
-              as={"h4"}
-              level={4}
-              style={{
-                marginBottom: "5px",
-              }}
-            >
-              {title}
-            </Title>
+            {React.isValidElement(title) ? (
+              title
+            ) : (
+              <Title
+                level={4}
+                as="h4"
+                style={{
+                  marginBottom: "5px",
+                }}
+              >
+                {title}
+              </Title>
+            )}
             <Text size={"14"} noMargin={true}>
               {description}
             </Text>

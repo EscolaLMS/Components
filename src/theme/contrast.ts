@@ -26,6 +26,8 @@ export const contrastTheme: DefaultTheme = {
   outlineButtonColor: "#000000",
   outlineButtonInvertColor: "#23298e",
   breadcrumbsColor: "#000000",
+  numerationsColor: "#fff",
+  dm__numerationsColor: "#000",
 };
 
 export default contrastTheme;

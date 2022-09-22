@@ -9,6 +9,7 @@ export interface TextProps extends React.HTMLAttributes<HTMLParagraphElement> {
   bold?: boolean;
   size?: "16" | "14" | "12";
   type?: "primary" | "secondary" | "warning" | "danger";
+  className?: string;
 }
 
 const StyledP = styled.p<TextProps>`
@@ -20,7 +21,9 @@ const StyledP = styled.p<TextProps>`
         return "#EB5757";
       case "primary":
       default:
-        return props.theme.mode !== "light" ? props.theme.white : "#111";
+        return props.theme.mode === "dark"
+          ? props.theme.textColorDark
+          : props.theme.textColorLight;
     }
   }};
   font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
@@ -41,16 +44,17 @@ export const Text: React.FC<TextProps> = (props) => {
     bold,
     size = "16",
     type = "primary",
+    className,
   } = props;
   return (
     <StyledP
-      {...props}
       style={style}
       noMargin={noMargin}
       bold={bold}
       size={size}
       type={type}
-      className="wellms-component"
+      {...props}
+      className={`${className} wellms-component`}
     >
       {children}
     </StyledP>

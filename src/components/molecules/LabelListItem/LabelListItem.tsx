@@ -6,10 +6,12 @@ import { Title } from "../../atoms/Typography/Title";
 import { Text } from "../../atoms/Typography/Text";
 import { IconTitle } from "../../atoms/IconTitle/IconTitle";
 
-export interface TitleProps extends React.HTMLProps<HTMLDivElement> {
+export interface TitleProps
+  extends Omit<React.HTMLProps<HTMLDivElement>, "title"> {
   variant?: "header" | "label";
   icon?: React.ReactNode;
   mobile?: boolean;
+  title?: React.ReactNode;
 }
 
 const StyledLabelListItem = styled("div")<TitleProps>`
@@ -28,14 +30,17 @@ export const LabelListItem: React.FC<TitleProps> = (props) => {
     <StyledLabelListItem className="wellms-component">
       {variant === "header" ? (
         <React.Fragment>
-          {title && (
-            <IconTitle
-              level={mobile ? 5 : 4}
-              title={title}
-              icon={icon}
-              as={"h1"}
-            />
-          )}
+          {title &&
+            (React.isValidElement(title) ? (
+              title
+            ) : (
+              <IconTitle
+                level={mobile ? 5 : 4}
+                title={typeof title === "string" ? title : ""}
+                icon={icon}
+                as={"h1"}
+              />
+            ))}
           <Text
             noMargin={true}
             size={mobile ? "12" : "14"}

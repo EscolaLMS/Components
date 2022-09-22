@@ -284,7 +284,10 @@ const StyledSection = styled("section")<SharedComponentProps>`
           font-weight: 300;
           .lesson__index {
             text-transform: uppercase;
-            color: ${(props) => props.theme.primaryColor};
+            color: ${(props) =>
+              props.theme.mode === "dark" && props.theme.dm__numerationsColor
+                ? props.theme.dm__numerationsColor
+                : props.theme.numerationsColor ?? props.theme.primaryColor};
             white-space: nowrap;
           }
           .lesson__duration {
@@ -363,7 +366,10 @@ const StyledSection = styled("section")<SharedComponentProps>`
           }
 
           .lesson__index {
-            opacity: 0.5;
+            opacity: ${(props) =>
+              props.theme.dm__numerationsColor || props.theme.numerationsColor
+                ? 1
+                : 0.5};
             margin-right: 4px;
           }
         }

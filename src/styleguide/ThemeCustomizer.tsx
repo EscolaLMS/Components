@@ -36,6 +36,8 @@ const allowedKeys: (keyof DefaultTheme & string)[] = [
   "outlineButtonColor",
   "outlineButtonInvertColor",
   "breadcrumbsColor",
+  "numerationsColor",
+  "dm__numerationsColor",
 ];
 
 const filterInputData = (input: DefaultTheme) => {
@@ -125,6 +127,8 @@ export const ThemeCustomizer: React.FC<{
           outlineButtonColor: initData.outlineButtonColor || "#000000",
           outlineButtonInvertColor: initData.outlineButtonColor || "#000000",
           breadcrumbsColor: initData.breadcrumbsColor || "#000000",
+          numerationsColor: initData.numerationsColor || "#000000",
+          dm__numerationsColor: initData.dm__numerationsColor || "#000000",
         }),
         Radiuses: folder({
           buttonRadius: {
