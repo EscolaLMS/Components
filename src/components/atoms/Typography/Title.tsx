@@ -1,5 +1,6 @@
 import * as React from "react";
 import styled, { css, withTheme } from "styled-components";
+import { ExtendableStyledComponent } from "types/component";
 import { getFontFromTheme } from "../../../theme/provider";
 import { HeaderLevelInt, HeaderLevelStr } from "../../../types/titleTypes";
 import { setFontSizeByHeaderLevel } from "../../../utils/components/primitives/titleUtils";
@@ -10,7 +11,8 @@ interface StyledHeader {
 }
 export interface TitleProps
   extends StyledHeader,
-    React.HTMLAttributes<HTMLHeadingElement> {
+    React.HTMLAttributes<HTMLHeadingElement>,
+    ExtendableStyledComponent {
   children?: React.ReactNode;
   as?: keyof JSX.IntrinsicElements;
 }
@@ -39,7 +41,7 @@ const StyledHeader = styled.h1<StyledHeader>`
 `;
 
 export const Title: React.FC<TitleProps> = (props) => {
-  const { children, level = 1, mobile = false, as } = props;
+  const { children, level = 1, mobile = false, as, className = "" } = props;
   const tagName: HeaderLevelStr = (as as HeaderLevelStr) ?? `h${level}`;
 
   return (
@@ -48,7 +50,7 @@ export const Title: React.FC<TitleProps> = (props) => {
       level={level}
       mobile={mobile}
       {...props}
-      className="wellms-component"
+      className={`wellms-component ${className}`}
     >
       {children}
     </StyledHeader>

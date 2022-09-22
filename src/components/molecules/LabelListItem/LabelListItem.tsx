@@ -5,9 +5,11 @@ import styled, { withTheme, ThemeContext } from "styled-components";
 import { Title } from "../../atoms/Typography/Title";
 import { Text } from "../../atoms/Typography/Text";
 import { IconTitle } from "../../atoms/IconTitle/IconTitle";
+import { ExtendableStyledComponent } from "types/component";
 
 export interface TitleProps
-  extends Omit<React.HTMLProps<HTMLDivElement>, "title"> {
+  extends Omit<React.HTMLProps<HTMLDivElement>, "title">,
+    ExtendableStyledComponent {
   variant?: "header" | "label";
   icon?: React.ReactNode;
   mobile?: boolean;
@@ -23,11 +25,18 @@ const StyledLabelListItem = styled("div")<TitleProps>`
 `;
 
 export const LabelListItem: React.FC<TitleProps> = (props) => {
-  const { children, variant = "header", title, icon, mobile = false } = props;
+  const {
+    children,
+    variant = "header",
+    title,
+    icon,
+    mobile = false,
+    className = "",
+  } = props;
   const theme = React.useContext(ThemeContext);
 
   return (
-    <StyledLabelListItem className="wellms-component">
+    <StyledLabelListItem className={`wellms-component ${className}`}>
       {variant === "header" ? (
         <React.Fragment>
           {title &&

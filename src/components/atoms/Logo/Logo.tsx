@@ -1,7 +1,10 @@
 import * as React from "react";
 import styled, { withTheme } from "styled-components";
+import { ExtendableStyledComponent } from "types/component";
 
-export interface LogoProps extends React.ImgHTMLAttributes<HTMLImageElement> {
+export interface LogoProps
+  extends React.ImgHTMLAttributes<HTMLImageElement>,
+    ExtendableStyledComponent {
   isSmall?: boolean;
   alt: string;
 }
@@ -12,7 +15,10 @@ const StyledLogo = styled("img")<LogoProps>`
 `;
 
 export const Logo: React.FC<LogoProps> = (props) => (
-  <StyledLogo {...props} className="wellms-component" />
+  <StyledLogo
+    {...props}
+    className={`wellms-component ${props.className ?? ""}`}
+  />
 );
 
 const NewStyledLogo = styled(Logo)<LogoProps>``;

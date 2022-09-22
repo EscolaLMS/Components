@@ -10,6 +10,7 @@ import type { DefaultResponseError } from "@escolalms/sdk/lib/types/api";
 import type { ResponseError } from "umi-request";
 import { Formik } from "formik";
 import { t } from "i18next";
+import { ExtendableStyledComponent } from "types/component";
 
 const ColorPicker = styled.div`
   display: flex;
@@ -90,7 +91,7 @@ const SingleColor = styled("div")<SingleColorProps>`
   }
 `;
 
-interface NoteEditorProps {
+interface NoteEditorProps extends ExtendableStyledComponent {
   onSuccess?: () => void;
   onError?: (err: ResponseError<DefaultResponseError>) => void;
 }
@@ -112,7 +113,10 @@ const initialValues: FormValues = {
   color: "#EB5757",
 };
 
-export const NoteEditor: React.FC<NoteEditorProps> = ({ onSuccess }) => {
+export const NoteEditor: React.FC<NoteEditorProps> = ({
+  onSuccess,
+  className = "",
+}) => {
   const [selectedColor, setSelectedColor] = useState("#EB5757");
   const colors: { color: string }[] = [
     { color: "#EB5757" },
@@ -121,7 +125,7 @@ export const NoteEditor: React.FC<NoteEditorProps> = ({ onSuccess }) => {
     { color: "#56CCF2" },
   ];
   return (
-    <StyledPopup className="wellms-component">
+    <StyledPopup className={`wellms-component ${className}`}>
       <Formik
         initialValues={initialValues}
         validate={(values) => {

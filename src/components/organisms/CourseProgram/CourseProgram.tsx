@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { Text } from "../../../";
 import type { Lesson, Topic } from "@escolalms/sdk/lib/types/api";
 import chroma from "chroma-js";
+import { ExtendableStyledComponent } from "types/component";
 
 const TextIcon = () => (
   <svg
@@ -187,7 +188,9 @@ interface SharedComponentProps {
   onTopicClick: (topic: Topic) => void;
 }
 
-interface CourseProgramProps extends SharedComponentProps {
+interface CourseProgramProps
+  extends SharedComponentProps,
+    ExtendableStyledComponent {
   lessons: Lesson[];
 }
 
@@ -474,11 +477,11 @@ const CourseProgramLesson: React.FC<CourseProgramLessonProps> = (props) => {
 };
 
 export const CourseProgram: React.FC<CourseProgramProps> = (props) => {
-  const { mobile = false, lessons, onTopicClick } = props;
+  const { mobile = false, lessons, onTopicClick, className = "" } = props;
   const { t } = useTranslation();
 
   return (
-    <StyledSection {...props} className="wellms-component">
+    <StyledSection {...props} className={`wellms-component ${className}`}>
       {!mobile && (
         <header>
           <IconTitle

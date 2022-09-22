@@ -2,8 +2,11 @@ import React, { ReactNode, useMemo } from "react";
 import styled, { withTheme } from "styled-components";
 import { useTranslation } from "react-i18next";
 import { Text } from "../../atoms/Typography/Text";
+import { ExtendableStyledComponent } from "types/component";
 
-interface OrdersProps extends React.InputHTMLAttributes<HTMLTableElement> {
+interface OrdersProps
+  extends React.InputHTMLAttributes<HTMLTableElement>,
+    ExtendableStyledComponent {
   mobile?: boolean;
   data: {
     title: ReactNode;
@@ -70,7 +73,7 @@ const SingleOrderCard = styled("div")<{ mobile: boolean }>`
 `;
 
 export const Orders: React.FC<OrdersProps> = (props) => {
-  const { data, mobile = false } = props;
+  const { data, mobile = false, className = "" } = props;
 
   const { t } = useTranslation();
 
@@ -79,7 +82,7 @@ export const Orders: React.FC<OrdersProps> = (props) => {
   }, [data]);
 
   return (
-    <StyledOrders className="wellms-component" mobile={mobile}>
+    <StyledOrders className={`wellms-component ${className}`} mobile={mobile}>
       {data.length === 0 && <Text>{t<string>("Orders.NoRecords")}</Text>}
       {data.length > 0 && (
         <React.Fragment>

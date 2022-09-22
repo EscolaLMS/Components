@@ -1,11 +1,13 @@
 import * as React from "react";
 
 import styled, { withTheme } from "styled-components";
+import { ExtendableStyledComponent } from "types/component";
 
 import { getFontFromTheme } from "../../../theme/provider";
 
 export interface OptionType
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "type"> {
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "type">,
+    ExtendableStyledComponent {
   label?: React.ReactNode;
   type: "checkbox" | "radio";
 }
@@ -74,7 +76,7 @@ const StyledDiv = styled.div<OptionType>`
 `;
 
 export const Option: React.FC<OptionType> = (props) => {
-  const { label, type, className } = props;
+  const { label, type, className = "" } = props;
 
   if (label) {
     return (

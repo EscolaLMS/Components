@@ -12,6 +12,7 @@ import { Title, Checkbox, Button } from "../../../";
 import Drawer from "rc-drawer";
 import { useTranslation } from "react-i18next";
 import { getFontFromTheme } from "../../../theme/provider";
+import { ExtendableStyledComponent } from "types/component";
 
 interface StyledCategoriesProps {
   mobile?: boolean;
@@ -20,7 +21,9 @@ interface StyledCategoriesProps {
   backgroundColor?: React.CSSProperties["backgroundColor"];
 }
 
-interface CategoriesProps extends StyledCategoriesProps {
+interface CategoriesProps
+  extends StyledCategoriesProps,
+    ExtendableStyledComponent {
   categories: Category[];
   label?: string;
   labelPrefix?: string;
@@ -272,6 +275,7 @@ const CategoryTreeOptions: React.FC<CategoriesProps> = (props) => {
     label,
     handleChange,
     mobile,
+    className = "",
   } = props;
 
   const [collapseState, setCollapseState] = React.useState<{
@@ -300,9 +304,9 @@ const CategoryTreeOptions: React.FC<CategoriesProps> = (props) => {
 
   return (
     <StyledCategoryTreeOptions
-      className={
+      className={`wellms-component ${
         mobile ? "categories-drawer-list" : "categories-dropdown-options"
-      }
+      } ${className}`}
     >
       {mobile && label && (
         <Title

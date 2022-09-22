@@ -9,6 +9,7 @@ import { Title } from "../../../";
 import chroma from "chroma-js";
 import { MarkdownRenderer } from "../../molecules/MarkdownRenderer/MarkdownRenderer";
 import { getUniqueId } from "../../../utils/utils";
+import { ExtendableStyledComponent } from "types/component";
 
 const ArrowOpenIcon: React.FC = () => {
   return (
@@ -74,7 +75,7 @@ interface Discount {
   isOpen?: boolean;
 }
 
-interface CartCardProps extends StyledCartCardProps {
+interface CartCardProps extends StyledCartCardProps, ExtendableStyledComponent {
   id: number;
   title: string;
   subtitle?: ReactNode;
@@ -171,6 +172,7 @@ export const CartCard: React.FC<CartCardProps> = (props) => {
     discount,
     loading,
     mobile = false,
+    className = "",
   } = props;
   const { t } = useTranslation();
 
@@ -195,7 +197,7 @@ export const CartCard: React.FC<CartCardProps> = (props) => {
   const uniqueId = getUniqueId("discount-code");
 
   return (
-    <StyledCardCard className="wellms-component" mobile={mobile}>
+    <StyledCardCard className={`wellms-component ${className}`} mobile={mobile}>
       {!mobile && <Text className="title">{title}</Text>}
       <div className={"cart-card-subtitle"}>{subtitle}</div>
       <div

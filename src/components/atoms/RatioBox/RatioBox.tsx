@@ -1,8 +1,9 @@
 import * as React from "react";
 import styled from "styled-components";
 import { PropsWithChildren } from "react";
+import { ExtendableStyledComponent } from "types/component";
 
-export interface RatioBoxProps {
+export interface RatioBoxProps extends ExtendableStyledComponent {
   ratio: number;
   objectPosition?: React.CSSProperties["objectPosition"];
 }
@@ -45,7 +46,10 @@ export const RatioBox: React.FC<PropsWithChildren<RatioBoxProps>> = (props) => {
   const { children } = props;
 
   return (
-    <StyledDiv {...props} className="wellms-component">
+    <StyledDiv
+      {...props}
+      className={`wellms-component ${props.className ?? ""}`}
+    >
       {children}
     </StyledDiv>
   );

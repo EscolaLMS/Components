@@ -3,9 +3,11 @@ import styled, { withTheme } from "styled-components";
 import { Spin, Link } from "../../..";
 import { useTranslation } from "react-i18next";
 import { getUniqueId } from "../../../utils/utils";
+import { ExtendableStyledComponent } from "types/component";
 
 export interface InputProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "type"> {
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "type">,
+    ExtendableStyledComponent {
   path?: string;
   url?: string;
   loading?: boolean;
@@ -118,6 +120,7 @@ export const Upload: React.FC<InputProps> = (props) => {
     url,
     loading,
     buttonTitle = t("Upload.button"),
+    className = "",
     ...rest
   } = props;
 
@@ -146,7 +149,7 @@ export const Upload: React.FC<InputProps> = (props) => {
   const id = buttonTitle ? getUniqueId("upload") : null;
 
   return (
-    <StyledDiv className="wellms-component upload">
+    <StyledDiv className={`wellms-component upload ${className}`}>
       <input
         type="file"
         {...rest}

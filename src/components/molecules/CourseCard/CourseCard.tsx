@@ -12,6 +12,7 @@ import { RatioBox } from "../../atoms/RatioBox/RatioBox";
 import { Text } from "../../atoms/Typography/Text";
 import { Title } from "../../atoms/Typography/Title";
 import { Link } from "../../atoms/Link/Link";
+import { ExtendableStyledComponent } from "types/component";
 
 type ImageObject = {
   path?: string;
@@ -47,7 +48,9 @@ function isCategories(
   return !React.isValidElement(categories);
 }
 
-export interface CourseCardProps extends StyledCourseCardProps {
+export interface CourseCardProps
+  extends StyledCourseCardProps,
+    ExtendableStyledComponent {
   id: number;
   image?: Image;
   title?: ReactNode;
@@ -239,6 +242,7 @@ export const CourseCard: React.FC<CourseCardProps> = (props) => {
     hideImage,
     actions,
     footer,
+    className = "",
   } = props;
 
   const theme = React.useContext(ThemeContext);
@@ -344,7 +348,7 @@ export const CourseCard: React.FC<CourseCardProps> = (props) => {
 
   return (
     <StyledCourseCard
-      className="wellms-component"
+      className={`wellms-component ${className}`}
       hideImage={hideImage}
       mobile={mobile}
     >

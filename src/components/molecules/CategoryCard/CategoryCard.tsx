@@ -4,13 +4,16 @@ import { ReactNode } from "react";
 import { Title } from "../../atoms/Typography/Title";
 import { Button } from "../../atoms/Button/Button";
 import chroma from "chroma-js";
+import { ExtendableStyledComponent } from "types/component";
 
 interface StyledCategoryCardProps {
   mobile?: boolean;
   variant: "solid" | "gradient";
 }
 
-export interface CategoryCardProps extends StyledCategoryCardProps {
+export interface CategoryCardProps
+  extends StyledCategoryCardProps,
+    ExtendableStyledComponent {
   icon: ReactNode;
   title: ReactNode;
   subtitle: ReactNode;
@@ -71,10 +74,11 @@ export const CategoryCard: React.FC<CategoryCardProps> = (props) => {
     onButtonClick,
     variant,
     mobile = false,
+    className = "",
   } = props;
   return (
     <StyledCategoryCard
-      className="wellms-component"
+      className={`wellms-component ${className}`}
       mobile={mobile}
       variant={variant}
     >

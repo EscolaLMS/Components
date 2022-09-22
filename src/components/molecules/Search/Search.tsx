@@ -6,13 +6,16 @@ import chroma from "chroma-js";
 import { Text } from "../../../";
 import { useOnClickOutside } from "../../../hooks/useOnClickOutside";
 import { useTranslation } from "react-i18next";
+import { ExtendableStyledComponent } from "types/component";
 
 interface StyledSearchProps {
   isFocused?: boolean;
   loading?: boolean;
 }
 
-export interface SearchProps extends StyledSearchProps {
+export interface SearchProps
+  extends StyledSearchProps,
+    ExtendableStyledComponent {
   onSearch?: (value: string) => void;
   onChange?: (value: string) => void;
   onSubmit?: (value: string) => void;
@@ -148,6 +151,7 @@ export const Search: React.FC<SearchProps> = (props) => {
     onChange,
     onSubmit,
     filterOptions,
+    className = "",
   } = props;
   const [value, setValue] = React.useState("");
   const [isFocused, setIsFocused] = React.useState(false);
@@ -197,7 +201,7 @@ export const Search: React.FC<SearchProps> = (props) => {
 
   return (
     <StyledSearch
-      className="wellms-component"
+      className={`wellms-component ${className}`}
       ref={ref}
       isFocused={isFocused}
       loading={loading}

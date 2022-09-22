@@ -4,8 +4,11 @@ import styled, { ThemeContext } from "styled-components";
 import "react-dropdown/style.css";
 import { getFontFromTheme } from "../../../theme/provider";
 import chroma, { contrast } from "chroma-js";
+import { ExtendableStyledComponent } from "types/component";
 
-export interface DropdownProps extends ReactDropdownProps {
+export interface DropdownProps
+  extends ReactDropdownProps,
+    ExtendableStyledComponent {
   placement?: "top" | "bottom";
   styles?: React.CSSProperties;
   lightContrast?: boolean;
@@ -117,6 +120,7 @@ export const Dropdown: React.FC<DropdownProps> = (props) => {
     backgroundColor = theme.mode === "light"
       ? theme.backgroundLight
       : theme.backgroundDark,
+    className = "",
   } = props;
 
   const cts = React.useMemo(() => {
@@ -127,7 +131,7 @@ export const Dropdown: React.FC<DropdownProps> = (props) => {
     <StyledDropdown
       placement={placement}
       style={styles}
-      className="wellms-component"
+      className={`wellms-component ${className}`}
       lightContrast={cts}
       backgroundColor={backgroundColor}
     >

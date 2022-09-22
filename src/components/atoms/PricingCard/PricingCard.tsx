@@ -2,8 +2,9 @@ import * as React from "react";
 import styled, { withTheme } from "styled-components";
 import { ReactNode } from "react";
 import chroma from "chroma-js";
+import { ExtendableStyledComponent } from "types/component";
 
-interface StyledPricingCardProps {
+interface StyledPricingCardProps extends ExtendableStyledComponent {
   mobile?: boolean;
   free?: boolean;
 }
@@ -87,10 +88,14 @@ const StyledPricingCard = styled("div")<StyledPricingCardProps>`
 `;
 
 export const PricingCard: React.FC<PricingCardProps> = (props) => {
-  const { children, mobile, free } = props;
+  const { children, mobile, free, className = "" } = props;
 
   return (
-    <StyledPricingCard className="wellms-component" mobile={mobile} free={free}>
+    <StyledPricingCard
+      className={`wellms-component ${className}`}
+      mobile={mobile}
+      free={free}
+    >
       {children}
     </StyledPricingCard>
   );

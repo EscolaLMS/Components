@@ -2,12 +2,13 @@ import * as React from "react";
 import { useState, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
+import { ExtendableStyledComponent } from "types/component";
 import { Button } from "../../atoms/Button/Button";
 import { Rating } from "../../atoms/Rating/Rating";
 import { Text } from "../../atoms/Typography/Text";
 import { Title } from "../../atoms/Typography/Title";
 
-interface Props {
+interface Props extends ExtendableStyledComponent {
   submitLabel?: string;
   header?: string;
   onSubmit: (rate: number) => void;
@@ -39,6 +40,7 @@ export const Rate: React.FC<Props> = (props) => {
     header = "Rate.Header",
     submitLabel = "Rate.submitButton",
     onSubmit,
+    className = "",
   } = props;
 
   const [selectedRate, setSelectedRate] = useState<number>(0);
@@ -55,7 +57,7 @@ export const Rate: React.FC<Props> = (props) => {
   }, [selectedRate, hoverRate]);
 
   return (
-    <StyledRate className="wellms-component">
+    <StyledRate className={`wellms-component ${className}`}>
       <Title className="title" level={4}>
         {t(header)}
       </Title>

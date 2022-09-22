@@ -2,6 +2,7 @@ import { mix } from "chroma-js";
 import * as React from "react";
 import { useCallback, useMemo } from "react";
 import styled from "styled-components";
+import { ExtendableStyledComponent } from "types/component";
 import { getFontFromTheme } from "../../../theme/provider";
 
 const notTextAreaProps = {
@@ -12,7 +13,8 @@ const notTextAreaProps = {
 };
 
 export interface TextAreaProps
-  extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+  extends React.TextareaHTMLAttributes<HTMLTextAreaElement>,
+    ExtendableStyledComponent {
   label?: string | React.ReactNode;
   helper?: React.ReactNode;
   error?: string | React.ReactNode;
@@ -127,7 +129,7 @@ const StyledTextArea = styled("div")<TextAreaProps>`
 `;
 
 export const TextArea: React.FC<TextAreaProps> = (props) => {
-  const { label, required, disabled, error, helper } = props;
+  const { label, required, disabled, error, helper, className = "" } = props;
   const generateRandomTextAreatId = useMemo(() => {
     const randomString = (Math.random() + 1).toString(36).substring(3);
     return `lms-textarea-id-${randomString}`;
@@ -160,7 +162,7 @@ export const TextArea: React.FC<TextAreaProps> = (props) => {
       required={required}
       className={`wellms-component lsm-input ${helper ? "has-helper" : ""} ${
         error ? "has-error" : ""
-      } `}
+      } ${className}`}
     >
       <div className={`textarea-container ${addFilledClass()}`}>
         {renderLabel()}

@@ -7,6 +7,7 @@ import { IconText } from "../../atoms/IconText/IconText";
 import { RatioBox } from "../../atoms/RatioBox/RatioBox";
 import { Button } from "../../atoms/Button/Button";
 import { t } from "i18next";
+import { ExtendableStyledComponent } from "types/component";
 
 interface StyledCheckoutCardProps {
   mobile?: boolean;
@@ -17,7 +18,9 @@ interface CheckoutImgProps {
   alt: string;
 }
 
-export interface CheckoutCardProps extends StyledCheckoutCardProps {
+export interface CheckoutCardProps
+  extends StyledCheckoutCardProps,
+    ExtendableStyledComponent {
   title: ReactNode;
   img: CheckoutImgProps | ReactNode;
   subtitle?: ReactNode;
@@ -155,11 +158,12 @@ export const CheckoutCard: React.FC<CheckoutCardProps> = (props) => {
     price,
     handleDelete,
     mobile = false,
+    className = "",
   } = props;
 
   const thumbnail = () => {
     return (
-      <div className="checkout-card-img">
+      <div className={`wellms-component checkout-card-img ${className}`}>
         {React.isValidElement(img) ? (
           <React.Fragment>{img}</React.Fragment>
         ) : (
