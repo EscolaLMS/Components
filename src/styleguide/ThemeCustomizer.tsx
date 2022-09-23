@@ -53,9 +53,10 @@ const filterInputData = (input: DefaultTheme) => {
 
 export const ThemeCustomizer: React.FC<{
   onUpdate: (theme: DefaultTheme) => void;
+  defaultTheme?: keyof typeof themes;
   hasAll?: boolean;
   hidden?: boolean;
-}> = ({ onUpdate, hasAll = false, hidden = false }) => {
+}> = ({ onUpdate, hasAll = false, hidden = false, defaultTheme }) => {
   const [localTheme] = useLocalTheme();
 
   const initData = useMemo(() => {
@@ -70,10 +71,8 @@ export const ThemeCustomizer: React.FC<{
           (Object.keys(themes).includes(window.location.hash.substr(1))
             ? window.location.hash.substr(1)
             : "all")
-        : initData.theme || Object.keys(themes)[0],
-      options: hasAll
-        ? ["all", ...Object.keys(themes), "custom"]
-        : [...Object.keys(themes), "custom"],
+        : initData.theme ?? defaultTheme ?? Object.keys(themes)[0],
+      options: ["all", ...Object.keys(themes), "custom"],
       onChange: (theme: string) => {
         switch (theme) {
           case "all":

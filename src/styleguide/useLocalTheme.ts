@@ -43,14 +43,7 @@ export function useLocalTheme(
   initialValue: DefaultTheme = defaultTheme
 ): [DefaultTheme, (value: DefaultTheme) => void] {
   const [localTheme, setLocalTheme] = useState<DefaultTheme>(
-    getThemeFromLocalStorage(
-      Object.keys(themes).includes(window.location.hash.substr(1))
-        ? {
-            ...(themes[window.location.hash.substr(1)] as DefaultTheme),
-            theme: window.location.hash.substr(1),
-          }
-        : initialValue
-    )
+    getThemeFromLocalStorage(initialValue)
   );
 
   const setTheme = useCallback((theme: DefaultTheme) => {

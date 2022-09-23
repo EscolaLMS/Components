@@ -1,16 +1,15 @@
 import blueTheme from "./blue";
+import contrastTheme from "./contrast";
 import orangeTheme from "./orange";
 import redTheme from "./red";
 import velvetTheme from "./velvet";
-import contrastTheme from "./contrast";
-import { DefaultTheme } from "styled-components";
 
-const themes: Record<string, DefaultTheme> = {
+const themes = {
   blueTheme,
   orangeTheme,
   redTheme,
   velvetTheme,
   contrastTheme,
-};
+} as const;
 
 export default themes;
