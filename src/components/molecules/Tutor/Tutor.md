@@ -17,7 +17,11 @@ import { Title } from "../../atoms/Typography/Title";
       rating={{
         ratingValue: 4.1,
       }}
-      title={"Teacher"}
+      title={
+        <Title as="h3" level={4} className="title">
+          Teacher
+        </Title>
+      }
       fullName={"John Doe"}
       coursesInfo={"8 Curses"}
       description={
