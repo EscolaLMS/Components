@@ -55,8 +55,9 @@ export const ThemeCustomizer: React.FC<{
   onUpdate: (theme: DefaultTheme) => void;
   hasAll?: boolean;
   hidden?: boolean;
-}> = ({ onUpdate, hasAll = false, hidden = false }) => {
-  const [localTheme] = useLocalTheme();
+  initialTheme?: DefaultTheme;
+}> = ({ onUpdate, hasAll = false, hidden = false, initialTheme }) => {
+  const [localTheme] = useLocalTheme(initialTheme);
 
   const initData = useMemo(() => {
     return filterInputData(localTheme);

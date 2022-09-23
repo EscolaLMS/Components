@@ -11,7 +11,7 @@ export const getThemeFromLocalStorage = (
     window.localStorage.getItem("theme") !== null &&
     typeof window.localStorage.getItem("theme") === "string"
   ) {
-    let theme: Required<DefaultTheme>;
+    //let theme: Required<DefaultTheme>;
     try {
       theme = {
         mode: "light",
