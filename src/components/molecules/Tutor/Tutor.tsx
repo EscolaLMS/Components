@@ -11,7 +11,7 @@ interface StyledTourProps {
   mobile?: boolean;
 }
 export interface TutorProps extends StyledTourProps, ExtendableStyledComponent {
-  title: ReactNode | string;
+  title: ReactNode;
   fullName: ReactNode | string;
   avatar: AvatarProps;
   rating: RatingProps;
@@ -74,9 +74,13 @@ export const Tutor: React.FC<TutorProps> = (props) => {
       className={`wellms-component lms-tutor ${className}`}
       mobile={mobile}
     >
-      <Title as="h3" level={4} className="title">
-        {title}
-      </Title>
+      {React.isValidElement(title) ? (
+        title
+      ) : (
+        <Title as="h3" level={4} className="title">
+          {title}
+        </Title>
+      )}
       <div className="avatar-row">
         <Avatar size={"extraLarge"} {...avatar} />
         <div className="avatar-info">

@@ -158,7 +158,9 @@ export const MyProfileForm: React.FC<Props> = ({
             className={`wellms-component ${className}`}
             mobile={mobile}
           >
-            <Title level={3}>{t<string>("MyProfileForm.Heading")}</Title>
+            <Title level={3} as="h2">
+              {t<string>("MyProfileForm.Heading")}
+            </Title>
             <Text level={3}>{t<string>("MyProfileForm.Subtitle")}</Text>
           </StyledFormHeader>
         </Col>
