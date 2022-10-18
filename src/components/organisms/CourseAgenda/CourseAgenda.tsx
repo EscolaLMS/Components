@@ -334,12 +334,23 @@ const CourseAgendaTopic: React.FC<CourseAgendaTopicProps> = ({
   mode,
   finishedTopicIds,
   onMarkFinished,
+  onTopicClick,
 }) => {
   const { t } = useTranslation();
+  const onClick = React.useCallback(() => {
+    if (mode !== "current") {
+      onTopicClick && onTopicClick(topic);
+    }
+  }, [mode]);
 
   return (
     <li className={`lesson__topic lesson__topic-${mode}`}>
-      <div>
+      <div
+        tabIndex={0}
+        onClick={onClick}
+        onKeyDown={(e) => e.key === "Enter" && onClick()}
+        role="button"
+      >
         <div className={"lesson__description"}>
           <TopicIcon mode={mode} />
           <Text
@@ -382,6 +393,9 @@ const CourseAgendaLesson: React.FC<CourseAgendaLessonProps> = (props) => {
   } = props;
   const { t } = useTranslation();
   const [open, setOpen] = React.useState(defaultOpen);
+  const onClick = React.useCallback(() => {
+    setOpen(true);
+  }, []);
   React.useEffect(() => {
     if (defaultOpen && !open) {
       setOpen(true);
@@ -390,6 +404,10 @@ const CourseAgendaLesson: React.FC<CourseAgendaLessonProps> = (props) => {
   return (
     <div
       className={`lesson__item ${open ? "open" : "closed"}`}
+      onClick={onClick}
+      onKeyDown={(e) => e.key === "Enter" && onClick()}
+      role="button"
+      tabIndex={0}
       aria-label={`${t<string>("Course.Lesson")} ${index + 1}`}
     >
       {!mobile && (
