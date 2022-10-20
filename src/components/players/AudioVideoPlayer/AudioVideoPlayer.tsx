@@ -28,6 +28,7 @@ interface AudioVideoState {
   level: number;
   quality: number;
   error: boolean;
+  muted: boolean;
 }
 
 interface AudioVideoPlayerControlsProps {
@@ -41,7 +42,7 @@ interface AudioVideoPlayerControlsProps {
 
 const initialVideoState: AudioVideoState = {
   ready: false,
-  playing: false,
+  playing: true,
   progress: {
     played: 0,
     playedSeconds: 0,
@@ -55,6 +56,7 @@ const initialVideoState: AudioVideoState = {
   level: 0,
   quality: 0,
   error: false,
+  muted: true,
 };
 
 export interface AudioVideoPlayerProps
@@ -770,6 +772,12 @@ export const AudioVideoPlayer: React.FC<AudioVideoPlayerProps> = (props) => {
     }
   }, []);
 
+  React.useEffect(() => {
+    const reactPlayers = document.querySelectorAll(".react-player__preview");
+    if (!reactPlayers) return;
+    reactPlayers.forEach((player) => (player as HTMLElement).click());
+  }, []);
+
   return (
     <StyledAudioVideoPlayer
       className={`wellms-component ${className}`}
@@ -790,6 +798,7 @@ export const AudioVideoPlayer: React.FC<AudioVideoPlayerProps> = (props) => {
           playing={audioVideoState.playing}
           volume={audioVideoState.volume}
           playbackRate={audioVideoState.playbackRate}
+          muted={audioVideoState.muted}
           onReady={() => {
             setAudioVideoState((prevState) => ({ ...prevState, ready: true }));
             !audio && checkQuality(ref.current as ReactPlayer);
@@ -797,20 +806,24 @@ export const AudioVideoPlayer: React.FC<AudioVideoPlayerProps> = (props) => {
           onDuration={(duration) =>
             setAudioVideoState((prevState) => ({ ...prevState, duration }))
           }
-          onStart={() =>
-            setAudioVideoState((prevState) => ({
-              ...prevState,
-              playing: true,
-            }))
-          }
+          onStart={() => {
+            setTimeout(() => {
+              setAudioVideoState((prevState) => ({
+                ...prevState,
+                playing: false,
+              }));
+              if (!ref.current) return;
+              ref.current.seekTo(0);
+            }, 500);
+            setTimeout(() => {
+              setAudioVideoState((prevState) => ({
+                ...prevState,
+                muted: false,
+              }));
+            }, 600);
+          }}
           onProgress={(progress) => {
             setAudioVideoState((prevState) => ({ ...prevState, progress }));
-          }}
-          onPlay={() => {
-            setAudioVideoState((prevState) => ({
-              ...prevState,
-              playing: true,
-            }));
           }}
           onEnded={() => {
             setAudioVideoState((prevState) => ({
