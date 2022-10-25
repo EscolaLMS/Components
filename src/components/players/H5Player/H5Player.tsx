@@ -20,11 +20,13 @@ export interface H5PProps extends ExtendableStyledComponent {
   onXAPI?: (e: XAPIEvent) => void;
   overwriteFileName?: string;
   h5pObject?: API.H5PObject;
+  onTopicEnd?: () => void;
 }
 
 export const H5Player: React.FC<H5PProps> = ({
   uuid,
   onXAPI,
+  onTopicEnd,
   overwriteFileName = "h5p_overwrite.css",
   h5pObject,
   loading = false,
@@ -348,7 +350,12 @@ export const H5Player: React.FC<H5PProps> = ({
         <Player
           key={h5pThemeCSSOverwriteSrc} // this is required to force a re-render when the theme changes
           state={h5p.value || h5pObject}
-          onXAPI={(event: XAPIEvent) => onXAPI && onXAPI(event)}
+          onXAPI={(event: XAPIEvent) => {
+            onXAPI && onXAPI(event);
+            if (event.statement.result.success) {
+              onTopicEnd && onTopicEnd();
+            }
+          }}
           styles={[
             `${window.location.origin}/${overwriteFileName}`,
             h5pThemeCSSOverwriteSrc,

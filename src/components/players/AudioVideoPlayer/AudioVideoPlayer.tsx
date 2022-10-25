@@ -7,6 +7,7 @@ import screenfull from "screenfull";
 import { findDOMNode } from "react-dom";
 import { useTranslation } from "react-i18next";
 import { ExtendableStyledComponent } from "types/component";
+import { t } from "i18next";
 
 interface StyledAudioVideoPlayerProps {
   mobile?: boolean;
@@ -28,6 +29,7 @@ interface AudioVideoState {
   level: number;
   quality: number;
   error: boolean;
+  muted: boolean;
 }
 
 interface AudioVideoPlayerControlsProps {
@@ -41,7 +43,7 @@ interface AudioVideoPlayerControlsProps {
 
 const initialVideoState: AudioVideoState = {
   ready: false,
-  playing: false,
+  playing: true,
   progress: {
     played: 0,
     playedSeconds: 0,
@@ -55,6 +57,7 @@ const initialVideoState: AudioVideoState = {
   level: 0,
   quality: 0,
   error: false,
+  muted: true,
 };
 
 export interface AudioVideoPlayerProps
@@ -63,6 +66,7 @@ export interface AudioVideoPlayerProps
     ReactPlayerProps,
     ExtendableStyledComponent {
   ratio?: number;
+  onTopicEnd?: () => void;
 }
 
 const StyledAudioVideoPlayer = styled("div")<AudioVideoPlayerProps>`
@@ -606,6 +610,7 @@ const AudioVideoPlayerControls: React.FC<AudioVideoPlayerControlsProps> = (
     <StyledVideoControls {...props} className={"video-player-controls"}>
       <div>
         <input
+          aria-label={t<string>("VideoPlayer.Progress")}
           onChange={(e) => onSeek && onSeek(e.target.valueAsNumber)}
           type="range"
           className={"input-seek"}
@@ -622,6 +627,7 @@ const AudioVideoPlayerControls: React.FC<AudioVideoPlayerControlsProps> = (
             <div className={"control-button"}>
               <button
                 type={"button"}
+                title={t<string>("VideoPlayer.SeekBackward")}
                 onClick={() => {
                   const newSek = state.progress.playedSeconds - 10;
                   newSek <= state.duration && onSeek && onSeek(newSek);
@@ -642,12 +648,19 @@ const AudioVideoPlayerControls: React.FC<AudioVideoPlayerControlsProps> = (
               </button>
             </div>
             <div className={"control-button"}>
-              <button type={"button"} onClick={() => onToggle && onToggle()}>
+              <button
+                type={"button"}
+                title={t<string>(
+                  state.playing ? "VideoPlayer.Pause" : "VideoPlayer.Play"
+                )}
+                onClick={() => onToggle && onToggle()}
+              >
                 {state.playing ? <IconStop /> : <IconPlay />}
               </button>
             </div>
             <div className={"control-button"}>
               <button
+                title={t<string>("VideoPlayer.SeekForward")}
                 type={"button"}
                 onClick={() => {
                   const newSek = state.progress.playedSeconds + 10;
@@ -669,11 +682,18 @@ const AudioVideoPlayerControls: React.FC<AudioVideoPlayerControlsProps> = (
               </button>
             </div>
             <div className={"control-button control-button-volume"}>
-              <button type={"button"} onClick={() => toggleVolume()}>
+              <button
+                type={"button"}
+                title={t<string>(
+                  state.volume === 0 ? "VideoPlayer.Unmute" : "VideoPlayer.Mute"
+                )}
+                onClick={() => toggleVolume()}
+              >
                 {getVolumeIcon()}
               </button>
               <input
                 onChange={(e) => onVolume && onVolume(e.target.valueAsNumber)}
+                aria-label={t<string>("VideoPlayer.Progress")}
                 type="range"
                 min={0}
                 max={0.999999}
@@ -725,6 +745,7 @@ const AudioVideoPlayerControls: React.FC<AudioVideoPlayerControlsProps> = (
             <div className={"control-button"}>
               <button
                 type={"button"}
+                title={t<string>("VideoPlayer.Fullscreen")}
                 onClick={() => onFullscreen && onFullscreen()}
               >
                 <IconFullscreen />
@@ -745,6 +766,7 @@ export const AudioVideoPlayer: React.FC<AudioVideoPlayerProps> = (props) => {
     light = true,
     ratio = 9 / 16,
     className = "",
+    onTopicEnd,
   } = props;
 
   const ref = React.useRef<ReactPlayer>(null);
@@ -770,6 +792,12 @@ export const AudioVideoPlayer: React.FC<AudioVideoPlayerProps> = (props) => {
     }
   }, []);
 
+  React.useEffect(() => {
+    const reactPlayers = document.querySelectorAll(".react-player__preview");
+    if (!reactPlayers) return;
+    reactPlayers.forEach((player) => (player as HTMLElement).click());
+  }, []);
+
   return (
     <StyledAudioVideoPlayer
       className={`wellms-component ${className}`}
@@ -790,6 +818,7 @@ export const AudioVideoPlayer: React.FC<AudioVideoPlayerProps> = (props) => {
           playing={audioVideoState.playing}
           volume={audioVideoState.volume}
           playbackRate={audioVideoState.playbackRate}
+          muted={audioVideoState.muted}
           onReady={() => {
             setAudioVideoState((prevState) => ({ ...prevState, ready: true }));
             !audio && checkQuality(ref.current as ReactPlayer);
@@ -797,20 +826,24 @@ export const AudioVideoPlayer: React.FC<AudioVideoPlayerProps> = (props) => {
           onDuration={(duration) =>
             setAudioVideoState((prevState) => ({ ...prevState, duration }))
           }
-          onStart={() =>
-            setAudioVideoState((prevState) => ({
-              ...prevState,
-              playing: true,
-            }))
-          }
+          onStart={() => {
+            setTimeout(() => {
+              setAudioVideoState((prevState) => ({
+                ...prevState,
+                playing: false,
+              }));
+              if (!ref.current) return;
+              ref.current.seekTo(0);
+            }, 500);
+            setTimeout(() => {
+              setAudioVideoState((prevState) => ({
+                ...prevState,
+                muted: false,
+              }));
+            }, 600);
+          }}
           onProgress={(progress) => {
             setAudioVideoState((prevState) => ({ ...prevState, progress }));
-          }}
-          onPlay={() => {
-            setAudioVideoState((prevState) => ({
-              ...prevState,
-              playing: true,
-            }));
           }}
           onEnded={() => {
             setAudioVideoState((prevState) => ({
@@ -819,6 +852,7 @@ export const AudioVideoPlayer: React.FC<AudioVideoPlayerProps> = (props) => {
               playing: false,
             }));
             ref.current?.showPreview();
+            onTopicEnd && onTopicEnd();
           }}
           onError={() => {
             setAudioVideoState((prevState) => ({

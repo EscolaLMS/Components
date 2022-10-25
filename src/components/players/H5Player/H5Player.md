@@ -133,7 +133,12 @@ useEffect(() => {
     <ThemeTester flexDirection="column">
       <div style={{ marginBottom: 30, width: "100%" }}>
         <Title level={4}>{ids.find((idd) => idd.uuid === uuid).name}</Title>
-        <H5Player key={uuid} onXAPI={(e) => console.log(e)} {...playerProps} />
+        <H5Player
+          key={uuid}
+          onXAPI={(e) => console.log("onXAPI ", e)}
+          onTopicEnd={() => console.log("H5P progress")}
+          {...playerProps}
+        />
       </div>
     </ThemeTester>
   </EscolaLMSContextProvider>
