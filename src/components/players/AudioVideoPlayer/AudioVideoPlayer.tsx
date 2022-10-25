@@ -7,6 +7,7 @@ import screenfull from "screenfull";
 import { findDOMNode } from "react-dom";
 import { useTranslation } from "react-i18next";
 import { ExtendableStyledComponent } from "types/component";
+import { t } from "i18next";
 
 interface StyledAudioVideoPlayerProps {
   mobile?: boolean;
@@ -609,6 +610,7 @@ const AudioVideoPlayerControls: React.FC<AudioVideoPlayerControlsProps> = (
     <StyledVideoControls {...props} className={"video-player-controls"}>
       <div>
         <input
+          aria-label={t<string>("VideoPlayer.Progress")}
           onChange={(e) => onSeek && onSeek(e.target.valueAsNumber)}
           type="range"
           className={"input-seek"}
@@ -625,6 +627,7 @@ const AudioVideoPlayerControls: React.FC<AudioVideoPlayerControlsProps> = (
             <div className={"control-button"}>
               <button
                 type={"button"}
+                title={t<string>("VideoPlayer.SeekBackward")}
                 onClick={() => {
                   const newSek = state.progress.playedSeconds - 10;
                   newSek <= state.duration && onSeek && onSeek(newSek);
@@ -645,12 +648,19 @@ const AudioVideoPlayerControls: React.FC<AudioVideoPlayerControlsProps> = (
               </button>
             </div>
             <div className={"control-button"}>
-              <button type={"button"} onClick={() => onToggle && onToggle()}>
+              <button
+                type={"button"}
+                title={t<string>(
+                  state.playing ? "VideoPlayer.Pause" : "VideoPlayer.Play"
+                )}
+                onClick={() => onToggle && onToggle()}
+              >
                 {state.playing ? <IconStop /> : <IconPlay />}
               </button>
             </div>
             <div className={"control-button"}>
               <button
+                title={t<string>("VideoPlayer.SeekForward")}
                 type={"button"}
                 onClick={() => {
                   const newSek = state.progress.playedSeconds + 10;
@@ -672,11 +682,18 @@ const AudioVideoPlayerControls: React.FC<AudioVideoPlayerControlsProps> = (
               </button>
             </div>
             <div className={"control-button control-button-volume"}>
-              <button type={"button"} onClick={() => toggleVolume()}>
+              <button
+                type={"button"}
+                title={t<string>(
+                  state.volume === 0 ? "VideoPlayer.Unmute" : "VideoPlayer.Mute"
+                )}
+                onClick={() => toggleVolume()}
+              >
                 {getVolumeIcon()}
               </button>
               <input
                 onChange={(e) => onVolume && onVolume(e.target.valueAsNumber)}
+                aria-label={t<string>("VideoPlayer.Progress")}
                 type="range"
                 min={0}
                 max={0.999999}
@@ -728,6 +745,7 @@ const AudioVideoPlayerControls: React.FC<AudioVideoPlayerControlsProps> = (
             <div className={"control-button"}>
               <button
                 type={"button"}
+                title={t<string>("VideoPlayer.Fullscreen")}
                 onClick={() => onFullscreen && onFullscreen()}
               >
                 <IconFullscreen />

@@ -102,7 +102,7 @@ const VideoEndscreen: React.FC<Props> = ({
         {t<string>("VideoPlayer.Seconds")}
       </Title>
       <Button mode="secondary" className="video-endscreen__play" onClick={play}>
-        {t<string>("VideoPlayer.Play")}
+        {t<string>("VideoPlayer.PlayNow")}
       </Button>
       <Button
         mode="outline"
