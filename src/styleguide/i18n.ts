@@ -121,6 +121,11 @@ export const resources = {
         Search: "Search",
       },
       VideoPlayer: {
+        Play: "Play now",
+        Next: "Next in",
+        Cancel: "Cancel",
+        Seconds: "Seconds",
+        Second: "Second",
         Error: "Error loading material. Please try again later.",
       },
       Upload: {
@@ -259,6 +264,11 @@ export const resources = {
         Search: "Szukaj",
       },
       VideoPlayer: {
+        Play: "Odtwórz teraz",
+        Next: "Następna za",
+        Cancel: "Anuluj",
+        Seconds: "Sekundy",
+        Second: "Sekundę",
         Error: "Błąd podczas ładowania materiału. Spróbuj ponownie później.",
       },
       Upload: {

@@ -65,6 +65,7 @@ export interface AudioVideoPlayerProps
     ReactPlayerProps,
     ExtendableStyledComponent {
   ratio?: number;
+  onTopicEnd?: () => void;
 }
 
 const StyledAudioVideoPlayer = styled("div")<AudioVideoPlayerProps>`
@@ -747,6 +748,7 @@ export const AudioVideoPlayer: React.FC<AudioVideoPlayerProps> = (props) => {
     light = true,
     ratio = 9 / 16,
     className = "",
+    onTopicEnd,
   } = props;
 
   const ref = React.useRef<ReactPlayer>(null);
@@ -832,6 +834,7 @@ export const AudioVideoPlayer: React.FC<AudioVideoPlayerProps> = (props) => {
               playing: false,
             }));
             ref.current?.showPreview();
+            onTopicEnd && onTopicEnd();
           }}
           onError={() => {
             setAudioVideoState((prevState) => ({

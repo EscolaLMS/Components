@@ -21,6 +21,7 @@ import { Text } from "../../../";
       <PdfPlayer
         url="https://api-stage.escolalms.com//storage/chapter-04-maintenance.pdf"
         onLoad={() => console.log("load")}
+        onTopicEnd={() => console.log("Action on topic end")}
       />
     </ThemeTester>
   </EscolaLMSContextProvider>
