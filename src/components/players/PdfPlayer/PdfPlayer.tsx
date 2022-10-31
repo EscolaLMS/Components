@@ -7,8 +7,8 @@ import { ExtendableStyledComponent } from "types/component";
 
 interface PdfPlayerProps extends ExtendableStyledComponent {
   url: string;
-  documentConfig: React.PropsWithoutRef<Document>;
-  pageConfig: React.PropsWithoutRef<Page>;
+  documentConfig?: React.PropsWithoutRef<Document>;
+  pageConfig?: React.PropsWithoutRef<Page>;
   onLoad?: () => void;
   onTopicEnd?: () => void;
 }
@@ -27,8 +27,8 @@ export const PdfPlayer: React.FunctionComponent<PdfPlayerProps> = ({
   url,
   onLoad,
   onTopicEnd,
-  documentConfig,
-  pageConfig,
+  documentConfig = {},
+  pageConfig = {},
   className = "",
 }): React.ReactElement => {
   const [allPages, setAllPages] = React.useState<number | null>(null);
