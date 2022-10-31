@@ -99,12 +99,19 @@ export const MyProfileForm: React.FC<Props> = ({
     phone: "",
   });
   const { t } = useTranslation();
-  const { updateProfile, fields, fetchFields, user, updateAvatar } =
-    useContext(EscolaLMSContext);
+  const {
+    updateProfile,
+    fields,
+    fetchFields,
+    user,
+    updateAvatar,
+    fetchProfile,
+  } = useContext(EscolaLMSContext);
 
   const isFetching = user.loading;
 
   useEffect(() => {
+    fetchProfile();
     fetchFields({ class_type: "App\\Models\\User" });
   }, []);
 

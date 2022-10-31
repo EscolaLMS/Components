@@ -8,7 +8,7 @@ const Authbtn = () => {
     <Button
       mode="secondary"
       onClick={() => {
-        login({ email: "student@escola-lms.com", password: "secret" });
+        login({ email: "student@escolalms.com", password: "secret" });
       }}
     >
       {user.loading && <Spin />}
