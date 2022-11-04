@@ -7,8 +7,8 @@ import { ExtendableStyledComponent } from "types/component";
 
 interface PdfPlayerProps extends ExtendableStyledComponent {
   url: string;
-  documentConfig?: React.PropsWithoutRef<Document>;
-  pageConfig?: React.PropsWithoutRef<Page>;
+  documentConfig?: Omit<React.ComponentProps<typeof Document>, "file">;
+  pageConfig?: React.ComponentProps<typeof Page>;
   onLoad?: () => void;
   onTopicEnd?: () => void;
 }
