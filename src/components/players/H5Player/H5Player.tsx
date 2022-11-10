@@ -58,7 +58,7 @@ export const H5Player: React.FC<H5PProps> = ({
       themeContext.font
     }:wght@400;500;700&display=swap");
 
-    *{
+    *:not([class^="h5p-icon"]) {
       font-family: ${getFontFromTheme(themeContext).fontFamily}!important;
     }
     button {

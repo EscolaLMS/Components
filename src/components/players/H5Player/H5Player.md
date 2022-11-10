@@ -84,6 +84,16 @@ const ids = [
     id: 335,
     uuid: "96eea477-1ad4-4d18-a5de-a649a2518468",
   },
+  {
+    name: "Find the hotspot",
+    id: 910,
+    uuid: "96eea476-86bf-4422-b4da-71a9c7c7c94e",
+  },
+  {
+    name: "Drag the words",
+    id: 906,
+    uuid: "96eea477-8868-4ed0-9822-432f0a241c71",
+  },
 ];
 
 const [uuid, setUuid] = useState(ids[0].uuid);
