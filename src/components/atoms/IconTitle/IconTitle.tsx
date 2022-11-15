@@ -1,6 +1,7 @@
 import * as React from "react";
 import styled, { withTheme } from "styled-components";
 import { getStylesBasedOnTheme } from "../../../utils/utils";
+import { ExtendableStyledComponent } from "types/component";
 import { getFontFromTheme } from "../../../theme/provider";
 import { HeaderLevelInt, HeaderLevelStr } from "../../../types/titleTypes";
 import { setFontSizeByHeaderLevel } from "../../../utils/components/primitives/titleUtils";
@@ -20,7 +21,8 @@ interface StyledHeader {
 
 export interface IconTitleProps
   extends StyledHeader,
-    React.HTMLAttributes<HTMLHeadingElement> {
+    React.HTMLAttributes<HTMLHeadingElement>,
+    ExtendableStyledComponent {
   title: string;
   subtitle?: string;
   icon: React.ReactNode;
@@ -63,16 +65,29 @@ const StyledHeader = styled.h3<StyledHeader>`
 `;
 
 export const IconTitle: React.FC<IconTitleProps> = (props) => {
-  const { title, subtitle, icon, level = 3, styles } = props;
-  const tagName: HeaderLevelStr = `h${level}`;
+  const {
+    title,
+    subtitle,
+    icon,
+    level = 3,
+    styles,
+    as,
+    className = "",
+  } = props;
+  const tagName: HeaderLevelStr = (as as HeaderLevelStr) ?? `h${level}`;
   return (
     <StyledHeader
       as={tagName}
       level={level}
-      className="lms-icon-title wellms-component"
+      className={`lms-icon-title wellms-component ${className}`}
       style={styles?.container}
     >
-      <span className="icon" style={styles?.icon}>
+      <span
+        className="icon"
+        style={styles?.icon}
+        role="button"
+        aria-label={title}
+      >
         {icon}
       </span>
       <span className="full-title">

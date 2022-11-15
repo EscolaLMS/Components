@@ -9,6 +9,8 @@ import { Title } from "../../../";
 import chroma from "chroma-js";
 import { MarkdownRenderer } from "../../molecules/MarkdownRenderer/MarkdownRenderer";
 import { getStylesBasedOnTheme } from "../../../utils/utils";
+import { getUniqueId } from "../../../utils/utils";
+import { ExtendableStyledComponent } from "types/component";
 
 const ArrowOpenIcon: React.FC = () => {
   return (
@@ -74,7 +76,7 @@ interface Discount {
   isOpen?: boolean;
 }
 
-interface CartCardProps extends StyledCartCardProps {
+interface CartCardProps extends StyledCartCardProps, ExtendableStyledComponent {
   id: number;
   title: string;
   subtitle?: ReactNode;
@@ -175,6 +177,7 @@ export const CartCard: React.FC<CartCardProps> = (props) => {
     discount,
     loading,
     mobile = false,
+    className = "",
   } = props;
   const { t } = useTranslation();
 
@@ -196,8 +199,10 @@ export const CartCard: React.FC<CartCardProps> = (props) => {
     }
   };
 
+  const uniqueId = getUniqueId("discount-code");
+
   return (
-    <StyledCardCard className="wellms-component" mobile={mobile}>
+    <StyledCardCard className={`wellms-component ${className}`} mobile={mobile}>
       {!mobile && <Text className="title">{title}</Text>}
       <div className={"cart-card-subtitle"}>{subtitle}</div>
       <div
@@ -243,6 +248,7 @@ export const CartCard: React.FC<CartCardProps> = (props) => {
                       onClick={removeDiscountClick}
                       onKeyUp={removeDiscountClick}
                       role="button"
+                      aria-label={t<string>("CartCard.remove")}
                       tabIndex={0}
                     >
                       <IconBin />
@@ -263,18 +269,24 @@ export const CartCard: React.FC<CartCardProps> = (props) => {
             onClick={() => setIsDiscountOpen(!isDiscountOpen)}
             onKeyUp={() => setIsDiscountOpen(!isDiscountOpen)}
             role="button"
+            aria-label={t<string>("CartCard.addDiscountButton")}
             tabIndex={0}
           >
-            <Text size={"12"} noMargin>
+            <Text size={"12"} noMargin id={uniqueId}>
               {t<string>("CartCard.addDiscountButton")}
             </Text>
-            <Button mode={"icon"} className="open-discount-state-container">
+            <Button
+              as="div"
+              mode={"icon"}
+              className="open-discount-state-container"
+            >
               {isDiscountOpen ? <ArrowOpenIcon /> : <ArrowClosedIcon />}{" "}
             </Button>
           </div>
           {isDiscountOpen && (
             <div className="discount-form-container">
               <Input
+                aria-labelledby={uniqueId}
                 type="text"
                 value={discountInput}
                 onChange={(e) => setDiscountInput(e.target.value)}

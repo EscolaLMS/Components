@@ -5,8 +5,11 @@ import styled, { withTheme, ThemeContext } from "styled-components";
 import { getFontFromTheme } from "../../../theme/provider";
 import { contrast } from "chroma-js";
 import { getStylesBasedOnTheme } from "../../../utils/utils";
+import { ExtendableStyledComponent } from "types/component";
 
-export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface BadgeProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+    ExtendableStyledComponent {
   children?: React.ReactNode;
   color?: string;
   lightContrast?: boolean;
@@ -42,6 +45,7 @@ const StyledDiv = styled("div")<BadgeProps>`
 export const Badge: React.FC<PropsWithChildren<BadgeProps>> = ({
   children,
   color,
+  className = "",
   ...props
 }) => {
   const theme = React.useContext(ThemeContext);
@@ -55,7 +59,7 @@ export const Badge: React.FC<PropsWithChildren<BadgeProps>> = ({
       lightContrast={cts}
       color={color}
       {...props}
-      className="wellms-component"
+      className={`wellms-component ${className}`}
     >
       {children}
     </StyledDiv>

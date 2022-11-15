@@ -13,11 +13,12 @@ import { Text } from "../../atoms/Typography/Text";
 import { Title } from "../../atoms/Typography/Title";
 import { Link } from "../../atoms/Link/Link";
 import { getStylesBasedOnTheme } from "../../../utils/utils";
+import { ExtendableStyledComponent } from "types/component";
 
 type ImageObject = {
   path?: string;
   url?: string;
-  alt?: string;
+  alt: string;
 };
 type Image = ImageObject | ReactChild;
 
@@ -48,10 +49,12 @@ function isCategories(
   return !React.isValidElement(categories);
 }
 
-export interface CourseCardProps extends StyledCourseCardProps {
+export interface CourseCardProps
+  extends StyledCourseCardProps,
+    ExtendableStyledComponent {
   id: number;
   image?: Image;
-  title: ReactNode;
+  title?: ReactNode;
   categories?: Categories | ReactChild;
   tags?: Tag[] | ReactChild;
   subtitle?: ReactNode;
@@ -257,6 +260,7 @@ export const CourseCard: React.FC<CourseCardProps> = (props) => {
     hideImage,
     actions,
     footer,
+    className = "",
   } = props;
 
   const theme = React.useContext(ThemeContext);
@@ -283,7 +287,6 @@ export const CourseCard: React.FC<CourseCardProps> = (props) => {
         return {
           onClick: onImageClick,
           onKeyUp: onImageClick,
-          role: "button",
           tabIndex: 0,
         };
       }
@@ -293,9 +296,13 @@ export const CourseCard: React.FC<CourseCardProps> = (props) => {
   const renderCourseSection = () => {
     return (
       <>
-        <Title level={mobile ? 5 : 4} className="title">
-          {title}
-        </Title>
+        {React.isValidElement(title) ? (
+          title
+        ) : (
+          <Title level={mobile ? 5 : 4} as="h1" className="title">
+            {title}
+          </Title>
+        )}
 
         {React.isValidElement(categories) ? (
           <div className="categories">{categories}</div>
@@ -359,7 +366,7 @@ export const CourseCard: React.FC<CourseCardProps> = (props) => {
 
   return (
     <StyledCourseCard
-      className="wellms-component"
+      className={`wellms-component ${className}`}
       hideImage={hideImage}
       mobile={mobile}
     >

@@ -1,9 +1,10 @@
 import * as React from "react";
 import styled, { withTheme } from "styled-components";
 import { getStylesBasedOnTheme } from "../../../utils/utils";
+import { ExtendableStyledComponent } from "types/component";
 import { getFontFromTheme } from "../../../theme/provider";
 
-export interface ComponentProps {
+export interface ComponentProps extends ExtendableStyledComponent {
   href: string;
   fileName?: string | React.ReactNode;
 }
@@ -52,17 +53,17 @@ const StyledDiv = styled.div<ComponentProps>`
 `;
 
 export const Download: React.FC<ComponentProps> = (props) => {
-  const { href, fileName } = props;
+  const { href, fileName, className = "" } = props;
 
   const name = React.useMemo(() => {
     return fileName || href.split("/").pop();
   }, [href, fileName]);
 
   return (
-    <StyledDiv {...props} className="wellms-component">
+    <StyledDiv {...props} className={`wellms-component ${className}`}>
       <a className="download-btn" download href={href} target="_blank">
         <span className="name">{name}</span>
-        <span className="icon">
+        <span className="icon" role="button" aria-label={name as string}>
           <svg
             width="16"
             height="18"

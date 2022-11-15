@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { DefaultTheme } from "styled-components";
 
 import { orangeTheme as defaultTheme } from "../theme/orange";
+import themes from "../theme";
 
 export const getThemeFromLocalStorage = (
   theme: DefaultTheme = defaultTheme
@@ -10,12 +11,15 @@ export const getThemeFromLocalStorage = (
     window.localStorage.getItem("theme") !== null &&
     typeof window.localStorage.getItem("theme") === "string"
   ) {
-    let theme: Required<DefaultTheme>;
+    //let theme: Required<DefaultTheme>;
     try {
       theme = {
         mode: "light",
         // theme: "all",
-        theme: "blueTheme",
+        // theme: "blueTheme",
+        theme: Object.keys(themes).includes(window.location.hash.substr(1))
+          ? window.location.hash.substr(1)
+          : "all",
         ...defaultTheme,
         ...JSON.parse(window.localStorage.getItem("theme") || ""),
       };
@@ -34,12 +38,21 @@ export const setThemeToLocalStorage = (
   window.dispatchEvent(new Event("themeChange"));
 };
 
+console.log(Object.keys(themes).includes(window.location.hash.substr(1)));
+
 // Hook
 export function useLocalTheme(
   initialValue: DefaultTheme = defaultTheme
 ): [DefaultTheme, (value: DefaultTheme) => void] {
   const [localTheme, setLocalTheme] = useState<DefaultTheme>(
-    getThemeFromLocalStorage(initialValue)
+    getThemeFromLocalStorage(
+      Object.keys(themes).includes(window.location.hash.substr(1))
+        ? {
+            ...(themes[window.location.hash.substr(1)] as DefaultTheme),
+            theme: window.location.hash.substr(1),
+          }
+        : initialValue
+    )
   );
 
   const setTheme = useCallback((theme: DefaultTheme) => {

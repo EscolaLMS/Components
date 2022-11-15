@@ -4,8 +4,9 @@ import format from "date-fns/format";
 import isToday from "date-fns/isToday";
 import { Title, Text } from "../../../";
 import { getStylesBasedOnTheme } from "../../../utils/utils";
+import { ExtendableStyledComponent } from "types/component";
 
-export interface ComponentProps {
+export interface ComponentProps extends ExtendableStyledComponent {
   notification: NotificationProps;
   onClick: () => void;
   maxLengthDesc?: number;
@@ -99,22 +100,24 @@ export const Notification: React.FC<ComponentProps> = ({
   onClick,
   maxLengthDesc,
   modularView = false,
+  className = "",
 }) => {
   const { unread, title, description, dateTime } = notification;
 
   return (
     <StyledNotification
-      className="wellms-component"
+      className={`wellms-component ${className}`}
       unread={unread}
       modularView={modularView}
       onClick={onClick}
     >
       <div>
         <Title
-          level={5}
           style={{
             marginBottom: "6px",
           }}
+          level={5}
+          as="h1"
         >
           {title}
         </Title>

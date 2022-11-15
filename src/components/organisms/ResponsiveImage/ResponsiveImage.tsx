@@ -21,7 +21,7 @@ const StyledDiv = styled("div")`
 
 export const ResponsiveImage: React.FC<ImageProps> = (props) => {
   return (
-    <StyledDiv className="wellms-component">
+    <StyledDiv className={`wellms-component ${props.className ?? ""}`}>
       <Image {...props} />
     </StyledDiv>
   );

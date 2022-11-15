@@ -3,6 +3,7 @@ import styled, { withTheme } from "styled-components";
 import { getFontFromTheme } from "../../../theme/provider";
 import { ReactNode } from "react";
 import { getStylesBasedOnTheme } from "../../../utils/utils";
+import { ExtendableStyledComponent } from "types/component";
 
 interface Styles {
   icon?: React.CSSProperties;
@@ -10,9 +11,10 @@ interface Styles {
 }
 
 export interface IconTextProps
-  extends React.HTMLAttributes<HTMLParagraphElement> {
+  extends React.HTMLAttributes<HTMLParagraphElement>,
+    ExtendableStyledComponent {
   icon: ReactNode;
-  text: string;
+  text: string | JSX.Element;
   styles?: Styles;
   noMargin?: boolean;
 }
@@ -44,11 +46,16 @@ const StyledText = styled("p")<IconTextProps>`
 `;
 
 export const IconText: React.FC<IconTextProps> = (props) => {
-  const { text, icon, styles } = props;
+  const { text, icon, styles, className = "" } = props;
 
   return (
-    <StyledText {...props} className="wellms-component">
-      <span className="icon" style={styles?.icon}>
+    <StyledText className={`wellms-component ${className}`} {...props}>
+      <span
+        className="icon"
+        style={styles?.icon}
+        role="button"
+        aria-label={typeof text === "string" ? text : text?.props?.children}
+      >
         {icon}
       </span>
       <span className="text" style={styles?.text}>

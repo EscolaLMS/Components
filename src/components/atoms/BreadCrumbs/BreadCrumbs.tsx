@@ -2,12 +2,14 @@ import * as React from "react";
 
 import styled, { withTheme } from "styled-components";
 import { getStylesBasedOnTheme } from "../../../utils/utils";
+import { getUniqueId } from "../../../utils/utils";
 import { getFontFromTheme } from "../../../theme/provider";
+import { ExtendableStyledComponent } from "types/component";
 
-type BreadCrumbsProps = {
+interface BreadCrumbsProps extends ExtendableStyledComponent {
   items: React.ReactNode[];
   hyphen?: React.ReactNode;
-};
+}
 
 const HyphenIcon = () => (
   <svg
@@ -60,10 +62,14 @@ const StyledNav = styled("nav")`
 
 export const BreadCrumbs: React.FC<BreadCrumbsProps> = ({
   items,
+  className = "",
   hyphen = <HyphenIcon />,
 }) => {
   return (
-    <StyledNav className="wellms-component">
+    <StyledNav
+      className={`wellms-component ${className}`}
+      aria-label={getUniqueId("nav")}
+    >
       <ul>
         {items.map((node, i) => (
           <React.Fragment key={i}>

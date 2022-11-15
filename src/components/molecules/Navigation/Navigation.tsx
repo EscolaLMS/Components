@@ -8,6 +8,8 @@ import { Col, Row } from "react-grid-system";
 import { Text } from "../../../";
 import chroma from "chroma-js";
 import { getStylesBasedOnTheme } from "../../../utils/utils";
+import { t } from "i18next";
+import { ExtendableStyledComponent } from "types/component";
 
 const ArrowLeftIcon = () => {
   return (
@@ -91,7 +93,7 @@ interface MenuItem {
   icon?: JSX.Element;
   link?: ReactNode;
 }
-export interface NavigationProps {
+export interface NavigationProps extends ExtendableStyledComponent {
   mobile?: boolean;
   logo: LogoProps;
   menuItems: MenuItem[];
@@ -230,7 +232,7 @@ const StyledNavigation = styled("div")`
 `;
 
 export const Navigation: React.FC<NavigationProps> = (props) => {
-  const { mobile, logo, menuItems, search } = props;
+  const { mobile, logo, menuItems, search, className = "" } = props;
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const [drawerSubmenuHistory, setDrawerSubmenuHistory] =
     useState<DrawerSubmenuHistory>({});
@@ -327,7 +329,7 @@ export const Navigation: React.FC<NavigationProps> = (props) => {
   return (
     <>
       {mobile ? (
-        <StyledNavigation className="wellms-component">
+        <StyledNavigation className={`wellms-component ${className}`}>
           <GlobalStyle />
           <div className="header">
             <Logo {...logo} />
@@ -335,7 +337,8 @@ export const Navigation: React.FC<NavigationProps> = (props) => {
               className="menu-button"
               onClick={() => setMobileMenuOpen(true)}
               onKeyUp={() => setMobileMenuOpen(true)}
-              role="menubar"
+              role="button"
+              aria-label={t<string>("Navigation.ShowHideMenu")}
               tabIndex={0}
             >
               <span className="menu-bar"></span>

@@ -2,16 +2,19 @@ import * as React from "react";
 
 import styled, { withTheme } from "styled-components";
 import { getStylesBasedOnTheme } from "../../../utils/utils";
+import { ExtendableStyledComponent } from "types/component";
 import { Radio } from "../../atoms/Option/Radio";
 
-export interface StepsOptionProps {
+export interface StepsOptionProps extends ExtendableStyledComponent {
   value: string;
   label: string;
   checked?: boolean;
   onChange: (value: string) => void;
 }
 
-export interface StepsProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface StepsProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+    ExtendableStyledComponent {
   options: StepsOptionProps[];
   checked: number;
 }
@@ -90,10 +93,10 @@ const StyledStepsOption = styled("div")`
 `;
 
 const StepsOption: React.FC<StepsOptionProps> = (props) => {
-  const { value, label, checked } = props;
+  const { value, label, checked, className = "" } = props;
 
   return (
-    <StyledStepsOption className="wellms-component">
+    <StyledStepsOption className={`wellms-component ${className}`}>
       <Radio
         value={value}
         checked={checked}
@@ -105,7 +108,7 @@ const StepsOption: React.FC<StepsOptionProps> = (props) => {
 };
 
 export const Steps: React.FC<StepsProps> = (props) => {
-  const { options, checked } = props;
+  const { options, checked, className = "" } = props;
   const [checkedOption, setCheckedOption] = React.useState(checked || 0);
 
   const progressBarWidth = `${Math.round(
@@ -114,7 +117,7 @@ export const Steps: React.FC<StepsProps> = (props) => {
 
   return (
     <StyledSteps
-      className="wellms-component"
+      className={`wellms-component ${className}`}
       options={options}
       checked={checked}
     >

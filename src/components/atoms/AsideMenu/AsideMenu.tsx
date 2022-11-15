@@ -3,8 +3,9 @@ import { PropsWithChildren } from "react";
 import styled, { withTheme } from "styled-components";
 import { default as chroma } from "chroma-js";
 import { getStylesBasedOnTheme } from "../../../utils/utils";
+import { ExtendableStyledComponent } from "types/component";
 
-interface AsideMenuProps {
+interface AsideMenuProps extends ExtendableStyledComponent {
   active?: boolean;
 }
 
@@ -60,9 +61,9 @@ const StyledDiv = styled("div")<AsideMenuProps>`
 export const AsideMenu: React.FC<PropsWithChildren<AsideMenuProps>> = (
   props
 ) => {
-  const { children, active } = props;
+  const { children, active, className = "" } = props;
   return (
-    <StyledDiv active={active} className="wellms-component">
+    <StyledDiv active={active} className={`wellms-component ${className}`}>
       {children}
     </StyledDiv>
   );

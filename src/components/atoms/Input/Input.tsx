@@ -4,9 +4,11 @@ import { getFontFromTheme } from "../../../theme/provider";
 import { useMemo, useCallback } from "react";
 import { mix } from "chroma-js";
 import { getStylesBasedOnTheme } from "../../../utils/utils";
+import { ExtendableStyledComponent } from "types/component";
 
 export interface InputProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "type"> {
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "type">,
+    ExtendableStyledComponent {
   label?: string | React.ReactNode;
   helper?: React.ReactNode;
   error?: string | React.ReactNode;
@@ -230,7 +232,7 @@ const StyledDiv = styled("div")<InputProps>`
 `;
 
 export const Input: React.FC<InputProps> = (props) => {
-  const { label, helper, container, error, required } = props;
+  const { label, helper, container, error, required, className = "" } = props;
 
   const generateRandomInputId = useMemo(() => {
     const randomString = (Math.random() + 1).toString(36).substring(3);
@@ -266,7 +268,7 @@ export const Input: React.FC<InputProps> = (props) => {
       label={label}
       className={`wellms-component lsm-input ${helper ? "has-helper" : ""} ${
         error ? "has-error" : ""
-      } ${container?.className ? container.className : ""}`}
+      } ${container?.className ? container.className : ""} ${className}`}
       type={props.type}
     >
       <div className={`input-container ${addFilledClass()}`}>

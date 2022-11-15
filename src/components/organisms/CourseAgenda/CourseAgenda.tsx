@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import type { Lesson, Topic } from "@escolalms/sdk/lib/types/api";
 import chroma from "chroma-js";
 import { getStylesBasedOnTheme } from "../../../utils/utils";
+import { ExtendableStyledComponent } from "types/component";
 
 const ProgramIcon = () => (
   <svg
@@ -87,7 +88,9 @@ interface SharedComponentProps {
   finishedTopicIds: number[];
 }
 
-interface CourseAgendaProps extends SharedComponentProps {
+interface CourseAgendaProps
+  extends SharedComponentProps,
+    ExtendableStyledComponent {
   lessons: Lesson[];
   currentTopicId: number;
 }
@@ -295,7 +298,10 @@ const StyledSection = styled("section")`
           }
 
           .lesson__index {
-            opacity: 0.5;
+            opacity: ${(props) =>
+              props.theme.dm__numerationsColor || props.theme.numerationsColor
+                ? 1
+                : 0.5};
             margin-right: 4px;
           }
         }
@@ -336,6 +342,11 @@ const StyledSection = styled("section")`
     overflow: hidden;
     transition: all 0.35s ease-out;
   }
+
+  .lesson__header {
+    flex-grow: 1;
+    display: flex;
+  }
 `;
 
 const TopicIcon: React.FC<{ mode: CourseAgendaTopicProps["mode"] }> = ({
@@ -369,36 +380,35 @@ const CourseAgendaTopic: React.FC<CourseAgendaTopicProps> = ({
   return (
     <li className={`lesson__topic lesson__topic-${mode}`}>
       <div
+        className={"lesson__description"}
         tabIndex={0}
         onClick={onClick}
         onKeyDown={(e) => e.key === "Enter" && onClick()}
         role="button"
       >
-        <div className={"lesson__description"}>
-          <TopicIcon mode={mode} />
-          <Text
-            className={"lesson__index"}
-            size={"14"}
-            noMargin
-            bold={mode === "current"}
-          >
-            {index}.{" "}
-          </Text>
-          <Text size={"14"} noMargin bold={mode === "current"}>
-            {topic.title}
-          </Text>
-        </div>
-
-        {mode === "current" && !finishedTopicIds.includes(topic.id) && (
-          <Button
-            block
-            mode="outline"
-            onClick={() => onMarkFinished && onMarkFinished(topic)}
-          >
-            {t<string>("Course.markAsFinished")}
-          </Button>
-        )}
+        <TopicIcon mode={mode} />
+        <Text
+          className={"lesson__index"}
+          size={"14"}
+          noMargin
+          bold={mode === "current"}
+        >
+          {index}.{" "}
+        </Text>
+        <Text size={"14"} noMargin bold={mode === "current"}>
+          {topic.title}
+        </Text>
       </div>
+
+      {mode === "current" && !finishedTopicIds.includes(topic.id) && (
+        <Button
+          block
+          mode="outline"
+          onClick={() => onMarkFinished && onMarkFinished(topic)}
+        >
+          {t<string>("Course.markAsFinished")}
+        </Button>
+      )}
     </li>
   );
 };
@@ -423,29 +433,34 @@ const CourseAgendaLesson: React.FC<CourseAgendaLessonProps> = (props) => {
     if (defaultOpen && !open) {
       setOpen(true);
     }
-  }, [defaultOpen, open]);
+  }, []);
   return (
     <div
       className={`lesson__item ${open ? "open" : "closed"}`}
-      onClick={onClick}
-      onKeyDown={(e) => e.key === "Enter" && onClick()}
-      role="button"
-      tabIndex={0}
+      aria-label={`${t<string>("Course.Lesson")} ${index + 1}`}
     >
       {!mobile && (
         <header>
-          <div className={"lesson__details"}>
-            <Text noMargin size={"12"}>
-              {t<string>("Course.Lesson")} {index + 1}
-            </Text>
-            <Text noMargin size={"12"}>
-              {lesson.duration && lesson.duration}
-            </Text>
-          </div>
-          <div>
-            <Text size={"14"} bold noMargin>
-              {lesson.title}
-            </Text>
+          <div
+            onClick={onClick}
+            onKeyDown={(e) => e.key === "Enter" && onClick()}
+            role="button"
+            tabIndex={0}
+            className="lesson__header"
+          >
+            <div className={"lesson__details"}>
+              <Text noMargin size={"12"}>
+                {t<string>("Course.Lesson")} {index + 1}
+              </Text>
+              <Text noMargin size={"12"}>
+                {lesson.duration && lesson.duration}
+              </Text>
+            </div>
+            <div>
+              <Text size={"14"} bold noMargin>
+                {lesson.title}
+              </Text>
+            </div>
           </div>
           <Button
             onClick={(e: {
@@ -454,9 +469,10 @@ const CourseAgendaLesson: React.FC<CourseAgendaLessonProps> = (props) => {
             }) => {
               e.stopPropagation();
               e.preventDefault();
-              setOpen(!open);
+              setOpen((prev) => !prev);
             }}
             mode={"icon"}
+            aria-label={t<string>(open ? "Actions.Hide" : "Action.Show")}
           >
             <ChevronIcon />
           </Button>
@@ -499,6 +515,7 @@ export const CourseAgenda: React.FC<CourseAgendaProps> = (props) => {
     currentTopicId,
     onMarkFinished,
     onTopicClick,
+    className = "",
   } = props;
   const { t } = useTranslation();
 
@@ -517,11 +534,12 @@ export const CourseAgenda: React.FC<CourseAgendaProps> = (props) => {
   }, [flatTopics, finishedTopicIds]);
 
   return (
-    <StyledSection className="wellms-component">
+    <StyledSection className={`wellms-component ${className}`}>
       {!mobile && (
         <header>
           <IconTitle
             level={5}
+            as="h1"
             icon={<ProgramIcon />}
             title={t<string>("Course.Agenda")}
           />

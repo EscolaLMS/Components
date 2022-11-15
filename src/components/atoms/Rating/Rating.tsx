@@ -1,6 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
 import { getStylesBasedOnTheme } from "../../../utils/utils";
+import { ExtendableStyledComponent } from "types/component";
 import { getFontFromTheme } from "../../../theme/provider";
 
 interface IconProps {
@@ -56,7 +57,7 @@ interface StyledRating {
   size?: React.CSSProperties["fontSize"];
 }
 
-export interface RatingProps extends StyledRating {
+export interface RatingProps extends StyledRating, ExtendableStyledComponent {
   ratingValue: number;
   count?: number;
   label?: React.ReactNode;
@@ -103,13 +104,14 @@ export const Rating: React.FC<RatingProps> = (props) => {
     onRateClick,
     onIconEnter,
     onIconLeave,
+    className = "",
   } = props;
   const startToRender = Array.from(Array(count).keys());
   return (
     <StyledRating
       size={props.size}
       ratingValue={ratingValue}
-      className="wellms-component lms-rating"
+      className={`wellms-component lms-rating ${className}`}
     >
       <>
         {startToRender.map((index) => {

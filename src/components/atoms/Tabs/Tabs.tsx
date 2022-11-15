@@ -3,6 +3,8 @@ import styled, { withTheme } from "styled-components";
 import { ReactNode } from "react";
 import { getFontFromTheme } from "../../../theme/provider";
 import { getStylesBasedOnTheme } from "../../../utils/utils";
+import { getUniqueId } from "../../../utils/utils";
+import { ExtendableStyledComponent } from "types/component";
 
 interface TabProps {
   label: string;
@@ -10,7 +12,7 @@ interface TabProps {
   component: ReactNode;
 }
 
-export interface TabsProps {
+export interface TabsProps extends ExtendableStyledComponent {
   tabs: TabProps[];
   defaultActiveKey: number;
   onClick?: (key: number) => void;
@@ -66,13 +68,18 @@ const StyledTabs = styled("div")`
 `;
 
 export const Tabs: React.FC<TabsProps> = (props) => {
-  const { tabs = [], defaultActiveKey = tabs[0].key, onClick } = props;
+  const {
+    tabs = [],
+    defaultActiveKey = tabs[0].key,
+    onClick,
+    className = "",
+  } = props;
   const [selectedTab, setSelectedTab] =
     React.useState<number>(defaultActiveKey);
   const panel = tabs && tabs.find((tab) => tab.key === selectedTab);
 
   return (
-    <StyledTabs className="wellms-component">
+    <StyledTabs className={`wellms-component ${className}`}>
       <div className={"tabs-menu"}>
         <div className={"tabs-menu-inner"}>
           {tabs.map((tab) => {
@@ -83,7 +90,7 @@ export const Tabs: React.FC<TabsProps> = (props) => {
                   selectedTab === tab.key ? "active" : ""
                 }`}
                 key={tab.key}
-                id={`tab-menu-${tab.key}`}
+                id={getUniqueId(`tab-menu-${tab.key}`)}
                 onClick={() => {
                   setSelectedTab(tab.key);
                   onClick && onClick(tab.key);

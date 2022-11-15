@@ -7,6 +7,7 @@ import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { getFontFromTheme } from "../../../theme/provider";
 import { Spin } from "../../atoms/Spin/Spin";
 import { getStylesBasedOnTheme } from "../../../utils/utils";
+import { ExtendableStyledComponent } from "types/component";
 
 const StyledH5P = styled("div")`
   border-radius: ${(props) => props.theme.buttonRadius || 0}px;
@@ -14,20 +15,23 @@ const StyledH5P = styled("div")`
   width: 100%;
 `;
 
-export interface H5PProps {
+export interface H5PProps extends ExtendableStyledComponent {
   loading?: boolean;
   uuid?: string;
   onXAPI?: (e: XAPIEvent) => void;
   overwriteFileName?: string;
   h5pObject?: API.H5PObject;
+  onTopicEnd?: () => void;
 }
 
 export const H5Player: React.FC<H5PProps> = ({
   uuid,
   onXAPI,
+  onTopicEnd,
   overwriteFileName = "h5p_overwrite.css",
   h5pObject,
   loading = false,
+  className = "",
 }) => {
   const { fetchH5P, h5p } = useContext(EscolaLMSContext);
 
@@ -67,7 +71,7 @@ export const H5Player: React.FC<H5PProps> = ({
       themeContext.font
     }:wght@400;500;700&display=swap");
 
-    *{
+    *:not([class^="h5p-icon"]) {
       font-family: ${getFontFromTheme(themeContext).fontFamily}!important;
     }
     button {
@@ -533,7 +537,7 @@ export const H5Player: React.FC<H5PProps> = ({
   }, [themeContext]);
 
   return (
-    <StyledH5P className="wellms-component">
+    <StyledH5P className={`wellms-component ${className}`}>
       {((h5p && h5p.loading) || loading) && (
         <div className="h5p-loading">
           <Spin />
@@ -543,7 +547,12 @@ export const H5Player: React.FC<H5PProps> = ({
         <Player
           key={h5pThemeCSSOverwriteSrc} // this is required to force a re-render when the theme changes
           state={h5p.value || h5pObject}
-          onXAPI={(event: XAPIEvent) => onXAPI && onXAPI(event)}
+          onXAPI={(event: XAPIEvent) => {
+            onXAPI && onXAPI(event);
+            if (event.statement.result.success) {
+              onTopicEnd && onTopicEnd();
+            }
+          }}
           styles={[
             `${window.location.origin}/${overwriteFileName}`,
             h5pThemeCSSOverwriteSrc,

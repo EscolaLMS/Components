@@ -1,12 +1,8 @@
 import React, { useEffect, useMemo } from "react";
 import { DefaultTheme } from "styled-components";
-// TODO UNDO
 import themes from "../theme";
 import { useControls, folder, Leva } from "leva";
 import { useLocalTheme } from "./useLocalTheme";
-
-// TODO Remove
-// const themes = { blueTheme: _themes.blueTheme };
 
 const allowedKeys: (keyof DefaultTheme & string)[] = [
   "font",
@@ -67,8 +63,9 @@ export const ThemeCustomizer: React.FC<{
   onUpdate: (theme: DefaultTheme) => void;
   hasAll?: boolean;
   hidden?: boolean;
-}> = ({ onUpdate, hasAll = false, hidden = false }) => {
-  const [localTheme] = useLocalTheme();
+  initialTheme?: DefaultTheme;
+}> = ({ onUpdate, hasAll = false, hidden = false, initialTheme }) => {
+  const [localTheme] = useLocalTheme(initialTheme);
 
   const initData = useMemo(() => {
     return filterInputData(localTheme);
@@ -78,7 +75,10 @@ export const ThemeCustomizer: React.FC<{
     theme: {
       label: "Theme",
       value: hasAll
-        ? initData.theme || "all"
+        ? initData.theme ||
+          (Object.keys(themes).includes(window.location.hash.substr(1))
+            ? window.location.hash.substr(1)
+            : "all")
         : initData.theme || Object.keys(themes)[0],
       options: hasAll
         ? ["all", ...Object.keys(themes), "custom"]
@@ -151,6 +151,14 @@ export const ThemeCustomizer: React.FC<{
           gray2: initData.gray2 || "#000000",
           gray1: initData.gray1 || "#000000",
           black: initData.black || "#000000",
+          inputDisabledBg: initData.inputDisabledBg || "#000000",
+          labelListValueColor: initData.labelListValueColor || "#000000",
+          primaryButtonDisabled: initData.primaryButtonDisabled || "#000000",
+          outlineButtonColor: initData.outlineButtonColor || "#000000",
+          outlineButtonInvertColor: initData.outlineButtonColor || "#000000",
+          breadcrumbsColor: initData.breadcrumbsColor || "#000000",
+          numerationsColor: initData.numerationsColor || "#000000",
+          dm__numerationsColor: initData.dm__numerationsColor || "#000000",
         }),
         Radiuses: folder({
           buttonRadius: {

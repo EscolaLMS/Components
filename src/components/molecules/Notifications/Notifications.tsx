@@ -8,8 +8,9 @@ import { useOnClickOutside } from "../../../hooks/useOnClickOutside";
 import { Title, Text, Link } from "../../../";
 import { useTranslation } from "react-i18next";
 import { getStylesBasedOnTheme } from "../../../utils/utils";
+import { ExtendableStyledComponent } from "types/component";
 
-export interface ComponentProps {
+export interface ComponentProps extends ExtendableStyledComponent {
   notifications: NotificationProps[];
   showAllLink?: string;
 }
@@ -134,7 +135,7 @@ const StyledNotificationsHeader = styled.div`
 `;
 
 export const Notifications: React.FC<ComponentProps> = (props) => {
-  const { notifications, showAllLink } = props;
+  const { notifications, showAllLink, className = "" } = props;
   const ref = useRef(null);
   const [active, setActive] = useState(false);
   const [unreadCount, setUnreadCount] = useState<number>(0);
@@ -151,7 +152,7 @@ export const Notifications: React.FC<ComponentProps> = (props) => {
   }, []);
 
   return (
-    <StyledWrapper className="wellms-component" ref={ref}>
+    <StyledWrapper className={`wellms-component ${className}`} ref={ref}>
       <StyledIcon onClick={() => setActive(!active)}>
         <svg
           width="19"

@@ -2,9 +2,10 @@ import * as React from "react";
 import { ReactNode } from "react";
 import styled from "styled-components";
 import { getStylesBasedOnTheme } from "../../../utils/utils";
+import { ExtendableStyledComponent } from "types/component";
 import { Text } from "../Typography/Text";
 
-interface StyledNoteProps {
+interface StyledNoteProps extends ExtendableStyledComponent {
   color?: string;
 }
 
@@ -40,9 +41,9 @@ const StyledNote = styled("div")<StyledNoteProps>`
 `;
 
 export const Note: React.FC<NoteProps> = (props) => {
-  const { description, time, color } = props;
+  const { description, time, color, className = "" } = props;
   return (
-    <StyledNote className="wellms-component" color={color}>
+    <StyledNote className={`wellms-component ${className}`} color={color}>
       <Text className="description">{description}</Text>
       <Text className="time">{time}</Text>
     </StyledNote>

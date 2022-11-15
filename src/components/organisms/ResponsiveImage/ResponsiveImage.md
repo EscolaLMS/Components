@@ -22,7 +22,9 @@ import { EscolaLMSContextProvider } from "@escolalms/sdk/lib/react/context";
 
 You should pass image url prefix if CDN is used
 
-```js
+TODO: this example should be update
+
+```
 import Image from "@escolalms/sdk/lib/react/components/Image";
 import { EscolaLMSContextProvider } from "@escolalms/sdk/lib/react/context";
 

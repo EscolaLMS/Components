@@ -54,6 +54,8 @@ declare module "styled-components" {
     dm__outlineButtonInvertColor?: string;
     breadcrumbsColor?: string;
     dm__breadcrumbsColor?: string;
+    numerationsColor?: string;
+    dm__numerationsColor?: string;
   }
 }
 

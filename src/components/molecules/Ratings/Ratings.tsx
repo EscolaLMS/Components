@@ -6,6 +6,7 @@ import {
   getStylesBasedOnTheme,
   roundPercentageList,
 } from "../../../utils/utils";
+import { ExtendableStyledComponent } from "types/component";
 import { Interval } from "../../atoms/Interval/Interval";
 import { Rating } from "../../atoms/Rating/Rating";
 import { Text } from "../../atoms/Typography/Text";
@@ -28,7 +29,7 @@ export interface RatingsProps extends StyledRatings {
   rates: Rates;
 }
 
-interface RatingsViewProps extends RatingsProps {
+interface RatingsViewProps extends RatingsProps, ExtendableStyledComponent {
   renderRateWithInterval: () => JSX.Element[];
 }
 
@@ -82,19 +83,19 @@ const StyledRatingsDesktop = styled.div`
 `;
 
 const RatingsDesktop: React.FC<RatingsViewProps> = (props) => {
-  const { avgRate, header, renderRateWithInterval } = props;
+  const { avgRate, header, renderRateWithInterval, className = "" } = props;
 
   const { t } = useTranslation();
   return (
-    <StyledRatingsDesktop className="wellms-component">
+    <StyledRatingsDesktop className={`wellms-component ${className}`}>
       {header && (
-        <Title className="header" level={4}>
+        <Title className="header" level={4} as="h1">
           {header}
         </Title>
       )}
       <div className="ratings-container">
         <div className="average-rate-container">
-          <Title className="title" level={1}>
+          <Title className="title" level={1} as="h2">
             {avgRate}
           </Title>
           <Rating ratingValue={avgRate} />
@@ -161,7 +162,7 @@ const RatingsMobile: React.FC<RatingsViewProps> = (props) => {
   return (
     <StyledRatingsMobile className="wellms-component">
       {header && (
-        <Title className="header" level={4}>
+        <Title className="header" level={4} as="h2">
           {header}
         </Title>
       )}

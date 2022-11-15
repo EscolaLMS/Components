@@ -9,6 +9,7 @@ import { Upload } from "../../molecules/Upload/Upload";
 import styled, { withTheme } from "styled-components";
 
 import { Input, Button, Title, Text, Checkbox, TextArea } from "../../../";
+import { ExtendableStyledComponent } from "types/component";
 
 const StyledFormHeader = styled.div<{ mobile: boolean }>`
   text-align: center;
@@ -77,11 +78,18 @@ type FormValues = {
   avatar?: string;
 } & Record<string, boolean | number | string>;
 
-export const MyProfileForm: React.FC<{
+interface Props extends ExtendableStyledComponent {
   onError?: (err: ResponseError<DefaultResponseError>) => void;
   onSuccess?: () => void;
   mobile?: boolean;
-}> = ({ onSuccess, onError, mobile = false }) => {
+}
+
+export const MyProfileForm: React.FC<Props> = ({
+  onSuccess,
+  onError,
+  mobile = false,
+  className = "",
+}) => {
   const [initialValues, setInitialValues] = useState<
     FormValues & Record<string, string | boolean>
   >({
@@ -91,12 +99,19 @@ export const MyProfileForm: React.FC<{
     phone: "",
   });
   const { t } = useTranslation();
-  const { updateProfile, fields, fetchFields, user, updateAvatar } =
-    useContext(EscolaLMSContext);
+  const {
+    updateProfile,
+    fields,
+    fetchFields,
+    user,
+    updateAvatar,
+    fetchProfile,
+  } = useContext(EscolaLMSContext);
 
   const isFetching = user.loading;
 
   useEffect(() => {
+    fetchProfile();
     fetchFields({ class_type: "App\\Models\\User" });
   }, []);
 
@@ -146,8 +161,13 @@ export const MyProfileForm: React.FC<{
     <Container>
       <Row>
         <Col sm={12}>
-          <StyledFormHeader className="wellms-component" mobile={mobile}>
-            <Title level={3}>{t<string>("MyProfileForm.Heading")}</Title>
+          <StyledFormHeader
+            className={`wellms-component ${className}`}
+            mobile={mobile}
+          >
+            <Title level={3} as="h2">
+              {t<string>("MyProfileForm.Heading")}
+            </Title>
             <Text level={3}>{t<string>("MyProfileForm.Subtitle")}</Text>
           </StyledFormHeader>
         </Col>
@@ -337,7 +357,7 @@ export const MyProfileForm: React.FC<{
                             checked={!!values[field.name]}
                             key={`${field.id}${index}`}
                             label={t(`AdditionalFields.${field.name}`)}
-                            id={field.name}
+                            id={field.name + Date.now()}
                             name={field.name}
                             onChange={handleChange}
                             onBlur={handleBlur}

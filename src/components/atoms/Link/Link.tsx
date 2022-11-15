@@ -4,10 +4,13 @@ import styled, { withTheme } from "styled-components";
 import { getFontFromTheme } from "../../../theme/provider";
 import { PropsWithChildren } from "react";
 import { getStylesBasedOnTheme } from "../../../utils/utils";
+import { ExtendableStyledComponent } from "types/component";
 
-export type LinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
+export interface LinkProps
+  extends React.AnchorHTMLAttributes<HTMLAnchorElement>,
+    ExtendableStyledComponent {
   underline?: boolean;
-};
+}
 
 // Main button with styles
 const StyledAnchor = styled("a")<LinkProps>`
@@ -60,7 +63,11 @@ export const Link: React.FC<PropsWithChildren<LinkProps>> = ({
   ...props
 }) => {
   return (
-    <StyledAnchor underline={underline} {...props} className="wellms-component">
+    <StyledAnchor
+      underline={underline}
+      {...props}
+      className={`wellms-component ${props.className ?? ""}`}
+    >
       {props.children}
     </StyledAnchor>
   );

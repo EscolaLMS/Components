@@ -14,12 +14,16 @@ const ratingsProps = {
 
 <ThemeTester childrenListStyle={{ display: "block" }}>
   <div style={{ margin: "0 16px" }}>
-    <Title level={3}>Desktop View</Title>
+    <Title level={3} as="h1">
+      Desktop View
+    </Title>
     <Ratings {...ratingsProps} />
   </div>
   <div style={{ maxWidth: 360, margin: "auto" }}>
     <div style={{ margin: "0 16px" }}>
-      <Title level={3}>Mobile View</Title>
+      <Title level={3} as="h1">
+        Mobile View
+      </Title>
       <Ratings mobile {...ratingsProps} />
     </div>
   </div>

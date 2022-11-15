@@ -6,6 +6,7 @@ import { IconTitle } from "../../atoms/IconTitle/IconTitle";
 import Text from "../../atoms/Typography/Text";
 import { Button } from "../../atoms/Button/Button";
 import { useTranslation } from "react-i18next";
+import { ExtendableStyledComponent } from "types/component";
 
 const NoteIcon = () => {
   return (
@@ -28,7 +29,7 @@ interface NoteGroup {
   notes: NoteProps[];
 }
 
-export interface NotesProps {
+export interface NotesProps extends ExtendableStyledComponent {
   noteGroups: NoteGroup[];
   onAddNoteClick: (
     event?: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -46,11 +47,11 @@ const StyledNotes = styled.div`
 `;
 
 export const Notes: React.FC<NotesProps> = (props) => {
-  const { noteGroups, onAddNoteClick, mobile } = props;
+  const { noteGroups, onAddNoteClick, mobile, className = "" } = props;
   const { t } = useTranslation();
 
   return (
-    <StyledNotes className="wellms-component">
+    <StyledNotes className={`wellms-component ${className}`}>
       {noteGroups.map((noteGroup, index) => {
         return (
           <div key={index} className="notes-container">

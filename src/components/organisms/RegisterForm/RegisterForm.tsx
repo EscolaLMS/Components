@@ -16,6 +16,7 @@ import styled, { withTheme } from "styled-components";
 
 import { Input, Button, Title, Link, Text, Checkbox } from "../../../";
 import { getStylesBasedOnTheme } from "../../../utils/utils";
+import { ExtendableStyledComponent } from "types/component";
 
 const StyledDiv = styled.div<{ mobile: boolean }>`
   margin: 0;
@@ -79,7 +80,7 @@ type FormValues = {
   error?: string;
 };
 
-export type RegisterFormProps = {
+export interface RegisterFormProps extends ExtendableStyledComponent {
   onError?: (err: ResponseError<DefaultResponseError>) => void;
   onSuccess?: (
     res: DefaultResponse<RegisterResponse>,
@@ -90,7 +91,7 @@ export type RegisterFormProps = {
   return_url?: string;
   /** Additional labels you can overwrite fields labels. Usable for additional fields.  */
   fieldLabels?: Record<string, React.ReactNode>;
-};
+}
 
 export const RegisterForm: React.FC<RegisterFormProps> = ({
   onSuccess,
@@ -99,6 +100,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
   mobile = false,
   return_url = "",
   fieldLabels = {},
+  className = "",
 }) => {
   const [initialValues, setInitialValues] = useState<
     FormValues & Record<string, string | boolean>
@@ -155,7 +157,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
   );
 
   return (
-    <StyledDiv className="wellms-component" mobile={mobile}>
+    <StyledDiv className={`wellms-component ${className}`} mobile={mobile}>
       <Title level={3} style={{ maxWidth: "480px", textAlign: "center" }}>
         {t<string>("RegisterForm.Header")}
       </Title>
@@ -360,7 +362,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
                         fieldLabels[`AdditionalFields.${field.name}`] ||
                         t(`AdditionalFields.${field.name}`)
                       }
-                      id={field.name}
+                      id={field.name + Date.now()}
                       name={field.name}
                       onChange={handleChange}
                       onBlur={handleBlur}

@@ -30,7 +30,7 @@ export const Spin: React.FC<{ color?: string }> = ({ color = "#fff" }) => {
         <g transform="translate(1 1)">
           <path
             d="M36 18c0-9.94-8.06-18-18-18"
-            id="Oval-2"
+            id={`${rndId}__Oval-2`}
             stroke={`url(#${rndId})`}
             strokeWidth="3"
           >

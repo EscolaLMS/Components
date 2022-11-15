@@ -6,12 +6,13 @@ import { RatingProps, Rating } from "../../atoms/Rating/Rating";
 import { ReactNode } from "react";
 import { Text } from "../../atoms/Typography/Text";
 import { getStylesBasedOnTheme } from "../../../utils/utils";
+import { ExtendableStyledComponent } from "types/component";
 
 interface StyledTourProps {
   mobile?: boolean;
 }
-export interface TutorProps extends StyledTourProps {
-  title: ReactNode | string;
+export interface TutorProps extends StyledTourProps, ExtendableStyledComponent {
+  title: ReactNode;
   fullName: ReactNode | string;
   avatar: AvatarProps;
   rating: RatingProps;
@@ -63,14 +64,29 @@ const StyledTutor = styled.div<StyledTourProps>`
 `;
 
 export const Tutor: React.FC<TutorProps> = (props) => {
-  const { title, fullName, avatar, rating, coursesInfo, description, mobile } =
-    props;
+  const {
+    title,
+    fullName,
+    avatar,
+    rating,
+    coursesInfo,
+    description,
+    mobile,
+    className = "",
+  } = props;
 
   return (
-    <StyledTutor className="wellms-component lms-tutor" mobile={mobile}>
-      <Title as="h3" level={4} className="title">
-        {title}
-      </Title>
+    <StyledTutor
+      className={`wellms-component lms-tutor ${className}`}
+      mobile={mobile}
+    >
+      {React.isValidElement(title) ? (
+        title
+      ) : (
+        <Title as="h3" level={4} className="title">
+          {title}
+        </Title>
+      )}
       <div className="avatar-row">
         <Avatar size={"extraLarge"} {...avatar} />
         <div className="avatar-info">

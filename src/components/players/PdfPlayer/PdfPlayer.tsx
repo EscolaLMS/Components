@@ -3,10 +3,14 @@ import styled, { withTheme } from "styled-components";
 import { Document, Page, pdfjs } from "react-pdf";
 import { Button, Text } from "../../..";
 import { useTranslation } from "react-i18next";
+import { ExtendableStyledComponent } from "types/component";
 
-interface PdfPlayerProps {
+interface PdfPlayerProps extends ExtendableStyledComponent {
   url: string;
+  documentConfig?: Omit<React.ComponentProps<typeof Document>, "file">;
+  pageConfig?: React.ComponentProps<typeof Page>;
   onLoad?: () => void;
+  onTopicEnd?: () => void;
 }
 
 const StyledWrapper = styled("div")`
@@ -22,11 +26,25 @@ const StyledWrapper = styled("div")`
 export const PdfPlayer: React.FunctionComponent<PdfPlayerProps> = ({
   url,
   onLoad,
+  onTopicEnd,
+  documentConfig = {},
+  pageConfig = {},
+  className = "",
 }): React.ReactElement => {
   const [allPages, setAllPages] = React.useState<number | null>(null);
   const [currentPage, setCurrentPage] = React.useState(1);
   const [isMounted, setIsMounted] = React.useState(false);
+  const [endActionFired, setEndActionFired] = React.useState(false);
   const { t } = useTranslation();
+
+  const handleNextPageClick = () => {
+    if (onTopicEnd && allPages && !(allPages > currentPage)) {
+      setEndActionFired(true);
+      onTopicEnd();
+      return;
+    }
+    setCurrentPage(currentPage + 1);
+  };
 
   React.useEffect(() => {
     pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
@@ -45,14 +63,15 @@ export const PdfPlayer: React.FunctionComponent<PdfPlayerProps> = ({
   }
 
   return (
-    <StyledWrapper className="wellms-component">
+    <StyledWrapper className={`wellms-component ${className}`}>
       {isMounted && url && (
         <Document
           loading={t<string>("Loading")}
           onLoadSuccess={({ numPages }) => setAllPages(numPages)}
           file={url}
+          {...documentConfig}
         >
-          <Page pageNumber={currentPage} />
+          <Page pageNumber={currentPage} {...pageConfig} />
         </Document>
       )}
 
@@ -62,7 +81,6 @@ export const PdfPlayer: React.FunctionComponent<PdfPlayerProps> = ({
             <strong>{currentPage}</strong> {t<string>("PdfPlayer.of")}{" "}
             <strong>{allPages}</strong>
           </Text>
-
           <div>
             <Button
               mode="secondary"
@@ -75,9 +93,9 @@ export const PdfPlayer: React.FunctionComponent<PdfPlayerProps> = ({
             <Button
               style={{ marginLeft: "10px" }}
               mode="secondary"
-              disabled={!(allPages > currentPage)}
+              disabled={onTopicEnd ? endActionFired : !(allPages > currentPage)}
               className="nav-btn-modal"
-              onClick={() => setCurrentPage(currentPage + 1)}
+              onClick={handleNextPageClick}
             >
               {t<string>("Next")}
             </Button>

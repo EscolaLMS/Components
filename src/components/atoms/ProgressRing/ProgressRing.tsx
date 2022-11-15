@@ -1,5 +1,6 @@
 import styled, { withTheme } from "styled-components";
 import { getStylesBasedOnTheme } from "../../../utils/utils";
+import { ExtendableStyledComponent } from "types/component";
 
 const StyledSvg = styled("svg")`
   .progress_ring__top {
@@ -18,16 +19,17 @@ const StyledSvg = styled("svg")`
   }
 `;
 
-type ProgressRingType = {
+interface ProgressRingType extends ExtendableStyledComponent {
   size?: number;
   strokeWidth?: number;
   percentage: number;
-};
+}
 
 const ProgressRing: React.FC<ProgressRingType> = ({
   size = 16,
   strokeWidth = 2,
   percentage = 50,
+  className = "",
 }) => {
   const viewBox = `0 0 ${size} ${size}`;
   const radius = (size - strokeWidth) / 2;
@@ -36,7 +38,7 @@ const ProgressRing: React.FC<ProgressRingType> = ({
 
   return (
     <StyledSvg
-      className="wellms-component progress-ring"
+      className={`wellms-component progress-ring ${className}`}
       width={size}
       height={size}
       viewBox={viewBox}

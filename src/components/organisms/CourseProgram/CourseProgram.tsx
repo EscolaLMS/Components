@@ -6,6 +6,7 @@ import { Text } from "../../../";
 import type { Lesson, Topic } from "@escolalms/sdk/lib/types/api";
 import chroma from "chroma-js";
 import { getStylesBasedOnTheme } from "../../../utils/utils";
+import { ExtendableStyledComponent } from "types/component";
 
 const TextIcon = () => (
   <svg
@@ -188,7 +189,9 @@ interface SharedComponentProps {
   onTopicClick: (topic: Topic) => void;
 }
 
-interface CourseProgramProps extends SharedComponentProps {
+interface CourseProgramProps
+  extends SharedComponentProps,
+    ExtendableStyledComponent {
   lessons: Lesson[];
 }
 
@@ -387,7 +390,10 @@ const StyledSection = styled("section")<SharedComponentProps>`
           }
 
           .lesson__index {
-            opacity: 0.5;
+            opacity: ${(props) =>
+              props.theme.dm__numerationsColor || props.theme.numerationsColor
+                ? 1
+                : 0.5};
             margin-right: 4px;
           }
         }
@@ -443,18 +449,9 @@ const CourseProgramLesson: React.FC<CourseProgramLessonProps> = (props) => {
   const { lesson, index, defaultOpen = true, onTopicClick } = props;
   const { t } = useTranslation();
   const [open, setOpen] = React.useState(defaultOpen);
-  const onClick = React.useCallback(() => {
-    setOpen(true);
-  }, []);
 
   return (
-    <div
-      className={`lesson__item ${open ? "open" : "closed"}`}
-      onClick={onClick}
-      onKeyDown={(e) => e.key === "Enter" && onClick()}
-      role="button"
-      tabIndex={0}
-    >
+    <div className={`lesson__item ${open ? "open" : "closed"}`}>
       <header>
         <div className={"lesson__details"}>
           <Text noMargin size={"12"}>
@@ -479,6 +476,7 @@ const CourseProgramLesson: React.FC<CourseProgramLessonProps> = (props) => {
             setOpen(!open);
           }}
           mode="icon"
+          aria-label={t(open ? "Actions.Hide" : "Actions.Hide")}
         >
           <ChevronIcon />
         </Button>
@@ -500,15 +498,16 @@ const CourseProgramLesson: React.FC<CourseProgramLessonProps> = (props) => {
 };
 
 export const CourseProgram: React.FC<CourseProgramProps> = (props) => {
-  const { mobile = false, lessons, onTopicClick } = props;
+  const { mobile = false, lessons, onTopicClick, className = "" } = props;
   const { t } = useTranslation();
 
   return (
-    <StyledSection {...props} className="wellms-component">
+    <StyledSection {...props} className={`wellms-component ${className}`}>
       {!mobile && (
         <header>
           <IconTitle
             level={5}
+            as="h1"
             icon={<ProgramIcon />}
             title={t<string>("Course.Agenda")}
           />

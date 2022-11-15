@@ -3,9 +3,12 @@ import styled, { withTheme } from "styled-components";
 import { Spin, Link } from "../../..";
 import { useTranslation } from "react-i18next";
 import { getStylesBasedOnTheme } from "../../../utils/utils";
+import { getUniqueId } from "../../../utils/utils";
+import { ExtendableStyledComponent } from "types/component";
 
 export interface InputProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "type"> {
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "type">,
+    ExtendableStyledComponent {
   path?: string;
   url?: string;
   loading?: boolean;
@@ -122,6 +125,7 @@ export const Upload: React.FC<InputProps> = (props) => {
     url,
     loading,
     buttonTitle = t("Upload.button"),
+    className = "",
     ...rest
   } = props;
 
@@ -146,9 +150,19 @@ export const Upload: React.FC<InputProps> = (props) => {
     },
     []
   );
+
+  const id = buttonTitle ? getUniqueId("upload") : null;
+
   return (
-    <StyledDiv className="wellms-component upload">
-      <input type="file" {...rest} onChange={onInternalChange} />
+    <StyledDiv className={`wellms-component upload ${className}`}>
+      <input
+        type="file"
+        {...rest}
+        onChange={onInternalChange}
+        {...(id
+          ? { "aria-labelledby": id }
+          : { "aria-label": t("Upload.button") })}
+      />
       <div className="wrapper">
         <div className="border">
           {loading && <Spin />}
@@ -156,7 +170,11 @@ export const Upload: React.FC<InputProps> = (props) => {
           <UploadIcon />
         </div>
       </div>
-      {buttonTitle && <Link underline>{buttonTitle}</Link>}
+      {buttonTitle && (
+        <Link underline id={id}>
+          {buttonTitle}
+        </Link>
+      )}
     </StyledDiv>
   );
 };

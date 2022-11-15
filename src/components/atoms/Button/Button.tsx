@@ -7,14 +7,18 @@ import { PropsWithChildren } from "react";
 
 import Spin from "../Spin/Spin";
 import { getStylesBasedOnTheme } from "../../../utils/utils";
+import { ExtendableStyledComponent } from "types/component";
 
 export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    ExtendableStyledComponent {
   children?: React.ReactNode;
-  mode?: "primary" | "secondary" | "outline" | "white" | "icon";
   invert?: boolean;
   loading?: boolean;
   block?: boolean;
+  mode?: "primary" | "secondary" | "outline" | "white" | "icon";
+  as?: React.ElementType;
+  "aria-label"?: string;
 }
 
 const StyledButton = styled("button")<ButtonProps>`
@@ -34,6 +38,15 @@ const StyledButton = styled("button")<ButtonProps>`
     return props.theme?.primaryColor || "black";
   }};
   color: ${(props) => {
+    if (
+      props.mode === "outline" &&
+      props.theme?.outlineButtonInvertColor &&
+      props.theme?.outlineButtonColor
+    ) {
+      return props.invert
+        ? props.theme.outlineButtonInvertColor
+        : props.theme.outlineButtonColor;
+    }
     if (props.mode === "outline" && props.invert) {
       return props.theme.white;
     }
@@ -95,6 +108,15 @@ const StyledButton = styled("button")<ButtonProps>`
   border-style: solid;
   border-width: 2px;
   border-color: ${(props) => {
+    if (
+      props.mode === "outline" &&
+      props.theme?.outlineButtonInvertColor &&
+      props.theme?.outlineButtonColor
+    ) {
+      return props.invert
+        ? props.theme.outlineButtonInvertColor
+        : props.theme.outlineButtonColor;
+    }
     if (props.invert && props.mode === "outline") {
       return props.theme.white;
     }
@@ -249,6 +271,9 @@ const StyledButton = styled("button")<ButtonProps>`
     border-color: transparent;
     ${(props) => {
       if (props.theme) {
+        if (props.theme.primaryButtonDisabled) {
+          return `background: ${props.theme.primaryButtonDisabled}`;
+        }
         return `background: rgba(${chroma(props.theme.gray1)
           .rgb()
           .join(",")}, 0.2);`;
@@ -259,19 +284,18 @@ const StyledButton = styled("button")<ButtonProps>`
         return `color: ${props.theme.white};`;
       }
     }}
-    &,
-    &:hover,
-    &:focus,
-    &:active {
-      ${(props) => {
-        if (props.theme) {
-          return `background: rgba(${chroma(props.theme.gray1)
-            .rgb()
-            .join(",")}, 0.2);`;
-        }
-      }}
-      color: ${(props) => props.theme.white}
-    }
+  }
+  &:hover,
+  &:focus,
+  &:active {
+    ${(props) => {
+      if (props.theme) {
+        return `background: rgba(${chroma(props.theme.gray1)
+          .rgb()
+          .join(",")}, 0.2);`;
+      }
+    }}
+    color: ${(props) => props.theme.white}
   }
 `;
 
@@ -555,11 +579,13 @@ const StyledButton = styled("button")<ButtonProps>`
 
 // Main button with styles
 export const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
+  as,
   children,
   mode = "primary",
   invert,
   loading = false,
   block = false,
+  className = "",
   ...props
 }) => {
   const theme = React.useContext(ThemeContext);
@@ -573,11 +599,12 @@ export const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
   return (
     <StyledButton
       invert={invert}
+      as={as ?? "button"}
       mode={mode}
       loading={loading}
       block={block}
       {...props}
-      className="wellms-component"
+      className={`wellms-component ${className}`}
     >
       {loading && <Spin color={loadingColor} />}
       {children}

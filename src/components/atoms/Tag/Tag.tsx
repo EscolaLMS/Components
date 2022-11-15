@@ -1,10 +1,13 @@
 import * as React from "react";
 
 import styled, { withTheme } from "styled-components";
+import { ExtendableStyledComponent } from "types/component";
 import { getStylesBasedOnTheme } from "../../../utils/utils";
 import { getFontFromTheme } from "../../../theme/provider";
 
-export interface LinkProps extends React.ButtonHTMLAttributes<HTMLSpanElement> {
+export interface LinkProps
+  extends React.ButtonHTMLAttributes<HTMLSpanElement>,
+    ExtendableStyledComponent {
   children?: React.ReactNode;
 }
 
@@ -59,7 +62,11 @@ const StyledSpan = styled("span")<{ isButton: boolean }>`
 export const Tag: React.FC<LinkProps> = (props) => {
   const isButton = typeof props.onClick === "function";
   return (
-    <StyledSpan {...props} isButton={isButton} className="wellms-component">
+    <StyledSpan
+      {...props}
+      isButton={isButton}
+      className={`wellms-component ${props.className ?? ""}`}
+    >
       {props.children}
     </StyledSpan>
   );

@@ -3,13 +3,16 @@ import styled, { withTheme, css } from "styled-components";
 import SlickSlider, { Settings } from "react-slick";
 import { PropsWithChildren } from "react";
 import { getStylesBasedOnTheme } from "../../../utils/utils";
+import { ExtendableStyledComponent } from "types/component";
 
 interface StyledSliderProps {
   mobile?: boolean;
   borderRadius?: React.CSSProperties["borderRadius"];
 }
 
-export interface SliderProps extends StyledSliderProps {
+export interface SliderProps
+  extends StyledSliderProps,
+    ExtendableStyledComponent {
   settings: Settings;
   dotsPosition?:
     | "top"
@@ -377,7 +380,10 @@ export const Slider: React.FC<PropsWithChildren<SliderProps>> = (props) => {
   const { children, settings } = props;
 
   return (
-    <StyledDiv {...props} className="wellms-component">
+    <StyledDiv
+      {...props}
+      className={`wellms-component ${props.className ?? ""}`}
+    >
       <SlickSlider {...settings}>{children}</SlickSlider>
     </StyledDiv>
   );
