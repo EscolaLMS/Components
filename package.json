@@ -4,7 +4,7 @@
   "main": "lib/index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "styleguidist server --port 6061",
+    "dev": "styleguidist server",
     "build": "styleguidist build",
     "tsc": "tsc --project tsconfig.json --noEmit",
     "eslint": "eslint . --ext .js,.jsx,.ts,.tsx",
