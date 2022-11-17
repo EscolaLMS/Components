@@ -480,18 +480,6 @@ export function getStylesBasedOnTheme(...args: StylesBasedOnThemeArgs) {
   const isDarkMode = mode === "dark";
   let returnValue = "";
 
-  // if (typeof fallbackColor === "undefined") {
-  //   if (valueIfDarkTheme && valueIfLightTheme) {
-  //     returnValue = mode === "dark" ? valueIfDarkTheme : valueIfLightTheme;
-  //   }
-  // } else if (valueIfDarkTheme) {
-  //   returnValue = mode === "dark" ? valueIfDarkTheme : fallbackColor;
-  // } else if (valueIfLightTheme) {
-  //   returnValue = mode === "light" ? valueIfLightTheme : fallbackColor;
-  // } else {
-  //   returnValue = fallbackColor;
-  // }
-
   if (typeof fallbackColor === "undefined") {
     if (valueIfDarkTheme && isDarkMode) {
       returnValue = valueIfDarkTheme;
