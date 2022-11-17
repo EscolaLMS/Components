@@ -242,7 +242,6 @@ const StyledCategoriesDrawer = createGlobalStyle<StyledCategoriesProps>`
   label {
     color: ${({ theme }) =>
       getStylesBasedOnTheme(theme.mode, theme.white, theme.gray1)};
-      color: red;
   }
 `;
 
