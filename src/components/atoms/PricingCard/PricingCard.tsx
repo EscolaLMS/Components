@@ -19,18 +19,12 @@ const StyledPricingCard = styled("div")<StyledPricingCardProps>`
   box-shadow: ${(props) =>
     props.mobile ? "0px -2px 15px 0px rgba(0, 0, 0, .1);" : "none"};
   border-radius: ${({ theme }) => theme.cardRadius}px;
-  background-color: ${({ theme, mobile }) =>
-    mobile
-      ? getStylesBasedOnTheme(
-          theme.mode,
-          theme.dm__background,
-          theme.background
-        )
-      : getStylesBasedOnTheme(
-          theme.mode,
-          theme.cardBackgroundColor,
-          theme.dm__cardBackgroundColor
-        )};
+  background-color: ${({ theme }) =>
+    getStylesBasedOnTheme(
+      theme.mode,
+      theme.dm__cardBackgroundColor,
+      theme.cardBackgroundColor
+    )};
   .pricing-card-price {
     margin-top: 10px;
     margin-bottom: 16px;

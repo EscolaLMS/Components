@@ -30,9 +30,14 @@ const StyledQuizCta = styled("div")<StyledQuizCtaCardProps>`
   background-color: ${({ theme }) =>
     getStylesBasedOnTheme(
       theme.mode,
-      theme.dm__primaryColor,
-      theme.primaryColor,
-      theme.primaryColor
+      theme.dm__colorBackground,
+      theme.colorBackground,
+      getStylesBasedOnTheme(
+        theme.mode,
+        theme.dm__primaryColor,
+        theme.primaryColor,
+        theme.primaryColor
+      )
     )};
   border-radius: ${(props) => props.theme.cardRadius}px;
 

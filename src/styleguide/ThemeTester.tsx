@@ -83,11 +83,13 @@ const StyledDiv = styled.div<{
 
     border-radius: 0 0 6px 6px;
     padding: 10px 15px;
+
     .loading {
       display: flex;
       justify-content: center;
       padding: 40px;
     }
+
     .button {
       display: flex;
       justify-content: flex-end;
@@ -102,7 +104,8 @@ const StyledDiv = styled.div<{
             props.mode,
             props.theme.dm__textColor,
             props.theme.textColor
-          )}
+          )};
+      }
     }
 
     table {
@@ -116,7 +119,8 @@ const StyledDiv = styled.div<{
             props.mode,
             props.theme.dm__textColor,
             props.theme.textColor
-          )}
+          )};
+      }
 
       td,
       th {

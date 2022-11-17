@@ -11,12 +11,9 @@ export const getThemeFromLocalStorage = (
     window.localStorage.getItem("theme") !== null &&
     typeof window.localStorage.getItem("theme") === "string"
   ) {
-    //let theme: Required<DefaultTheme>;
     try {
       theme = {
         mode: "light",
-        // theme: "all",
-        // theme: "blueTheme",
         theme: Object.keys(themes).includes(window.location.hash.substr(1))
           ? window.location.hash.substr(1)
           : "all",

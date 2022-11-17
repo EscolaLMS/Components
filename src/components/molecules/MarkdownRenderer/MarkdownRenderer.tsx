@@ -34,7 +34,8 @@ const pxToEm = (px: string) => {
 };
 
 const StyledMarkdownRenderer = styled("div")<StyledMarkdownRendererProps>`
-  color: ${({ theme }) => (theme.mode !== "light" ? theme.white : "#111")};
+  color: ${({ theme }) =>
+    getStylesBasedOnTheme(theme.mode, theme.white, "#111")};
   font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
   font-size: ${(props) => props.fontSize && `${pxToEm(props.fontSize)}em`};
   line-height: 1.55em;

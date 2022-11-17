@@ -238,8 +238,8 @@ const StyledSection = styled("section")<SharedComponentProps>`
     background: ${({ theme }) =>
       getStylesBasedOnTheme(
         theme.mode,
-        theme.cardBackgroundColor,
-        theme.dm__cardBackgroundColor
+        theme.dm__cardBackgroundColor,
+        theme.cardBackgroundColor
       )};
     border-left: 2px solid
       ${({ theme }) =>
@@ -248,7 +248,7 @@ const StyledSection = styled("section")<SharedComponentProps>`
           theme.dm__primaryColor,
           theme.primaryColor,
           theme.primaryColor
-        )}
+        )};
     padding: 10px;
     margin: 10px 0;
     overflow: hidden;
@@ -288,7 +288,7 @@ const StyledSection = styled("section")<SharedComponentProps>`
               theme.dm__primaryColor,
               theme.primaryColor,
               theme.primaryColor
-            )}
+            )};
         }
       }
 

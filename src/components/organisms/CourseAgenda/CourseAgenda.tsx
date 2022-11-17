@@ -310,8 +310,9 @@ const StyledSection = styled("section")`
           background: ${({ theme }) =>
             getStylesBasedOnTheme(
               theme.mode,
-              chroma(theme.cardBackgroundColor).brighten(0.4).hex(),
-              theme.white
+              theme.dm__inputBg,
+              theme.inputBg,
+              theme.gray1
             )};
           border-radius: ${(props) => props.theme.cardRadius}px;
           cursor: default;

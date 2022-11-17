@@ -67,7 +67,7 @@ const StyledIcon = styled.span`
         theme.dm__primaryColor,
         theme.primaryColor,
         theme.primaryColor
-      )}
+      )};
     letter-spacing: -1px;
   }
 `;
@@ -106,6 +106,7 @@ const StyledNotifications = styled.section`
             theme.dm__cardBackgroundColor,
             theme.cardBackgroundColor
           )};
+    }
   }
   ul {
     list-style: none;

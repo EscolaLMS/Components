@@ -78,8 +78,8 @@ export const LabelListItem: React.FC<TitleProps> = (props) => {
               marginBottom: "0",
               color: getStylesBasedOnTheme(
                 theme.mode,
-                theme.dm__labelListValueColor,
-                theme.labelListValueColor,
+                theme.dm__primaryColor,
+                theme.primaryColor,
                 theme.primaryColor
               ),
             }}

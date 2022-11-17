@@ -38,7 +38,7 @@ const StyledDiv = styled("div")<InputProps>`
       color: ${({ theme }) =>
         getStylesBasedOnTheme(
           theme.mode,
-          theme.dm__cardBackgroundColor,
+          theme.dm__errorColor,
           theme.errorColor,
           theme.errorColor
         )};
@@ -50,7 +50,7 @@ const StyledDiv = styled("div")<InputProps>`
       color: ${({ theme }) =>
         getStylesBasedOnTheme(
           theme.mode,
-          theme.dm__cardBackgroundColor,
+          theme.dm__errorColor,
           theme.errorColor,
           theme.errorColor
         )};
@@ -76,8 +76,15 @@ const StyledDiv = styled("div")<InputProps>`
         caret-color: #e60037;
         border-radius: ${(props) => props.theme.inputRadius}px;
         background: ${(props) => {
-          const { mode, gray1, gray5, inputDisabledBg, dm__inputDisabledBg } =
-            props.theme;
+          const {
+            mode,
+            gray1,
+            gray5,
+            inputDisabledBg,
+            dm__inputDisabledBg,
+            inputBg,
+            dm__inputBg,
+          } = props.theme;
           if (props.disabled) {
             return getStylesBasedOnTheme(
               mode,
@@ -86,18 +93,24 @@ const StyledDiv = styled("div")<InputProps>`
               mix(gray1, "#fff").hex()
             );
           }
-          return getStylesBasedOnTheme(mode, gray1, gray5);
+          return getStylesBasedOnTheme(
+            mode,
+            dm__inputBg,
+            inputBg,
+            getStylesBasedOnTheme(mode, gray1, gray5)
+          );
         }};
-        color: ${({ theme, disabled }) => {
-          if (disabled) {
-            return "white";
-
+        color: ${({ theme, disabled, error }) => {
+          if (error) {
             return getStylesBasedOnTheme(
               theme.mode,
-              theme.dm__inputDisabledBg ?? theme.black,
-              theme.inputDisabledBg ?? theme.gray5,
-              theme.gray1
+              theme.dm__errorColor,
+              theme.errorColor,
+              getStylesBasedOnTheme(theme.mode, theme.white, theme.gray1)
             );
+          }
+          if (disabled) {
+            return getStylesBasedOnTheme(theme.mode, theme.white, theme.gray3);
           }
           return getStylesBasedOnTheme(theme.mode, theme.white, theme.gray1);
         }};
@@ -117,6 +130,7 @@ const StyledDiv = styled("div")<InputProps>`
             mode,
             gray4,
             gray5,
+            dm__errorColor,
             dm__cardBackgroundColor,
             cardBackgroundColor,
             errorColor,
@@ -125,9 +139,14 @@ const StyledDiv = styled("div")<InputProps>`
           if (props.error) {
             borderColor = getStylesBasedOnTheme(
               mode,
-              dm__cardBackgroundColor,
-              cardBackgroundColor,
-              errorColor
+              dm__errorColor,
+              errorColor,
+              getStylesBasedOnTheme(
+                mode,
+                dm__cardBackgroundColor,
+                cardBackgroundColor,
+                errorColor
+              )
             );
           }
           return `1px solid ${borderColor}`;
@@ -164,7 +183,7 @@ const StyledDiv = styled("div")<InputProps>`
         font-size: 12px;
         z-index: 1;
         transition: 0.2s all;
-        color: ${({ theme, error }) => {
+        color: ${({ theme, error, disabled }) => {
           if (error) {
             return getStylesBasedOnTheme(
               theme.mode,
@@ -172,6 +191,9 @@ const StyledDiv = styled("div")<InputProps>`
               theme.errorColor,
               theme.errorColor
             );
+          }
+          if (disabled) {
+            return getStylesBasedOnTheme(theme.mode, theme.gray3, theme.gray3);
           }
         }};
       }
@@ -185,6 +207,15 @@ const StyledDiv = styled("div")<InputProps>`
         }
         label {
           transform: translate(12px, -7px) scale(0.75);
+          color: ${({ theme, disabled }) => {
+            if (disabled) {
+              return getStylesBasedOnTheme(
+                theme.mode,
+                theme.white,
+                theme.black
+              );
+            }
+          }};
           ${({ theme }) => {
             const backgroundLabel = getStylesBasedOnTheme(
               theme.mode,
@@ -200,30 +231,35 @@ const StyledDiv = styled("div")<InputProps>`
         input {
           background: ${({ theme, disabled }) => {
             if (disabled) {
-              return "";
+              return getStylesBasedOnTheme(
+                theme.mode,
+                theme.dm__inputDisabledBg,
+                theme.inputDisabledBg,
+                getStylesBasedOnTheme(theme.mode, theme.gray1, theme.gray5)
+              );
             }
             return getStylesBasedOnTheme(
               theme.mode,
-              theme.white,
-              undefined,
-              ""
+              theme.dm__inputBg,
+              theme.inputBg,
+              getStylesBasedOnTheme(theme.mode, theme.gray1, theme.gray5)
             );
+          }};
+          color: ${({ theme, disabled }) => {
+            if (disabled) {
+              return theme.gray3;
+            }
           }};
         }
         .fieldset {
-          border-color: ${(props) => {
-            if (props.error) {
-              return props.theme.errorColor;
+          border-color: ${({ theme, disabled, error }) => {
+            if (error) {
+              return theme.errorColor;
             }
-            if (props.disabled) {
+            if (disabled) {
               return "transparent;";
             }
-            return getStylesBasedOnTheme(
-              props.theme.mode,
-              props.theme.gray3,
-              undefined,
-              ""
-            );
+            return theme.gray3;
           }};
         }
       }

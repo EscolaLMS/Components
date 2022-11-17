@@ -42,13 +42,11 @@ export const H5Player: React.FC<H5PProps> = ({
   }, [uuid, fetchH5P]);
 
   const themeContext = useContext(ThemeContext);
-  const fontColor =
-    themeContext.mode ===
-    getStylesBasedOnTheme(
-      themeContext.mode,
-      themeContext.white,
-      themeContext.black
-    );
+  const fontColor = getStylesBasedOnTheme(
+    themeContext.mode,
+    themeContext.white,
+    themeContext.black
+  );
   const backgroundColor = getStylesBasedOnTheme(
     themeContext.mode,
     themeContext.dm__background,

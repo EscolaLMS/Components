@@ -38,10 +38,13 @@ declare module "styled-components" {
     dm__textColor: string;
     primaryColor: string;
     dm__primaryColor?: string;
+    dm__primaryColorOnLight?: string;
     secondaryColor?: string;
     dm__secondaryColor?: string;
     headerColor?: string;
     dm__headerColor?: string;
+    inputBg?: string;
+    dm__inputBg?: string;
     inputDisabledBg?: string;
     dm__inputDisabledBg?: string;
     labelListValueColor?: string;
@@ -56,6 +59,8 @@ declare module "styled-components" {
     dm__breadcrumbsColor?: string;
     numerationsColor?: string;
     dm__numerationsColor?: string;
+    colorBackground?: string;
+    dm__colorBackground?: string;
   }
 }
 

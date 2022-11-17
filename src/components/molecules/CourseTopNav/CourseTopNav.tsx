@@ -51,7 +51,7 @@ const StyledAside = styled.aside<StyledAsideProps>`
           theme.dm__primaryColor,
           theme.primaryColor,
           theme.primaryColor
-        )}
+        )};
 
       &:hover {
         opacity: 1;
@@ -73,10 +73,7 @@ const StyledAside = styled.aside<StyledAsideProps>`
     padding: ${({ mobile }) => (mobile ? "10px" : "15px")};
     background: ${({ theme }) =>
       getStylesBasedOnTheme(theme.mode, theme.dm__background, theme.white)};
-    box-shadow: 0px -4px 24px 0px ${({ theme }) =>
-      theme.mode === "light"
-        ? chroma(theme.black).alpha(0.1).hex()
-        : chroma(theme.white).alpha(0.1).hex()};
+    box-shadow: 0px -4px 24px 0px ${({ theme }) => (theme.mode === "light" ? chroma(theme.black).alpha(0.1).hex() : chroma(theme.white).alpha(0.1).hex())};
   }
 
   .nav-btn {

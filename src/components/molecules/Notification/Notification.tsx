@@ -57,7 +57,7 @@ const StyledNotification = styled.section<{
             theme.dm__primaryColor,
             theme.primaryColor,
             theme.primaryColor
-          )}
+          )};
         margin-right: 12px;
       }
     `}
@@ -79,7 +79,7 @@ const StyledNotification = styled.section<{
             theme.dm__primaryColor,
             theme.primaryColor,
             theme.primaryColor
-          )}
+          )};
         top: 4px;
         margin-top: 0;
         left: -23px;

@@ -19,12 +19,17 @@ const StyledDiv = styled("div")<BadgeProps>`
   /* Adapt the colors based on primary prop */
   background: ${({ color, theme }) => {
     return (
-      color ||
+      color ??
       getStylesBasedOnTheme(
         theme.mode,
-        theme.dm__primaryColor,
+        theme.dm__colorBackground,
         theme.primaryColor,
-        "black"
+        getStylesBasedOnTheme(
+          theme.mode,
+          theme.dm__primaryColor,
+          theme.primaryColor,
+          "black"
+        )
       )
     );
   }};

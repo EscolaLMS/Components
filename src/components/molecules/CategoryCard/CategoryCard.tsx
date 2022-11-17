@@ -34,15 +34,15 @@ export const CategoryCard: React.FC<CategoryCardProps> = (props) => {
     border-radius: ${({ theme }) => theme.cardRadius}px;
     background: ${({ theme, variant }) =>
       variant === "gradient"
-        ? `linear-gradient(180deg, ${
-            theme.mode === "light"
-              ? chroma(theme.background).darken(0.2).hex()
-              : chroma(theme.dm__background).brighten(1).hex()
-          } 0%, transparent 100%)`
+        ? `linear-gradient(180deg, ${getStylesBasedOnTheme(
+            theme.mode,
+            chroma(theme.dm__background).brighten(1).hex(),
+            chroma(theme.background).darken(0.2).hex()
+          )} 0%, transparent 100%)`
         : getStylesBasedOnTheme(
             theme.mode,
-            theme.dm__background,
-            theme.background
+            theme.dm__cardBackgroundColor,
+            theme.cardBackgroundColor
           )};
 
     .category-card-title {

@@ -4,12 +4,20 @@ import { sharedTheme } from "./shared";
 
 export const blueTheme: DefaultTheme = {
   ...sharedTheme,
-  primaryColor: "#56CCF2",
-  secondaryColor: blend("#56CCF2", "#BDBDBD", "multiply").hex(),
   font: "Mulish",
+  primaryColor: "#56CCF2",
+  dm__primaryColor: "#56CCF2",
+
+  secondaryColor: blend("#56CCF2", "#BDBDBD", "multiply").hex(),
+  dm__secondaryColor: blend("#56CCF2", "#BDBDBD", "multiply").hex(),
+
   headerColor: "#111111",
-  dm__background: "#232225",
+
   background: "#F2F2F2",
+  dm__background: "#232225",
+
+  colorBackground: "#56CCF2",
+  dm__colorBackground: "#56CCF2",
 
   cardBackgroundColor: sharedTheme.gray5,
   dm__cardBackgroundColor: sharedTheme.gray1,
@@ -21,13 +29,13 @@ export const blueTheme: DefaultTheme = {
     .rgb()
     .join(",")}, 0.2)`,
 
-  dm__textColor: "#FFF",
   textColor: "#000",
+  dm__textColor: "#FFF",
+
   labelListValueColor: "#56CCF2",
 
-  // breadcrumbsColor: "green",
-
-  outlineButtonInvertColor: sharedTheme.white,
+  outlineButtonInvertColor: "#23298e",
+  dm__outlineButtonInvertColor: "#ffcc00",
 };
 
 export default blueTheme;

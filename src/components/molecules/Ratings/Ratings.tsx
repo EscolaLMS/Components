@@ -139,8 +139,8 @@ const StyledRatingsMobile = styled.div`
     background: ${({ theme }) =>
       getStylesBasedOnTheme(
         theme.mode,
-        theme.cardBackgroundColor,
-        theme.dm__cardBackgroundColor
+        theme.dm__cardBackgroundColor,
+        theme.cardBackgroundColor
       )};
     padding: 15px 20px;
     border-radius: ${({ theme }) => theme.cardRadius}px;

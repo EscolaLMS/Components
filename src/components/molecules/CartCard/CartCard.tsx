@@ -122,6 +122,8 @@ const StyledCardCard = styled.div<StyledCartCardProps>`
   }
   .open-discount-state-container {
     margin-left: 24px;
+    color: ${({ theme }) =>
+      getStylesBasedOnTheme(theme.mode, theme.white, theme.black)};
   }
   .discount-form-container {
     margin-top: 17px;

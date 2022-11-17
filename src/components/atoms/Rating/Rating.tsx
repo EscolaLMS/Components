@@ -73,6 +73,7 @@ const StyledRating = styled.span<RatingProps>`
     font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
     display: inline-flex;
     align-items: center;
+
     .filled-star-icon {
       color: ${({ theme }) =>
         getStylesBasedOnTheme(
@@ -80,7 +81,8 @@ const StyledRating = styled.span<RatingProps>`
           theme.dm__primaryColor,
           theme.primaryColor,
           theme.primaryColor
-        )}
+        )};
+    }
     svg {
       font-size: ${(props) => (props.size ? props.size : "15px")};
       padding-right: 2px;

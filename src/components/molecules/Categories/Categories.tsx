@@ -219,7 +219,8 @@ const StyledCategoriesDrawer = createGlobalStyle<StyledCategoriesProps>`
     
     svg path {
       stroke: ${({ theme }) =>
-        getStylesBasedOnTheme(theme.mode, theme.white, theme.gray1)}
+        getStylesBasedOnTheme(theme.mode, theme.white, theme.gray1)};
+    }
   }
   
   .drawer-content-inner {

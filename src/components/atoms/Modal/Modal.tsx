@@ -227,7 +227,8 @@ const StyledGlobal = createGlobalStyle<ModalProps>`
           theme.dm__primaryColor,
           theme.primaryColor,
           theme.primaryColor
-        )}
+        )};
+        }
   }
 `;
 

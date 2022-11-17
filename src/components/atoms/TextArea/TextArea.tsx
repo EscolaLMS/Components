@@ -37,8 +37,9 @@ const StyledTextArea = styled("div")<TextAreaProps>`
     color: ${({ theme }) =>
       getStylesBasedOnTheme(
         theme.mode,
-        theme.dm__cardBackgroundColor,
-        theme.errorColor
+        theme.dm__errorColor,
+        theme.errorColor,
+        theme.primaryColor
       )};
     padding-left: 12px;
     font-size: 12px;
@@ -48,8 +49,9 @@ const StyledTextArea = styled("div")<TextAreaProps>`
     color: ${({ theme }) =>
       getStylesBasedOnTheme(
         theme.mode,
-        theme.dm__cardBackgroundColor,
-        theme.errorColor
+        theme.dm__errorColor,
+        theme.errorColor,
+        theme.primaryColor
       )};
   }
   textarea {
@@ -63,23 +65,44 @@ const StyledTextArea = styled("div")<TextAreaProps>`
     caret-color: #e60037;
     border-radius: ${(props) => props.theme.inputRadius}px;
     background: ${(props) => {
-      const { mode, gray1, gray5, inputDisabledBg, dm__inputDisabledBg } =
-        props.theme;
+      const {
+        mode,
+        gray1,
+        gray5,
+        inputDisabledBg,
+        dm__inputBg,
+        inputBg,
+        dm__inputDisabledBg,
+      } = props.theme;
       if (props.disabled) {
-        if (props.theme?.inputDisabledBg) {
-          return getStylesBasedOnTheme(
-            mode,
-            inputDisabledBg,
-            dm__inputDisabledBg,
-            gray1
-          );
-        }
-        return mix(gray1, "#fff").hex();
+        return getStylesBasedOnTheme(
+          mode,
+          dm__inputDisabledBg,
+          inputDisabledBg,
+          mix(gray1, "#fff").hex()
+        );
       }
-      return getStylesBasedOnTheme(mode, gray1, gray5);
+      return getStylesBasedOnTheme(
+        mode,
+        dm__inputBg,
+        inputBg,
+        getStylesBasedOnTheme(mode, gray1, gray5)
+      );
     }};
-    color: ${({ theme }) =>
-      getStylesBasedOnTheme(theme.mode, theme.white, theme.gray1)};
+    color: ${({ theme, error, disabled }) => {
+      if (error) {
+        return getStylesBasedOnTheme(
+          theme.mode,
+          theme.dm__errorColor,
+          theme.errorColor,
+          getStylesBasedOnTheme(theme.mode, theme.white, theme.gray1)
+        );
+      }
+      if (disabled) {
+        return getStylesBasedOnTheme(theme.mode, theme.gray3, theme.gray3);
+      }
+      return getStylesBasedOnTheme(theme.mode, theme.white, theme.gray1);
+    }};
     border: ${(props) => {
       const { mode, gray4, gray5, errorColor, dm__cardBackgroundColor } =
         props.theme;
@@ -107,13 +130,17 @@ const StyledTextArea = styled("div")<TextAreaProps>`
     transform: translate(12px, 12px) scale(1);
     z-index: 1;
     transition: 0.2s all;
-    color: ${({ theme, error }) => {
+    color: ${({ theme, error, disabled }) => {
       if (error) {
         return getStylesBasedOnTheme(
           theme.mode,
-          theme.dm__cardBackgroundColor,
-          theme.errorColor
+          theme.dm__errorColor,
+          theme.errorColor,
+          theme.dm__cardBackgroundColor
         );
+      }
+      if (disabled) {
+        return theme.gray3;
       }
       return getStylesBasedOnTheme(theme.mode, theme.white, theme.gray1);
     }};
@@ -127,6 +154,11 @@ const StyledTextArea = styled("div")<TextAreaProps>`
     &:focus-within {
       label {
         transform: translate(12px, -7px) scale(0.75);
+        color: ${({ theme, disabled }) => {
+          if (disabled) {
+            return getStylesBasedOnTheme(theme.mode, theme.white, theme.black);
+          }
+        }};
         ${({ theme }) => {
           const backgroundLabel = getStylesBasedOnTheme(
             theme.mode,
@@ -144,14 +176,15 @@ const StyledTextArea = styled("div")<TextAreaProps>`
           if (error) {
             return getStylesBasedOnTheme(
               theme.mode,
-              theme.dm__cardBackgroundColor,
-              theme.errorColor
+              theme.dm__errorColor,
+              theme.errorColor,
+              theme.dm__cardBackgroundColor
             );
           }
           if (disabled) {
             return "transparent;";
           }
-          return getStylesBasedOnTheme(theme.mode, undefined, theme.gray3, "");
+          return theme.gray3;
         }};
       }
     }

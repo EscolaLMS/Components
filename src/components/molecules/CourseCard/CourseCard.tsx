@@ -125,8 +125,8 @@ const StyledCourseCard = styled("div")<StyledCourseCardProps>`
         theme.dm__primaryColor,
         theme.primaryColor,
         theme.primaryColor
-      )}
-      & > a {
+      )};
+    & > a {
       color: ${({ theme, hideImage }) =>
         !hideImage &&
         getStylesBasedOnTheme(
@@ -134,7 +134,7 @@ const StyledCourseCard = styled("div")<StyledCourseCardProps>`
           theme.dm__primaryColor,
           theme.primaryColor,
           theme.primaryColor
-        )}
+        )};
       text-decoration: none;
     }
     & > a:hover {

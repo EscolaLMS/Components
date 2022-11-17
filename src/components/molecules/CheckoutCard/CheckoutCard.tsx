@@ -86,6 +86,7 @@ const StyledCheckoutCard = styled("div")<StyledCheckoutCardProps>`
             theme.primaryColor,
             theme.primaryColor
           )};
+      }
     }
 
     &.icon-stroke {
