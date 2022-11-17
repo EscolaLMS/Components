@@ -15,6 +15,7 @@ import type { ResponseError } from "umi-request";
 import styled, { withTheme } from "styled-components";
 
 import { Input, Button, Title, Link, Text, Checkbox } from "../../../";
+import { getStylesBasedOnTheme } from "../../../utils/utils";
 import { ExtendableStyledComponent } from "types/component";
 
 const StyledDiv = styled.div<{ mobile: boolean }>`
@@ -49,6 +50,13 @@ const StyledDiv = styled.div<{ mobile: boolean }>`
   }
   a {
     font-size: 14px;
+    color: ${({ theme }) =>
+      getStylesBasedOnTheme(
+        theme.mode,
+        theme.dm__primaryColor,
+        theme.primaryColor,
+        theme.primaryColor
+      )};
   }
   h2,
   h3,

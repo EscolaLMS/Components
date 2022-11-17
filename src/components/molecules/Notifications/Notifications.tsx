@@ -7,6 +7,7 @@ import Notification, {
 import { useOnClickOutside } from "../../../hooks/useOnClickOutside";
 import { Title, Text, Link } from "../../../";
 import { useTranslation } from "react-i18next";
+import { getStylesBasedOnTheme } from "../../../utils/utils";
 import { ExtendableStyledComponent } from "types/component";
 
 export interface ComponentProps extends ExtendableStyledComponent {
@@ -25,14 +26,24 @@ const StyledIcon = styled.span`
   svg {
     path {
       fill: ${({ theme }) =>
-        theme.mode === "light" ? theme.textColorLight : theme.textColorDark};
+        getStylesBasedOnTheme(
+          theme.mode,
+          theme.dm__textColor,
+          theme.textColor
+        )};
       transition: fill 0.4s;
     }
   }
   &:hover {
     svg {
       path {
-        fill: ${({ theme }) => theme.secondaryColor};
+        fill: ${({ theme }) =>
+          getStylesBasedOnTheme(
+            theme.mode,
+            theme.dm__secondaryColor,
+            theme.secondaryColor,
+            theme.primaryColor
+          )};
       }
     }
   }
@@ -50,7 +61,13 @@ const StyledIcon = styled.span`
     width: 15px;
     height: 15px;
     border-radius: 100%;
-    background-color: ${({ theme }) => theme.primaryColor};
+    background-color: ${({ theme }) =>
+      getStylesBasedOnTheme(
+        theme.mode,
+        theme.dm__primaryColor,
+        theme.primaryColor,
+        theme.primaryColor
+      )};
     letter-spacing: -1px;
   }
 `;
@@ -67,9 +84,11 @@ const StyledNotifications = styled.section`
     padding: 30px 26px 30px 38px;
     border-radius: ${({ theme }) => theme.cardRadius}px;
     background-color: ${({ theme }) =>
-      theme.mode === "light"
-        ? theme.cardBackgroundColorDark
-        : theme.cardBackgroundColorLight};
+      getStylesBasedOnTheme(
+        theme.mode,
+        theme.dm__cardBackgroundColor,
+        theme.cardBackgroundColor
+      )};
 
     &:before {
       position: absolute;
@@ -82,9 +101,11 @@ const StyledNotifications = styled.section`
       border-bottom: 60px solid transparent;
       border-right: 80px solid
         ${({ theme }) =>
-          theme.mode === "light"
-            ? theme.cardBackgroundColorDark
-            : theme.cardBackgroundColorLight};
+          getStylesBasedOnTheme(
+            theme.mode,
+            theme.dm__cardBackgroundColor,
+            theme.cardBackgroundColor
+          )};
     }
   }
   ul {
@@ -106,7 +127,8 @@ const StyledNotificationsHeader = styled.div`
   position: relative;
   padding-bottom: 23px;
   border-bottom: 1px solid
-    ${({ theme }) => (theme.mode === "light" ? theme.gray1 : theme.gray2)};
+    ${({ theme }) =>
+      getStylesBasedOnTheme(theme.mode, theme.gray2, theme.gray1)};
   margin-bottom: 36px;
   display: flex;
   align-items: center;

@@ -10,6 +10,7 @@ import type { DefaultResponseError } from "@escolalms/sdk/lib/types/api";
 import type { ResponseError } from "umi-request";
 import { Formik } from "formik";
 import { t } from "i18next";
+import { getStylesBasedOnTheme } from "../../../utils/utils";
 import { ExtendableStyledComponent } from "types/component";
 
 const ColorPicker = styled.div`
@@ -47,7 +48,13 @@ const StyledPopup = styled.div`
 
   .form-title {
     text-align: center;
-    color: ${(props) => props.theme.primaryColor};
+    color: ${({ theme }) =>
+      getStylesBasedOnTheme(
+        theme.mode,
+        theme.dm__primaryColor,
+        theme.primaryColor,
+        theme.primaryColor
+      )};
     font-size: 20px;
     font-weight: 700;
   }

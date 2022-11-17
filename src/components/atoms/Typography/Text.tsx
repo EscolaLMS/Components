@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import styled, { withTheme } from "styled-components";
+import { getStylesBasedOnTheme } from "../../../utils/utils";
 import { ExtendableStyledComponent } from "types/component";
 
 import { getFontFromTheme } from "../../../theme/provider";
@@ -24,9 +25,11 @@ const StyledP = styled.p<TextProps>`
         return "#EB5757";
       case "primary":
       default:
-        return props.theme.mode === "dark"
-          ? props.theme.textColorDark
-          : props.theme.textColorLight;
+        return getStylesBasedOnTheme(
+          props.theme.mode,
+          props.theme.white,
+          "#111"
+        );
     }
   }};
   font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};

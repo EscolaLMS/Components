@@ -6,6 +6,7 @@ import styled from "styled-components";
 
 import { Button } from "../../../";
 import chroma from "chroma-js";
+import { getStylesBasedOnTheme } from "../../../utils/utils";
 import { getUniqueId } from "../../../utils/utils";
 import { ExtendableStyledComponent } from "types/component";
 
@@ -33,7 +34,7 @@ const StyledAside = styled.aside<StyledAsideProps>`
     width: 100%;
     border-bottom: 1px solid
       ${({ theme }) =>
-        theme.mode === "light" ? theme.white : theme.backgroundDark};
+        getStylesBasedOnTheme(theme.mode, theme.dm__background, theme.white)};
 
     svg {
       transform: scale(${(props) => (props.mobile ? "0.8" : "1")});
@@ -43,8 +44,14 @@ const StyledAside = styled.aside<StyledAsideProps>`
       border-radius: 6px 6px 0 0;
       width: ${(props) => (props.mobile ? "60px" : "120px")};
       background: ${({ theme }) =>
-        theme.mode === "light" ? theme.white : theme.backgroundDark};
-      color: ${({ theme }) => theme.primaryColor};
+        getStylesBasedOnTheme(theme.mode, theme.dm__background, theme.white)};
+      color: ${({ theme }) =>
+        getStylesBasedOnTheme(
+          theme.mode,
+          theme.dm__primaryColor,
+          theme.primaryColor,
+          theme.primaryColor
+        )};
 
       &:hover {
         opacity: 1;
@@ -65,7 +72,7 @@ const StyledAside = styled.aside<StyledAsideProps>`
     margin-top: ${({ mobile }) => (mobile ? "-12px" : "-14px")};
     padding: ${({ mobile }) => (mobile ? "10px" : "15px")};
     background: ${({ theme }) =>
-      theme.mode === "light" ? theme.white : theme.backgroundDark};
+      getStylesBasedOnTheme(theme.mode, theme.dm__background, theme.white)};
     box-shadow: 0px -4px 24px 0px ${({ theme }) => (theme.mode === "light" ? chroma(theme.black).alpha(0.1).hex() : chroma(theme.white).alpha(0.1).hex())};
   }
 

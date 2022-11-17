@@ -6,6 +6,7 @@ import { ReactNode } from "react";
 import { IconText } from "../../atoms/IconText/IconText";
 import { RatioBox } from "../../atoms/RatioBox/RatioBox";
 import { Button } from "../../atoms/Button/Button";
+import { getStylesBasedOnTheme } from "../../../utils/utils";
 import { t } from "i18next";
 import { ExtendableStyledComponent } from "types/component";
 
@@ -36,16 +37,24 @@ const StyledCheckoutCard = styled("div")<StyledCheckoutCardProps>`
   box-sizing: border-box;
   border-radius: ${({ theme }) => theme.cardRadius}px;
   background-color: ${({ theme }) =>
-    theme.mode == "light"
-      ? theme.cardBackgroundColorDark
-      : theme.cardBackgroundColorLight};
+    getStylesBasedOnTheme(
+      theme.mode,
+      theme.dm__cardBackgroundColor,
+      theme.cardBackgroundColor
+    )};
 
   &:not(:last-child) {
     margin-bottom: 20px;
   }
 
   .checkout-card-discount {
-    color: ${({ theme }) => theme.primaryColor};
+    color: ${({ theme }) =>
+      getStylesBasedOnTheme(
+        theme.mode,
+        theme.dm__primaryColor,
+        theme.primaryColor,
+        theme.primaryColor
+      )};
     text-decoration: line-through;
   }
 
@@ -70,7 +79,13 @@ const StyledCheckoutCard = styled("div")<StyledCheckoutCardProps>`
 
     &.icon-primary {
       path {
-        fill: ${({ theme }) => theme.primaryColor};
+        fill: ${({ theme }) =>
+          getStylesBasedOnTheme(
+            theme.mode,
+            theme.dm__primaryColor,
+            theme.primaryColor,
+            theme.primaryColor
+          )};
       }
     }
 
@@ -89,7 +104,7 @@ const StyledCheckoutCard = styled("div")<StyledCheckoutCardProps>`
 
     svg {
       fill: ${({ theme }) =>
-        theme.mode == "light" ? theme.gray2 : theme.white};
+        getStylesBasedOnTheme(theme.mode, theme.white, theme.gray2)};
     }
 
     img {

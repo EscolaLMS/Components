@@ -2,6 +2,7 @@ import * as React from "react";
 import styled, { withTheme } from "styled-components";
 import { getFontFromTheme } from "../../../theme/provider";
 import { ReactNode } from "react";
+import { getStylesBasedOnTheme } from "../../../utils/utils";
 import { ExtendableStyledComponent } from "types/component";
 
 interface Styles {
@@ -26,9 +27,8 @@ const StyledText = styled("p")<IconTextProps>`
   display: flex;
   align-items: center;
   font-size: 14px;
-  color: ${(props) => {
-    return props.theme.mode !== "light" ? props.theme.white : props.theme.gray1;
-  }};
+  color: ${({ theme }) =>
+    getStylesBasedOnTheme(theme.mode, theme.white, theme.gray1)};
 
   .icon {
     width: 18px;
@@ -39,11 +39,8 @@ const StyledText = styled("p")<IconTextProps>`
 
     svg {
       flex-shrink: 0;
-      fill: ${(props) => {
-        return props.theme.mode !== "light"
-          ? props.theme.white
-          : props.theme.black;
-      }};
+      fill: ${({ theme }) =>
+        getStylesBasedOnTheme(theme.mode, theme.white, theme.black)};
     }
   }
 `;

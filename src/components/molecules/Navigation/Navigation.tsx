@@ -7,6 +7,7 @@ import "rc-drawer/assets/index.css";
 import { Col, Row } from "react-grid-system";
 import { Text } from "../../../";
 import chroma from "chroma-js";
+import { getStylesBasedOnTheme } from "../../../utils/utils";
 import { t } from "i18next";
 import { ExtendableStyledComponent } from "types/component";
 
@@ -113,11 +114,11 @@ const GlobalStyle = createGlobalStyle`
   .drawer-search {
     padding: 24px 16px;
      border-bottom: ${({ theme }) =>
-       `1px solid ${
-         theme.mode !== "dark"
-           ? chroma(theme.backgroundLight).darken(0.3).css()
-           : chroma(theme.white).alpha(0.15).css()
-       }`};
+       `1px solid ${getStylesBasedOnTheme(
+         theme.mode,
+         chroma(theme.white).alpha(0.15).css(),
+         chroma(theme.background).darken(0.3).css()
+       )}`};
   }
 
   .drawer,
@@ -142,7 +143,11 @@ const GlobalStyle = createGlobalStyle`
 
   .drawer-content {
     background: ${({ theme }) =>
-      theme.mode !== "dark" ? theme.backgroundLight : theme.backgroundDark};
+      getStylesBasedOnTheme(
+        theme.mode,
+        theme.dm__background,
+        theme.background
+      )};
   }
   
   .drawer-menu-list {
@@ -160,11 +165,11 @@ const GlobalStyle = createGlobalStyle`
     justify-content: space-between;
     width: 100%;
     border-bottom: ${({ theme }) =>
-      `1px solid ${
-        theme.mode !== "dark"
-          ? chroma(theme.backgroundLight).darken(0.3).css()
-          : chroma(theme.white).alpha(0.15).css()
-      }`};
+      `1px solid ${getStylesBasedOnTheme(
+        theme.mode,
+        chroma(theme.white).alpha(0.15).css(),
+        chroma(theme.background).darken(0.3).css()
+      )}`};
       
     a {
       text-decoration: none;
@@ -182,11 +187,12 @@ const GlobalStyle = createGlobalStyle`
   .drawer-menu-item__icon svg path,
   .menu-drawer-prev svg path {
     stroke: ${({ theme }) =>
-      theme.mode === "dark" ? theme.white : theme.gray1};
+      getStylesBasedOnTheme(theme.mode, theme.white, theme.gray1)};
   }
   
   .menu-drawer-close svg path {
-    fill: ${({ theme }) => (theme.mode === "dark" ? theme.white : theme.gray1)};
+    fill: ${({ theme }) =>
+      getStylesBasedOnTheme(theme.mode, theme.white, theme.gray1)};
   }
   
   .drawer-menu-item__wrapper {
@@ -220,7 +226,7 @@ const StyledNavigation = styled("div")`
     height: 2px;
     margin: 2px 0;
     background: ${({ theme }) =>
-      theme.mode === "dark" ? theme.white : theme.gray2};
+      getStylesBasedOnTheme(theme.mode, theme.white, theme.gray2)};
     cursor: pointer;
   }
 `;

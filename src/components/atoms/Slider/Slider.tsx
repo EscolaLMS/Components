@@ -2,6 +2,7 @@ import * as React from "react";
 import styled, { withTheme, css } from "styled-components";
 import SlickSlider, { Settings } from "react-slick";
 import { PropsWithChildren } from "react";
+import { getStylesBasedOnTheme } from "../../../utils/utils";
 import { ExtendableStyledComponent } from "types/component";
 
 interface StyledSliderProps {
@@ -310,14 +311,40 @@ const StyledDiv = styled("div")<SliderProps>`
     transition: background-color 0.5s;
 
     &:hover {
-      border: 1px solid ${(props) => props.theme.primaryColor || "#000000"};
-      background: ${(props) => props.theme.primaryColor || "#000000"};
+      border: 1px solid
+        ${({ theme }) =>
+          getStylesBasedOnTheme(
+            theme.mode,
+            theme.dm__primaryColor,
+            theme.primaryColor,
+            "#000000"
+          )};
+      background: ${({ theme }) =>
+        getStylesBasedOnTheme(
+          theme.mode,
+          theme.dm__primaryColor,
+          theme.primaryColor,
+          "#000000"
+        )};
       opacity: 0.6;
     }
 
     &.slick-active {
-      border: 1px solid ${(props) => props.theme.primaryColor || "#000000"};
-      background: ${(props) => props.theme.primaryColor || "#000000"};
+      border: 1px solid
+        ${({ theme }) =>
+          getStylesBasedOnTheme(
+            theme.mode,
+            theme.dm__primaryColor,
+            theme.primaryColor,
+            "#000000"
+          )};
+      background: ${({ theme }) =>
+        getStylesBasedOnTheme(
+          theme.mode,
+          theme.dm__primaryColor,
+          theme.primaryColor,
+          "#000000"
+        )};
     }
   }
 

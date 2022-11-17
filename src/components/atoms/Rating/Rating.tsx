@@ -1,5 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
+import { getStylesBasedOnTheme } from "../../../utils/utils";
 import { ExtendableStyledComponent } from "types/component";
 import { getFontFromTheme } from "../../../theme/provider";
 
@@ -72,14 +73,21 @@ const StyledRating = styled.span<RatingProps>`
     font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
     display: inline-flex;
     align-items: center;
+
     .filled-star-icon {
-      color: ${({ theme }) => theme.primaryColor};
+      color: ${({ theme }) =>
+        getStylesBasedOnTheme(
+          theme.mode,
+          theme.dm__primaryColor,
+          theme.primaryColor,
+          theme.primaryColor
+        )};
     }
     svg {
       font-size: ${(props) => (props.size ? props.size : "15px")};
       padding-right: 2px;
       color: ${({ theme }) =>
-        theme.mode === "dark" ? theme.white : theme.gray1};
+        getStylesBasedOnTheme(theme.mode, theme.white, theme.gray1)};
     }
     .label {
       min-width: 48px;

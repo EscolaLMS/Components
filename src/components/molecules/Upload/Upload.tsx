@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import styled, { withTheme } from "styled-components";
 import { Spin, Link } from "../../..";
 import { useTranslation } from "react-i18next";
+import { getStylesBasedOnTheme } from "../../../utils/utils";
 import { getUniqueId } from "../../../utils/utils";
 import { ExtendableStyledComponent } from "types/component";
 
@@ -66,7 +67,11 @@ const StyledDiv = styled("div")<InputProps>`
       border-width: 1px;
       opacity: 1;
       border: ${({ theme }) =>
-        `1px solid ${theme.mode !== "dark" ? theme.gray3 : theme.gray1}`};
+        `1px solid ${getStylesBasedOnTheme(
+          theme.mode,
+          theme.gray1,
+          theme.gray3
+        )}`};
       border-radius: ${({ theme }) => theme.cardRadius}px;
       display: flex;
       flex-direction: row;

@@ -12,6 +12,7 @@ import { Title, Checkbox, Button } from "../../../";
 import Drawer from "rc-drawer";
 import { useTranslation } from "react-i18next";
 import { getFontFromTheme } from "../../../theme/provider";
+import { getStylesBasedOnTheme } from "../../../utils/utils";
 import { ExtendableStyledComponent } from "types/component";
 
 interface StyledCategoriesProps {
@@ -218,8 +219,8 @@ const StyledCategoriesDrawer = createGlobalStyle<StyledCategoriesProps>`
     
     svg path {
       stroke: ${({ theme }) =>
-        theme.mode === "light" ? theme.gray1 : theme.white};
-      }
+        getStylesBasedOnTheme(theme.mode, theme.white, theme.gray1)};
+    }
   }
   
   .drawer-content-inner {
@@ -235,12 +236,12 @@ const StyledCategoriesDrawer = createGlobalStyle<StyledCategoriesProps>`
   
   .categories-collapse {
     color: ${({ theme }) =>
-      theme.mode === "light" ? theme.gray1 : theme.white};
+      getStylesBasedOnTheme(theme.mode, theme.white, theme.gray1)};
   }
   
   label {
     color: ${({ theme }) =>
-      theme.mode === "light" ? theme.gray1 : theme.white};
+      getStylesBasedOnTheme(theme.mode, theme.white, theme.gray1)};
   }
 `;
 
@@ -366,9 +367,11 @@ const CategoriesDropdown: React.FC<CategoriesProps> = (props) => {
     label,
     selectedCategories,
     handleChange,
-    backgroundColor = theme.mode === "light"
-      ? theme.backgroundLight
-      : theme.backgroundDark,
+    backgroundColor = getStylesBasedOnTheme(
+      theme.mode,
+      theme.dm__background,
+      theme.background
+    ),
   } = props;
 
   const cts = React.useMemo(() => {

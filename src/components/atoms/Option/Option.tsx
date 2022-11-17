@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import styled, { withTheme } from "styled-components";
+import { getStylesBasedOnTheme } from "../../../utils/utils";
 import { ExtendableStyledComponent } from "types/component";
 
 import { getFontFromTheme } from "../../../theme/provider";
@@ -25,6 +26,8 @@ const StyledDiv = styled.div<OptionType>`
 
   span {
     margin-left: 15px;
+    color: ${(props) =>
+      getStylesBasedOnTheme(props.theme.mode, props.theme.white, "#111")};
   }
 
   input {
@@ -42,12 +45,14 @@ const StyledDiv = styled.div<OptionType>`
     ${(props) => (props.type === "radio" ? "border-radius:100%" : "")};
 
     &:checked {
-      border-color: ${(props) => props.theme.primaryColor};
+      border-color: ${({ theme }) =>
+        getStylesBasedOnTheme(
+          theme.mode,
+          theme.dm__primaryColor,
+          theme.primaryColor,
+          theme.primaryColor
+        )};
     }
-  }
-
-  &:hover input {
-    border: 1px solid rgba(0, 0, 0, 0.4);
   }
 
   input::after {
@@ -58,11 +63,21 @@ const StyledDiv = styled.div<OptionType>`
     top: 3px;
     width: 12px;
     height: 12px;
-    background: ${(props) => props.theme.primaryColor};
+    background: ${({ theme }) =>
+      getStylesBasedOnTheme(
+        theme.mode,
+        theme.dm__primaryColor,
+        theme.primaryColor,
+        theme.primaryColor
+      )};
     opacity: 0;
     transition: opacity 0.5s;
     border-radius: ${(props) => (props.theme.checkboxRadius ? "2" : "0")}px;
-    ${(props) => (props.type === "radio" ? "border-radius:100%" : "")}
+    ${(props) => (props.type === "radio" ? "border-radius:100%;" : "")}
+  }
+
+  &:hover input {
+    border: 1px solid rgba(0, 0, 0, 0.4);
   }
 
   input:checked::after {
@@ -72,7 +87,13 @@ const StyledDiv = styled.div<OptionType>`
   &:checked {
     opacity: 0.5;
   }
-  color: ${(props) => props.theme.primaryColor};
+  color: ${({ theme }) =>
+    getStylesBasedOnTheme(
+      theme.mode,
+      theme.dm__primaryColor,
+      theme.primaryColor,
+      theme.primaryColor
+    )};
 `;
 
 export const Option: React.FC<OptionType> = (props) => {

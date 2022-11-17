@@ -4,16 +4,27 @@ import { sharedTheme } from "./shared";
 
 export const velvetTheme: DefaultTheme = {
   ...sharedTheme,
-  primaryColor: "#600CAE",
-  secondaryColor: blend("#600CAE", "#BDBDBD", "multiply").hex(),
   font: "Mulish",
+  primaryColor: "#600CAE",
+  dm__primaryColor: "#600CAE",
+
+  secondaryColor: blend("#600CAE", "#BDBDBD", "multiply").hex(),
+  dm__secondaryColor: blend("#600CAE", "#BDBDBD", "multiply").hex(),
+
   headerColor: "#111111",
-  backgroundDark: "#4A4A4A",
-  backgroundLight: "#F2F2F2",
-  cardBackgroundColorLight: sharedTheme.gray2,
-  cardBackgroundColorDark: sharedTheme.white,
-  textColorDark: "#FFF",
-  textColorLight: "#000",
+
+  background: "#F2F2F2",
+  dm__background: "#4A4A4A",
+
+  colorBackground: "#600CAE",
+  dm__colorBackground: "#600CAE",
+
+  cardBackgroundColor: sharedTheme.gray5,
+  dm__cardBackgroundColor: sharedTheme.gray2,
+
+  textColor: "#000",
+  dm__textColor: "#FFF",
+
   labelListValueColor: "#600CAE",
 };
 

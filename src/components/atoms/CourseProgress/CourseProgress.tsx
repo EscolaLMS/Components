@@ -3,6 +3,7 @@ import * as React from "react";
 import styled, { withTheme } from "styled-components";
 import { getFontFromTheme } from "../../../theme/provider";
 import { PropsWithChildren } from "react";
+import { getStylesBasedOnTheme } from "../../../utils/utils";
 import { ExtendableStyledComponent } from "types/component";
 
 export interface TitleProps extends ExtendableStyledComponent {
@@ -16,7 +17,11 @@ export interface TitleProps extends ExtendableStyledComponent {
 const StyledDiv = styled.div<TitleProps>`
   font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
   color: ${(props) =>
-    props.theme.mode !== "dark" ? props.theme.gray1 : props.theme.white};
+    getStylesBasedOnTheme(
+      props.theme.mode,
+      props.theme.white,
+      props.theme.gray1
+    )};
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   .header {
@@ -24,7 +29,11 @@ const StyledDiv = styled.div<TitleProps>`
     align-items: center;
     svg {
       fill: ${(props) =>
-        props.theme.mode !== "dark" ? props.theme.gray1 : props.theme.white};
+        getStylesBasedOnTheme(
+          props.theme.mode,
+          props.theme.white,
+          props.theme.gray1
+        )};
     }
   }
   .title {
@@ -40,8 +49,7 @@ const StyledDiv = styled.div<TitleProps>`
 
     a {
       color: ${({ theme }) =>
-        theme.mode === "light" ? theme.primaryColor : theme.white};
-
+        getStylesBasedOnTheme(theme.mode, theme.white, theme.primaryColor)};
       &:after {
         background-color: currentColor;
       }
@@ -54,10 +62,8 @@ const StyledDiv = styled.div<TitleProps>`
     &:before {
       content: "";
       display: block;
-      background: ${(props) => {
-        return props.theme.mode !== "light"
-          ? props.theme.white
-          : props.theme.gray3;
+      background: ${({ theme }) => {
+        return getStylesBasedOnTheme(theme.mode, theme.white, theme.gray3);
       }};
       height: 1px;
       width: 100%;
@@ -73,7 +79,13 @@ const StyledDiv = styled.div<TitleProps>`
       left: 0;
       top: 7px;
       transition: width 0.2s;
-      background: ${(props) => props.theme.primaryColor};
+      background: ${({ theme }) =>
+        getStylesBasedOnTheme(
+          theme.mode,
+          theme.dm__primaryColor,
+          theme.primaryColor,
+          theme.primaryColor
+        )};
       width: ${(props) => `${100 * props.progress}%`};
     }
     .knob-wrapper {
@@ -83,7 +95,13 @@ const StyledDiv = styled.div<TitleProps>`
     .knob {
       width: 15px;
       height: 15px;
-      background: ${(props) => props.theme.primaryColor};
+      background: ${({ theme }) =>
+        getStylesBasedOnTheme(
+          theme.mode,
+          theme.dm__primaryColor,
+          theme.primaryColor,
+          theme.primaryColor
+        )};
       position: absolute;
       transition: left 0.2s;
       border-radius: ${(props) => props.theme.buttonRadius || 0}px;

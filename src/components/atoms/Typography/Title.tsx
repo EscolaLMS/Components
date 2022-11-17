@@ -1,5 +1,6 @@
 import * as React from "react";
 import styled, { css, withTheme } from "styled-components";
+import { getStylesBasedOnTheme } from "../../../utils/utils";
 import { ExtendableStyledComponent } from "types/component";
 import { getFontFromTheme } from "../../../theme/provider";
 import { HeaderLevelInt, HeaderLevelStr } from "../../../types/titleTypes";
@@ -28,11 +29,8 @@ const SharedHeaderStyles = css<StyledHeader>`
   line-height: 125%;
   &,
   & > * {
-    color: ${(props) => {
-      return props.theme.mode !== "light"
-        ? props.theme.white
-        : props.theme.gray1;
-    }};
+    color: ${({ theme }) =>
+      getStylesBasedOnTheme(theme.mode, theme.white, theme.gray1)};
   }
 `;
 

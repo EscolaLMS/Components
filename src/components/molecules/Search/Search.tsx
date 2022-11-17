@@ -6,6 +6,7 @@ import chroma from "chroma-js";
 import { Text } from "../../../";
 import { useOnClickOutside } from "../../../hooks/useOnClickOutside";
 import { useTranslation } from "react-i18next";
+import { getStylesBasedOnTheme } from "../../../utils/utils";
 import { ExtendableStyledComponent } from "types/component";
 
 interface StyledSearchProps {
@@ -65,7 +66,7 @@ const StyledSearch = styled("div")<StyledSearchProps>`
     background-color: transparent;
     cursor: pointer;
     color: ${({ theme }) =>
-      theme.mode === "light" ? theme.gray1 : theme.white};
+      getStylesBasedOnTheme(theme.mode, theme.white, theme.gray1)};
 
     &:hover {
       opacity: 0.75;
@@ -91,13 +92,15 @@ const StyledSearch = styled("div")<StyledSearchProps>`
     overflow-y: auto;
     display: ${({ isFocused }) => (isFocused ? "block" : "none")};
     background-color: ${({ theme }) =>
-      theme.mode == "light" ? theme.gray5 : theme.gray1};
+      getStylesBasedOnTheme(theme.mode, theme.gray1, theme.gray5)};
     border-width: 0.5px;
     border-style: solid;
     border-color: ${({ theme }) =>
-      theme.mode == "light"
-        ? chroma(theme.gray3).alpha(0.5).css()
-        : chroma(theme.white).alpha(0.6).css()};
+      getStylesBasedOnTheme(
+        theme.mode,
+        chroma(theme.white).alpha(0.6).css(),
+        chroma(theme.gray3).alpha(0.5).css()
+      )};
     border-top: none;
     box-sizing: border-box;
     border-bottom-left-radius: ${({ theme }) => theme.inputRadius}px;
@@ -116,9 +119,11 @@ const StyledSearch = styled("div")<StyledSearchProps>`
 
       &:hover {
         background-color: ${({ theme }) =>
-          theme.mode == "light"
-            ? chroma(theme.gray5).darken(0.2).css()
-            : chroma(theme.gray1).brighten(0.2).css()};
+          getStylesBasedOnTheme(
+            theme.mode,
+            chroma(theme.gray1).brighten(0.2).css(),
+            chroma(theme.gray5).darken(0.2).css()
+          )};
       }
     }
   }

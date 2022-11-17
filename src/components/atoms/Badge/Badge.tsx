@@ -1,9 +1,10 @@
 import * as React from "react";
+import { PropsWithChildren } from "react";
 
 import styled, { withTheme, ThemeContext } from "styled-components";
 import { getFontFromTheme } from "../../../theme/provider";
 import { contrast } from "chroma-js";
-import { PropsWithChildren } from "react";
+import { getStylesBasedOnTheme } from "../../../utils/utils";
 import { ExtendableStyledComponent } from "types/component";
 
 export interface BadgeProps
@@ -16,8 +17,21 @@ export interface BadgeProps
 
 const StyledDiv = styled("div")<BadgeProps>`
   /* Adapt the colors based on primary prop */
-  background: ${(props) => {
-    return props.color || props.theme?.primaryColor || "black";
+  background: ${({ color, theme }) => {
+    return (
+      color ??
+      getStylesBasedOnTheme(
+        theme.mode,
+        theme.dm__colorBackground,
+        theme.primaryColor,
+        getStylesBasedOnTheme(
+          theme.mode,
+          theme.dm__primaryColor,
+          theme.primaryColor,
+          "black"
+        )
+      )
+    );
   }};
   color: ${(props) => (props.lightContrast ? "#fff" : "#000")};
   font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};

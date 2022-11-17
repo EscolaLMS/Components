@@ -5,6 +5,7 @@ import styled, { withTheme, ThemeContext } from "styled-components";
 import { Title } from "../../atoms/Typography/Title";
 import { Text } from "../../atoms/Typography/Text";
 import { PropsWithChildren } from "react";
+import { getStylesBasedOnTheme } from "../../../utils/utils";
 import { ExtendableStyledComponent } from "types/component";
 
 export interface DescriptionProps
@@ -41,7 +42,12 @@ export const Description: React.FC<PropsWithChildren<DescriptionProps>> = (
         level={5}
         style={{
           marginBottom: 0,
-          color: theme.primaryColor,
+          color: getStylesBasedOnTheme(
+            theme.mode,
+            theme.dm__primaryColor,
+            theme.primaryColor,
+            theme.primaryColor
+          ),
         }}
         as={"h1"}
       >

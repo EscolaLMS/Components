@@ -2,8 +2,11 @@ import * as React from "react";
 import { ReactNode, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
+import {
+  getStylesBasedOnTheme,
+  roundPercentageList,
+} from "../../../utils/utils";
 import { ExtendableStyledComponent } from "types/component";
-import { roundPercentageList } from "../../../utils/utils";
 import { Interval } from "../../atoms/Interval/Interval";
 import { Rating } from "../../atoms/Rating/Rating";
 import { Text } from "../../atoms/Typography/Text";
@@ -42,13 +45,21 @@ const StyledRatingsDesktop = styled.div`
     margin-bottom: 20px;
   }
   .title {
-    color: ${({ theme }) => theme.primaryColor};
+    color: ${({ theme }) =>
+      getStylesBasedOnTheme(
+        theme.mode,
+        theme.dm__primaryColor,
+        theme.primaryColor,
+        theme.primaryColor
+      )};
   }
   .average-rate-container {
     background: ${({ theme }) =>
-      theme.mode === "light"
-        ? theme.cardBackgroundColorDark
-        : theme.cardBackgroundColorLight};
+      getStylesBasedOnTheme(
+        theme.mode,
+        theme.dm__cardBackgroundColor,
+        theme.cardBackgroundColor
+      )};
     padding: 24px 34px;
     text-align: center;
     border-radius: ${({ theme }) => theme.cardRadius}px;
@@ -105,7 +116,13 @@ const StyledRatingsMobile = styled.div`
     margin-bottom: 14px;
   }
   .title {
-    color: ${({ theme }) => theme.primaryColor};
+    color: ${({ theme }) =>
+      getStylesBasedOnTheme(
+        theme.mode,
+        theme.dm__primaryColor,
+        theme.primaryColor,
+        theme.primaryColor
+      )};
   }
   .rate-row {
     display: flex;
@@ -120,9 +137,11 @@ const StyledRatingsMobile = styled.div`
     display: flex;
     align-items: center;
     background: ${({ theme }) =>
-      theme.mode === "light"
-        ? theme.cardBackgroundColorDark
-        : theme.cardBackgroundColorLight};
+      getStylesBasedOnTheme(
+        theme.mode,
+        theme.dm__cardBackgroundColor,
+        theme.cardBackgroundColor
+      )};
     padding: 15px 20px;
     border-radius: ${({ theme }) => theme.cardRadius}px;
     > div {

@@ -4,6 +4,7 @@ import { ReactNode } from "react";
 import { Title } from "../../atoms/Typography/Title";
 import { Button } from "../../atoms/Button/Button";
 import chroma from "chroma-js";
+import { getStylesBasedOnTheme } from "../../../utils/utils";
 import { ExtendableStyledComponent } from "types/component";
 
 interface StyledCategoryCardProps {
@@ -33,14 +34,16 @@ export const CategoryCard: React.FC<CategoryCardProps> = (props) => {
     border-radius: ${({ theme }) => theme.cardRadius}px;
     background: ${({ theme, variant }) =>
       variant === "gradient"
-        ? `linear-gradient(180deg, ${
-            theme.mode === "light"
-              ? chroma(theme.backgroundLight).darken(0.2).hex()
-              : chroma(theme.backgroundDark).brighten(1).hex()
-          } 0%, transparent 100%)`
-        : theme.mode === "light"
-        ? theme.cardBackgroundColorDark
-        : theme.cardBackgroundColorLight};
+        ? `linear-gradient(180deg, ${getStylesBasedOnTheme(
+            theme.mode,
+            chroma(theme.dm__background).brighten(1).hex(),
+            chroma(theme.background).darken(0.2).hex()
+          )} 0%, transparent 100%)`
+        : getStylesBasedOnTheme(
+            theme.mode,
+            theme.dm__cardBackgroundColor,
+            theme.cardBackgroundColor
+          )};
 
     .category-card-title {
       margin-top: 34px;
@@ -50,7 +53,7 @@ export const CategoryCard: React.FC<CategoryCardProps> = (props) => {
     .category-card-icon {
       svg path {
         fill: ${({ theme }) =>
-          theme.mode === "light" ? theme.gray1 : theme.white};
+          getStylesBasedOnTheme(theme.mode, theme.white, theme.gray1)};
       }
     }
 

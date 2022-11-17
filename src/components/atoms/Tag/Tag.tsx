@@ -2,6 +2,7 @@ import * as React from "react";
 
 import styled, { withTheme } from "styled-components";
 import { ExtendableStyledComponent } from "types/component";
+import { getStylesBasedOnTheme } from "../../../utils/utils";
 import { getFontFromTheme } from "../../../theme/provider";
 
 export interface LinkProps
@@ -12,7 +13,13 @@ export interface LinkProps
 
 // Main button with styles
 const StyledSpan = styled("span")<{ isButton: boolean }>`
-  color: ${(props) => props.theme.primaryColor || "black"};
+  color: ${({ theme }) =>
+    getStylesBasedOnTheme(
+      theme.mode,
+      theme.dm__primaryColor,
+      theme.primaryColor,
+      "black"
+    )};
   font-family: ${(props) =>
     props.theme ? getFontFromTheme(props.theme).fontFamily : "sans-serif"};
   font-weight: 700;
@@ -32,7 +39,13 @@ const StyledSpan = styled("span")<{ isButton: boolean }>`
     height: 2px;
     bottom: 0;
     left: 0;
-    background-color: ${(props) => props.theme.primaryColor || "black"};
+    background-color: ${({ theme }) =>
+      getStylesBasedOnTheme(
+        theme.mode,
+        theme.dm__primaryColor,
+        theme.primaryColor,
+        "black"
+      )};
     transform-origin: bottom right;
     transition: transform 0.25s ease-out;
   }

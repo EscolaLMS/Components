@@ -5,6 +5,7 @@ import styled, { withTheme, ThemeContext } from "styled-components";
 import { Title } from "../../atoms/Typography/Title";
 import { Text } from "../../atoms/Typography/Text";
 import { IconTitle } from "../../atoms/IconTitle/IconTitle";
+import { getStylesBasedOnTheme } from "../../../utils/utils";
 import { ExtendableStyledComponent } from "types/component";
 
 export interface TitleProps
@@ -75,7 +76,12 @@ export const LabelListItem: React.FC<TitleProps> = (props) => {
             level={5}
             style={{
               marginBottom: "0",
-              color: theme?.labelListValueColor ?? theme.primaryColor,
+              color: getStylesBasedOnTheme(
+                theme.mode,
+                theme.dm__primaryColor,
+                theme.primaryColor,
+                theme.primaryColor
+              ),
             }}
             as={"h1"}
           >

@@ -17,10 +17,10 @@ interface Props extends ExtendableStyledComponent {
 const StyledRate = styled.div`
   text-align: center;
   .title {
-    ${(props) => {
-      if (props.theme.mode !== "dark") {
+    ${({ theme }) => {
+      if (theme.mode !== "dark") {
         return `
-        color: ${props.theme.primaryColor};
+        color: ${theme.primaryColor};
       `;
       }
     }}

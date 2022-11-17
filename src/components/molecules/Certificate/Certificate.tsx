@@ -7,6 +7,7 @@ import { Row, Col } from "react-grid-system";
 import { RatioBox } from "../../atoms/RatioBox/RatioBox";
 import { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
+import { getStylesBasedOnTheme } from "../../../utils/utils";
 import { ExtendableStyledComponent } from "types/component";
 
 interface StyledCertificateProps {
@@ -49,9 +50,11 @@ const StyledCertificate = styled("div")<StyledCertificateProps>`
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      border-left: 1px solid ${
-        props.theme.mode === "light" ? props.theme.gray3 : props.theme.white
-      };
+      border-left: 1px solid ${getStylesBasedOnTheme(
+        props.theme.mode,
+        props.theme.white,
+        props.theme.gray3
+      )};
     `}
   }
 
@@ -73,7 +76,11 @@ const StyledCertificate = styled("div")<StyledCertificateProps>`
 
     svg path {
       fill: ${(props) =>
-        props.theme.mode === "light" ? props.theme.gray2 : props.theme.white};
+        getStylesBasedOnTheme(
+          props.theme.mode,
+          props.theme.white,
+          props.theme.gray2
+        )};
     }
   }
 `;

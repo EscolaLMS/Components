@@ -1,6 +1,7 @@
 import * as React from "react";
 import { ReactNode } from "react";
 import styled from "styled-components";
+import { getStylesBasedOnTheme } from "../../../utils/utils";
 import { ExtendableStyledComponent } from "types/component";
 
 interface StyledNoteProps extends ExtendableStyledComponent {
@@ -25,9 +26,11 @@ const StyledNote = styled("div")<StyledNoteProps>`
   margin-bottom: 10px;
   border-radius: ${(props) => props.theme.cardRadius}px;
   background: ${({ theme }) =>
-    theme.mode === "light"
-      ? theme.cardBackgroundColorDark
-      : theme.cardBackgroundColorLight};
+    getStylesBasedOnTheme(
+      theme.mode,
+      theme.dm__cardBackgroundColor,
+      theme.cardBackgroundColor
+    )};
   > div:first-child {
     padding-right: 30px;
   }

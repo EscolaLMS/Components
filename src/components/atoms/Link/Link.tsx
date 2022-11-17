@@ -3,6 +3,7 @@ import * as React from "react";
 import styled, { withTheme } from "styled-components";
 import { getFontFromTheme } from "../../../theme/provider";
 import { PropsWithChildren } from "react";
+import { getStylesBasedOnTheme } from "../../../utils/utils";
 import { ExtendableStyledComponent } from "types/component";
 
 export interface LinkProps
@@ -13,9 +14,8 @@ export interface LinkProps
 
 // Main button with styles
 const StyledAnchor = styled("a")<LinkProps>`
-  color: ${(props) =>
-    (props.theme.mode === "light" ? props.theme?.gray1 : props.theme?.gray5) ||
-    "black"};
+  color: ${({ theme }) =>
+    getStylesBasedOnTheme(theme.mode, theme.gray5, theme.gray1, "black")};
   font-family: ${(props) =>
     props.theme ? getFontFromTheme(props.theme).fontFamily : "sans-serif"};
   font-weight: 500;
@@ -42,10 +42,8 @@ const StyledAnchor = styled("a")<LinkProps>`
     height: 1px;
     bottom: 0;
     left: 0;
-    background-color: ${(props) =>
-      (props.theme.mode === "light"
-        ? props.theme?.gray1
-        : props.theme?.gray5) || "black"};
+    background-color: ${({ theme }) =>
+      getStylesBasedOnTheme(theme.mode, theme.gray5, theme.gray1, "black")};
     transform-origin: ${(props) =>
       props.underline ? "bottom left" : "bottom right"};
     transition: transform 0.25s ease-out;

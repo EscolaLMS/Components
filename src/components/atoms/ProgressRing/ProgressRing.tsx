@@ -1,14 +1,21 @@
 import styled, { withTheme } from "styled-components";
+import { getStylesBasedOnTheme } from "../../../utils/utils";
 import { ExtendableStyledComponent } from "types/component";
 
 const StyledSvg = styled("svg")`
   .progress_ring__top {
-    stroke: ${(props) => props.theme.primaryColor || "#F47820"};
+    stroke: ${({ theme }) =>
+      getStylesBasedOnTheme(
+        theme.mode,
+        theme.dm__primaryColor,
+        theme.primaryColor,
+        "#F47820"
+      )};
   }
 
   .progress_ring__bottom {
-    stroke: ${(props) =>
-      props.theme.mode !== "light" ? props.theme.white : props.theme.gray4};
+    stroke: ${({ theme }) =>
+      getStylesBasedOnTheme(theme.mode, theme.white, theme.gray4)};
   }
 `;
 

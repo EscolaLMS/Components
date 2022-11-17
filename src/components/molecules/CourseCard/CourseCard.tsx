@@ -12,6 +12,7 @@ import { RatioBox } from "../../atoms/RatioBox/RatioBox";
 import { Text } from "../../atoms/Typography/Text";
 import { Title } from "../../atoms/Typography/Title";
 import { Link } from "../../atoms/Link/Link";
+import { getStylesBasedOnTheme } from "../../../utils/utils";
 import { ExtendableStyledComponent } from "types/component";
 
 type ImageObject = {
@@ -117,10 +118,23 @@ const StyledCourseCard = styled("div")<StyledCourseCardProps>`
     flex-direction: column;
   }
   .card-subtitle {
-    color: ${(props) => !props.hideImage && props.theme.primaryColor};
+    color: ${({ theme, hideImage }) =>
+      !hideImage &&
+      getStylesBasedOnTheme(
+        theme.mode,
+        theme.dm__primaryColor,
+        theme.primaryColor,
+        theme.primaryColor
+      )};
     & > a {
-      color: ${(props) => !props.hideImage && props.theme.primaryColor};
-
+      color: ${({ theme, hideImage }) =>
+        !hideImage &&
+        getStylesBasedOnTheme(
+          theme.mode,
+          theme.dm__primaryColor,
+          theme.primaryColor,
+          theme.primaryColor
+        )};
       text-decoration: none;
     }
     & > a:hover {
@@ -148,18 +162,18 @@ const StyledCourseCard = styled("div")<StyledCourseCardProps>`
   .categories {
     font-size: 14px;
     line-height: 17px;
-    color: ${(props) =>
-      props.hideImage ? props.theme.gray2 : props.theme.gray3};
+    color: ${({ theme, hideImage }) => (hideImage ? theme.gray2 : theme.gray3)};
     margin-bottom: 15px;
     * {
       font-size: 14px;
       line-height: 17px;
-      color: ${(props) => {
-        if (props.theme?.breadcrumbsColor) {
-          return props.theme.breadcrumbsColor;
-        }
-        return props.hideImage ? props.theme.gray2 : props.theme.gray3;
-      }};
+      color: ${({ theme, hideImage }) =>
+        getStylesBasedOnTheme(
+          theme.mode,
+          theme.dm__breadcrumbsColor,
+          theme.breadcrumbsColor,
+          hideImage ? theme.gray2 : theme.gray3
+        )};
     }
   }
   .footer,
@@ -218,9 +232,13 @@ const ImgWrapper = styled.div`
 const StyledCategory = styled.span`
   transition: 0.3s color ease-in-out;
   &:hover {
-    color: ${(props) => {
-      return props.theme.primaryColor;
-    }};
+    color: ${({ theme }) =>
+      getStylesBasedOnTheme(
+        theme.mode,
+        theme.dm__primaryColor,
+        theme.primaryColor,
+        theme.primaryColor
+      )};
   }
 `;
 

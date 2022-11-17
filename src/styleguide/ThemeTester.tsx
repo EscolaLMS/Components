@@ -7,6 +7,7 @@ import themes from "../theme";
 import axeCore from "axe-core";
 import Spin from "../components/atoms/Spin/Spin";
 import Badge from "../components/atoms/Badge/Badge";
+import { getStylesBasedOnTheme } from "../utils/utils";
 
 type Mode = ("light" | "dark")[];
 
@@ -27,14 +28,17 @@ const StyledDiv = styled.div<{
   alignItems?: React.CSSProperties["alignItems"];
 }>`
   background: ${(props) =>
-    props.mode === "dark"
-      ? props.theme.backgroundDark
-      : props.theme.backgroundLight};
+    getStylesBasedOnTheme(
+      props.mode,
+      props.theme.dm__background,
+      props.theme.background
+    )};
   color: ${(props) =>
-    props.mode === "dark"
-      ? props.theme.textColorDark
-      : props.theme.textColorLight};
-
+    getStylesBasedOnTheme(
+      props.mode,
+      props.theme.dm__textColor,
+      props.theme.textColor
+    )};
   font-family: "Inter", sans-serif;
   margin: 10px 0;
   font-size: 12px;
@@ -53,9 +57,11 @@ const StyledDiv = styled.div<{
   }
   .children-list-title {
     background: ${(props) =>
-      props.mode === "dark"
-        ? chroma(props.theme.backgroundDark).brighten(0.5).hex()
-        : chroma(props.theme.backgroundLight).darken(0.5).hex()};
+      getStylesBasedOnTheme(
+        props.mode,
+        chroma(props.theme.dm__background).brighten(0.5).hex(),
+        chroma(props.theme.background).darken(0.5).hex()
+      )};
     padding: 10px 15px;
     border-radius: 6px 6px 0 0;
     display: flex;
@@ -69,17 +75,21 @@ const StyledDiv = styled.div<{
   .axe-a11y {
     position: relative;
     background: ${(props) =>
-      props.mode === "dark"
-        ? chroma(props.theme.backgroundDark).brighten(0.5).hex()
-        : chroma(props.theme.backgroundLight).darken(0.5).hex()};
+      getStylesBasedOnTheme(
+        props.mode,
+        chroma(props.theme.dm__background).brighten(0.5).hex(),
+        chroma(props.theme.background).darken(0.5).hex()
+      )};
 
     border-radius: 0 0 6px 6px;
     padding: 10px 15px;
+
     .loading {
       display: flex;
       justify-content: center;
       padding: 40px;
     }
+
     .button {
       display: flex;
       justify-content: flex-end;
@@ -90,9 +100,11 @@ const StyledDiv = styled.div<{
         cursor: pointer;
         background: none;
         color: ${(props) =>
-          props.mode === "dark"
-            ? props.theme.textColorDark
-            : props.theme.textColorLight};
+          getStylesBasedOnTheme(
+            props.mode,
+            props.theme.dm__textColor,
+            props.theme.textColor
+          )};
       }
     }
 
@@ -103,9 +115,11 @@ const StyledDiv = styled.div<{
       &,
       a {
         color: ${(props) =>
-          props.mode === "dark"
-            ? props.theme.textColorDark
-            : props.theme.textColorLight};
+          getStylesBasedOnTheme(
+            props.mode,
+            props.theme.dm__textColor,
+            props.theme.textColor
+          )};
       }
 
       td,
@@ -123,9 +137,11 @@ const StyledDiv = styled.div<{
       tr {
         border-top: solid 1px
           ${(props) =>
-            props.mode !== "dark"
-              ? props.theme.backgroundDark
-              : props.theme.backgroundLight};
+            getStylesBasedOnTheme(
+              props.mode,
+              props.theme.dm__background,
+              props.theme.background
+            )};
       }
       td.id,
       td.impact,

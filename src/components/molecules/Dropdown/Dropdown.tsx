@@ -4,6 +4,7 @@ import styled, { ThemeContext } from "styled-components";
 import "react-dropdown/style.css";
 import { getFontFromTheme } from "../../../theme/provider";
 import chroma, { contrast } from "chroma-js";
+import { getStylesBasedOnTheme } from "../../../utils/utils";
 import { ExtendableStyledComponent } from "types/component";
 
 export interface DropdownProps
@@ -117,10 +118,12 @@ export const Dropdown: React.FC<DropdownProps> = (props) => {
   const {
     placement = "bottom",
     styles,
-    backgroundColor = theme.mode === "light"
-      ? theme.backgroundLight
-      : theme.backgroundDark,
     className = "",
+    backgroundColor = getStylesBasedOnTheme(
+      theme.mode,
+      theme.dm__background,
+      theme.background
+    ),
   } = props;
 
   const cts = React.useMemo(() => {

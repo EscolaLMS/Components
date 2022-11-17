@@ -4,6 +4,7 @@ import styled, { withTheme } from "styled-components";
 import { useTranslation } from "react-i18next";
 import type { Lesson, Topic } from "@escolalms/sdk/lib/types/api";
 import chroma from "chroma-js";
+import { getStylesBasedOnTheme } from "../../../utils/utils";
 import { ExtendableStyledComponent } from "types/component";
 
 const ProgramIcon = () => (
@@ -136,10 +137,19 @@ const StyledSection = styled("section")`
   }
   .lesson__item {
     background: ${({ theme }) =>
-      theme.mode === "light"
-        ? theme.cardBackgroundColorDark
-        : theme.cardBackgroundColorLight};
-    border-left: 2px solid ${(props) => props.theme.primaryColor};
+      getStylesBasedOnTheme(
+        theme.mode,
+        theme.dm__cardBackgroundColor,
+        theme.cardBackgroundColor
+      )};
+    border-left: 2px solid
+      ${({ theme }) =>
+        getStylesBasedOnTheme(
+          theme.mode,
+          theme.dm__primaryColor,
+          theme.primaryColor,
+          theme.primaryColor
+        )};
     padding: 10px;
     margin: 10px 0;
     overflow: hidden;
@@ -174,7 +184,13 @@ const StyledSection = styled("section")`
           margin-bottom: 2px;
           margin-top: 3px;
           text-transform: uppercase;
-          color: ${({ theme }) => theme.primaryColor};
+          color: ${({ theme }) =>
+            getStylesBasedOnTheme(
+              theme.mode,
+              theme.dm__primaryColor,
+              theme.primaryColor,
+              theme.primaryColor
+            )};
         }
       }
 
@@ -189,10 +205,13 @@ const StyledSection = styled("section")`
           font-weight: 300;
           .lesson__index {
             text-transform: uppercase;
-            color: ${(props) =>
-              props.theme.mode === "dark" && props.theme.dm__numerationsColor
-                ? props.theme.dm__numerationsColor
-                : props.theme.numerationsColor ?? props.theme.primaryColor};
+            color: ${({ theme }) =>
+              getStylesBasedOnTheme(
+                theme.mode,
+                theme.dm__primaryColor,
+                theme.primaryColor,
+                theme.primaryColor
+              )};
             white-space: nowrap;
           }
           .lesson__duration {
@@ -235,9 +254,11 @@ const StyledSection = styled("section")`
         &:not(.lesson__topic-current):not(:last-child) {
           border-bottom: 2px solid
             ${({ theme }) =>
-              theme.mode === "light"
-                ? theme.white
-                : chroma(theme.white).alpha(0.2).hex()};
+              getStylesBasedOnTheme(
+                theme.mode,
+                chroma(theme.white).alpha(0.2).hex(),
+                theme.white
+              )};
         }
 
         &:hover p:last-child {
@@ -249,7 +270,7 @@ const StyledSection = styled("section")`
 
           path {
             fill: ${({ theme }) =>
-              theme.mode === "light" ? theme.gray1 : theme.white};
+              getStylesBasedOnTheme(theme.mode, theme.white, theme.gray1)};
           }
         }
 
@@ -266,7 +287,13 @@ const StyledSection = styled("section")`
             flex-shrink: 0;
 
             &.current-icon path {
-              fill: ${({ theme }) => theme.primaryColor};
+              fill: ${({ theme }) =>
+                getStylesBasedOnTheme(
+                  theme.mode,
+                  theme.dm__primaryColor,
+                  theme.primaryColor,
+                  theme.primaryColor
+                )};
             }
           }
 
@@ -281,9 +308,12 @@ const StyledSection = styled("section")`
 
         &.lesson__topic-current {
           background: ${({ theme }) =>
-            theme.mode === "light"
-              ? theme.white
-              : chroma(theme.cardBackgroundColorLight).brighten(0.4).hex()};
+            getStylesBasedOnTheme(
+              theme.mode,
+              theme.dm__inputBg,
+              theme.inputBg,
+              theme.gray1
+            )};
           border-radius: ${(props) => props.theme.cardRadius}px;
           cursor: default;
           button {

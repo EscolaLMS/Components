@@ -3,6 +3,7 @@ import styled, { withTheme, css } from "styled-components";
 import format from "date-fns/format";
 import isToday from "date-fns/isToday";
 import { Title, Text } from "../../../";
+import { getStylesBasedOnTheme } from "../../../utils/utils";
 import { ExtendableStyledComponent } from "types/component";
 
 export interface ComponentProps extends ExtendableStyledComponent {
@@ -27,9 +28,11 @@ const StyledNotification = styled.section<{
   cursor: pointer;
   position: relative;
   background-color: ${({ theme }) =>
-    theme.mode === "light"
-      ? theme.cardBackgroundColorDark
-      : theme.cardBackgroundColorLight};
+    getStylesBasedOnTheme(
+      theme.mode,
+      theme.dm__cardBackgroundColor,
+      theme.cardBackgroundColor
+    )};
   display: flex;
   width: 100%;
   align-items: flex-start;
@@ -48,7 +51,13 @@ const StyledNotification = styled.section<{
         margin-top: 3px;
         line-height: 19px;
         border-radius: 100%;
-        background-color: ${({ theme }) => theme.primaryColor};
+        background-color: ${({ theme }) =>
+          getStylesBasedOnTheme(
+            theme.mode,
+            theme.dm__primaryColor,
+            theme.primaryColor,
+            theme.primaryColor
+          )};
         margin-right: 12px;
       }
     `}
@@ -64,7 +73,13 @@ const StyledNotification = styled.section<{
         line-height: 19px;
         border-radius: 100%;
         position: absolute;
-        background-color: ${({ theme }) => theme.primaryColor};
+        background-color: ${({ theme }) =>
+          getStylesBasedOnTheme(
+            theme.mode,
+            theme.dm__primaryColor,
+            theme.primaryColor,
+            theme.primaryColor
+          )};
         top: 4px;
         margin-top: 0;
         left: -23px;

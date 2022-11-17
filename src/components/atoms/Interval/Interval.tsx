@@ -1,7 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
+import { calcPercentage, getStylesBasedOnTheme } from "../../../utils/utils";
 import { ExtendableStyledComponent } from "types/component";
-import { calcPercentage } from "../../../utils/utils";
 
 export interface IntervalProps extends ExtendableStyledComponent {
   current: number;
@@ -12,16 +12,16 @@ const StyledInterval = styled.div<IntervalProps>`
   position: relative;
   margin: 15px 8px;
   height: 1px;
-  background: ${(props) =>
-    props.theme.mode !== "dark" ? props.theme.gray3 : props.theme.gray4};
+  background: ${({ theme }) =>
+    getStylesBasedOnTheme(theme.mode, theme.gray4, theme.gray3)};
   &:before {
     content: "";
     position: absolute;
     left: -8px;
     height: 1px;
     width: 8px;
-    background: ${(props) =>
-      props.theme.mode !== "dark" ? props.theme.gray3 : props.theme.gray4};
+    background: ${({ theme }) =>
+      getStylesBasedOnTheme(theme.mode, theme.gray4, theme.gray3)};
   }
   &:after {
     content: "";
@@ -29,14 +29,20 @@ const StyledInterval = styled.div<IntervalProps>`
     right: -8px;
     height: 1px;
     width: 8px;
-    background: ${(props) =>
-      props.theme.mode !== "dark" ? props.theme.gray3 : props.theme.gray4};
+    background: ${({ theme }) =>
+      getStylesBasedOnTheme(theme.mode, theme.gray4, theme.gray3)};
   }
   > div {
     position: absolute;
     top: -3px;
     height: 7px;
-    background: ${(props) => props.theme.primaryColor};
+    background: ${({ theme }) =>
+      getStylesBasedOnTheme(
+        theme.mode,
+        theme.dm__primaryColor,
+        theme.primaryColor,
+        theme.primaryColor
+      )};
     width: ${({ max, current }) => {
       return `${calcPercentage(current, max)}`;
     }};
