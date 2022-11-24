@@ -242,6 +242,7 @@ export const MyProfileForm: React.FC<Props> = ({
                   })
                   .finally(() => {
                     setSubmitting(false);
+                    fetchProfile();
                   });
               }}
             >
