@@ -123,21 +123,6 @@ export const MyProfileForm: React.FC<Props> = ({
     }
   }, [user]);
 
-  useEffect(() => {
-    const additionalFields = (fields && fields.list) || [];
-
-    setInitialValues((prevState) => ({
-      ...prevState,
-      ...additionalFields.reduce(
-        (obj: object, item: EscolaLms.ModelFields.Models.Metadata) => ({
-          ...obj,
-          [item.name]: item.type === "boolean" ? false : "",
-        }),
-        {}
-      ),
-    }));
-  }, [fields]);
-
   const isAdditionalRequiredField = useCallback(
     (field: EscolaLms.ModelFields.Models.Metadata) => {
       if (field?.rules && field?.rules.length > 0) {
