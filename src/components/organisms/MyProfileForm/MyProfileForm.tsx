@@ -76,7 +76,7 @@ type FormValues = {
   error?: string | null;
   path_avatar?: string;
   avatar?: string;
-} & Record<string, boolean | number | string>;
+} & Record<string, boolean | string | null>;
 
 interface Props extends ExtendableStyledComponent {
   onError?: (err: ResponseError<DefaultResponseError>) => void;
@@ -91,7 +91,7 @@ export const MyProfileForm: React.FC<Props> = ({
   className = "",
 }) => {
   const [initialValues, setInitialValues] = useState<
-    FormValues & Record<string, string | boolean>
+    FormValues & Record<string, boolean | string | null>
   >({
     first_name: "",
     last_name: "",
@@ -122,6 +122,25 @@ export const MyProfileForm: React.FC<Props> = ({
       );
     }
   }, [user]);
+
+  useEffect(() => {
+    const additionalFields = (fields && fields.list) || [];
+
+    setInitialValues((prevState) => {
+      return {
+        ...prevState,
+        ...additionalFields
+          .filter(({ name }) => !(name in prevState))
+          .reduce(
+            (obj, item: EscolaLms.ModelFields.Models.Metadata) => ({
+              ...obj,
+              [item.name]: item.type === "boolean" ? false : item.default,
+            }),
+            {}
+          ),
+      };
+    });
+  }, [fields]);
 
   const isAdditionalRequiredField = useCallback(
     (field: EscolaLms.ModelFields.Models.Metadata) => {
@@ -218,10 +237,11 @@ export const MyProfileForm: React.FC<Props> = ({
                   ...values,
                 })
                   .then(() => {
-                    resetForm();
                     onSuccess && onSuccess();
                   })
                   .catch((err: ResponseError<DefaultResponseError>) => {
+                    // reset form to previous state only if error occured
+                    resetForm();
                     setErrors({ error: err.data.message, ...err.data.errors });
                     onError && onError(err);
                   })
