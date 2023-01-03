@@ -50,7 +50,24 @@
           "resources": [],
           "order": 1,
           "json": null,
-          "can_skip": false
+          "can_skip": true
+        },
+        {
+          "id": 1684,
+          "title": "Zasada ciągłości",
+          "lesson_id": 76,
+          "active": true,
+          "preview": false,
+          "topicable_id": null,
+          "topicable_type": null,
+          "topicable": null,
+          "summary": null,
+          "introduction": null,
+          "description": null,
+          "resources": [],
+          "order": 1,
+          "json": null,
+          "can_skip": true
         }
       ],
       "order": 0
@@ -77,7 +94,7 @@
           "resources": [],
           "order": 1,
           "json": null,
-          "can_skip": false
+          "can_skip": true
         }
       ],
       "order": 2
@@ -104,7 +121,7 @@
           "resources": [],
           "order": 1,
           "json": null,
-          "can_skip": false
+          "can_skip": true
         },
         {
           "id": 684,
@@ -121,11 +138,11 @@
           "resources": [],
           "order": 2,
           "json": null,
-          "can_skip": false
+          "can_skip": true
         },
         {
-          "id": 693,
-          "title": "Add new title here",
+          "id": 685,
+          "title": "Rodzaje rozliczeń rocznych",
           "lesson_id": 78,
           "active": true,
           "preview": false,
@@ -144,11 +161,11 @@
           "resources": [],
           "order": 3,
           "json": null,
-          "can_skip": false
+          "can_skip": true
         },
         {
           "id": 694,
-          "title": "Add new title here",
+          "title": "Rodzaje rozliczeń międzyokresowych",
           "lesson_id": 78,
           "active": true,
           "preview": false,
@@ -171,7 +188,7 @@
         },
         {
           "id": 697,
-          "title": "Add new title here",
+          "title": "Rodzaje rozliczeń międzynarodowych",
           "lesson_id": 78,
           "active": true,
           "preview": false,
@@ -201,6 +218,187 @@
         }
       ],
       "order": 3
+    },
+    {
+      "id": 79,
+      "title": "Czym jest manipulacja?",
+      "summary": null,
+      "duration": "25 minutes",
+      "active": true,
+      "topics": [
+        {
+          "id": 783,
+          "title": "Czy manipulacja to oszustwo?",
+          "lesson_id": 79,
+          "active": true,
+          "preview": false,
+          "topicable_id": null,
+          "topicable_type": null,
+          "topicable": null,
+          "summary": null,
+          "introduction": null,
+          "description": null,
+          "resources": [],
+          "order": 1,
+          "json": null,
+          "can_skip": true
+        },
+        {
+          "id": 784,
+          "title": "Jaka jest najważniejsza cecha manipulacji?",
+          "lesson_id": 79,
+          "active": true,
+          "preview": false,
+          "topicable_id": null,
+          "topicable_type": null,
+          "topicable": null,
+          "summary": null,
+          "introduction": null,
+          "description": null,
+          "resources": [],
+          "order": 2,
+          "json": null,
+          "can_skip": false
+        },
+        {
+          "id": 793,
+          "title": "Kiedy manipulacja jest rzeczywiście skuteczna?",
+          "lesson_id": 79,
+          "active": true,
+          "preview": false,
+          "topicable_id": 100,
+          "topicable_type": "EscolaLms\\TopicTypes\\Models\\TopicContent\\Image",
+          "topicable": {
+            "id": 100,
+            "value": "course/47/topic/693/image/1sjzVuRXDLFcwm99BqN267voT0i1TqW3i9SfT2f8.jpg",
+            "url": "https://startup-academy-stage.s3.eu-central-1.amazonaws.com/course/47/topic/693/image/1sjzVuRXDLFcwm99BqN267voT0i1TqW3i9SfT2f8.jpg",
+            "width": 1000,
+            "height": 1500
+          },
+          "summary": "null",
+          "introduction": "null",
+          "description": "null",
+          "resources": [],
+          "order": 3,
+          "json": null,
+          "can_skip": false
+        },
+        {
+          "id": 794,
+          "title": "Jakie są różnice między manipulacją a perswazją?",
+          "lesson_id": 78,
+          "active": true,
+          "preview": false,
+          "topicable_id": 101,
+          "topicable_type": "EscolaLms\\TopicTypes\\Models\\TopicContent\\Image",
+          "topicable": {
+            "id": 101,
+            "value": "course/47/topic/694/image/vSbki8wj0OWI7oAIpbXyiAlIvMDbmlVP68m4mzxa.jpg",
+            "url": "https://startup-academy-stage.s3.eu-central-1.amazonaws.com/course/47/topic/694/image/vSbki8wj0OWI7oAIpbXyiAlIvMDbmlVP68m4mzxa.jpg",
+            "width": 1920,
+            "height": 1281
+          },
+          "summary": "null",
+          "introduction": "null",
+          "description": "null",
+          "resources": [],
+          "order": 4,
+          "json": null,
+          "can_skip": false
+        },
+        {
+          "id": 797,
+          "title": "Czy możemy zweryfikować, czy ktoś mówi prawdę?",
+          "lesson_id": 78,
+          "active": true,
+          "preview": false,
+          "topicable_id": 69,
+          "topicable_type": "EscolaLms\\TopicTypes\\Models\\TopicContent\\Video",
+          "topicable": {
+            "id": 69,
+            "value": "course/47/topic/697/video/hls.m3u8",
+            "url": "https://startup-academy-stage.s3.eu-central-1.amazonaws.com/course/47/topic/697/video/hls.m3u8",
+            "poster": null,
+            "poster_url": null,
+            "width": null,
+            "height": null
+          },
+          "summary": null,
+          "introduction": null,
+          "description": null,
+          "resources": [],
+          "order": 5,
+          "json": {
+            "ffmpeg": {
+              "state": "finished",
+              "path": "course/47/topic/697/video/hls.m3u8"
+            }
+          },
+          "can_skip": false
+        },
+        {
+          "id": 799,
+          "title": "Jaki jest prosty sposób na odkrycie manipulacji?",
+          "lesson_id": 79,
+          "active": true,
+          "preview": false,
+          "topicable_id": null,
+          "topicable_type": null,
+          "topicable": null,
+          "summary": null,
+          "introduction": null,
+          "description": null,
+          "resources": [],
+          "order": 2,
+          "json": null,
+          "can_skip": false
+        }
+      ],
+      "order": 4
+    },
+    {
+      "id": 80,
+      "title": "Psychologia w biznesie",
+      "summary": null,
+      "duration": null,
+      "active": true,
+      "topics": [
+        {
+          "id": 3333,
+          "title": "Jak odróżnić dobrego menedżera od przeciętnego",
+          "lesson_id": 80,
+          "active": true,
+          "preview": false,
+          "topicable_id": null,
+          "topicable_type": null,
+          "topicable": null,
+          "summary": null,
+          "introduction": null,
+          "description": null,
+          "resources": [],
+          "order": 1,
+          "json": null,
+          "can_skip": true
+        },
+        {
+          "id": 3334,
+          "title": "Jak odróżnić dobrego programistę od przeciętnego",
+          "lesson_id": 80,
+          "active": true,
+          "preview": false,
+          "topicable_id": null,
+          "topicable_type": null,
+          "topicable": null,
+          "summary": null,
+          "introduction": null,
+          "description": null,
+          "resources": [],
+          "order": 2,
+          "json": null,
+          "can_skip": true
+        }
+      ],
+      "order": 5
     }
   ],
   "poster_path": "course/47/posters/poster.jpg",
