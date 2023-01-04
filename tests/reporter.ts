@@ -1,8 +1,8 @@
 import { markdownTable } from "./mdtable";
-import Reporter from "axe-playwright/src/types";
+// import Reporter from "axe-playwright/src/types";
 import { Result } from "axe-core";
 
-export default class DefaultTerminalReporter implements Reporter {
+export default class DefaultTerminalReporter /*implements Reporter*/ {
   public markdown!: string;
 
   async report(violations: Result[]): Promise<void> {
