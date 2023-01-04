@@ -500,7 +500,7 @@ export function getStylesBasedOnTheme(...args: StylesBasedOnThemeArgs) {
 }
 let time = Date.now();
 const usedIds: string[] = [];
-export const getUniqueId = (uniqueName: string, twoIds?: boolean) => {
+export const getUniqueId = (uniqueName: string, twoIds = false) => {
   const newId = `${time}--${uniqueName}`;
   if (usedIds.filter((id) => id === newId).length > (twoIds ? 1 : 0)) {
     time = Date.now();

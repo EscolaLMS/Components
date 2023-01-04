@@ -95,16 +95,23 @@ interface CourseAgendaProps
   currentTopicId: number;
 }
 
+interface CourseLessonAndTopicIds {
+  isLessonLock: boolean | null;
+  firstUnskippableTopic: Topic | null;
+}
+
 interface CourseAgendaLessonProps extends SharedComponentProps {
   lesson: Lesson;
   index: number;
   currentTopicId: number;
+  lock: CourseLessonAndTopicIds;
   defaultOpen?: boolean;
 }
 
 interface CourseAgendaTopicProps extends SharedComponentProps {
   index: number;
   topic: Topic;
+  clickable: boolean;
   mode: "pending" | "current" | "finished";
 }
 
@@ -230,11 +237,64 @@ const StyledSection = styled("section")`
     }
 
     .lesson__topics {
+      display: grid;
+      position: relative;
       list-style: none;
       margin: 0;
       padding: 0;
       transition: all 0.5s;
-      li {
+
+      .lesson__overlay-text {
+        margin: 0;
+        text-align: center;
+
+        &:first-of-type {
+          margin-top: 8px;
+        }
+
+        &--emphasized {
+          font-style: italic;
+          font-weight: 600;
+        }
+      }
+
+      .lesson__overlay {
+        grid-column: 1/2;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        display: grid;
+        place-items: center;
+        z-index: 1;
+        backdrop-filter: blur(2px);
+        background: ${({ theme }) =>
+          getStylesBasedOnTheme(
+            theme.mode,
+            "rgb(0 0 0 / 50%)",
+            "rgb(255 255 255 / 50%)"
+          )};
+        place-content: center;
+        gap: 4px;
+
+        &--row {
+          grid-auto-flow: column;
+
+          .lesson__overlay-text {
+            margin: 0;
+          }
+
+          svg {
+            width: 18px;
+          }
+        }
+
+        svg {
+          fill: ${({ theme }) =>
+            getStylesBasedOnTheme(theme.mode, "#fff", "#000")};
+        }
+      }
+
+      li:not(.lesson__overlay) {
         padding: 10px;
         background: transparent;
         position: relative;
@@ -321,7 +381,7 @@ const StyledSection = styled("section")`
             border-width: 1px;
             font-weight: normal;
           }
-          &:hover,
+          &:not(.lesson__overlay):hover,
           .lesson__description p:last-child {
             text-decoration: none;
           }
@@ -350,6 +410,24 @@ const StyledSection = styled("section")`
   }
 `;
 
+/* 
+1. CSS grid starts with 1 as closest to the edge value
+2. JS Arrays are counting from 0 - first shift by 1
+3. First topic with can_skip=false should be actualy visible - second shift by 1
+*/
+const GRID_PURPOSES_NUMBER = 2;
+
+const LockIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+  >
+    <path d="M10.862 17.011l-1.862-1.837 1.129-1.13 1.859 1.827 1.838-1.871 1.139 1.139-1.833 1.86 1.868 1.836-1.138 1.14-1.862-1.836-1.835 1.861-1.13-1.129 1.827-1.86zm10.138-7.011v14h-18v-14h3v-4c0-3.313 2.687-6 6-6s6 2.687 6 6v4h3zm-13 0h8v-4c0-2.206-1.795-4-4-4s-4 1.794-4 4v4zm11 2h-14v10h14v-10z" />
+  </svg>
+);
+
 const TopicIcon: React.FC<{ mode: CourseAgendaTopicProps["mode"] }> = ({
   mode,
 }) => {
@@ -368,6 +446,7 @@ const CourseAgendaTopic: React.FC<CourseAgendaTopicProps> = ({
   topic,
   mode,
   finishedTopicIds,
+  clickable,
   onMarkFinished,
   onTopicClick,
 }) => {
@@ -383,8 +462,8 @@ const CourseAgendaTopic: React.FC<CourseAgendaTopicProps> = ({
       <div
         className={"lesson__description"}
         tabIndex={0}
-        onClick={onClick}
-        onKeyDown={(e) => e.key === "Enter" && onClick()}
+        onClick={() => clickable && onClick}
+        onKeyDown={(e) => clickable && e.key === "Enter" && onClick()}
         role="button"
       >
         <TopicIcon mode={mode} />
@@ -405,7 +484,7 @@ const CourseAgendaTopic: React.FC<CourseAgendaTopicProps> = ({
         <Button
           block
           mode="outline"
-          onClick={() => onMarkFinished && onMarkFinished(topic)}
+          onClick={() => clickable && onMarkFinished && onMarkFinished(topic)}
         >
           {t<string>("Course.markAsFinished")}
         </Button>
@@ -421,20 +500,39 @@ const CourseAgendaLesson: React.FC<CourseAgendaLessonProps> = (props) => {
     index,
     finishedTopicIds,
     currentTopicId,
+    lock,
     defaultOpen = false,
     onMarkFinished,
     onTopicClick,
   } = props;
   const { t } = useTranslation();
   const [open, setOpen] = React.useState(defaultOpen);
+
   const onClick = React.useCallback(() => {
     setOpen(true);
   }, []);
+
   React.useEffect(() => {
     if (defaultOpen && !open) {
       setOpen(true);
     }
   }, []);
+
+  const indexOfFirstLockedTopic = React.useMemo(
+    () =>
+      lesson.topics?.findIndex(
+        (topic) => topic.id === lock?.firstUnskippableTopic?.id
+      ) ?? -1,
+    []
+  );
+
+  const lessonHasLockedTopic = indexOfFirstLockedTopic >= 0;
+  const gridStartingPosition = indexOfFirstLockedTopic + GRID_PURPOSES_NUMBER;
+  const totalHeightOfOverlay =
+    typeof lesson.topics !== "undefined"
+      ? lesson.topics?.length - indexOfFirstLockedTopic - 1
+      : 0;
+
   return (
     <div
       className={`lesson__item ${open ? "open" : "closed"}`}
@@ -480,6 +578,45 @@ const CourseAgendaLesson: React.FC<CourseAgendaLessonProps> = (props) => {
         </header>
       )}
       <ul className="lesson__topics">
+        {(lessonHasLockedTopic || lock.isLessonLock) && (
+          <li
+            className={`lesson__overlay ${
+              totalHeightOfOverlay === 1 && "lesson__overlay--row"
+            }`}
+            style={{
+              gridRowStart: lock.isLessonLock ? 1 : gridStartingPosition,
+            }}
+          >
+            <LockIcon />
+            {lock.isLessonLock ? (
+              <>
+                <p className="lesson__overlay-text">
+                  Finish required topic(s) before You get to this lesson.
+                </p>
+                {totalHeightOfOverlay > 2 && (
+                  <p className="lesson__overlay-text">
+                    Topic to complete:{" "}
+                    <span className="lesson__overlay-text lesson__overlay-text--emphasized">
+                      {lock.firstUnskippableTopic?.title}
+                    </span>
+                    .
+                  </p>
+                )}
+              </>
+            ) : (
+              <p className="lesson__overlay-text">
+                You have to complete topic
+                <span className="lesson__overlay-text lesson__overlay-text--emphasized">
+                  {totalHeightOfOverlay < 3 &&
+                    ` nr. ${indexOfFirstLockedTopic + 1} `}
+                  {totalHeightOfOverlay >= 3 &&
+                    ` ${lock.firstUnskippableTopic?.title} `}
+                </span>
+                to access the following
+              </p>
+            )}
+          </li>
+        )}
         {lesson.topics?.map((topic, topicIndex) => {
           let mode: CourseAgendaTopicProps["mode"] = "pending";
 
@@ -493,6 +630,12 @@ const CourseAgendaLesson: React.FC<CourseAgendaLessonProps> = (props) => {
 
           return (
             <CourseAgendaTopic
+              clickable={
+                !lock.isLessonLock ||
+                (indexOfFirstLockedTopic >= 0
+                  ? topicIndex <= indexOfFirstLockedTopic
+                  : true)
+              }
               key={topicIndex}
               topic={topic}
               index={topicIndex + 1}
@@ -530,6 +673,19 @@ export const CourseAgenda: React.FC<CourseAgendaProps> = (props) => {
     [lessons]
   );
 
+  const allTopics = lessons.flatMap((lesson) => lesson.topics);
+  const firstTopicWithLock =
+    allTopics
+      .filter((topic): topic is Topic => typeof topic !== "undefined")
+      .filter((topic) => !finishedTopicIds.includes(topic.id))
+      .find((topic) => !topic.can_skip) ?? null;
+
+  const indexOfFirstLessonWithLock =
+    firstTopicWithLock &&
+    lessons.findIndex(
+      (singleLesson) => singleLesson.id === firstTopicWithLock.lesson_id
+    );
+
   const percentage = React.useMemo(() => {
     return Math.round((finishedTopicIds.length / flatTopics.length) * 100);
   }, [flatTopics, finishedTopicIds]);
@@ -560,6 +716,12 @@ export const CourseAgenda: React.FC<CourseAgendaProps> = (props) => {
             )}
             key={lesson.id}
             index={index}
+            lock={{
+              isLessonLock:
+                !!indexOfFirstLessonWithLock &&
+                index > indexOfFirstLessonWithLock,
+              firstUnskippableTopic: firstTopicWithLock,
+            }}
             {...{
               lesson,
               finishedTopicIds,
