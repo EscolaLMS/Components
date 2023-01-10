@@ -11,7 +11,7 @@ export const resources = {
       Prev: "Previous",
       Next: "Next",
       "CartCard.addDiscountButton": "Add discount code",
-      "CartCard.buyButton": "I buy and pay",
+      "CartCard.buyButton": "Purchase",
       "CartCard.discountError": "The code provided is invalid",
       "CartCard.discountGranted": "**Discount code** applied",
       "CartCard.realizeButton": "Realize",
