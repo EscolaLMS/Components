@@ -85,6 +85,7 @@ interface SharedComponentProps {
   mobile?: boolean;
   onMarkFinished: (topic: Topic) => void;
   onTopicClick: (topic: Topic) => void;
+  onNextTopicClick: () => void;
   finishedTopicIds: number[];
 }
 
@@ -111,7 +112,6 @@ interface CourseAgendaLessonProps extends SharedComponentProps {
 interface CourseAgendaTopicProps extends SharedComponentProps {
   index: number;
   topic: Topic;
-  clickable: boolean;
   mode: "pending" | "current" | "finished";
 }
 
@@ -446,9 +446,9 @@ const CourseAgendaTopic: React.FC<CourseAgendaTopicProps> = ({
   topic,
   mode,
   finishedTopicIds,
-  clickable,
   onMarkFinished,
   onTopicClick,
+  onNextTopicClick,
 }) => {
   const { t } = useTranslation();
   const onClick = React.useCallback(() => {
@@ -462,8 +462,8 @@ const CourseAgendaTopic: React.FC<CourseAgendaTopicProps> = ({
       <div
         className={"lesson__description"}
         tabIndex={0}
-        onClick={() => clickable && onClick}
-        onKeyDown={(e) => clickable && e.key === "Enter" && onClick()}
+        onClick={() => onClick()}
+        onKeyDown={(e) => e.key === "Enter" && onClick()}
         role="button"
       >
         <TopicIcon mode={mode} />
@@ -476,7 +476,8 @@ const CourseAgendaTopic: React.FC<CourseAgendaTopicProps> = ({
           {index}.{" "}
         </Text>
         <Text size={"14"} noMargin bold={mode === "current"}>
-          {topic.title}
+          {topic.title}{" "}
+          {finishedTopicIds.includes(topic.id) && <FinishedIcon />}
         </Text>
       </div>
 
@@ -484,9 +485,19 @@ const CourseAgendaTopic: React.FC<CourseAgendaTopicProps> = ({
         <Button
           block
           mode="outline"
-          onClick={() => clickable && onMarkFinished && onMarkFinished(topic)}
+          onClick={() => onMarkFinished && onMarkFinished(topic)}
         >
           {t<string>("Course.markAsFinished")}
+        </Button>
+      )}
+
+      {mode === "current" && finishedTopicIds.includes(topic.id) && (
+        <Button
+          block
+          mode="outline"
+          onClick={() => onNextTopicClick && onNextTopicClick()}
+        >
+          {t<string>("Course.nextTopic")}
         </Button>
       )}
     </li>
@@ -504,6 +515,7 @@ const CourseAgendaLesson: React.FC<CourseAgendaLessonProps> = (props) => {
     defaultOpen = false,
     onMarkFinished,
     onTopicClick,
+    onNextTopicClick,
   } = props;
   const { t } = useTranslation();
   const [open, setOpen] = React.useState(defaultOpen);
@@ -523,10 +535,10 @@ const CourseAgendaLesson: React.FC<CourseAgendaLessonProps> = (props) => {
       lesson.topics?.findIndex(
         (topic) => topic.id === lock?.firstUnskippableTopic?.id
       ) ?? -1,
-    []
+    [lock]
   );
 
-  const lessonHasLockedTopic = indexOfFirstLockedTopic >= 0;
+  const lessonHasLockedTopic = indexOfFirstLockedTopic >= -1;
   const gridStartingPosition = indexOfFirstLockedTopic + GRID_PURPOSES_NUMBER;
   const totalHeightOfOverlay =
     typeof lesson.topics !== "undefined"
@@ -587,9 +599,10 @@ const CourseAgendaLesson: React.FC<CourseAgendaLessonProps> = (props) => {
               gridRowStart: lock.isLessonLock ? 1 : gridStartingPosition,
             }}
           >
-            <LockIcon />
             {lock.isLessonLock ? (
               <>
+                <LockIcon />
+                {/** TODO i18n this!!! */}
                 <p className="lesson__overlay-text">
                   Finish required topic(s) before You get to this lesson.
                 </p>
@@ -604,16 +617,20 @@ const CourseAgendaLesson: React.FC<CourseAgendaLessonProps> = (props) => {
                 )}
               </>
             ) : (
-              <p className="lesson__overlay-text">
-                You have to complete topic
-                <span className="lesson__overlay-text lesson__overlay-text--emphasized">
-                  {totalHeightOfOverlay < 3 &&
-                    ` nr. ${indexOfFirstLockedTopic + 1} `}
-                  {totalHeightOfOverlay >= 3 &&
-                    ` ${lock.firstUnskippableTopic?.title} `}
-                </span>
-                to access the following
-              </p>
+              <>
+                <LockIcon />
+                <p className="lesson__overlay-text">
+                  {/** TODO i18n this!!! */}
+                  You have to complete topic
+                  <span className="lesson__overlay-text lesson__overlay-text--emphasized">
+                    {totalHeightOfOverlay < 3 &&
+                      ` nr. ${indexOfFirstLockedTopic + 1} `}
+                    {totalHeightOfOverlay >= 3 &&
+                      ` ${lock.firstUnskippableTopic?.title} `}
+                  </span>
+                  to access the following
+                </p>
+              </>
             )}
           </li>
         )}
@@ -630,12 +647,6 @@ const CourseAgendaLesson: React.FC<CourseAgendaLessonProps> = (props) => {
 
           return (
             <CourseAgendaTopic
-              clickable={
-                !lock.isLessonLock ||
-                (indexOfFirstLockedTopic >= 0
-                  ? topicIndex <= indexOfFirstLockedTopic
-                  : true)
-              }
               key={topicIndex}
               topic={topic}
               index={topicIndex + 1}
@@ -643,6 +654,7 @@ const CourseAgendaLesson: React.FC<CourseAgendaLessonProps> = (props) => {
               onMarkFinished={onMarkFinished}
               onTopicClick={onTopicClick}
               finishedTopicIds={finishedTopicIds}
+              onNextTopicClick={onNextTopicClick}
             />
           );
         })}
@@ -659,6 +671,7 @@ export const CourseAgenda: React.FC<CourseAgendaProps> = (props) => {
     currentTopicId,
     onMarkFinished,
     onTopicClick,
+    onNextTopicClick,
     className = "",
   } = props;
   const { t } = useTranslation();
@@ -718,7 +731,7 @@ export const CourseAgenda: React.FC<CourseAgendaProps> = (props) => {
             index={index}
             lock={{
               isLessonLock:
-                !!indexOfFirstLessonWithLock &&
+                indexOfFirstLessonWithLock !== null &&
                 index > indexOfFirstLessonWithLock,
               firstUnskippableTopic: firstTopicWithLock,
             }}
@@ -728,6 +741,7 @@ export const CourseAgenda: React.FC<CourseAgendaProps> = (props) => {
               currentTopicId,
               onMarkFinished,
               onTopicClick,
+              onNextTopicClick,
             }}
           />
         ))}
