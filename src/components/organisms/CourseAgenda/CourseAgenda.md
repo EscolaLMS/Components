@@ -40,7 +40,7 @@ const onTopicChange = useCallback((topic) => {
 }, []);
 
 const onNextTopic = useCallback(() => {
-  console.log("onNextTopic");
+  console.log("onNextTopic", data.lessons);
   let nextTopicId;
 
   data.lessons.forEach((lesson, lIndex) => {
@@ -50,11 +50,11 @@ const onNextTopic = useCallback(() => {
         if (lesson.topics[tIndex + 1]) {
           nextTopicId = lesson.topics[tIndex + 1].id;
           // try find first topic in next lesson
-        } else if (lessons[lIndex + 1]) {
-          nextTopicId = lessons[lIndex + 1].topics[0].id;
+        } else if (data.lessons[lIndex + 1]) {
+          nextTopicId = data.lessons[lIndex + 1].topics[0].id;
           // otherwise this is end so going back to first lesson and topic
         } else {
-          nextTopicId = lessons[0].topics[0].id;
+          nextTopicId = data.lessons[0].topics[0].id;
         }
       }
     });
