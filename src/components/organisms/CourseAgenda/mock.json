@@ -161,7 +161,7 @@
           "resources": [],
           "order": 3,
           "json": null,
-          "can_skip": true
+          "can_skip": false
         },
         {
           "id": 694,

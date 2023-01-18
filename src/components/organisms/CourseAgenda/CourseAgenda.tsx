@@ -1,5 +1,6 @@
 import { Button, IconTitle, ProgressRing, Text } from "../../..";
 import * as React from "react";
+import { useMemo, useContext } from "react";
 import styled, { withTheme } from "styled-components";
 import { useTranslation } from "react-i18next";
 import type { Lesson, Topic } from "@escolalms/sdk/lib/types/api";
@@ -81,11 +82,50 @@ const ChevronIcon = () => (
   </svg>
 );
 
+const LockIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+  >
+    <path d="M10.862 17.011l-1.862-1.837 1.129-1.13 1.859 1.827 1.838-1.871 1.139 1.139-1.833 1.86 1.868 1.836-1.138 1.14-1.862-1.836-1.835 1.861-1.13-1.129 1.827-1.86zm10.138-7.011v14h-18v-14h3v-4c0-3.313 2.687-6 6-6s6 2.687 6 6v4h3zm-13 0h8v-4c0-2.206-1.795-4-4-4s-4 1.794-4 4v4zm11 2h-14v10h14v-10z" />
+  </svg>
+);
+
+const TopicIcon: React.FC<{ mode: CourseAgendaTopicProps["mode"] }> = ({
+  mode,
+}) => {
+  switch (mode) {
+    case "current":
+      return <CurrentIcon />;
+    case "finished":
+      return <FinishedIcon />;
+    case "pending":
+      return <PendingIcon />;
+  }
+};
+
+interface TopicContext {
+  lessons: Lesson[];
+  currentTopic?: Topic;
+  currentTopicId: number;
+  finishedTopicIds: number[];
+  lockTopicIds: number[];
+}
+
+const TopicsContext = React.createContext<TopicContext>({
+  lessons: [],
+  currentTopicId: -1,
+  finishedTopicIds: [],
+  lockTopicIds: [],
+});
+
 interface SharedComponentProps {
   mobile?: boolean;
   onMarkFinished: (topic: Topic) => void;
   onTopicClick: (topic: Topic) => void;
-  finishedTopicIds: number[];
+  onNextTopicClick: () => void;
 }
 
 interface CourseAgendaProps
@@ -93,25 +133,18 @@ interface CourseAgendaProps
     ExtendableStyledComponent {
   lessons: Lesson[];
   currentTopicId: number;
-}
-
-interface CourseLessonAndTopicIds {
-  isLessonLock: boolean | null;
-  firstUnskippableTopic: Topic | null;
+  finishedTopicIds: number[];
 }
 
 interface CourseAgendaLessonProps extends SharedComponentProps {
   lesson: Lesson;
   index: number;
-  currentTopicId: number;
-  lock: CourseLessonAndTopicIds;
   defaultOpen?: boolean;
 }
 
 interface CourseAgendaTopicProps extends SharedComponentProps {
   index: number;
   topic: Topic;
-  clickable: boolean;
   mode: "pending" | "current" | "finished";
 }
 
@@ -338,6 +371,12 @@ const StyledSection = styled("section")`
           margin-top: 7px;
         }
 
+        .lesson__topic-icon {
+          margin-left: auto;
+          display: inline-flex;
+          justify-content: center;
+          align-items: center;
+        }
         .lesson__description {
           display: flex;
 
@@ -366,6 +405,11 @@ const StyledSection = styled("section")`
           }
         }
 
+        &.lesson__topic-locked {
+          cursor: not-allowed;
+          /* pointer-events: none; */
+          filter: blur(1px);
+        }
         &.lesson__topic-current {
           background: ${({ theme }) =>
             getStylesBasedOnTheme(
@@ -410,60 +454,36 @@ const StyledSection = styled("section")`
   }
 `;
 
-/* 
-1. CSS grid starts with 1 as closest to the edge value
-2. JS Arrays are counting from 0 - first shift by 1
-3. First topic with can_skip=false should be actualy visible - second shift by 1
-*/
-const GRID_PURPOSES_NUMBER = 2;
-
-const LockIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-  >
-    <path d="M10.862 17.011l-1.862-1.837 1.129-1.13 1.859 1.827 1.838-1.871 1.139 1.139-1.833 1.86 1.868 1.836-1.138 1.14-1.862-1.836-1.835 1.861-1.13-1.129 1.827-1.86zm10.138-7.011v14h-18v-14h3v-4c0-3.313 2.687-6 6-6s6 2.687 6 6v4h3zm-13 0h8v-4c0-2.206-1.795-4-4-4s-4 1.794-4 4v4zm11 2h-14v10h14v-10z" />
-  </svg>
-);
-
-const TopicIcon: React.FC<{ mode: CourseAgendaTopicProps["mode"] }> = ({
-  mode,
-}) => {
-  switch (mode) {
-    case "current":
-      return <CurrentIcon />;
-    case "finished":
-      return <FinishedIcon />;
-    case "pending":
-      return <PendingIcon />;
-  }
-};
-
 const CourseAgendaTopic: React.FC<CourseAgendaTopicProps> = ({
   index,
   topic,
   mode,
-  finishedTopicIds,
-  clickable,
   onMarkFinished,
   onTopicClick,
+  onNextTopicClick,
 }) => {
   const { t } = useTranslation();
+  const { finishedTopicIds, lockTopicIds } = useContext(TopicsContext);
+
   const onClick = React.useCallback(() => {
     if (mode !== "current") {
       onTopicClick && onTopicClick(topic);
     }
   }, [mode]);
 
+  const isLocked = lockTopicIds.findIndex((id) => id === topic.id) > 0;
+
   return (
-    <li className={`lesson__topic lesson__topic-${mode}`}>
+    <li
+      className={`lesson__topic lesson__topic-${mode} ${
+        isLocked ? "lesson__topic-locked" : ""
+      }`}
+    >
       <div
         className={"lesson__description"}
         tabIndex={0}
-        onClick={() => clickable && onClick}
-        onKeyDown={(e) => clickable && e.key === "Enter" && onClick()}
+        onClick={() => !isLocked && onClick()}
+        onKeyDown={(e) => e.key === "Enter" && onClick()}
         role="button"
       >
         <TopicIcon mode={mode} />
@@ -476,17 +496,31 @@ const CourseAgendaTopic: React.FC<CourseAgendaTopicProps> = ({
           {index}.{" "}
         </Text>
         <Text size={"14"} noMargin bold={mode === "current"}>
-          {topic.title}
+          {topic.title}{" "}
         </Text>
+        <div className="lesson__topic-icon">
+          {finishedTopicIds.includes(topic.id) && <FinishedIcon />}
+          {lockTopicIds.includes(topic.id) && <LockIcon />}
+        </div>
       </div>
 
       {mode === "current" && !finishedTopicIds.includes(topic.id) && (
         <Button
           block
           mode="outline"
-          onClick={() => clickable && onMarkFinished && onMarkFinished(topic)}
+          onClick={() => onMarkFinished && onMarkFinished(topic)}
         >
           {t<string>("Course.markAsFinished")}
+        </Button>
+      )}
+
+      {mode === "current" && finishedTopicIds.includes(topic.id) && (
+        <Button
+          block
+          mode="outline"
+          onClick={() => onNextTopicClick && onNextTopicClick()}
+        >
+          {t<string>("Course.nextTopic")}
         </Button>
       )}
     </li>
@@ -498,13 +532,12 @@ const CourseAgendaLesson: React.FC<CourseAgendaLessonProps> = (props) => {
     mobile = false,
     lesson,
     index,
-    finishedTopicIds,
-    currentTopicId,
-    lock,
     defaultOpen = false,
     onMarkFinished,
     onTopicClick,
+    onNextTopicClick,
   } = props;
+  const { finishedTopicIds, currentTopicId } = useContext(TopicsContext);
   const { t } = useTranslation();
   const [open, setOpen] = React.useState(defaultOpen);
 
@@ -516,22 +549,12 @@ const CourseAgendaLesson: React.FC<CourseAgendaLessonProps> = (props) => {
     if (defaultOpen && !open) {
       setOpen(true);
     }
-  }, []);
+  }, [defaultOpen, open]);
 
-  const indexOfFirstLockedTopic = React.useMemo(
-    () =>
-      lesson.topics?.findIndex(
-        (topic) => topic.id === lock?.firstUnskippableTopic?.id
-      ) ?? -1,
-    []
+  const lessonIsFinished = useMemo(
+    () => lesson.topics?.every((topic) => finishedTopicIds.includes(topic.id)),
+    [finishedTopicIds]
   );
-
-  const lessonHasLockedTopic = indexOfFirstLockedTopic >= 0;
-  const gridStartingPosition = indexOfFirstLockedTopic + GRID_PURPOSES_NUMBER;
-  const totalHeightOfOverlay =
-    typeof lesson.topics !== "undefined"
-      ? lesson.topics?.length - indexOfFirstLockedTopic - 1
-      : 0;
 
   return (
     <div
@@ -557,7 +580,7 @@ const CourseAgendaLesson: React.FC<CourseAgendaLessonProps> = (props) => {
             </div>
             <div>
               <Text size={"14"} bold noMargin>
-                {lesson.title}
+                {lesson.title} {lessonIsFinished && <FinishedIcon />}
               </Text>
             </div>
           </div>
@@ -578,45 +601,6 @@ const CourseAgendaLesson: React.FC<CourseAgendaLessonProps> = (props) => {
         </header>
       )}
       <ul className="lesson__topics">
-        {(lessonHasLockedTopic || lock.isLessonLock) && (
-          <li
-            className={`lesson__overlay ${
-              totalHeightOfOverlay === 1 && "lesson__overlay--row"
-            }`}
-            style={{
-              gridRowStart: lock.isLessonLock ? 1 : gridStartingPosition,
-            }}
-          >
-            <LockIcon />
-            {lock.isLessonLock ? (
-              <>
-                <p className="lesson__overlay-text">
-                  Finish required topic(s) before You get to this lesson.
-                </p>
-                {totalHeightOfOverlay > 2 && (
-                  <p className="lesson__overlay-text">
-                    Topic to complete:{" "}
-                    <span className="lesson__overlay-text lesson__overlay-text--emphasized">
-                      {lock.firstUnskippableTopic?.title}
-                    </span>
-                    .
-                  </p>
-                )}
-              </>
-            ) : (
-              <p className="lesson__overlay-text">
-                You have to complete topic
-                <span className="lesson__overlay-text lesson__overlay-text--emphasized">
-                  {totalHeightOfOverlay < 3 &&
-                    ` nr. ${indexOfFirstLockedTopic + 1} `}
-                  {totalHeightOfOverlay >= 3 &&
-                    ` ${lock.firstUnskippableTopic?.title} `}
-                </span>
-                to access the following
-              </p>
-            )}
-          </li>
-        )}
         {lesson.topics?.map((topic, topicIndex) => {
           let mode: CourseAgendaTopicProps["mode"] = "pending";
 
@@ -630,19 +614,13 @@ const CourseAgendaLesson: React.FC<CourseAgendaLessonProps> = (props) => {
 
           return (
             <CourseAgendaTopic
-              clickable={
-                !lock.isLessonLock ||
-                (indexOfFirstLockedTopic >= 0
-                  ? topicIndex <= indexOfFirstLockedTopic
-                  : true)
-              }
               key={topicIndex}
               topic={topic}
               index={topicIndex + 1}
               mode={mode}
               onMarkFinished={onMarkFinished}
               onTopicClick={onTopicClick}
-              finishedTopicIds={finishedTopicIds}
+              onNextTopicClick={onNextTopicClick}
             />
           );
         })}
@@ -655,11 +633,12 @@ export const CourseAgenda: React.FC<CourseAgendaProps> = (props) => {
   const {
     mobile = false,
     lessons,
-    finishedTopicIds,
-    currentTopicId,
     onMarkFinished,
     onTopicClick,
+    onNextTopicClick,
     className = "",
+    finishedTopicIds,
+    currentTopicId,
   } = props;
   const { t } = useTranslation();
 
@@ -673,18 +652,17 @@ export const CourseAgenda: React.FC<CourseAgendaProps> = (props) => {
     [lessons]
   );
 
-  const allTopics = lessons.flatMap((lesson) => lesson.topics);
-  const firstTopicWithLock =
-    allTopics
-      .filter((topic): topic is Topic => typeof topic !== "undefined")
-      .filter((topic) => !finishedTopicIds.includes(topic.id))
-      .find((topic) => !topic.can_skip) ?? null;
+  const topic = flatTopics.find((topic) => topic.id === currentTopicId);
 
-  const indexOfFirstLessonWithLock =
-    firstTopicWithLock &&
-    lessons.findIndex(
-      (singleLesson) => singleLesson.id === firstTopicWithLock.lesson_id
+  const lockedTopicIds: number[] = useMemo(() => {
+    return (
+      flatTopics
+        .filter((ftopic) => {
+          return !ftopic.can_skip && !finishedTopicIds.includes(ftopic.id);
+        })
+        .map((topic) => topic.id) || []
     );
+  }, [flatTopics, topic, finishedTopicIds]);
 
   const percentage = React.useMemo(() => {
     return Math.round((finishedTopicIds.length / flatTopics.length) * 100);
@@ -692,46 +670,48 @@ export const CourseAgenda: React.FC<CourseAgendaProps> = (props) => {
 
   return (
     <StyledSection className={`wellms-component ${className}`}>
-      {!mobile && (
-        <header>
-          <IconTitle
-            level={5}
-            as="h1"
-            icon={<ProgramIcon />}
-            title={t<string>("Course.Agenda")}
-          />
-          <div>
-            <Text mode="secondary" size={"14"} noMargin>
-              {t<string>("Course.Finished")} {percentage}%
-            </Text>
-            <ProgressRing percentage={percentage} />
-          </div>
-        </header>
-      )}
-      <article>
-        {lessons.map((lesson, index) => (
-          <CourseAgendaLesson
-            defaultOpen={lesson.topics?.some(
-              (topic) => topic.id === currentTopicId
-            )}
-            key={lesson.id}
-            index={index}
-            lock={{
-              isLessonLock:
-                !!indexOfFirstLessonWithLock &&
-                index > indexOfFirstLessonWithLock,
-              firstUnskippableTopic: firstTopicWithLock,
-            }}
-            {...{
-              lesson,
-              finishedTopicIds,
-              currentTopicId,
-              onMarkFinished,
-              onTopicClick,
-            }}
-          />
-        ))}
-      </article>
+      <TopicsContext.Provider
+        value={{
+          lockTopicIds: lockedTopicIds,
+          lessons: lessons,
+          currentTopicId: currentTopicId,
+          finishedTopicIds: finishedTopicIds,
+        }}
+      >
+        {!mobile && (
+          <header>
+            <IconTitle
+              level={5}
+              as="h1"
+              icon={<ProgramIcon />}
+              title={t<string>("Course.Agenda")}
+            />
+            <div>
+              <Text mode="secondary" size={"14"} noMargin>
+                {t<string>("Course.Finished")} {percentage}%
+              </Text>
+              <ProgressRing percentage={percentage} />
+            </div>
+          </header>
+        )}
+        <article>
+          {lessons.map((lesson, index) => (
+            <CourseAgendaLesson
+              defaultOpen={lesson.topics?.some(
+                (topic) => topic.id === currentTopicId
+              )}
+              key={lesson.id}
+              index={index}
+              {...{
+                lesson,
+                onMarkFinished,
+                onTopicClick,
+                onNextTopicClick,
+              }}
+            />
+          ))}
+        </article>
+      </TopicsContext.Provider>
     </StyledSection>
   );
 };

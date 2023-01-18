@@ -21,6 +21,8 @@ export const resources = {
       "Course.Finished": "Finished",
       "Course.Lesson": "Module",
       "Course.markAsFinished": "Mark as finished",
+      "Course.nextTopic": "Switch to next topic",
+
       "CourseCard.lesson_one": "{{count}} lesson",
       "CourseCard.lesson_other": "{{count}} lessons",
       "CourseCard.startNow": "Start now",
@@ -172,6 +174,7 @@ export const resources = {
       "Course.Finished": "Ukończono",
       "Course.Lesson": "Moduł",
       "Course.markAsFinished": "Oznacz jako ukończone",
+      "Course.nextTopic": "Następne zadanie",
       "CourseCard.lesson_few": "{{count}} lekcje",
       "CourseCard.lesson_many": "{{count}} lekcji",
       "CourseCard.lesson_one": "{{count}} lekcja",
