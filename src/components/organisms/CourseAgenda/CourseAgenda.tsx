@@ -82,12 +82,12 @@ export const CourseAgenda: FC<CourseAgendaProps> = (props) => {
   const {
     mobile = false,
     lessons,
-    finishedTopicIds,
-    currentTopicId,
     onMarkFinished,
     onTopicClick,
     onNextTopicClick,
     className = "",
+    finishedTopicIds,
+    currentTopicId,
   } = props;
   const { t } = useTranslation();
 

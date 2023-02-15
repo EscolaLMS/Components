@@ -96,6 +96,7 @@ useEffect(() => {
         currentTopicId={state.currentTopicId}
         onTopicClick={(topic) => onTopicChange(topic)}
         onMarkFinished={(topic) => onTopicFinished(topic)}
+        onNextTopicClick={(topic) => onNextTopic(topic)}
       />
     </div>
     <div style={{ width: 375 }}>
@@ -106,6 +107,7 @@ useEffect(() => {
         currentTopicId={state.currentTopicId}
         onTopicClick={(topic) => onTopicChange(topic)}
         onMarkFinished={(topic) => onTopicFinished(topic)}
+        onNextTopicClick={(topic) => onNextTopic(topic)}
       />
     </div>
   </ThemeTester>

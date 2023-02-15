@@ -48,7 +48,7 @@ export const SearchCourses: React.FC<{
     fetchCourses
       .bind(null, apiUrl)(
         { title: search },
-        { signal: abortController.current.signal }
+        { signal: abortController.current && abortController.current.signal }
       )
       .then((response) => {
         if (response && response.success) {
