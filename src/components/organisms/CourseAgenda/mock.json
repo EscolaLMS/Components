@@ -82,7 +82,7 @@
         {
           "id": 2683,
           "title": "Początki i historia zmian prawnych w Polsce",
-          "lesson_id": 76,
+          "lesson_id": 77,
           "active": true,
           "preview": false,
           "topicable_id": null,
@@ -107,63 +107,6 @@
       "active": true,
       "topics": [
         {
-          "id": 683,
-          "title": "Zmora podatku ZUS",
-          "lesson_id": 78,
-          "active": true,
-          "preview": false,
-          "topicable_id": null,
-          "topicable_type": null,
-          "topicable": null,
-          "summary": null,
-          "introduction": null,
-          "description": null,
-          "resources": [],
-          "order": 1,
-          "json": null,
-          "can_skip": true
-        },
-        {
-          "id": 684,
-          "title": "Rodzaje rozliczeń miesięcznych",
-          "lesson_id": 78,
-          "active": true,
-          "preview": false,
-          "topicable_id": null,
-          "topicable_type": null,
-          "topicable": null,
-          "summary": null,
-          "introduction": null,
-          "description": null,
-          "resources": [],
-          "order": 2,
-          "json": null,
-          "can_skip": true
-        },
-        {
-          "id": 685,
-          "title": "Rodzaje rozliczeń rocznych",
-          "lesson_id": 78,
-          "active": true,
-          "preview": false,
-          "topicable_id": 100,
-          "topicable_type": "EscolaLms\\TopicTypes\\Models\\TopicContent\\Image",
-          "topicable": {
-            "id": 100,
-            "value": "course/47/topic/693/image/1sjzVuRXDLFcwm99BqN267voT0i1TqW3i9SfT2f8.jpg",
-            "url": "https://startup-academy-stage.s3.eu-central-1.amazonaws.com/course/47/topic/693/image/1sjzVuRXDLFcwm99BqN267voT0i1TqW3i9SfT2f8.jpg",
-            "width": 1000,
-            "height": 1500
-          },
-          "summary": "null",
-          "introduction": "null",
-          "description": "null",
-          "resources": [],
-          "order": 3,
-          "json": null,
-          "can_skip": false
-        },
-        {
           "id": 694,
           "title": "Rodzaje rozliczeń międzyokresowych",
           "lesson_id": 78,
@@ -184,36 +127,6 @@
           "resources": [],
           "order": 4,
           "json": null,
-          "can_skip": false
-        },
-        {
-          "id": 697,
-          "title": "Rodzaje rozliczeń międzynarodowych",
-          "lesson_id": 78,
-          "active": true,
-          "preview": false,
-          "topicable_id": 69,
-          "topicable_type": "EscolaLms\\TopicTypes\\Models\\TopicContent\\Video",
-          "topicable": {
-            "id": 69,
-            "value": "course/47/topic/697/video/hls.m3u8",
-            "url": "https://startup-academy-stage.s3.eu-central-1.amazonaws.com/course/47/topic/697/video/hls.m3u8",
-            "poster": null,
-            "poster_url": null,
-            "width": null,
-            "height": null
-          },
-          "summary": null,
-          "introduction": null,
-          "description": null,
-          "resources": [],
-          "order": 5,
-          "json": {
-            "ffmpeg": {
-              "state": "finished",
-              "path": "course/47/topic/697/video/hls.m3u8"
-            }
-          },
           "can_skip": false
         }
       ],
@@ -286,7 +199,7 @@
         {
           "id": 794,
           "title": "Jakie są różnice między manipulacją a perswazją?",
-          "lesson_id": 78,
+          "lesson_id": 79,
           "active": true,
           "preview": false,
           "topicable_id": 101,
@@ -309,7 +222,7 @@
         {
           "id": 797,
           "title": "Czy możemy zweryfikować, czy ktoś mówi prawdę?",
-          "lesson_id": 78,
+          "lesson_id": 79,
           "active": true,
           "preview": false,
           "topicable_id": 69,
