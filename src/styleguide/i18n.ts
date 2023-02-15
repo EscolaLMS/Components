@@ -21,6 +21,7 @@ export const resources = {
       "Course.Finished": "Finished",
       "Course.Lesson": "Module",
       "Course.markAsFinished": "Mark as finished",
+      "Course.nextTopic": "Switch to next topic",
       "CourseCard.lesson_one": "{{count}} lesson",
       "CourseCard.lesson_other": "{{count}} lessons",
       "CourseCard.startNow": "Start now",
@@ -149,6 +150,15 @@ export const resources = {
       Navigation: {
         ShowHideMenu: "Show/hide menu",
       },
+      CourseAgenda: {
+        FinishRequiredTopicsBefore:
+          "Finish required topic(s) before You get to this lesson.",
+        FirstFinishRequiredTopics: "First finish required topic(s).",
+        YouHaveToCompleteTopic: "You have to complete topic",
+        TopicIsLocked: "Topic is locked.",
+        TopicToComplete: "Topic to complete",
+        ToAccessTheFollowing: "to access the following",
+      },
     },
   },
   fr: {
@@ -172,6 +182,7 @@ export const resources = {
       "Course.Finished": "Ukończono",
       "Course.Lesson": "Moduł",
       "Course.markAsFinished": "Oznacz jako ukończone",
+      "Course.nextTopic": "Następne zadanie",
       "CourseCard.lesson_few": "{{count}} lekcje",
       "CourseCard.lesson_many": "{{count}} lekcji",
       "CourseCard.lesson_one": "{{count}} lekcja",
@@ -299,6 +310,15 @@ export const resources = {
       },
       Navigation: {
         ShowHideMenu: "Pokaż/ukryj menu",
+      },
+      CourseAgenda: {
+        FinishRequiredTopicsBefore:
+          "Ukończ wymagane tematy aby przejść do tej lekcji",
+        FirstFinishRequiredTopics: "Najpierw ukończ wymagane tematy",
+        YouHaveToCompleteTopic: "Ukończ temat",
+        TopicIsLocked: "Temat jest zablokowany.",
+        TopicToComplete: "Temat do ukończenia",
+        ToAccessTheFollowing: "aby przejść tutaj",
       },
     },
   },

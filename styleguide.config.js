@@ -29,6 +29,8 @@ module.exports = {
 
   styleguideDir: "docs",
 
+  skipComponentsWithoutExample: true,
+
   tocMode: "expand",
   sections: [
     {
