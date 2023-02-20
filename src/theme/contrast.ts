@@ -28,7 +28,7 @@ export const contrastTheme: DefaultTheme = {
   dm__inputDisabledBg: "#1f1f1f",
   labelListValueColor: "#157493",
   dm__labelListValueColor: "#ff0000",
-  primaryButtonDisabled: "#ff0000",
+  primaryButtonDisabled: "#8ba9b3",
   outlineButtonColor: "#000000",
   outlineButtonInvertColor: "#23298e",
   dm__outlineButtonColor: "#FFFFFF",
