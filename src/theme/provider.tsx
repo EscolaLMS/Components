@@ -30,7 +30,9 @@ export interface SharedDefaultTheme {
 }
 
 declare module "styled-components" {
-  export interface DefaultTheme extends SharedDefaultTheme {
+  export interface DefaultTheme
+    extends SharedDefaultTheme,
+      Record<string, unknown> {
     mode?: "light" | "dark";
     font: "Inter" | "Mulish" | "Titillium";
     radius?: number;
