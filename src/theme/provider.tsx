@@ -102,14 +102,15 @@ export const getFontFromTheme = (
   };
 };
 
-export const GlobalThemeProvider: React.FC<{ children?: React.ReactNode }> = ({
-  children,
-}) => {
+export const GlobalThemeProvider: React.FC<{
+  defaultTheme?: DefaultTheme;
+  children?: React.ReactNode;
+}> = ({ defaultTheme, children }) => {
   const [theme] = useLocalTheme();
   const font = Fonts[theme.font];
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={defaultTheme ?? theme}>
       {font &&
         font.links.map((link) => (
           <link key={link} rel="stylesheet" href={link} />
