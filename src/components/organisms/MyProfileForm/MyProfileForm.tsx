@@ -5,6 +5,7 @@ import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import type { DefaultResponseError } from "@escolalms/sdk/lib/types/api";
 import type { ResponseError } from "umi-request";
 import { Container, Row, Col } from "react-grid-system";
+import { API } from "@escolalms/sdk/lib";
 import { Upload } from "../../molecules/Upload/Upload";
 import styled, { withTheme } from "styled-components";
 
@@ -132,7 +133,7 @@ export const MyProfileForm: React.FC<Props> = ({
         ...additionalFields
           .filter(({ name }) => !(name in prevState))
           .reduce(
-            (obj, item: EscolaLms.ModelFields.Models.Metadata) => ({
+            (obj, item: API.Metadata) => ({
               ...obj,
               [item.name]: item.type === "boolean" ? false : item.default,
             }),
@@ -143,8 +144,12 @@ export const MyProfileForm: React.FC<Props> = ({
   }, [fields]);
 
   const isAdditionalRequiredField = useCallback(
-    (field: EscolaLms.ModelFields.Models.Metadata) => {
-      if (field?.rules && field?.rules.length > 0) {
+    (field: API.Metadata) => {
+      if (
+        field?.rules &&
+        field?.rules.length > 0 &&
+        !!(field.rules as string[])?.find((rule) => rule === "required")
+      ) {
         return true;
       }
       return false;
@@ -213,15 +218,13 @@ export const MyProfileForm: React.FC<Props> = ({
                   errors.email = t("Wrong email");
                 }
 
-                if (!values.phone) {
-                  errors.phone = t("Required");
-                } else if (!/\d{9}$/i.test(values.phone)) {
+                if (values.phone && !/\d{9}$/i.test(values.phone)) {
                   errors.phone = t("Wrong phone number");
                 }
 
                 fields.list &&
                   fields.list.map(
-                    (field: EscolaLms.ModelFields.Models.Metadata) => {
+                    (field: API.Metadata) => {
                       if (isAdditionalRequiredField(field)) {
                         if (!values[field.name]) {
                           errors[field.name] = t("Required");
@@ -312,12 +315,12 @@ export const MyProfileForm: React.FC<Props> = ({
                     Array.isArray(fields.list) &&
                     fields.list
                       .filter(
-                        (field: EscolaLms.ModelFields.Models.Metadata) =>
+                        (field: API.Metadata) =>
                           field.type === "varchar" || field.type === "text"
                       )
                       .map(
                         (
-                          field: EscolaLms.ModelFields.Models.Metadata,
+                          field: API.Metadata,
                           index: number
                         ) =>
                           field.type === "varchar" ? (
@@ -351,12 +354,12 @@ export const MyProfileForm: React.FC<Props> = ({
                     fields.list &&
                     fields.list
                       .filter(
-                        (field: EscolaLms.ModelFields.Models.Metadata) =>
+                        (field: API.Metadata) =>
                           field.type === "boolean"
                       )
                       .map(
                         (
-                          field: EscolaLms.ModelFields.Models.Metadata,
+                          field: API.Metadata,
                           index: number
                         ) => (
                           <Checkbox
@@ -367,6 +370,7 @@ export const MyProfileForm: React.FC<Props> = ({
                             name={field.name}
                             onChange={handleChange}
                             onBlur={handleBlur}
+                            required={isAdditionalRequiredField(field)}
                           />
                         )
                       )}

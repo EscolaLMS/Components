@@ -17,6 +17,7 @@ import styled, { withTheme } from "styled-components";
 import { Input, Button, Title, Link, Text, Checkbox } from "../../../";
 import { getStylesBasedOnTheme } from "../../../utils/utils";
 import { ExtendableStyledComponent } from "types/component";
+import { API } from "@escolalms/sdk/lib";
 
 const StyledDiv = styled.div<{ mobile: boolean }>`
   margin: 0;
@@ -125,7 +126,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
     setInitialValues((prevState) => ({
       ...prevState,
       ...additionalFields.reduce(
-        (obj: object, item: EscolaLms.ModelFields.Models.Metadata) => ({
+        (obj: object, item: API.Metadata) => ({
           ...obj,
           [item.name]: item.type === "boolean" ? false : "",
         }),
@@ -135,7 +136,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
   }, [fields]);
 
   const isAdditionalRequiredField = useCallback(
-    (field: EscolaLms.ModelFields.Models.Metadata) => {
+    (field: API.Metadata) => {
       if (
         field.type !== "boolean" &&
         field.extra &&
@@ -199,7 +200,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
           }
 
           fields.list &&
-            fields.list.map((field: EscolaLms.ModelFields.Models.Metadata) => {
+            fields.list.map((field: API.Metadata) => {
               if (isAdditionalRequiredField(field)) {
                 if (!values[field.name]) {
                   errors[field.name] = t("Required");
@@ -312,7 +313,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
             {fields &&
               Array.isArray(fields.list) &&
               fields.list
-                .filter((field: EscolaLms.ModelFields.Models.Metadata) => {
+                .filter((field: API.Metadata) => {
                   const r =
                     Array.isArray(field.extra) &&
                     field.extra?.filter(
@@ -324,7 +325,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
                 })
                 .map(
                   (
-                    field: EscolaLms.ModelFields.Models.Metadata,
+                    field: API.Metadata,
                     index: number
                   ) => (
                     <Input
@@ -348,12 +349,12 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
               fields.list &&
               fields.list
                 .filter(
-                  (field: EscolaLms.ModelFields.Models.Metadata) =>
+                  (field: API.Metadata) =>
                     field.type === "boolean"
                 )
                 .map(
                   (
-                    field: EscolaLms.ModelFields.Models.Metadata,
+                    field: API.Metadata,
                     index: number
                   ) => (
                     <Checkbox
