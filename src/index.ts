@@ -30,6 +30,7 @@ export { TextArea } from "./components/atoms/TextArea/TextArea";
 export { default as Title } from "./components/atoms/Typography/Title";
 export { Row } from './components/atoms/Row';
 export { Stack } from './components/atoms/Stack';
+export { Countdown } from './components/atoms/Countdown'
 
 //MOLECULES
 export { default as Banner } from "./components/molecules/Banner/Banner";

@@ -34,9 +34,7 @@ const ShortAnswers: React.FC<Props> = ({
       showScore={hasQuizEnded}
     >
       <Input
-        placeholder={t<string>("GiftQuizPlayer.TypeAnswer", {
-          defaultValue: "Type your answer",
-        })}
+        placeholder={t<string>("Quiz.TypeAnswer")}
         id={`${id}`}
         name={`${id}`}
         disabled={hasQuizEnded}
