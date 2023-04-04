@@ -28,6 +28,8 @@ export { default as Tag } from "./components/atoms/Tag/Tag";
 export { default as Text } from "./components/atoms/Typography/Text";
 export { TextArea } from "./components/atoms/TextArea/TextArea";
 export { default as Title } from "./components/atoms/Typography/Title";
+export { Row } from './components/atoms/Row';
+export { Stack } from './components/atoms/Stack';
 
 //MOLECULES
 export { default as Banner } from "./components/molecules/Banner/Banner";

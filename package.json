@@ -87,5 +87,9 @@
     "typescript": "^4.6.4",
     "webpack": "^5.72.0"
   },
-  "homepage": "https://escolalms.github.io/components"
+  "homepage": "https://escolalms.github.io/components",
+  "dependencies": {
+    "@types/react-transition-group": "^4.4.5",
+    "react-transition-group": "^4.4.5"
+  }
 }
