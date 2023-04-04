@@ -1,8 +1,4 @@
 import React from "react";
-<<<<<<< HEAD
-=======
-import { useTranslation } from "react-i18next";
->>>>>>> 0f20c2c872015d548085970229349aee57460447
 import { API } from "@escolalms/sdk/lib";
 import { Radio } from "../../../..";
 import DefaultQuestionLayout from "../DefaultQuestionLayout";
