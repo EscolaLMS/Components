@@ -199,7 +199,7 @@ const Matching: React.FC<Props> = ({
         if (refContainer.current && !hasQuizEnded) {
           const selectedEndOption = {
             name,
-            x: refContainer.current!.offsetWidth - e.currentTarget.offsetWidth,
+            x: refContainer.current.offsetWidth - e.currentTarget.offsetWidth,
             y: e.currentTarget.offsetTop + e.currentTarget.offsetHeight / 2,
           };
           setConnectedOptions((prev) =>

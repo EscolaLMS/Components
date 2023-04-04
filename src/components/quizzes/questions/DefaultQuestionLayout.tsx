@@ -44,7 +44,6 @@ const ScoreIndicator = styled.span<{ $scoreState: ResultScoreState }>`
     scoreBackgrounds($scoreState, theme)};
   line-height: 1.3;
 
-  // fade animation
   &.fade-enter {
     opacity: 0;
     transform: scale(0.9);
