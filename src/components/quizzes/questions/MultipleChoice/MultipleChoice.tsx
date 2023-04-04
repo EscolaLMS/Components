@@ -47,4 +47,4 @@ const MultipleChoice: React.FC<Props> = ({
   </DefaultQuestionLayout>
 );
 
-export default withTheme(styled(MultipleChoice)<{ mobile: boolean }>``);
+export default withTheme(styled(MultipleChoice)``);

@@ -1,7 +1,6 @@
 import React, { useRef } from "react";
 import { CSSTransition } from "react-transition-group";
-import styled, { withTheme } from "styled-components";
-import { getStylesBasedOnTheme } from "../../../utils/utils";
+import styled, { DefaultTheme, withTheme } from "styled-components";
 import { Text, Title, Stack } from "../../..";
 
 type ResultScore = null | number;
@@ -21,11 +20,19 @@ const RelativeText = styled(Text)`
   width: max-content;
 `;
 
-// const scoreBackgrounds: Record<ResultScoreState, Color> = {
-//   positive: "systemPositive500",
-//   neutral: "systemWarning500",
-//   negative: "systemDanger500",
-// };
+const scoreBackgrounds = (
+  scoreState: ResultScoreState,
+  theme: DefaultTheme
+) => {
+  switch (scoreState) {
+    case "positive":
+      return theme.positive;
+    case "negative":
+      return theme.dm__errorColor;
+    default:
+      return theme.primaryColor;
+  }
+};
 
 const ScoreIndicator = styled.span<{ $scoreState: ResultScoreState }>`
   position: absolute;
@@ -33,19 +40,8 @@ const ScoreIndicator = styled.span<{ $scoreState: ResultScoreState }>`
   right: -12px;
   padding-inline: 4px;
   border-radius: 4px;
-  background-color: ${({ theme }) =>
-    getStylesBasedOnTheme(
-      theme.mode,
-      theme.dm__colorBackground,
-      theme.colorBackground,
-      getStylesBasedOnTheme(
-        theme.mode,
-        theme.dm__primaryColor,
-        theme.primaryColor,
-        theme.primaryColor
-      )
-    )};
-
+  background-color: ${({ theme, $scoreState }) =>
+    scoreBackgrounds($scoreState, theme)};
   line-height: 1.3;
 
   // fade animation
@@ -67,7 +63,9 @@ const ScoreIndicator = styled.span<{ $scoreState: ResultScoreState }>`
   }
 `;
 
-const LeftPaddingStack = styled(Stack)``;
+const LeftPaddingStack = styled(Stack)`
+  padding-left: 12px;
+`;
 
 function determineResultScoreState(score?: ResultScore): ResultScoreState {
   if (!score) return "neutral";
@@ -118,4 +116,4 @@ const DefaultQuestionLayout: React.FC<Props> = ({
   );
 };
 
-export default withTheme(styled(DefaultQuestionLayout)<{ mobile: boolean }>``);
+export default withTheme(styled(DefaultQuestionLayout)``);

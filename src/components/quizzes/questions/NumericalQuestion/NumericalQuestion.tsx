@@ -49,4 +49,4 @@ const NumericalQuestion: React.FC<Props> = ({
   );
 };
 
-export default withTheme(styled(NumericalQuestion)<{ mobile: boolean }>``);
+export default withTheme(styled(NumericalQuestion)``);

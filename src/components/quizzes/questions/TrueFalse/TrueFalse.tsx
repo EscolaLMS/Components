@@ -57,4 +57,4 @@ const TrueFalse: React.FC<Props> = ({
   );
 };
 
-export default withTheme(styled(TrueFalse)<{ mobile: boolean }>``);
+export default withTheme(styled(TrueFalse)``);

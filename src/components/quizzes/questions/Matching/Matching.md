@@ -18,7 +18,7 @@ const [values, setValues] = useState({ Italy: "Rome" });
 
 <ThemeTester>
   <div style={{ ul: { padding: "0px" } }}>
-    <Matching {...question} onChange={() => console.log("")} values={values} />
+    <Matching {...question} onChange={(v) => console.log(v)} values={values} />
   </div>
 </ThemeTester>;
 ```

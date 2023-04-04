@@ -48,4 +48,4 @@ const ShortAnswers: React.FC<Props> = ({
   );
 };
 
-export default withTheme(styled(ShortAnswers)<{ mobile: boolean }>``);
+export default withTheme(styled(ShortAnswers)``);

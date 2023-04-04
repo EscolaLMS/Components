@@ -329,4 +329,4 @@ const Matching: React.FC<Props> = ({
   );
 };
 
-export default withTheme(styled(Matching)<{ mobile: boolean }>``);
+export default withTheme(styled(Matching)``);

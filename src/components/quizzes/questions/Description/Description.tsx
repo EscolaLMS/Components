@@ -18,4 +18,4 @@ const Description: React.FC<Props> = ({ title, question }) => (
   </Stack>
 );
 
-export default withTheme(styled(Description)<{ mobile: boolean }>``);
+export default withTheme(styled(Description)``);

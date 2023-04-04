@@ -47,4 +47,4 @@ const Essay: React.FC<Props> = ({
   );
 };
 
-export default withTheme(styled(Essay)<{ mobile: boolean }>``);
+export default withTheme(styled(Essay)``);

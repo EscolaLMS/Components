@@ -52,6 +52,4 @@ const MultipleChoiceWithMultipleRightAnswers: React.FC<Props> = ({
   );
 };
 
-export default withTheme(
-  styled(MultipleChoiceWithMultipleRightAnswers)<{ mobile: boolean }>``
-);
+export default withTheme(styled(MultipleChoiceWithMultipleRightAnswers)``);
