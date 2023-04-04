@@ -8,7 +8,7 @@
     "build": "styleguidist build",
     "tsc": "tsc --project tsconfig.json --noEmit",
     "eslint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "stylelint": "stylelint './src/**/*.tsx'",
+    "stylelint": "stylelint './src/**/*.tsx' --allow-empty-input",
     "lib": "tsc --noEmit false --outDir lib --module commonjs",
     "test": "axe http://localhost:6060/ --show-errors --exit",
     "ci": "start-server-and-test dev http://localhost:6060/ test",
@@ -29,7 +29,7 @@
   "devDependencies": {
     "@axe-core/cli": "^4.4.3",
     "@escolalms/h5p-react": "^0.2.11",
-    "@escolalms/sdk": "^0.4.44",
+    "@escolalms/sdk": "^0.4.53",
     "@stylelint/postcss-css-in-js": "stylelint/postcss-css-in-js",
     "@types/chroma-js": "^2.1.3",
     "@types/lodash.flow": "^3.5.6",

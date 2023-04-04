@@ -33,9 +33,7 @@ const Essay: React.FC<Props> = ({
       showScore={hasQuizEnded}
     >
       <TextArea
-        placeholder={t<string>("GiftQuizPlayer.TypeAnswer", {
-          defaultValue: "Type your answer",
-        })}
+        placeholder={t<string>("Quiz.TypeAnswer")}
         name={`${id}`}
         disabled={hasQuizEnded}
         id={`${id}`}

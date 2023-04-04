@@ -1,5 +1,4 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
 import { API } from "@escolalms/sdk/lib";
 import { Radio } from "../../../..";
 import DefaultQuestionLayout from "../DefaultQuestionLayout";
@@ -27,34 +26,28 @@ const TrueFalse: React.FC<Props> = ({
   value,
   hasQuizEnded,
   resultScore,
-}) => {
-  const { t } = useTranslation();
-
-  return (
-    <DefaultQuestionLayout
-      data-testid={`true-false-${question}`}
-      title={title}
-      question={question}
-      resultScore={resultScore}
-      showScore={hasQuizEnded}
-    >
-      {inputs.map((input) => (
-        <Radio
-          label={t<string>(`GiftQuizPlayer.${input.label}`, {
-            defaultValue: input.label,
-          })}
-          key={input.value}
-          disabled={hasQuizEnded}
-          id={`${input.label}`}
-          value={input.value}
-          name={`${id}`}
-          checked={value === input.value}
-          onChange={onChange}
-          onBlur={onBlur}
-        />
-      ))}
-    </DefaultQuestionLayout>
-  );
-};
+}) => (
+  <DefaultQuestionLayout
+    data-testid={`true-false-${question}`}
+    title={title}
+    question={question}
+    resultScore={resultScore}
+    showScore={hasQuizEnded}
+  >
+    {inputs.map((input) => (
+      <Radio
+        label={input.label}
+        key={input.value}
+        disabled={hasQuizEnded}
+        id={`${input.label}`}
+        value={input.value}
+        name={`${id}`}
+        checked={value === input.value}
+        onChange={onChange}
+        onBlur={onBlur}
+      />
+    ))}
+  </DefaultQuestionLayout>
+);
 
 export default withTheme(styled(TrueFalse)``);
