@@ -6,7 +6,7 @@ import React, {
   useState,
 } from "react";
 import { useTranslation } from "react-i18next";
-import styled from "styled-components";
+import styled, { withTheme } from "styled-components";
 import { API } from "@escolalms/sdk/lib/index";
 import {
   quizAttempt as fetchQuizAttempt,
@@ -16,7 +16,7 @@ import {
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { GiftQuizAnswer } from "types/gift-quiz";
 import { Button, Spin } from "../../";
-import { GiftQuizPlayerContent } from "./GiftQuizPlayerContent";
+import GiftQuizPlayerContent from "./GiftQuizPlayerContent";
 
 interface Props {
   topic: API.TopicQuiz;
@@ -120,11 +120,7 @@ function useQuiz(quizId: number | undefined, onTopicEnd?: () => void) {
   );
 }
 
-export const GiftQuizPlayer: React.FC<Props> = ({
-  topic,
-  className,
-  onTopicEnd,
-}) => {
+const GiftQuizPlayer: React.FC<Props> = ({ topic, className, onTopicEnd }) => {
   const { t } = useTranslation();
   const { data, startQuiz, sendAnswer, endQuiz } = useQuiz(
     topic.topicable.id,
@@ -134,13 +130,10 @@ export const GiftQuizPlayer: React.FC<Props> = ({
   return (
     <Wrapper data-testid="gift-quiz-player" className={className}>
       {!data.value && !data.loading && (
-        <StartButtonWrapper className="quiz__attempt-wrapper">
-          <Button
-            className="quiz__attempt-btn"
-            type="button"
-            onClick={startQuiz}
-            title={t<string>("Quiz.Start")}
-          />
+        <StartButtonWrapper>
+          <Button type="button" onClick={startQuiz}>
+            {t<string>("Quiz.Start")}
+          </Button>
         </StartButtonWrapper>
       )}
       {data.loading && !data.value && <Spin />}
@@ -155,3 +148,5 @@ export const GiftQuizPlayer: React.FC<Props> = ({
     </Wrapper>
   );
 };
+
+export default withTheme(styled(GiftQuizPlayer)``);

@@ -14,7 +14,7 @@ const question = {
   },
 };
 
-const [values, setValues] = useState({ Italy: "Rome" });
+const [values, setValues] = useState({});
 
 <ThemeTester>
   <div style={{ ul: { padding: "0px" } }}>

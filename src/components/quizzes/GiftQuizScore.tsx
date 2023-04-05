@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import styled from "styled-components";
+import styled, { withTheme } from "styled-components";
 import { Row, Text } from "../../";
 
 export type QuizScoreColor = "systemDanger" | "systemPositive";
@@ -39,7 +39,7 @@ const Progress = styled.span<{
   }
 `;
 
-export const GiftQuizScore: React.FC<Props> = ({ result, max }) => {
+const GiftQuizScore: React.FC<Props> = ({ result, max }) => {
   const { t } = useTranslation();
   const percentage = useMemo(() => {
     const percentageRes = (result ?? 0) / (max ?? 0);
@@ -62,3 +62,5 @@ export const GiftQuizScore: React.FC<Props> = ({ result, max }) => {
     </Wrapper>
   );
 };
+
+export default withTheme(styled(GiftQuizScore)``);
