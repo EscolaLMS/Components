@@ -7,7 +7,7 @@ import React, {
   useState,
 } from "react";
 import { useTranslation } from "react-i18next";
-import styled from "styled-components";
+import styled, { withTheme } from "styled-components";
 import { Formik } from "formik";
 import { API } from "@escolalms/sdk/lib";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
@@ -32,7 +32,7 @@ import Matching from "./questions/Matching/Matching";
 import NumericalQuestion from "./questions/NumericalQuestion/NumericalQuestion";
 import Essay from "./questions/Essay/Essay";
 import Description from "./questions/Description/Description";
-import { GiftQuizScore } from "./GiftQuizScore";
+import GiftQuizScore from "./GiftQuizScore";
 
 interface Props {
   attempt: API.QuizAttempt & {
@@ -263,10 +263,12 @@ export const GiftQuizPlayerContent: React.FC<Props> = ({
                   </>
                 ) : (
                   <>
-                    <Countdown
-                      targetDate={String(attempt?.end_at)}
-                      onCountdownEnd={() => endQuiz(attempt?.id)}
-                    />
+                    {attempt?.end_at && (
+                      <Countdown
+                        targetDate={String(attempt?.end_at)}
+                        onCountdownEnd={() => endQuiz(attempt?.id)}
+                      />
+                    )}
                     <Button type="submit" mode="primary">
                       {t<string>("Quiz.Submit")}
                     </Button>
@@ -433,3 +435,5 @@ export const GiftQuizPlayerContent: React.FC<Props> = ({
     </Formik>
   );
 };
+
+export default withTheme(styled(GiftQuizPlayerContent)``);

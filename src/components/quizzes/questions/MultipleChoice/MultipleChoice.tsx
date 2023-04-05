@@ -35,7 +35,7 @@ const MultipleChoice: React.FC<Props> = ({
       <Radio
         label={option}
         key={option}
-        id={option}
+        id={id + option}
         value={option}
         disabled={hasQuizEnded}
         name={`${id}`}
