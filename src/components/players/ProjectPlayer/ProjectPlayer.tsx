@@ -1,40 +1,75 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
-import { API } from "@escolalms/sdk/lib";
-import { Col } from "react-grid-system";
 import styled, { withTheme } from "styled-components";
 import { useTranslation } from "react-i18next";
 import { format } from "date-fns";
+import { API } from "@escolalms/sdk/lib";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
-import { addProject, removeProject, fetchProjects } from "@escolalms/sdk";
+import {
+  addProject,
+  removeProject,
+  fetchProjects,
+} from "@escolalms/sdk/lib/services/project";
 
 import { DATETIME_FORMAT } from "../../../utils/utils";
 import { Button } from "../../atoms/Button/Button";
+import { Card } from "../../atoms/Card/Card";
+import { Spin } from "../../atoms/Spin/Spin";
 import { Title } from "../../atoms/Typography/Title";
 import { Text } from "../../atoms/Typography/Text";
 import { MarkdownRenderer } from "../../molecules/MarkdownRenderer/MarkdownRenderer";
 import { Upload } from "../../molecules/Upload/Upload";
 
-interface ProjectPlayerProps {
+interface ProjectsData {
+  data: API.ProjectFile[];
+  loading: boolean;
+}
+
+interface ProjectsListProps {
+  projects: ProjectsData;
+  onDeleteSuccess?: () => void;
+  onDeleteError?: () => void;
+  className?: string;
+}
+
+export interface ProjectPlayerProps {
   course_id: number;
   topic: API.TopicProject;
   onSuccess?: () => void;
   onError?: () => void;
+  className?: string;
 }
 
-const WrappingRow = styled.div`
-  flex-wrap: wrap;
-`;
+const ProjectPlayerWrapper = styled.div`
+  .project-player__upload-input {
+    margin-bottom: 1em;
+    .wrapper {
+      .border img {
+        display: none;
+      }
 
-const ProjectCard = styled.div`
-  width: max-content;
-  //padding: 10px;
-  border-radius: 12px;
-  //background-color: white;
-`;
+      &::after {
+        padding-top: 0;
+        aspect-ratio: 16 / 3;
+      }
+    }
+  }
 
-const StyledIconButton = styled(Button)`
-  //color: red;
-  align-self: flex-start;
+  .project-player__projects-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1em;
+
+    .project-card {
+      width: 100%;
+      max-width: 225px;
+
+      .content {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+      }
+    }
+  }
 `;
 
 const IconBin = () => {
@@ -54,44 +89,55 @@ const IconBin = () => {
   );
 };
 
-const ProjectsList: React.FC<{
-  projects: API.ProjectFile[];
-  onDeleteSuccess?: () => void;
-  onDeleteError?: () => void;
-}> = ({ projects, onDeleteSuccess, onDeleteError }) => {
+const ProjectsList: React.FC<ProjectsListProps> = ({
+  projects,
+  onDeleteSuccess,
+  onDeleteError,
+  className,
+}) => {
   const { t } = useTranslation();
-  const { token } = useContext(EscolaLMSContext);
-  const [isDeleting, setIsDeleting] = useState(false);
+  const { token, apiUrl } = useContext(EscolaLMSContext);
+  const [isDeleting, setIsDeleting] = useState<number[]>([]);
 
-  const onFileDelete = (fileId: number) => {
-    if (!token) return console.warn("noToken");
-    setIsDeleting(true);
-    removeProject(token, fileId)
-      .then(() => onDeleteSuccess?.())
-      .catch(() => onDeleteError?.())
-      .finally(() => setIsDeleting(false));
-  };
+  const onFileDeleteFactory = useCallback(
+    (fileId: number) => () => {
+      if (!token) return console.warn("noToken");
+      setIsDeleting((prev) => [...prev, fileId]);
+      removeProject(apiUrl, token, fileId)
+        .then(() => onDeleteSuccess?.())
+        .catch(() => onDeleteError?.())
+        .finally(() =>
+          setIsDeleting((prev) => prev.filter((id) => id !== fileId))
+        );
+    },
+    [token, apiUrl]
+  );
 
   return (
-    <WrappingRow>
-      {projects.map(({ id, created_at, topic_id }, i) => (
-        <ProjectCard key={id}>
-          <Col>
-            <Text>
+    <div className={className}>
+      {projects.loading && !projects.data.length && <Spin />}
+      {projects.data.map(({ id, created_at, topic_id }, i) => (
+        <Card className="project-card" key={id}>
+          <div className="project-card__details">
+            <Text className="project-card__title">
               {t("ProjectPlayer.ProjectFile")}
               {` ${i + 1}`}
             </Text>
-            <Text>{format(new Date(created_at), DATETIME_FORMAT)}</Text>
-          </Col>
-          <StyledIconButton
-            disabled={isDeleting}
-            onClick={() => onFileDelete(id)}
+            <Text className="project-card__date">
+              {format(new Date(created_at), DATETIME_FORMAT)}
+            </Text>
+          </div>
+          <Button
+            className="project-card__delete-btn"
+            mode="icon"
+            loading={isDeleting.includes(id)}
+            onClick={onFileDeleteFactory(id)}
           >
             <IconBin />
-          </StyledIconButton>
-        </ProjectCard>
+          </Button>
+        </Card>
       ))}
-    </WrappingRow>
+    </div>
   );
 };
 
@@ -100,13 +146,13 @@ export const ProjectPlayer: React.FC<ProjectPlayerProps> = ({
   topic,
   onSuccess,
   onError,
+  className,
 }) => {
-  const { t } = useTranslation();
   const { token, apiUrl } = useContext(EscolaLMSContext);
-  const [projects, setProjects] = useState<{
-    data: API.ProjectFile[];
-    loading: boolean;
-  }>({ data: [], loading: false });
+  const [projects, setProjects] = useState<ProjectsData>({
+    data: [],
+    loading: false,
+  });
 
   const [isUploading, setIsUploading] = useState(false);
 
@@ -115,12 +161,14 @@ export const ProjectPlayer: React.FC<ProjectPlayerProps> = ({
 
     setProjects((prev) => ({ ...prev, loading: true }));
     fetchProjects(apiUrl, token, { course_id, topic_id: topic?.id })
-      .then((res) =>
-        setProjects((prev) => ({
-          ...prev,
-          data: "data" in res ? res?.data ?? [] : [],
-        }))
-      )
+      .then((res) => {
+        if (res.success) {
+          setProjects((prev) => ({
+            ...prev,
+            data: res.data,
+          }));
+        }
+      })
       .catch((err) => console.warn(err))
       .finally(() => setProjects((prev) => ({ ...prev, loading: false })));
   }, [token, apiUrl, course_id, topic?.id]);
@@ -155,21 +203,30 @@ export const ProjectPlayer: React.FC<ProjectPlayerProps> = ({
   );
 
   return (
-    <Col className="wellms-component" data-testid="project-player">
-      <Title>{topic?.title}</Title>
+    <ProjectPlayerWrapper
+      className={"wellms-component" + ` ${className}`}
+      data-testid="project-player"
+    >
+      <Title level={3} className="project-player__title">
+        {topic?.title}
+      </Title>
       {topic.description && (
-        <MarkdownRenderer>{topic.description}</MarkdownRenderer>
+        <MarkdownRenderer className="project-player__description">
+          {topic.description}
+        </MarkdownRenderer>
       )}
       <Upload
+        className="project-player__upload-input"
         name="project_file"
         onChange={onProjectFileSelect}
         disabled={isUploading}
       />
       <ProjectsList
-        projects={projects.data}
+        className="project-player__projects-list"
+        projects={projects}
         onDeleteSuccess={refreshProjects}
       />
-    </Col>
+    </ProjectPlayerWrapper>
   );
 };
 
