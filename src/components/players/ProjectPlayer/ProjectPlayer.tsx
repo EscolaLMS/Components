@@ -116,7 +116,7 @@ const ProjectsList: React.FC<ProjectsListProps> = ({
   return (
     <div className={className}>
       {projects.loading && !projects.data.length && <Spin />}
-      {projects.data.map(({ id, created_at, topic_id }, i) => (
+      {projects.data.map(({ id, created_at }, i) => (
         <Card className="project-card" key={id}>
           <div className="project-card__details">
             <Text className="project-card__title">
