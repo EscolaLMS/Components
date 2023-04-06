@@ -2,6 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { API } from "@escolalms/sdk/lib";
 import { Input } from "../../../../";
+import { getUniqueId } from "../../../../utils/utils";
 import DefaultQuestionLayout from "../DefaultQuestionLayout";
 import styled, { withTheme } from "styled-components";
 
@@ -37,7 +38,7 @@ const NumericalQuestion: React.FC<Props> = ({
         placeholder={t<string>("Quiz.TypeNumber")}
         type="number"
         name={`${id}`}
-        id={`${id}`}
+        id={getUniqueId(`Numerical-${id}`)}
         disabled={hasQuizEnded}
         value={value}
         onChange={onChange}

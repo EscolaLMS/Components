@@ -1,6 +1,7 @@
 import React from "react";
 import { API } from "@escolalms/sdk/lib";
 import { Radio } from "../../../..";
+import { getUniqueId } from "../../../../utils/utils";
 import DefaultQuestionLayout from "../DefaultQuestionLayout";
 import styled, { withTheme } from "styled-components";
 
@@ -39,7 +40,7 @@ const TrueFalse: React.FC<Props> = ({
         label={input.label}
         key={input.value}
         disabled={hasQuizEnded}
-        id={`${input.label}`}
+        id={getUniqueId(input.label)}
         value={input.value}
         name={`${id}`}
         checked={value === input.value}

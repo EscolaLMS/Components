@@ -1,6 +1,7 @@
 import React from "react";
 import { API } from "@escolalms/sdk/lib";
 import { Checkbox } from "../../../../";
+import { getUniqueId } from "../../../../utils/utils";
 import DefaultQuestionLayout from "../DefaultQuestionLayout";
 import styled, { withTheme } from "styled-components";
 
@@ -40,7 +41,7 @@ const MultipleChoiceWithMultipleRightAnswers: React.FC<Props> = ({
           label={option}
           disabled={hasQuizEnded}
           key={option}
-          id={id + option}
+          id={getUniqueId(option)}
           value={option}
           name={`${id}.${option}`}
           checked={getChecked(option)}

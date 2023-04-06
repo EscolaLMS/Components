@@ -2,6 +2,7 @@ import React from "react";
 import { API } from "@escolalms/sdk/lib";
 
 import { Radio } from "../../../../";
+import { getUniqueId } from "../../../../utils/utils";
 import DefaultQuestionLayout from "../DefaultQuestionLayout";
 import styled, { withTheme } from "styled-components";
 
@@ -35,7 +36,7 @@ const MultipleChoice: React.FC<Props> = ({
       <Radio
         label={option}
         key={option}
-        id={id + option}
+        id={getUniqueId(option)}
         value={option}
         disabled={hasQuizEnded}
         name={`${id}`}
