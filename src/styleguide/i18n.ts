@@ -168,7 +168,10 @@ export const resources = {
         YouHaveMade: "You have made",
         Attempts: "Attempts",
         TypeAnswer: "Type your answer",
-        TypeNumber: "Type some number"
+        TypeNumber: "Type some number",
+      },
+      ProjectPlayer: {
+        ProjectFile: "Project file",
       },
     },
   },

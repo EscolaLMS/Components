@@ -2,6 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { API } from "@escolalms/sdk/lib";
 import { Input } from "../../../..";
+import { getUniqueId } from "../../../../utils/utils";
 import DefaultQuestionLayout from "../DefaultQuestionLayout";
 import styled, { withTheme } from "styled-components";
 
@@ -35,7 +36,7 @@ const ShortAnswers: React.FC<Props> = ({
     >
       <Input
         placeholder={t<string>("Quiz.TypeAnswer")}
-        id={`${id}`}
+        id={getUniqueId(`ShortAnswers-${id}`)}
         name={`${id}`}
         disabled={hasQuizEnded}
         value={value}
