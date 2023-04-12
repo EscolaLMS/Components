@@ -10,7 +10,7 @@ import type { ResponseError } from "umi-request";
 
 import styled, { withTheme } from "styled-components";
 
-import { Input, Button, Title, Link, Text } from "../../../";
+import { Input, Button, Title, Link, Text, Checkbox } from "../../../";
 import { ExtendableStyledComponent } from "types/component";
 
 const StyledDiv = styled.div<{ mobile: boolean }>`
@@ -23,7 +23,8 @@ const StyledDiv = styled.div<{ mobile: boolean }>`
   justify-content: center;
   align-items: center;
   align-content: center;
-  .lsm-input {
+  .lsm-input,
+  .lms-checkbox {
     margin: 30px 0;
   }
   button {
@@ -33,7 +34,8 @@ const StyledDiv = styled.div<{ mobile: boolean }>`
     margin: 15px 0;
   }
   p,
-  a {
+  a,
+  label {
     font-size: 14px;
   }
   h2,
@@ -51,6 +53,7 @@ const StyledDiv = styled.div<{ mobile: boolean }>`
 interface MyFormValues {
   email: string;
   password: string;
+  remember_me: boolean;
   error?: string;
 }
 
@@ -70,7 +73,7 @@ export const LoginForm: React.FC<Props> = ({
   mobile = false,
   className = "",
 }) => {
-  const initialValues: MyFormValues = { email: "", password: "" };
+  const initialValues: MyFormValues = { email: "", password: "", remember_me: false };
   const { t } = useTranslation();
   const { login, user } = useContext(EscolaLMSContext);
 
@@ -117,7 +120,10 @@ export const LoginForm: React.FC<Props> = ({
           return errors;
         }}
         onSubmit={(values, { setSubmitting, setErrors }) => {
-          login(values)
+          login({
+            ...values,
+            remember_me: values.remember_me ? 1 : 0
+          })
             .finally(() => setSubmitting(false))
             .catch((err: ResponseError<DefaultResponseError>) => {
               setErrors({ error: err.data.message, ...err.data.errors });
@@ -159,6 +165,13 @@ export const LoginForm: React.FC<Props> = ({
               value={values.password}
               error={touched.password && errors.password}
             />
+            <Checkbox
+              name="remember_me"
+              label={t<string>('Login.RememberMe')}
+              value={String(values.remember_me)}
+              checked={values.remember_me}
+              onChange={handleChange}
+            />
             <Button
               mode="secondary"
               type="submit"
@@ -188,4 +201,4 @@ export const LoginForm: React.FC<Props> = ({
   );
 };
 
-export default withTheme(styled(LoginForm)<{ mobile: boolean }>``);
+export default withTheme(styled(LoginForm) <{ mobile: boolean }>``);
