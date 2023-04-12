@@ -1,3 +1,4 @@
+import { Lesson } from "@escolalms/sdk/lib/types/api";
 import { css, DefaultTheme } from "styled-components";
 
 export const guid = () =>
@@ -509,4 +510,25 @@ export const getUniqueId = (uniqueName: string, twoIds = false) => {
   }
   usedIds.push(newId);
   return newId;
+};
+
+export const findNestedIndexInLessons = (
+  arr: Lesson[],
+  target: Lesson,
+  parentIndex?: string,
+): string | null => {
+  for (let i = 0; i < arr.length; i++) {
+    const item = arr[i];
+    const currentIndex = parentIndex ? `${parentIndex}.${i + 1}` : `${i + 1}`;
+
+    if (item === target) {
+      return currentIndex;
+    } else if (item.lessons) {
+      const nestedIndex = findNestedIndexInLessons(item.lessons as Lesson[], target, currentIndex);
+      if (nestedIndex !== null) {
+        return nestedIndex;
+      }
+    }
+  }
+  return null;
 };

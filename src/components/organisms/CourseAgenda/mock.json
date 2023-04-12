@@ -97,7 +97,35 @@
           "can_skip": true
         }
       ],
-      "order": 2
+      "order": 2,
+      "lessons": [
+        {
+          "id": 101010,
+          "title": "Rozwinięcie zasad rachunkowości",
+          "summary": "Aciuu",
+          "duration": null,
+          "active": true,
+          "topics": [
+            {
+              "id": 1010101,
+              "title": "Pierwsza zasada rachunkowości",
+              "lesson_id": 101010,
+              "active": true,
+              "preview": false,
+              "topicable_id": null,
+              "topicable_type": null,
+              "topicable": null,
+              "summary": null,
+              "introduction": null,
+              "description": null,
+              "resources": [],
+              "order": 1,
+              "json": null,
+              "can_skip": false
+            }
+          ]
+        }
+      ]
     },
     {
       "id": 78,

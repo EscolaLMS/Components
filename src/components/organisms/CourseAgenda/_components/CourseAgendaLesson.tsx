@@ -8,7 +8,7 @@ import Button from "../../../atoms/Button/Button";
 import Text from "../../../atoms/Typography/Text";
 import { SharedComponentProps, useTopicsContext } from "../CourseAgenda";
 import CourseAgendaTopic, { CourseAgendaTopicProps } from "./CourseAgendaTopic";
-import { getStylesBasedOnTheme } from "../../../../utils/utils";
+import { findNestedIndexInLessons, getStylesBasedOnTheme } from "../../../../utils/utils";
 import { ChevronIcon, LockIcon } from "./Icons";
 
 interface CourseAgendaLessonProps
@@ -16,6 +16,7 @@ interface CourseAgendaLessonProps
     SharedComponentProps,
     "onMarkFinished" | "onTopicClick" | "onNextTopicClick"
   > {
+  lessons: Lesson[];
   lesson: Lesson;
   index: number;
   currentTopicId?: number;
@@ -31,12 +32,12 @@ const StyledLessonItem = styled.div`
     )};
   border-left: 2px solid
     ${({ theme }) =>
-      getStylesBasedOnTheme(
-        theme.mode,
-        theme.dm__primaryColor,
-        theme.primaryColor,
-        theme.primaryColor
-      )};
+    getStylesBasedOnTheme(
+      theme.mode,
+      theme.dm__primaryColor,
+      theme.primaryColor,
+      theme.primaryColor
+    )};
   padding: 10px;
   margin: 10px 0;
   overflow: hidden;
@@ -72,12 +73,12 @@ const StyledLessonItem = styled.div`
         margin-top: 3px;
         text-transform: uppercase;
         color: ${({ theme }) =>
-          getStylesBasedOnTheme(
-            theme.mode,
-            theme.dm__primaryColor,
-            theme.primaryColor,
-            theme.primaryColor
-          )};
+    getStylesBasedOnTheme(
+      theme.mode,
+      theme.dm__primaryColor,
+      theme.primaryColor,
+      theme.primaryColor
+    )};
       }
     }
 
@@ -93,12 +94,12 @@ const StyledLessonItem = styled.div`
         .lesson__index {
           text-transform: uppercase;
           color: ${({ theme }) =>
-            getStylesBasedOnTheme(
-              theme.mode,
-              theme.dm__primaryColor,
-              theme.primaryColor,
-              theme.primaryColor
-            )};
+    getStylesBasedOnTheme(
+      theme.mode,
+      theme.dm__primaryColor,
+      theme.primaryColor,
+      theme.primaryColor
+    )};
           white-space: nowrap;
         }
         .lesson__duration {
@@ -150,11 +151,11 @@ const StyledLessonItem = styled.div`
       z-index: 1;
       backdrop-filter: blur(2px);
       background: ${({ theme }) =>
-        getStylesBasedOnTheme(
-          theme.mode,
-          "rgb(0 0 0 / 50%)",
-          "rgb(255 255 255 / 50%)"
-        )};
+    getStylesBasedOnTheme(
+      theme.mode,
+      "rgb(0 0 0 / 50%)",
+      "rgb(255 255 255 / 50%)"
+    )};
       place-content: center;
       gap: 4px;
       box-sizing: border-box;
@@ -174,7 +175,7 @@ const StyledLessonItem = styled.div`
 
       svg {
         fill: ${({ theme }) =>
-          getStylesBasedOnTheme(theme.mode, "#fff", "#000")};
+    getStylesBasedOnTheme(theme.mode, "#fff", "#000")};
       }
     }
 
@@ -198,11 +199,11 @@ const StyledLessonItem = styled.div`
       &:not(.lesson__topic-current):not(:last-child) {
         border-bottom: 2px solid
           ${({ theme }) =>
-            getStylesBasedOnTheme(
-              theme.mode,
-              chroma(theme.white).alpha(0.2).hex(),
-              theme.white
-            )};
+    getStylesBasedOnTheme(
+      theme.mode,
+      chroma(theme.white).alpha(0.2).hex(),
+      theme.white
+    )};
       }
 
       &:hover p:last-child {
@@ -214,7 +215,7 @@ const StyledLessonItem = styled.div`
 
         path {
           fill: ${({ theme }) =>
-            getStylesBasedOnTheme(theme.mode, theme.white, theme.gray1)};
+    getStylesBasedOnTheme(theme.mode, theme.white, theme.gray1)};
         }
       }
 
@@ -232,32 +233,32 @@ const StyledLessonItem = styled.div`
 
           &.current-icon path {
             fill: ${({ theme }) =>
-              getStylesBasedOnTheme(
-                theme.mode,
-                theme.dm__primaryColor,
-                theme.primaryColor,
-                theme.primaryColor
-              )};
+    getStylesBasedOnTheme(
+      theme.mode,
+      theme.dm__primaryColor,
+      theme.primaryColor,
+      theme.primaryColor
+    )};
           }
         }
 
         .lesson__index {
           opacity: ${(props) =>
-            props.theme.dm__numerationsColor || props.theme.numerationsColor
-              ? 1
-              : 0.5};
+    props.theme.dm__numerationsColor || props.theme.numerationsColor
+      ? 1
+      : 0.5};
           margin-right: 4px;
         }
       }
 
       &.lesson__topic-current {
         background: ${({ theme }) =>
-          getStylesBasedOnTheme(
-            theme.mode,
-            theme.dm__inputBg,
-            theme.inputBg,
-            theme.gray1
-          )};
+    getStylesBasedOnTheme(
+      theme.mode,
+      theme.dm__inputBg,
+      theme.inputBg,
+      theme.gray1
+    )};
         border-radius: ${(props) => props.theme.cardRadius}px;
         cursor: default;
         button {
@@ -307,6 +308,7 @@ const GRID_PURPOSES_NUMBER = 2;
 const CourseAgendaLesson: React.FC<CourseAgendaLessonProps> = (props) => {
   const {
     mobile = false,
+    lessons,
     lesson,
     index,
     finishedTopicIds,
@@ -364,10 +366,18 @@ const CourseAgendaLesson: React.FC<CourseAgendaLessonProps> = (props) => {
       ? t("CourseAgenda.YouHaveToCompleteTopic")
       : t("CourseAgenda.TopicIsLocked");
 
+  // console.group();
+  // console.log('indexOfFirstLockedTopic: ', indexOfFirstLockedTopic);
+  // console.log('lessonHasLockedTopic: ', lessonHasLockedTopic);
+  // console.log('totalHeightOfOverlay: ', totalHeightOfOverlay);
+  // console.log('overlayTextWhenLessonIsLocked: ', overlayTextWhenLessonIsLocked);
+  // console.log('overlayTextWhenTopicIsLocked: ', overlayTextWhenTopicIsLocked);
+  // console.groupEnd();
+
   return (
     <StyledLessonItem
       className={`lesson__item ${open ? "open" : "closed"}`}
-      aria-label={`${t<string>("Course.Lesson")} ${index + 1}`}
+      aria-label={`${t<string>("Course.Lesson")} ${findNestedIndexInLessons(lessons, lesson)}`}
     >
       {!mobile && (
         <header>
@@ -380,7 +390,7 @@ const CourseAgendaLesson: React.FC<CourseAgendaLessonProps> = (props) => {
           >
             <div className={"lesson__details"}>
               <Text noMargin size={"12"}>
-                {t<string>("Course.Lesson")} {index + 1}
+                {t<string>("Course.Lesson")} {findNestedIndexInLessons(lessons, lesson)}
               </Text>
               <Text noMargin size={"12"}>
                 {lesson.duration && lesson.duration}
@@ -409,15 +419,13 @@ const CourseAgendaLesson: React.FC<CourseAgendaLessonProps> = (props) => {
         </header>
       )}
       <ul
-        className={`lesson__topics ${
-          lessonHasLockedTopic || isLessonLocked ? "lesson__topics--locked" : ""
-        }`}
+        className={`lesson__topics ${lessonHasLockedTopic || isLessonLocked ? "lesson__topics--locked" : ""
+          }`}
       >
         {(lessonHasLockedTopic || isLessonLocked) && (
           <li
-            className={`lesson__overlay ${
-              totalHeightOfOverlay === 1 && "lesson__overlay--row"
-            }`}
+            className={`lesson__overlay ${totalHeightOfOverlay === 1 && "lesson__overlay--row"
+              }`}
             style={{
               gridRowStart: isLessonLocked ? 1 : gridStartingPosition,
             }}
@@ -478,6 +486,21 @@ const CourseAgendaLesson: React.FC<CourseAgendaLessonProps> = (props) => {
             />
           );
         })}
+        {(lesson.lessons as Lesson[])?.map((lesson, index) => (
+          <CourseAgendaLesson
+            defaultOpen={lesson.topics?.some(
+              (topic) => topic.id === currentTopicId
+            )}
+            key={lesson.id}
+            index={index}
+            {...{
+              lesson,
+              finishedTopicIds,
+              currentTopicId: currentTopicId,
+              lessons,
+            }}
+          />
+        ))}
       </ul>
     </StyledLessonItem>
   );

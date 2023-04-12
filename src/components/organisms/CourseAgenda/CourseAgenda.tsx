@@ -44,7 +44,7 @@ export interface SharedComponentProps extends SharedComponentPropsHandlers {
 
 interface CourseAgendaProps
   extends SharedComponentProps,
-    ExtendableStyledComponent {
+  ExtendableStyledComponent {
   lessons: Lesson[];
   currentTopicId: number;
 }
@@ -91,10 +91,21 @@ export const CourseAgenda: FC<CourseAgendaProps> = (props) => {
   } = props;
   const { t } = useTranslation();
 
-  const allTopics = useMemo(
-    () => lessons.flatMap((lesson) => lesson.topics),
-    [lessons]
-  );
+  // const allTopics = useMemo(
+  //   () => lessons.flatMap((lesson) => lesson.topics),
+  //   [lessons]
+  // );
+
+  const flattenTopics = (lessons: Lesson[]): Topic[] => {
+    return lessons.flatMap((lesson: Lesson) => {
+      if (lesson.topics?.length) {
+        return [...lesson.topics, ...flattenTopics(lesson.lessons as Lesson[] || [])];
+      }
+      return [];
+    });
+  };
+
+  const allTopics: (Topic | undefined)[] = useMemo(() => flattenTopics(lessons), [lessons]);
 
   const firstBlockingTopic = useMemo(
     () =>
@@ -118,7 +129,7 @@ export const CourseAgenda: FC<CourseAgendaProps> = (props) => {
     () =>
       indexOfFirstLessonWithBlockingTopic &&
       firstBlockingTopic &&
-      lessons[indexOfFirstLessonWithBlockingTopic].topics?.indexOf(
+      lessons[indexOfFirstLessonWithBlockingTopic]?.topics?.indexOf(
         firstBlockingTopic
       ),
     [indexOfFirstLessonWithBlockingTopic, firstBlockingTopic]
@@ -128,9 +139,9 @@ export const CourseAgenda: FC<CourseAgendaProps> = (props) => {
     () =>
       indexOfFirstBlockingTopic !== -1
         ? allTopics
-            .filter((_, index) => index > indexOfFirstBlockingTopic)
-            .map((topic) => (topic?.id ? topic?.id : null))
-            .filter((topicId): topicId is number => !!topicId)
+          .filter((_, index) => index > indexOfFirstBlockingTopic)
+          .map((topic) => (topic?.id ? topic?.id : null))
+          .filter((topicId): topicId is number => !!topicId)
         : [],
     [indexOfFirstBlockingTopic]
   );
@@ -139,8 +150,8 @@ export const CourseAgenda: FC<CourseAgendaProps> = (props) => {
     () =>
       indexOfFirstLessonWithBlockingTopic !== undefined
         ? lessons
-            .filter((_, index) => index > indexOfFirstLessonWithBlockingTopic)
-            .map((lesson) => lesson.id)
+          .filter((_, index) => index > indexOfFirstLessonWithBlockingTopic)
+          .map((lesson) => lesson.id)
         : [],
     [indexOfFirstLessonWithBlockingTopic]
   );
@@ -157,6 +168,16 @@ export const CourseAgenda: FC<CourseAgendaProps> = (props) => {
   const percentage = useMemo(() => {
     return Math.round((finishedTopicIds.length / allTopics.length) * 100);
   }, [allTopics, finishedTopicIds]);
+
+  console.group();
+  console.log('allTopics: ', allTopics);
+  console.log('firstBlockingTopic: ', firstBlockingTopic);
+  console.log('indexOfFirstLessonWithBlockingTopic: ', indexOfFirstLessonWithBlockingTopic);
+  console.log('positionInLessonOfFirstUnskippableTopic: ', positionInLessonOfFirstUnskippableTopic);
+  console.log('lockedTopicsIds: ', lockedTopicsIds);
+  console.log('lockedLessonsIds: ', lockedLessonsIds);
+  console.log('currentNotLockedTopicId: ', currentNotLockedTopicId);
+  console.groupEnd();
 
   return (
     <StyledSection className={`wellms-component ${className}`}>
@@ -199,7 +220,8 @@ export const CourseAgenda: FC<CourseAgendaProps> = (props) => {
               {...{
                 lesson,
                 finishedTopicIds,
-                currentTopicId: currentNotLockedTopicId,
+                currentTopicId,
+                lessons,
               }}
             />
           ))}
@@ -209,6 +231,6 @@ export const CourseAgenda: FC<CourseAgendaProps> = (props) => {
   );
 };
 
-const NewComponent = styled(CourseAgenda)<CourseAgendaProps>``;
+const NewComponent = styled(CourseAgenda) <CourseAgendaProps>``;
 
 export default withTheme(NewComponent);

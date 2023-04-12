@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { Text } from "../../../";
 import type { Lesson, Topic } from "@escolalms/sdk/lib/types/api";
 import chroma from "chroma-js";
-import { getStylesBasedOnTheme } from "../../../utils/utils";
+import { findNestedIndexInLessons, getStylesBasedOnTheme } from "../../../utils/utils";
 import { ExtendableStyledComponent } from "types/component";
 
 const TextIcon = () => (
@@ -191,13 +191,13 @@ interface SharedComponentProps {
 
 interface CourseProgramProps
   extends SharedComponentProps,
-    ExtendableStyledComponent {
+  ExtendableStyledComponent {
   lessons: Lesson[];
 }
 
 interface CourseProgramLessonProps extends SharedComponentProps {
+  lessons: Lesson[];
   lesson: Lesson;
-  index: number;
   mobile?: boolean;
   defaultOpen?: boolean;
 }
@@ -207,7 +207,7 @@ interface CourseProgramTopicProps extends SharedComponentProps {
   topic: Topic;
 }
 
-const StyledSection = styled("section")<SharedComponentProps>`
+const StyledSection = styled("section") <SharedComponentProps>`
   width: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -236,19 +236,19 @@ const StyledSection = styled("section")<SharedComponentProps>`
   }
   .lesson__item {
     background: ${({ theme }) =>
-      getStylesBasedOnTheme(
-        theme.mode,
-        theme.dm__cardBackgroundColor,
-        theme.cardBackgroundColor
-      )};
+    getStylesBasedOnTheme(
+      theme.mode,
+      theme.dm__cardBackgroundColor,
+      theme.cardBackgroundColor
+    )};
     border-left: 2px solid
       ${({ theme }) =>
-        getStylesBasedOnTheme(
-          theme.mode,
-          theme.dm__primaryColor,
-          theme.primaryColor,
-          theme.primaryColor
-        )};
+    getStylesBasedOnTheme(
+      theme.mode,
+      theme.dm__primaryColor,
+      theme.primaryColor,
+      theme.primaryColor
+    )};
     padding: 10px;
     margin: 10px 0;
     overflow: hidden;
@@ -283,12 +283,12 @@ const StyledSection = styled("section")<SharedComponentProps>`
           margin-top: 3px;
           text-transform: uppercase;
           color: ${({ theme }) =>
-            getStylesBasedOnTheme(
-              theme.mode,
-              theme.dm__primaryColor,
-              theme.primaryColor,
-              theme.primaryColor
-            )};
+    getStylesBasedOnTheme(
+      theme.mode,
+      theme.dm__primaryColor,
+      theme.primaryColor,
+      theme.primaryColor
+    )};
         }
       }
 
@@ -304,12 +304,12 @@ const StyledSection = styled("section")<SharedComponentProps>`
           .lesson__index {
             text-transform: uppercase;
             color: ${({ theme }) =>
-              getStylesBasedOnTheme(
-                theme.mode,
-                theme.dm__primaryColor,
-                theme.primaryColor,
-                theme.primaryColor
-              )};
+    getStylesBasedOnTheme(
+      theme.mode,
+      theme.dm__primaryColor,
+      theme.primaryColor,
+      theme.primaryColor
+    )};
             white-space: nowrap;
           }
           .lesson__duration {
@@ -347,11 +347,11 @@ const StyledSection = styled("section")<SharedComponentProps>`
         &:not(.lesson__topic-current):not(:last-child) {
           border-bottom: 2px solid
             ${({ theme }) =>
-              getStylesBasedOnTheme(
-                theme.mode,
-                chroma(theme.white).alpha(0.2).hex(),
-                theme.white
-              )};
+    getStylesBasedOnTheme(
+      theme.mode,
+      chroma(theme.white).alpha(0.2).hex(),
+      theme.white
+    )};
         }
 
         button {
@@ -366,7 +366,7 @@ const StyledSection = styled("section")<SharedComponentProps>`
 
           path {
             fill: ${({ theme }) =>
-              getStylesBasedOnTheme(theme.mode, theme.white, theme.gray1)};
+    getStylesBasedOnTheme(theme.mode, theme.white, theme.gray1)};
           }
         }
 
@@ -385,15 +385,15 @@ const StyledSection = styled("section")<SharedComponentProps>`
 
             path {
               fill: ${({ theme }) =>
-                getStylesBasedOnTheme(theme.mode, theme.white, theme.gray1)};
+    getStylesBasedOnTheme(theme.mode, theme.white, theme.gray1)};
             }
           }
 
           .lesson__index {
             opacity: ${(props) =>
-              props.theme.dm__numerationsColor || props.theme.numerationsColor
-                ? 1
-                : 0.5};
+    props.theme.dm__numerationsColor || props.theme.numerationsColor
+      ? 1
+      : 0.5};
             margin-right: 4px;
           }
         }
@@ -446,7 +446,7 @@ const CourseProgramTopic: React.FC<CourseProgramTopicProps> = ({
 };
 
 const CourseProgramLesson: React.FC<CourseProgramLessonProps> = (props) => {
-  const { lesson, index, defaultOpen = true, onTopicClick } = props;
+  const { lesson, defaultOpen = true, onTopicClick, lessons } = props;
   const { t } = useTranslation();
   const [open, setOpen] = React.useState(defaultOpen);
 
@@ -455,7 +455,7 @@ const CourseProgramLesson: React.FC<CourseProgramLessonProps> = (props) => {
       <header>
         <div className={"lesson__details"}>
           <Text noMargin size={"12"}>
-            {t<string>("Course.Lesson")} {index + 1}
+            {t<string>("Course.Lesson")} {findNestedIndexInLessons(lessons, lesson)}
           </Text>
           <Text noMargin size={"12"}>
             {lesson.duration && lesson.duration}
@@ -493,6 +493,17 @@ const CourseProgramLesson: React.FC<CourseProgramLessonProps> = (props) => {
           );
         })}
       </ul>
+      {lesson.lessons && lesson.lessons.map((nextLesson) => (
+        <CourseProgramLesson
+          defaultOpen={true}
+          key={nextLesson.id}
+          {...{
+            lesson: nextLesson as Lesson,
+            onTopicClick,
+            lessons,
+          }}
+        />
+      ))}
     </div>
   );
 };
@@ -514,14 +525,14 @@ export const CourseProgram: React.FC<CourseProgramProps> = (props) => {
         </header>
       )}
       <article>
-        {lessons.map((lesson, index) => (
+        {lessons.map((lesson) => (
           <CourseProgramLesson
             defaultOpen={true}
             key={lesson.id}
-            index={index}
             {...{
               lesson,
               onTopicClick,
+              lessons,
             }}
           />
         ))}
@@ -530,6 +541,6 @@ export const CourseProgram: React.FC<CourseProgramProps> = (props) => {
   );
 };
 
-const NewComponent = styled(CourseProgram)<CourseProgramProps>``;
+const NewComponent = styled(CourseProgram) <CourseProgramProps>``;
 
 export default withTheme(NewComponent);

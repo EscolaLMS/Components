@@ -1,16 +1,26 @@
 ```js
 import img1 from "./CourseAgenda.png";
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useMemo } from "react";
 import { ImageModal, ThemeTester } from "../../../styleguide";
 import { Button } from "../../../";
 import data from "./mock.json";
 import "../../../styleguide/i18n.ts";
 
-const flatTopics = data.lessons.reduce(
-  (acc, curr) => (Array.isArray(curr.topics) ? [...acc, ...curr.topics] : acc),
-  []
-);
+// const flatTopics = data.lessons.reduce(
+//   (acc, curr) => (Array.isArray(curr.topics) ? [...acc, ...curr.topics] : acc),
+//   []
+// );
+const flattenTopics = (lessons) => {
+  return lessons.flatMap((lesson) => {
+    if (lesson.topics) {
+      return [...lesson.topics, ...flattenTopics(lesson.lessons || [])];
+    }
+    return [];
+  });
+};
 
+const flatTopics = useMemo(() => flattenTopics(data.lessons), [data.lessons]);
+console.log('flatTopics: ', flatTopics);
 const [state, setState] = useState({
   finishedTopicIds: [],
   currentTopicId: flatTopics[0].id,
@@ -34,25 +44,64 @@ const randomizeState = () => {
   });
 };
 
-const onNextTopic = useCallback(() => {
-  let nextTopicId;
-  data.lessons.forEach((lesson, lIndex) => {
-    lesson.topics.forEach((topic, tIndex) => {
-      if (topic.id === state.currentTopicId) {
-        // try find next topic in current lesson
-        if (lesson.topics[tIndex + 1]) {
-          nextTopicId = lesson.topics[tIndex + 1];
-          // try find first topic in next lesson
-        } else if (data.lessons[lIndex + 1]) {
-          nextTopicId = data.lessons[lIndex + 1].topics[0];
-          // otherwise this is end so going back to first lesson and topic
-        } else {
-          nextTopicId = data.lessons[0].topics[0];
-        }
+const getLessonIndexWithNestedTopic = (currentTopicId) => {
+  let index = 0;
+  data.lessons.find((lesson, lIndex) => {
+    lesson.topics.find((topic) => {
+      if (topic.id === currentTopicId) {
+        index = lIndex;
+      } else if (lesson.lessons) {
+        const findTopicAndReturnIndex = (lessons) => {
+          lessons.find((lesson) => {
+            lesson.topics.find((topic) => {
+              if (topic.id === currentTopicId) {
+                index = lIndex;
+              } else if (lesson.lessons) {
+                findTopicAndReturnIndex(lesson.lessons)
+              }
+            });
+          });
+        };
+        findTopicAndReturnIndex(lesson.lessons);
       }
     });
   });
+  return index;
+};
 
+const findNextTopic = (currentTopicId, lessons) => {
+  let nextTopic = null;
+  lessons.forEach((lesson, lIndex) => {
+    if (lesson.topics) {
+      lesson.topics.forEach((topic, tIndex) => {
+        // Check is last topic and don't have lessons
+        if (currentTopicId === lesson.topics[lesson.topics.length - 1].id && !lesson.lessons) {
+          const currentLessonIndex = getLessonIndexWithNestedTopic(currentTopicId);
+          if (data.lessons[currentLessonIndex + 1]) {
+            // Here we need index of main current module lesson
+            nextTopic = data.lessons[currentLessonIndex + 1].topics[0];
+          } else {
+            nextTopic = data.lessons[0].topics[0];
+          }
+        } else {
+          if (topic.id === currentTopicId) {
+            if (tIndex < lesson.topics.length - 1) {
+              nextTopic = lesson.topics[tIndex + 1];
+            } else if (lesson.lessons && lesson.lessons.length > 0) {
+              nextTopic = lesson.lessons[0].topics[0];
+            }
+          } else if (!nextTopic && lesson.lessons) {
+            nextTopic = findNextTopic(currentTopicId, lesson.lessons);
+          }
+        }
+      });
+    }
+  });
+  return nextTopic;
+};
+
+const onNextTopic = useCallback(() => {
+  const nextTopicId = findNextTopic(state.currentTopicId, data.lessons);
   setState((prevState) => ({
     ...prevState,
     currentTopicId: nextTopicId.id,
@@ -70,7 +119,7 @@ const onTopicFinished = useCallback(
 
     onNextTopic();
   },
-  [state.currentTopicId]
+  [state.currentTopicId, data.lessons]
 );
 
 const onTopicChange = useCallback((topic) => {
