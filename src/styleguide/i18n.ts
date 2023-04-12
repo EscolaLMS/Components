@@ -89,6 +89,7 @@ export const resources = {
         NotRemember: "I forgot my password",
         NoAccount: "No account?",
         Signup: "Register",
+        RememberMe: "Remember me",
       },
       Orders: {
         Title: "Title",
@@ -264,6 +265,7 @@ export const resources = {
         NotRemember: "Nie pamiętam hasła",
         NoAccount: "Nie posiadasz konta?",
         Signup: "Zarejestruj się",
+        RememberMe: "Zapamiętaj mnie",
       },
       Orders: {
         Title: "Tytuł",
