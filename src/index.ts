@@ -1,5 +1,4 @@
 // ATOMS
-
 export { default as Avatar } from "./components/atoms/Avatar/Avatar";
 export { default as Badge } from "./components/atoms/Badge/Badge";
 export { default as BreadCrumbs } from "./components/atoms/BreadCrumbs/BreadCrumbs";
@@ -30,7 +29,8 @@ export { TextArea } from "./components/atoms/TextArea/TextArea";
 export { default as Title } from "./components/atoms/Typography/Title";
 export { Row } from './components/atoms/Row';
 export { Stack } from './components/atoms/Stack';
-export { Countdown } from './components/atoms/Countdown'
+export { Countdown } from './components/atoms/Countdown';
+export { default as Modal } from './components/atoms/Modal/Modal';
 
 //MOLECULES
 export { default as Banner } from "./components/molecules/Banner/Banner";
@@ -53,6 +53,8 @@ export { Ratings } from "./components/molecules/Ratings/Ratings";
 export { default as Steps } from "./components/molecules/Steps/Steps";
 export { Tutor } from "./components/molecules/Tutor/Tutor";
 export { Search } from "./components/molecules/Search/Search";
+export { default as List } from "./components/molecules/List/List";
+export {default as DropdownMenu}  from "./components/molecules/DropdownMenu/DropdownMenu";
 
 //ORGANISMS
 export { default as CourseAgenda } from "./components/organisms/CourseAgenda/CourseAgenda";
@@ -60,5 +62,7 @@ export { default as LoginForm } from "./components/organisms/LoginForm/LoginForm
 export { default as NoteEditor } from "./components/organisms/NoteEditor/NoteEditor";
 export { default as RegisterForm } from "./components/organisms/RegisterForm/RegisterForm";
 export { default as ResetPasswordForm } from "./components/organisms/ResetPasswordForm/ResetPasswordForm";
+export { default as TaskComponent } from "./components/organisms/TasksComponent";
+export { default as ModalAddTask }  from "./components/organisms/ModalAddTask/ModalAddTask";
 
 //ADVANCED

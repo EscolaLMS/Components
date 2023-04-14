@@ -1,6 +1,6 @@
 import { mix } from "chroma-js";
 import * as React from "react";
-import { useCallback, useMemo } from "react";
+import { RefObject, useCallback, useMemo } from "react";
 import styled from "styled-components";
 import { getStylesBasedOnTheme } from "../../../utils/utils";
 import { ExtendableStyledComponent } from "types/component";
@@ -19,6 +19,7 @@ export interface TextAreaProps
   label?: string | React.ReactNode;
   helper?: React.ReactNode;
   error?: string | React.ReactNode;
+  ref?: RefObject<HTMLTextAreaElement>;
 }
 
 const StyledTextArea = styled("div")<TextAreaProps>`
@@ -192,7 +193,15 @@ const StyledTextArea = styled("div")<TextAreaProps>`
 `;
 
 export const TextArea: React.FC<TextAreaProps> = (props) => {
-  const { label, required, disabled, error, helper, className = "" } = props;
+  const {
+    ref,
+    label,
+    required,
+    disabled,
+    error,
+    helper,
+    className = "",
+  } = props;
   const generateRandomTextAreatId = useMemo(() => {
     const randomString = (Math.random() + 1).toString(36).substring(3);
     return `lms-textarea-id-${randomString}`;
@@ -232,6 +241,7 @@ export const TextArea: React.FC<TextAreaProps> = (props) => {
         <textarea
           {...props}
           {...notTextAreaProps}
+          ref={ref}
           id={label ? generateRandomTextAreatId : undefined}
         >
           {props.value}
