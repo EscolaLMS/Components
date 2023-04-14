@@ -20,21 +20,6 @@ const Wrapper = styled.div`
     gap: 4px;
     align-items: center;
 
-    &.rc-tree-select-open {
-      .rc-tree-select-arrow {
-        transform: rotateX(180deg);
-      }
-    }
-
-    &.rc-tree-select-disabled {
-      .rc-tree-select-selector {
-        cursor: default;
-      }
-      .rc-tree-select-arrow {
-        display: none;
-      }
-    }
-
     .rc-tree-select-selector {
       position: relative;
       cursor: pointer;
@@ -46,6 +31,21 @@ const Wrapper = styled.div`
       .rc-tree-select-selection-placeholder,
       .rc-tree-select-selection-item {
         transition: 0.3s;
+      }
+
+      &.rc-tree-select-open {
+        .rc-tree-select-arrow {
+          transform: rotateX(180deg);
+        }
+      }
+
+      &.rc-tree-select-disabled {
+        .rc-tree-select-selector {
+          cursor: default;
+        }
+        .rc-tree-select-arrow {
+          display: none;
+        }
       }
 
       .rc-tree-select-selection-search {
