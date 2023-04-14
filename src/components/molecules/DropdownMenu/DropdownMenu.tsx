@@ -34,23 +34,19 @@ const DropdownMenuWrapper = styled.ul`
   box-shadow: 0 24px 34px rgba(66, 66, 66, 5%),
     0 -2px 8px rgba(255, 255, 255, 4%);
 
-  // enter from
   &.fade-enter {
     opacity: 0;
   }
 
-  // enter to
   &.fade-enter-active {
     opacity: 1;
     transition: 0.3s;
   }
 
-  // visible state when active
   &.fade-enter-done {
     opacity: 1;
   }
 
-  // exit to
   &.fade-exit-active {
     opacity: 0;
     transition: 0.3s;
