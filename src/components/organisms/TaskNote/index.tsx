@@ -58,7 +58,7 @@ export const EditTaskNote: React.FC<{
   const [loading, setLoading] = useState(false);
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   useAutosizeTextArea(textAreaRef.current, value);
-
+  console.log("ref", textAreaRef);
   const onEditNote = useCallback(() => {
     setLoading(true);
     updateTaskNote(note.task_id, note.id, value)
@@ -83,9 +83,8 @@ export const EditTaskNote: React.FC<{
       ) : (
         <div>
           <TextArea
-            ref={textAreaRef}
+            textAreaRef={textAreaRef}
             name="note"
-            label={t<string>("Tasks.Note")}
             placeholder={t<string>("Tasks.EditNote")}
             value={value}
             onChange={(e) => setValue(e.target.value)}
@@ -105,7 +104,7 @@ export const EditTaskNote: React.FC<{
                   type="button"
                   onClick={() => onEditNote()}
                 >
-                  {t<string>("Tasks.Edit")}
+                  {t<string>("Tasks.Save")}
                 </Button>
               </>
             )}

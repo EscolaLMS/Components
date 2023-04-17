@@ -36,6 +36,9 @@ import {
 import styled, { withTheme } from "styled-components";
 import { ModalDeleteTask } from "../ModalDeleteTask";
 import { TaskDetailsModal } from "../TaskDetailsModal";
+import { EditTaskNote } from "../TaskNote";
+import { Note, NotesContainer } from "../TaskDetailsModal/content/common";
+import { HiOutlineDocumentText } from "react-icons/hi";
 
 type TasksType = API.Task & { has_notes: boolean };
 
@@ -270,6 +273,22 @@ const TasksComponent: FC<TasksComponentProps> = ({
 
   return (
     <>
+      <NotesContainer>
+        <Row $alignItems="center" $gap={4}>
+          <HiOutlineDocumentText />
+          <Text>{t<string>("Tasks.Notes")}</Text>
+        </Row>
+        <div>
+          <Note>
+            <EditTaskNote
+              note={{ note: "test" } as API.TaskNote}
+              onEdit={() => console.log("edit")}
+              onDelete={() => console.log("del")}
+            />
+          </Note>
+        </div>
+      </NotesContainer>
+
       <TasksContainer>
         <TasksHeader>
           <Title level={4}>{t<string>("Tasks.TasksHeader")}</Title>

@@ -19,7 +19,7 @@ export interface TextAreaProps
   label?: string | React.ReactNode;
   helper?: React.ReactNode;
   error?: string | React.ReactNode;
-  ref?: RefObject<HTMLTextAreaElement>;
+  textAreaRef?: RefObject<HTMLTextAreaElement>;
 }
 
 const StyledTextArea = styled("div")<TextAreaProps>`
@@ -194,7 +194,7 @@ const StyledTextArea = styled("div")<TextAreaProps>`
 
 export const TextArea: React.FC<TextAreaProps> = (props) => {
   const {
-    ref,
+    textAreaRef,
     label,
     required,
     disabled,
@@ -241,8 +241,8 @@ export const TextArea: React.FC<TextAreaProps> = (props) => {
         <textarea
           {...props}
           {...notTextAreaProps}
-          ref={ref}
           id={label ? generateRandomTextAreatId : undefined}
+          ref={textAreaRef}
         >
           {props.value}
         </textarea>
