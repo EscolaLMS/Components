@@ -24,7 +24,7 @@ interface Props {
   onSuccess?: () => void;
   onCancel?: () => void;
   onError?: (err: ResponseError<DefaultResponseError>) => void;
-  addTask: (data: AddTaskFormValues) => Promise<API.DefaultResponse<any>>;
+  addTask: (data: AddTaskFormValues) => Promise<API.DefaultResponse<API.Task>>;
   refreshTasks: () => void;
 }
 
