@@ -272,7 +272,7 @@ const TasksComponent: FC<TasksComponentProps> = ({
     <>
       <TasksContainer>
         <TasksHeader>
-          <Title>{t<string>("Tasks.TasksHeader")}</Title>
+          <Title level={4}>{t<string>("Tasks.TasksHeader")}</Title>
           <Button onClick={addTaskButton.onClick} mode="secondary">
             {t<string>("Tasks.AddTask")}
           </Button>

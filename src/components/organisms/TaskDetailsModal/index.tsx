@@ -30,7 +30,6 @@ export const TaskDetailsModal: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation();
   const isPersonal = task.created_by?.id === task.user?.id;
-  console.log(isPersonal);
   return (
     <Wrapper>
       <Title>{t<string>("Tasks.EditTask")}</Title>

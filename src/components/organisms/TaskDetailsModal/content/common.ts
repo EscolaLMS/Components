@@ -101,7 +101,8 @@ export const Note = styled.div`
       min-width: 75%;
       margin-block: 4px;
       border: none;
-      background-color: ${({ theme }) => theme.dm__background};
+      color: ${({ theme }) => getStylesBasedOnTheme(theme.mode, theme.white, theme.gray1)};
+      background-color: ${({ theme }) => getStylesBasedOnTheme(theme.mode, theme.gray3, theme.gray3)};
       cursor: pointer;
 
       &:focus {
