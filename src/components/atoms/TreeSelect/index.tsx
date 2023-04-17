@@ -159,7 +159,7 @@ export const TreeSelect = <ValueType,>({
         switcherIcon={<AiOutlineRight />}
         inputIcon={<AiOutlineDown />}
         treeNodeLabelProp="label"
-        getPopupContainer={() => wrapperRef.current!}
+        getPopupContainer={() => wrapperRef.current as HTMLDivElement}
       />
     </Wrapper>
   );

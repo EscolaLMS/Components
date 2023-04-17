@@ -20,6 +20,7 @@ interface CourseAgendaLessonProps
   index: number;
   currentTopicId?: number;
   defaultOpen?: boolean;
+  onCourseFinished: () => void;
 }
 
 const StyledLessonItem = styled.div`
@@ -312,6 +313,7 @@ const CourseAgendaLesson: React.FC<CourseAgendaLessonProps> = (props) => {
     finishedTopicIds,
     currentTopicId,
     defaultOpen = false,
+    onCourseFinished,
   } = props;
   const { t } = useTranslation();
   const {
@@ -475,6 +477,7 @@ const CourseAgendaLesson: React.FC<CourseAgendaLessonProps> = (props) => {
               index={topicIndex + 1}
               mode={mode}
               finishedTopicIds={finishedTopicIds}
+              onCourseFinished={onCourseFinished}
             />
           );
         })}

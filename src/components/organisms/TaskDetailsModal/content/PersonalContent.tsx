@@ -101,10 +101,13 @@ export const PersonalContent: React.FC<Props> = ({
           ...values,
         };
 
-        if (due_date !== initialValues.due_date) {
+        if (
+          due_date !== initialValues.due_date &&
+          typeof due_date === "string"
+        ) {
           sendValues = {
             ...sendValues,
-            due_date: format(new Date(due_date!), "yyyy-MM-dd"),
+            due_date: format(new Date(due_date), "yyyy-MM-dd"),
           };
         }
 

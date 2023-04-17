@@ -47,6 +47,7 @@ interface CourseAgendaProps
     ExtendableStyledComponent {
   lessons: Lesson[];
   currentTopicId: number;
+  onCourseFinished: () => void;
 }
 
 const StyledSection = styled("section")`
@@ -88,6 +89,7 @@ export const CourseAgenda: FC<CourseAgendaProps> = (props) => {
     className = "",
     finishedTopicIds,
     currentTopicId,
+    onCourseFinished,
   } = props;
   const { t } = useTranslation();
 
@@ -201,6 +203,7 @@ export const CourseAgenda: FC<CourseAgendaProps> = (props) => {
                 finishedTopicIds,
                 currentTopicId: currentNotLockedTopicId,
               }}
+              onCourseFinished={onCourseFinished}
             />
           ))}
         </article>

@@ -22,6 +22,7 @@ export const resources = {
       "Course.Lesson": "Module",
       "Course.markAsFinished": "Mark as finished",
       "Course.nextTopic": "Switch to next topic",
+      "Course.finishCourse": "Finish course",
       "CourseCard.lesson_one": "{{count}} lesson",
       "CourseCard.lesson_other": "{{count}} lessons",
       "CourseCard.startNow": "Start now",
@@ -199,7 +200,8 @@ export const resources = {
         Undo: "Undo",
         Edit: "Edit",
         DeleteTask: "Delete this task",
-        DeleteTaskDescription: "Are you sure you want to delete this task? This action is irreversible",
+        DeleteTaskDescription:
+          "Are you sure you want to delete this task? This action is irreversible",
         EditTask: "Edit task",
         ThereIsNoDescription: "There is no description provided for this task",
         Notes: "Notes",
@@ -208,7 +210,7 @@ export const resources = {
         AddNote: "Add note",
         EditNote: "Edit note",
         Note: "Note",
-      }
+      },
     },
   },
   fr: {
@@ -233,6 +235,7 @@ export const resources = {
       "Course.Lesson": "Moduł",
       "Course.markAsFinished": "Oznacz jako ukończone",
       "Course.nextTopic": "Następne zadanie",
+      "Course.finishCourse": "Zakończ kurs",
       "CourseCard.lesson_few": "{{count}} lekcje",
       "CourseCard.lesson_many": "{{count}} lekcji",
       "CourseCard.lesson_one": "{{count}} lekcja",
@@ -407,7 +410,8 @@ export const resources = {
         Undo: "Cofnij",
         Edit: "Edytuj",
         DeleteTask: "Usuń te zadanie",
-        DeleteTaskDescription: "Czy na pewno chcesz usunąć to zadanie? Ta czynność jest nieodwracalna",
+        DeleteTaskDescription:
+          "Czy na pewno chcesz usunąć to zadanie? Ta czynność jest nieodwracalna",
         EditTask: "Edytuj zadanie",
         ThereIsNoDescription: "Nie ma opisu tego zadania",
         Notes: "Notatki",
@@ -416,7 +420,7 @@ export const resources = {
         AddNote: "Dodaj notatkę",
         EditNote: "Edutuj notatkę",
         Note: "Notatka",
-      }
+      },
     },
   },
 };
