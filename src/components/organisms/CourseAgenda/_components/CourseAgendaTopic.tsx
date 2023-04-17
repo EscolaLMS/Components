@@ -16,6 +16,8 @@ export interface CourseAgendaTopicProps
   topic: Topic;
   clickable: boolean;
   mode: "pending" | "current" | "finished";
+  allTopicsLength: number;
+  onCourseFinished: () => void;
 }
 
 const TopicIcon: React.FC<{ mode: CourseAgendaTopicProps["mode"] }> = ({
@@ -37,6 +39,8 @@ const CourseAgendaTopic: FC<CourseAgendaTopicProps> = ({
   mode,
   finishedTopicIds,
   clickable,
+  allTopicsLength,
+  onCourseFinished,
 }) => {
   const { t } = useTranslation();
   const { onMarkFinished, onTopicClick, onNextTopicClick } = useTopicsContext();
@@ -45,6 +49,9 @@ const CourseAgendaTopic: FC<CourseAgendaTopicProps> = ({
       onTopicClick && onTopicClick(topic);
     }
   }, [mode]);
+
+  const isLastTopic = allTopicsLength - finishedTopicIds.length === 1;
+  const isTopicFinished = finishedTopicIds.includes(topic.id);
 
   return (
     <li className={`lesson__topic lesson__topic-${mode}`}>
@@ -69,7 +76,21 @@ const CourseAgendaTopic: FC<CourseAgendaTopicProps> = ({
         </Text>
       </div>
 
-      {mode === "current" && !finishedTopicIds.includes(topic.id) && (
+      {mode === "current" && !isTopicFinished && isLastTopic && (
+        <Button
+          block
+          mode="outline"
+          onClick={() => {
+            if (!clickable) return;
+            onMarkFinished && onMarkFinished(topic);
+            onCourseFinished();
+          }}
+        >
+          {t<string>("Course.finishCourse")}
+        </Button>
+      )}
+
+      {mode === "current" && !isTopicFinished && !isLastTopic && (
         <Button
           block
           mode="outline"
@@ -79,7 +100,7 @@ const CourseAgendaTopic: FC<CourseAgendaTopicProps> = ({
         </Button>
       )}
 
-      {mode === "current" && finishedTopicIds.includes(topic.id) && (
+      {mode === "current" && isTopicFinished && !isLastTopic && (
         <Button
           block
           mode="outline"
