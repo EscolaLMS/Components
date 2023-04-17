@@ -203,7 +203,6 @@ export const CourseAgenda: FC<CourseAgendaProps> = (props) => {
                 finishedTopicIds,
                 currentTopicId: currentNotLockedTopicId,
               }}
-              allTopicsLength={allTopics.length}
               onCourseFinished={onCourseFinished}
             />
           ))}
