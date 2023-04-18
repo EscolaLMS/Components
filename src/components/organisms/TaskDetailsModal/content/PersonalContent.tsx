@@ -1,5 +1,5 @@
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
-import React, { ChangeEvent, useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
 import { format, isAfter } from "date-fns";
@@ -103,7 +103,7 @@ export const PersonalContent: React.FC<Props> = ({
         if (due_date) {
           sendValues = {
             ...sendValues,
-            due_date: format(new Date(due_date!), "yyyy-MM-dd"),
+            due_date: format(new Date(due_date), "yyyy-MM-dd"),
           };
         }
 
