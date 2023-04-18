@@ -241,7 +241,6 @@ export const TextArea: React.FC<TextAreaProps> = (props) => {
         <textarea
           {...props}
           {...notTextAreaProps}
-          ref={ref}
           id={label ? generateRandomTextAreatId : undefined}
           ref={textAreaRef}
         >

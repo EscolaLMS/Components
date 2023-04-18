@@ -1,8 +1,4 @@
 import { Checkbox, Input } from '../../../../';
-<<<<<<< HEAD
-=======
-import { add, endOfDay, endOfToday } from 'date-fns';
->>>>>>> eb0e51c32ac5ad0155d30095e963b3dd89967784
 import styled from 'styled-components';
 import { getStylesBasedOnTheme } from '../../../../utils/utils';
 
@@ -44,36 +40,13 @@ export const LeftPaddingWrapper = styled.div`
   padding-left: 36px;
 `;
 
-<<<<<<< HEAD
-=======
-export const TextArea = styled.textarea`
-  width: 100%;
-  padding: 16px;
-  border: 1px solid ${({ theme }) => theme.outlineButtonColor};
-  color: ${({ theme }) =>
-        getStylesBasedOnTheme(theme.mode, theme.white, theme.gray1)};
-  line-height: 130%;
-  resize: none;
-  transition: border-color 200ms ease-in-out;
-`;
-
->>>>>>> eb0e51c32ac5ad0155d30095e963b3dd89967784
 export const ResponsiveCalendarSelect = styled(Input)`
   width: 100%;
 `;
 
 export const NotesContainer = styled.div`
-<<<<<<< HEAD
   width: 100%;
   & > div {
-=======
-padding: 12px 0px;
-  width: 100%;
-  & > div {
-    & div {
-      margin: 4px 0;
-    }
->>>>>>> eb0e51c32ac5ad0155d30095e963b3dd89967784
     width: 100%;
     max-height: 380px;
     overflow: auto;
