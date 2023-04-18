@@ -94,7 +94,7 @@ const DefaultQuestionLayout: React.FC<Props> = ({
   return (
     <Stack {...props} $gap={6}>
       <Stack $gap={2}>
-        {title && <Title as={"h3"}>{title}</Title>}
+        {title && <Title level="2">{title}</Title>}
         <RelativeText>
           {question}
           <CSSTransition

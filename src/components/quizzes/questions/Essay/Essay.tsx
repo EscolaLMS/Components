@@ -2,6 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { API } from "@escolalms/sdk/lib";
 import { TextArea } from "../../../../";
+import { getUniqueId } from "../../../../utils/utils";
 import DefaultQuestionLayout from "../DefaultQuestionLayout";
 import styled, { withTheme } from "styled-components";
 
@@ -36,7 +37,7 @@ const Essay: React.FC<Props> = ({
         placeholder={t<string>("Quiz.TypeAnswer")}
         name={`${id}`}
         disabled={hasQuizEnded}
-        id={`${id}`}
+        id={getUniqueId(`Essay-${id}`)}
         value={value}
         onChange={onChange}
         onBlur={onBlur}

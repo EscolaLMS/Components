@@ -24,7 +24,7 @@ interface Props {
   onSuccess?: () => void;
   onCancel?: () => void;
   onError?: (err: ResponseError<DefaultResponseError>) => void;
-  addTask: (data: AddTaskFormValues) => Promise<API.DefaultResponse<any>>;
+  addTask: (data: AddTaskFormValues) => Promise<API.DefaultResponse<API.Task>>;
   refreshTasks: () => void;
 }
 
@@ -95,7 +95,6 @@ const ModalAddTask: FC<Props> = ({
             const [related_type, related_id] = related.split(":");
             sendValues = { ...sendValues, related_type, related_id };
           }
-
           addTask(sendValues)
             .then(() => {
               refreshTasks();
