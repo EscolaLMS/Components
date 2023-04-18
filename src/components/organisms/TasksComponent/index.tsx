@@ -41,13 +41,15 @@ type TasksType = API.Task & { has_notes: boolean };
 
 type CreateByType = "Incoming" | "Personal";
 
+type SortType = "Ascending" | "Descending";
+
 export interface Dropdown {
   id: number;
   content: ReactNode;
 }
 
 interface TasksComponentProps {
-  sortOptions: { options: Dropdown[]; type: string };
+  sortOptions: { options: Dropdown[]; type: SortType };
   taskShowAction: {
     options: { id: number; content: ReactNode }[];
     showDone: boolean;
@@ -306,7 +308,9 @@ const TasksComponent: FC<TasksComponentProps> = ({
               <DropdownMenu
                 child={
                   <Text size="12" noMargin>
-                    {`${t<string>("Tasks.CreateBy")}: ${createBy.type}`}
+                    {`${t<string>("Tasks.CreateBy")}: ${t<string>(
+                      `Tasks.${createBy.type}`
+                    )}`}
                   </Text>
                 }
                 menuItems={createBy.options}
@@ -314,7 +318,9 @@ const TasksComponent: FC<TasksComponentProps> = ({
               <DropdownMenu
                 child={
                   <Text size="12" noMargin>
-                    {`${t<string>("Tasks.Sort")}: ${sortOptions.type}`}
+                    {`${t<string>("Tasks.Sort")}: ${t<string>(
+                      `Tasks.${sortOptions.type}`
+                    )}`}
                   </Text>
                 }
                 menuItems={sortOptions.options}

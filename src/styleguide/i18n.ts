@@ -213,7 +213,9 @@ export const resources = {
         Today: "Today",
         Tomorrow: "Tomorrow",
         Overdue: "Overdue",
-        Upcoming: "Upcoming"
+        Upcoming: "Upcoming",
+        Ascending: "Ascending",
+        Descending : "Descending",
       }
     },
   },
@@ -427,7 +429,9 @@ export const resources = {
         Today: "Dzisiaj",
         Tomorrow: "Jutro",
         Overdue: "Przekroczone",
-        Upcoming: "Nadchodzące"
+        Upcoming: "Nadchodzące",
+        Ascending: "Rosnąco",
+        Descending : "Malejąco",
       }
     },
   },
