@@ -14,7 +14,6 @@ import { DATETIME_FORMAT } from "../../../utils/utils";
 import { Button } from "../../atoms/Button/Button";
 import { Card } from "../../atoms/Card/Card";
 import { Spin } from "../../atoms/Spin/Spin";
-import { Title } from "../../atoms/Typography/Title";
 import { Text } from "../../atoms/Typography/Text";
 import { MarkdownRenderer } from "../../molecules/MarkdownRenderer/MarkdownRenderer";
 import { Upload } from "../../molecules/Upload/Upload";
@@ -207,9 +206,6 @@ export const ProjectPlayer: React.FC<ProjectPlayerProps> = ({
       className={"wellms-component" + ` ${className}`}
       data-testid="project-player"
     >
-      <Title level={3} className="project-player__title">
-        {topic?.title}
-      </Title>
       {topic.description && (
         <MarkdownRenderer className="project-player__description">
           {topic.description}
