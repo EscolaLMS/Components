@@ -131,7 +131,7 @@ const GiftQuizPlayer: React.FC<Props> = ({ topic, className, onTopicEnd }) => {
     <Wrapper data-testid="gift-quiz-player" className={className}>
       {!data.value && !data.loading && (
         <StartButtonWrapper>
-          <Button type="button" onClick={startQuiz}>
+          <Button mode="secondary" type="button" onClick={startQuiz}>
             {t<string>("Quiz.Start")}
           </Button>
         </StartButtonWrapper>

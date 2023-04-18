@@ -95,6 +95,7 @@ const ModalAddTask: FC<Props> = ({
             const [related_type, related_id] = related.split(":");
             sendValues = { ...sendValues, related_type, related_id };
           }
+
           addTask(sendValues)
             .then(() => {
               refreshTasks();

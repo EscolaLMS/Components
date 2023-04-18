@@ -2,7 +2,7 @@ import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import React, { ChangeEvent, useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
-import { format } from "date-fns";
+import { format, isAfter } from "date-fns";
 import { Formik, FormikErrors } from "formik";
 import { Task, TaskNote } from "@escolalms/sdk/lib/types/api";
 import { AddTaskNote, EditTaskNote } from "../../TaskNote";
@@ -16,16 +16,10 @@ import {
   LeftCol,
   RightCol,
   SectionHeader,
-  ResponsiveCalendarSelect,
   Note,
   NotesContainer,
-  getDueDate,
 } from "./common";
 
-interface SelectOption {
-  value: string | number;
-  label: React.ReactNode;
-}
 interface UpdateTaskFormValues {
   title: string;
   description: string;
@@ -60,7 +54,7 @@ export const PersonalContent: React.FC<Props> = ({
   onError,
 }) => {
   const [isStatusUpdating, setIsStatusUpdating] = useState(false);
-
+  const [taskDone, setTaskDone] = useState(!!taskForAction.completed_at);
   const { t } = useTranslation();
   const { updateTask, updateTaskStatus, createTaskNote, fetchTask, task } =
     useContext(EscolaLMSContext);
@@ -72,7 +66,7 @@ export const PersonalContent: React.FC<Props> = ({
         ? `${taskForAction.related_type}:${taskForAction.related_id}`
         : undefined,
     description: taskForAction.description ?? "",
-    due_date: getDueDate(taskForAction.due_date),
+    due_date: taskForAction.due_date,
   } as UpdateTaskFormValues;
 
   useEffect(() => {
@@ -88,7 +82,12 @@ export const PersonalContent: React.FC<Props> = ({
         > = {};
 
         if (!values.title) {
-          errors.title = "Required";
+          errors.title = t("Required");
+        }
+        if (!values.due_date) {
+          errors.due_date = t("Required");
+        } else if (!isAfter(new Date(values.due_date), new Date())) {
+          errors.due_date = t("DateAfterToday");
         }
 
         return errors;
@@ -101,7 +100,7 @@ export const PersonalContent: React.FC<Props> = ({
           ...values,
         };
 
-        if (due_date !== initialValues.due_date) {
+        if (due_date) {
           sendValues = {
             ...sendValues,
             due_date: format(new Date(due_date!), "yyyy-MM-dd"),
@@ -151,7 +150,7 @@ export const PersonalContent: React.FC<Props> = ({
             <Row $gap={16}>
               <Checkbox
                 disabled={isStatusUpdating}
-                checked={!!taskForAction.completed_at}
+                checked={taskDone}
                 onChange={(e) => {
                   setIsStatusUpdating(true);
                   updateTaskStatus(taskForAction.id, e.target.checked)
@@ -159,14 +158,19 @@ export const PersonalContent: React.FC<Props> = ({
                       onStatusUpdateSuccess?.();
                       fetchTask(+taskForAction.id);
                       setIsStatusUpdating(false);
+                      setTaskDone(!taskDone);
                     })
                     .catch(() => setIsStatusUpdating(false));
                 }}
               />
               <SectionHeader>
-                {errors && errors.error && <Text>{errors.error}</Text>}
                 <Input
                   label={t<string>("Tasks.Title")}
+                  error={
+                    touched.title && errors.title ? (
+                      <p>{errors.title}</p>
+                    ) : undefined
+                  }
                   placeholder={t<string>("Tasks.Title")}
                   id="title"
                   name="title"
@@ -174,6 +178,14 @@ export const PersonalContent: React.FC<Props> = ({
                   onChange={handleChange}
                   onBlur={handleBlur}
                   required
+                />
+                <TextArea
+                  name="description"
+                  id="description"
+                  label={t<string>("Tasks.Description")}
+                  placeholder={t<string>("Tasks.Description")}
+                  value={values.description}
+                  onChange={handleChange}
                 />
                 <RelatedTreeSelect
                   label={t<string>("Tasks.RelatesTo")}
@@ -187,14 +199,6 @@ export const PersonalContent: React.FC<Props> = ({
                   value={values.related}
                   onChange={(v) => setFieldValue("related", v)}
                   onBlur={handleBlur}
-                />
-                <TextArea
-                  name="description"
-                  id="description"
-                  label={t<string>("Tasks.Description")}
-                  placeholder={t<string>("Tasks.Description")}
-                  value={values.description}
-                  onChange={handleChange}
                 />
                 <NotesContainer>
                   <Row $alignItems="center" $gap={4}>
@@ -233,8 +237,8 @@ export const PersonalContent: React.FC<Props> = ({
             </ButtonsContainer>
           </LeftCol>
           <RightCol>
-            <ResponsiveCalendarSelect
-              type="datetime-local"
+            <Input
+              type="date"
               error={
                 touched.due_date && errors.due_date ? (
                   <p>{errors.due_date}</p>
@@ -243,14 +247,13 @@ export const PersonalContent: React.FC<Props> = ({
               label={t<string>("Tasks.DueDate")}
               placeholder={t<string>("Tasks.DueDate")}
               name="due_date"
-              onChange={(option: ChangeEvent<HTMLInputElement>) =>
-                setFieldValue(
-                  "due_date",
-                  (option as unknown as SelectOption)?.value
-                )
-              }
+              id="due_date"
+              onChange={handleChange}
               onBlur={handleBlur}
-              value={values.due_date}
+              value={format(
+                values.due_date ? new Date(values.due_date) : new Date(),
+                "yyyy-MM-dd"
+              )}
             />
           </RightCol>
         </Form>

@@ -55,6 +55,7 @@ export const resources = {
       "PdfPlayer.notFound": "Document not found",
       "PdfPlayer.of": "of",
       Required: "Required",
+      DateAfterToday: "The date must be later than today",
       "Wrong email": "Wrong email adress",
       "Wrong phone number": "Wrong phone number",
       "First name": "First name",
@@ -204,6 +205,10 @@ export const resources = {
         AddNote: "Add note",
         EditNote: "Edit note",
         Note: "Note",
+        Today: "Today",
+        Tomorrow: "Tomorrow",
+        Overdue: "Overdue",
+        Upcoming: "Upcoming"
       }
     },
   },
@@ -262,6 +267,7 @@ export const resources = {
       "PdfPlayer.notFound": "Dokument nie został znaleziony",
       "PdfPlayer.of": "z",
       Required: "Wymagane",
+      DateAfterToday: "Data musi być późniejsza niź dzisiaj",
       "Wrong email": "Zły adres email",
       "Wrong phone number": "Zły numer telefonu",
       "First name": "Imię",
@@ -411,6 +417,10 @@ export const resources = {
         AddNote: "Dodaj notatkę",
         EditNote: "Edutuj notatkę",
         Note: "Notatka",
+        Today: "Dzisiaj",
+        Tomorrow: "Jutro",
+        Overdue: "Przekroczone",
+        Upcoming: "Nadchodzące"
       }
     },
   },

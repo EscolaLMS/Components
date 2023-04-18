@@ -36,9 +36,6 @@ import {
 import styled, { withTheme } from "styled-components";
 import { ModalDeleteTask } from "../ModalDeleteTask";
 import { TaskDetailsModal } from "../TaskDetailsModal";
-import { EditTaskNote } from "../TaskNote";
-import { Note, NotesContainer } from "../TaskDetailsModal/content/common";
-import { HiOutlineDocumentText } from "react-icons/hi";
 
 type TasksType = API.Task & { has_notes: boolean };
 
@@ -157,12 +154,12 @@ const TasksComponent: FC<TasksComponentProps> = ({
       taskShowAction.showDone ? sortedTasks : toDoTasks;
 
     switch (type) {
-      case "Today":
+      case t<string>("Tasks.TodayTasks"):
         const today = getTaskArray().filter((task) =>
           isToday(new Date(task.due_date))
         );
         return checkCreateBy(today, create);
-      case "Upcoming":
+      case t<string>("Tasks.UpcomingTasks"):
         const upcoming = getTaskArray().filter(
           (task) =>
             isAfter(new Date(task.due_date), new Date()) &&
@@ -170,7 +167,7 @@ const TasksComponent: FC<TasksComponentProps> = ({
         );
         return checkCreateBy(upcoming, create);
 
-      case "Overdue":
+      case t<string>("Tasks.OverdueTasks"):
         const overdue = getTaskArray().filter(
           (task) =>
             isBefore(new Date(task.due_date), new Date()) &&
@@ -187,7 +184,11 @@ const TasksComponent: FC<TasksComponentProps> = ({
       icon: <BiListUl size="1.2em" />,
       text: t<string>("Tasks.AllTasks"),
       numberOfItems: tasksList
-        ? filterTasks(tasksList as TasksType[], "All", createBy.type).length
+        ? filterTasks(
+            tasksList as TasksType[],
+            t<string>("Tasks.AllTasks"),
+            createBy.type
+          ).length
         : 0,
     },
     {
@@ -195,7 +196,11 @@ const TasksComponent: FC<TasksComponentProps> = ({
       icon: <BiListCheck size="1.2em" />,
       text: t<string>("Tasks.TodayTasks"),
       numberOfItems: tasksList
-        ? filterTasks(tasksList as TasksType[], "Today", createBy.type).length
+        ? filterTasks(
+            tasksList as TasksType[],
+            t<string>("Tasks.TodayTasks"),
+            createBy.type
+          ).length
         : 0,
     },
     {
@@ -203,8 +208,11 @@ const TasksComponent: FC<TasksComponentProps> = ({
       icon: <BiListPlus size="1.2em" />,
       text: t<string>("Tasks.UpcomingTasks"),
       numberOfItems: tasksList
-        ? filterTasks(tasksList as TasksType[], "Upcoming", createBy.type)
-            .length
+        ? filterTasks(
+            tasksList as TasksType[],
+            t<string>("Tasks.UpcomingTasks"),
+            createBy.type
+          ).length
         : 0,
     },
     {
@@ -212,7 +220,11 @@ const TasksComponent: FC<TasksComponentProps> = ({
       icon: <BiListMinus size="1.2em" />,
       text: t<string>("Tasks.OverdueTasks"),
       numberOfItems: tasksList
-        ? filterTasks(tasksList as TasksType[], "Overdue", createBy.type).length
+        ? filterTasks(
+            tasksList as TasksType[],
+            t<string>("Tasks.OverdueTasks"),
+            createBy.type
+          ).length
         : 0,
     },
   ];
@@ -273,22 +285,6 @@ const TasksComponent: FC<TasksComponentProps> = ({
 
   return (
     <>
-      <NotesContainer>
-        <Row $alignItems="center" $gap={4}>
-          <HiOutlineDocumentText />
-          <Text>{t<string>("Tasks.Notes")}</Text>
-        </Row>
-        <div>
-          <Note>
-            <EditTaskNote
-              note={{ note: "test" } as API.TaskNote}
-              onEdit={() => console.log("edit")}
-              onDelete={() => console.log("del")}
-            />
-          </Note>
-        </div>
-      </NotesContainer>
-
       <TasksContainer>
         <TasksHeader>
           <Title level={4}>{t<string>("Tasks.TasksHeader")}</Title>
@@ -352,7 +348,7 @@ const TasksComponent: FC<TasksComponentProps> = ({
                   </Row>
                   <TaskDateWrapper>
                     <TaskDate $date={checkedDate}>
-                      <Text>{checkedDate}</Text>
+                      <Text>{t<string>(`Tasks.${checkedDate}`)}</Text>
                     </TaskDate>
 
                     <DropdownMenu

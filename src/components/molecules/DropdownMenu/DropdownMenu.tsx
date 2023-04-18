@@ -66,7 +66,6 @@ const MenuItem = styled.li`
       theme.primaryColor
     )};
   transition: 0.3s;
-  padding: 12px;
   cursor: pointer;
 
   &:hover {
@@ -75,6 +74,7 @@ const MenuItem = styled.li`
 
   & p {
     margin: 0px;
+    padding: 12px;
   }
 `;
 

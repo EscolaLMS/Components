@@ -1,5 +1,5 @@
 import { getStylesBasedOnTheme } from '../../../utils/utils';
-import { Title } from '../../../';
+import { Title, Text } from '../../../';
 import styled, { css } from 'styled-components';
 
 const defaultFlex = css`
@@ -9,7 +9,10 @@ const defaultFlex = css`
 `;
 
 export const TasksContainer = styled.div`
+  display: flex;
+  flex-direction: column;
   min-width: 100%;
+  min-height: 100%;
   background: ${({ theme }) =>
     getStylesBasedOnTheme(theme.mode, theme.dm__background, theme.white)};
   overflow: auto;
@@ -83,10 +86,11 @@ export const StyledTitle = styled(Title)<{ $isCompleted: boolean }>`
     $isCompleted ? 'line-through' : 'none'};
 `;
 
-export const ProgrammeText = styled.p`
+export const ProgrammeText = styled(Text)`
   text-transform: uppercase;
   margin: 0px;
   padding-top: 6px;
+  font-size: 12px;
 `;
 export const TaskDate = styled.div<{
   $date?: 'Today' | 'Tomorrow' | 'Upcoming' | 'Overdue';

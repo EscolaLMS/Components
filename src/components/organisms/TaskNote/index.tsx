@@ -58,7 +58,7 @@ export const EditTaskNote: React.FC<{
   const [loading, setLoading] = useState(false);
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   useAutosizeTextArea(textAreaRef.current, value);
-  console.log("ref", textAreaRef);
+
   const onEditNote = useCallback(() => {
     setLoading(true);
     updateTaskNote(note.task_id, note.id, value)
