@@ -20,6 +20,7 @@ import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { isAfter, isBefore, isToday, isTomorrow } from "date-fns";
 import { API } from "@escolalms/sdk/lib";
 import { t } from "i18next";
+import { OptionType } from "../../atoms/Option/Option";
 import {
   TasksContainer,
   TasksHeader,
@@ -57,22 +58,25 @@ interface TasksComponentProps {
   createBy: { options: Dropdown[]; type: CreateByType };
 }
 
-const ChangeStatusCheckbox = ({
-  id,
-  checked,
-  onSuccess,
-}: {
+interface ChangeStatusCheckboxProps
+  extends Omit<OptionType, "type" | "id" | "onChange"> {
   id: number;
-  checked: boolean;
   onSuccess: () => void;
+}
+
+const ChangeStatusCheckbox: FC<ChangeStatusCheckboxProps> = ({
+  id,
+  onSuccess,
+  disabled,
+  ...props
 }) => {
   const [isLoading, setIsLoading] = useState(false);
   const { updateTaskStatus } = useContext(EscolaLMSContext);
 
   return (
     <Checkbox
-      disabled={isLoading}
-      checked={checked}
+      {...props}
+      disabled={isLoading || disabled}
       onChange={(e) => {
         setIsLoading(true);
         updateTaskStatus(id, e.target.checked)
@@ -338,11 +342,16 @@ const TasksComponent: FC<TasksComponentProps> = ({
                   <Row $gap={16}>
                     <ChangeStatusCheckbox
                       id={id}
+                      aria-labelledby={`${id}-label`}
                       checked={!!completed_at}
                       onSuccess={refreshTasks}
                     />
                     <Stack>
-                      <StyledTitle $isCompleted={!!completed_at} as="h2">
+                      <StyledTitle
+                        id={`${id}-label`}
+                        $isCompleted={!!completed_at}
+                        as="h2"
+                      >
                         {title}
                       </StyledTitle>
                       {related_type && (
