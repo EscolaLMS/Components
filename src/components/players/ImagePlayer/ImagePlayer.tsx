@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useCallback } from "react";
-import Lightbox from "react-image-lightbox";
+import { Lightbox } from "yet-another-react-lightbox";
+import Zoom from "yet-another-react-lightbox/plugins/zoom";
 import styled, { withTheme, createGlobalStyle } from "styled-components";
 import { API } from "@escolalms/sdk/lib";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
@@ -57,9 +58,13 @@ export const ImagePlayer: React.FC<ImagePlayerProps> = ({
         <>
           <LightBoxOverwrite />
           <Lightbox
-            wrapperClassName=""
-            mainSrc={`${apiUrl}/api/images/img?path=${topic.topicable.value}`}
-            onCloseRequest={onCloseRequest}
+            open={open}
+            zoom={{ maxZoomPixelRatio: 4 }}
+            slides={[
+              { src: `${apiUrl}/api/images/img?path=${topic.topicable.value}` },
+            ]}
+            plugins={[Zoom]}
+            close={onCloseRequest}
           />
         </>
       )}
