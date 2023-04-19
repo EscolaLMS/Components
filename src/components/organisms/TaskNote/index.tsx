@@ -83,9 +83,8 @@ export const EditTaskNote: React.FC<{
       ) : (
         <div>
           <TextArea
-            ref={textAreaRef}
+            textAreaRef={textAreaRef}
             name="note"
-            label={t<string>("Tasks.Note")}
             placeholder={t<string>("Tasks.EditNote")}
             value={value}
             onChange={(e) => setValue(e.target.value)}
@@ -105,7 +104,7 @@ export const EditTaskNote: React.FC<{
                   type="button"
                   onClick={() => onEditNote()}
                 >
-                  {t<string>("Tasks.Edit")}
+                  {t<string>("Tasks.Save")}
                 </Button>
               </>
             )}

@@ -1,5 +1,4 @@
 import { Checkbox, Input } from '../../../../';
-import { add, endOfDay, endOfToday } from 'date-fns';
 import styled from 'styled-components';
 import { getStylesBasedOnTheme } from '../../../../utils/utils';
 
@@ -41,28 +40,13 @@ export const LeftPaddingWrapper = styled.div`
   padding-left: 36px;
 `;
 
-export const TextArea = styled.textarea`
-  width: 100%;
-  padding: 16px;
-  border: 1px solid ${({ theme }) => theme.outlineButtonColor};
-  color: ${({ theme }) =>
-        getStylesBasedOnTheme(theme.mode, theme.white, theme.gray1)};
-  line-height: 130%;
-  resize: none;
-  transition: border-color 200ms ease-in-out;
-`;
-
 export const ResponsiveCalendarSelect = styled(Input)`
   width: 100%;
 `;
 
 export const NotesContainer = styled.div`
-padding: 12px 0px;
   width: 100%;
   & > div {
-    & div {
-      margin: 4px 0;
-    }
     width: 100%;
     max-height: 380px;
     overflow: auto;
@@ -75,13 +59,11 @@ padding: 12px 0px;
 export const Note = styled.div`
   display: flex;
   min-width: 100%;
-
+  margin: 4px 0px;
   & > div:first-child {
     display: flex;
     width: 100%;
-    padding: 4px;
-    border-radius: 12px;
-    background-color: ${({ theme }) => theme.dm__background};
+    background-color: ${({ theme }) => getStylesBasedOnTheme(theme.mode, theme.gray3, theme.gray3)};
     :hover {
       color: ${({ theme }) => theme.dm__colorBackground};
     }
@@ -89,6 +71,8 @@ export const Note = styled.div`
       width: auto;
       transition: 0.3s;
       padding: 6px;
+      margin: 4px 6px;
+      margin-left: 0px;
       :hover {
         color: ${({ theme }) => theme.dm__background};
       }
@@ -99,9 +83,9 @@ export const Note = styled.div`
     & textarea {
       min-height: 100%;
       min-width: 75%;
-      margin-block: 4px;
       border: none;
-      background-color: ${({ theme }) => theme.dm__background};
+      color: ${({ theme }) => getStylesBasedOnTheme(theme.mode, theme.white, theme.gray1)};
+      background-color: ${({ theme }) => getStylesBasedOnTheme(theme.mode, theme.gray3, theme.gray3)};
       cursor: pointer;
 
       &:focus {
@@ -123,23 +107,3 @@ export const AddNoteWrapper = styled.div`
   }
 `;
 
-export const getSelectDates = () => {
-  const today = endOfToday();
-  const tomorrow = add(today, { days: 1 }).toString();
-  const nextWeek = add(today, { weeks: 1 }).toString();
-
-  return { today: today.toString(), tomorrow, nextWeek };
-};
-
-export const getDueDate = (dueDate: string): string => {
-  const endOfDayDueDateStr = endOfDay(new Date(dueDate)).toString();
-  const { today, tomorrow, nextWeek } = getSelectDates();
-
-  const dueDateMap = {
-    [today]: today,
-    [tomorrow]: tomorrow,
-    [nextWeek]: nextWeek,
-  };
-
-  return dueDateMap[endOfDayDueDateStr] ?? dueDate;
-};

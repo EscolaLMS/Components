@@ -78,7 +78,6 @@ const taskCreateBy = [
   <EscolaLMSContextProvider apiUrl="https://api-stage.escolalms.com/">
     <TasksComponent
       taskShowAction={{ options: taskShowAction, showDone: showDone }}
-      programmeItems={[]}
       sortOptions={{ options: sortType, type: sort }}
       createBy={{ options: taskCreateBy, type: createBy }}
     />
