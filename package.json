@@ -75,6 +75,8 @@
     "react": "^18||^17",
     "react-grid-system": "^8.1.9",
     "react-i18next": "^12.2.0",
+    "react-icons": "^4.8.0",
+    "react-player": "^2.12.0",
     "react-tiny-oembed": "^1.1.0",
     "react-transition-group": "^4.4.5",
     "rehype-raw": "^6.1.1",
