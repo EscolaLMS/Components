@@ -1,5 +1,4 @@
 import * as React from "react";
-import type { PropsWithChildren } from "react";
 import styled, { createGlobalStyle, withTheme } from "styled-components";
 import ReactMarkdown from "react-markdown";
 import { getFontFromTheme } from "../../../theme/provider";
