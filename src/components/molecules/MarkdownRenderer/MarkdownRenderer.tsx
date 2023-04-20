@@ -7,7 +7,8 @@ import { ReactMarkdownOptions } from "react-markdown/lib/react-markdown";
 import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
 import { fixContentForMarkdown } from "../../../utils/components/markdown";
-import Lightbox from "react-image-lightbox";
+import { Lightbox } from "yet-another-react-lightbox";
+import Zoom from "yet-another-react-lightbox/plugins/zoom";
 import { useState } from "react";
 import chroma from "chroma-js";
 import {
@@ -132,8 +133,11 @@ export const MarkdownImage: React.ComponentType<
         <>
           <LightBoxOverwrite />
           <Lightbox
-            mainSrc={props.src}
-            onCloseRequest={() => setIsOpen(false)}
+            open={isOpen}
+            slides={[{ src: props.src }]}
+            zoom={{ maxZoomPixelRatio: 4 }}
+            plugins={[Zoom]}
+            close={() => setIsOpen(false)}
           />
         </>
       )}
