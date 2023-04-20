@@ -51,7 +51,6 @@
     "source-map-loader": "^3.0.1",
     "start-server-and-test": "1.14.0",
     "style-loader": "^3.3.1",
-    "styled-components": "^5.3.5",
     "stylelint": "^14.8.2",
     "stylelint-config-recommended": "^7.0.0",
     "stylelint-config-styled-components": "^0.1.1",
@@ -84,6 +83,7 @@
     "rehype-raw": "^6.1.1",
     "remark-gfm": "^3.0.1",
     "screenfull": "6.0.1",
+    "styled-components": "^5.3.5",
     "yet-another-react-lightbox": "^3.4.0"
   }
 }
