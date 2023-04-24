@@ -57,7 +57,10 @@
     "stylelint-processor-styled-components": "^1.10.0",
     "ts-loader": "^9.2.8",
     "typescript": "^4.6.4",
-    "webpack": "^5.72.0"
+    "webpack": "^5.72.0",
+    "react-styleguidist": "^11.2.0",
+    "react-slick": "^0.29.0",
+    "react-pdf": "^5.7.2"
   },
   "homepage": "https://escolalms.github.io/components",
   "dependencies": {
