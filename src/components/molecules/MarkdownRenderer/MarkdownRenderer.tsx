@@ -166,22 +166,25 @@ export const MarkdownImage: React.FC<
       >
         <Item original={src} width={size[0]} height={size[1]}>
           {({ ref, open }) => (
-            <img
+            <span
               role="button"
               onClick={open}
-              ref={ref as React.MutableRefObject<HTMLImageElement>}
               onKeyDown={() => open({} as React.MouseEvent)}
-              onLoad={(e) =>
-                setSize([
-                  e.currentTarget.naturalWidth,
-                  e.currentTarget.naturalHeight,
-                ])
-              }
-              src={src}
-              alt={alt}
-              style={{ cursor: "pointer" }}
               tabIndex={0}
-            />
+              style={{ cursor: "pointer" }}
+            >
+              <img
+                ref={ref as React.MutableRefObject<HTMLImageElement>}
+                onLoad={(e) =>
+                  setSize([
+                    e.currentTarget.naturalWidth,
+                    e.currentTarget.naturalHeight,
+                  ])
+                }
+                src={src}
+                alt={alt}
+              />
+            </span>
           )}
         </Item>
       </Gallery>
