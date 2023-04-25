@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import styled, { withTheme } from "styled-components";
 import { Spin, Link } from "../../..";
 import { useTranslation } from "react-i18next";
@@ -151,7 +151,10 @@ export const Upload: React.FC<InputProps> = (props) => {
     []
   );
 
-  const id = buttonTitle ? getUniqueId("upload") : null;
+  const id = useMemo(
+    () => (buttonTitle ? getUniqueId("upload") : null),
+    [buttonTitle]
+  );
 
   return (
     <StyledDiv className={`wellms-component upload ${className}`}>

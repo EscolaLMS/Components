@@ -15,7 +15,7 @@ import type { ResponseError } from "umi-request";
 import styled, { withTheme } from "styled-components";
 
 import { Input, Button, Title, Link, Text, Checkbox } from "../../../";
-import { getStylesBasedOnTheme } from "../../../utils/utils";
+import { getStylesBasedOnTheme, getUniqueId } from "../../../utils/utils";
 import { ExtendableStyledComponent } from "types/component";
 import { API } from "@escolalms/sdk/lib";
 
@@ -323,53 +323,40 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
 
                   return field.type !== "boolean" && !r;
                 })
-                .map(
-                  (
-                    field: API.Metadata,
-                    index: number
-                  ) => (
-                    <Input
-                      key={`${field}${index}`}
-                      required={isAdditionalRequiredField(field)}
-                      label={
-                        fieldLabels[`AdditionalFields.${field.name}`] ||
-                        t(`AdditionalFields.${field.name}`)
-                      }
-                      type="text"
-                      name={field.name}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      value={String(values[field.name]) || ""}
-                      error={errors[field.name] && touched[field.name]}
-                    />
-                  )
-                )}
+                .map((field: API.Metadata, index: number) => (
+                  <Input
+                    key={`${field}${index}`}
+                    required={isAdditionalRequiredField(field)}
+                    label={
+                      fieldLabels[`AdditionalFields.${field.name}`] ||
+                      t(`AdditionalFields.${field.name}`)
+                    }
+                    type="text"
+                    name={field.name}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={String(values[field.name]) || ""}
+                    error={errors[field.name] && touched[field.name]}
+                  />
+                ))}
 
             {fields &&
               fields.list &&
               fields.list
-                .filter(
-                  (field: API.Metadata) =>
-                    field.type === "boolean"
-                )
-                .map(
-                  (
-                    field: API.Metadata,
-                    index: number
-                  ) => (
-                    <Checkbox
-                      key={`${field.id}${index}`}
-                      label={
-                        fieldLabels[`AdditionalFields.${field.name}`] ||
-                        t(`AdditionalFields.${field.name}`)
-                      }
-                      id={field.name + Date.now()}
-                      name={field.name}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                    />
-                  )
-                )}
+                .filter((field: API.Metadata) => field.type === "boolean")
+                .map((field: API.Metadata, index: number) => (
+                  <Checkbox
+                    key={`${field.id}${index}`}
+                    label={
+                      fieldLabels[`AdditionalFields.${field.name}`] ||
+                      t(`AdditionalFields.${field.name}`)
+                    }
+                    id={getUniqueId(field.name)}
+                    name={field.name}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                ))}
 
             <Button
               mode="secondary"

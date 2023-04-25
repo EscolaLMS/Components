@@ -9,8 +9,8 @@ const question = {
   title: "",
   question: "Match the following countries with their corresponding capitals.",
   options: {
-    sub_questions: ["Italy", "India", "Japan", "Canada"],
-    sub_answers: ["Ottawa", "Rome", "New Delhi", "Tokyo"],
+    sub_questions: ["Poland", "France", "Germany", "Czech Republic"],
+    sub_answers: ["Warsaw", "Berlin", "Prague", "Paris"],
   },
 };
 
