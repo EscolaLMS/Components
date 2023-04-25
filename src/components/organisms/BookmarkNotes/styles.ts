@@ -1,6 +1,6 @@
-import { getStylesBasedOnTheme } from '../../../utils/utils';
-import { Title, Text, Row } from '../../../';
-import styled, { css } from 'styled-components';
+import { getStylesBasedOnTheme } from "../../../utils/utils";
+import { Title, Text } from "../../../";
+import styled, { css } from "styled-components";
 
 const defaultFlex = css`
   display: flex;
@@ -54,7 +54,7 @@ export const BookmarkNotesContentHeader = styled.div`
 export const IconWrapper = styled.div`
   border-radius: 50%;
   border: 1px solid ${({ theme }) => theme.dm__primaryColor};
-  padding: 4px;;
+  padding: 4px; ;
 `;
 export const BookmarkNotesMenu = styled.div`
   border-right: 1px solid ${({ theme }) => theme.dm__primaryColor};
@@ -85,10 +85,10 @@ export const BookmarkNotesItem = styled.li`
 `;
 
 export const NoteText = styled(Text)`
-text-transform: uppercase;
-margin: 0px;
-padding-top: 6px;
-font-size: 12px;
+  text-transform: uppercase;
+  margin: 0px;
+  padding-top: 6px;
+  font-size: 12px;
 `;
 
 export const StyledTitle = styled(Title)`
