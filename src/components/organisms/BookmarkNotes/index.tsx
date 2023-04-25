@@ -1,21 +1,23 @@
 import { Button, Title, Text, List, Dropdown, Stack } from "../../..";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { FC, ReactNode, useContext, useEffect, useMemo, useState } from "react";
-
 import { API } from "@escolalms/sdk/lib";
 import { t } from "i18next";
 import {
   BookmarkNotesContainer,
   BookmarkNotesHeader,
-  BookmarkNotesTitle,
   BookmarkNotesBody,
   BookmarkNotesMenu,
   BookmarkNotesContent,
   BookmarkNotesContentHeader,
+  BookmarkNotesList,
   BookmarkNotesItem,
   NoteText,
   StyledTitle,
+  BookmarksPage,
 } from "./styles";
+import { IconEdit, IconEditAlt } from "../../../styleguide/Icons";
+import styled, { withTheme } from "styled-components";
 
 export interface Dropdown {
   id: number;
@@ -23,30 +25,26 @@ export interface Dropdown {
 }
 
 interface BookmarkNotesComponentProps {
-  closeButton: any;
-
-  programmeItems?: Dropdown[];
-  sortItems?: { options: Dropdown[]; type: string };
-  taskShowAction?: {
-    options: { id: number; content: ReactNode }[];
-    showDone: boolean;
-  };
-  taskData?: API.Task;
-  onTaskDetailsModalClose?: () => void;
-  onClickBookmark: (courseId: number, topicId: number) => void;
+  onClickBookmark: (
+    courseId: number,
+    lessonId: number,
+    topicId: number
+  ) => void;
+  onDelete?: () => void;
 }
 
-export const BookmarkNotes: FC<BookmarkNotesComponentProps> = ({
-  closeButton,
+const BookmarkNotes: FC<BookmarkNotesComponentProps> = ({
   onClickBookmark,
+  onDelete,
 }) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [lastPage, setLastPage] = useState(2);
+  const previousDisabled = currentPage <= 1;
+  const nextDisabled = currentPage >= lastPage;
   const [selectedListItem, setSelectedListItem] = useState(0);
-  const {
-    fetchBookmarkNotes,
-    bookmarkNotes,
-    deleteBookmarkNote,
-    notifications,
-  } = useContext(EscolaLMSContext);
+
+  const { bookmarkNotes, fetchBookmarkNotes, deleteBookmarkNote } =
+    useContext(EscolaLMSContext);
 
   const bookmarks = useMemo(
     () => bookmarkNotes.list?.data.filter((item) => item.value === null),
@@ -61,16 +59,16 @@ export const BookmarkNotes: FC<BookmarkNotesComponentProps> = ({
   const listItems = [
     {
       id: 0,
-      iconName: "editSquare",
-      text: "Notes",
+      icon: <IconEditAlt />,
+      text: t<string>("Bookmarks.Notes"),
       numberOfTasks: bookmarkNotes.list?.data.length
         ? Number(notes?.length)
         : 0,
     },
     {
       id: 1,
-      iconName: "plus",
-      text: "Bookmarks",
+      icon: <IconEdit />,
+      text: t<string>("Bookmarks.Bookmarks"),
       numberOfTasks: bookmarkNotes.list?.data.length
         ? Number(bookmarks?.length)
         : 0,
@@ -83,80 +81,92 @@ export const BookmarkNotes: FC<BookmarkNotesComponentProps> = ({
   const getArrayToMap = () => (selectedListItem === 0 ? notes : bookmarks);
 
   const handleBookmark = (id: number) =>
-    deleteBookmarkNote(id).then(() => fetchBookmarkNotes());
+    deleteBookmarkNote(id).then(() => {
+      fetchBookmarkNotes();
+      onDelete && onDelete();
+    });
 
   useEffect(() => {
-    fetchBookmarkNotes();
-  }, [fetchBookmarkNotes, notifications]);
+    fetchBookmarkNotes({ page: currentPage, per_page: 25 });
+    setLastPage(Number(bookmarkNotes.list?.meta.last_page));
+  }, [fetchBookmarkNotes, currentPage]);
 
   return (
-    <>
-      <BookmarkNotesContainer data-testid="bookmark-container">
-        <BookmarkNotesHeader>
-          <BookmarkNotesTitle>
-            <Title>
-              {t("BookmarkNotes.Title", {
-                defaultValue: "Bookmarks and notes",
-              })}
-            </Title>
-          </BookmarkNotesTitle>
-          <Button variant="secondary" onClick={closeButton?.onClick}>
-            {"Button?"}
-          </Button>
-        </BookmarkNotesHeader>
-        <BookmarkNotesBody>
-          <BookmarkNotesMenu>
-            <List
-              listItems={listItems}
-              selectedListItem={selectedListItem}
-              setSelectedListItem={setSelectedListItem}
-            />
-          </BookmarkNotesMenu>
-          <BookmarkNotesContent>
-            <BookmarkNotesContentHeader>
-              <Title>{currentlySelectedListItem?.text}</Title>
-            </BookmarkNotesContentHeader>
-            <ul>
-              {getArrayToMap()?.map((item: API.BookmarkNote) => {
-                const { id, bookmarkable_id, bookmarkable_type, value } = item;
-                const bookmarkInfo = bookmarkable_type.split(":");
-                return (
-                  <BookmarkNotesItem key={id}>
-                    <Stack>
-                      <StyledTitle
-                        size="lg"
-                        weight="medium"
-                        onClick={() =>
-                          onClickBookmark(
-                            Number(bookmarkInfo[0]),
-                            bookmarkable_id
-                          )
-                        }
-                      >
-                        {`${bookmarkInfo[1]} : ${bookmarkInfo[2]}`}
-                      </StyledTitle>
-                      {value && <NoteText>{value}</NoteText>}
-                    </Stack>
-                    <Button
-                      variant="secondary"
-                      onClick={() => handleBookmark(id)}
+    <BookmarkNotesContainer>
+      <BookmarkNotesHeader>
+        <Title level={4}>{t<string>("Bookmarks.Title")}</Title>
+      </BookmarkNotesHeader>
+      <BookmarkNotesBody>
+        <BookmarkNotesMenu>
+          <List
+            listItems={listItems}
+            selectedListItem={selectedListItem}
+            setSelectedListItem={setSelectedListItem}
+          />
+        </BookmarkNotesMenu>
+        <BookmarkNotesContent>
+          <BookmarkNotesContentHeader>
+            <Title level={4}>{currentlySelectedListItem?.text}</Title>
+          </BookmarkNotesContentHeader>
+          <BookmarkNotesList>
+            {getArrayToMap()?.map((item: API.BookmarkNote) => {
+              const { id, bookmarkable_type, value } = item;
+              const bookmarkInfo = bookmarkable_type.split(":");
+              const bookmark = bookmarkable_type
+                .split("/")
+                .map((num) => parseInt(num));
+              return (
+                <BookmarkNotesItem key={id}>
+                  <Stack>
+                    <StyledTitle
+                      size="lg"
+                      weight="medium"
+                      onClick={() =>
+                        onClickBookmark(bookmark[0], bookmark[1], bookmark[2])
+                      }
                     >
-                      {"Close"}
-                    </Button>
-                  </BookmarkNotesItem>
-                );
-              })}
-            </ul>
-            {bookmarkNotes.list?.data.length === 0 && (
-              <Text $color="neutral600" weight="light">
-                {t("Bookmarks.noBookmarks", {
-                  defaultValue: "There is nothing on this list...",
-                })}
-              </Text>
-            )}
-          </BookmarkNotesContent>
-        </BookmarkNotesBody>
-      </BookmarkNotesContainer>
-    </>
+                      {`${bookmarkInfo[1]} : ${bookmarkInfo[2]}`}
+                    </StyledTitle>
+                    {value && <NoteText>{value}</NoteText>}
+                  </Stack>
+                  <Button mode="outline" onClick={() => handleBookmark(id)}>
+                    {t<string>("Bookmarks.Delete")}
+                  </Button>
+                </BookmarkNotesItem>
+              );
+            })}
+          </BookmarkNotesList>
+          {bookmarkNotes.list?.data.length === 0 && (
+            <Text $color="neutral600" weight="light">
+              {t<string>("Bookmarks.NoBookmarks")}
+            </Text>
+          )}
+        </BookmarkNotesContent>
+      </BookmarkNotesBody>
+      <BookmarksPage>
+        <Button
+          type="button"
+          mode="outline"
+          disabled={previousDisabled}
+          onClick={() => setCurrentPage(currentPage - 1)}
+        >
+          {t<string>("Bookmarks.Prev")}
+        </Button>
+
+        <Title>{`${t<string>("Bookmarks.Page")} ${currentPage} / ${
+          lastPage || 1
+        }`}</Title>
+        <Button
+          type="button"
+          mode="outline"
+          disabled={nextDisabled}
+          onClick={() => setCurrentPage(currentPage + 1)}
+        >
+          {t<string>("Bookmarks.Next")}
+        </Button>
+      </BookmarksPage>
+    </BookmarkNotesContainer>
   );
 };
+
+export default withTheme(styled(BookmarkNotes)``);

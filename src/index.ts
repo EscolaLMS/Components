@@ -64,5 +64,7 @@ export { default as RegisterForm } from "./components/organisms/RegisterForm/Reg
 export { default as ResetPasswordForm } from "./components/organisms/ResetPasswordForm/ResetPasswordForm";
 export { default as TaskComponent } from "./components/organisms/TasksComponent";
 export { default as ModalAddTask }  from "./components/organisms/ModalAddTask/ModalAddTask";
+export { default as BookmarkNotes }  from "./components/organisms/BookmarkNotes";
+export { default as ModalNote }  from "./components/organisms/ModalNote";
 
 //ADVANCED

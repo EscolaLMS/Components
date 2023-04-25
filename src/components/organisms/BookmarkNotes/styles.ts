@@ -1,5 +1,5 @@
 import { getStylesBasedOnTheme } from '../../../utils/utils';
-import { Title, Text } from '../../../';
+import { Title, Text, Row } from '../../../';
 import styled, { css } from 'styled-components';
 
 const defaultFlex = css`
@@ -9,14 +9,23 @@ const defaultFlex = css`
 `;
 
 export const BookmarkNotesContainer = styled.div`
-  margin: 24px auto;
-  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  min-width: 100%;
+  min-height: 100%;
   background: ${({ theme }) =>
     getStylesBasedOnTheme(theme.mode, theme.dm__background, theme.white)};
-  border-radius: 24px;
-  height: calc(100vh - 120px);
-  max-width: 1392px;
   overflow: auto;
+  ::-webkit-scrollbar {
+    width: 2px;
+    border-radius: 2px;
+    height: 2px;
+    background-color: ${({ theme }) => theme.colorBackground};
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: ${({ theme }) => theme.background};
+    border-radius: 4px;
+  }
 `;
 export const BookmarkNotesBody = styled.div`
   display: flex;
@@ -24,13 +33,15 @@ export const BookmarkNotesBody = styled.div`
 `;
 export const BookmarkNotesHeader = styled.div`
   ${defaultFlex};
-  padding-bottom: 20px;
+  padding: 12px 0px;
   border-bottom: 1px solid ${({ theme }) => theme.dm__primaryColor};
 `;
 
-export const BookmarkNotesTitle = styled.div`
-  ${defaultFlex};
-  gap: 16px;
+export const BookmarksPage = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 24px;
+  border-top: 1px solid ${({ theme }) => theme.dm__primaryColor};
 `;
 
 export const BookmarkNotesContentHeader = styled.div`
@@ -55,10 +66,15 @@ export const BookmarkNotesContent = styled.div`
   padding: 24px 0 24px 24px;
 `;
 
+export const BookmarkNotesList = styled.ul`
+  margin: 0px;
+  padding: 0px;
+`;
+
 export const BookmarkNotesItem = styled.li`
   ${defaultFlex};
   list-style: disc;
-  margin-bottom: 32px;
+  margin-bottom: 12px;
   & label {
     display: flex;
     gap: 16px;
@@ -68,8 +84,11 @@ export const BookmarkNotesItem = styled.li`
   }
 `;
 
-export const NoteText = styled.p`
-  text-transform: uppercase;
+export const NoteText = styled(Text)`
+text-transform: uppercase;
+margin: 0px;
+padding-top: 6px;
+font-size: 12px;
 `;
 
 export const StyledTitle = styled(Title)`
