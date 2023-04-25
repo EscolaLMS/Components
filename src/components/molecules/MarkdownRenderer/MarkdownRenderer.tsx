@@ -167,8 +167,10 @@ export const MarkdownImage: React.FC<
         <Item original={src} width={size[0]} height={size[1]}>
           {({ ref, open }) => (
             <img
-              ref={ref as React.MutableRefObject<HTMLImageElement>}
+              role="button"
               onClick={open}
+              ref={ref as React.MutableRefObject<HTMLImageElement>}
+              onKeyDown={() => open({} as React.MouseEvent)}
               onLoad={(e) =>
                 setSize([
                   e.currentTarget.naturalWidth,
@@ -178,6 +180,7 @@ export const MarkdownImage: React.FC<
               src={src}
               alt={alt}
               style={{ cursor: "pointer" }}
+              tabIndex={0}
             />
           )}
         </Item>
