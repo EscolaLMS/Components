@@ -8,7 +8,7 @@ import ThemeTester from "../../../styleguide/ThemeTester";
 const onNext = () => console.log("onNext");
 const onPrev = () => console.log("onPrev");
 const onFinish = () => console.log("onFinish");
-const onNoteClick = () => console.log("onNoteClick");
+const onBookmarkClick = () => console.log("onBookmarkClick");
 
 <React.Fragment>
   <ThemeTester childrenListStyle={{ display: "block" }}>
@@ -27,10 +27,11 @@ const onNoteClick = () => console.log("onNoteClick");
         hasNext
         hasPrev
         isFinished
+        addBookmarks
+        onBookmarkClick={onBookmarkClick}
         onNext={onNext}
         onPrev={onPrev}
         onFinish={onFinish}
-        onNoteClick={onNoteClick}
       />
     </div>
     <div style={{ marginTop: 20 }}>
@@ -50,7 +51,8 @@ const onNoteClick = () => console.log("onNoteClick");
         isFinished={false}
         onNext={onNext}
         addNotes
-        onNoteClick={onNoteClick}
+        addBookmarks
+        onBookmarkClick={onBookmarkClick}
         onPrev={onPrev}
         onFinish={onFinish}
       />
@@ -63,7 +65,8 @@ const onNoteClick = () => console.log("onNoteClick");
         onNext={onNext}
         onPrev={onPrev}
         addNotes
-        onNoteClick
+        addBookmarks
+        onBookmarkClick={onBookmarkClick}
         onFinish={onFinish}
       />
     </div>
@@ -73,7 +76,7 @@ const onNoteClick = () => console.log("onNoteClick");
         hasPrev={false}
         hasPrev
         isFinished
-        onNoteClick
+        onBookmarkClick={onBookmarkClick}
         onPrev={onPrev}
         onFinish={onFinish}
       />
