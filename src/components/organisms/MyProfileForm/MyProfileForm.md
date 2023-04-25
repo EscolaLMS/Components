@@ -5,6 +5,12 @@ import { EscolaLMSContextProvider } from "@escolalms/sdk/lib/react/context";
 import { Text } from "../../../";
 import Authbtn from "../../../utils/components/authbtn";
 
+const MobileProfileForm = () => (
+  <div style={{ maxWidth: "400px" }}>
+    <MyProfileForm mobile />
+  </div>
+);
+
 <React.Fragment>
   <EscolaLMSContextProvider apiUrl="https://api-stage.escolalms.com/">
     <ThemeTester
@@ -20,9 +26,7 @@ import Authbtn from "../../../utils/components/authbtn";
       />
 
       <Text>Mobile version</Text>
-      <div style={{ maxWidth: "400px" }}>
-        <MyProfileForm mobile />
-      </div>
+      <MobileProfileForm />
     </ThemeTester>
   </EscolaLMSContextProvider>
 
