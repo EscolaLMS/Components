@@ -99,338 +99,443 @@ export const roundPercentageList = (orig: number[], target?: number) => {
 };
 
 export const SharedLightboxStyle = css`
-  .yarl__fullsize {
-    width: 100%;
-    height: 100%;
+  /*! PhotoSwipe main CSS by Dmytro Semenov | photoswipe.com */
+
+  .pswp {
+    --pswp-bg: #000;
+    --pswp-placeholder-bg: #222;
+
+    --pswp-root-z-index: 100000;
+
+    --pswp-preloader-color: rgba(79, 79, 79, 0.4);
+    --pswp-preloader-color-secondary: rgba(255, 255, 255, 0.9);
+
+    /* defined via js:
+    --pswp-transition-duration: 333ms; */
+
+    --pswp-icon-color: #fff;
+    --pswp-icon-color-secondary: #4f4f4f;
+    --pswp-icon-stroke-color: #4f4f4f;
+    --pswp-icon-stroke-width: 2px;
+
+    --pswp-error-text-color: var(--pswp-icon-color);
   }
-  .yarl__relative {
-    position: relative;
-  }
-  .yarl__portal {
+
+  /*
+  \tStyles for basic PhotoSwipe (pswp) functionality (sliding area, open/close transitions)
+  */
+
+  .pswp {
     position: fixed;
     top: 0;
-    right: 0;
-    bottom: 0;
     left: 0;
-    opacity: 0;
-    overflow: hidden;
-    z-index: var(--yarl__portal_zindex, 9999);
-    transition: opacity var(--yarl__fade_animation_duration, 250ms)
-      var(--yarl__fade_animation_timing_function, ease);
-  }
-  .yarl__portal_open {
-    opacity: 1;
-  }
-  .yarl__container {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    overflow: hidden;
-    background-color: var(
-      --yarl__container_background_color,
-      var(--yarl__color_backdrop, #000)
-    );
-    outline: 0;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    user-select: none;
-    touch-action: var(--yarl__controller_touch_action, none);
-    overscroll-behavior: var(--yarl__controller_overscroll-behavior, contain);
-  }
-  .yarl__carousel {
-    display: flex;
-    flex: 0 0 auto;
-    height: 100%;
-    align-content: center;
-    justify-content: center;
-    align-items: stretch;
-    width: calc(
-      100% + (var(--yarl__carousel_slides_count) - 1) *
-        (
-          100% + var(--yarl__carousel_spacing_px, 0) * 1px +
-            var(--yarl__carousel_spacing_percent, 0) * 1%
-        )
-    );
-    -webkit-transform: translateX(var(--yarl__swipe_offset, 0px));
-    transform: translateX(var(--yarl__swipe_offset, 0px));
-  }
-  .yarl__carousel_with_slides {
-    -webkit-column-gap: calc(
-      var(--yarl__carousel_spacing_px, 0) * 1px + 100 /
-        (
-          100 * var(--yarl__carousel_slides_count) +
-            (var(--yarl__carousel_slides_count) - 1) *
-            var(--yarl__carousel_spacing_percent, 0)
-        ) * var(--yarl__carousel_spacing_percent, 0) * 1%
-    );
-    -moz-column-gap: calc(
-      var(--yarl__carousel_spacing_px, 0) * 1px + 100 /
-        (
-          100 * var(--yarl__carousel_slides_count) +
-            (var(--yarl__carousel_slides_count) - 1) *
-            var(--yarl__carousel_spacing_percent, 0)
-        ) * var(--yarl__carousel_spacing_percent, 0) * 1%
-    );
-    column-gap: calc(
-      var(--yarl__carousel_spacing_px, 0) * 1px + 100 /
-        (
-          100 * var(--yarl__carousel_slides_count) +
-            (var(--yarl__carousel_slides_count) - 1) *
-            var(--yarl__carousel_spacing_percent, 0)
-        ) * var(--yarl__carousel_spacing_percent, 0) * 1%
-    );
-  }
-  .yarl__flex_center {
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
-  }
-  .yarl__slide {
-    flex: 1;
-    position: relative;
-    overflow: hidden;
-    padding: calc(
-      var(--yarl__carousel_padding_px, 0) * 1px + 100 /
-        (
-          100 * var(--yarl__carousel_slides_count) +
-            (var(--yarl__carousel_slides_count) - 1) *
-            var(--yarl__carousel_spacing_percent, 0)
-        ) * var(--yarl__carousel_padding_percent, 0) * 1%
-    );
-  }
-  [dir="rtl"] .yarl__slide {
-    --yarl__direction: -1;
-  }
-  .yarl__slide_image {
-    max-width: 100%;
-    max-height: 100%;
-    -o-object-fit: contain;
-    object-fit: contain;
-    touch-action: var(--yarl__controller_touch_action, none);
-    -moz-user-select: none;
-    user-select: none;
-    -webkit-user-select: none;
-    -webkit-touch-callout: none;
-  }
-  @media screen and (min-width: 800px) {
-    .yarl__slide_image {
-      -webkit-transform: translateZ(0);
-      -webkit-backface-visibility: hidden;
-      -webkit-transform-style: preserve-3d;
-    }
-  }
-  .yarl__slide_image_cover {
     width: 100%;
     height: 100%;
-    -o-object-fit: cover;
-    object-fit: cover;
+    z-index: var(--pswp-root-z-index);
+    display: none;
+    touch-action: none;
+    outline: 0;
+    opacity: 0.003;
+    contain: layout style size;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   }
-  .yarl__slide_image_loading {
-    opacity: 0;
+
+  /* Prevents focus outline on the root element,
+    (it may be focused initially) */
+
+  .pswp:focus {
+    outline: 0;
   }
-  .yarl__slide_placeholder {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    -webkit-transform: translateX(-50%) translateY(-50%);
-    transform: translateX(-50%) translateY(-50%);
-    line-height: 0;
+
+  .pswp * {
+    box-sizing: border-box;
   }
-  .yarl__slide_loading {
-    color: var(
-      --yarl__slide_icon_loading_color,
-      var(--yarl__color_button, rgba(255, 255, 255, 0.8))
-    );
-    -webkit-animation: yarl__delayed_fadein 1s linear;
-    animation: yarl__delayed_fadein 1s linear;
+
+  .pswp img {
+    max-width: none;
   }
-  .yarl__slide_loading line {
-    -webkit-animation: yarl__stroke_opacity 1s linear infinite;
-    animation: yarl__stroke_opacity 1s linear infinite;
+
+  .pswp--open {
+    display: block;
   }
-  .yarl__slide_loading line:nth-of-type(1) {
-    -webkit-animation-delay: -1.875s;
-    animation-delay: -1.875s;
+
+  .pswp,
+  .pswp__bg {
+    transform: translateZ(0);
+    will-change: opacity;
   }
-  .yarl__slide_loading line:nth-of-type(2) {
-    -webkit-animation-delay: -1.75s;
-    animation-delay: -1.75s;
+
+  .pswp__bg {
+    opacity: 0.005;
+    background: var(--pswp-bg);
   }
-  .yarl__slide_loading line:nth-of-type(3) {
-    -webkit-animation-delay: -1.625s;
-    animation-delay: -1.625s;
+
+  .pswp,
+  .pswp__scroll-wrap {
+    overflow: hidden;
   }
-  .yarl__slide_loading line:nth-of-type(4) {
-    -webkit-animation-delay: -1.5s;
-    animation-delay: -1.5s;
-  }
-  .yarl__slide_loading line:nth-of-type(5) {
-    -webkit-animation-delay: -1.375s;
-    animation-delay: -1.375s;
-  }
-  .yarl__slide_loading line:nth-of-type(6) {
-    -webkit-animation-delay: -1.25s;
-    animation-delay: -1.25s;
-  }
-  .yarl__slide_loading line:nth-of-type(7) {
-    -webkit-animation-delay: -1.125s;
-    animation-delay: -1.125s;
-  }
-  .yarl__slide_loading line:nth-of-type(8) {
-    -webkit-animation-delay: -1s;
-    animation-delay: -1s;
-  }
-  .yarl__slide_error {
-    width: var(--yarl__slide_icon_error_size, 48px);
-    height: var(--yarl__slide_icon_error_size, 48px);
-    color: var(--yarl__slide_icon_error_color, red);
-  }
-  @media (prefers-reduced-motion) {
-    .yarl__portal,
-    .yarl__slide {
-      transition: unset;
-    }
-    .yarl__slide_loading,
-    .yarl__slide_loading line {
-      -webkit-animation: unset;
-      animation: unset;
-    }
-  }
-  .yarl__toolbar {
+
+  .pswp__scroll-wrap,
+  .pswp__bg,
+  .pswp__container,
+  .pswp__item,
+  .pswp__content,
+  .pswp__img,
+  .pswp__zoom-wrap {
     position: absolute;
     top: 0;
-    right: 0;
-    bottom: auto;
-    left: auto;
-    display: flex;
-    justify-content: flex-end;
-    padding: var(--yarl__toolbar_padding, 8px);
-  }
-  [dir="rtl"] .yarl__toolbar {
-    top: 0;
-    right: auto;
-    bottom: auto;
     left: 0;
+    width: 100%;
+    height: 100%;
   }
-  .yarl__icon {
-    width: var(--yarl__icon_size, 32px);
-    height: var(--yarl__icon_size, 32px);
+
+  .pswp__img,
+  .pswp__zoom-wrap {
+    width: auto;
+    height: auto;
   }
-  .yarl__button {
+
+  .pswp--click-to-zoom.pswp--zoom-allowed .pswp__img {
+    cursor: -webkit-zoom-in;
+    cursor: -moz-zoom-in;
+    cursor: zoom-in;
+  }
+
+  .pswp--click-to-zoom.pswp--zoomed-in .pswp__img {
+    cursor: move;
+    cursor: -webkit-grab;
+    cursor: -moz-grab;
+    cursor: grab;
+  }
+
+  .pswp--click-to-zoom.pswp--zoomed-in .pswp__img:active {
+    cursor: -webkit-grabbing;
+    cursor: -moz-grabbing;
+    cursor: grabbing;
+  }
+
+  /* :active to override grabbing cursor */
+
+  .pswp--no-mouse-drag.pswp--zoomed-in .pswp__img,
+  .pswp--no-mouse-drag.pswp--zoomed-in .pswp__img:active,
+  .pswp__img {
+    cursor: -webkit-zoom-out;
+    cursor: -moz-zoom-out;
+    cursor: zoom-out;
+  }
+
+  /* Prevent selection and tap highlights */
+
+  .pswp__container,
+  .pswp__img,
+  .pswp__button,
+  .pswp__counter {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  .pswp__item {
+    /* z-index for fade transition */
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  .pswp__hidden {
+    display: none !important;
+  }
+
+  /* Allow to click through pswp__content element, but not its children */
+
+  .pswp__content {
+    pointer-events: none;
+  }
+
+  .pswp__content > * {
+    pointer-events: auto;
+  }
+
+  /*
+  
+    PhotoSwipe UI
+  
+  */
+
+  /*
+  \tError message appears when image is not loaded
+  \t(JS option errorMsg controls markup)
+  */
+
+  .pswp__error-msg-container {
+    display: grid;
+  }
+
+  .pswp__error-msg {
+    margin: auto;
+    font-size: 1em;
+    line-height: 1;
+    color: var(--pswp-error-text-color);
+  }
+
+  /*
+  class pswp__hide-on-close is applied to elements that
+  should hide (for example fade out) when PhotoSwipe is closed
+  and show (for example fade in) when PhotoSwipe is opened
+   */
+
+  .pswp .pswp__hide-on-close {
+    opacity: 0.005;
+    will-change: opacity;
+    transition: opacity var(--pswp-transition-duration)
+      cubic-bezier(0.4, 0, 0.22, 1);
+    z-index: 10; /* always overlap slide content */
+    pointer-events: none; /* hidden elements should not be clickable */
+  }
+
+  /* class pswp--ui-visible is added when opening or closing transition starts */
+
+  .pswp--ui-visible .pswp__hide-on-close {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* <button> styles, including css reset */
+
+  .pswp__button {
+    position: relative;
+    display: block;
+    width: 50px;
+    height: 60px;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
     cursor: pointer;
+    background: none;
+    border: 0;
+    box-shadow: none;
+    opacity: 0.85;
     -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    background-color: var(--yarl__button_background_color, transparent);
-    border: var(--yarl__button_border, 0);
-    margin: var(--yarl__button_margin, 0);
-    outline: none;
-    line-height: 0;
-    padding: var(--yarl__button_padding, 8px);
-    color: var(--yarl__color_button, rgba(255, 255, 255, 0.8));
-    -webkit-filter: var(
-      --yarl__button_filter,
-      drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.8))
-    );
-    filter: var(
-      --yarl__button_filter,
-      drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.8))
-    );
-    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
   }
-  .yarl__button:focus {
-    color: var(--yarl__color_button_active, #fff);
+
+  .pswp__button:hover,
+  .pswp__button:active,
+  .pswp__button:focus {
+    transition: none;
+    padding: 0;
+    background: none;
+    border: 0;
+    box-shadow: none;
+    opacity: 1;
   }
-  .yarl__button:focus:not(:focus-visible) {
-    color: var(--yarl__color_button, rgba(255, 255, 255, 0.8));
+
+  .pswp__button:disabled {
+    opacity: 0.3;
+    cursor: auto;
   }
-  .yarl__button:focus-visible {
-    color: var(--yarl__color_button_active, #fff);
+
+  .pswp__icn {
+    fill: var(--pswp-icon-color);
+    color: var(--pswp-icon-color-secondary);
   }
-  @media (hover: hover) {
-    .yarl__button:hover,
-    .yarl__button:focus:hover,
-    .yarl__button:focus-visible:hover {
-      color: var(--yarl__color_button_active, #fff);
-    }
+
+  .pswp__icn {
+    position: absolute;
+    top: 14px;
+    left: 9px;
+    width: 32px;
+    height: 32px;
+    overflow: hidden;
+    pointer-events: none;
   }
-  .yarl__button:disabled {
-    color: var(--yarl__color_button_disabled, rgba(255, 255, 255, 0.4));
+
+  .pswp__icn-shadow {
+    stroke: var(--pswp-icon-stroke-color);
+    stroke-width: var(--pswp-icon-stroke-width);
+    fill: none;
+  }
+
+  .pswp__icn:focus {
+    outline: 0;
+  }
+
+  /*
+  \tdiv element that matches size of large image,
+  \tlarge image loads on top of it,
+  \tused when msrc is not provided
+  */
+
+  div.pswp__img--placeholder,
+  .pswp__img--with-bg {
+    background: var(--pswp-placeholder-bg);
+  }
+
+  .pswp__top-bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 60px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    z-index: 10;
+
+    /* allow events to pass through top bar itself */
+    pointer-events: none !important;
+  }
+
+  .pswp__top-bar > * {
+    pointer-events: auto;
+    /* this makes transition significantly more smooth,
+       even though inner elements are not animated */
+    will-change: opacity;
+  }
+
+  /*
+  
+    Close button
+  
+  */
+
+  .pswp__button--close {
+    margin-right: 6px;
+  }
+
+  /*
+  
+    Arrow buttons
+  
+  */
+
+  .pswp__button--arrow {
+    position: absolute;
+    top: 0;
+    width: 75px;
+    height: 100px;
+    top: 50%;
+    margin-top: -50px;
+  }
+
+  .pswp__button--arrow:disabled {
+    display: none;
     cursor: default;
   }
-  .yarl__navigation_prev,
-  .yarl__navigation_next {
-    position: absolute;
+
+  .pswp__button--arrow .pswp__icn {
     top: 50%;
-    -webkit-transform: translateY(-50%);
-    transform: translateY(-50%);
-    padding: var(--yarl__navigation_button_padding, 24px 16px);
+    margin-top: -30px;
+    width: 60px;
+    height: 60px;
+    background: none;
+    border-radius: 0;
   }
-  .yarl__navigation_prev {
+
+  .pswp--one-slide .pswp__button--arrow {
+    display: none;
+  }
+
+  /* hide arrows on touch screens */
+
+  .pswp--touch .pswp__button--arrow {
+    visibility: hidden;
+  }
+
+  /* show arrows only after mouse was used */
+
+  .pswp--has_mouse .pswp__button--arrow {
+    visibility: visible;
+  }
+
+  .pswp__button--arrow--prev {
+    right: auto;
     left: 0;
   }
-  [dir="rtl"] .yarl__navigation_prev {
-    left: unset;
-    right: 0;
-    -webkit-transform: translateY(-50%) rotate(180deg);
-    transform: translateY(-50%) rotate(180deg);
-  }
-  .yarl__navigation_next {
+
+  .pswp__button--arrow--next {
     right: 0;
   }
-  [dir="rtl"] .yarl__navigation_next {
-    left: 0;
-    right: unset;
-    -webkit-transform: translateY(-50%) rotate(180deg);
-    transform: translateY(-50%) rotate(180deg);
+
+  .pswp__button--arrow--next .pswp__icn {
+    left: auto;
+    right: 14px;
+    /* flip horizontally */
+    transform: scale(-1, 1);
   }
-  .yarl__no_scroll {
-    height: 100%;
+
+  /*
+  
+    Zoom button
+  
+  */
+
+  .pswp__button--zoom {
+    display: none;
+  }
+
+  .pswp--zoom-allowed .pswp__button--zoom {
+    display: block;
+  }
+
+  /* "+" => "-" */
+
+  .pswp--zoomed-in .pswp__zoom-icn-bar-v {
+    display: none;
+  }
+
+  /*
+  
+    Loading indicator
+  
+  */
+
+  .pswp__preloader {
+    position: relative;
     overflow: hidden;
-    overscroll-behavior: none;
+    width: 50px;
+    height: 60px;
+    margin-right: auto;
   }
 
-  @-webkit-keyframes yarl__delayed_fadein {
+  .pswp__preloader .pswp__icn {
+    opacity: 0;
+    transition: opacity 0.2s linear;
+    animation: pswp-clockwise 600ms linear infinite;
+  }
+
+  .pswp__preloader--active .pswp__icn {
+    opacity: 0.85;
+  }
+
+  @keyframes pswp-clockwise {
     0% {
-      opacity: 0;
-    }
-    80% {
-      opacity: 0;
+      transform: rotate(0deg);
     }
     100% {
-      opacity: 1;
+      transform: rotate(360deg);
     }
   }
 
-  @keyframes yarl__delayed_fadein {
-    0% {
-      opacity: 0;
-    }
-    80% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
+  /*
+  
+    "1 of 10" counter
+  
+  */
+
+  .pswp__counter {
+    height: 30px;
+    margin-top: 15px;
+    margin-inline-start: 20px;
+    font-size: 14px;
+    line-height: 30px;
+    color: var(--pswp-icon-color);
+    text-shadow: 1px 1px 3px var(--pswp-icon-color-secondary);
+    opacity: 0.85;
   }
-  @-webkit-keyframes yarl__stroke_opacity {
-    from {
-      stroke-opacity: 1;
-    }
-    to {
-      stroke-opacity: 0.125;
-    }
-  }
-  @keyframes yarl__stroke_opacity {
-    from {
-      stroke-opacity: 1;
-    }
-    to {
-      stroke-opacity: 0.125;
-    }
+
+  .pswp--one-slide .pswp__counter {
+    display: none;
   }
 `;
 

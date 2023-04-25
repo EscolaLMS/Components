@@ -1,13 +1,10 @@
-import * as React from "react";
-import { useCallback } from "react";
-import { Lightbox } from "yet-another-react-lightbox";
-import Zoom from "yet-another-react-lightbox/plugins/zoom";
+import React, { useEffect, useState } from "react";
+import { Gallery, Item } from "react-photoswipe-gallery";
 import styled, { withTheme, createGlobalStyle } from "styled-components";
 import { API } from "@escolalms/sdk/lib";
-import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
+import { ExtendableStyledComponent } from "types/component";
 import { SharedLightboxStyle } from "../../../utils/utils";
 import { ResponsiveImage } from "../../organisms/ResponsiveImage/ResponsiveImage";
-import { ExtendableStyledComponent } from "types/component";
 
 const StyledImagePlayer = styled("div")`
   > div {
@@ -39,36 +36,45 @@ export const ImagePlayer: React.FC<ImagePlayerProps> = ({
   onLoad,
   className = "",
 }) => {
-  const [open, setOpen] = React.useState<boolean>(false);
-  const onCloseRequest = useCallback(() => setOpen(false), []);
-  const { apiUrl } = React.useContext(EscolaLMSContext);
+  const [imgSrc, setImgSrc] = useState("");
 
-  React.useEffect(() => {
+  useEffect(() => {
     onLoad();
   }, []);
 
   return (
-    <StyledImagePlayer className={`wellms-component ${className}`}>
-      <ResponsiveImage
-        path={topic.topicable.value}
-        srcSizes={[500, 750, 1000]}
-        onClick={() => setOpen(true)}
-      />
-      {open && (
-        <>
-          <LightBoxOverwrite />
-          <Lightbox
-            open={open}
-            zoom={{ maxZoomPixelRatio: 4 }}
-            slides={[
-              { src: `${apiUrl}/api/images/img?path=${topic.topicable.value}` },
-            ]}
-            plugins={[Zoom]}
-            close={onCloseRequest}
-          />
-        </>
-      )}
-    </StyledImagePlayer>
+    <>
+      <Gallery
+        options={{
+          arrowPrev: false,
+          arrowNext: false,
+          imageClickAction: "zoom",
+          initialZoomLevel: "fit",
+          secondaryZoomLevel: 2,
+          maxZoomLevel: 3,
+        }}
+      >
+        <LightBoxOverwrite />
+        <StyledImagePlayer className={`wellms-component ${className}`}>
+          <Item
+            original={imgSrc}
+            width={topic.topicable.width}
+            height={topic.topicable.height}
+            alt={`LMS Image ${topic.topicable.id}`}
+          >
+            {({ ref, open }) => (
+              <ResponsiveImage
+                path={topic.topicable.value}
+                onClick={open}
+                onLoad={(e) => setImgSrc(e.currentTarget.currentSrc)}
+                ref={ref as React.MutableRefObject<HTMLImageElement>}
+                srcSizes={[500, 750, 1000]}
+              />
+            )}
+          </Item>
+        </StyledImagePlayer>
+      </Gallery>
+    </>
   );
 };
 

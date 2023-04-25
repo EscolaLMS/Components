@@ -48,6 +48,7 @@
     "postcss-styled": "^0.34.0",
     "postcss-syntax": "^0.36.2",
     "react-docgen-typescript": "^2.2.2",
+    "react-styleguidist": "^11.2.0",
     "source-map-loader": "^3.0.1",
     "start-server-and-test": "1.14.0",
     "style-loader": "^3.3.1",
@@ -57,18 +58,18 @@
     "stylelint-processor-styled-components": "^1.10.0",
     "ts-loader": "^9.2.8",
     "typescript": "^4.6.4",
-    "webpack": "^5.72.0",
-    "react-styleguidist": "^11.2.0"
+    "webpack": "^5.72.0"
   },
   "homepage": "https://escolalms.github.io/components",
   "dependencies": {
     "@escolalms/h5p-react": "^0.2.11",
-    "@escolalms/sdk": "^0.4.60",
+    "@escolalms/sdk": "^0.4.64",
     "chroma-js": "^2.4.2",
     "date-fns": "^2.28.0",
     "formik": "^2.2.9",
     "i18next": "^21.6.16",
     "lodash.flow": "^3.5.0",
+    "photoswipe": "^5.3.7",
     "rc-dialog": "^8.8.1",
     "rc-drawer": "^4.4.3",
     "rc-tree-select": "^5.8.0",
@@ -78,15 +79,15 @@
     "react-i18next": "^12.2.0",
     "react-icons": "^4.8.0",
     "react-markdown": "^8.0.7",
+    "react-pdf": "^5.7.2",
+    "react-photoswipe-gallery": "^2.2.7",
     "react-player": "^2.12.0",
+    "react-slick": "^0.29.0",
     "react-tiny-oembed": "^1.1.0",
     "react-transition-group": "^4.4.5",
     "rehype-raw": "^6.1.1",
     "remark-gfm": "^3.0.1",
     "screenfull": "6.0.1",
-    "styled-components": "^5.3.5",
-    "yet-another-react-lightbox": "^3.4.0",
-    "react-slick": "^0.29.0",
-    "react-pdf": "^5.7.2"
+    "styled-components": "^5.3.5"
   }
 }
