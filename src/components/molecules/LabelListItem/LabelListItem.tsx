@@ -1,5 +1,5 @@
 import * as React from "react";
-
+import type { PropsWithChildren } from "react";
 import styled, { withTheme, ThemeContext } from "styled-components";
 
 import { Title } from "../../atoms/Typography/Title";
@@ -25,7 +25,9 @@ const StyledLabelListItem = styled("div")<TitleProps>`
   }
 `;
 
-export const LabelListItem: React.FC<TitleProps> = (props) => {
+export const LabelListItem: React.FC<PropsWithChildren<TitleProps>> = (
+  props
+) => {
   const {
     children,
     variant = "header",
