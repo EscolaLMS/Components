@@ -1,6 +1,6 @@
 {
   "name": "@escolalms/components",
-  "version": "0.0.90",
+  "version": "0.0.93",
   "main": "lib/index.js",
   "license": "MIT",
   "scripts": {
@@ -63,12 +63,13 @@
   "homepage": "https://escolalms.github.io/components",
   "dependencies": {
     "@escolalms/h5p-react": "^0.2.11",
-    "@escolalms/sdk": "^0.4.60",
+    "@escolalms/sdk": "^0.4.64",
     "chroma-js": "^2.4.2",
     "date-fns": "^2.28.0",
     "formik": "^2.2.9",
     "i18next": "^21.6.16",
     "lodash.flow": "^3.5.0",
+    "photoswipe": "^5.3.7",
     "rc-dialog": "^8.8.1",
     "rc-drawer": "^4.4.3",
     "rc-tree-select": "^5.8.0",
@@ -79,6 +80,7 @@
     "react-icons": "^4.8.0",
     "react-markdown": "^8.0.7",
     "react-pdf": "^5.7.2",
+    "react-photoswipe-gallery": "^2.2.7",
     "react-player": "^2.12.0",
     "react-slick": "^0.29.0",
     "react-tiny-oembed": "^1.1.0",
@@ -86,7 +88,6 @@
     "rehype-raw": "^6.1.1",
     "remark-gfm": "^3.0.1",
     "screenfull": "6.0.1",
-    "styled-components": "^5.3.5",
-    "yet-another-react-lightbox": "^3.4.0"
+    "styled-components": "^5.3.5"
   }
 }
