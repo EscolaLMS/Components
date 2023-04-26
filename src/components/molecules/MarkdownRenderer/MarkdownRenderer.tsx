@@ -1,21 +1,20 @@
-import * as React from "react";
+import React, { useState } from "react";
 import styled, { createGlobalStyle, withTheme } from "styled-components";
 import ReactMarkdown from "react-markdown";
-import { getFontFromTheme } from "../../../theme/provider";
-import { setFontSizeByHeaderLevel } from "../../../utils/components/primitives/titleUtils";
 import { ReactMarkdownOptions } from "react-markdown/lib/react-markdown";
 import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
-import { fixContentForMarkdown } from "../../../utils/components/markdown";
-import Lightbox from "react-image-lightbox";
-import { useState } from "react";
+import { Gallery, Item } from "react-photoswipe-gallery";
 import chroma from "chroma-js";
+import { ExtendableStyledComponent } from "types/component";
+import { getFontFromTheme } from "../../../theme/provider";
+import { setFontSizeByHeaderLevel } from "../../../utils/components/primitives/titleUtils";
+import { fixContentForMarkdown } from "../../../utils/components/markdown";
 import {
   getStylesBasedOnTheme,
   SharedLightboxStyle,
 } from "../../../utils/utils";
 import { Link } from "../../../";
-import { ExtendableStyledComponent } from "types/component";
 
 interface StyledMarkdownRendererProps {
   mobile?: boolean;
@@ -115,44 +114,6 @@ const LightBoxOverwrite = createGlobalStyle`
 ${SharedLightboxStyle}
 `;
 
-export const MarkdownImage: React.ComponentType<
-  React.ClassAttributes<HTMLImageElement> &
-    React.ImgHTMLAttributes<HTMLImageElement>
-> = (props) => {
-  const [isOpen, setIsOpen] = useState(false);
-  return (
-    <div
-      onClick={() => setIsOpen(true)}
-      onKeyDown={() => setIsOpen(true)}
-      role="button"
-      tabIndex={-1}
-    >
-      <img src={props.src} alt={props.alt} style={{ cursor: "pointer" }} />
-      {isOpen && props.src && (
-        <>
-          <LightBoxOverwrite />
-          <Lightbox
-            mainSrc={props.src}
-            onCloseRequest={() => setIsOpen(false)}
-          />
-        </>
-      )}
-    </div>
-  );
-};
-
-export const MarkdownTable: React.ComponentType<
-  React.TableHTMLAttributes<HTMLTableElement>
-> = (props) => {
-  return (
-    <div className="table-responsive">
-      <table className={`table ${props.className ?? ""}`} {...props}>
-        {props.children}
-      </table>
-    </div>
-  );
-};
-
 export const MarkdownRenderer: React.FC<MarkdownRendererProps> = (props) => {
   const { mobile = false, fontSize = "16", children, className } = props;
 
@@ -182,6 +143,64 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = (props) => {
         {fixContentForMarkdown(children)}
       </ReactMarkdown>
     </StyledMarkdownRenderer>
+  );
+};
+
+export const MarkdownImage: React.FC<
+  React.ImgHTMLAttributes<HTMLImageElement>
+> = ({ src, alt }) => {
+  const [size, setSize] = useState([0, 0]);
+
+  return (
+    <>
+      <LightBoxOverwrite />
+      <Gallery
+        options={{
+          arrowPrev: false,
+          arrowNext: false,
+          imageClickAction: "zoom",
+          initialZoomLevel: "fit",
+          secondaryZoomLevel: 2,
+          maxZoomLevel: 3,
+        }}
+      >
+        <Item original={src} width={size[0]} height={size[1]}>
+          {({ ref, open }) => (
+            <span
+              role="button"
+              onClick={open}
+              onKeyDown={() => open({} as React.MouseEvent)}
+              tabIndex={0}
+              style={{ cursor: "pointer" }}
+            >
+              <img
+                ref={ref as React.MutableRefObject<HTMLImageElement>}
+                onLoad={(e) =>
+                  setSize([
+                    e.currentTarget.naturalWidth,
+                    e.currentTarget.naturalHeight,
+                  ])
+                }
+                src={src}
+                alt={alt}
+              />
+            </span>
+          )}
+        </Item>
+      </Gallery>
+    </>
+  );
+};
+
+export const MarkdownTable: React.ComponentType<
+  React.TableHTMLAttributes<HTMLTableElement>
+> = (props) => {
+  return (
+    <div className="table-responsive">
+      <table className={`table ${props.className ?? ""}`} {...props}>
+        {props.children}
+      </table>
+    </div>
   );
 };
 

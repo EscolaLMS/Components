@@ -21,6 +21,7 @@ interface CourseAgendaLessonProps
   index: number;
   currentTopicId?: number;
   defaultOpen?: boolean;
+  onCourseFinished: () => void;
 }
 
 const StyledLessonItem = styled.div`
@@ -314,6 +315,7 @@ const CourseAgendaLesson: React.FC<CourseAgendaLessonProps> = (props) => {
     finishedTopicIds,
     currentTopicId,
     defaultOpen = false,
+    onCourseFinished,
   } = props;
   const { t } = useTranslation();
   const {
@@ -366,13 +368,15 @@ const CourseAgendaLesson: React.FC<CourseAgendaLessonProps> = (props) => {
       ? t("CourseAgenda.YouHaveToCompleteTopic")
       : t("CourseAgenda.TopicIsLocked");
 
-  // console.group();
-  // console.log('indexOfFirstLockedTopic: ', indexOfFirstLockedTopic);
-  // console.log('lessonHasLockedTopic: ', lessonHasLockedTopic);
-  // console.log('totalHeightOfOverlay: ', totalHeightOfOverlay);
-  // console.log('overlayTextWhenLessonIsLocked: ', overlayTextWhenLessonIsLocked);
-  // console.log('overlayTextWhenTopicIsLocked: ', overlayTextWhenTopicIsLocked);
-  // console.groupEnd();
+  console.group();
+  console.log('indexOfFirstLockedTopic: ', indexOfFirstLockedTopic);
+  console.log('lessonHasLockedTopic: ', lessonHasLockedTopic);
+  console.log('totalHeightOfOverlay: ', totalHeightOfOverlay);
+  console.log('overlayTextWhenLessonIsLocked: ', overlayTextWhenLessonIsLocked);
+  console.log('overlayTextWhenTopicIsLocked: ', overlayTextWhenTopicIsLocked);
+  console.log('isLessonLocked: ', isLessonLocked);
+  console.log('lockedLessonsIds: ', lockedLessonsIds);
+  console.groupEnd();
 
   return (
     <StyledLessonItem
@@ -483,6 +487,7 @@ const CourseAgendaLesson: React.FC<CourseAgendaLessonProps> = (props) => {
               index={topicIndex + 1}
               mode={mode}
               finishedTopicIds={finishedTopicIds}
+              onCourseFinished={onCourseFinished}
             />
           );
         })}
@@ -493,6 +498,7 @@ const CourseAgendaLesson: React.FC<CourseAgendaLessonProps> = (props) => {
             )}
             key={lesson.id}
             index={index}
+            onCourseFinished={onCourseFinished}
             {...{
               lesson,
               finishedTopicIds,

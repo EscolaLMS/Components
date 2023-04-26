@@ -100,351 +100,443 @@ export const roundPercentageList = (orig: number[], target?: number) => {
 };
 
 export const SharedLightboxStyle = css`
-  @keyframes closeWindow {
-    0% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 0;
-    }
+  /*! PhotoSwipe main CSS by Dmytro Semenov | photoswipe.com */
+
+  .pswp {
+    --pswp-bg: #000;
+    --pswp-placeholder-bg: #222;
+
+    --pswp-root-z-index: 100000;
+
+    --pswp-preloader-color: rgba(79, 79, 79, 0.4);
+    --pswp-preloader-color-secondary: rgba(255, 255, 255, 0.9);
+
+    /* defined via js:
+    --pswp-transition-duration: 333ms; */
+
+    --pswp-icon-color: #fff;
+    --pswp-icon-color-secondary: #4f4f4f;
+    --pswp-icon-stroke-color: #4f4f4f;
+    --pswp-icon-stroke-width: 2px;
+
+    --pswp-error-text-color: var(--pswp-icon-color);
   }
 
-  .ril__outer {
-    background-color: rgba(0, 0, 0, 0.85);
-    outline: none;
+  /*
+  \tStyles for basic PhotoSwipe (pswp) functionality (sliding area, open/close transitions)
+  */
+
+  .pswp {
+    position: fixed;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 1000;
     width: 100%;
     height: 100%;
-    -ms-content-zooming: none;
-    user-select: none;
-    /* stylelint-disable property-no-vendor-prefix */
-    -ms-user-select: none;
-    -ms-touch-select: none;
+    z-index: var(--pswp-root-z-index);
+    display: none;
     touch-action: none;
+    outline: 0;
+    opacity: 0.003;
+    contain: layout style size;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   }
 
-  .ril__outerClosing {
-    opacity: 0;
+  /* Prevents focus outline on the root element,
+    (it may be focused initially) */
+
+  .pswp:focus {
+    outline: 0;
   }
 
-  .ril__inner {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+  .pswp * {
+    box-sizing: border-box;
   }
 
-  .ril__image,
-  .ril__imagePrev,
-  .ril__imageNext {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    margin: auto;
+  .pswp img {
     max-width: none;
-    -ms-content-zooming: none;
-    user-select: none;
+  }
+
+  .pswp--open {
+    display: block;
+  }
+
+  .pswp,
+  .pswp__bg {
+    transform: translateZ(0);
+    will-change: opacity;
+  }
+
+  .pswp__bg {
+    opacity: 0.005;
+    background: var(--pswp-bg);
+  }
+
+  .pswp,
+  .pswp__scroll-wrap {
+    overflow: hidden;
+  }
+
+  .pswp__scroll-wrap,
+  .pswp__bg,
+  .pswp__container,
+  .pswp__item,
+  .pswp__content,
+  .pswp__img,
+  .pswp__zoom-wrap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .pswp__img,
+  .pswp__zoom-wrap {
+    width: auto;
+    height: auto;
+  }
+
+  .pswp--click-to-zoom.pswp--zoom-allowed .pswp__img {
+    cursor: -webkit-zoom-in;
+    cursor: -moz-zoom-in;
+    cursor: zoom-in;
+  }
+
+  .pswp--click-to-zoom.pswp--zoomed-in .pswp__img {
+    cursor: move;
+    cursor: -webkit-grab;
+    cursor: -moz-grab;
+    cursor: grab;
+  }
+
+  .pswp--click-to-zoom.pswp--zoomed-in .pswp__img:active {
+    cursor: -webkit-grabbing;
+    cursor: -moz-grabbing;
+    cursor: grabbing;
+  }
+
+  /* :active to override grabbing cursor */
+
+  .pswp--no-mouse-drag.pswp--zoomed-in .pswp__img,
+  .pswp--no-mouse-drag.pswp--zoomed-in .pswp__img:active,
+  .pswp__img {
+    cursor: -webkit-zoom-out;
+    cursor: -moz-zoom-out;
+    cursor: zoom-out;
+  }
+
+  /* Prevent selection and tap highlights */
+
+  .pswp__container,
+  .pswp__img,
+  .pswp__button,
+  .pswp__counter {
+    -webkit-user-select: none;
+    -moz-user-select: none;
     -ms-user-select: none;
-    -ms-touch-select: none;
-    touch-action: none;
+    user-select: none;
   }
 
-  .ril__imageDiscourager {
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
+  .pswp__item {
+    /* z-index for fade transition */
+    z-index: 1;
+    overflow: hidden;
   }
 
-  .ril__navButtons {
-    border: none;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 20px;
-    height: 34px;
-    padding: 40px 30px;
+  .pswp__hidden {
+    display: none !important;
+  }
+
+  /* Allow to click through pswp__content element, but not its children */
+
+  .pswp__content {
+    pointer-events: none;
+  }
+
+  .pswp__content > * {
+    pointer-events: auto;
+  }
+
+  /*
+  
+    PhotoSwipe UI
+  
+  */
+
+  /*
+  \tError message appears when image is not loaded
+  \t(JS option errorMsg controls markup)
+  */
+
+  .pswp__error-msg-container {
+    display: grid;
+  }
+
+  .pswp__error-msg {
     margin: auto;
-    cursor: pointer;
-    opacity: 0.7;
+    font-size: 1em;
+    line-height: 1;
+    color: var(--pswp-error-text-color);
   }
-  .ril__navButtons:hover {
+
+  /*
+  class pswp__hide-on-close is applied to elements that
+  should hide (for example fade out) when PhotoSwipe is closed
+  and show (for example fade in) when PhotoSwipe is opened
+   */
+
+  .pswp .pswp__hide-on-close {
+    opacity: 0.005;
+    will-change: opacity;
+    transition: opacity var(--pswp-transition-duration)
+      cubic-bezier(0.4, 0, 0.22, 1);
+    z-index: 10; /* always overlap slide content */
+    pointer-events: none; /* hidden elements should not be clickable */
+  }
+
+  /* class pswp--ui-visible is added when opening or closing transition starts */
+
+  .pswp--ui-visible .pswp__hide-on-close {
     opacity: 1;
-  }
-  .ril__navButtons:active {
-    opacity: 0.7;
+    pointer-events: auto;
   }
 
-  .ril__navButtonPrev {
-    left: 0;
-    background: rgba(0, 0, 0, 0.2)
-      url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgd2lkdGg9IjIwIiBoZWlnaHQ9IjM0Ij48cGF0aCBkPSJtIDE5LDMgLTIsLTIgLTE2LDE2IDE2LDE2IDEsLTEgLTE1LC0xNSAxNSwtMTUgeiIgZmlsbD0iI0ZGRiIvPjwvc3ZnPg==")
-      no-repeat center;
-  }
+  /* <button> styles, including css reset */
 
-  .ril__navButtonNext {
-    right: 0;
-    background: rgba(0, 0, 0, 0.2)
-      url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgd2lkdGg9IjIwIiBoZWlnaHQ9IjM0Ij48cGF0aCBkPSJtIDEsMyAyLC0yIDE2LDE2IC0xNiwxNiAtMSwtMSAxNSwtMTUgLTE1LC0xNSB6IiBmaWxsPSIjRkZGIi8+PC9zdmc+")
-      no-repeat center;
-  }
-
-  .ril__downloadBlocker {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: url("data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7");
-    background-size: cover;
-  }
-
-  .ril__caption,
-  .ril__toolbar {
-    background-color: rgba(0, 0, 0, 0.5);
-    position: absolute;
-    left: 0;
-    right: 0;
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .ril__caption {
-    bottom: 0;
-    max-height: 150px;
-    overflow: auto;
-  }
-
-  .ril__captionContent {
-    padding: 10px 20px;
-    color: #fff;
-  }
-
-  .ril__toolbar {
-    top: 0;
-    height: 50px;
-  }
-
-  .ril__toolbarSide {
-    height: 50px;
-    margin: 0;
-  }
-
-  .ril__toolbarLeftSide {
-    padding-left: 20px;
-    padding-right: 0;
-    flex: 0 1 auto;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .ril__toolbarRightSide {
-    padding-left: 0;
-    padding-right: 20px;
-    flex: 0 0 auto;
-  }
-
-  .ril__toolbarItem {
-    display: inline-block;
-    line-height: 50px;
+  .pswp__button {
+    position: relative;
+    display: block;
+    width: 50px;
+    height: 60px;
     padding: 0;
-    color: #fff;
-    font-size: 120%;
-    max-width: 100%;
+    margin: 0;
     overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  .ril__toolbarItemChild {
-    vertical-align: middle;
-  }
-
-  .ril__builtinButton {
-    width: 40px;
-    height: 35px;
     cursor: pointer;
-    border: none;
-    opacity: 0.7;
+    background: none;
+    border: 0;
+    box-shadow: none;
+    opacity: 0.85;
+    -webkit-appearance: none;
+    -webkit-touch-callout: none;
   }
-  .ril__builtinButton:hover {
+
+  .pswp__button:hover,
+  .pswp__button:active,
+  .pswp__button:focus {
+    transition: none;
+    padding: 0;
+    background: none;
+    border: 0;
+    box-shadow: none;
     opacity: 1;
   }
-  .ril__builtinButton:active {
-    outline: none;
+
+  .pswp__button:disabled {
+    opacity: 0.3;
+    cursor: auto;
   }
 
-  .ril__builtinButtonDisabled {
+  .pswp__icn {
+    fill: var(--pswp-icon-color);
+    color: var(--pswp-icon-color-secondary);
+  }
+
+  .pswp__icn {
+    position: absolute;
+    top: 14px;
+    left: 9px;
+    width: 32px;
+    height: 32px;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .pswp__icn-shadow {
+    stroke: var(--pswp-icon-stroke-color);
+    stroke-width: var(--pswp-icon-stroke-width);
+    fill: none;
+  }
+
+  .pswp__icn:focus {
+    outline: 0;
+  }
+
+  /*
+  \tdiv element that matches size of large image,
+  \tlarge image loads on top of it,
+  \tused when msrc is not provided
+  */
+
+  div.pswp__img--placeholder,
+  .pswp__img--with-bg {
+    background: var(--pswp-placeholder-bg);
+  }
+
+  .pswp__top-bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 60px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    z-index: 10;
+
+    /* allow events to pass through top bar itself */
+    pointer-events: none !important;
+  }
+
+  .pswp__top-bar > * {
+    pointer-events: auto;
+    /* this makes transition significantly more smooth,
+       even though inner elements are not animated */
+    will-change: opacity;
+  }
+
+  /*
+  
+    Close button
+  
+  */
+
+  .pswp__button--close {
+    margin-right: 6px;
+  }
+
+  /*
+  
+    Arrow buttons
+  
+  */
+
+  .pswp__button--arrow {
+    position: absolute;
+    top: 0;
+    width: 75px;
+    height: 100px;
+    top: 50%;
+    margin-top: -50px;
+  }
+
+  .pswp__button--arrow:disabled {
+    display: none;
     cursor: default;
-    opacity: 0.5;
-  }
-  .ril__builtinButtonDisabled:hover {
-    opacity: 0.5;
   }
 
-  .ril__closeButton {
-    background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgd2lkdGg9IjIwIiBoZWlnaHQ9IjIwIj48cGF0aCBkPSJtIDEsMyAxLjI1LC0xLjI1IDcuNSw3LjUgNy41LC03LjUgMS4yNSwxLjI1IC03LjUsNy41IDcuNSw3LjUgLTEuMjUsMS4yNSAtNy41LC03LjUgLTcuNSw3LjUgLTEuMjUsLTEuMjUgNy41LC03LjUgLTcuNSwtNy41IHoiIGZpbGw9IiNGRkYiLz48L3N2Zz4=")
-      no-repeat center;
-  }
-
-  .ril__zoomInButton {
-    background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+PGcgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCI+PHBhdGggZD0iTTEgMTlsNi02Ii8+PHBhdGggZD0iTTkgOGg2Ii8+PHBhdGggZD0iTTEyIDV2NiIvPjwvZz48Y2lyY2xlIGN4PSIxMiIgY3k9IjgiIHI9IjciIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyIi8+PC9zdmc+")
-      no-repeat center;
-  }
-
-  .ril__zoomOutButton {
-    background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+PGcgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCI+PHBhdGggZD0iTTEgMTlsNi02Ii8+PHBhdGggZD0iTTkgOGg2Ii8+PC9nPjxjaXJjbGUgY3g9IjEyIiBjeT0iOCIgcj0iNyIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiLz48L3N2Zz4=")
-      no-repeat center;
-  }
-
-  .ril__outerAnimating {
-    animation-name: closeWindow;
-  }
-
-  @keyframes pointFade {
-    0%,
-    19.999%,
-    100% {
-      opacity: 0;
-    }
-    20% {
-      opacity: 1;
-    }
-  }
-
-  .ril__loadingCircle {
+  .pswp__button--arrow .pswp__icn {
+    top: 50%;
+    margin-top: -30px;
     width: 60px;
     height: 60px;
-    position: relative;
+    background: none;
+    border-radius: 0;
   }
 
-  .ril__loadingCirclePoint {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    left: 0;
-    top: 0;
+  .pswp--one-slide .pswp__button--arrow {
+    display: none;
   }
-  .ril__loadingCirclePoint::before {
-    content: "";
+
+  /* hide arrows on touch screens */
+
+  .pswp--touch .pswp__button--arrow {
+    visibility: hidden;
+  }
+
+  /* show arrows only after mouse was used */
+
+  .pswp--has_mouse .pswp__button--arrow {
+    visibility: visible;
+  }
+
+  .pswp__button--arrow--prev {
+    right: auto;
+    left: 0;
+  }
+
+  .pswp__button--arrow--next {
+    right: 0;
+  }
+
+  .pswp__button--arrow--next .pswp__icn {
+    left: auto;
+    right: 14px;
+    /* flip horizontally */
+    transform: scale(-1, 1);
+  }
+
+  /*
+  
+    Zoom button
+  
+  */
+
+  .pswp__button--zoom {
+    display: none;
+  }
+
+  .pswp--zoom-allowed .pswp__button--zoom {
     display: block;
-    margin: 0 auto;
-    width: 11%;
-    height: 30%;
-    background-color: #fff;
-    border-radius: 30%;
-    animation: pointFade 800ms infinite ease-in-out both;
-  }
-  .ril__loadingCirclePoint:nth-of-type(1) {
-    transform: rotate(0deg);
-  }
-  .ril__loadingCirclePoint:nth-of-type(7) {
-    transform: rotate(180deg);
-  }
-  .ril__loadingCirclePoint:nth-of-type(1)::before,
-  .ril__loadingCirclePoint:nth-of-type(7)::before {
-    animation-delay: -800ms;
-  }
-  .ril__loadingCirclePoint:nth-of-type(2) {
-    transform: rotate(30deg);
-  }
-  .ril__loadingCirclePoint:nth-of-type(8) {
-    transform: rotate(210deg);
-  }
-  .ril__loadingCirclePoint:nth-of-type(2)::before,
-  .ril__loadingCirclePoint:nth-of-type(8)::before {
-    animation-delay: -666ms;
-  }
-  .ril__loadingCirclePoint:nth-of-type(3) {
-    transform: rotate(60deg);
-  }
-  .ril__loadingCirclePoint:nth-of-type(9) {
-    transform: rotate(240deg);
-  }
-  .ril__loadingCirclePoint:nth-of-type(3)::before,
-  .ril__loadingCirclePoint:nth-of-type(9)::before {
-    animation-delay: -533ms;
-  }
-  .ril__loadingCirclePoint:nth-of-type(4) {
-    transform: rotate(90deg);
-  }
-  .ril__loadingCirclePoint:nth-of-type(10) {
-    transform: rotate(270deg);
-  }
-  .ril__loadingCirclePoint:nth-of-type(4)::before,
-  .ril__loadingCirclePoint:nth-of-type(10)::before {
-    animation-delay: -400ms;
-  }
-  .ril__loadingCirclePoint:nth-of-type(5) {
-    transform: rotate(120deg);
-  }
-  .ril__loadingCirclePoint:nth-of-type(11) {
-    transform: rotate(300deg);
-  }
-  .ril__loadingCirclePoint:nth-of-type(5)::before,
-  .ril__loadingCirclePoint:nth-of-type(11)::before {
-    animation-delay: -266ms;
-  }
-  .ril__loadingCirclePoint:nth-of-type(6) {
-    transform: rotate(150deg);
-  }
-  .ril__loadingCirclePoint:nth-of-type(12) {
-    transform: rotate(330deg);
   }
 
-  .ril__loadingCirclePoint:nth-of-type(6)::before,
-  .ril__loadingCirclePoint:nth-of-type(12)::before {
-    animation-delay: -133ms;
-  }
+  /* "+" => "-" */
 
-  .ril__loadingCirclePoint:nth-of-type(13) {
-    transform: rotate(360deg);
-  }
-  .ril__loadingCirclePoint:nth-of-type(7)::before,
-  .ril__loadingCirclePoint:nth-of-type(13)::before {
-    animation-delay: 0ms;
-  }
-
-  .ril__loadingContainer {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-  }
-  .ril__imagePrev .ril__loadingContainer,
-  .ril__imageNext .ril__loadingContainer {
+  .pswp--zoomed-in .pswp__zoom-icn-bar-v {
     display: none;
   }
 
-  .ril__errorContainer {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-  }
-  .ril__imagePrev .ril__errorContainer,
-  .ril__imageNext .ril__errorContainer {
-    display: none;
+  /*
+  
+    Loading indicator
+  
+  */
+
+  .pswp__preloader {
+    position: relative;
+    overflow: hidden;
+    width: 50px;
+    height: 60px;
+    margin-right: auto;
   }
 
-  .ril__loadingContainer__icon {
-    color: #fff;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-50%);
+  .pswp__preloader .pswp__icn {
+    opacity: 0;
+    transition: opacity 0.2s linear;
+    animation: pswp-clockwise 600ms linear infinite;
+  }
+
+  .pswp__preloader--active .pswp__icn {
+    opacity: 0.85;
+  }
+
+  @keyframes pswp-clockwise {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  /*
+  
+    "1 of 10" counter
+  
+  */
+
+  .pswp__counter {
+    height: 30px;
+    margin-top: 15px;
+    margin-inline-start: 20px;
+    font-size: 14px;
+    line-height: 30px;
+    color: var(--pswp-icon-color);
+    text-shadow: 1px 1px 3px var(--pswp-icon-color-secondary);
+    opacity: 0.85;
+  }
+
+  .pswp--one-slide .pswp__counter {
+    display: none;
   }
 `;
 
@@ -532,3 +624,7 @@ export const findNestedIndexInLessons = (
   }
   return null;
 };
+/** Date formats */
+export const DATE_FORMAT = "YYYY-MM-DD";
+export const DATETIME_FORMAT = "yyyy-MM-dd HH:mm";
+export const DAY_FORMAT = "yyyy-MM-dd";

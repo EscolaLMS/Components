@@ -67,6 +67,11 @@ module.exports = {
           content: "doc/components/players.md",
           components: "src/components/players/**/*.tsx",
         },
+        {
+          name: "Quizzes",
+          content: "doc/components/quizzes.md",
+          components: "src/components/quizzes/**/*.tsx",
+        },
       ],
     },
 

@@ -27,6 +27,7 @@ export interface SharedDefaultTheme {
   gray2: string;
   gray1: string;
   black: string;
+  positive: string;
 }
 
 declare module "styled-components" {

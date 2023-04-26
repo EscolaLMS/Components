@@ -14,6 +14,7 @@ const ItemButton = styled(Button)`
   &:hover {
     text-decoration: underline;
     background-color: ${({ theme }) => theme.white} !important;
+    color: ${({ theme }) => theme.textColor};
   }
 `;
 

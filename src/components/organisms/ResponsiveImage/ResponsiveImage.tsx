@@ -1,10 +1,11 @@
-import * as React from "react";
+import React, { forwardRef } from "react";
 
 import styled, { withTheme } from "styled-components";
 
 import Image from "@escolalms/sdk/lib/react/components/Image";
 
-interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
+interface ImageProps
+  extends Omit<React.ImgHTMLAttributes<HTMLImageElement>, "onError"> {
   path: string;
   size?: number;
   srcSizes?: number[];
@@ -19,12 +20,14 @@ const StyledDiv = styled("div")`
   }
 `;
 
-export const ResponsiveImage: React.FC<ImageProps> = (props) => {
-  return (
-    <StyledDiv className={`wellms-component ${props.className ?? ""}`}>
-      <Image {...props} />
-    </StyledDiv>
-  );
-};
+export const ResponsiveImage = forwardRef<HTMLImageElement, ImageProps>(
+  (props, ref) => {
+    return (
+      <StyledDiv className={`wellms-component ${props.className ?? ""}`}>
+        <Image {...props} ref={ref} />
+      </StyledDiv>
+    );
+  }
+);
 
 export default withTheme(styled(ResponsiveImage)``);
