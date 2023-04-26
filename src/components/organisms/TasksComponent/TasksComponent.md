@@ -80,6 +80,13 @@ const taskCreateBy = [
       taskShowAction={{ options: taskShowAction, showDone: showDone }}
       sortOptions={{ options: sortType, type: sort }}
       createBy={{ options: taskCreateBy, type: createBy }}
+      tasksPagination={{
+        previousDisabled: true,
+        nextDisabled: true,
+        currentPage: 1,
+        lastPage: 1,
+        setCurrentPage: () => console.log(),
+      }}
     />
   </EscolaLMSContextProvider>
 </ThemeTester>;
