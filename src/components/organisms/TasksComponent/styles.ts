@@ -9,10 +9,10 @@ const defaultFlex = css`
 `;
 
 export const TasksContainer = styled.div`
+  margin: 30px 0px;
   display: flex;
+  width: 100%;
   flex-direction: column;
-  min-width: 100%;
-  min-height: 100%;
   background: ${({ theme }) =>
     getStylesBasedOnTheme(theme.mode, theme.dm__background, theme.white)};
   overflow: auto;
@@ -29,11 +29,10 @@ export const TasksContainer = styled.div`
 `;
 export const TasksBody = styled.div`
   display: flex;
-  width: 100%;
 `;
 export const TasksHeader = styled.div`
   ${defaultFlex};
-  padding: 12px 0px;
+  padding: 12px;
   border-bottom: 1px solid ${({ theme }) => theme.dm__primaryColor};
 `;
 
@@ -48,7 +47,7 @@ export const TasksMenu = styled.div`
 `;
 export const TasksContent = styled.div`
   width: 100%;
-  padding: 24px 0 24px 24px;
+  padding: 24px 24px 24px 12px;
 `;
 
 export const TaskItem = styled.div`
@@ -88,10 +87,34 @@ export const StyledTitle = styled(Title)<{ $isCompleted: boolean }>`
 
 export const ProgrammeText = styled(Text)`
   text-transform: uppercase;
-  margin: 0px;
-  padding-top: 6px;
   font-size: 12px;
+  .rc-tree-select-arrow{
+    display: none;
+  }
+  .rc-tree-select-selection-item {
+    display: block;
+    max-width: 300px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+  }
+  .rc-tree-select,
+  .rc-tree-select-selector{
+    padding: 0px !important;
+  } 
+  `;
+
+export const TasksPage = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 24px;
+  border-top: 1px solid ${({ theme }) => theme.dm__primaryColor};
+  & h1 {
+    align-self: center;
+  }
 `;
+
 export const TaskDate = styled.div<{
   $date?: 'Today' | 'Tomorrow' | 'Upcoming' | 'Overdue';
 }>`

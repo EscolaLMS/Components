@@ -7,7 +7,15 @@ import { Formik, FormikErrors } from "formik";
 import { Task, TaskNote } from "@escolalms/sdk/lib/types/api";
 import { AddTaskNote, EditTaskNote } from "../../TaskNote";
 import { HiOutlineDocumentText } from "react-icons/hi";
-import { Button, Checkbox, Input, Row, Text, TextArea } from "../../../../";
+import {
+  Button,
+  Checkbox,
+  Input,
+  Row,
+  Text,
+  TextArea,
+  Title,
+} from "../../../../";
 import {
   RelatedTreeSelect,
   RelatedValue,
@@ -72,7 +80,6 @@ export const PersonalContent: React.FC<Props> = ({
   useEffect(() => {
     fetchTask(taskForAction.id);
   }, [fetchTask, taskForAction.id]);
-
   return (
     <Formik
       initialValues={initialValues}
@@ -203,7 +210,7 @@ export const PersonalContent: React.FC<Props> = ({
                 <NotesContainer>
                   <Row $alignItems="center" $gap={4}>
                     <HiOutlineDocumentText />
-                    <Text>{t<string>("Tasks.Notes")}</Text>
+                    <Title level={5}>{t<string>("Tasks.Notes")}</Title>
                   </Row>
                   <div>
                     {task.value?.notes && task.value.notes.length > 0 ? (

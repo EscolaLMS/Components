@@ -35,16 +35,12 @@ export const SectionHeader = styled.div`
   }
 `;
 
-export const LeftPaddingWrapper = styled.div`
-  width: 100%;
-  padding-left: 36px;
-`;
-
 export const ResponsiveCalendarSelect = styled(Input)`
   width: 100%;
 `;
 
 export const NotesContainer = styled.div`
+  margin-top: 12px;
   width: 100%;
   & > div {
     width: 100%;
