@@ -72,7 +72,7 @@ export const PersonalContent: React.FC<Props> = ({
   useEffect(() => {
     fetchTask(taskForAction.id);
   }, [fetchTask, taskForAction.id]);
-
+  console.log("personal", task);
   return (
     <Formik
       initialValues={initialValues}

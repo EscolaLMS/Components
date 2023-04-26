@@ -56,7 +56,7 @@ export const IncomingContent: React.FC<Props> = ({
   const { updateTaskStatus } = useContext(EscolaLMSContext);
   const { t } = useTranslation();
   const date = checkDate(task.due_date);
-
+  console.log("incoming", task);
   return (
     <StyledRow>
       <LeftCol>
@@ -75,18 +75,21 @@ export const IncomingContent: React.FC<Props> = ({
             </StyledTitle>
           </Row>
           <LeftPaddingWrapper>
-            <RelatedTreeSelect
-              label={t<string>("Tasks.RelatesTo")}
-              disabled
-              value={`${task.related_type}:${task.related_id}`}
-            />
-            <TextArea
-              name="description"
-              defaultValue={
-                task.description ?? t<string>("Tasks.ThereIsNoDescription")
-              }
-              disabled
-            />
+            {task.related_id && task.related_type && (
+              <RelatedTreeSelect
+                disabled
+                value={`${task.related_type}:${task.related_id}`}
+              />
+            )}
+            {task.description && (
+              <TextArea
+                name="description"
+                id="description"
+                label={t<string>("Tasks.Description")}
+                defaultValue={task.description}
+                disabled
+              />
+            )}
             <NotesContainer>
               <Row $alignItems="center" $gap={4}>
                 <HiOutlineDocumentText />

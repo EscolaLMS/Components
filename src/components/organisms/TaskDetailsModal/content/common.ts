@@ -37,7 +37,7 @@ export const SectionHeader = styled.div`
 
 export const LeftPaddingWrapper = styled.div`
   width: 100%;
-  padding-left: 36px;
+  padding: 0px 36px;
 `;
 
 export const ResponsiveCalendarSelect = styled(Input)`
@@ -45,6 +45,7 @@ export const ResponsiveCalendarSelect = styled(Input)`
 `;
 
 export const NotesContainer = styled.div`
+  margin-top: 12px;
   width: 100%;
   & > div {
     width: 100%;
