@@ -4,6 +4,9 @@ import ReactMarkdown from "react-markdown";
 import { ReactMarkdownOptions } from "react-markdown/lib/react-markdown";
 import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
+import "katex/dist/katex.min.css";
 import { Gallery, Item } from "react-photoswipe-gallery";
 import chroma from "chroma-js";
 import { ExtendableStyledComponent } from "types/component";
@@ -125,8 +128,8 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = (props) => {
     >
       <ReactMarkdown
         linkTarget="_blank"
-        rehypePlugins={[rehypeRaw]}
-        remarkPlugins={[remarkGfm]}
+        rehypePlugins={[rehypeRaw, rehypeKatex]}
+        remarkPlugins={[remarkGfm, remarkMath]}
         components={{
           img: (props) => {
             return <MarkdownImage {...props} />;
