@@ -1,5 +1,5 @@
 /* eslint-disable no-case-declarations */
-import { FC, ReactNode, useContext, useEffect, useState } from "react";
+import { FC, ReactNode, useContext, useState } from "react";
 import { BiListCheck, BiListMinus, BiListPlus, BiListUl } from "react-icons/bi";
 import { MdMoreHoriz, MdEditNote, MdDeleteForever } from "react-icons/md";
 import {
@@ -38,7 +38,7 @@ import {
 import styled, { withTheme } from "styled-components";
 import { ModalDeleteTask } from "../ModalDeleteTask";
 import { TaskDetailsModal } from "../TaskDetailsModal";
-import { RelatedTreeSelect } from "../../../components/molecules/RelatedTreeSelect";
+import { RelatedTreeSelect } from "../../molecules/RelatedTreeSelect";
 
 type TasksType = API.Task & { has_notes: boolean };
 
