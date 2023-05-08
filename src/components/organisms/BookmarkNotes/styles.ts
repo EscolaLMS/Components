@@ -9,10 +9,10 @@ const defaultFlex = css`
 `;
 
 export const BookmarkNotesContainer = styled.div`
+  margin: 30px 0px;
   display: flex;
-  flex-direction: column;
   min-width: 100%;
-  min-height: 100%;
+  flex-direction: column;
   background: ${({ theme }) =>
     getStylesBasedOnTheme(theme.mode, theme.dm__background, theme.white)};
   overflow: auto;
@@ -29,11 +29,11 @@ export const BookmarkNotesContainer = styled.div`
 `;
 export const BookmarkNotesBody = styled.div`
   display: flex;
-  width: 100%;
+
 `;
 export const BookmarkNotesHeader = styled.div`
   ${defaultFlex};
-  padding: 12px 0px;
+  padding: 12px;
   border-bottom: 1px solid ${({ theme }) => theme.dm__primaryColor};
 `;
 
@@ -42,6 +42,9 @@ export const BookmarksPage = styled.div`
   justify-content: space-between;
   padding: 12px 24px;
   border-top: 1px solid ${({ theme }) => theme.dm__primaryColor};
+  & h1 {
+    align-self: center;
+  }
 `;
 
 export const BookmarkNotesContentHeader = styled.div`
@@ -59,11 +62,11 @@ export const IconWrapper = styled.div`
 export const BookmarkNotesMenu = styled.div`
   border-right: 1px solid ${({ theme }) => theme.dm__primaryColor};
   width: 25%;
-  padding: 24px 24px 24px 0;
+  padding: 12px 12px 12px 0px;
 `;
 export const BookmarkNotesContent = styled.div`
   width: 100%;
-  padding: 24px 0 24px 24px;
+  padding: 24px 24px 24px 12px;
 `;
 
 export const BookmarkNotesList = styled.ul`

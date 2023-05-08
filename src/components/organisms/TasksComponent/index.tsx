@@ -1,5 +1,5 @@
 /* eslint-disable no-case-declarations */
-import { FC, ReactNode, useContext, useEffect, useState } from "react";
+import { FC, ReactNode, useContext, useState } from "react";
 import { BiListCheck, BiListMinus, BiListPlus, BiListUl } from "react-icons/bi";
 import { MdMoreHoriz, MdEditNote, MdDeleteForever } from "react-icons/md";
 import {
@@ -33,10 +33,12 @@ import {
   TaskDateWrapper,
   ProgrammeText,
   StyledTitle,
+  TasksPage,
 } from "./styles";
 import styled, { withTheme } from "styled-components";
 import { ModalDeleteTask } from "../ModalDeleteTask";
 import { TaskDetailsModal } from "../TaskDetailsModal";
+import { RelatedTreeSelect } from "../../molecules/RelatedTreeSelect";
 
 type TasksType = API.Task & { has_notes: boolean };
 
@@ -56,6 +58,13 @@ interface TasksComponentProps {
     showDone: boolean;
   };
   createBy: { options: Dropdown[]; type: CreateByType };
+  tasksPagination: {
+    previousDisabled: boolean;
+    nextDisabled: boolean;
+    currentPage: number;
+    lastPage: number;
+    setCurrentPage: (page: number) => void;
+  };
 }
 
 interface ChangeStatusCheckboxProps
@@ -94,6 +103,7 @@ const TasksComponent: FC<TasksComponentProps> = ({
   sortOptions,
   taskShowAction,
   createBy,
+  tasksPagination,
 }) => {
   const [isModalVisible, setIsModalVisible] = useState({
     addTask: false,
@@ -102,7 +112,7 @@ const TasksComponent: FC<TasksComponentProps> = ({
   });
   const [taskForActions, setTaskForActions] = useState<API.Task>();
 
-  const { fetchTasks, addTask, fetchProgress, deleteTask, tasks } =
+  const { fetchTasks, addTask, deleteTask, tasks } =
     useContext(EscolaLMSContext);
 
   const tasksList = tasks.list?.data;
@@ -284,11 +294,6 @@ const TasksComponent: FC<TasksComponentProps> = ({
       createBy.type
     );
 
-  useEffect(() => {
-    fetchTasks(pagination);
-    fetchProgress();
-  }, [fetchProgress, fetchTasks, pagination]);
-
   return (
     <>
       <TasksContainer>
@@ -335,7 +340,8 @@ const TasksComponent: FC<TasksComponentProps> = ({
               />
             </TasksContentHeader>
             {tasksToShowInList().map((item: API.Task) => {
-              const { id, title, completed_at, related_type } = item;
+              const { id, title, completed_at, related_type, related_id } =
+                item;
               const checkedDate = checkDate(String(item.due_date));
               return (
                 <TaskItem key={id}>
@@ -356,7 +362,10 @@ const TasksComponent: FC<TasksComponentProps> = ({
                       </StyledTitle>
                       {related_type && (
                         <ProgrammeText>
-                          {String(related_type).replaceAll("\\", " - ")}
+                          <RelatedTreeSelect
+                            disabled
+                            value={`${related_type}:${related_id}`}
+                          />
                         </ProgrammeText>
                       )}
                     </Stack>
@@ -382,6 +391,32 @@ const TasksComponent: FC<TasksComponentProps> = ({
             )}
           </TasksContent>
         </TasksBody>
+        <TasksPage>
+          <Button
+            type="button"
+            mode="outline"
+            disabled={tasksPagination.previousDisabled}
+            onClick={() =>
+              tasksPagination.setCurrentPage(tasksPagination.currentPage - 1)
+            }
+          >
+            {t<string>("Bookmarks.Prev")}
+          </Button>
+
+          <Title>{`${t<string>("Bookmarks.Page")} ${
+            tasksPagination.currentPage
+          } / ${tasksPagination.lastPage || 1}`}</Title>
+          <Button
+            type="button"
+            mode="outline"
+            disabled={tasksPagination.nextDisabled}
+            onClick={() =>
+              tasksPagination.setCurrentPage(tasksPagination.currentPage + 1)
+            }
+          >
+            {t<string>("Bookmarks.Next")}
+          </Button>
+        </TasksPage>
       </TasksContainer>
       <Modal
         visible={isModalVisible.addTask}

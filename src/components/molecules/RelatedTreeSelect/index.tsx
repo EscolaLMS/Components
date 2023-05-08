@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo } from "react";
+import React, { useContext, useMemo } from "react";
 import styled, { css } from "styled-components";
 import { API } from "@escolalms/sdk/lib";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
@@ -79,18 +79,7 @@ export const RelatedTreeSelect = <ValueType,>({
   error,
   ...props
 }: Props<ValueType>) => {
-  const { progress, fetchProgress, fetchProgram, program } =
-    useContext(EscolaLMSContext);
-
-  useEffect(() => {
-    fetchProgress();
-  }, [fetchProgress]);
-
-  useEffect(() => {
-    if (progress.value) {
-      progress.value.forEach((progItem) => fetchProgram(progItem.course.id));
-    }
-  }, [progress, fetchProgram]);
+  const { program } = useContext(EscolaLMSContext);
 
   const treeData: TreeNode[] = useMemo(() => {
     if (!program || !program.byId) return [];

@@ -32,8 +32,7 @@ export const TaskDetailsModal: React.FC<Props> = ({
   const isPersonal = task.created_by?.id === task.user?.id;
   return (
     <Wrapper>
-      <Title>{t<string>("Tasks.EditTask")}</Title>
-
+      <Title level={4}>{t<string>("Tasks.DetailTask")}</Title>
       {isPersonal ? (
         <PersonalContent
           taskForAction={task}
@@ -44,7 +43,7 @@ export const TaskDetailsModal: React.FC<Props> = ({
         />
       ) : (
         <IncomingContent
-          task={task}
+          taskForAction={task}
           onTaskStatusUpdateSuccess={onTaskStatusUpdateSuccess}
         />
       )}
