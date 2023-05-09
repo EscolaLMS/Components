@@ -23,7 +23,7 @@ jobs:
       - name: Npm install
         run: npm i --legacy-peer-deps
       - name: TypeScript tsc
-        run: ./node_modules/.bin/tsc --project tsconfig.json --noEmit
+        run: ./node_modules/.bin/tsc --project tsconfig.json --noEmit --v
 
   eslint:
     runs-on: ubuntu-latest
