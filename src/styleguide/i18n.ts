@@ -204,7 +204,8 @@ export const resources = {
         Undo: "Undo",
         Edit: "Edit",
         DeleteTask: "Delete this task",
-        DeleteTaskDescription: "Are you sure you want to delete this task? This action is irreversible",
+        DeleteTaskDescription:
+          "Are you sure you want to delete this task? This action is irreversible",
         EditTask: "Edit task",
         DetailTask: "Task details",
         ThereIsNoDescription: "There is no description provided for this task",
@@ -219,7 +220,7 @@ export const resources = {
         Overdue: "Overdue",
         Upcoming: "Upcoming",
         Ascending: "Ascending",
-        Descending : "Descending",
+        Descending: "Descending",
       },
       Bookmarks: {
         Title: "Bookmarks and notes",
@@ -232,7 +233,14 @@ export const resources = {
         Add: "Add",
         Prev: "Prev",
         Next: "Next",
-        Page: "Page"
+        Page: "Page",
+      },
+      ModalCourseAccess: {
+        Title: "Fill the enquiry and enrol",
+        PhoneNumber: "Phone number",
+        ContactDetails: "Contact details",
+        Cancel: "Cancel",
+        Submit: "Submit",
       },
     },
   },
@@ -437,7 +445,8 @@ export const resources = {
         Undo: "Cofnij",
         Edit: "Edytuj",
         DeleteTask: "Usuń te zadanie",
-        DeleteTaskDescription: "Czy na pewno chcesz usunąć to zadanie? Ta czynność jest nieodwracalna",
+        DeleteTaskDescription:
+          "Czy na pewno chcesz usunąć to zadanie? Ta czynność jest nieodwracalna",
         EditTask: "Edytuj zadanie",
         DetailTask: "Szczegóły zadania",
         ThereIsNoDescription: "Nie ma opisu tego zadania",
@@ -452,7 +461,7 @@ export const resources = {
         Overdue: "Przekroczone",
         Upcoming: "Nadchodzące",
         Ascending: "Rosnąco",
-        Descending : "Malejąco",
+        Descending: "Malejąco",
       },
       Bookmarks: {
         Title: "Zakładki i notatki",
@@ -465,7 +474,14 @@ export const resources = {
         Add: "Dodaj",
         Prev: "Poprzednia",
         Next: "Następna",
-        Page: "Strona"
+        Page: "Strona",
+      },
+      ModalCourseAccess: {
+        Title: "Wypełnij zapytanie i zapisz się",
+        PhoneNumber: "Numer telefonu",
+        ContactDetails: "Szczegóły kontaktu",
+        Cancel: "Anuluj",
+        Submit: "Wyślij",
       },
     },
   },
