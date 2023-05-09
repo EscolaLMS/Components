@@ -56,7 +56,7 @@ function useQuiz(quizId: number | undefined, onTopicEnd?: () => void) {
       setData((prev) => ({ ...prev, loading: true }));
       fetchQuizAttempt(apiUrl, token, {
         topic_gift_quiz_id: quizId,
-      })
+      } as API.QuizAttempt)
         .then((response) => {
           if (response.success) {
             setData((prev) => ({ ...prev, value: response.data }));
