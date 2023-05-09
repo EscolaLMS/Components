@@ -63,7 +63,7 @@
   "homepage": "https://escolalms.github.io/components",
   "dependencies": {
     "@escolalms/h5p-react": "^0.2.11",
-    "@escolalms/sdk": "^0.4.64",
+    "@escolalms/sdk": "^0.4.69",
     "chroma-js": "^2.4.2",
     "date-fns": "^2.28.0",
     "formik": "^2.2.9",
