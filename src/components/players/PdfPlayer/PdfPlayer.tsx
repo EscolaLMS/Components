@@ -71,7 +71,11 @@ export const PdfPlayer: React.FunctionComponent<PdfPlayerProps> = ({
           file={url}
           {...documentConfig}
         >
-          <Page pageNumber={currentPage} {...pageConfig} />
+          <Page
+            pageNumber={currentPage}
+            renderAnnotationLayer={false}
+            {...pageConfig}
+          />
         </Document>
       )}
 
