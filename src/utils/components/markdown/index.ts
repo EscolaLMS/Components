@@ -27,6 +27,27 @@ const fixInlineStylesSyntaxForMarkdown = (content = ""): string => {
         .join('style="');
 };
 
+const fixMarkTagForMarkdown = (content = ""): string => {
+  let result = "";
+  let isFirstEquals = true;
+
+  for (let i = 0; i < content.length; i++) {
+    if (content[i] === "=" && content[i + 1] === "=") {
+      result += isFirstEquals ? "<mark>" : "</mark>";
+      isFirstEquals = !isFirstEquals;
+      i++;
+    } else {
+      result += content[i];
+    }
+  }
+
+  if (!isFirstEquals) {
+    result += "</mark>";
+  }
+
+  return result;
+}
+
 //TODO: Fix lookbehind ?<= regular expression, because it not works on safari
 // const getRegexBetween = (
 //   openChart: string,
@@ -69,6 +90,7 @@ export const fixContentForMarkdown = (content = ""): string => {
   return flow([
     trimContentForMarkdown,
     fixInlineStylesSyntaxForMarkdown,
+    fixMarkTagForMarkdown,
     // fixUnderlineForMarkdown,
     // fixNoticeForMarkdown,
   ])(content);
