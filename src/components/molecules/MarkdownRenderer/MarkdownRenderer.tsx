@@ -87,6 +87,28 @@ const StyledMarkdownRenderer = styled("div")<StyledMarkdownRendererProps>`
     font-weight: bold;
   }
 
+  code {
+    border-radius: 4px;
+    border: 1px solid rgb(232, 235, 237);
+    padding: 3px 4px;
+    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier,
+      monospace;
+    font-size: 85%;
+  }
+
+  mark {
+    border-radius: 1px;
+    background: rgb(171, 255, 50);
+    padding: 0.2em;
+  }
+
+  blockquote {
+    border-left: 3px solid rgb(218, 225, 233);
+    margin: 1em 0;
+    padding-left: 10px;
+    font-style: italic;
+  }
+
   .table-responsive {
     td,
     tr,
@@ -101,6 +123,7 @@ const StyledMarkdownRenderer = styled("div")<StyledMarkdownRendererProps>`
       padding: 5px 10px;
     }
     table {
+      width: 100%;
       border: 1px solid
         ${({ theme }) =>
           getStylesBasedOnTheme(
@@ -110,6 +133,64 @@ const StyledMarkdownRenderer = styled("div")<StyledMarkdownRendererProps>`
           )};
       border-collapse: collapse;
     }
+  }
+
+  ul,
+  ol {
+    margin: 1em 0.1em;
+    padding: 0px 0px 0px 1em;
+  }
+
+  ul.contains-task-list {
+    list-style: none;
+    padding: 0px;
+    margin: 1em 0;
+  }
+  ul.contains-task-list li {
+    display: flex;
+  }
+  ul.contains-task-list li input {
+    pointer-events: initial;
+    opacity: 1;
+    margin: 3px 0.5em 0px 0px;
+    width: 14px;
+    height: 14px;
+  }
+  ul.contains-task-list li:has(input[checked]) {
+    color: rgb(78, 92, 110);
+    text-decoration: line-through;
+  }
+
+  .image {
+    text-align: center;
+    max-width: 100%;
+    clear: both;
+  }
+  .image-left-50 {
+    float: left;
+    width: 50%;
+    margin-right: 2em;
+    margin-bottom: 1em;
+    clear: initial;
+  }
+
+  .image-right-50 {
+    float: right;
+    width: 50%;
+    margin-left: 2em;
+    margin-bottom: 1em;
+    clear: initial;
+  }
+
+  .image span {
+    line-height: 0;
+    display: inline-block;
+  }
+
+  .image img {
+    display: inline-block;
+    max-width: 100%;
+    max-height: 75vh;
   }
 `;
 
@@ -140,6 +221,9 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = (props) => {
           a: (props) => {
             return <Link {...props} />;
           },
+          input: (props) => {
+            return <MarkdownCheckList {...props} />;
+          },
         }}
         {...props}
       >
@@ -149,9 +233,22 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = (props) => {
   );
 };
 
+export const MarkdownCheckList: React.FC<
+  React.InputHTMLAttributes<HTMLInputElement>
+> = ({ checked, disabled, type }) => {
+  return (
+    <input
+      className="text-checkbox"
+      type={type}
+      disabled={disabled}
+      checked={checked}
+    />
+  );
+};
+
 export const MarkdownImage: React.FC<
   React.ImgHTMLAttributes<HTMLImageElement>
-> = ({ src, alt }) => {
+> = ({ src, alt, title }) => {
   const [size, setSize] = useState([0, 0]);
 
   return (
@@ -169,25 +266,27 @@ export const MarkdownImage: React.FC<
       >
         <Item original={src} width={size[0]} height={size[1]}>
           {({ ref, open }) => (
-            <span
-              role="button"
-              onClick={open}
-              onKeyDown={() => open({} as React.MouseEvent)}
-              tabIndex={0}
-              style={{ cursor: "pointer" }}
-            >
-              <img
-                ref={ref as React.MutableRefObject<HTMLImageElement>}
-                onLoad={(e) =>
-                  setSize([
-                    e.currentTarget.naturalWidth,
-                    e.currentTarget.naturalHeight,
-                  ])
-                }
-                src={src}
-                alt={alt}
-              />
-            </span>
+            <div className={`image ${title ? ("image-" + title) : ""}`}>
+              <span
+                role="button"
+                onClick={open}
+                onKeyDown={() => open({} as React.MouseEvent)}
+                tabIndex={0}
+                style={{ cursor: "pointer" }}
+              >
+                <img
+                  ref={ref as React.MutableRefObject<HTMLImageElement>}
+                  onLoad={(e) =>
+                    setSize([
+                      e.currentTarget.naturalWidth,
+                      e.currentTarget.naturalHeight,
+                    ])
+                  }
+                  src={src}
+                  alt={alt}
+                />
+              </span>
+            </div>
           )}
         </Item>
       </Gallery>
