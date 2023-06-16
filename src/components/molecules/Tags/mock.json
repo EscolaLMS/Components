@@ -1,0 +1,50 @@
+{
+  "success": true,
+  "message": "Categories tree retrieved successfully",
+  "data": [
+    {
+      "id": 1,
+      "title": "Animacja"
+    },
+    {
+      "id": 2,
+      "title": "Bestseller"
+    },
+    {
+      "id": 3,
+      "title": "Dr. Iva Keebler"
+    },
+    {
+      "id": 4,
+      "title": "Finances"
+    },
+    {
+      "id": 5,
+      "title": "H5P"
+    },
+    {
+      "id": 6,
+      "title": "hacker tag"
+    },
+    {
+      "id": 7,
+      "title": "Jarrell Kling"
+    },
+    {
+      "id": 8,
+      "title": "Jedzenie"
+    },
+    {
+      "id": 9,
+      "title": "Kurs"
+    },
+    {
+      "id": 10,
+      "title": "Kurs językowy"
+    },
+    {
+      "id": 11,
+      "title": "Logistics"
+    }
+  ]
+}

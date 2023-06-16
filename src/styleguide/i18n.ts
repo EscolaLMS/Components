@@ -78,6 +78,9 @@ export const resources = {
       Categories: {
         Filter: "Filter",
       },
+      Tags: {
+        Filter: "Filter",
+      },
       Certificate: {
         Title: "Certificates",
         Download: "Download or print as PDF file",
@@ -320,6 +323,9 @@ export const resources = {
         Update: "Zapisz zmiany",
       },
       Categories: {
+        Filter: "Filtruj",
+      },
+      Tags: {
         Filter: "Filtruj",
       },
       Certificate: {
