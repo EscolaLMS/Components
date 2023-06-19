@@ -6,16 +6,7 @@ import { Text, Dropdown } from "../../../";
 import { Row, Col } from "react-grid-system";
 import json from "./mock.json";
 
-const [selected, setSelected] = useState([
-  {
-    id: 1,
-    title: "Animacja",
-  },
-  {
-    id: 4,
-    title: "Finances",
-  },
-]);
+const [selected, setSelected] = useState(['Animacja', 'Finances']);
 
 <React.Fragment>
   <ThemeTester>
