@@ -26,8 +26,8 @@ interface TagsProps extends StyledTagsProps, ExtendableStyledComponent {
   tags: Tag[];
   label?: string;
   labelPrefix?: string;
-  selectedTags?: Tag[];
-  handleChange?: (newValue: Tag[]) => void;
+  selectedTags?: string[];
+  handleChange?: (newValue: string[]) => void;
   drawerTitle?: ReactNode;
   handleDrawerButtonClick?: () => void;
   drawerButtonText?: string;
@@ -278,12 +278,12 @@ const TagsTreeOptions: React.FC<TagsProps> = (props) => {
   } = props;
 
   const onInternalChange = React.useCallback(
-    (tag: Tag) => {
+    (tagName: string) => {
       if (handleChange) {
         handleChange(
-          selectedTags.map(({ id }) => id).includes(tag.id)
-            ? selectedTags.filter(({ id }) => id !== tag.id)
-            : [...selectedTags, tag]
+          selectedTags.includes(tagName)
+            ? selectedTags.filter((tag) => tag !== tagName)
+            : [...selectedTags, tagName]
         );
       }
     },
@@ -312,8 +312,8 @@ const TagsTreeOptions: React.FC<TagsProps> = (props) => {
           <Checkbox
             value={tag.id}
             label={labelPrefix ? `${labelPrefix}${tag.title}` : tag.title}
-            checked={selectedTags.map(({ id }) => id).includes(tag.id)}
-            onChange={() => onInternalChange(tag)}
+            checked={selectedTags.includes(tag.title)}
+            onChange={() => onInternalChange(tag.title)}
           />
         </div>
       ))}
