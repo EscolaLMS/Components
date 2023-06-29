@@ -27,26 +27,21 @@ const fixInlineStylesSyntaxForMarkdown = (content = ""): string => {
         .join('style="');
 };
 
-const fixMarkTagForMarkdown = (content = ""): string => {
-  let result = "";
-  let isFirstEquals = true;
+const fixMarkTagForMarkdown = (input: string): string => {
+  const regex = /==([^=]+)==/g;
+  const matches = input.match(regex);
+  if (!matches) return input;
 
-  for (let i = 0; i < content.length; i++) {
-    if (content[i] === "=" && content[i + 1] === "=") {
-      result += isFirstEquals ? "<mark>" : "</mark>";
-      isFirstEquals = !isFirstEquals;
-      i++;
-    } else {
-      result += content[i];
-    }
-  }
+  let result = input;
 
-  if (!isFirstEquals) {
-    result += "</mark>";
+  for (const match of matches) {
+    const replacedText = `<mark>${match.replace(/==/g, "")}</mark>`;
+
+    result = result.replace(match, replacedText);
   }
 
   return result;
-}
+};
 
 //TODO: Fix lookbehind ?<= regular expression, because it not works on safari
 // const getRegexBetween = (
