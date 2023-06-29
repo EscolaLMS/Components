@@ -28,7 +28,7 @@ const fixInlineStylesSyntaxForMarkdown = (content = ""): string => {
 };
 
 const fixMarkTagForMarkdown = (input: string): string => {
-  const regex = /==([^=]+)==/g;
+  const regex = /==([^=\r\n]+)==/g;
   const matches = input.match(regex);
   if (!matches) return input;
 
