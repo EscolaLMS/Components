@@ -81,7 +81,7 @@ const fixMarkTagForMarkdown = (input: string): string => {
 // };
 
 export const fixContentForMarkdown = (content = ""): string => {
-  if (content === null || content === "null") return "";
+  if (typeof content !== "string" || content === "null") return "";
   return flow([
     trimContentForMarkdown,
     fixInlineStylesSyntaxForMarkdown,
