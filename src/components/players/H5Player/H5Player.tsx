@@ -546,9 +546,9 @@ export const H5Player: React.FC<H5PProps> = ({
           key={h5pThemeCSSOverwriteSrc} // this is required to force a re-render when the theme changes
           state={h5p.value || h5pObject}
           onXAPI={(event: XAPIEvent) => {
-            onXAPI && onXAPI(event);
-            if (event.statement.result.success) {
-              onTopicEnd && onTopicEnd();
+            onXAPI?.(event);
+            if (event?.statement?.result?.success) {
+              onTopicEnd?.();
             }
           }}
           styles={[
