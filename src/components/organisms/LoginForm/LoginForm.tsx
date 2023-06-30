@@ -73,7 +73,11 @@ export const LoginForm: React.FC<Props> = ({
   mobile = false,
   className = "",
 }) => {
-  const initialValues: MyFormValues = { email: "", password: "", remember_me: false };
+  const initialValues: MyFormValues = {
+    email: "",
+    password: "",
+    remember_me: false,
+  };
   const { t } = useTranslation();
   const { login, user } = useContext(EscolaLMSContext);
 
@@ -85,10 +89,10 @@ export const LoginForm: React.FC<Props> = ({
         // WTF. Error from the API is not consisted with rest of the responses
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        error: user.error.data.message || user.error.message,
+        error: user.error?.data?.message || user.error?.message,
         ...user.error.errors,
       });
-      onError && onError(user.error);
+      onError?.(user.error);
     } else {
       formikRef.current?.setErrors({});
     }
@@ -96,7 +100,7 @@ export const LoginForm: React.FC<Props> = ({
 
   useEffect(() => {
     if (user.value) {
-      onSuccess && onSuccess();
+      onSuccess?.();
     }
   }, [user.value, onSuccess]);
 
@@ -122,12 +126,12 @@ export const LoginForm: React.FC<Props> = ({
         onSubmit={(values, { setSubmitting, setErrors }) => {
           login({
             ...values,
-            remember_me: values.remember_me ? 1 : 0
+            remember_me: values.remember_me ? 1 : 0,
           })
             .finally(() => setSubmitting(false))
             .catch((err: ResponseError<DefaultResponseError>) => {
-              setErrors({ error: err.data.message, ...err.data.errors });
-              onError && onError(err.data);
+              setErrors({ error: err.data?.message, ...err.data.errors });
+              onError?.(err.data);
             })
             .finally(() => setSubmitting(false));
         }}
@@ -167,7 +171,7 @@ export const LoginForm: React.FC<Props> = ({
             />
             <Checkbox
               name="remember_me"
-              label={t<string>('Login.RememberMe')}
+              label={t<string>("Login.RememberMe")}
               value={String(values.remember_me)}
               checked={values.remember_me}
               onChange={handleChange}
@@ -201,4 +205,4 @@ export const LoginForm: React.FC<Props> = ({
   );
 };
 
-export default withTheme(styled(LoginForm) <{ mobile: boolean }>``);
+export default withTheme(styled(LoginForm)<{ mobile: boolean }>``);
