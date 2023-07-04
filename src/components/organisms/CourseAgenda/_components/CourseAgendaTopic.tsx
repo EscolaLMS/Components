@@ -60,8 +60,7 @@ const CourseAgendaTopic: FC<CourseAgendaTopicProps> = ({
     }
   }, [mode]);
 
-  const allTopicsLength = getFlatTopics(lessons).length;
-  const isLastTopic = allTopicsLength - finishedTopicIds.length === 1;
+  const isLastTopic = getFlatTopics(lessons).at(-1)?.id === topic.id;
   const isTopicFinished = finishedTopicIds.includes(topic.id);
 
   return (
