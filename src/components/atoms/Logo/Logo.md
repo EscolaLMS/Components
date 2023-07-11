@@ -1,7 +1,4 @@
 ```js
-import ImageModal from "../../../styleguide/ImageModal";
-import img1 from "./Logo.png";
-import img2 from "./Logo-2.png";
 import logo1 from "./logo-placeholder.png";
 import logo2 from "./logo-placeholder2.png";
 import Text from "../Typography/Text";
@@ -24,6 +21,5 @@ import ThemeTester from "../../../styleguide/ThemeTester";
       </div>
     </div>
   </ThemeTester>
-  <ImageModal images={[img1, img2]} />
 </React.Fragment>;
 ```

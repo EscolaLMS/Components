@@ -1,8 +1,6 @@
 ```js
 import { GlobalThemeProvider } from "../../../theme/provider";
-import ImageModal from "../../../styleguide/ImageModal";
 import Text from "../Typography/Text";
-import img1 from "./Option.png";
 import ThemeTester from "../../../styleguide/ThemeTester";
 import { getUniqueId } from "../../../utils/utils";
 
@@ -33,7 +31,5 @@ import { getUniqueId } from "../../../utils/utils";
     />
     <Checkbox name="c7" label={<strong>dummy label</strong>} defaultChecked />
   </ThemeTester>
-
-  <ImageModal images={[img1]} />
 </React.Fragment>;
 ```

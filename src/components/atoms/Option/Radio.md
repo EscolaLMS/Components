@@ -1,8 +1,6 @@
 ```js
 import { GlobalThemeProvider } from "../../../theme/provider";
-import ImageModal from "../../../styleguide/ImageModal";
 import Text from "../Typography/Text";
-import img1 from "./Option.png";
 import ThemeTester from "../../../styleguide/ThemeTester";
 import { getUniqueId } from "../../../utils/utils";
 
@@ -33,7 +31,5 @@ import { getUniqueId } from "../../../utils/utils";
     />
     <Radio name="r5" defaultChecked label={<strong>dummy label</strong>} />
   </ThemeTester>
-
-  <ImageModal images={[img1]} />
 </React.Fragment>;
 ```

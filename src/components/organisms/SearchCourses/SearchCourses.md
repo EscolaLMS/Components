@@ -1,5 +1,5 @@
 ```jsx
-import { ImageModal, ThemeTester } from "../../../styleguide";
+import { ThemeTester } from "../../../styleguide";
 import { EscolaLMSContextProvider } from "@escolalms/sdk/lib/react/context";
 
 <EscolaLMSContextProvider apiUrl="https://api-stage.escolalms.com/">

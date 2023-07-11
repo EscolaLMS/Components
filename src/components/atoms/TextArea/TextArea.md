@@ -1,7 +1,5 @@
 ```js
 import { useState } from "react";
-import ImageModal from "../../../styleguide/ImageModal";
-import img1 from "./TextArea.png";
 import ThemeTester from "../../../styleguide/ThemeTester";
 
 const [text, setText] = useState("lorem ipsum");
@@ -77,6 +75,5 @@ const [texts, setTexts] = useState({
       }
     />
   </ThemeTester>
-  <ImageModal images={[img1]} />
 </React.Fragment>;
 ```

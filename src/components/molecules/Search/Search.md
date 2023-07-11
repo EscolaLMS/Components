@@ -1,5 +1,5 @@
 ```js
-import { ImageModal, ThemeTester } from "../../../styleguide";
+import { ThemeTester } from "../../../styleguide";
 import { useState } from "react";
 import img1 from "./Search.png";
 
@@ -36,6 +36,5 @@ const onChange = (value) => {
       <div>basketball</div>
     </Search>
   </ThemeTester>
-  <ImageModal images={[img1]} />
 </React.Fragment>;
 ```

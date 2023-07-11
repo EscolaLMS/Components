@@ -1,7 +1,5 @@
 ```js
 import { GlobalThemeProvider } from "../../../theme/provider";
-import ImageModal from "../../../styleguide/ImageModal";
-import img1 from "./IconTitle.png";
 import ThemeTester from "../../../styleguide/ThemeTester";
 
 const Icon1 = () => (
@@ -37,7 +35,5 @@ const Icon1 = () => (
       icon={<Icon1 />}
     />
   </ThemeTester>
-
-  <ImageModal images={[img1]} />
 </React.Fragment>;
 ```

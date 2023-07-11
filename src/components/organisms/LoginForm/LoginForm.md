@@ -1,6 +1,6 @@
 ```js
 import img1 from "./LoginForm.png";
-import { ImageModal, ThemeTester } from "../../../styleguide";
+import { ThemeTester } from "../../../styleguide";
 import { EscolaLMSContextProvider } from "@escolalms/sdk/lib/react/context";
 
 import { Text } from "../../../";
@@ -20,7 +20,5 @@ import { Text } from "../../../";
       </div>
     </ThemeTester>
   </EscolaLMSContextProvider>
-
-  <ImageModal images={[img1]} />
 </React.Fragment>;
 ```

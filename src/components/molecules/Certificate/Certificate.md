@@ -1,6 +1,5 @@
 ```js
 import { GlobalThemeProvider } from "../../../theme/provider";
-import ImageModal from "../../../styleguide/ImageModal";
 import ThemeTester from "../../../styleguide/ThemeTester";
 import img1 from "./Certificate.png";
 import img2 from "./CertificateExample.png";
@@ -50,6 +49,5 @@ const props = {
       />
     </div>
   </ThemeTester>
-  <ImageModal images={[img1]} />
 </GlobalThemeProvider>;
 ```

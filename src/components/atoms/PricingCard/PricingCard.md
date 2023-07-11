@@ -1,7 +1,7 @@
 ```js
 import { useState } from "react";
 import { Row, Col } from "react-grid-system";
-import { ThemeTester, ImageModal } from "../../../styleguide";
+import { ThemeTester } from "../../../styleguide";
 import { IconText, Button, CourseProgress, Link, Text } from "../../..";
 import { Title } from "../../atoms/Typography/Title";
 import { MarkdownRenderer } from "../../molecules/MarkdownRenderer/MarkdownRenderer";
@@ -300,7 +300,5 @@ const props = {
       </PricingCard>
     </div>
   </ThemeTester>
-
-  <ImageModal images={[img1]} />
 </React.Fragment>;
 ```

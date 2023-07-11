@@ -1,5 +1,5 @@
 ```jsx
-import { ImageModal, ThemeTester } from "../../../styleguide";
+import { ThemeTester } from "../../../styleguide";
 
 import { Link } from "../../../";
 

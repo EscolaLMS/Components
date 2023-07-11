@@ -1,8 +1,6 @@
 ```js
 import { useState } from "react";
 import { GlobalThemeProvider } from "../../../theme/provider";
-import ImageModal from "../../../styleguide/ImageModal";
-import img1 from "./Input.png";
 import ThemeTester from "../../../styleguide/ThemeTester";
 
 const [text, setText] = useState("lorem ipsum");
@@ -84,6 +82,5 @@ const [texts, setTexts] = useState({
       />
     </div>
   </ThemeTester>
-  <ImageModal images={[img1]} />
 </React.Fragment>;
 ```

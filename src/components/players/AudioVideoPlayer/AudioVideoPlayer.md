@@ -1,5 +1,5 @@
 ```js
-import { ImageModal, ThemeTester } from "../../../styleguide";
+import { ThemeTester } from "../../../styleguide";
 import img1 from "./VideoPlayer.png";
 import { Title, Text, Badge, Link } from "../../../";
 import img2 from "./VideoPlayerPoster.png";
@@ -85,7 +85,5 @@ import img2 from "./VideoPlayerPoster.png";
       </AudioVideoPlayer>
     </div>
   </ThemeTester>
-
-  <ImageModal images={[img1]} />
 </React.Fragment>;
 ```

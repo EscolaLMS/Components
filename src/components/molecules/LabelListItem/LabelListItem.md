@@ -1,7 +1,5 @@
 ```js
 import { Row, Col } from "react-grid-system";
-import ImageModal from "../../../styleguide/ImageModal";
-import img1 from "./LabelListItem.png";
 import ThemeTester from "../../../styleguide/ThemeTester";
 
 const Icon1 = () => (
@@ -134,6 +132,5 @@ const Icon3 = () => (
       </Row>
     </div>
   </ThemeTester>
-  <ImageModal images={[img1]} />
 </React.Fragment>;
 ```

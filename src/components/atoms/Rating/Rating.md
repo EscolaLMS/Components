@@ -1,6 +1,5 @@
 ```js
 import img1 from "./Rating.png";
-import ImageModal from "../../../styleguide/ImageModal";
 import ThemeTester from "../../../styleguide/ThemeTester";
 
 <React.Fragment>
@@ -13,6 +12,5 @@ import ThemeTester from "../../../styleguide/ThemeTester";
     <Rating ratingValue={1} />
     <Rating ratingValue={0} />
   </ThemeTester>
-  <ImageModal images={[img1]} />
 </React.Fragment>;
 ```

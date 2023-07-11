@@ -1,8 +1,6 @@
 ```js
 import { GlobalThemeProvider } from "../../../theme/provider";
 import { useState } from "react";
-import ImageModal from "../../../styleguide/ImageModal";
-import img1 from "./ProgressBar.png";
 import ThemeTester from "../../../styleguide/ThemeTester";
 import Button from "../Button/Button";
 
@@ -41,6 +39,5 @@ const setRandomProgresses = () => {
       Click to generate random progress
     </Button>
   </ThemeTester>
-  <ImageModal images={[img1]} />
 </GlobalThemeProvider>;
 ```

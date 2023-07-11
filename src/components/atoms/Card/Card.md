@@ -6,8 +6,6 @@ import { IconTitle } from "../IconTitle/IconTitle";
 import { Button } from "../Button/Button";
 import { useState } from "react";
 import { CourseCard } from "../../molecules/CourseCard/CourseCard";
-import ImageModal from "../../../styleguide/ImageModal";
-import img1 from "./Card.png";
 
 <React.Fragment>
   <ThemeTester flexDirection="column">
@@ -66,6 +64,5 @@ import img1 from "./Card.png";
       />
     </div>
   </ThemeTester>
-  <ImageModal images={[img1]} />
 </React.Fragment>;
 ```

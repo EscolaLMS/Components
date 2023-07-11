@@ -1,5 +1,4 @@
 ```js
-import ImageModal from "../../../styleguide/ImageModal";
 import ThemeTester from "../../../styleguide/ThemeTester";
 import img1 from "./Banner.png";
 import img2 from "./BannerIllustration.png";
@@ -96,6 +95,5 @@ const props = {
       />
     </div>
   </ThemeTester>
-  <ImageModal images={[img1]} />
 </React.Fragment>;
 ```

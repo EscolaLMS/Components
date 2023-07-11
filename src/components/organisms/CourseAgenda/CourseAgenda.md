@@ -1,7 +1,7 @@
 ```js
 import img1 from "./CourseAgenda.png";
 import { useState, useCallback, useEffect } from "react";
-import { ImageModal, ThemeTester } from "../../../styleguide";
+import { ThemeTester } from "../../../styleguide";
 import { Button } from "../../../";
 import data from "./mock.json";
 import "../../../styleguide/i18n.ts";
@@ -111,6 +111,5 @@ useEffect(() => {
       />
     </div>
   </ThemeTester>
-  <ImageModal images={[img1]} />
 </React.Fragment>;
 ```

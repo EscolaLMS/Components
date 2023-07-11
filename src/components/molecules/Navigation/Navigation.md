@@ -1,6 +1,6 @@
 ```js
 import { GlobalThemeProvider } from "../../../theme/provider";
-import { ImageModal, ThemeTester } from "../../../styleguide";
+import { ThemeTester } from "../../../styleguide";
 import img1 from "./Navigation.png";
 import logoImage from "./logo-placeholder.png";
 import { useState } from "react";
@@ -112,6 +112,5 @@ const menuItems = [
       }
     />
   </div>
-  <ImageModal images={[img1]} />
 </ThemeTester>;
 ```

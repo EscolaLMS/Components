@@ -1,5 +1,5 @@
 ```js
-import { ImageModal, ThemeTester } from "../../../styleguide";
+import { ThemeTester } from "../../../styleguide";
 import { Badge, CourseCard } from "../../../";
 
 import img2 from "./../CourseCard/CourseCard-2.png";
@@ -53,7 +53,5 @@ import img1 from "./ImageBubble.png";
       </ImageBubble>
     </div>
   </ThemeTester>
-
-  <ImageModal images={[img1]} />
 </React.Fragment>;
 ```
