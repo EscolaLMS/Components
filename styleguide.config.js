@@ -41,6 +41,10 @@ module.exports = {
           name: "Theme Colors",
           content: "doc/introduction/themes.md",
         },
+        {
+          name: "How to use Components",
+          content: "doc/introduction/howtouse.md",
+        },
       ],
     },
     {
