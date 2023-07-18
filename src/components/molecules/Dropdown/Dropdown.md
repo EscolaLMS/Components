@@ -1,8 +1,5 @@
 ```js
 import ThemeTester from "../../../styleguide/ThemeTester";
-import ImageModal from "../../../styleguide/ImageModal";
-import img1 from "./Dropdown1.png";
-import img2 from "./Dropdown2.png";
 
 <ThemeTester flexDirection={"column"}>
   <Dropdown
@@ -35,6 +32,5 @@ import img2 from "./Dropdown2.png";
     ]}
     placeholder="Select from object"
   />
-  <ImageModal images={[img1, img2]} />
 </ThemeTester>;
 ```

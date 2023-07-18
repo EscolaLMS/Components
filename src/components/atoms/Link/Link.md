@@ -1,7 +1,5 @@
 ```js
 import ThemeTester from "../../../styleguide/ThemeTester";
-import ImageModal from "../../../styleguide/ImageModal";
-import img1 from "./Link.png";
 
 <>
   <ThemeTester>
@@ -15,6 +13,5 @@ import img1 from "./Link.png";
       Onet
     </Link>
   </ThemeTester>
-  <ImageModal images={[img1]} />
 </>;
 ```

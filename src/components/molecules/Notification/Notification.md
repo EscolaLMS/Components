@@ -1,6 +1,5 @@
 ```js
 import ThemeTester from "../../../styleguide/ThemeTester";
-import ImageModal from "../../../styleguide/ImageModal";
 import img from "./Notification.png";
 import Notification from "./Notification";
 
@@ -19,6 +18,5 @@ import Notification from "./Notification";
       maxLengthDesc={60}
     />
   </ThemeTester>
-  <ImageModal images={[img]} />
 </React.Fragment>;
 ```

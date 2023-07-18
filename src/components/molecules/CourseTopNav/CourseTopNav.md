@@ -1,6 +1,5 @@
 ```js
 import { GlobalThemeProvider } from "../../../theme/provider";
-import ImageModal from "../../../styleguide/ImageModal";
 import img1 from "./CourseTopNav.png";
 
 import ThemeTester from "../../../styleguide/ThemeTester";
@@ -82,6 +81,5 @@ const onBookmarkClick = () => console.log("onBookmarkClick");
       />
     </div>
   </ThemeTester>
-  <ImageModal images={[img1]} />
 </React.Fragment>;
 ```

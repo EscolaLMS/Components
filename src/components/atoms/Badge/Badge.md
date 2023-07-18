@@ -1,6 +1,5 @@
 ```js
-import img1 from "./Badge.png";
-import { ImageModal, ThemeTester } from "../../../styleguide";
+import { ThemeTester } from "../../../styleguide";
 
 <React.Fragment>
   <ThemeTester>
@@ -9,6 +8,5 @@ import { ImageModal, ThemeTester } from "../../../styleguide";
     <Badge>Crazy </Badge>
     <Badge>Exclusive </Badge>
   </ThemeTester>
-  <ImageModal images={[img1]} />
 </React.Fragment>;
 ```

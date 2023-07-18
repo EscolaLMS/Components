@@ -1,6 +1,5 @@
 ```js
 import ThemeTester from "../../../styleguide/ThemeTester";
-import ImageModal from "../../../styleguide/ImageModal";
 import img1 from "./Notes.png";
 import { Title } from "../../atoms/Typography/Title";
 const noteGroups = [
@@ -54,6 +53,5 @@ const noteGroups = [
       />
     </div>
   </div>
-  <ImageModal images={[img1]} />
 </ThemeTester>;
 ```

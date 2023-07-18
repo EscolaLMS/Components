@@ -1,7 +1,5 @@
 ```js
 import { GlobalThemeProvider } from "../../../theme/provider";
-import ImageModal from "../../../styleguide/ImageModal";
-import img1 from "./IconText.png";
 import ThemeTester from "../../../styleguide/ThemeTester";
 
 const Icon1 = () => (
@@ -15,7 +13,5 @@ const Icon1 = () => (
     <IconText icon={<Icon1 />} text={"My example text"} />
     <IconText icon={<Icon1 />} text={"My example text"} />
   </ThemeTester>
-
-  <ImageModal images={[img1]} />
 </React.Fragment>;
 ```

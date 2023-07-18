@@ -1,11 +1,9 @@
 ```js
-import { ThemeTester, ImageModal } from "../../../styleguide";
+import { ThemeTester } from "../../../styleguide";
 import { useState } from "react";
 
 import { Text, Dropdown } from "../../../";
 import { Row, Col } from "react-grid-system";
-import img1 from "./Categories.png";
-import img2 from "./Categories-2.png";
 import json from "./mock.json";
 
 const [selected, setSelected] = useState([4, 5]);
@@ -47,6 +45,5 @@ const [selected, setSelected] = useState([4, 5]);
       />
     </div>
   </ThemeTester>
-  <ImageModal images={[img1, img2]} />
 </React.Fragment>;
 ```

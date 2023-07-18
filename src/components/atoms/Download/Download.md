@@ -6,8 +6,6 @@ import Download from "./Download";
 import themes from "../../../theme";
 import Title from "../../atoms/Typography/Title";
 import ThemeTester from "../../../styleguide/ThemeTester";
-import ImageModal from "../../../styleguide/ImageModal";
-import img1 from "./Download.png";
 
 <React.Fragment>
   <ThemeTester childrenListStyle={{ display: "block" }}>
@@ -21,7 +19,5 @@ import img1 from "./Download.png";
       fileName={<strong>Styled Long file name with extension.pdf</strong>}
     />
   </ThemeTester>
-
-  <ImageModal images={[img1]} />
 </React.Fragment>;
 ```

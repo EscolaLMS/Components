@@ -1,7 +1,5 @@
 ```js
-import img1 from "./Ratings.png";
-import img2 from "./Ratings-2.png";
-import { ImageModal, ThemeTester } from "../../../styleguide";
+import { ThemeTester } from "../../../styleguide";
 import mockApi from "./mock.json";
 import { Title } from "../../atoms/Typography/Title";
 
@@ -27,6 +25,5 @@ const ratingsProps = {
       <Ratings mobile {...ratingsProps} />
     </div>
   </div>
-  <ImageModal images={[img1, img2]} />
 </ThemeTester>;
 ```

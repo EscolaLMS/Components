@@ -1,6 +1,5 @@
 ```js
 import img1 from "./Interval.png";
-import ImageModal from "../../../styleguide/ImageModal";
 import ThemeTester from "../../../styleguide/ThemeTester";
 
 <React.Fragment>
@@ -12,6 +11,5 @@ import ThemeTester from "../../../styleguide/ThemeTester";
     <Interval current={5} max={100} />
     <Interval current={0} max={100} />
   </ThemeTester>
-  <ImageModal images={[img1]} />
 </React.Fragment>;
 ```

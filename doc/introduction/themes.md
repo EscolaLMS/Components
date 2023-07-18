@@ -7,8 +7,6 @@ All config values are defined in [`provider.tsx`](https://github.com/EscolaLMS/C
 ```js
 import ThemeTester from "../../src/styleguide/ThemeTester";
 import ColorBox from "../../src/styleguide/ColorBox/ColorBox";
-import ImageModal from "../../src/styleguide/ImageModal";
-import img1 from "../../src/styleguide/ColorBox/ColorBox.png";
 <React.Fragment>
   <ThemeTester>
     <div style={{ display: "flex" }}>
@@ -16,7 +14,5 @@ import img1 from "../../src/styleguide/ColorBox/ColorBox.png";
       <ColorBox mode="secondary">secondary</ColorBox>
     </div>
   </ThemeTester>
-
-  <ImageModal images={[img1]} />
 </React.Fragment>;
 ```

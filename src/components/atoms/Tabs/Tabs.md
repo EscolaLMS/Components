@@ -1,8 +1,6 @@
 ```js
 import ThemeTester from "../../../styleguide/ThemeTester";
-import ImageModal from "../../../styleguide/ImageModal";
 import { Text } from "../../../";
-import img1 from "./Tabs.png";
 
 const props = {
   tabs: [
@@ -44,6 +42,5 @@ const props = {
       <Tabs tabs={props.tabs} />
     </div>
   </ThemeTester>
-  <ImageModal images={[img1]} />
 </React.Fragment>;
 ```

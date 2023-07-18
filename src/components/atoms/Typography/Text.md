@@ -5,8 +5,6 @@ React component example:
 ```js
 import themes from "../../../theme";
 import { DefaultTheme, ThemeProvider } from "styled-components";
-import ImageModal from "../../../styleguide/ImageModal";
-import img1 from "./Title.png";
 import Title from "./Title";
 import ThemeTester from "../../../styleguide/ThemeTester";
 
@@ -38,7 +36,5 @@ import ThemeTester from "../../../styleguide/ThemeTester";
       dlatego potrzebny będzie fokus na konkretny target.
     </Text>
   </ThemeTester>
-
-  <ImageModal images={[img1]} />
 </React.Fragment>;
 ```

@@ -1,6 +1,6 @@
 ```js
 import { useState } from "react";
-import { ImageModal, ThemeTester } from "../../../styleguide";
+import { ThemeTester } from "../../../styleguide";
 import img1 from "./AsideMenu.png";
 import { Text } from "../../..";
 import data from "./mock.json";
@@ -29,6 +29,5 @@ const [selected, setSelected] = useState(
       ))}
     </nav>
   </ThemeTester>
-  <ImageModal images={[img1]} />
 </React.Fragment>;
 ```

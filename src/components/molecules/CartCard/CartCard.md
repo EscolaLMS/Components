@@ -1,6 +1,5 @@
 ```js
 import ThemeTester from "../../../styleguide/ThemeTester";
-import ImageModal from "../../../styleguide/ImageModal";
 import { Text } from "../../atoms/Typography/Text";
 import { MarkdownRenderer } from "../../molecules/MarkdownRenderer/MarkdownRenderer";
 import img1 from "./CartCard.png";
@@ -133,6 +132,5 @@ const cartCardContainerStyle = {
       />
     </div>
   </ThemeTester>
-  <ImageModal images={[img1]} />
 </>;
 ```

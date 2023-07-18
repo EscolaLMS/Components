@@ -1,6 +1,4 @@
 ```js
-import ImageModal from "../../../styleguide/ImageModal";
-import img1 from "./note.png";
 import ThemeTester from "../../../styleguide/ThemeTester";
 
 <React.Fragment>
@@ -15,6 +13,5 @@ import ThemeTester from "../../../styleguide/ThemeTester";
       color={"#09c3bc"}
     />
   </ThemeTester>
-  <ImageModal images={[img1]} />
 </React.Fragment>;
 ```

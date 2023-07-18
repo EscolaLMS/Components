@@ -1,7 +1,6 @@
 ```js
 import { useState, useEffect } from "react";
 import { GlobalThemeProvider } from "../../../theme/provider";
-import ImageModal from "../../../styleguide/ImageModal";
 import { EscolaLMSContextProvider } from "@escolalms/sdk/lib/react/context";
 import { getH5p } from "@escolalms/sdk/lib/services/h5p";
 

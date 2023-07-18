@@ -1,5 +1,5 @@
 ```js
-import { ImageModal, ThemeTester } from "../../../styleguide";
+import { ThemeTester } from "../../../styleguide";
 import { Link, Title, Text } from "../../../";
 const DownloadIcon = () => (
   <svg

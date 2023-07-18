@@ -1,12 +1,12 @@
 ```js
-import { ThemeTester, ImageModal } from "../../../styleguide";
+import { ThemeTester } from "../../../styleguide";
 import { useState } from "react";
 
 import { Text, Dropdown } from "../../../";
 import { Row, Col } from "react-grid-system";
 import json from "./mock.json";
 
-const [selected, setSelected] = useState(['Animacja', 'Finances']);
+const [selected, setSelected] = useState(["Animacja", "Finances"]);
 
 <React.Fragment>
   <ThemeTester>

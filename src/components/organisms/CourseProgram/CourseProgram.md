@@ -1,6 +1,6 @@
 ```js
 import { useState } from "react";
-import { ImageModal, ThemeTester } from "../../../styleguide";
+import { ThemeTester } from "../../../styleguide";
 import { Button } from "../../../";
 import data from "./mock.json";
 import "../../../styleguide/i18n.ts";

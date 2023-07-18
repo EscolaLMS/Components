@@ -3,8 +3,6 @@ React component example:
 ### Default themes
 
 ```js
-import img1 from "./Button.png";
-import ImageModal from "../../../styleguide/ImageModal";
 import ThemeTester from "../../../styleguide/ThemeTester";
 import { useTranslation } from "react-i18next";
 
@@ -64,7 +62,5 @@ const Icon = () => {
       <Icon />
     </Button>
   </ThemeTester>
-
-  <ImageModal images={[img1]} />
 </React.Fragment>;
 ```

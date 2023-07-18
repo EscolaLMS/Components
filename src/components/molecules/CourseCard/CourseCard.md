@@ -1,6 +1,6 @@
 ```js
 import { GlobalThemeProvider } from "../../../theme/provider";
-import { ThemeTester, ImageModal } from "../../../styleguide";
+import { ThemeTester } from "../../../styleguide";
 import { Title } from "../../atoms/Typography/Title";
 import img1 from "./CourseCard.png";
 import img2 from "./CourseCard-2.png";
@@ -255,6 +255,5 @@ const Icon1 = () => (
       </Row>
     </div>
   </ThemeTester>
-  <ImageModal images={[img1, img2, img3, img4]} />
 </GlobalThemeProvider>;
 ```

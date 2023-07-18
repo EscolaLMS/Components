@@ -1,8 +1,6 @@
 ```js
 import { GlobalThemeProvider } from "../../../theme/provider";
-import ImageModal from "../../../styleguide/ImageModal";
 import ThemeTester from "../../../styleguide/ThemeTester";
-import img1 from "./Steps.png";
 
 <React.Fragment>
   <ThemeTester>
@@ -28,7 +26,5 @@ import img1 from "./Steps.png";
       checked={2}
     />
   </ThemeTester>
-
-  <ImageModal images={[img1]} />
 </React.Fragment>;
 ```

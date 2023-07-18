@@ -1,5 +1,4 @@
 ```js
-import ImageModal from "../../../styleguide/ImageModal";
 import { EscolaLMSContextProvider } from "@escolalms/sdk/lib/react/context";
 import ThemeTester from "../../../styleguide/ThemeTester";
 

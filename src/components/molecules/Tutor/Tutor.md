@@ -1,6 +1,5 @@
 ```js
 import { GlobalThemeProvider } from "../../../theme/provider";
-import ImageModal from "../../../styleguide/ImageModal";
 import img1 from "./Tutor.png";
 import ThemeTester from "../../../styleguide/ThemeTester";
 import avatar from "./TutorExampleAvatar.png";
@@ -46,6 +45,5 @@ import { Title } from "../../atoms/Typography/Title";
       mobile
     />
   </ThemeTester>
-  <ImageModal images={[img1]} />
 </GlobalThemeProvider>;
 ```

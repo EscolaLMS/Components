@@ -1,10 +1,8 @@
 ```js
 import { GlobalThemeProvider } from "../../../theme/provider";
-import ImageModal from "../../../styleguide/ImageModal";
 import IconText from "../../../components/atoms/IconText/IconText";
 import { Row, Col } from "react-grid-system";
 import ThemeTester from "../../../styleguide/ThemeTester";
-import img1 from "./CategoryCard.png";
 
 const IconTag = () => {
   return (
@@ -52,7 +50,7 @@ const IconBook = () => {
 
 const props = {
   icon: <IconTag />,
-  title: "Marketing  i sprzedaż",
+  title: "Marketing i sprzedaż",
   subtitle: <IconText icon={<IconBook />} text="Marketing i sprzedaż" />,
   buttonText: "Zobacz więcej",
   variant: "gradient",
@@ -113,7 +111,5 @@ const props = {
       </Row>
     </div>
   </ThemeTester>
-
-  <ImageModal images={[img1]} />
 </GlobalThemeProvider>;
 ```

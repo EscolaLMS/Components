@@ -1,5 +1,4 @@
 ```js
-import ImageModal from "../../../styleguide/ImageModal";
 import img1 from "./NoteEditor.png";
 import ThemeTester from "../../../styleguide/ThemeTester";
 
@@ -10,6 +9,5 @@ import ThemeTester from "../../../styleguide/ThemeTester";
       onError={() => console.log("Error")}
     />
   </ThemeTester>
-  <ImageModal images={[img1]} />
 </>;
 ```

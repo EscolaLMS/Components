@@ -1,8 +1,6 @@
 ```js
-import ImageModal from "../../../styleguide/ImageModal";
 import ThemeTester from "../../../styleguide/ThemeTester";
 import Text from "../../atoms/Typography/Text";
-import img1 from "./QuizCta.png";
 
 const props = {
   title: "Szybki Quiz",
@@ -46,6 +44,5 @@ const props = {
       />
     </div>
   </ThemeTester>
-  <ImageModal images={[img1]} />
 </React.Fragment>;
 ```

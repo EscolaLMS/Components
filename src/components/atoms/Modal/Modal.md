@@ -1,7 +1,6 @@
 ```js
 import { useState } from "react";
-import { ImageModal, ThemeTester } from "../../../styleguide";
-import img1 from "./Modal.png";
+import { ThemeTester } from "../../../styleguide";
 import { Button, Title, Text } from "../../..";
 
 const ModalWrapper = () => {
@@ -40,7 +39,5 @@ const ModalWrapper = () => {
   <ThemeTester>
     <ModalWrapper />
   </ThemeTester>
-
-  <ImageModal images={[img1]} />
 </React.Fragment>;
 ```

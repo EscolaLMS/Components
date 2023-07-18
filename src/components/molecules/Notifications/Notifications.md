@@ -1,7 +1,5 @@
 ```js
 import ThemeTester from "../../../styleguide/ThemeTester";
-import ImageModal from "../../../styleguide/ImageModal";
-import img1 from "./Notifications.png";
 import Notifications from "./Notifications";
 
 <React.Fragment>
@@ -53,7 +51,6 @@ import Notifications from "./Notifications";
         showAllLink="/"
       />
     </div>
-    <ImageModal images={[img1]} />
   </ThemeTester>
 </React.Fragment>;
 ```
