@@ -98,6 +98,7 @@ export const NoteText = styled(Text)`
   margin: 0px;
   padding-top: 6px;
   font-size: 12px;
+  cursor: pointer;
 `;
 
 export const StyledTitle = styled(Title)`
