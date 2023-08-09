@@ -5,3 +5,4 @@ docs
 yarn-error.log
 lib
 .idea
+.DS_Store
