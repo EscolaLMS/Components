@@ -14,7 +14,11 @@ export const BookmarkNotesContainer = styled.div`
   min-width: 100%;
   flex-direction: column;
   background: ${({ theme }) =>
-    getStylesBasedOnTheme(theme.mode, theme.dm__background, theme.white)};
+    getStylesBasedOnTheme(
+      theme.mode,
+      theme.dm__cardBackgroundColor,
+      theme.cardBackgroundColor
+    )};
   overflow: auto;
   ::-webkit-scrollbar {
     width: 2px;
