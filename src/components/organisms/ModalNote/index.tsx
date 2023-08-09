@@ -87,11 +87,11 @@ const ModalNote: FC<NoteModalProps> = ({
             <TextArea
               name="noteValue"
               id="noteValue"
-              label={t("Note.yourNote", {
+              label={t("Bookmarks.YourNote", {
                 defaultValue: "Your note",
               })}
               placeholder={
-                t("Note.yourNote", {
+                t("Bookmarks.WriteNote", {
                   defaultValue: "Write a note...",
                 }) ?? undefined
               }

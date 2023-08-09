@@ -9,14 +9,13 @@ import {
   BookmarkNotesBody,
   BookmarkNotesMenu,
   BookmarkNotesContent,
-  BookmarkNotesContentHeader,
   BookmarkNotesList,
   BookmarkNotesItem,
   NoteText,
   StyledTitle,
   BookmarksPage,
 } from "./styles";
-import { IconEdit, IconEditAlt } from "../../../styleguide/Icons";
+import { IconEdit, IconEditAlt, IconAll } from "../../../styleguide/Icons";
 import styled, { withTheme } from "styled-components";
 
 export interface Dropdown {
@@ -59,26 +58,38 @@ const BookmarkNotes: FC<BookmarkNotesComponentProps> = ({
   const listItems = [
     {
       id: 0,
+      icon: <IconAll />,
+      text: t<string>("Bookmarks.All"),
+      numberOfItems: bookmarkNotes.list?.data.length || 0,
+    },
+    {
+      id: 1,
       icon: <IconEditAlt />,
       text: t<string>("Bookmarks.Notes"),
-      numberOfTasks: bookmarkNotes.list?.data.length
+      numberOfItems: bookmarkNotes.list?.data.length
         ? Number(notes?.length)
         : 0,
     },
     {
-      id: 1,
+      id: 2,
       icon: <IconEdit />,
       text: t<string>("Bookmarks.Bookmarks"),
-      numberOfTasks: bookmarkNotes.list?.data.length
+      numberOfItems: bookmarkNotes.list?.data.length
         ? Number(bookmarks?.length)
         : 0,
     },
   ];
-  const currentlySelectedListItem = listItems.find(
-    ({ id }) => id === selectedListItem
-  );
 
-  const getArrayToMap = () => (selectedListItem === 0 ? notes : bookmarks);
+  const getArrayToMap = () => {
+    switch (selectedListItem) {
+      case 0:
+        return bookmarkNotes.list?.data;
+      case 1:
+        return notes;
+      case 2:
+        return bookmarks;
+    }
+  };
 
   const handleBookmark = (id: number) =>
     deleteBookmarkNote(id).then(() => {
@@ -105,9 +116,6 @@ const BookmarkNotes: FC<BookmarkNotesComponentProps> = ({
           />
         </BookmarkNotesMenu>
         <BookmarkNotesContent>
-          <BookmarkNotesContentHeader>
-            <Title level={4}>{currentlySelectedListItem?.text}</Title>
-          </BookmarkNotesContentHeader>
           <BookmarkNotesList>
             {getArrayToMap()?.map((item: API.BookmarkNote) => {
               const { id, bookmarkable_type, value } = item;
@@ -137,9 +145,7 @@ const BookmarkNotes: FC<BookmarkNotesComponentProps> = ({
             })}
           </BookmarkNotesList>
           {bookmarkNotes.list?.data.length === 0 && (
-            <Text $color="neutral600" weight="light">
-              {t<string>("Bookmarks.NoBookmarks")}
-            </Text>
+            <Text weight="light">{t<string>("Bookmarks.NoBookmarks")}</Text>
           )}
         </BookmarkNotesContent>
       </BookmarkNotesBody>

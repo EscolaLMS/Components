@@ -29,7 +29,6 @@ export const BookmarkNotesContainer = styled.div`
 `;
 export const BookmarkNotesBody = styled.div`
   display: flex;
-
 `;
 export const BookmarkNotesHeader = styled.div`
   ${defaultFlex};
@@ -47,23 +46,18 @@ export const BookmarksPage = styled.div`
   }
 `;
 
-export const BookmarkNotesContentHeader = styled.div`
-  ${defaultFlex};
-  margin-bottom: 24px;
-  & h1 {
-    width: 30%;
-  }
-`;
 export const IconWrapper = styled.div`
   border-radius: 50%;
   border: 1px solid ${({ theme }) => theme.dm__primaryColor};
-  padding: 4px; ;
+  padding: 4px;
 `;
+
 export const BookmarkNotesMenu = styled.div`
   border-right: 1px solid ${({ theme }) => theme.dm__primaryColor};
   width: 25%;
   padding: 12px 12px 12px 0px;
 `;
+
 export const BookmarkNotesContent = styled.div`
   width: 100%;
   padding: 24px 24px 24px 12px;
@@ -83,6 +77,14 @@ export const BookmarkNotesItem = styled.li`
     gap: 16px;
     & h2 {
       align-self: center;
+    }
+  }
+  & > div {
+    transition: 0.3s;
+  }
+  &:hover {
+    & > div {
+      transform: scale(1.02);
     }
   }
 `;
