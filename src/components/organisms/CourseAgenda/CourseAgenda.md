@@ -97,7 +97,6 @@ useEffect(() => {
         onTopicClick={(topic) => onTopicChange(topic)}
         onMarkFinished={(topic) => onTopicFinished(topic)}
         onNextTopicClick={(topic) => onNextTopic(topic)}
-        unlockAllTopics
       />
     </div>
     <div style={{ width: 375 }}>
