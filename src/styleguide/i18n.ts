@@ -237,6 +237,9 @@ export const resources = {
         Prev: "Prev",
         Next: "Next",
         Page: "Page",
+        YourNote: "Your note",
+        WriteNote: "Write a note...",
+        All: "All",
       },
       ModalCourseAccess: {
         Title: "Fill the enquiry and enrol",
@@ -481,6 +484,9 @@ export const resources = {
         Prev: "Poprzednia",
         Next: "Następna",
         Page: "Strona",
+        YourNote: "Twoja notatka",
+        WriteNote: "Napisz notatkę",
+        All: "Wszystko",
       },
       ModalCourseAccess: {
         Title: "Wypełnij zapytanie i zapisz się",

@@ -1,6 +1,6 @@
-import { getStylesBasedOnTheme } from '../../../utils/utils';
-import { Title, Text } from '../../../';
-import styled, { css } from 'styled-components';
+import { getStylesBasedOnTheme } from "../../../utils/utils";
+import { Title, Text } from "../../../";
+import styled, { css } from "styled-components";
 
 const defaultFlex = css`
   display: flex;
@@ -14,7 +14,11 @@ export const TasksContainer = styled.div`
   width: 100%;
   flex-direction: column;
   background: ${({ theme }) =>
-    getStylesBasedOnTheme(theme.mode, theme.dm__background, theme.white)};
+    getStylesBasedOnTheme(
+      theme.mode,
+      theme.dm__cardBackgroundColor,
+      theme.cardBackgroundColor
+    )};
   overflow: auto;
   ::-webkit-scrollbar {
     width: 2px;
@@ -82,13 +86,13 @@ export const TaskDateWrapper = styled.div`
 
 export const StyledTitle = styled(Title)<{ $isCompleted: boolean }>`
   text-decoration: ${({ $isCompleted }) =>
-    $isCompleted ? 'line-through' : 'none'};
+    $isCompleted ? "line-through" : "none"};
 `;
 
 export const ProgrammeText = styled(Text)`
   text-transform: uppercase;
   font-size: 12px;
-  .rc-tree-select-arrow{
+  .rc-tree-select-arrow {
     display: none;
   }
   .rc-tree-select-selection-item {
@@ -100,10 +104,10 @@ export const ProgrammeText = styled(Text)`
     cursor: pointer;
   }
   .rc-tree-select,
-  .rc-tree-select-selector{
+  .rc-tree-select-selector {
     padding: 0px !important;
-  } 
-  `;
+  }
+`;
 
 export const TasksPage = styled.div`
   display: flex;
@@ -116,7 +120,7 @@ export const TasksPage = styled.div`
 `;
 
 export const TaskDate = styled.div<{
-  $date?: 'Today' | 'Tomorrow' | 'Upcoming' | 'Overdue';
+  $date?: "Today" | "Tomorrow" | "Upcoming" | "Overdue";
 }>`
   display: flex;
   justify-content: flex-start;
@@ -126,7 +130,7 @@ export const TaskDate = styled.div<{
   p,
   picture {
     color: ${({ $date, theme }) =>
-      ['Today', 'Overdue'].includes($date ?? '')
+      ["Today", "Overdue"].includes($date ?? "")
         ? theme.errorColor
         : theme.positive};
   }
