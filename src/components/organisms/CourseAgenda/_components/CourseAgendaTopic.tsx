@@ -55,7 +55,6 @@ const CourseAgendaTopic: FC<CourseAgendaTopicProps> = ({
   const { onMarkFinished, onTopicClick, onNextTopicClick, lessons } =
     useTopicsContext();
   const onClick = useCallback(() => {
-    console.log("asdniadbniasdfbniasfbniasfbnasifbnasif");
     if (mode !== "current") {
       onTopicClick && onTopicClick(topic);
     }
