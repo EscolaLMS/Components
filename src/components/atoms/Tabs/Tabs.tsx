@@ -10,6 +10,7 @@ interface TabProps {
   label: string;
   key: number;
   component: ReactNode;
+  hidden?: boolean;
 }
 
 export interface TabsProps extends ExtendableStyledComponent {
@@ -83,6 +84,10 @@ export const Tabs: React.FC<TabsProps> = (props) => {
       <div className={"tabs-menu"}>
         <div className={"tabs-menu-inner"}>
           {tabs.map((tab) => {
+            if (tab.hidden) {
+              return null;
+            }
+
             return (
               <button
                 type={"button"}
