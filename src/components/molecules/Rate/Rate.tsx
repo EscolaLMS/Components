@@ -12,6 +12,7 @@ interface Props extends ExtendableStyledComponent {
   submitLabel?: string;
   header?: string;
   onSubmit: (rate: number) => void;
+  children?: React.ReactNode;
 }
 
 const StyledRate = styled.div`
@@ -41,6 +42,7 @@ export const Rate: React.FC<Props> = (props) => {
     submitLabel = "Rate.submitButton",
     onSubmit,
     className = "",
+    children,
   } = props;
 
   const [selectedRate, setSelectedRate] = useState<number>(0);
@@ -74,6 +76,7 @@ export const Rate: React.FC<Props> = (props) => {
           setHoverRate(undefined);
         }}
       />
+      {children}
       <div className="submit-container">
         <Button
           mode="secondary"
