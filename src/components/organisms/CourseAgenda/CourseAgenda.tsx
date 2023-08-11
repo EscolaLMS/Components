@@ -48,6 +48,7 @@ interface CourseAgendaProps
   lessons: Lesson[];
   currentTopicId: number;
   onCourseFinished: () => void;
+  unlockAllTopics?: boolean;
 }
 
 const StyledSection = styled("section")`
@@ -90,6 +91,7 @@ export const CourseAgenda: FC<CourseAgendaProps> = (props) => {
     finishedTopicIds,
     currentTopicId,
     onCourseFinished,
+    unlockAllTopics,
   } = props;
   const { t } = useTranslation();
 
@@ -193,6 +195,7 @@ export const CourseAgenda: FC<CourseAgendaProps> = (props) => {
         <article>
           {lessons.map((lesson, index) => (
             <CourseAgendaLesson
+              unlockAllTopics={unlockAllTopics}
               defaultOpen={lesson.topics?.some(
                 (topic) => topic.id === currentNotLockedTopicId
               )}

@@ -21,6 +21,7 @@ interface CourseAgendaLessonProps
   currentTopicId?: number;
   defaultOpen?: boolean;
   onCourseFinished: () => void;
+  unlockAllTopics?: boolean;
 }
 
 const StyledLessonItem = styled.div`
@@ -314,6 +315,7 @@ const CourseAgendaLesson: React.FC<CourseAgendaLessonProps> = (props) => {
     currentTopicId,
     defaultOpen = false,
     onCourseFinished,
+    unlockAllTopics,
   } = props;
   const { t } = useTranslation();
   const {
@@ -412,10 +414,12 @@ const CourseAgendaLesson: React.FC<CourseAgendaLessonProps> = (props) => {
       )}
       <ul
         className={`lesson__topics ${
-          lessonHasLockedTopic || isLessonLocked ? "lesson__topics--locked" : ""
+          (lessonHasLockedTopic || isLessonLocked) && !unlockAllTopics
+            ? "lesson__topics--locked"
+            : ""
         }`}
       >
-        {(lessonHasLockedTopic || isLessonLocked) && (
+        {(lessonHasLockedTopic || isLessonLocked) && !unlockAllTopics && (
           <li
             className={`lesson__overlay ${
               totalHeightOfOverlay === 1 && "lesson__overlay--row"
@@ -471,7 +475,12 @@ const CourseAgendaLesson: React.FC<CourseAgendaLessonProps> = (props) => {
 
           return (
             <CourseAgendaTopic
-              clickable={open && !lockedTopicsIds.includes(topic.id)}
+              clickable={
+                unlockAllTopics ||
+                (!unlockAllTopics &&
+                  open &&
+                  !lockedTopicsIds.includes(topic.id))
+              }
               key={topicIndex}
               topic={topic}
               index={topicIndex + 1}
