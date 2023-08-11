@@ -3,7 +3,7 @@ import ReactTreeSelect, {
   TreeSelectProps as ReactTreeSelectProps,
 } from "rc-tree-select";
 import styled from "styled-components";
-import { AiOutlineRight, AiOutlineDown } from "react-icons/ai";
+import { AiOutlineRight } from "react-icons/ai";
 import { getFontFromTheme } from "../../../theme/provider";
 import { getStylesBasedOnTheme } from "../../../utils/utils";
 export type TreeSelectProps<ValueType> = Omit<
@@ -157,7 +157,6 @@ export const TreeSelect = <ValueType,>({
         {...props}
         placeholder={placeholder}
         switcherIcon={<AiOutlineRight />}
-        // inputIcon={<AiOutlineDown />}
         treeNodeLabelProp="label"
         getPopupContainer={() => wrapperRef.current as HTMLDivElement}
       />
