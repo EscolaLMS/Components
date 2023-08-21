@@ -18,11 +18,11 @@ export function getFlatLessons(lessons: API.Lesson[]): API.Lesson[] {
   );
 }
 
-export const getLessonParentsIds = (
+export function getLessonParentsIds(
   flatLessons: API.Lesson[],
   lesson: API.Lesson,
   result: number[] = []
-): number[] => {
+): number[] {
   const parentsIds: number[] = [...result];
 
   const parentLesson = flatLessons.find((l) =>
@@ -35,4 +35,4 @@ export const getLessonParentsIds = (
   }
 
   return parentsIds;
-};
+}
