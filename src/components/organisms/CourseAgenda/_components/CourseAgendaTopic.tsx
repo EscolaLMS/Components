@@ -65,10 +65,10 @@ const CourseAgendaTopic: React.FC<CourseAgendaTopicProps> = ({
   }, [isFinished, isCurrent]);
 
   const onClick = useCallback(() => {
-    if (iconState === "current") return;
+    if (isCurrent) return;
 
     onTopicClick?.(topic);
-  }, [iconState]);
+  }, [isCurrent]);
 
   const isLastTopic = useMemo(
     () => flatTopics.at(-1)?.id === topic.id,
