@@ -1,121 +1,134 @@
-import { Topic } from "@escolalms/sdk/lib/types/api";
-import { Button } from "../../../atoms/Button/Button";
-
-import Text from "../../../atoms/Typography/Text";
-import { FC, useCallback } from "react";
+import React, { useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { SharedComponentProps, useTopicsContext } from "../CourseAgenda";
-import { CurrentIcon, FinishedIcon, PendingIcon } from "./Icons";
 import { API } from "@escolalms/sdk/lib";
 
-export interface CourseAgendaTopicProps
-  extends Omit<
-    SharedComponentProps,
-    "onMarkFinished" | "onTopicClick" | "onNextTopicClick"
-  > {
+import { Button } from "../../../atoms/Button/Button";
+import Text from "../../../atoms/Typography/Text";
+import { useCourseAgendaContext } from "../context";
+import { CurrentIcon, FinishedIcon, PendingIcon } from "./Icons";
+
+export interface CourseAgendaTopicProps {
   index: number;
-  topic: Topic;
+  topic: API.Topic;
   clickable: boolean;
-  mode: "pending" | "current" | "finished";
-  onCourseFinished: () => void;
 }
 
-const TopicIcon: React.FC<{ mode: CourseAgendaTopicProps["mode"] }> = ({
-  mode,
-}) => {
-  switch (mode) {
+type IconState = "pending" | "finished" | "current";
+
+const TopicIcon: React.FC<{ state: IconState }> = ({ state }) => {
+  switch (state) {
     case "current":
       return <CurrentIcon />;
     case "finished":
       return <FinishedIcon />;
     case "pending":
       return <PendingIcon />;
+    default:
+      return null;
   }
 };
 
-export const getFlatTopics = (lessons: API.Lesson[]): API.Topic[] =>
-  lessons.reduce(
-    (acc, curr) => [
-      ...acc,
-      ...(curr.lessons ? getFlatTopics(curr.lessons as API.Lesson[]) : []),
-      ...(curr.topics ?? []),
-    ],
-    [] as API.Topic[]
-  ) as API.Topic[];
-
-const CourseAgendaTopic: FC<CourseAgendaTopicProps> = ({
+const CourseAgendaTopic: React.FC<CourseAgendaTopicProps> = ({
   index,
   topic,
-  mode,
-  finishedTopicIds,
   clickable,
-  onCourseFinished,
 }) => {
   const { t } = useTranslation();
-  const { onMarkFinished, onTopicClick, onNextTopicClick, lessons } =
-    useTopicsContext();
-  const onClick = useCallback(() => {
-    if (mode !== "current") {
-      onTopicClick && onTopicClick(topic);
-    }
-  }, [mode]);
+  const {
+    onMarkFinished,
+    onTopicClick,
+    onNextTopicClick,
+    onCourseFinished,
+    finishedTopicIds,
+    currentNotLockedTopicId,
+    flatTopics,
+    notFinishedTopics,
+  } = useCourseAgendaContext();
 
-  const isLastTopic = getFlatTopics(lessons).at(-1)?.id === topic.id;
-  const isTopicFinished = finishedTopicIds.includes(topic.id);
+  const isFinished = useMemo(
+    () => finishedTopicIds.includes(topic.id),
+    [finishedTopicIds, topic.id]
+  );
+  const isCurrent = useMemo(
+    () => currentNotLockedTopicId === topic.id,
+    [currentNotLockedTopicId, topic.id]
+  );
+
+  const iconState: IconState = useMemo(() => {
+    if (isCurrent) {
+      return "current";
+    }
+    if (isFinished) {
+      return "finished";
+    }
+    return "pending";
+  }, [isFinished, isCurrent]);
+
+  const onClick = useCallback(() => {
+    if (iconState === "current") return;
+
+    onTopicClick?.(topic);
+  }, [iconState]);
+
+  const isLastTopic = useMemo(
+    () => flatTopics.at(-1)?.id === topic.id,
+    [flatTopics, topic.id]
+  );
+
+  const isOneTopicLeft = useMemo(
+    () => notFinishedTopics.length === 1,
+    [flatTopics, finishedTopicIds]
+  );
 
   return (
-    <li className={`lesson__topic lesson__topic-${mode}`}>
+    <li className={`lesson__topic lesson__topic-${iconState}`}>
       <div
-        className={"lesson__description"}
+        className="lesson__description"
         tabIndex={clickable ? 0 : -1}
         onClick={() => clickable && onClick()}
         onKeyDown={(e) => clickable && e.key === "Enter" && onClick()}
         role="button"
       >
-        <TopicIcon mode={mode} />
+        <TopicIcon state={iconState} />
         <Text
-          className={"lesson__index"}
-          size={"14"}
+          className="lesson__index"
+          size="14"
           noMargin
-          bold={mode === "current"}
+          bold={iconState === "current"}
         >
           {index}.{" "}
         </Text>
-        <Text size={"14"} noMargin bold={mode === "current"}>
+        <Text size="14" noMargin bold={iconState === "current"}>
           {topic.title}
         </Text>
       </div>
 
-      {mode === "current" && !isTopicFinished && isLastTopic && (
+      {isCurrent && !isFinished && isOneTopicLeft && (
         <Button
           block
           mode="outline"
           onClick={() => {
             if (!clickable) return;
-            onMarkFinished && onMarkFinished(topic);
-            onCourseFinished();
+            onMarkFinished?.(topic);
+            onCourseFinished?.();
           }}
         >
           {t<string>("Course.finishCourse")}
         </Button>
       )}
 
-      {mode === "current" && !isTopicFinished && !isLastTopic && (
+      {isCurrent && !isFinished && !isOneTopicLeft && (
         <Button
           block
           mode="outline"
-          onClick={() => clickable && onMarkFinished && onMarkFinished(topic)}
+          onClick={() => clickable && onMarkFinished?.(topic)}
         >
           {t<string>("Course.markAsFinished")}
         </Button>
       )}
 
-      {mode === "current" && isTopicFinished && !isLastTopic && (
-        <Button
-          block
-          mode="outline"
-          onClick={() => onNextTopicClick && onNextTopicClick()}
-        >
+      {isCurrent && isFinished && !isLastTopic && (
+        <Button block mode="outline" onClick={onNextTopicClick}>
           {t<string>("Course.nextTopic")}
         </Button>
       )}
