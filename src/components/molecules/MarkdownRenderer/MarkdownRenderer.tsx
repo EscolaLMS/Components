@@ -266,12 +266,13 @@ export const MarkdownImage: React.FC<
       >
         <Item original={src} width={size[0]} height={size[1]}>
           {({ ref, open }) => (
-            <div className={`image ${title ? ("image-" + title) : ""}`}>
+            <div className={`image ${title ? "image-" + title : ""}`}>
               <span
                 role="button"
                 onClick={open}
                 onKeyDown={() => open({} as React.MouseEvent)}
                 tabIndex={0}
+                aria-label={`Open ${title}`}
                 style={{ cursor: "pointer" }}
               >
                 <img
