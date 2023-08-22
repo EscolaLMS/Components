@@ -1,6 +1,6 @@
 {
   "name": "@escolalms/components",
-  "version": "0.0.105",
+  "version": "0.0.106",
   "main": "lib/index.js",
   "license": "MIT",
   "scripts": {
