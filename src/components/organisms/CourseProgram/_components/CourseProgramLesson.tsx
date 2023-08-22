@@ -56,7 +56,7 @@ export const CourseProgramLesson: React.FC<Props> = ({
           <Icon name="chevron" />
         </Button>
       </header>
-      {(lesson.lessons?.length ?? 0) > 0 && (
+      {!!lesson.lessons?.length && (
         <ul className="lesson__lessons">{children}</ul>
       )}
       <ul className="lesson__topics">

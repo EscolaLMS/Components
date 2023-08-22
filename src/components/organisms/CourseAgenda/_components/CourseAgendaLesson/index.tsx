@@ -62,7 +62,7 @@ export const CourseAgendaLesson: React.FC<CourseAgendaLessonProps> = ({
         onToggleClick={toggleMenu}
         isSubLesson={isSubLesson}
       />
-      {(lesson.lessons?.length ?? 0) > 0 && (
+      {!!lesson.lessons?.length && (
         <ul className={`lesson__lessons`}>{children}</ul>
       )}
       <ul
