@@ -113,7 +113,7 @@ const Copy: React.FC = () => (
   </svg>
 );
 
-export const ICONS = {
+export const ICONS_DICTIONARY = {
   chevron: Chevron,
   program: Program,
   lock: Lock,
