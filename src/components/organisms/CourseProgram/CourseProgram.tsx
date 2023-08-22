@@ -2,7 +2,7 @@ import { Button, IconTitle } from "../../..";
 import * as React from "react";
 import styled, { withTheme } from "styled-components";
 import { useTranslation } from "react-i18next";
-import { Text } from "../../../";
+import { Text, Button, IconTitle, Icon } from "../../../";
 import type { Lesson, Topic } from "@escolalms/sdk/lib/types/api";
 import chroma from "chroma-js";
 import { getStylesBasedOnTheme } from "../../../utils/utils";
@@ -478,7 +478,7 @@ const CourseProgramLesson: React.FC<CourseProgramLessonProps> = (props) => {
           mode="icon"
           aria-label={t(open ? "Actions.Hide" : "Actions.Hide")}
         >
-          <ChevronIcon />
+          <Icon name="chevron" />
         </Button>
       </header>
       <ul className="lesson__topics">
@@ -508,7 +508,7 @@ export const CourseProgram: React.FC<CourseProgramProps> = (props) => {
           <IconTitle
             level={5}
             as="h1"
-            icon={<ProgramIcon />}
+            icon={<Icon name="program" />}
             title={t<string>("Course.Agenda")}
           />
         </header>

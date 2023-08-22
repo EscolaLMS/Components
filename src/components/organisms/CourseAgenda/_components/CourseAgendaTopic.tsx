@@ -3,9 +3,10 @@ import { useTranslation } from "react-i18next";
 import { API } from "@escolalms/sdk/lib";
 
 import { Button } from "../../../atoms/Button/Button";
+import { Icon } from "../../../atoms/Icon/Icon";
 import Text from "../../../atoms/Typography/Text";
 import { useCourseAgendaContext } from "../context";
-import { CurrentIcon, FinishedIcon, PendingIcon } from "./Icons";
+import { CurrentIcon, PendingIcon } from "./Icons";
 
 export interface CourseAgendaTopicProps {
   index: number;
@@ -20,7 +21,7 @@ const TopicIcon: React.FC<{ state: IconState }> = ({ state }) => {
     case "current":
       return <CurrentIcon />;
     case "finished":
-      return <FinishedIcon />;
+      return <Icon name="finished" />;
     case "pending":
       return <PendingIcon />;
     default:
