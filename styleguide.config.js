@@ -3,6 +3,11 @@ const path = require("path");
 const fs = require("fs");
 
 module.exports = {
+  ignore: [
+    "src/components/atoms/Icon/icons.tsx",
+    "src/components/organisms/CourseAgenda/context.tsx",
+    "src/components/organisms/CourseProgram/TopicIcon.tsx",
+  ],
   components: () => {
     return glob.sync("src/components/**/*.{ts,tsx}").filter((file) => {
       // Take only connect component if exists, ignore others.
