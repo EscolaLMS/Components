@@ -9,7 +9,7 @@ import {
   CourseAgendaContextProvider,
   CourseAgendaContextProviderProps,
   useCourseAgendaContext,
-} from "./context";
+} from "./_components/context";
 
 interface CourseAgendaContentProps extends ExtendableStyledComponent {
   mobile?: boolean;

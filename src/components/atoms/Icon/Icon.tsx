@@ -1,6 +1,6 @@
 import React from "react";
 import styled, { withTheme } from "styled-components";
-import { ICONS } from "./icons";
+import { ICONS } from "./_components/Icons";
 
 type IconName = keyof typeof ICONS;
 

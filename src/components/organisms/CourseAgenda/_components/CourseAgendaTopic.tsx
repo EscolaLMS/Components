@@ -5,7 +5,7 @@ import { API } from "@escolalms/sdk/lib";
 import { Button } from "../../../atoms/Button/Button";
 import { Icon } from "../../../atoms/Icon/Icon";
 import Text from "../../../atoms/Typography/Text";
-import { useCourseAgendaContext } from "../context";
+import { useCourseAgendaContext } from "./context";
 import { CurrentIcon, PendingIcon } from "./Icons";
 
 export interface CourseAgendaTopicProps {

@@ -3,7 +3,7 @@ import { useState, useCallback } from "react";
 import { Text } from "../Typography/Text";
 import { GlobalThemeProvider } from "../../../theme/provider";
 import ThemeTester from "../../../styleguide/ThemeTester";
-import { ICONS } from "./icons";
+import { ICONS } from "./_components/icons";
 
 const [hovered, setHovered] = useState("");
 const [saved, setSaved] = useState("");
