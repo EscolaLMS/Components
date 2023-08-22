@@ -30,6 +30,12 @@ export const StyledSection = styled("section")<{ $mobile: boolean }>`
       }
     }
   }
+
+  .lessons__list {
+    list-style-type: none;
+    padding-left: 0;
+  }
+
   .lesson__item {
     background: ${({ theme }) =>
       getStylesBasedOnTheme(
@@ -58,7 +64,7 @@ export const StyledSection = styled("section")<{ $mobile: boolean }>`
       display: flex;
       flex-direction: row;
       flex-wrap: nowrap;
-      align-items: flex-start;
+      align-items: center;
       align-content: flex-start;
 
       button {
@@ -197,12 +203,25 @@ export const StyledSection = styled("section")<{ $mobile: boolean }>`
     }
   }
 
+  .lesson__lessons {
+    list-style: none;
+    padding-left: 0;
+
+    .sub-lesson {
+      padding-inline: 5px;
+      margin-block: 0;
+      border-left: 2px solid transparent;
+      border-bottom: 2px solid rgb(255, 255, 255);
+    }
+  }
+
   .lesson__item.open .lesson__topics {
     max-height: 100vh;
     transition: all 0.35s ease-in;
   }
 
-  .lesson__item.closed .lesson__topics {
+  .lesson__item.closed .lesson__topics,
+  .lesson__item.closed .lesson__lessons {
     max-height: 0;
     overflow: hidden;
     transition: all 0.35s ease-out;

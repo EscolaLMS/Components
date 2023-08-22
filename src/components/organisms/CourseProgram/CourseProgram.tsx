@@ -5,9 +5,9 @@ import type { API } from "@escolalms/sdk/lib";
 
 import type { ExtendableStyledComponent } from "types/component";
 import { IconTitle, Icon } from "../../../index";
-import type { SharedComponentProps } from "./_components/types";
+import { RecursiveLessons } from "./_components/RecursiveLessons";
 import { StyledSection } from "./_components/styles";
-import { CourseProgramLesson } from "./_components/CourseProgramLesson";
+import type { SharedComponentProps } from "./_components/types";
 
 interface Props extends SharedComponentProps, ExtendableStyledComponent {
   lessons: API.Lesson[];
@@ -33,19 +33,13 @@ export const CourseProgram: React.FC<Props> = ({
           />
         </header>
       )}
-      <article>
-        {lessons.map((lesson, index) => (
-          <CourseProgramLesson
-            defaultOpen={true}
-            key={lesson.id}
-            index={index}
-            {...{
-              lesson,
-              onTopicClick,
-            }}
-          />
-        ))}
-      </article>
+      <ul className="lessons__list">
+        <RecursiveLessons
+          lessons={lessons}
+          onTopicClick={onTopicClick}
+          mobile={mobile}
+        />
+      </ul>
     </StyledSection>
   );
 };

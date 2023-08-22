@@ -10,6 +10,8 @@ interface Props extends SharedComponentProps {
   lesson: API.Lesson;
   index: number;
   defaultOpen?: boolean;
+  isSubLesson: boolean;
+  children: React.ReactNode;
 }
 
 export const CourseProgramLesson: React.FC<Props> = ({
@@ -17,16 +19,24 @@ export const CourseProgramLesson: React.FC<Props> = ({
   index,
   defaultOpen = true,
   onTopicClick,
+  mobile,
+  isSubLesson,
+  children,
 }) => {
   const { t } = useTranslation();
   const [open, setOpen] = useState(defaultOpen);
 
   return (
-    <div className={`lesson__item ${open ? "open" : "closed"}`}>
+    <li
+      className={`lesson__item ${open ? "open" : "closed"} ${
+        isSubLesson ? "sub-lesson" : ""
+      }`}
+    >
       <header>
         <div className="lesson__details">
           <Text noMargin size="12">
-            {t<string>("Course.Lesson")} {index + 1}
+            {t<string>(isSubLesson ? "Course.SubLesson" : "Course.Lesson")}{" "}
+            {index + 1}
           </Text>
           <Text noMargin size="12">
             {lesson.duration && lesson.duration}
@@ -46,6 +56,9 @@ export const CourseProgramLesson: React.FC<Props> = ({
           <Icon name="chevron" />
         </Button>
       </header>
+      {(lesson.lessons?.length ?? 0) > 0 && (
+        <ul className="lesson__lessons">{children}</ul>
+      )}
       <ul className="lesson__topics">
         {lesson.topics?.map((topic, topicIndex) => (
           <CourseProgramTopic
@@ -53,9 +66,10 @@ export const CourseProgramLesson: React.FC<Props> = ({
             topic={topic}
             index={topicIndex + 1}
             onTopicClick={onTopicClick}
+            mobile={mobile}
           />
         ))}
       </ul>
-    </div>
+    </li>
   );
 };
