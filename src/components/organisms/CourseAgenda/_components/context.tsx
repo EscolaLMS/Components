@@ -5,7 +5,7 @@ import {
   getFlatLessons,
   getFlatTopics,
   getLessonParentsIds,
-} from "../../../utils/course";
+} from "../../../../utils/course";
 
 interface SharedContextData {
   lessons: API.Lesson[];

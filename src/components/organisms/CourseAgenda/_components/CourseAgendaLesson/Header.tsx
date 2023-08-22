@@ -1,9 +1,8 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { API } from "@escolalms/sdk/lib";
-import { ChevronIcon } from "../Icons";
 
-import { Text, Button } from "../../../../../index";
+import { Text, Button, Icon } from "../../../../../index";
 
 interface Props {
   lesson: API.Lesson;
@@ -52,7 +51,7 @@ export const Header: React.FC<Props> = ({
         mode="icon"
         aria-label={t<string>(open ? "Actions.Hide" : "Action.Show")}
       >
-        <ChevronIcon />
+        <Icon name="chevron" />
       </Button>
     </header>
   );

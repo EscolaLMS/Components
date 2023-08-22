@@ -3,14 +3,13 @@ import { useTranslation } from "react-i18next";
 import styled, { withTheme } from "styled-components";
 
 import { ExtendableStyledComponent } from "types/component";
-import { IconTitle, ProgressRing, Text } from "../../../index";
-import { ProgramIcon } from "./_components/Icons";
+import { IconTitle, ProgressRing, Text, Icon } from "../../../index";
 import { RecursiveLessons } from "./_components/RecursiveLessons";
 import {
   CourseAgendaContextProvider,
   CourseAgendaContextProviderProps,
   useCourseAgendaContext,
-} from "./context";
+} from "./_components/context";
 
 interface CourseAgendaContentProps extends ExtendableStyledComponent {
   mobile?: boolean;
@@ -67,7 +66,7 @@ const CourseAgendaContent: React.FC<CourseAgendaContentProps> = ({
           <IconTitle
             level={5}
             as="h1"
-            icon={<ProgramIcon />}
+            icon={<Icon name="program" />}
             title={t<string>("Course.Agenda")}
           />
           <div>

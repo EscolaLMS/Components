@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Lesson } from "@escolalms/sdk/lib/types/api";
 
-import { useCourseAgendaContext } from "../../context";
+import { useCourseAgendaContext } from "../context";
 import CourseAgendaTopic from "../CourseAgendaTopic";
 import { Header } from "./Header";
 import { LockedOverlay } from "./LockedOverlay";
@@ -62,7 +62,7 @@ export const CourseAgendaLesson: React.FC<CourseAgendaLessonProps> = ({
         onToggleClick={toggleMenu}
         isSubLesson={isSubLesson}
       />
-      {(lesson.lessons?.length ?? 0) > 0 && (
+      {!!lesson.lessons?.length && (
         <ul className={`lesson__lessons`}>{children}</ul>
       )}
       <ul

@@ -2,9 +2,8 @@ import React, { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { API } from "@escolalms/sdk/lib";
 
-import { Text } from "../../../../../index";
-import { useCourseAgendaContext } from "../../context";
-import { LockIcon } from "../Icons";
+import { Text, Icon } from "../../../../../index";
+import { useCourseAgendaContext } from "../context";
 
 /*
 1. CSS grid starts with 1 as closest to the edge value
@@ -50,7 +49,7 @@ export const LockedOverlay: React.FC<Props> = ({ lesson, isLessonLocked }) => {
         gridRowStart: isLessonLocked ? 1 : gridStartingPosition,
       }}
     >
-      <LockIcon />
+      <Icon name="lock" />
       {isLessonLocked ? (
         <>
           <Text size="13" noMargin className="lesson__overlay-text">

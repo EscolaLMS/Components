@@ -2,12 +2,11 @@ import * as React from "react";
 import { Col, Row } from "react-grid-system";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
-import { Button, Modal, ModalNote } from "../../../";
+import { Button, Modal, ModalNote, Icon } from "../../../";
 import chroma from "chroma-js";
 import { getStylesBasedOnTheme } from "../../../utils/utils";
 import { getUniqueId } from "../../../utils/utils";
 import { ExtendableStyledComponent } from "types/component";
-import { IconEditAlt } from "../../../styleguide/Icons";
 import { useState } from "react";
 
 interface StyledAsideProps {
@@ -192,7 +191,7 @@ export const CourseTopNav: React.FC<CourseTopNavProps> = (props) => {
           `CourseTopNav.${bookmarkBtnText}${mobile ? "Mobile" : ""}`
         )}
       >
-        {!mobile && <IconEditAlt />}
+        {!mobile && <Icon name="editAlt" />}
         {t(`CourseTopNav.${bookmarkBtnText}${mobile ? "Mobile" : ""}`)}
       </Button>
     );

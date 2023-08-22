@@ -1,4 +1,4 @@
-import { Button, Title, Text, List, Dropdown, Stack } from "../../..";
+import { Button, Title, Text, List, Icon, Stack } from "../../..";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { FC, ReactNode, useContext, useEffect, useMemo, useState } from "react";
 import { API } from "@escolalms/sdk/lib";
@@ -15,7 +15,6 @@ import {
   StyledTitle,
   BookmarksPage,
 } from "./styles";
-import { IconEdit, IconEditAlt, IconAll } from "../../../styleguide/Icons";
 import styled, { withTheme } from "styled-components";
 
 export interface Dropdown {
@@ -58,13 +57,13 @@ const BookmarkNotes: FC<BookmarkNotesComponentProps> = ({
   const listItems = [
     {
       id: 0,
-      icon: <IconAll />,
+      icon: <Icon name="editAll" />,
       text: t<string>("Bookmarks.All"),
       numberOfItems: bookmarkNotes.list?.data.length || 0,
     },
     {
       id: 1,
-      icon: <IconEditAlt />,
+      icon: <Icon name="editAlt" />,
       text: t<string>("Bookmarks.Notes"),
       numberOfItems: bookmarkNotes.list?.data.length
         ? Number(notes?.length)
@@ -72,7 +71,7 @@ const BookmarkNotes: FC<BookmarkNotesComponentProps> = ({
     },
     {
       id: 2,
-      icon: <IconEdit />,
+      icon: <Icon name="edit" />,
       text: t<string>("Bookmarks.Bookmarks"),
       numberOfItems: bookmarkNotes.list?.data.length
         ? Number(bookmarks?.length)

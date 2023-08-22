@@ -1,6 +1,6 @@
 import React from "react";
 import { API } from "@escolalms/sdk/lib";
-import { useCourseAgendaContext } from "../context";
+import { useCourseAgendaContext } from "./context";
 import { CourseAgendaLesson } from "./CourseAgendaLesson";
 
 interface Props {
