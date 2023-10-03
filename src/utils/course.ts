@@ -4,8 +4,8 @@ export function getFlatTopics(lessons: API.Lesson[]): API.Topic[] {
   return lessons.reduce<API.Topic[]>(
     (acc, l) => [
       ...acc,
-      ...getFlatTopics(l?.lessons ?? []),
       ...(l?.topics ?? []),
+      ...getFlatTopics(l?.lessons ?? []),
     ],
     []
   );
@@ -13,7 +13,7 @@ export function getFlatTopics(lessons: API.Lesson[]): API.Topic[] {
 
 export function getFlatLessons(lessons: API.Lesson[]): API.Lesson[] {
   return lessons.reduce<API.Lesson[]>(
-    (acc, l) => [...acc, ...getFlatLessons(l?.lessons ?? []), l],
+    (acc, l) => [...acc, l, ...getFlatLessons(l?.lessons ?? [])],
     []
   );
 }
