@@ -87,7 +87,7 @@ export const CourseAgendaLesson: React.FC<CourseAgendaLessonProps> = ({
         ))}
       </ul>
       {!!lesson.lessons?.length && (
-        <ul className={`lesson__lessons`}>{children}</ul>
+        <ul className="lesson__lessons">{children}</ul>
       )}
     </StyledLessonItem>
   );
