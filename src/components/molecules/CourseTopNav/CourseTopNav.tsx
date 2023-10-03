@@ -8,6 +8,7 @@ import { getStylesBasedOnTheme } from "../../../utils/utils";
 import { getUniqueId } from "../../../utils/utils";
 import { ExtendableStyledComponent } from "types/component";
 import { useState } from "react";
+import { BookmarkableType } from "@escolalms/sdk/lib/types/api";
 
 interface StyledAsideProps {
   mobile?: boolean;
@@ -17,12 +18,12 @@ export interface NoteData {
   id: number;
   value: string;
   bookmarkable_id: number;
-  bookmarkable_type: string;
+  bookmarkable_type: BookmarkableType;
 }
 
 export interface NewNoteData {
   id: number;
-  type: string;
+  type: BookmarkableType;
 }
 
 export interface CourseTopNavProps

@@ -122,7 +122,7 @@ export const CourseAgendaContextProvider: React.FC<
             return [...acc, l.id];
           }, [])
         : [],
-    [indexOfFirstLessonWithBlockingTopic]
+    [indexOfFirstLessonWithBlockingTopic, flatLessons]
   );
 
   // if prop 'currentTopicId' refers to locked topic, then current topic is firstBlockingTopic
