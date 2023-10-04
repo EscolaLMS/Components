@@ -22,6 +22,7 @@ export interface H5PProps extends ExtendableStyledComponent {
   overwriteFileName?: string;
   h5pObject?: API.H5PObject;
   onTopicEnd?: () => void;
+  hideActionButtons?: boolean;
 }
 
 export const H5Player: React.FC<H5PProps> = ({
@@ -32,6 +33,7 @@ export const H5Player: React.FC<H5PProps> = ({
   h5pObject,
   loading = false,
   className = "",
+  hideActionButtons,
 }) => {
   const { fetchH5P, h5p } = useContext(EscolaLMSContext);
 
@@ -530,9 +532,12 @@ export const H5Player: React.FC<H5PProps> = ({
       themeContext.primaryColor
     )}!important;
    }
+   .h5p-content ul.h5p-actions {
+    display: ${hideActionButtons ? 'none' : 'block'};
+  }
   `;
     return `data:text/css;base64,${btoa(css)}`;
-  }, [themeContext]);
+  }, [themeContext, hideActionButtons]);
 
   return (
     <StyledH5P className={`wellms-component ${className}`}>
