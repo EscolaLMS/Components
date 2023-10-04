@@ -146,6 +146,7 @@ useEffect(() => {
           key={uuid}
           onXAPI={(e) => console.log("onXAPI ", e)}
           onTopicEnd={() => console.log("H5P progress")}
+          hideActionButtons
           {...playerProps}
         />
       </div>
