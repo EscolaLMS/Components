@@ -102,7 +102,7 @@ const ModalAddTask: FC<Props> = ({
               onSuccess?.();
             })
             .catch((err: ResponseError<DefaultResponseError>) => {
-              setErrors({ error: err.data.message, ...err.data.errors });
+              setErrors({ error: err?.data?.message, ...err.data.errors });
               onError?.(err);
             })
             .finally(() => {

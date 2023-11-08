@@ -223,15 +223,13 @@ export const MyProfileForm: React.FC<Props> = ({
                 }
 
                 fields.list &&
-                  fields.list.map(
-                    (field: API.Metadata) => {
-                      if (isAdditionalRequiredField(field)) {
-                        if (!values[field.name]) {
-                          errors[field.name] = t("Required");
-                        }
+                  fields.list.map((field: API.Metadata) => {
+                    if (isAdditionalRequiredField(field)) {
+                      if (!values[field.name]) {
+                        errors[field.name] = t("Required");
                       }
                     }
-                  );
+                  });
 
                 return errors;
               }}
@@ -245,7 +243,7 @@ export const MyProfileForm: React.FC<Props> = ({
                   .catch((err: ResponseError<DefaultResponseError>) => {
                     // reset form to previous state only if error occured
                     resetForm();
-                    setErrors({ error: err.data.message, ...err.data.errors });
+                    setErrors({ error: err.data?.message, ...err.data.errors });
                     onError && onError(err);
                   })
                   .finally(() => {
@@ -318,62 +316,50 @@ export const MyProfileForm: React.FC<Props> = ({
                         (field: API.Metadata) =>
                           field.type === "varchar" || field.type === "text"
                       )
-                      .map(
-                        (
-                          field: API.Metadata,
-                          index: number
-                        ) =>
-                          field.type === "varchar" ? (
-                            <Input
-                              key={`${field}${index}`}
-                              required={isAdditionalRequiredField(field)}
-                              label={t(`AdditionalFields.${field.name}`)}
-                              type="text"
-                              name={field.name}
-                              onChange={handleChange}
-                              onBlur={handleBlur}
-                              value={String(values[field.name]) || ""}
-                              error={errors[field.name] && touched[field.name]}
-                            />
-                          ) : (
-                            <TextArea
-                              rows={10}
-                              key={`${field}${index}`}
-                              required={isAdditionalRequiredField(field)}
-                              label={t(`AdditionalFields.${field.name}`)}
-                              name={field.name}
-                              onChange={handleChange}
-                              onBlur={handleBlur}
-                              value={String(values[field.name]) || ""}
-                              error={errors[field.name] && touched[field.name]}
-                            />
-                          )
+                      .map((field: API.Metadata, index: number) =>
+                        field.type === "varchar" ? (
+                          <Input
+                            key={`${field}${index}`}
+                            required={isAdditionalRequiredField(field)}
+                            label={t(`AdditionalFields.${field.name}`)}
+                            type="text"
+                            name={field.name}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={String(values[field.name]) || ""}
+                            error={errors[field.name] && touched[field.name]}
+                          />
+                        ) : (
+                          <TextArea
+                            rows={10}
+                            key={`${field}${index}`}
+                            required={isAdditionalRequiredField(field)}
+                            label={t(`AdditionalFields.${field.name}`)}
+                            name={field.name}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={String(values[field.name]) || ""}
+                            error={errors[field.name] && touched[field.name]}
+                          />
+                        )
                       )}
 
                   {fields &&
                     fields.list &&
                     fields.list
-                      .filter(
-                        (field: API.Metadata) =>
-                          field.type === "boolean"
-                      )
-                      .map(
-                        (
-                          field: API.Metadata,
-                          index: number
-                        ) => (
-                          <Checkbox
-                            checked={!!values[field.name]}
-                            key={`${field.id}${index}`}
-                            label={t(`AdditionalFields.${field.name}`)}
-                            id={field.name + Date.now()}
-                            name={field.name}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            required={isAdditionalRequiredField(field)}
-                          />
-                        )
-                      )}
+                      .filter((field: API.Metadata) => field.type === "boolean")
+                      .map((field: API.Metadata, index: number) => (
+                        <Checkbox
+                          checked={!!values[field.name]}
+                          key={`${field.id}${index}`}
+                          label={t(`AdditionalFields.${field.name}`)}
+                          id={field.name + Date.now()}
+                          name={field.name}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          required={isAdditionalRequiredField(field)}
+                        />
+                      ))}
 
                   <Button
                     mode="secondary"
