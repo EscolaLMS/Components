@@ -89,7 +89,7 @@ export const LoginForm: React.FC<Props> = ({
         // WTF. Error from the API is not consisted with rest of the responses
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        error: user.error?.data?.message || user.error?.message,
+        error: user?.error?.data?.message || user?.error?.message,
         ...user.error.errors,
       });
       onError?.(user.error);
@@ -128,9 +128,8 @@ export const LoginForm: React.FC<Props> = ({
             ...values,
             remember_me: values.remember_me ? 1 : 0,
           })
-            .finally(() => setSubmitting(false))
             .catch((err: ResponseError<DefaultResponseError>) => {
-              setErrors({ error: err.data?.message, ...err.data.errors });
+              setErrors({ error: err?.data?.message, ...err.data.errors });
               onError?.(err.data);
             })
             .finally(() => setSubmitting(false));

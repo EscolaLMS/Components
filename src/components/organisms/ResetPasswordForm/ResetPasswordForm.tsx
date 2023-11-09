@@ -95,7 +95,7 @@ export const ResetPasswordForm: React.FC<Props> = ({
       })
         .then(() => onFirstStepSuccess && onFirstStepSuccess())
         .catch((err: ResponseError<DefaultResponseError>) => {
-          setErrors({ error: err.data.message, ...err.data.errors });
+          setErrors({ error: err?.data?.message, ...err.data.errors });
           onFirstStepError && onFirstStepError(err);
         })
         .finally(() => setSubmitting(false));
@@ -118,7 +118,7 @@ export const ResetPasswordForm: React.FC<Props> = ({
           onSecondStepSuccess && onSecondStepSuccess();
         })
         .catch((err: ResponseError<DefaultResponseError>) => {
-          setErrors({ error: err.data.message, ...err.data.errors });
+          setErrors({ error: err?.data?.message, ...err.data.errors });
           onSecondStepError && onSecondStepError(err);
         })
         .finally(() => setSubmitting(false));
