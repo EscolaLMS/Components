@@ -38,12 +38,18 @@ export const PdfPlayer: React.FunctionComponent<PdfPlayerProps> = ({
   const { t } = useTranslation();
 
   const handleNextPageClick = () => {
-    if (onTopicEnd && allPages && !(allPages > currentPage)) {
+    if (onTopicEnd && allPages && !(allPages > currentPage + 1)) {
       setEndActionFired(true);
       onTopicEnd();
-      return;
     }
     setCurrentPage(currentPage + 1);
+  };
+
+  const handlePrevPageClick = () => {
+    setCurrentPage(currentPage - 1);
+    if (endActionFired) {
+      setEndActionFired(false);
+    }
   };
 
   React.useEffect(() => {
@@ -90,7 +96,7 @@ export const PdfPlayer: React.FunctionComponent<PdfPlayerProps> = ({
               mode="secondary"
               disabled={!(currentPage > 1)}
               className="nav-btn-modal"
-              onClick={() => setCurrentPage(currentPage - 1)}
+              onClick={handlePrevPageClick}
             >
               {t<string>("Prev")}
             </Button>
