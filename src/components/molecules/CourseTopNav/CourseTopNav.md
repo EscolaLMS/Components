@@ -8,6 +8,7 @@ const onNext = () => console.log("onNext");
 const onPrev = () => console.log("onPrev");
 const onFinish = () => console.log("onFinish");
 const onBookmarkClick = () => console.log("onBookmarkClick");
+const onCourseFinished = () => console.log("onCourseFinished");
 
 <React.Fragment>
   <ThemeTester childrenListStyle={{ display: "block" }}>
@@ -56,6 +57,21 @@ const onBookmarkClick = () => console.log("onBookmarkClick");
         onFinish={onFinish}
       />
     </div>
+    <div style={{ marginTop: 20 }}>
+      <CourseTopNav
+        hasNext
+        hasPrev
+        isFinished={false}
+        isLast={true}
+        onCourseFinished={onCourseFinished}
+        onNext={onNext}
+        addNotes
+        addBookmarks
+        onBookmarkClick={onBookmarkClick}
+        onPrev={onPrev}
+        onFinish={onFinish}
+      />
+    </div>
     <div style={{ margin: "20px auto 0", width: 375 }}>
       <CourseTopNav
         mobile
@@ -75,6 +91,18 @@ const onBookmarkClick = () => console.log("onBookmarkClick");
         hasPrev={false}
         hasPrev
         isFinished
+        onBookmarkClick={onBookmarkClick}
+        onPrev={onPrev}
+        onFinish={onFinish}
+      />
+    </div>
+    <div style={{ margin: "20px auto 0", width: 375 }}>
+      <CourseTopNav
+        mobile
+        hasPrev={false}
+        isLast={true}
+        onCourseFinished={onCourseFinished}
+        hasPrev
         onBookmarkClick={onBookmarkClick}
         onPrev={onPrev}
         onFinish={onFinish}

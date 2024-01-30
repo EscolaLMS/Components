@@ -41,6 +41,8 @@ export interface CourseTopNavProps
   addBookmarks: boolean;
   onBookmarkClick: () => void;
   bookmarkBtnText: "addBookmark" | "deleteBookmark";
+  isLast?: boolean;
+  onCourseFinished?: () => void;
 }
 
 const StyledAside = styled.aside<StyledAsideProps>`
@@ -134,6 +136,7 @@ const IconNote = () => {
 export const CourseTopNav: React.FC<CourseTopNavProps> = (props) => {
   const {
     isFinished = false,
+    isLast = false,
     hasNext = true,
     hasPrev = true,
     onNext,
@@ -147,28 +150,35 @@ export const CourseTopNav: React.FC<CourseTopNavProps> = (props) => {
     mobile,
     className = "",
     bookmarkBtnText = "addBookmark",
+    onCourseFinished,
   } = props;
 
   const [isClosed, setIsClosed] = useState(false);
   const [showNoteModal, setShowNoteModal] = useState(false);
   const { t } = useTranslation();
 
-  const renderFinishButton = () => {
+  const renderFinishButton = React.useCallback(() => {
     return (
       <Button
         mode={isFinished ? "secondary" : mobile ? "secondary" : "outline"}
-        onClick={() => onFinish && onFinish()}
+        onClick={() => {
+          if (isLast && onCourseFinished) {
+            onCourseFinished();
+            return;
+          }
+          onFinish && onFinish();
+        }}
         className={"nav-finish-btn"}
         aria-label={
-          isFinished ? t("CourseTopNav.finished") : t("Course.markAsFinished")
+          isFinished ? t("CourseTopNav.finished") : isLast ? t("Course.finishCourse") : t("Course.markAsFinished")
         }
       >
-        {isFinished ? t("CourseTopNav.finished") : t("Course.markAsFinished")}
+        {isFinished ? t("CourseTopNav.finished") : isLast ? t("Course.finishCourse") : t("Course.markAsFinished")}
       </Button>
     );
-  };
+  }, [isFinished, t, onFinish, mobile, isLast]);
 
-  const renderNoteButton = () => {
+  const renderNoteButton = React.useCallback(() => {
     return (
       <Button
         mode={mobile ? "outline" : "icon"}
@@ -180,9 +190,9 @@ export const CourseTopNav: React.FC<CourseTopNavProps> = (props) => {
         {t("CourseTopNav.addNote")}
       </Button>
     );
-  };
+  }, [mobile, t, setShowNoteModal]);
 
-  const renderBookmarkButton = () => {
+  const renderBookmarkButton = React.useCallback(() => {
     return (
       <Button
         mode={mobile ? "outline" : "icon"}
@@ -196,7 +206,7 @@ export const CourseTopNav: React.FC<CourseTopNavProps> = (props) => {
         {t(`CourseTopNav.${bookmarkBtnText}${mobile ? "Mobile" : ""}`)}
       </Button>
     );
-  };
+  }, [mobile, onBookmarkClick, bookmarkBtnText]);
 
   return (
     <>
