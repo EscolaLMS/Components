@@ -18,7 +18,7 @@ import { Text } from "../../atoms/Typography/Text";
 import { MarkdownRenderer } from "../../molecules/MarkdownRenderer/MarkdownRenderer";
 import { Upload } from "../../molecules/Upload/Upload";
 
-interface ProjectsData {
+export interface ProjectsData {
   data: API.ProjectFile[];
   loading: boolean;
 }
@@ -36,6 +36,7 @@ export interface ProjectPlayerProps {
   onSuccess?: () => void;
   onError?: () => void;
   className?: string;
+  onProjectsChange?: (projects: ProjectsData) => void;
 }
 
 const ProjectPlayerWrapper = styled.div`
@@ -146,14 +147,18 @@ export const ProjectPlayer: React.FC<ProjectPlayerProps> = ({
   onSuccess,
   onError,
   className,
+  onProjectsChange,
 }) => {
   const { token, apiUrl } = useContext(EscolaLMSContext);
   const [projects, setProjects] = useState<ProjectsData>({
     data: [],
     loading: false,
   });
-
   const [isUploading, setIsUploading] = useState(false);
+
+  useEffect(() => {
+    onProjectsChange && onProjectsChange(projects);
+  }, [projects]);
 
   const refreshProjects = useCallback(() => {
     if (!token) return console.error("noToken");
