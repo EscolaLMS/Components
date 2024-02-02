@@ -116,23 +116,6 @@ const StyledAside = styled.aside<StyledAsideProps>`
   }
 `;
 
-const IconNote = () => {
-  return (
-    <svg
-      width="18"
-      height="20"
-      viewBox="0 0 18 20"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M16.5013 0.833374H1.5013C1.28029 0.833374 1.06833 0.921171 0.912046 1.07745C0.755766 1.23373 0.667969 1.44569 0.667969 1.66671V18.3334C0.667969 18.5544 0.755766 18.7663 0.912046 18.9226C1.06833 19.0789 1.28029 19.1667 1.5013 19.1667H13.168C13.2775 19.1663 13.3859 19.1445 13.4871 19.1025C13.5884 19.0607 13.6805 18.9992 13.758 18.9217L17.0913 15.5884C17.2382 15.4264 17.3242 15.2184 17.3346 15V1.66671C17.3346 1.44569 17.2468 1.23373 17.0906 1.07745C16.9343 0.921171 16.7223 0.833374 16.5013 0.833374ZM12.3346 15V17.5H2.33464V2.50004H15.668V14.1667H13.168C12.947 14.1667 12.735 14.2545 12.5787 14.4108C12.4224 14.5671 12.3346 14.779 12.3346 15ZM13.168 8.33337C13.168 8.55439 13.0802 8.76635 12.9239 8.92263C12.7676 9.07891 12.5556 9.16671 12.3346 9.16671H5.66797C5.44696 9.16671 5.23499 9.07891 5.07871 8.92263C4.92243 8.76635 4.83464 8.55439 4.83464 8.33337C4.83464 8.11236 4.92243 7.9004 5.07871 7.74412C5.23499 7.58784 5.44696 7.50004 5.66797 7.50004H12.3346C12.5556 7.50004 12.7676 7.58784 12.9239 7.74412C13.0802 7.9004 13.168 8.11236 13.168 8.33337ZM9.83464 11.6667C9.83464 11.8877 9.74684 12.0997 9.59056 12.256C9.43428 12.4122 9.22232 12.5 9.0013 12.5H5.66797C5.44696 12.5 5.23499 12.4122 5.07871 12.256C4.92243 12.0997 4.83464 11.8877 4.83464 11.6667C4.83464 11.4457 4.92243 11.2337 5.07871 11.0775C5.23499 10.9212 5.44696 10.8334 5.66797 10.8334H9.0013C9.22232 10.8334 9.43428 10.9212 9.59056 11.0775C9.74684 11.2337 9.83464 11.4457 9.83464 11.6667Z"
-        fill="currentColor"
-      />
-    </svg>
-  );
-};
-
 export const CourseTopNav: React.FC<CourseTopNavProps> = (props) => {
   const {
     isFinished = false,
@@ -170,10 +153,18 @@ export const CourseTopNav: React.FC<CourseTopNavProps> = (props) => {
         }}
         className={"nav-finish-btn"}
         aria-label={
-          isFinished ? t("CourseTopNav.finished") : isLast ? t("Course.finishCourse") : t("Course.markAsFinished")
+          isFinished
+            ? t("CourseTopNav.finished")
+            : isLast
+            ? t("Course.finishCourse")
+            : t("Course.markAsFinished")
         }
       >
-        {isFinished ? t("CourseTopNav.finished") : isLast ? t("Course.finishCourse") : t("Course.markAsFinished")}
+        {isFinished
+          ? t("CourseTopNav.finished")
+          : isLast
+          ? t("Course.finishCourse")
+          : t("Course.markAsFinished")}
       </Button>
     );
   }, [isFinished, t, onFinish, mobile, isLast]);
@@ -181,13 +172,13 @@ export const CourseTopNav: React.FC<CourseTopNavProps> = (props) => {
   const renderNoteButton = React.useCallback(() => {
     return (
       <Button
-        mode={mobile ? "outline" : "icon"}
+        mode={"icon"}
         className="note-btn"
         onClick={() => setShowNoteModal(true)}
         aria-label={t("CourseTopNav.addNote")}
       >
-        {!mobile && <IconNote />}
-        {t("CourseTopNav.addNote")}
+        <Icon name="note" />
+        {!mobile && t("CourseTopNav.addNote")}
       </Button>
     );
   }, [mobile, t, setShowNoteModal]);
@@ -195,15 +186,16 @@ export const CourseTopNav: React.FC<CourseTopNavProps> = (props) => {
   const renderBookmarkButton = React.useCallback(() => {
     return (
       <Button
-        mode={mobile ? "outline" : "icon"}
+        mode={"icon"}
         className="note-btn"
         onClick={() => onBookmarkClick && onBookmarkClick()}
         aria-label={t(
           `CourseTopNav.${bookmarkBtnText}${mobile ? "Mobile" : ""}`
         )}
       >
-        {!mobile && <Icon name="editAlt" />}
-        {t(`CourseTopNav.${bookmarkBtnText}${mobile ? "Mobile" : ""}`)}
+        <Icon name="editAlt" />
+        {!mobile &&
+          t(`CourseTopNav.${bookmarkBtnText}${mobile ? "Mobile" : ""}`)}
       </Button>
     );
   }, [mobile, onBookmarkClick, bookmarkBtnText]);
