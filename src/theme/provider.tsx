@@ -4,8 +4,6 @@ import React from "react";
 
 import { useLocalTheme } from "../styleguide/useLocalTheme";
 
-import themes from "../theme";
-
 export interface SharedDefaultTheme {
   theme?: string;
   background: string;
