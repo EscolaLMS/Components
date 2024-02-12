@@ -41,12 +41,14 @@ export const Logo: React.FC = () => {
 
   return (
     <React.Fragment>
-      <ThemeCustomizer
-        // hasAll
-        onUpdate={(theme) => {
-          setTheme(theme);
-        }}
-      />
+      {process.env.NODE_ENV !== "development" && (
+        <ThemeCustomizer
+          // hasAll
+          onUpdate={(theme) => {
+            setTheme(theme);
+          }}
+        />
+      )}
       <svg
         version="1.0"
         id="Warstwa_1"

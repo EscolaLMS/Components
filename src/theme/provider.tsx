@@ -4,6 +4,8 @@ import React from "react";
 
 import { useLocalTheme } from "../styleguide/useLocalTheme";
 
+import themes from "../theme";
+
 export interface SharedDefaultTheme {
   theme?: string;
   background: string;
@@ -107,7 +109,9 @@ export const GlobalThemeProvider: React.FC<{
   defaultTheme?: DefaultTheme;
   children?: React.ReactNode;
 }> = ({ defaultTheme, children }) => {
-  const [theme] = useLocalTheme();
+  //const [theme] = useLocalTheme();
+
+  const theme = themes.redTheme;
   const font = Fonts[theme.font];
 
   return (

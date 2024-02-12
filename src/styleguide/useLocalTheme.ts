@@ -35,21 +35,21 @@ export const setThemeToLocalStorage = (
   window.dispatchEvent(new Event("themeChange"));
 };
 
-console.log(Object.keys(themes).includes(window.location.hash.substr(1)));
-
 // Hook
 export function useLocalTheme(
   initialValue: DefaultTheme = defaultTheme
 ): [DefaultTheme, (value: DefaultTheme) => void] {
   const [localTheme, setLocalTheme] = useState<DefaultTheme>(
-    getThemeFromLocalStorage(
-      Object.keys(themes).includes(window.location.hash.substr(1))
-        ? {
-            ...(themes[window.location.hash.substr(1)] as DefaultTheme),
-            theme: window.location.hash.substr(1),
-          }
-        : initialValue
-    )
+    process.env.NODE_ENV === "development"
+      ? themes.redTheme
+      : getThemeFromLocalStorage(
+          Object.keys(themes).includes(window.location.hash.substr(1))
+            ? {
+                ...(themes[window.location.hash.substr(1)] as DefaultTheme),
+                theme: window.location.hash.substr(1),
+              }
+            : initialValue
+        )
   );
 
   const setTheme = useCallback((theme: DefaultTheme) => {
@@ -57,6 +57,9 @@ export function useLocalTheme(
   }, []);
 
   useEffect(() => {
+    if (process.env.NODE_ENV === "development") {
+      return;
+    }
     if (typeof window !== "undefined") {
       const listener = () => {
         const value = getThemeFromLocalStorage(initialValue);
