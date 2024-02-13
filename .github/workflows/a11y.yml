@@ -13,7 +13,7 @@ jobs:
     
     strategy:
       matrix:
-        node-version: [16.x]
+        node-version: [20.x]
         
     steps:
     - uses: actions/checkout@v3
@@ -41,7 +41,8 @@ jobs:
       run: npm i --legacy-peer-deps && npm i local-web-server npm-run-all
     - run: npm run build
 
-#    - run: npx playwright install-deps && sudo apt-get install xsel -y
+    - run: npx playwright install-deps && sudo apt-get install xsel -y
+    - run: npx playwright install 
    
     - name: Run Axe
       run: ./node_modules/.bin/npm-run-all --parallel serve-docs test-a11y
