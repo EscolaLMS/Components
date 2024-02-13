@@ -110,7 +110,7 @@ export const ThemeCustomizer: React.FC<{
     Customize: folder(
       {
         font: {
-          options: ["Inter", "Mulish", "Titillium"],
+          options: ["Inter", "Mulish", "Titillium", "Lato"],
           value: initData.font || "Inter",
         },
         "Main Colors": folder({

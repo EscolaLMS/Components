@@ -35,7 +35,7 @@ declare module "styled-components" {
     extends SharedDefaultTheme,
       Record<string, unknown> {
     mode?: "light" | "dark";
-    font: "Inter" | "Mulish" | "Titillium";
+    font: "Inter" | "Mulish" | "Titillium" | "Lato";
     radius?: number;
     textColor: string;
     dm__textColor: string;
@@ -88,6 +88,12 @@ export const Fonts: Record<
       "https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600;700&display=swap",
     ],
     fontFamily: "'Titillium Web', sans-serif;",
+  },
+  Lato: {
+    links: [
+      "https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap",
+    ],
+    fontFamily: "'Lato', sans-serif;",
   },
 };
 

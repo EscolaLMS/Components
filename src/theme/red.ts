@@ -1,15 +1,21 @@
 import { DefaultTheme } from "styled-components";
-import { blend } from "chroma-js";
+// import { blend } from "chroma-js";
 import { sharedTheme } from "./shared";
 
 export const redTheme: DefaultTheme = {
   ...sharedTheme,
-  font: "Titillium",
-  primaryColor: "#E60037",
-  dm__primaryColor: "#E60037",
+  buttonRadius: 5,
+  gray1: "#333333",
+  gray2: "#AFAFAF",
+  gray3: "#EAEAEA",
+  gray4: "#F8F8F8",
+  positive: "#2CBE69",
+  font: "Lato",
+  primaryColor: "#EE312F",
+  dm__primaryColor: "#EE312F",
 
-  secondaryColor: blend("#E60037", "#BDBDBD", "multiply").hex(),
-  dm__secondaryColor: blend("#E60037", "#BDBDBD", "multiply").hex(),
+  secondaryColor: "#FFFF00",
+  dm__secondaryColor: "#FFFF00", // blend("#E60037", "#BDBDBD", "multiply").hex(),
 
   headerColor: "#111111",
 
