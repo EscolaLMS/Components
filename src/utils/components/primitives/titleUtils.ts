@@ -6,14 +6,14 @@ export const setFontSizeByHeaderLevel = (
 ): string => {
   switch (level) {
     case 1:
-      return mobile ? "20px" : "50px";
+      return mobile ? "20px" : "30px";
     case 2:
-      return mobile ? "20px" : "40px";
+      return mobile ? "20px" : "24px";
     case 3:
-      return mobile ? "20px" : "36px";
+      return mobile ? "20px" : "18px";
     case 4:
-      return "20px";
-    default:
       return "16px";
+    default:
+      return "13px";
   }
 };
