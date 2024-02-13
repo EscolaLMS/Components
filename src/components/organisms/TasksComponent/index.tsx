@@ -99,7 +99,7 @@ const ChangeStatusCheckbox: FC<ChangeStatusCheckboxProps> = ({
   );
 };
 
-const TasksComponent: FC<TasksComponentProps> = ({
+export const TasksComponent: FC<TasksComponentProps> = ({
   sortOptions,
   taskShowAction,
   createBy,

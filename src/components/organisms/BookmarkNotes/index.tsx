@@ -31,7 +31,7 @@ interface BookmarkNotesComponentProps {
   onDelete?: () => void;
 }
 
-const BookmarkNotes: FC<BookmarkNotesComponentProps> = ({
+export const BookmarkNotes: FC<BookmarkNotesComponentProps> = ({
   onClickBookmark,
   onDelete,
 }) => {
