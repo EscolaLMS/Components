@@ -68,11 +68,11 @@ const StyledDiv = styled("div")<InputProps>`
       input {
         font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
         border: 0px;
-        font-size: 14px;
+        font-size: 13px;
         box-sizing: content-box;
         display: block;
         width: 100%;
-        padding: 11px 12px 13px;
+        padding: 14px 18px;
         caret-color: #e60037;
         border-radius: ${(props) => props.theme.inputRadius}px;
         background: ${(props) => {
@@ -179,8 +179,8 @@ const StyledDiv = styled("div")<InputProps>`
         position: absolute;
         left: 0px;
         top: 0px;
-        transform: translate(12px, 12px) scale(1);
-        font-size: 12px;
+        transform: translate(18px, 14px) scale(1);
+        font-size: 13px;
         z-index: 1;
         transition: 0.2s all;
         color: ${({ theme, error, disabled }) => {
