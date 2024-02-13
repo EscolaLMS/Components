@@ -42,6 +42,7 @@ jobs:
     - run: npm run build
 
     - run: npx playwright install-deps && sudo apt-get install xsel -y
+    - run: npx playwright install 
    
     - name: Run Axe
       run: ./node_modules/.bin/npm-run-all --parallel serve-docs test-a11y
