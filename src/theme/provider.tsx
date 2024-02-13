@@ -108,6 +108,7 @@ export const GlobalThemeProvider: React.FC<{
   children?: React.ReactNode;
 }> = ({ defaultTheme, children }) => {
   const [theme] = useLocalTheme();
+
   const font = Fonts[theme.font];
 
   return (

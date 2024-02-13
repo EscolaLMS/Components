@@ -289,6 +289,31 @@ export const ThemeTester: React.FC<ThemeTesterProps> = (props) => {
   const { children, childrenListStyle, flexDirection, alignItems } = props;
   const [localTheme] = useLocalTheme();
 
+  if (process.env.NODE_ENV === "development") {
+    return (
+      <div>
+        {Object.entries(themes).map((theme) =>
+          modes.map((mode) => (
+            <ThemeProvider
+              theme={{ ...theme[1], mode }}
+              key={`${theme[0]}${mode}`}
+            >
+              <ThemeTesterWrapper
+                flexDirection={flexDirection}
+                alignItems={alignItems}
+                name={theme[0].split("Theme").join("")}
+                mode={mode}
+                childrenListStyle={childrenListStyle}
+              >
+                {children}
+              </ThemeTesterWrapper>
+            </ThemeProvider>
+          ))
+        )}
+      </div>
+    );
+  }
+
   return (
     <div>
       {localTheme.theme === "all" &&
