@@ -28,7 +28,7 @@ const StyledP = styled.p<TextProps>`
         return getStylesBasedOnTheme(
           props.theme.mode,
           props.theme.white,
-          "#111"
+          props.theme.textColor
         );
     }
   }};

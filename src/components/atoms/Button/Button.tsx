@@ -16,50 +16,56 @@ export interface ButtonProps
   invert?: boolean;
   loading?: boolean;
   block?: boolean;
-  mode?: "primary" | "secondary" | "outline" | "white" | "icon";
+  mode?:
+    | "primary"
+    | "secondary"
+    | "outline"
+    | "white"
+    | "icon"
+    | "secondary outline";
   as?: React.ElementType;
   "aria-label"?: string;
 }
 
 const StyledButton = styled("button")<ButtonProps>`
-  background: ${(props) => {
-    if (props.mode === "outline") {
+  background: ${({ mode, theme, invert }) => {
+    if (mode && mode.includes("outline")) {
       return "transparent";
     }
-    if (props.invert) {
-      return props.theme.invertColor;
+    if (invert) {
+      return theme.invertColor;
     }
-    if (props.mode === "white") {
-      return props.theme.white;
+    if (mode === "white") {
+      return theme.white;
     }
-    if (props.mode === "icon") {
+    if (mode === "icon") {
       return "transparent";
     }
-    return props.theme?.primaryColor || "black";
+    return theme?.primaryColor || "black";
   }};
-  color: ${(props) => {
-    if (props.mode === "outline" || props.mode === "icon") {
-      if (props.invert) {
+  color: ${({ theme, mode, invert }) => {
+    if ((mode && mode.includes("outline")) || mode === "icon") {
+      if (invert) {
         return getStylesBasedOnTheme(
-          props.theme.mode,
-          props.theme.dm__outlineButtonInvertColor,
-          props.theme.outlineButtonInvertColor,
-          props.theme.textColor
+          theme.mode,
+          theme.dm__outlineButtonInvertColor,
+          theme.outlineButtonInvertColor,
+          theme.textColor
         );
       }
       return getStylesBasedOnTheme(
-        props.theme.mode,
-        props.theme.dm__outlineButtonColor,
-        props.theme.textColor,
-        props.theme.textColor
+        theme.mode,
+        theme.dm__outlineButtonColor,
+        theme.textColor,
+        theme.textColor
       );
     }
 
-    if (props.mode === "white") {
-      return props.theme.black;
+    if (mode === "white") {
+      return theme.black;
     }
 
-    return props.theme.white;
+    return theme.white;
   }};
   font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
   font-weight: bold;
@@ -69,6 +75,7 @@ const StyledButton = styled("button")<ButtonProps>`
         case "primary":
         case "secondary":
         case "outline":
+        case "secondary outline":
           return "16px";
 
         case "white":
@@ -89,7 +96,10 @@ const StyledButton = styled("button")<ButtonProps>`
   padding: ${(props) => {
     if (props.mode === "icon") {
       return "4px";
-    } else if (props.mode === "secondary") {
+    } else if (
+      props.mode === "secondary" ||
+      props.mode === "secondary outline"
+    ) {
       return "4px 13px";
     }
     return "9px 16px";
@@ -100,7 +110,7 @@ const StyledButton = styled("button")<ButtonProps>`
   border-style: solid;
   border-width: 2px;
   border-color: ${({ theme, mode, invert }) => {
-    if (mode === "outline") {
+    if (mode?.includes("outline")) {
       if (invert) {
         return getStylesBasedOnTheme(
           theme.mode,
@@ -150,6 +160,7 @@ const StyledButton = styled("button")<ButtonProps>`
           case "primary":
           case "secondary":
           case "outline":
+          case "secondary outline":
             return "18px";
 
           default:
@@ -178,7 +189,6 @@ const StyledButton = styled("button")<ButtonProps>`
       }
       return props.theme.white;
     }};
-    box-shadow: none !important;
   }
 
   &:hover {
@@ -188,7 +198,7 @@ const StyledButton = styled("button")<ButtonProps>`
       }
     }};
     border: ${(props) => {
-      if (props.mode === "outline") {
+      if (props.mode && props.mode.includes("outline")) {
         return `1px solid ${chroma(props.theme.primaryColor).alpha(0.8).hex()}`;
       }
     }};
@@ -196,7 +206,7 @@ const StyledButton = styled("button")<ButtonProps>`
     ${(props) => {
       if (props.theme) {
         if (props.invert) {
-          if (props.mode === "outline") {
+          if (props.mode && props.mode.includes("outline")) {
             return `
               background: ${props.theme.white};
               color: ${props.theme.gray1};
@@ -218,7 +228,7 @@ const StyledButton = styled("button")<ButtonProps>`
             opacity: 0.6;
             `;
         } else {
-          if (props.mode === "outline") {
+          if (props.mode && props.mode.includes("outline")) {
             return `
               background: ${getStylesBasedOnTheme(
                 props.theme.mode,
@@ -258,7 +268,7 @@ const StyledButton = styled("button")<ButtonProps>`
       if (props.invert) {
         return `color: ${props.theme.white};`;
       }
-      if (props.mode === "outline") {
+      if (props.mode && props.mode.includes("outline")) {
         return `color: ${props.theme.textColor};
         background: ${props.theme.white};
         border: 1px solid ${props.theme.primaryButtonDisabled};        
@@ -267,17 +277,17 @@ const StyledButton = styled("button")<ButtonProps>`
     }};
   }
 
-  &:focus,
+  /* &:focus,
   &:active {
     ${(props) => {
-      if (props.theme) {
-        return `background: rgba(${chroma(props.theme.gray1)
-          .rgb()
-          .join(",")}, 0.2);`;
-      }
-    }}
+    if (props.theme) {
+      return `background: rgba(${chroma(props.theme.gray1)
+        .rgb()
+        .join(",")}, 0.2);`;
+    }
+  }}
     color: ${(props) => props.theme.white}
-  }
+  } */
 `;
 
 // Main button with styles

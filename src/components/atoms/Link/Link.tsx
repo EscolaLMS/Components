@@ -19,7 +19,7 @@ const StyledAnchor = styled("a")<LinkProps>`
   font-family: ${(props) =>
     props.theme ? getFontFromTheme(props.theme).fontFamily : "sans-serif"};
   font-weight: 500;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.55em;
   cursor: pointer;
   -webkit-font-smoothing: antialiased;

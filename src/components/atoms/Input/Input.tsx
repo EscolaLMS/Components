@@ -57,7 +57,12 @@ const StyledDiv = styled("div")<InputProps>`
     }
 
     .helper {
-      font-size: 12px;
+      font-size: 11px;
+      width: 100%;
+      display: block;
+      text-align: center;
+      margin-top: 1px;
+      opacity: 0.55;
     }
 
     .input-and-fieldset {
