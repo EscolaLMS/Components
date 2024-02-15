@@ -102,6 +102,7 @@ const StyledButton = styled("button")<ButtonProps>`
     ) {
       return "4px 13px";
     }
+
     return "9px 16px";
   }};
   border-radius: ${(props) => props.theme?.buttonRadius || 2}px;

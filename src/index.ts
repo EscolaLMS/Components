@@ -56,6 +56,7 @@ export { Tutor } from "./components/molecules/Tutor/Tutor";
 export { Search } from "./components/molecules/Search/Search";
 export { default as List } from "./components/molecules/List/List";
 export { default as DropdownMenu } from "./components/molecules/DropdownMenu/DropdownMenu";
+export { NewCourseCard } from "./components/molecules/NewCourseCard/index";
 
 //ORGANISMS
 export { default as CourseAgenda } from "./components/organisms/CourseAgenda/CourseAgenda";

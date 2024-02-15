@@ -221,7 +221,7 @@ const ImgWrapper = styled.div`
     transition: 0.3s transform ease;
     border-radius: ${({ theme }) => theme.cardRadius}px;
     &:hover {
-      transform: scale(1.03);
+      /* transform: scale(1.03); */
     }
   }
 `;
