@@ -2,16 +2,23 @@ import { DefaultTheme } from "styled-components";
 // import { blend } from "chroma-js";
 import { sharedTheme } from "./shared";
 
+const colors = {
+  primary: "#EE312F",
+  disabled: "#EAEAEA",
+};
+
 export const redTheme: DefaultTheme = {
   ...sharedTheme,
   buttonRadius: 5,
+  inputRadius: 5,
+  checkboxRadius: 5,
   gray1: "#333333",
   gray2: "#AFAFAF",
-  gray3: "#EAEAEA",
+  gray3: colors.disabled,
   gray4: "#F8F8F8",
   positive: "#2CBE69",
   font: "Lato",
-  primaryColor: "#EE312F",
+  primaryColor: colors.primary,
   dm__primaryColor: "#EE312F",
 
   secondaryColor: "#FFFF00",
@@ -19,7 +26,7 @@ export const redTheme: DefaultTheme = {
 
   headerColor: "#111111",
 
-  background: "#F2F2F2",
+  background: "#FFF",
   dm__background: "#232225",
 
   colorBackground: "#E60037",
@@ -28,8 +35,13 @@ export const redTheme: DefaultTheme = {
   cardBackgroundColor: sharedTheme.gray5,
   dm__cardBackgroundColor: sharedTheme.gray1,
 
+  outlineButtonColor: colors.primary,
+
   dm__textColor: "#FFF",
-  textColor: "#000",
+  textColor: "#333",
+
+  primaryButtonDisabled: colors.disabled,
+  inputBg: sharedTheme.white,
 };
 
 export default redTheme;

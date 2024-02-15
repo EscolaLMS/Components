@@ -6,15 +6,23 @@ import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { Button, Search as InputSearch } from "../../..";
 import styled from "styled-components";
 
+const SearchWrapper = styled.div`
+  min-width: 300px;
+  input {
+    border-radius: 21px !important;
+    background-color: ${({ theme }) => theme.gray4} !important;
+  }
+`;
+
 const ItemButton = styled(Button)`
   padding: 10px !important;
   justify-content: flex-start;
-  border: inherit;
-  border-radius: 0;
+  border: none;
+  border-radius: ${({ theme }) => theme.buttonRadius}px;
   &:hover {
-    text-decoration: underline;
-    background-color: ${({ theme }) => theme.white} !important;
+    background-color: ${({ theme }) => theme.gray4} !important;
     color: ${({ theme }) => theme.textColor};
+    border-radius: ${({ theme }) => theme.buttonRadius}px;
   }
 `;
 
@@ -66,25 +74,27 @@ export const SearchCourses: React.FC<{
   const onSubmit = useCallback((val: string) => onInputSubmitted(val), []);
   const { t } = useTranslation();
   return (
-    <InputSearch
-      loading={fetching}
-      onSearch={onSearch}
-      onSubmit={onSubmit}
-      placeholder={t<string>("Search.Placeholder")}
-    >
-      {foundCourses.map((course) => (
-        <ItemButton
-          block
-          mode="white"
-          key={course.id}
-          onClick={() => {
-            onItemSelected(course);
-          }}
-        >
-          {course.title}
-        </ItemButton>
-      ))}
-    </InputSearch>
+    <SearchWrapper>
+      <InputSearch
+        loading={fetching}
+        onSearch={onSearch}
+        onSubmit={onSubmit}
+        placeholder={t<string>("Search.Placeholder")}
+      >
+        {foundCourses.map((course) => (
+          <ItemButton
+            block
+            mode="white"
+            key={course.id}
+            onClick={() => {
+              onItemSelected(course);
+            }}
+          >
+            {course.title}
+          </ItemButton>
+        ))}
+      </InputSearch>
+    </SearchWrapper>
   );
 };
 

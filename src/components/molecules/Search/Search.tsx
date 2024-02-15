@@ -91,8 +91,7 @@ const StyledSearch = styled("div")<StyledSearchProps>`
     max-height: ${({ isFocused }) => (isFocused ? "250px" : "0")};
     overflow-y: auto;
     display: ${({ isFocused }) => (isFocused ? "block" : "none")};
-    background-color: ${({ theme }) =>
-      getStylesBasedOnTheme(theme.mode, theme.gray1, theme.gray5)};
+    background-color: ${({ theme }) => theme.white};
     border-width: 0.5px;
     border-style: solid;
     border-color: ${({ theme }) =>
@@ -103,9 +102,10 @@ const StyledSearch = styled("div")<StyledSearchProps>`
       )};
     border-top: none;
     box-sizing: border-box;
-    border-bottom-left-radius: ${({ theme }) => theme.inputRadius}px;
-    border-bottom-right-radius: ${({ theme }) => theme.inputRadius}px;
+    border-radius: ${({ theme }) => theme.buttonRadius}px;
+    padding: 0px 6px;
     z-index: 1;
+    box-shadow: 0px 10px 15px #00000019;
 
     > * {
       padding: 15px;
@@ -125,6 +125,13 @@ const StyledSearch = styled("div")<StyledSearchProps>`
             chroma(theme.gray5).darken(0.2).css()
           )};
       }
+    }
+
+    ::-webkit-scrollbar {
+      width: 1px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background-color: ${({ theme }) => theme.primaryColor};
     }
   }
 `;

@@ -48,6 +48,9 @@ const StyledDiv = styled.div<{ mobile: boolean }>`
     max-width: 440px;
     margin-bottom: 15px;
   }
+  > button {
+    width: 100%;
+  }
 `;
 
 interface MyFormValues {
@@ -176,7 +179,7 @@ export const LoginForm: React.FC<Props> = ({
               onChange={handleChange}
             />
             <Button
-              mode="secondary"
+              mode="primary"
               type="submit"
               loading={isSubmitting || user.loading}
               block
@@ -194,12 +197,13 @@ export const LoginForm: React.FC<Props> = ({
           {t<string>("Login.NotRemember")}
         </Link>
       </Text>
-      <Text size="14">
-        {t<string>("Login.NoAccount")}{" "}
-        <Link underline onClick={() => onRegisterLink && onRegisterLink()}>
-          {t<string>("Login.Signup")}
-        </Link>
-      </Text>
+      <Text size="14">{t<string>("Login.NoAccount")} </Text>
+      <Button
+        mode={"outline"}
+        onClick={() => onRegisterLink && onRegisterLink()}
+      >
+        {t<string>("Login.Signup")}
+      </Button>
     </StyledDiv>
   );
 };

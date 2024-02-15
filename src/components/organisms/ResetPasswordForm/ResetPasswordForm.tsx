@@ -40,7 +40,7 @@ const StyledDiv = styled.div<{ mobile: boolean }>`
   }
   form {
     width: 100%;
-    max-width: 440px;
+    min-width: 440px;
     margin-bottom: 15px;
   }
 `;
@@ -179,7 +179,7 @@ export const ResetPasswordForm: React.FC<Props> = ({
               />
             )}
 
-            <Button mode="secondary" type="submit" loading={isSubmitting} block>
+            <Button mode="primary" type="submit" loading={isSubmitting} block>
               {t<string>("ResetForm.Reset")}
             </Button>
           </form>
@@ -192,12 +192,10 @@ export const ResetPasswordForm: React.FC<Props> = ({
               {t<string>("ResetForm.BackToLogin")}
             </Link>
           </Text>
-          <Text size="14">
-            {t<string>("Login.NoAccount")}{" "}
-            <Link underline onClick={() => onRegisterLink && onRegisterLink()}>
-              {t<string>("Login.Signup")}
-            </Link>
-          </Text>
+          <Text size="13">{t<string>("Login.NoAccount")} </Text>
+          <Link onClick={() => onRegisterLink && onRegisterLink()}>
+            {t<string>("Login.Signup")}
+          </Link>
         </>
       )}
     </StyledDiv>

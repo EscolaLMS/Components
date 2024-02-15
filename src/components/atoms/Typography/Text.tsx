@@ -11,7 +11,7 @@ export interface TextProps
     ExtendableStyledComponent {
   noMargin?: boolean;
   bold?: boolean;
-  size?: "16" | "14" | "13" | "12";
+  size?: "16" | "14" | "13" | "12" | "11";
   type?: "primary" | "secondary" | "warning" | "danger";
   className?: string;
 }
@@ -28,7 +28,7 @@ const StyledP = styled.p<TextProps>`
         return getStylesBasedOnTheme(
           props.theme.mode,
           props.theme.white,
-          "#111"
+          props.theme.textColor
         );
     }
   }};

@@ -50,7 +50,6 @@ const StyledDiv = styled.div<{ mobile: boolean }>`
     margin: 0;
   }
   a {
-    font-size: 14px;
     color: ${({ theme }) =>
       getStylesBasedOnTheme(
         theme.mode,
@@ -68,6 +67,18 @@ const StyledDiv = styled.div<{ mobile: boolean }>`
     width: 100%;
     max-width: 440px;
     margin-bottom: 15px;
+  }
+`;
+
+const GotAccount = styled.div`
+  margin-top: 70px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  a {
+    margin-top: 11px;
+    font-weight: 700;
   }
 `;
 
@@ -358,23 +369,20 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
                   />
                 ))}
 
-            <Button
-              mode="secondary"
-              type="submit"
-              loading={isSubmitting || fields.loading}
-              block
-            >
+            <Button mode="primary" type="submit" loading={isSubmitting} block>
               {t<string>("Login.Signup")}
             </Button>
           </form>
         )}
       </Formik>
-      <Text size="14">
-        {t<string>("RegisterForm.Already have an account")}{" "}
-        <Link underline onClick={() => onLoginLink && onLoginLink()}>
+      <GotAccount>
+        <Text size="14">
+          {t<string>("RegisterForm.Already have an account")}{" "}
+        </Text>{" "}
+        <Link onClick={() => onLoginLink && onLoginLink()}>
           {t<string>("Login.Signin")}
         </Link>
-      </Text>
+      </GotAccount>
     </StyledDiv>
   );
 };

@@ -66,7 +66,7 @@ export const Banner: React.FC<BannerProps> = (props) => {
             <React.Fragment>{title}</React.Fragment>
           )}
           <Button
-            mode={mobile ? "secondary" : "primary"}
+            mode={"primary"}
             className={"banner-btn"}
             onClick={handleBtn}
             block={mobile}
