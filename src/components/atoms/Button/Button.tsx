@@ -199,7 +199,7 @@ const StyledButton = styled("button")<ButtonProps>`
     }};
     border: ${(props) => {
       if (props.mode && props.mode.includes("outline")) {
-        return `1px solid ${chroma(props.theme.primaryColor).alpha(0.8).hex()}`;
+        return `2px solid ${chroma(props.theme.primaryColor).alpha(0.4).hex()}`;
       }
     }};
 
@@ -275,6 +275,26 @@ const StyledButton = styled("button")<ButtonProps>`
         `;
       }
     }};
+  }
+
+  &.dropdown {
+    all: unset;
+    font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
+    transition: background 0.2s ease-in, color 0.2s ease-in;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 11px 13px;
+    font-size: 13px;
+    .profileIcon {
+      width: 30px;
+      height: 30px;
+    }
+    &:hover {
+      background-color: #f8f8f8;
+    }
   }
 
   /* &:focus,

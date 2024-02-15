@@ -1,13 +1,15 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-import React, { FC, useRef, useState, cloneElement } from "react";
+import React, { FC, useRef, useState, cloneElement, useCallback } from "react";
 import { CSSTransition } from "react-transition-group";
 import styled, { withTheme } from "styled-components";
 import { useOnClickOutside } from "../../../hooks/useOnClickOutside";
-import { getStylesBasedOnTheme } from "../../../utils/utils";
 
-interface DropdownMenuItem {
-  id: number;
+import Text from "components/atoms/Typography/Text";
+
+export interface DropdownMenuItem {
+  id: number | string;
   content: React.ReactNode;
+  redirect?: string;
 }
 
 interface Props {
@@ -15,6 +17,7 @@ interface Props {
   menuItems: DropdownMenuItem[];
   isInitiallyOpen?: boolean;
   onClick?: () => void;
+  onChange?: (listItem: DropdownMenuItem) => void;
 }
 
 const Wrapper = styled.div`
@@ -24,16 +27,19 @@ const Wrapper = styled.div`
 `;
 
 const DropdownMenuWrapper = styled.ul`
+  top: 30px;
   position: absolute;
-  padding: 0px;
-  right: 0;
+  left: 0;
   z-index: 1000;
   display: flex;
   flex-direction: column;
   width: max-content;
-  box-shadow: 0 24px 34px rgba(66, 66, 66, 5%),
-    0 -2px 8px rgba(255, 255, 255, 4%);
-
+  box-shadow: 0px 10px 15px #00000019;
+  min-width: 175px;
+  padding: 6px;
+  border: 1px solid ${({ theme }) => theme.gray3};
+  background: ${({ theme }) => theme.white};
+  border-radius: ${({ theme }) => theme.buttonRadius}px;
   &.fade-enter {
     opacity: 0;
   }
@@ -54,22 +60,18 @@ const DropdownMenuWrapper = styled.ul`
 `;
 const MenuItem = styled.li`
   list-style: none;
-  width: 100%;
+
   display: flex;
-  background: ${({ theme }) =>
-    getStylesBasedOnTheme(theme.mode, theme.dm__background, theme.white)};
-  color: ${({ theme }) =>
-    getStylesBasedOnTheme(
-      theme.mode,
-      theme.dm__primaryColor,
-      theme.primaryColor,
-      theme.primaryColor
-    )};
+  width: 100%;
+  color: ${({ theme }) => theme.textColor};
   transition: 0.3s;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 700;
   cursor: pointer;
 
   &:hover {
-    background: ${({ theme }) => theme.dm__colorBackground};
+    background: #f8f8f8;
   }
 
   & p {
@@ -82,19 +84,31 @@ const DropdownMenu: FC<Props> = ({
   child,
   menuItems,
   isInitiallyOpen,
-
   onClick,
+  onChange,
 }) => {
+  const [currID, setCurrID] = useState(0);
   const dropdownMenuRef = useRef<HTMLUListElement | null>(null);
   const [isOpen, setIsOpen] = useState(isInitiallyOpen);
   const closeMenu = () => setIsOpen(false);
   useOnClickOutside(dropdownMenuRef, () => closeMenu());
 
+  const onListItemClick = useCallback(
+    (ind: number) => {
+      setCurrID(ind);
+      onChange?.(menuItems[ind]);
+      closeMenu();
+    },
+    [menuItems, onChange]
+  );
+  console.log({ currID });
+
   return (
     <Wrapper onClick={onClick}>
-      {cloneElement(child, {
+      {cloneElement(child as React.ReactElement, {
         onClick: () => setIsOpen((prev) => !prev),
         $isMenuOpen: isOpen,
+        // children: isOpen ? "currID" : "Menu",
       })}
       <CSSTransition
         in={isOpen}
@@ -104,9 +118,15 @@ const DropdownMenu: FC<Props> = ({
         unmountOnExit
       >
         <DropdownMenuWrapper ref={dropdownMenuRef}>
-          {menuItems.map(({ id, content }) => (
-            <MenuItem key={id} onClick={closeMenu} onKeyDown={closeMenu}>
-              {content}
+          {menuItems.map(({ id, content }, index) => (
+            <MenuItem
+              key={id}
+              onClick={() => onListItemClick(index)}
+              onKeyDown={closeMenu}
+            >
+              <Text size="14" noMargin bold>
+                {content}
+              </Text>
             </MenuItem>
           ))}
         </DropdownMenuWrapper>

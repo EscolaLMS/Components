@@ -12,6 +12,7 @@ export const redTheme: DefaultTheme = {
   buttonRadius: 5,
   inputRadius: 5,
   checkboxRadius: 5,
+  cardRadius: 10,
   gray1: "#333333",
   gray2: "#AFAFAF",
   gray3: colors.disabled,

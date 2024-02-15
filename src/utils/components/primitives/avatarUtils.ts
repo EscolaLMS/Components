@@ -4,6 +4,8 @@ export const setAvatarBySize = (size?: AvatarTypesStr): string => {
   switch (size) {
     case "extraSmall":
       return "22px";
+    case "superSmall":
+      return "30px";
     case "small":
       return "40px";
     case "medium":

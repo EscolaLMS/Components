@@ -86,9 +86,6 @@ const StyledCourseCard = styled("div")<StyledCourseCardProps>`
     }
   }
   .information-in-image {
-    position: absolute;
-    top: 0;
-    left: 0;
     height: 100%;
     width: 100%;
     display: flex;
@@ -372,30 +369,6 @@ export const CourseCard: React.FC<CourseCardProps> = (props) => {
     >
       {!hideImage && (
         <div className="image-section">
-          <div className="information-in-image">
-            <div className="badges">
-              {React.isValidElement(tags)
-                ? tags
-                : Array.isArray(tags) &&
-                  tags.map((tag: Tag) => (
-                    <Badge
-                      className="tag"
-                      key={tag.id}
-                      onClick={(e) => tagClick(e, tag.title)}
-                      color={theme.gray2}
-                    >
-                      {tag.title}
-                    </Badge>
-                  ))}
-            </div>
-            {props.subtitle && (
-              <div className="card">
-                <Card wings="small">
-                  <div className={"card-subtitle"}>{props.subtitle}</div>
-                </Card>
-              </div>
-            )}
-          </div>
           <ImgWrapper>
             <RatioBox ratio={mobile ? 66 / 100 : 1}>
               {React.isValidElement(image) ? (
@@ -410,6 +383,32 @@ export const CourseCard: React.FC<CourseCardProps> = (props) => {
               )}
             </RatioBox>
           </ImgWrapper>
+        </div>
+      )}
+      {!hideImage && (
+        <div className="information-in-image">
+          <div className="badges">
+            {React.isValidElement(tags)
+              ? tags
+              : Array.isArray(tags) &&
+                tags.map((tag: Tag) => (
+                  <Badge
+                    className="tag"
+                    key={tag.id}
+                    onClick={(e) => tagClick(e, tag.title)}
+                    color={theme.gray2}
+                  >
+                    {tag.title}
+                  </Badge>
+                ))}
+          </div>
+          {/* {props.subtitle && (
+              <div className="card">
+                <Card wings="small">
+                  <div className={"card-subtitle"}>{props.subtitle}</div>
+                </Card>
+              </div>
+            )} */}
         </div>
       )}
       {hideImage ? (

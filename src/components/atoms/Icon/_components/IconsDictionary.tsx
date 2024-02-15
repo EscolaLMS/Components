@@ -15,6 +15,22 @@ const Chevron: React.FC = () => (
   </svg>
 );
 
+const Hamburger: React.FC = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="19"
+    height="16"
+    viewBox="0 0 19 16"
+  >
+    <path
+      id="Union_83"
+      data-name="Union 83"
+      d="M1.058,16a1.059,1.059,0,0,1,0-2.118H17.941a1.059,1.059,0,0,1,0,2.118Zm0-6.942a1.059,1.059,0,0,1,0-2.118H17.941a1.059,1.059,0,0,1,0,2.118Zm0-6.941A1.059,1.059,0,0,1,1.058,0H17.941a1.059,1.059,0,0,1,0,2.118Z"
+      fill="#333"
+    />
+  </svg>
+);
+
 const Program: React.FC = () => (
   <svg
     width="16"
@@ -138,4 +154,5 @@ export const ICONS_DICTIONARY = {
   editAlt: EditAlt,
   copy: Copy,
   note: Note,
+  hamburger: Hamburger,
 } as const;
