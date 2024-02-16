@@ -21,31 +21,35 @@ export const CourseCardSkeleton: React.FC<Props> = ({
   count = 1,
   colProps,
 }) => {
-  return Array.from({ length: count }).map(() =>
-    colProps ? (
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      //    @ts-ignore
-      <Col key={`card-skeleton-${useId()}`} {...colProps}>
-        <CardSkeleton>
-          <Skeleton
-            height="264px"
-            borderRadius={14}
-            style={{ marginBottom: "10px" }}
-          />
-          <Skeleton width={146} style={{ marginBottom: "10px" }} />
-          <Skeleton count={2} />
-        </CardSkeleton>
-      </Col>
-    ) : (
-      <CardSkeleton key={`card-skeleton-${useId()}`}>
-        <Skeleton
-          height="264px"
-          borderRadius={14}
-          style={{ marginBottom: "10px" }}
-        />
-        <Skeleton width={146} style={{ marginBottom: "10px" }} />
-        <Skeleton count={2} />
-      </CardSkeleton>
-    )
+  return (
+    <>
+      {Array.from({ length: count }).map((_, index) =>
+        colProps ? (
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          <Col key={`card-skeleton-${index}`} {...colProps}>
+            <CardSkeleton>
+              <Skeleton
+                height="264px"
+                borderRadius={14}
+                style={{ marginBottom: "10px" }}
+              />
+              <Skeleton width={146} style={{ marginBottom: "10px" }} />
+              <Skeleton count={2} />
+            </CardSkeleton>
+          </Col>
+        ) : (
+          <CardSkeleton key={`card-skeleton-${index}`}>
+            <Skeleton
+              height="264px"
+              borderRadius={14}
+              style={{ marginBottom: "10px" }}
+            />
+            <Skeleton width={146} style={{ marginBottom: "10px" }} />
+            <Skeleton count={2} />
+          </CardSkeleton>
+        )
+      )}
+    </>
   );
 };
