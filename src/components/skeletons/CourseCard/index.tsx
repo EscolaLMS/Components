@@ -23,11 +23,11 @@ export const CourseCardSkeleton: React.FC<Props> = ({
 }) => {
   return (
     <>
-      {Array.from({ length: count }).map((_, index) =>
+      {Array.from({ length: count }).map(() =>
         colProps ? (
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
-          <Col key={`card-skeleton-${index}`} {...colProps}>
+          <Col key={`card-skeleton-${useId}`} {...colProps}>
             <CardSkeleton>
               <Skeleton
                 height="264px"
@@ -39,7 +39,7 @@ export const CourseCardSkeleton: React.FC<Props> = ({
             </CardSkeleton>
           </Col>
         ) : (
-          <CardSkeleton key={`card-skeleton-${index}`}>
+          <CardSkeleton key={`card-skeleton-${useId}`}>
             <Skeleton
               height="264px"
               borderRadius={14}
