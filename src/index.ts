@@ -70,3 +70,6 @@ export { default as BookmarkNotes } from "./components/organisms/BookmarkNotes";
 export { default as ModalNote } from "./components/organisms/ModalNote";
 
 //ADVANCED
+
+//SKELETONS
+export { CourseCardSkeleton } from "./components/skeletons/CourseCard/index";

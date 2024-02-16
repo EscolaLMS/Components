@@ -49,7 +49,7 @@ const StyledNav = styled("nav")`
     justify-content: flex-start;
     align-items: center;
     align-content: center;
-    gap: 13px;
+    gap: 2px;
     li {
       &,
       & > a,

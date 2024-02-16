@@ -54,7 +54,7 @@ const StyledCourseCard = styled("div")<StyledCourseCardProps>`
   display: flex;
   flex-direction: column;
   width: 100%;
-  flex-shrink: 0;
+
   border-radius: 14px;
   border: 1px solid transparent;
   transition: transform 0.3s ease-in-out, border 0.3s ease-in-out,
@@ -225,10 +225,6 @@ export const NewCourseCard: React.FC<CourseCardProps> = (props) => {
         </div>
       )}
       <div className="course-card__content">
-        <div className="categories">
-          <span>sztuczna inteligencja</span>
-          <span>copywright</span>
-        </div>
         {React.isValidElement(categories) ? (
           <div className="categories">{categories}</div>
         ) : (

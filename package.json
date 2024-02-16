@@ -79,6 +79,7 @@
     "react-grid-system": "^8.1.9",
     "react-i18next": "^12.2.0",
     "react-icons": "^4.8.0",
+    "react-loading-skeleton": "^3.4.0",
     "react-markdown": "^8.0.7",
     "react-pdf": "^5.7.2",
     "react-photoswipe-gallery": "^2.2.7",
