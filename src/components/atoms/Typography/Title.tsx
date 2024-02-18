@@ -4,6 +4,7 @@ import { ExtendableStyledComponent } from "types/component";
 import { getFontFromTheme } from "../../../theme/provider";
 import { HeaderLevelInt, HeaderLevelStr } from "../../../types/titleTypes";
 import { setFontSizeByHeaderLevel } from "../../../utils/components/primitives/titleUtils";
+import { getStylesBasedOnTheme } from "utils/utils";
 
 interface StyledHeader {
   level?: HeaderLevelInt;
@@ -28,7 +29,8 @@ const SharedHeaderStyles = css<StyledHeader>`
   line-height: 125%;
   &,
   & > * {
-    color: ${({ theme }) => theme.textColor};
+    color: ${({ theme }) =>
+      getStylesBasedOnTheme(theme.mode, theme.white, theme.textColor)};
   }
 `;
 
