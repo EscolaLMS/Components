@@ -41,8 +41,9 @@ const StyledDiv = styled.div<{ mobile: boolean }>`
   h2,
   h3,
   h4 {
-    font-size: ${(props) => (props.mobile ? "18px" : "28px")};
+    font-size: ${(props) => (props.mobile ? "20px" : "28px")};
   }
+
   form {
     width: 100%;
     max-width: 440px;

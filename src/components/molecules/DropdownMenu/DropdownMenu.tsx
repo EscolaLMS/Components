@@ -87,7 +87,7 @@ const DropdownMenu: FC<Props> = ({
   onClick,
   onChange,
 }) => {
-  const [currID, setCurrID] = useState(0);
+  // const [currID, setCurrID] = useState(0);
   const dropdownMenuRef = useRef<HTMLUListElement | null>(null);
   const [isOpen, setIsOpen] = useState(isInitiallyOpen);
   const closeMenu = () => setIsOpen(false);
@@ -95,13 +95,12 @@ const DropdownMenu: FC<Props> = ({
 
   const onListItemClick = useCallback(
     (ind: number) => {
-      setCurrID(ind);
+      // setCurrID(ind);
       onChange?.(menuItems[ind]);
       closeMenu();
     },
     [menuItems, onChange]
   );
-  console.log({ currID });
 
   return (
     <Wrapper onClick={onClick}>

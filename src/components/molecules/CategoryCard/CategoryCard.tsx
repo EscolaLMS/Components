@@ -11,7 +11,7 @@ interface StyledCategoryCardProps {
   variant: "solid" | "gradient";
 }
 
-const StyledCategoryCard = styled("div")<StyledCategoryCardProps>`
+const StyledCategoryCard = styled.div<StyledCategoryCardProps>`
   text-align: center;
   padding: ${({ variant, mobile }) =>
     variant === "solid"
@@ -28,17 +28,23 @@ const StyledCategoryCard = styled("div")<StyledCategoryCardProps>`
           theme.dm__cardBackgroundColor,
           theme.cardBackgroundColor
         )};
+  min-height: 229px;
 
-  .category-card-title {
-    margin-top: 34px;
-    margin-bottom: 26px;
-    font-size: 20px;
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
   .category-card-icon {
+    margin-top: 15px;
     svg path {
       fill: ${({ theme }) =>
-        getStylesBasedOnTheme(theme.mode, theme.white, theme.gray1)};
+        getStylesBasedOnTheme(theme.mode, theme.white, theme.gray2)};
+    }
+  }
+  .category-content {
+    h4 {
+      font-size: 20px;
+      margin-bottom: 22px;
     }
   }
   button {
@@ -63,6 +69,7 @@ const StyledCategoryCard = styled("div")<StyledCategoryCardProps>`
     }
   }
 `;
+
 export interface CategoryCardProps
   extends StyledCategoryCardProps,
     ExtendableStyledComponent {
@@ -78,7 +85,6 @@ export const CategoryCard: React.FC<CategoryCardProps> = (props) => {
     icon,
     title,
     subtitle,
-
     onButtonClick,
     variant,
     mobile = false,
@@ -91,19 +97,20 @@ export const CategoryCard: React.FC<CategoryCardProps> = (props) => {
       variant={variant}
     >
       <div className={"category-card-icon"}>{icon}</div>
-      <Title as={"h4"} level={3} className={"category-card-title"}>
-        {title}
-      </Title>
-
-      <Button
-        mode={"secondary"}
-        onClick={onButtonClick}
-        style={{
-          marginTop: "6px",
-        }}
-      >
-        {subtitle}
-      </Button>
+      <div className="category-content">
+        <Title as={"h4"} level={2} className={"category-card-title"}>
+          {title}
+        </Title>
+        <Button
+          mode={"secondary"}
+          onClick={onButtonClick}
+          style={{
+            marginTop: "6px",
+          }}
+        >
+          {subtitle}
+        </Button>
+      </div>
     </StyledCategoryCard>
   );
 };

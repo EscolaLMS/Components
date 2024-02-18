@@ -73,3 +73,4 @@ export { default as ModalNote } from "./components/organisms/ModalNote";
 
 //SKELETONS
 export { CourseCardSkeleton } from "./components/skeletons/CourseCard/index";
+export { BannerSkeleton } from "./components/skeletons/Banner/index";

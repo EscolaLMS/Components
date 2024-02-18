@@ -54,13 +54,13 @@ const StyledCourseCard = styled("div")<StyledCourseCardProps>`
   display: flex;
   flex-direction: column;
   width: 100%;
-
   border-radius: 14px;
   border: 1px solid transparent;
   transition: transform 0.3s ease-in-out, border 0.3s ease-in-out,
     box-shadow 0.3s ease-in-out;
   padding: 6px 6px 16px 6px;
   overflow: hidden;
+
   .image-section {
     position: relative;
     z-index: 0;
@@ -139,7 +139,7 @@ const StyledCourseCard = styled("div")<StyledCourseCardProps>`
     }
   }
   &:hover {
-    border: 1px solid #eaeaea;
+    border: 1px solid ${({ theme }) => theme.gray3};
     box-shadow: 0px 5px 15px #00000012;
     transform: translateY(-7px);
 
@@ -208,7 +208,7 @@ export const NewCourseCard: React.FC<CourseCardProps> = (props) => {
     >
       {!hideImage && (
         <div className="image-section">
-          <RatioBox ratio={mobile ? 66 / 100 : 1}>
+          <RatioBox ratio={mobile ? 75 / 100 : 1}>
             {React.isValidElement(image) ? (
               image
             ) : (
@@ -255,7 +255,7 @@ export const NewCourseCard: React.FC<CourseCardProps> = (props) => {
         )}
         <div className="course-title">
           <Link to={`/courses/${id}`}>
-            <Title level={mobile ? 5 : 3} as="h1" className="title">
+            <Title level={3} as="h3" className="title">
               {title}
             </Title>
           </Link>
