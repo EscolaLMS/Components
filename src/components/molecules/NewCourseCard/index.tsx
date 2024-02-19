@@ -84,9 +84,17 @@ const StyledCourseCard = styled("div")<StyledCourseCardProps>`
   }
   .course-card__content {
     padding: 0px 15px;
+
+    @media (max-width: 768px) {
+      min-height: 100px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
   }
   .course-title {
     margin-bottom: 46px;
+    margin-bottom: ${(props) => (props.mobile ? "0px" : `45px`)};
   }
   .title {
     margin-top: 12px;
@@ -94,7 +102,7 @@ const StyledCourseCard = styled("div")<StyledCourseCardProps>`
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    margin-bottom: 45px;
+    margin-bottom: ${(props) => (props.mobile ? "10px" : `45px`)};
   }
 
   .categories {
@@ -133,15 +141,18 @@ const StyledCourseCard = styled("div")<StyledCourseCardProps>`
   }
   .course-price {
     transition: transform 0.3s ease-in-out;
-    transform: translateY(+120px);
+    transform: ${(props) =>
+      props.mobile ? "translateY(0px)" : "translateY(+120px)"};
     p {
       color: ${({ theme }) => theme.primaryColor};
     }
   }
   &:hover {
-    border: 1px solid ${({ theme }) => theme.gray3};
-    box-shadow: 0px 5px 15px #00000012;
-    transform: translateY(-7px);
+    border: ${(props) =>
+      props.mobile ? "none" : `1px solid ${props.theme.gray3}`};
+    box-shadow: ${(props) =>
+      props.mobile ? "none" : `0px 5px 15px #00000012`};
+    transform: ${(props) => (props.mobile ? "none" : "translateY(-7px)")};
 
     .image-section {
       img {

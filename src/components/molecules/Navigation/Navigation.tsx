@@ -103,7 +103,11 @@ export interface NavigationProps extends ExtendableStyledComponent {
 }
 
 const GlobalStyle = createGlobalStyle`
-
+.rc-drawer-content-wrapper {
+  @media (max-width: 530px) {
+    width: 90% !important;
+  }
+}
   svg {
     transition: opacity 0.2s ease-in-out;
   
