@@ -6,7 +6,6 @@ import Drawer from "rc-drawer";
 import "rc-drawer/assets/index.css";
 import { Col, Row } from "react-grid-system";
 import { Text } from "../../../";
-import chroma from "chroma-js";
 import { getStylesBasedOnTheme } from "../../../utils/utils";
 import { t } from "i18next";
 import { ExtendableStyledComponent } from "types/component";
@@ -98,10 +97,17 @@ export interface NavigationProps extends ExtendableStyledComponent {
   logo: LogoProps;
   menuItems: MenuItem[];
   search?: ReactNode;
+  notification?: ReactNode;
+  cart?: ReactNode;
+  profile?: ReactNode;
 }
 
 const GlobalStyle = createGlobalStyle`
-
+.rc-drawer-content-wrapper {
+  @media (max-width: 530px) {
+    width: 90% !important;
+  }
+}
   svg {
     transition: opacity 0.2s ease-in-out;
   
@@ -113,12 +119,6 @@ const GlobalStyle = createGlobalStyle`
   
   .drawer-search {
     padding: 24px 16px;
-     border-bottom: ${({ theme }) =>
-       `1px solid ${getStylesBasedOnTheme(
-         theme.mode,
-         chroma(theme.white).alpha(0.15).css(),
-         chroma(theme.background).darken(0.3).css()
-       )}`};
   }
 
   .drawer,
@@ -138,7 +138,7 @@ const GlobalStyle = createGlobalStyle`
     justify-content: space-between;
     padding: 15px 16px;
     box-sizing: border-box;
-    box-shadow: 0px -2px 15px rgba(0, 0, 0, 0.1);
+    /* box-shadow: 0px -2px 15px rgba(0, 0, 0, 0.1); */
   }
 
   .drawer-content {
@@ -154,6 +154,9 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     list-style-type: none;
     padding: 0;
+    li {
+      padding: 10px 0px;
+    }
   }
   
   .drawer-menu-item {
@@ -164,12 +167,7 @@ const GlobalStyle = createGlobalStyle`
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    border-bottom: ${({ theme }) =>
-      `1px solid ${getStylesBasedOnTheme(
-        theme.mode,
-        chroma(theme.white).alpha(0.15).css(),
-        chroma(theme.background).darken(0.3).css()
-      )}`};
+   
       
     a {
       text-decoration: none;
@@ -224,10 +222,22 @@ const StyledNavigation = styled("div")`
   .menu-bar {
     width: 19px;
     height: 2px;
-    margin: 2px 0;
+    margin: 2.4px 0;
+    border-radius: 3px;
     background: ${({ theme }) =>
-      getStylesBasedOnTheme(theme.mode, theme.white, theme.gray2)};
+      getStylesBasedOnTheme(theme.mode, theme.white, theme.textColor)};
     cursor: pointer;
+  }
+`;
+
+const IconsHeaderMobileWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  svg,
+  button {
+    width: 28px;
+    height: 28px;
   }
 `;
 
@@ -333,18 +343,26 @@ export const Navigation: React.FC<NavigationProps> = (props) => {
           <GlobalStyle />
           <div className="header">
             <Logo {...logo} />
-            <span
-              className="menu-button"
-              onClick={() => setMobileMenuOpen(true)}
-              onKeyUp={() => setMobileMenuOpen(true)}
-              role="button"
-              aria-label={t<string>("Navigation.ShowHideMenu")}
-              tabIndex={0}
-            >
-              <span className="menu-bar"></span>
-              <span className="menu-bar"></span>
-              <span className="menu-bar"></span>
-            </span>
+            <IconsHeaderMobileWrapper>
+              <IconsHeaderMobileWrapper>
+                {props.cart}
+                {props.notification}
+                {props.profile}
+              </IconsHeaderMobileWrapper>
+
+              <span
+                className="menu-button"
+                onClick={() => setMobileMenuOpen(true)}
+                onKeyUp={() => setMobileMenuOpen(true)}
+                role="button"
+                aria-label={t<string>("Navigation.ShowHideMenu")}
+                tabIndex={0}
+              >
+                <span className="menu-bar"></span>
+                <span className="menu-bar"></span>
+                <span className="menu-bar"></span>
+              </span>
+            </IconsHeaderMobileWrapper>
           </div>
 
           <Drawer

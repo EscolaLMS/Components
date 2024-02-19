@@ -1,10 +1,10 @@
 import * as React from "react";
 import styled, { css, withTheme } from "styled-components";
-import { getStylesBasedOnTheme } from "../../../utils/utils";
 import { ExtendableStyledComponent } from "types/component";
 import { getFontFromTheme } from "../../../theme/provider";
 import { HeaderLevelInt, HeaderLevelStr } from "../../../types/titleTypes";
 import { setFontSizeByHeaderLevel } from "../../../utils/components/primitives/titleUtils";
+import { getStylesBasedOnTheme } from "utils/utils";
 
 interface StyledHeader {
   level?: HeaderLevelInt;
@@ -30,7 +30,7 @@ const SharedHeaderStyles = css<StyledHeader>`
   &,
   & > * {
     color: ${({ theme }) =>
-      getStylesBasedOnTheme(theme.mode, theme.white, theme.gray1)};
+      getStylesBasedOnTheme(theme.mode, theme.white, theme.textColor)};
   }
 `;
 

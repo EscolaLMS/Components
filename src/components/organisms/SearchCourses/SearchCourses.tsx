@@ -8,6 +8,7 @@ import styled from "styled-components";
 
 const SearchWrapper = styled.div`
   min-width: 300px;
+
   input {
     border-radius: 21px !important;
     background-color: ${({ theme }) => theme.gray4} !important;
@@ -29,6 +30,7 @@ const ItemButton = styled(Button)`
 export const SearchCourses: React.FC<{
   onItemSelected: (item: API.Course) => void;
   onInputSubmitted: (phrase: string) => void;
+  mobile?: boolean;
 }> = ({ onItemSelected, onInputSubmitted }) => {
   const abortController = useRef<AbortController>();
   const [fetching, setFetching] = useState(false);

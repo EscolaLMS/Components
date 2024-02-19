@@ -17,6 +17,9 @@ const StyledDiv = styled("div")`
   & > .escolalms-image img {
     width: 100%;
     max-width: 100%;
+    &:hover {
+      transform: none !important;
+    }
   }
 `;
 
