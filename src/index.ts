@@ -56,7 +56,8 @@ export { Tutor } from "./components/molecules/Tutor/Tutor";
 export { Search } from "./components/molecules/Search/Search";
 export { default as List } from "./components/molecules/List/List";
 export { default as DropdownMenu } from "./components/molecules/DropdownMenu/DropdownMenu";
-export { NewCourseCard } from "./components/molecules/NewCourseCard/index";
+export { DropdownCategories } from "./components/molecules/DropdownCategories/DropdownCategories";
+export { NewCourseCard } from "./components/molecules/NewCourseCard/NewCourseCard";
 
 //ORGANISMS
 export { default as CourseAgenda } from "./components/organisms/CourseAgenda/CourseAgenda";
@@ -72,5 +73,4 @@ export { default as ModalNote } from "./components/organisms/ModalNote";
 //ADVANCED
 
 //SKELETONS
-export { CourseCardSkeleton } from "./components/skeletons/CourseCard/index";
-export { BannerSkeleton } from "./components/skeletons/Banner/index";
+export { CourseCardSkeleton } from "./components/skeletons/CourseCard/CourseCard";

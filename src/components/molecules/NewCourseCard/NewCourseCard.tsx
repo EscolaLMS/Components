@@ -5,9 +5,7 @@ import { ProgressBarProps } from "../../atoms/ProgressBar/ProgressBar";
 import { RatioBox } from "../../atoms/RatioBox/RatioBox";
 import { getStylesBasedOnTheme } from "../../../utils/utils";
 import { ExtendableStyledComponent } from "types/component";
-import { Title } from "components/atoms/Typography/Title";
 import Text from "components/atoms/Typography/Text";
-import { Link } from "react-router-dom";
 
 type ImageObject = {
   path?: string;
@@ -181,7 +179,6 @@ const StyledCategory = styled.span`
 
 export const NewCourseCard: React.FC<CourseCardProps> = (props) => {
   const {
-    id,
     mobile,
     title,
     image,
@@ -264,13 +261,7 @@ export const NewCourseCard: React.FC<CourseCardProps> = (props) => {
             </Text>
           )
         )}
-        <div className="course-title">
-          <Link to={`/courses/${id}`}>
-            <Title level={3} as="h3" className="title">
-              {title}
-            </Title>
-          </Link>
-        </div>
+        <div className="course-title">{title}</div>
         <div className="course-price">
           <Text size="16" bold>
             {price}

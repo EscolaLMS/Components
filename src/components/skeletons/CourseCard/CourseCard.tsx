@@ -3,9 +3,8 @@ import styled from "styled-components";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useId } from "react";
 import { Col, ScreenClass } from "react-grid-system";
-import { isMobile, isTablet } from "react-device-detect";
 
-const CardSkeleton = styled.div<{ $isMobile: boolean; $isTablet: boolean }>`
+const CardSkeleton = styled.div`
   max-width: 278px;
   min-height: 414px;
 `;
@@ -28,7 +27,7 @@ export const CourseCardSkeleton: React.FC<Props> = ({
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
           <Col key={`card-skeleton-${useId()}`} {...colProps}>
-            <CardSkeleton $isMobile={isMobile} $isTablet={isTablet}>
+            <CardSkeleton>
               <Skeleton
                 height="264px"
                 borderRadius={14}
@@ -39,11 +38,7 @@ export const CourseCardSkeleton: React.FC<Props> = ({
             </CardSkeleton>
           </Col>
         ) : (
-          <CardSkeleton
-            key={`card-skeleton-${useId()}`}
-            $isMobile={isMobile}
-            $isTablet={isTablet}
-          >
+          <CardSkeleton key={`card-skeleton-${useId()}`}>
             <Skeleton
               height="264px"
               borderRadius={14}
