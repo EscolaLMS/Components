@@ -4,7 +4,7 @@ import { CSSTransition } from "react-transition-group";
 import styled, { withTheme } from "styled-components";
 import { useOnClickOutside } from "../../../hooks/useOnClickOutside";
 
-import Text from "components/atoms/Typography/Text";
+import { Text } from "../../../";
 
 export interface DropdownMenuItem {
   id: number | string;

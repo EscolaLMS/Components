@@ -4,7 +4,7 @@ import { ExtendableStyledComponent } from "types/component";
 import { getFontFromTheme } from "../../../theme/provider";
 import { HeaderLevelInt, HeaderLevelStr } from "../../../types/titleTypes";
 import { setFontSizeByHeaderLevel } from "../../../utils/components/primitives/titleUtils";
-import { getStylesBasedOnTheme } from "utils/utils";
+import { getStylesBasedOnTheme } from "../../../utils/utils";
 
 interface StyledHeader {
   level?: HeaderLevelInt;

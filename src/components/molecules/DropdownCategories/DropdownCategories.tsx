@@ -2,8 +2,8 @@ import React, { FC, useRef, useState, useCallback, cloneElement } from "react";
 import { CSSTransition } from "react-transition-group";
 import styled, { withTheme } from "styled-components";
 import { useOnClickOutside } from "../../../hooks/useOnClickOutside";
-import { Checkbox } from "components/atoms/Option/Checkbox";
-import Text from "components/atoms/Typography/Text";
+import { Checkbox } from "../../../";
+import { Text } from "../../../";
 import { Category } from "@escolalms/sdk/lib/types/api";
 
 interface Props {
