@@ -187,4 +187,4 @@ export const DropdownCategories: React.FC<Props> = ({
   );
 };
 
-export default withTheme(DropdownCategories);
+export default withTheme(styled(DropdownCategories)``);
