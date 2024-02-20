@@ -18,6 +18,7 @@ interface Props {
   isInitiallyOpen?: boolean;
   onClick?: () => void;
   onChange?: (listItem: DropdownMenuItem) => void;
+  top?: number;
 }
 
 const Wrapper = styled.div`
@@ -26,8 +27,8 @@ const Wrapper = styled.div`
   cursor: pointer;
 `;
 
-const DropdownMenuWrapper = styled.ul`
-  top: 30px;
+const DropdownMenuWrapper = styled.ul<{ $top?: number }>`
+  top: ${({ $top }) => ($top ? $top : 30)}px;
   position: absolute;
   left: 0;
   z-index: 1000;
@@ -86,8 +87,8 @@ const DropdownMenu: FC<Props> = ({
   isInitiallyOpen,
   onClick,
   onChange,
+  top,
 }) => {
-  // const [currID, setCurrID] = useState(0);
   const dropdownMenuRef = useRef<HTMLUListElement | null>(null);
   const [isOpen, setIsOpen] = useState(isInitiallyOpen);
   const closeMenu = () => setIsOpen(false);
@@ -95,7 +96,6 @@ const DropdownMenu: FC<Props> = ({
 
   const onListItemClick = useCallback(
     (ind: number) => {
-      // setCurrID(ind);
       onChange?.(menuItems[ind]);
       closeMenu();
     },
@@ -107,7 +107,6 @@ const DropdownMenu: FC<Props> = ({
       {cloneElement(child as React.ReactElement, {
         onClick: () => setIsOpen((prev) => !prev),
         $isMenuOpen: isOpen,
-        // children: isOpen ? "currID" : "Menu",
       })}
       <CSSTransition
         in={isOpen}
@@ -116,7 +115,7 @@ const DropdownMenu: FC<Props> = ({
         classNames="fade"
         unmountOnExit
       >
-        <DropdownMenuWrapper ref={dropdownMenuRef}>
+        <DropdownMenuWrapper ref={dropdownMenuRef} $top={top}>
           {menuItems.map(({ id, content }, index) => (
             <MenuItem
               key={id}
