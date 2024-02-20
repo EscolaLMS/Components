@@ -5,7 +5,7 @@ import { ProgressBarProps } from "../../atoms/ProgressBar/ProgressBar";
 import { RatioBox } from "../../atoms/RatioBox/RatioBox";
 import { getStylesBasedOnTheme } from "../../../utils/utils";
 import { ExtendableStyledComponent } from "types/component";
-import Text from "components/atoms/Typography/Text";
+import { Text } from "../../../";
 
 type ImageObject = {
   path?: string;
