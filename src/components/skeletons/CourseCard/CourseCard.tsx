@@ -7,6 +7,11 @@ import { Col, ScreenClass } from "react-grid-system";
 const CardSkeleton = styled.div`
   max-width: 278px;
   min-height: 414px;
+
+  @media (max-width: 768px) {
+    max-width: 100%;
+    min-height: auto;
+  }
 `;
 
 type ColProps = React.ComponentProps<typeof Col>;

@@ -14,30 +14,34 @@ interface Props {
   onClick?: () => void;
   onClear?: () => void;
   child?: React.ReactElement<{ onClick?: () => void; $isMenuOpen?: boolean }>;
+  forMobile?: boolean;
 }
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<{ $forMobile?: boolean }>`
   position: relative;
-  width: max-content;
+  width: ${({ $forMobile }) => ($forMobile ? "100%" : "max-content")};
   cursor: pointer;
 `;
 
-const DropdownMenuWrapper = styled.ul`
-  top: 10px;
-  position: absolute;
+const DropdownMenuWrapper = styled.ul<{ $forMobile?: boolean }>`
+  top: 30px;
+  position: ${({ $forMobile }) => ($forMobile ? "static" : "absolute")};
   left: 0;
   z-index: 1000;
   display: flex;
   flex-direction: column;
-  width: max-content;
-  box-shadow: 0px 10px 15px #00000019;
+  width: ${({ $forMobile }) => ($forMobile ? "100%" : "max-content")};
+  box-shadow: ${({ $forMobile }) =>
+    $forMobile ? "none" : "0px 10px 15px #00000019"};
   min-width: 175px;
   padding: 0px;
-  padding-bottom: 19px;
-  border: 1px solid ${({ theme }) => theme.gray3};
+  padding-bottom: ${({ $forMobile }) => ($forMobile ? "0px" : "19px")};
+  border: ${({ $forMobile, theme }) =>
+    $forMobile ? "none" : `1px solid ${theme.gray3}`};
   background: ${({ theme }) => theme.white};
   border-radius: ${({ theme }) => theme.buttonRadius}px;
   min-width: 300px;
+  margin-top: 0px;
   &.fade-enter {
     opacity: 0;
   }
@@ -138,6 +142,7 @@ export const DropdownCategories: React.FC<Props> = ({
   onClick,
   onChange,
   onClear,
+  forMobile,
 }) => {
   const dropdownMenuRef = useRef<HTMLUListElement | null>(null);
   const [isOpen, setIsOpen] = useState(isInitiallyOpen);
@@ -157,11 +162,12 @@ export const DropdownCategories: React.FC<Props> = ({
   };
 
   return (
-    <Wrapper onClick={onClick}>
-      {cloneElement(child as React.ReactElement, {
-        onClick: () => setIsOpen((prev) => !prev),
-        $isMenuOpen: isOpen,
-      })}
+    <Wrapper onClick={onClick} $forMobile={forMobile}>
+      {!!child &&
+        cloneElement(child as React.ReactElement, {
+          onClick: () => setIsOpen((prev) => !prev),
+          $isMenuOpen: isOpen,
+        })}
       <CSSTransition
         in={isOpen}
         timeout={300}
@@ -169,7 +175,7 @@ export const DropdownCategories: React.FC<Props> = ({
         classNames="fade"
         unmountOnExit
       >
-        <DropdownMenuWrapper ref={dropdownMenuRef}>
+        <DropdownMenuWrapper ref={dropdownMenuRef} $forMobile={forMobile}>
           <ClearItem>
             <Text size="16">Wybierz</Text>
             <button onClick={handleClear}>

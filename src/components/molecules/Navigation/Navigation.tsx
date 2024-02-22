@@ -103,7 +103,8 @@ export interface NavigationProps extends ExtendableStyledComponent {
 }
 
 const GlobalStyle = createGlobalStyle`
-.rc-drawer-content-wrapper {
+
+.custom-drawer-wrapper {
   @media (max-width: 530px) {
     width: 90% !important;
   }
@@ -294,7 +295,7 @@ export const Navigation: React.FC<NavigationProps> = (props) => {
               Object.keys(menuItem).length > 0 && (
                 <li key={i}>
                   <div
-                    role={menuItem.children && "button"}
+                    role={menuItem.children ? "button" : undefined}
                     className="drawer-menu-item"
                     onClick={() =>
                       menuItem.children
@@ -367,9 +368,11 @@ export const Navigation: React.FC<NavigationProps> = (props) => {
 
           <Drawer
             open={mobileMenuOpen}
-            handler={false}
-            className={"drawer"}
-            level={null}
+            className={"drawer drawer-header-wrapper"}
+            classNames={{
+              wrapper: "drawer-content-wrapper custom-drawer-wrapper",
+              content: "drawer-content",
+            }}
           >
             <div className="drawer-header">
               {Object.keys(drawerSubmenuHistory).length > 0 ? (
