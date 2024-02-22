@@ -7,7 +7,10 @@ export const StyledSection = styled("section")<{ $mobile: boolean }>`
   width: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
+  > p {
+    margin-bottom: 0px;
+    font-weight: 700;
+  }
   & > header {
     display: flex;
     flex-direction: row;
@@ -54,7 +57,6 @@ export const StyledSection = styled("section")<{ $mobile: boolean }>`
     padding: 10px;
     margin: 10px 0;
     overflow: hidden;
-    border-radius: ${(props) => props.theme.cardRadius}px;
 
     .duration {
       margin: 1px 0;
@@ -95,7 +97,7 @@ export const StyledSection = styled("section")<{ $mobile: boolean }>`
       }
 
       .lesson__title {
-        font-size: 14px;
+        font-size: 16px;
         color: ${(props) => props.theme.gray1};
         margin: 0;
         font-weight: bold;

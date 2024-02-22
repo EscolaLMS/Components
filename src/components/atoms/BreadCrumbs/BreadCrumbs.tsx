@@ -21,7 +21,7 @@ const HyphenIcon = () => (
   >
     <path
       d="M0.872039 6.29471C0.70932 6.13199 0.70932 5.86817 0.872039 5.70545L3.07741 3.50008L0.872039 1.29471C0.70932 1.13199 0.70932 0.868172 0.872039 0.705454C1.03476 0.542735 1.29858 0.542735 1.46129 0.705454L3.96129 3.20545C4.12401 3.36817 4.12401 3.63199 3.96129 3.79471L1.46129 6.29471C1.29858 6.45743 1.03476 6.45743 0.872039 6.29471Z"
-      fill="#BDBDBD"
+      fill="#AFAFAF"
     />
   </svg>
 );
@@ -32,8 +32,9 @@ const StyledNav = styled("nav")`
   font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
   color: ${({ theme }) =>
     getStylesBasedOnTheme(theme.mode, theme.gray3, theme.gray2)};
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1em;
+  font-weight: 400;
 
   i svg {
     fill: ${({ theme }) => theme.gray2};
@@ -49,12 +50,12 @@ const StyledNav = styled("nav")`
     justify-content: flex-start;
     align-items: center;
     align-content: center;
-    gap: 2px;
+    gap: 10px;
     li {
       &,
       & > a,
       & > button {
-        font-size: 12px;
+        font-size: 13px;
       }
     }
   }

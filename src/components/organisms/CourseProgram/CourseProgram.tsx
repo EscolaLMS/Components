@@ -2,9 +2,8 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import styled, { withTheme } from "styled-components";
 import type { API } from "@escolalms/sdk/lib";
-
 import type { ExtendableStyledComponent } from "types/component";
-import { IconTitle, Icon } from "../../../index";
+import { Text } from "../../../index";
 import { RecursiveLessons } from "./_components/RecursiveLessons";
 import { StyledSection } from "./_components/styles";
 import type { SharedComponentProps } from "./_components/types";
@@ -23,16 +22,7 @@ export const CourseProgram: React.FC<Props> = ({
 
   return (
     <StyledSection $mobile={mobile} className={`wellms-component ${className}`}>
-      {!mobile && (
-        <header>
-          <IconTitle
-            level={5}
-            as="h1"
-            icon={<Icon name="program" />}
-            title={t<string>("Course.Agenda")}
-          />
-        </header>
-      )}
+      <Text>{t("Course.Agenda")}</Text>
       <ul className="lessons__list">
         <RecursiveLessons
           lessons={lessons}

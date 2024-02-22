@@ -13,7 +13,7 @@ interface Styles {
 export interface IconTextProps
   extends React.HTMLAttributes<HTMLParagraphElement>,
     ExtendableStyledComponent {
-  icon: ReactNode;
+  icon?: ReactNode;
   text: string | JSX.Element;
   styles?: Styles;
   noMargin?: boolean;
@@ -43,6 +43,9 @@ const StyledText = styled("p")<IconTextProps>`
         getStylesBasedOnTheme(theme.mode, theme.white, theme.black)};
     }
   }
+  .text {
+    width: 100%;
+  }
 `;
 
 export const IconText: React.FC<IconTextProps> = (props) => {
@@ -50,17 +53,20 @@ export const IconText: React.FC<IconTextProps> = (props) => {
 
   return (
     <StyledText className={`wellms-component ${className}`} {...props}>
-      <span
-        className="icon"
-        style={styles?.icon}
-        role="button"
-        aria-label={typeof text === "string" ? text : text?.props?.children}
-      >
-        {icon}
-      </span>
-      <span className="text" style={styles?.text}>
+      {icon && (
+        <span
+          className="icon"
+          style={styles?.icon}
+          role="button"
+          aria-label={typeof text === "string" ? text : text?.props?.children}
+        >
+          {icon}
+        </span>
+      )}
+
+      <div className="text" style={styles?.text}>
         {text}
-      </span>
+      </div>
     </StyledText>
   );
 };

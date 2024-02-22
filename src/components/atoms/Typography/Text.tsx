@@ -6,12 +6,15 @@ import { ExtendableStyledComponent } from "types/component";
 
 import { getFontFromTheme } from "../../../theme/provider";
 
+const textSizes = ["24", "18", "16", "14", "13", "12", "11"] as const;
+export type TextSize = typeof textSizes[number];
+
 export interface TextProps
   extends React.HTMLAttributes<HTMLParagraphElement>,
     ExtendableStyledComponent {
   noMargin?: boolean;
   bold?: boolean;
-  size?: "18" | "16" | "14" | "13" | "12" | "11";
+  size?: TextSize;
   type?: "primary" | "secondary" | "warning" | "danger";
   className?: string;
 }
