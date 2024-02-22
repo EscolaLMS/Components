@@ -369,6 +369,7 @@ export const Navigation: React.FC<NavigationProps> = (props) => {
           <Drawer
             open={mobileMenuOpen}
             className={"drawer drawer-header-wrapper"}
+            // @ts-expect-error */}
             classNames={{
               wrapper: "drawer-content-wrapper custom-drawer-wrapper",
               content: "drawer-content",
