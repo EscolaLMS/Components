@@ -90,8 +90,7 @@ const StyledRating = styled.span<RatingProps>`
         getStylesBasedOnTheme(theme.mode, theme.white, theme.gray1)};
     }
     .label {
-      min-width: 48px;
-      margin-left: 5px;
+      margin: 0px 5px;
       font-size: 13px;
       font-weight: 700;
     }
