@@ -12,11 +12,11 @@ interface StyledTourProps {
   mobile?: boolean;
 }
 export interface TutorProps extends StyledTourProps, ExtendableStyledComponent {
-  title: ReactNode;
+  title?: ReactNode;
   fullName: ReactNode | string;
   avatar: AvatarProps;
-  rating: RatingProps;
-  description: ReactNode | string;
+  rating?: RatingProps;
+  description?: ReactNode | string;
   coursesInfo?: ReactNode | string;
 }
 
@@ -94,7 +94,7 @@ export const Tutor: React.FC<TutorProps> = (props) => {
             {fullName}
           </Title>
           <div className="ranking-row">
-            <Rating {...rating} label={rating.ratingValue} />
+            {rating && <Rating {...rating} label={rating?.ratingValue} />}
             {coursesInfo && <Text className="course-info">{coursesInfo}</Text>}
           </div>
           {!mobile && <Text className="description">{description}</Text>}

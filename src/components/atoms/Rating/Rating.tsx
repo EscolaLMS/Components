@@ -15,8 +15,8 @@ const RatingIconEmpty: React.FC<IconProps> = (props) => {
   const { onClick, onMouseEnter, onMouseLeave, rate } = props;
   return (
     <svg
-      width="1em"
-      height="1em"
+      width="10px"
+      height="10px"
       viewBox="0 0 15 15"
       xmlns="http://www.w3.org/2000/svg"
       onClick={() => (onClick ? onClick(rate) : undefined)}
@@ -35,8 +35,8 @@ const RatingIconFull: React.FC<IconProps> = (props) => {
   const { onClick, onMouseEnter, onMouseLeave, rate } = props;
   return (
     <svg
-      width="1em"
-      height="1em"
+      width="10px"
+      height="10px"
       viewBox="0 0 15 15"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -90,9 +90,8 @@ const StyledRating = styled.span<RatingProps>`
         getStylesBasedOnTheme(theme.mode, theme.white, theme.gray1)};
     }
     .label {
-      min-width: 48px;
-      margin-left: 5px;
-      font-size: 16px;
+      margin: 0px 5px;
+      font-size: 13px;
       font-weight: 700;
     }
   }

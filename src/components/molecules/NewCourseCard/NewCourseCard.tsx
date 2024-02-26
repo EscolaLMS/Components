@@ -45,7 +45,7 @@ export interface CourseCardProps
   categories?: Categories | ReactChild;
   onImageClick?: () => void;
   progress?: ProgressBarProps;
-  price?: string;
+  price?: ReactNode;
 }
 
 const StyledCourseCard = styled("div")<StyledCourseCardProps>`
@@ -141,8 +141,21 @@ const StyledCourseCard = styled("div")<StyledCourseCardProps>`
     transition: transform 0.3s ease-in-out;
     transform: ${(props) =>
       props.mobile ? "translateY(0px)" : "translateY(+120px)"};
+    color: ${({ theme }) => theme.primaryColor};
+    font-weight: 700;
+    font-family: ${({ theme }) => theme.font};
     p {
       color: ${({ theme }) => theme.primaryColor};
+      font-weight: 700;
+      margin: 0px;
+    }
+    .pricing-card-discount {
+      text-decoration: line-through;
+    }
+    > div {
+      flex-direction: row;
+      align-items: center;
+      gap: 10px;
     }
   }
   &:hover {
@@ -262,11 +275,7 @@ export const NewCourseCard: React.FC<CourseCardProps> = (props) => {
           )
         )}
         <div className="course-title">{title}</div>
-        <div className="course-price">
-          <Text size="16" bold>
-            {price}
-          </Text>
-        </div>
+        <div className="course-price">{price}</div>
       </div>
     </StyledCourseCard>
   );
