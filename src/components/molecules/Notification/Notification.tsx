@@ -49,11 +49,11 @@ const StyledNotification = styled.div<{
     margin-bottom: 5px;
     button {
       all: unset;
-      cursor: pointer !important;
+      cursor: pointer;
       svg {
         width: 10px;
         height: 10px;
-        cursor: pointer !important;
+
         path {
           fill: ${({ theme }) => theme.textColor};
         }
