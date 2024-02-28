@@ -45,7 +45,7 @@ export const CourseAgendaLesson: React.FC<CourseAgendaLessonProps> = ({
 
   const isLessonActive = useMemo(
     () =>
-      lesson.active_from === null || isAfter(new Date(), new Date(lesson.active_from)),
+      lesson.active_from === null || (lesson.active_from && isAfter(new Date(), new Date(lesson.active_from))),
     [lesson.id]
   );
 

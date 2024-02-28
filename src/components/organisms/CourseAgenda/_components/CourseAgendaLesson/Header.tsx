@@ -54,7 +54,7 @@ export const Header: React.FC<Props> = ({
         <Text className="lesson__title" size="13" bold noMargin>
           {lesson.title}
         </Text>
-        {!isLessonActive && (
+        {!isLessonActive && lesson.active_from && (
           <Text className="lesson__locked" size="11" noMargin bold>
             <Icon name="lockTime" />
             {t("CourseAgenda.ActiveFrom")}{" "}
