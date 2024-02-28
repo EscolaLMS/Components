@@ -9,6 +9,16 @@ import Spin from "../Spin/Spin";
 import { getStylesBasedOnTheme } from "../../../utils/utils";
 import { ExtendableStyledComponent } from "types/component";
 
+enum ModeTypes {
+  PRIMARY = "primary",
+  SECONDARY = "secondary",
+  OUTLINE = "outline",
+  WHITE = "white",
+  ICON = "icon",
+  SECONDARY_OUTLINE = "secondary outline",
+  GRAY = "gray",
+}
+
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     ExtendableStyledComponent {
@@ -16,35 +26,32 @@ export interface ButtonProps
   invert?: boolean;
   loading?: boolean;
   block?: boolean;
-  mode?:
-    | "primary"
-    | "secondary"
-    | "outline"
-    | "white"
-    | "icon"
-    | "secondary outline";
+  mode?: ModeTypes;
   as?: React.ElementType;
   "aria-label"?: string;
 }
 
 const StyledButton = styled("button")<ButtonProps>`
   background: ${({ mode, theme, invert }) => {
-    if (mode && mode.includes("outline")) {
+    if (mode && mode.includes(ModeTypes.OUTLINE)) {
       return "transparent";
     }
     if (invert) {
       return theme.invertColor;
     }
-    if (mode === "white") {
+    if (mode === ModeTypes.WHITE) {
       return theme.white;
     }
-    if (mode === "icon") {
+    if (mode === ModeTypes.ICON) {
       return "transparent";
+    }
+    if (mode === ModeTypes.GRAY) {
+      return theme.gray2;
     }
     return theme?.primaryColor || "black";
   }};
   color: ${({ theme, mode, invert }) => {
-    if ((mode && mode.includes("outline")) || mode === "icon") {
+    if ((mode && mode.includes(ModeTypes.OUTLINE)) || mode === "icon") {
       if (invert) {
         return getStylesBasedOnTheme(
           theme.mode,
@@ -61,7 +68,7 @@ const StyledButton = styled("button")<ButtonProps>`
       );
     }
 
-    if (mode === "white") {
+    if (mode === ModeTypes.WHITE) {
       return theme.black;
     }
 
@@ -72,13 +79,15 @@ const StyledButton = styled("button")<ButtonProps>`
   font-size: ${(props) => {
     if (props.mode) {
       switch (props.mode) {
-        case "primary":
-        case "secondary":
-        case "outline":
-        case "secondary outline":
+        case ModeTypes.PRIMARY:
+        case ModeTypes.SECONDARY:
+        case ModeTypes.OUTLINE:
+        case ModeTypes.SECONDARY_OUTLINE:
+        case ModeTypes.ICON:
+        case ModeTypes.GRAY:
           return "16px";
 
-        case "white":
+        case ModeTypes.WHITE:
         default:
           return "14px";
       }
@@ -86,7 +95,7 @@ const StyledButton = styled("button")<ButtonProps>`
     return "18px";
   }};
   line-height: ${(props) => {
-    if (props.mode === "icon") {
+    if (props.mode === ModeTypes.ICON) {
       return "1.5";
     }
     return "1.55em";
@@ -94,11 +103,11 @@ const StyledButton = styled("button")<ButtonProps>`
   cursor: pointer;
   padding: "9xp 16px";
   padding: ${(props) => {
-    if (props.mode === "icon") {
-      return "4px";
+    if (props.mode === ModeTypes.ICON) {
+      return "9px 16px";
     } else if (
-      props.mode === "secondary" ||
-      props.mode === "secondary outline"
+      props.mode === ModeTypes.SECONDARY ||
+      props.mode === ModeTypes.SECONDARY_OUTLINE
     ) {
       return "4px 13px";
     }
@@ -111,7 +120,7 @@ const StyledButton = styled("button")<ButtonProps>`
   border-style: solid;
   border-width: 2px;
   border-color: ${({ theme, mode, invert }) => {
-    if (mode?.includes("outline")) {
+    if (mode?.includes(ModeTypes.OUTLINE)) {
       if (invert) {
         return getStylesBasedOnTheme(
           theme.mode,
@@ -150,7 +159,7 @@ const StyledButton = styled("button")<ButtonProps>`
 
   & > svg {
     margin: ${(props) => {
-      if (props.mode === "icon") {
+      if (props.mode === ModeTypes.ICON) {
         return "0";
       }
       return "0 9px";
@@ -158,10 +167,10 @@ const StyledButton = styled("button")<ButtonProps>`
     height: ${(props) => {
       if (props.mode) {
         switch (props.mode) {
-          case "primary":
-          case "secondary":
-          case "outline":
-          case "secondary outline":
+          case ModeTypes.PRIMARY:
+          case ModeTypes.SECONDARY:
+          case ModeTypes.OUTLINE:
+          case ModeTypes.SECONDARY_OUTLINE:
             return "18px";
 
           default:
@@ -171,7 +180,7 @@ const StyledButton = styled("button")<ButtonProps>`
       return "18px";
     }};
     width: ${(props) => {
-      if (props.mode === "icon") {
+      if (props.mode === ModeTypes.ICON) {
         return "14px";
       }
       return "18px";
@@ -183,9 +192,9 @@ const StyledButton = styled("button")<ButtonProps>`
     border-style: solid;
     border-width: 2px;
     border-color: ${(props) => {
-      if (props.invert && props.mode !== "outline") {
+      if (props.invert && props.mode !== ModeTypes.OUTLINE) {
         return props.theme.gray1;
-      } else if (props.mode === "icon") {
+      } else if (props.mode === ModeTypes.ICON) {
         return "transparent";
       }
       return props.theme.white;
@@ -194,12 +203,12 @@ const StyledButton = styled("button")<ButtonProps>`
 
   &:hover {
     color: ${(props) => {
-      if (props.mode !== "icon") {
+      if (props.mode !== ModeTypes.ICON) {
         return props.theme.primaryColor;
       }
     }};
     border: ${(props) => {
-      if (props.mode && props.mode.includes("outline")) {
+      if (props.mode && props.mode.includes(ModeTypes.OUTLINE)) {
         return `2px solid ${chroma(props.theme.primaryColor).alpha(0.4).hex()}`;
       }
     }};
@@ -207,7 +216,7 @@ const StyledButton = styled("button")<ButtonProps>`
     ${(props) => {
       if (props.theme) {
         if (props.invert) {
-          if (props.mode && props.mode.includes("outline")) {
+          if (props.mode && props.mode.includes(ModeTypes.OUTLINE)) {
             return `
               background: ${props.theme.white};
               color: ${props.theme.gray1};
@@ -218,18 +227,17 @@ const StyledButton = styled("button")<ButtonProps>`
             color: ${props.theme.invertColor};
             text-decoration:none;
           `;
-        } else if (props.mode === "white") {
+        } else if (props.mode === ModeTypes.WHITE) {
           return `
             background: ${chroma(props.theme.white).alpha(0.85).hex()};
             color: ${props.theme.gray1};
           `;
-        } else if (props.mode === "icon") {
+        } else if (props.mode === ModeTypes.ICON) {
           return `
-            background: transparent;
-            opacity: 0.6;
+            background: ${props.theme.gray3};
             `;
         } else {
-          if (props.mode && props.mode.includes("outline")) {
+          if (props.mode && props.mode.includes(ModeTypes.OUTLINE)) {
             return `
               background: ${getStylesBasedOnTheme(
                 props.theme.mode,
@@ -241,6 +249,12 @@ const StyledButton = styled("button")<ButtonProps>`
                 props.theme.black,
                 props.theme.textColor
               )};
+            `;
+          }
+          if (props.mode && props.mode === ModeTypes.GRAY) {
+            return `
+              color: ${chroma(props.theme.white).alpha(0.85).hex()};
+              background: ${chroma(props.theme.gray2).alpha(0.85).hex()};
             `;
           }
           return `
@@ -269,10 +283,10 @@ const StyledButton = styled("button")<ButtonProps>`
       if (props.invert) {
         return `color: ${props.theme.white};`;
       }
-      if (props.mode && props.mode.includes("outline")) {
+      if (props.mode && props.mode.includes(ModeTypes.OUTLINE)) {
         return `color: ${props.theme.textColor};
         background: ${props.theme.white};
-        border: 1px solid ${props.theme.primaryButtonDisabled};        
+        border: 1px solid ${props.theme.primaryButtonDisabled};
         `;
       }
     }};
@@ -315,7 +329,7 @@ const StyledButton = styled("button")<ButtonProps>`
 export const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
   as,
   children,
-  mode = "primary",
+  mode = ModeTypes.PRIMARY,
   invert,
   loading = false,
   block = false,
@@ -325,7 +339,7 @@ export const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
   const theme = React.useContext(ThemeContext);
 
   const loadingColor = React.useMemo(() => {
-    if (mode === "outline") {
+    if (mode === ModeTypes.OUTLINE) {
       if (invert) {
         return getStylesBasedOnTheme(
           theme.mode,

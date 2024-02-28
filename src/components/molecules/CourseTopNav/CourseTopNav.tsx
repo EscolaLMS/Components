@@ -1,5 +1,4 @@
 import * as React from "react";
-import { Row } from "react-grid-system";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 import { Button, Modal, ModalNote, Icon } from "../../../";
@@ -46,73 +45,47 @@ export interface CourseTopNavProps
 }
 
 const StyledAside = styled.aside<StyledAsideProps>`
-  .toggle-btn-container {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    border-bottom: 1px solid
-      ${({ theme }) =>
-        getStylesBasedOnTheme(theme.mode, theme.dm__background, theme.white)};
-
-    svg {
-      transform: scale(${(props) => (props.mobile ? "0.8" : "1")});
-    }
-
-    button {
-      border-radius: 6px 6px 0 0;
-      width: ${(props) => (props.mobile ? "60px" : "120px")};
-      background: ${({ theme }) =>
-        getStylesBasedOnTheme(theme.mode, theme.dm__background, theme.white)};
-      color: ${({ theme }) =>
-        getStylesBasedOnTheme(
-          theme.mode,
-          theme.dm__primaryColor,
-          theme.primaryColor,
-          theme.primaryColor
-        )};
-
-      &:hover {
-        opacity: 1;
-
-        svg {
-          opacity: 0.65;
-        }
-      }
-
-      &.closed svg {
-        transform: scale(${(props) => (props.mobile ? "0.8" : "1")})
-          rotate(180deg);
-      }
-    }
-  }
-
   .course-nav-container {
-    margin-top: ${({ mobile }) => (mobile ? "-12px" : "-14px")};
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     padding: ${({ mobile }) => (mobile ? "10px" : "15px")};
     background: ${({ theme }) =>
       getStylesBasedOnTheme(theme.mode, theme.dm__background, theme.white)};
-    box-shadow: 0px -4px 24px 0px ${({ theme }) => (theme.mode === "light" ? chroma(theme.black).alpha(0.1).hex() : chroma(theme.white).alpha(0.1).hex())};
+    box-shadow: 0px -3px 10px ${({ theme }) => (theme.mode === "light" ? chroma(theme.black).alpha(0.1).hex() : chroma(theme.white).alpha(0.1).hex())};
   }
 
-  .nav-btn {
-    gap: 4px 9px;
-    font-size: 12px;
-    font-weight: normal;
-    min-width: ${({ mobile }) => (mobile ? "30px" : "100px")};
+  .course-nav-middle-btns {
+    display: flex;
+    gap: 10px;
+  }
 
-    &[disabled] {
-      opacity: 0;
+  .icon-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    picture {
+      display: flex;
+      align-items: center;
     }
   }
 
-  .nav-finish-btn {
-    flex: ${({ mobile }) => (mobile ? "1" : "none")};
-    padding-left: ${({ mobile }) => mobile && "10px"};
-    padding-right: ${({ mobile }) => mobile && "10px"};
+  .prev-btn {
+    gap: 20px;
   }
 
-  .note-btn {
-    gap: 4px 9px;
+  .next-btn {
+    gap: 86px;
+  }
+
+  .mark-btn {
+    border-color: ${({ theme }) => theme.positive};
+    opacity: 0.65;
+
+    &:hover {
+      opacity: 1;
+    }
   }
 `;
 
@@ -136,16 +109,15 @@ export const CourseTopNav: React.FC<CourseTopNavProps> = (props) => {
     onCourseFinished,
   } = props;
 
-  const [isClosed, setIsClosed] = useState(false);
   const [showNoteModal, setShowNoteModal] = useState(false);
   const { t } = useTranslation();
 
   const renderFinishButton = React.useCallback(() => {
-    if (!isLast && !isFinished) {
+    if (!isLast && isFinished) {
       return (
         <Button
-          className="nav-btn"
-          mode="icon"
+          mode={"primary"}
+          className="icon-btn next-btn"
           onClick={() => onNext && onNext()}
           disabled={!hasNext}
           aria-label={t<string>("Actions.ShowNext")}
@@ -155,30 +127,32 @@ export const CourseTopNav: React.FC<CourseTopNavProps> = (props) => {
         </Button>
       );
     }
+    if (isLast) {
+      return (
+        <Button
+          mode={"primary"}
+          onClick={() => {
+            if (onCourseFinished) {
+              onCourseFinished();
+            }
+          }}
+          aria-label={t("Course.finishCourse")}
+        >
+          {t("Course.finishCourse")}
+        </Button>
+      );
+    }
     return (
       <Button
-        mode={isFinished ? "secondary" : mobile ? "secondary" : "outline"}
+        mode={"outline"}
+        className="icon-btn mark-btn"
         onClick={() => {
-          if (isLast && onCourseFinished) {
-            onCourseFinished();
-            return;
-          }
           onFinish && onFinish();
         }}
-        className={"nav-finish-btn"}
-        aria-label={
-          isFinished
-            ? t("CourseTopNav.finished")
-            : isLast
-            ? t("Course.finishCourse")
-            : t("Course.markAsFinished")
-        }
+        aria-label={t("Course.markAsFinished")}
       >
-        {isFinished
-          ? t("CourseTopNav.finished")
-          : isLast
-          ? t("Course.finishCourse")
-          : t("Course.markAsFinished")}
+        <Icon name="finished" />
+        {t("Course.markAsFinished")}
       </Button>
     );
   }, [isFinished, t, onFinish, mobile, isLast]);
@@ -187,7 +161,7 @@ export const CourseTopNav: React.FC<CourseTopNavProps> = (props) => {
     return (
       <Button
         mode={"icon"}
-        className="note-btn"
+        className="icon-btn"
         onClick={() => setShowNoteModal(true)}
         aria-label={t("CourseTopNav.addNote")}
       >
@@ -201,15 +175,12 @@ export const CourseTopNav: React.FC<CourseTopNavProps> = (props) => {
     return (
       <Button
         mode={"icon"}
-        className="note-btn"
+        className="icon-btn"
         onClick={() => onBookmarkClick && onBookmarkClick()}
-        aria-label={t(
-          `CourseTopNav.${bookmarkBtnText}${mobile ? "Mobile" : ""}`
-        )}
+        aria-label={t(`CourseTopNav.${bookmarkBtnText}`)}
       >
-        <Icon name="editAlt" />
-        {!mobile &&
-          t(`CourseTopNav.${bookmarkBtnText}${mobile ? "Mobile" : ""}`)}
+        <Icon name="bookmark" />
+        {!mobile && t(`CourseTopNav.${bookmarkBtnText}`)}
       </Button>
     );
   }, [mobile, onBookmarkClick, bookmarkBtnText]);
@@ -219,53 +190,27 @@ export const CourseTopNav: React.FC<CourseTopNavProps> = (props) => {
       <StyledAside
         aria-label={getUniqueId("aside")}
         mobile={mobile}
-        className={`wellms-component ${isClosed ? "closed" : ""} ${className}`}
+        className={`wellms-component ${className}`}
       >
-        <div className="toggle-btn-container">
+        <div className="course-nav-container">
           <Button
-            onClick={() => setIsClosed((prev) => !prev)}
-            onKeyDown={() => setIsClosed((prev) => !prev)}
-            className={isClosed ? "closed" : ""}
-            aria-label={t<string>(isClosed ? "Actions.Show" : "Actions.Hide")}
-            mode={"icon"}
+            className="icon-btn prev-btn"
+            mode="gray"
+            onClick={() => onPrev && onPrev()}
+            disabled={!hasPrev}
+            aria-label={t<string>("Actions.ShowPrevious")}
           >
-            <svg
-              width="10"
-              height="10"
-              viewBox="0 0 10 10"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M0.527294 0.195262C0.787643 -0.0650874 1.20975 -0.0650873 1.4701 0.195262L4.9987 3.72386L8.5273 0.195263C8.78764 -0.0650861 9.20975 -0.065086 9.4701 0.195264C9.73045 0.455613 9.73045 0.877723 9.4701 1.13807L5.4701 5.13807C5.20975 5.39842 4.78764 5.39842 4.52729 5.13807L0.527294 1.13807C0.266944 0.877721 0.266944 0.455611 0.527294 0.195262ZM0.527293 4.19526C0.787643 3.93491 1.20975 3.93491 1.4701 4.19526L4.9987 7.72386L8.52729 4.19526C8.78764 3.93491 9.20975 3.93491 9.4701 4.19526C9.73045 4.45561 9.73045 4.87772 9.4701 5.13807L5.4701 9.13807C5.20975 9.39842 4.78764 9.39842 4.52729 9.13807L0.527293 5.13807C0.266944 4.87772 0.266944 4.45561 0.527293 4.19526Z"
-                fill="currentColor"
-              />
-            </svg>
+            <Icon name="chevronLeft" />
+            {!mobile && <>{t<string>("CourseTopNav.prev")} </>}
           </Button>
-        </div>
-        {!isClosed && (
-          <div className="course-nav-container">
-            <Row align={"center"} justify={"between"}>
-              <Button
-                className="nav-btn"
-                mode="icon"
-                onClick={() => onPrev && onPrev()}
-                disabled={!hasPrev}
-                aria-label={t<string>("Actions.ShowPrevious")}
-              >
-                <Icon name="chevronLeft" />
-                {!mobile && <>{t<string>("CourseTopNav.prev")} </>}
-              </Button>
 
-              <Row>
-                {addNotes && renderNoteButton()}
-                {addBookmarks && renderBookmarkButton()}
-              </Row>
-
-              {renderFinishButton()}
-            </Row>
+          <div className="course-nav-middle-btns">
+            {addNotes && renderNoteButton()}
+            {addBookmarks && renderBookmarkButton()}
           </div>
-        )}
+
+          {renderFinishButton()}
+        </div>
       </StyledAside>
       <Modal
         visible={showNoteModal}
