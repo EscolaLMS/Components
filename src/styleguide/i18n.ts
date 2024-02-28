@@ -168,6 +168,7 @@ export const resources = {
         TopicIsLocked: "Topic is locked.",
         TopicToComplete: "Topic to complete",
         ToAccessTheFollowing: "to access the following",
+        ActiveFrom: "Active from",
       },
       Quiz: {
         Start: "Start quiz",
@@ -419,6 +420,7 @@ export const resources = {
         TopicIsLocked: "Temat jest zablokowany.",
         TopicToComplete: "Temat do ukończenia",
         ToAccessTheFollowing: "aby przejść tutaj",
+        ActiveFrom: "Dostępny od",
       },
       Quiz: {
         Start: "Start quiz",

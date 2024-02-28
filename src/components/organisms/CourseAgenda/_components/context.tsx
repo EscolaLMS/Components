@@ -11,6 +11,7 @@ interface SharedContextData {
   lessons: API.Lesson[];
   finishedTopicIds: number[];
   areAllTopicsUnlocked?: boolean;
+  availableTopicsIds: number[];
 
   onMarkFinished: (topic: API.Topic) => void;
   onTopicClick: (topic: API.Topic) => void;
@@ -44,6 +45,7 @@ const CourseAgendaContext = React.createContext<CourseAgendaContextData>({
   percentage: 0,
   currentNotLockedTopicId: undefined,
   areAllTopicsUnlocked: false,
+  availableTopicsIds: [],
 
   onMarkFinished: () => console.warn("INITIAL STATE!"),
   onTopicClick: () => console.warn("INITIAL STATE!"),
@@ -67,6 +69,7 @@ export const CourseAgendaContextProvider: React.FC<
   lessons,
   finishedTopicIds,
   areAllTopicsUnlocked,
+  availableTopicsIds,
   onTopicClick,
   onNextTopicClick,
   onMarkFinished,
@@ -172,8 +175,8 @@ export const CourseAgendaContextProvider: React.FC<
         notFinishedTopics,
         currentLesson,
         currentLessonParentLessonsIds,
-
         areAllTopicsUnlocked,
+        availableTopicsIds,
         onMarkFinished,
         onTopicClick,
         onNextTopicClick,
