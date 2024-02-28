@@ -1,12 +1,10 @@
 import React, { useCallback, useMemo } from "react";
-import { useTranslation } from "react-i18next";
 import { API } from "@escolalms/sdk/lib";
+import { ThemeContext } from "styled-components";
 
-import { Button } from "../../../atoms/Button/Button";
 import { Icon } from "../../../atoms/Icon/Icon";
 import Text from "../../../atoms/Typography/Text";
 import { useCourseAgendaContext } from "./context";
-import { CurrentIcon, PendingIcon } from "./Icons";
 
 export interface CourseAgendaTopicProps {
   index: number;
@@ -14,36 +12,31 @@ export interface CourseAgendaTopicProps {
   clickable: boolean;
 }
 
-type IconState = "pending" | "finished" | "current";
+type State = "available" | "finished" | "current" | "locked";
 
-const TopicIcon: React.FC<{ state: IconState }> = ({ state }) => {
+const TopicIcon: React.FC<{ state: State }> = ({ state }) => {
+  const theme = React.useContext(ThemeContext);
   switch (state) {
     case "current":
-      return <CurrentIcon />;
+      return <Icon name="current" color={theme.primaryColor} />;
     case "finished":
       return <Icon name="finished" />;
-    case "pending":
-      return <PendingIcon />;
+    case "available":
+      return <></>;
     default:
-      return null;
+      return <Icon name='lock' />;
   }
 };
 
 const CourseAgendaTopic: React.FC<CourseAgendaTopicProps> = ({
-  index,
   topic,
   clickable,
 }) => {
-  const { t } = useTranslation();
   const {
-    onMarkFinished,
     onTopicClick,
-    onNextTopicClick,
-    onCourseFinished,
     finishedTopicIds,
     currentNotLockedTopicId,
-    flatTopics,
-    notFinishedTopics,
+    availableTopicsIds
   } = useCourseAgendaContext();
 
   const isFinished = useMemo(
@@ -55,34 +48,28 @@ const CourseAgendaTopic: React.FC<CourseAgendaTopicProps> = ({
     [currentNotLockedTopicId, topic.id]
   );
 
-  const iconState: IconState = useMemo(() => {
+  const state: State = useMemo(() => {
     if (isCurrent) {
       return "current";
     }
     if (isFinished) {
       return "finished";
     }
-    return "pending";
-  }, [isFinished, isCurrent]);
+    if (availableTopicsIds?.includes(topic.id)) {
+      return 'available';
+    }
+
+    return 'locked';
+  }, [isFinished, isCurrent, availableTopicsIds]);
 
   const onClick = useCallback(() => {
-    if (isCurrent) return;
+    if (isCurrent || state === "locked") return;
 
     onTopicClick?.(topic);
-  }, [isCurrent]);
-
-  const isLastTopic = useMemo(
-    () => flatTopics.at(-1)?.id === topic.id,
-    [flatTopics, topic.id]
-  );
-
-  const isOneTopicLeft = useMemo(
-    () => notFinishedTopics.length === 1,
-    [flatTopics, finishedTopicIds]
-  );
+  }, [isCurrent, state]);
 
   return (
-    <li className={`lesson__topic lesson__topic-${iconState}`}>
+    <li className={`lesson__topic lesson__topic--${state}`}>
       <div
         className="lesson__description"
         tabIndex={clickable ? 0 : -1}
@@ -90,49 +77,11 @@ const CourseAgendaTopic: React.FC<CourseAgendaTopicProps> = ({
         onKeyDown={(e) => clickable && e.key === "Enter" && onClick()}
         role="button"
       >
-        <TopicIcon state={iconState} />
-        <Text
-          className="lesson__index"
-          size="14"
-          noMargin
-          bold={iconState === "current"}
-        >
-          {index}.{" "}
-        </Text>
-        <Text size="14" noMargin bold={iconState === "current"}>
+        <Text size="13" noMargin bold={state === "current"}>
           {topic.title}
         </Text>
+        <TopicIcon state={state} />
       </div>
-
-      {isCurrent && !isFinished && isOneTopicLeft && (
-        <Button
-          block
-          mode="outline"
-          onClick={() => {
-            if (!clickable) return;
-            onMarkFinished?.(topic);
-            onCourseFinished?.();
-          }}
-        >
-          {t<string>("Course.finishCourse")}
-        </Button>
-      )}
-
-      {isCurrent && !isFinished && !isOneTopicLeft && (
-        <Button
-          block
-          mode="outline"
-          onClick={() => clickable && onMarkFinished?.(topic)}
-        >
-          {t<string>("Course.markAsFinished")}
-        </Button>
-      )}
-
-      {isCurrent && isFinished && !isLastTopic && (
-        <Button block mode="outline" onClick={onNextTopicClick}>
-          {t<string>("Course.nextTopic")}
-        </Button>
-      )}
     </li>
   );
 };

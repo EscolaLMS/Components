@@ -19,7 +19,8 @@ export const RecursiveLessons: React.FC<Props> = ({ lessons, depth = 0 }) => {
           key={l.id}
           defaultOpen={
             currentLessonParentLessonsIds.includes(l.id) ||
-            currentLesson?.id === l.id
+            currentLesson?.id === l.id ||
+            depth > 0
           }
           index={index}
           lesson={l}

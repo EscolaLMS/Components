@@ -1,4 +1,3 @@
-import chroma from "chroma-js";
 import styled from "styled-components";
 import { getStylesBasedOnTheme } from "../../../../../utils/utils";
 
@@ -6,33 +5,19 @@ export const StyledLessonItem = styled.li`
   background: ${({ theme }) =>
     getStylesBasedOnTheme(
       theme.mode,
-      theme.dm__cardBackgroundColor,
-      theme.cardBackgroundColor
+      theme.dm__background,
+      theme.background
     )};
-  border-left: 2px solid
-    ${({ theme }) =>
-      getStylesBasedOnTheme(
-        theme.mode,
-        theme.dm__primaryColor,
-        theme.primaryColor,
-        theme.primaryColor
-      )};
-  padding: 10px;
-  margin: 10px 0;
+  padding: 5px 7px;
   overflow: hidden;
-  border-radius: ${(props) => props.theme.cardRadius}px;
+  border-radius: 3px;
 
-  &.sub-lesson {
-    padding-inline: 5px;
-    margin-block: 0;
-    border-left: 2px solid transparent;
-    border-bottom: 2px solid
-      ${({ theme }) =>
-        getStylesBasedOnTheme(
-          theme.mode,
-          chroma(theme.white).alpha(0.2).hex(),
-          theme.white
-        )};
+  &.full-border {
+    border: 1px solid ${({ theme }) => theme.primaryColor};
+  }
+
+  &.bottom-border {
+    border-bottom: 1px solid ${({ theme }) => theme.gray3};
   }
 
   .duration {
@@ -43,12 +28,9 @@ export const StyledLessonItem = styled.li`
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    align-items: flex-start;
-    align-content: flex-start;
+    align-items: center;
 
     button {
-      margin-left: auto;
-      margin-top: -2px;
 
       svg {
         transition: transform 0.2s ease-in;
@@ -58,7 +40,9 @@ export const StyledLessonItem = styled.li`
 
     & > .lesson__header {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
+      flex-direction: column;
+      width: calc(100% - 25px);
     }
 
     .lesson__details {
@@ -77,6 +61,12 @@ export const StyledLessonItem = styled.li`
             theme.primaryColor
           )};
       }
+
+      &--finished {
+        > p:first-child {
+          color: ${({ theme }) => theme.positive};
+        }
+      }
     }
 
     .lesson__title {
@@ -84,7 +74,11 @@ export const StyledLessonItem = styled.li`
       color: ${(props) => props.theme.gray1};
       margin: 0;
       font-weight: bold;
-      display: flex;
+      width: 100%;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      text-wrap: nowrap;
+
       small {
         font-size: 12px;
         font-weight: 300;
@@ -105,6 +99,13 @@ export const StyledLessonItem = styled.li`
         margin-right: 12px;
       }
     }
+
+    .lesson__locked {
+      color: ${({ theme }) => theme.primaryColor};
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
   }
   &.open > header button svg {
     transform: rotate(0);
@@ -117,6 +118,7 @@ export const StyledLessonItem = styled.li`
   .lesson__lessons {
     padding-left: 0;
     list-style: none;
+    padding: 3px 0;
   }
 
   .lesson__topics {
@@ -126,63 +128,9 @@ export const StyledLessonItem = styled.li`
     margin: 0;
     padding: 0;
     transition: all 0.5s;
-
-    .lesson__overlay-text {
-      margin: 0;
-      text-align: center;
-      line-height: 1.2em;
-
-      &--emphasized,
-      &--additional {
-        display: block;
-      }
-
-      &--emphasized {
-        font-style: italic;
-        font-weight: 600;
-      }
-    }
-
-    .lesson__overlay {
-      grid-column: 1/2;
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      display: grid;
-      place-items: center;
-      z-index: 1;
-      backdrop-filter: blur(2px);
-      background: ${({ theme }) =>
-        getStylesBasedOnTheme(
-          theme.mode,
-          "rgb(0 0 0 / 50%)",
-          "rgb(255 255 255 / 50%)"
-        )};
-      place-content: center;
-      gap: 4px;
-      box-sizing: border-box;
-      padding: 4px;
-
-      &--row {
-        grid-auto-flow: column;
-
-        .lesson__overlay-text {
-          margin: 0;
-        }
-
-        svg {
-          width: 18px;
-        }
-      }
-
-      svg {
-        fill: ${({ theme }) =>
-          getStylesBasedOnTheme(theme.mode, "#fff", "#000")};
-      }
-    }
+    gap: 3px;
 
     li:not(.lesson__overlay) {
-      padding: 10px;
       background: transparent;
       position: relative;
       cursor: pointer;
@@ -193,40 +141,22 @@ export const StyledLessonItem = styled.li`
         margin-top: 10px;
       }
 
-      &:last-child:not(.lesson__topic-current) {
+      &:last-child:not(.lesson__topic--current) {
         padding-bottom: 0;
         border-bottom: none;
-      }
-
-      &:not(.lesson__topic-current):not(:last-child) {
-        border-bottom: 2px solid
-          ${({ theme }) =>
-            getStylesBasedOnTheme(
-              theme.mode,
-              chroma(theme.white).alpha(0.2).hex(),
-              theme.white
-            )};
       }
 
       &:hover p:last-child {
         text-decoration: underline;
       }
 
-      &.lesson__topic-pending svg {
-        margin-top: 4px;
-
-        path {
-          fill: ${({ theme }) =>
-            getStylesBasedOnTheme(theme.mode, theme.white, theme.gray1)};
-        }
-      }
-
-      &.lesson__topic-finished svg {
-        margin-top: 7px;
-      }
-
       .lesson__description {
         display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border: 1px solid ${({ theme }) => theme.gray3};
+        border-radius: 3px;
+        padding: 10px 15px;
 
         svg {
           margin-right: 7px;
@@ -253,7 +183,7 @@ export const StyledLessonItem = styled.li`
         }
       }
 
-      &.lesson__topic-current {
+      &.lesson__topic--current {
         background: ${({ theme }) =>
           getStylesBasedOnTheme(
             theme.mode,
@@ -261,7 +191,6 @@ export const StyledLessonItem = styled.li`
             theme.inputBg,
             theme.gray1
           )};
-        border-radius: ${(props) => props.theme.cardRadius}px;
         cursor: default;
         button {
           margin-top: 10px;
@@ -273,9 +202,18 @@ export const StyledLessonItem = styled.li`
           text-decoration: none;
         }
 
+        .lesson__description {
+          border-color: ${({ theme }) => theme.primaryColor};
+        }
+
         svg {
           margin-top: 2px;
         }
+      }
+
+      &.lesson__topic--locked {
+        cursor: not-allowed;
+        opacity: 0.55;
       }
     }
   }
@@ -298,5 +236,9 @@ export const StyledLessonItem = styled.li`
   .lesson__header {
     flex-grow: 1;
     display: flex;
+
+    &--inactive {
+      opacity: 0.55;
+    }
   }
 `;

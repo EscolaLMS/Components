@@ -5,8 +5,9 @@ import { Lesson } from "@escolalms/sdk/lib/types/api";
 import { useCourseAgendaContext } from "../context";
 import CourseAgendaTopic from "../CourseAgendaTopic";
 import { Header } from "./Header";
-import { LockedOverlay } from "./LockedOverlay";
 import { StyledLessonItem } from "./styles";
+import { getFlatTopics } from "utils/course";
+import { isAfter } from "date-fns";
 
 interface CourseAgendaLessonProps {
   children: React.ReactNode;
@@ -24,8 +25,13 @@ export const CourseAgendaLesson: React.FC<CourseAgendaLessonProps> = ({
   isSubLesson,
 }) => {
   const { t } = useTranslation();
-  const { areAllTopicsUnlocked, lockedLessonsIds, lockedTopicsIds } =
-    useCourseAgendaContext();
+  const {
+    areAllTopicsUnlocked,
+    lockedTopicsIds,
+    finishedTopicIds,
+    currentLesson,
+    currentLessonParentLessonsIds,
+  } = useCourseAgendaContext();
 
   const [open, setOpen] = useState(defaultOpen);
   const openMenu = useCallback(() => setOpen(true), []);
@@ -37,21 +43,42 @@ export const CourseAgendaLesson: React.FC<CourseAgendaLessonProps> = ({
     }
   }, [defaultOpen]);
 
-  const isLessonLocked = useMemo(
-    () => lockedLessonsIds.includes(lesson.id),
-    [lesson.id, lockedLessonsIds]
+  const isLessonActive = useMemo(
+    () =>
+      lesson.active_from === null ||
+      isAfter(new Date(), new Date(lesson.active_from)),
+    [lesson.id]
   );
 
-  const lessonHasLockedTopic = useMemo(
-    () => lesson?.topics?.some((l) => lockedTopicsIds.includes(l.id)) ?? false,
-    [lesson?.topics, lockedTopicsIds]
+  const isModuleFinished = useMemo(() => {
+    const lessonFlatTopics = getFlatTopics([lesson]);
+
+    return (
+      lessonFlatTopics.length > 0 &&
+      lessonFlatTopics.every((t) => finishedTopicIds?.includes(t.id)) &&
+      !isSubLesson
+    );
+  }, [finishedTopicIds, lesson, isSubLesson]);
+
+  const isRootAncestor = useMemo(() => {
+    if (currentLessonParentLessonsIds?.[0] === undefined)
+      return currentLesson?.id === lesson.id;
+
+    return currentLessonParentLessonsIds[0] === lesson.id;
+  }, [currentLesson?.id, currentLessonParentLessonsIds, lesson.id]);
+
+  const isAncestor = useMemo(
+    () =>
+      currentLessonParentLessonsIds?.includes(lesson.id) ||
+      currentLesson?.id === lesson.id,
+    [currentLesson?.id, currentLessonParentLessonsIds, lesson.id]
   );
 
   return (
     <StyledLessonItem
       className={`lesson__item ${open ? "open" : "closed"} ${
-        isSubLesson ? "sub-lesson" : ""
-      }`}
+        isAncestor && !isRootAncestor && open ? "full-border" : ""
+      } ${!isSubLesson ? 'bottom-border' : ''}`}
       aria-label={`${t<string>("Course.Lesson")} ${index + 1}`}
     >
       <Header
@@ -61,17 +88,10 @@ export const CourseAgendaLesson: React.FC<CourseAgendaLessonProps> = ({
         onClick={openMenu}
         onToggleClick={toggleMenu}
         isSubLesson={isSubLesson}
+        isModuleFinished={isModuleFinished}
+        isLessonActive={isLessonActive}
       />
-      <ul
-        className={`lesson__topics ${
-          (lessonHasLockedTopic || isLessonLocked) && !areAllTopicsUnlocked
-            ? "lesson__topics--locked"
-            : ""
-        }`}
-      >
-        {(lessonHasLockedTopic || isLessonLocked) && !areAllTopicsUnlocked && (
-          <LockedOverlay lesson={lesson} isLessonLocked={isLessonLocked} />
-        )}
+      <ul className="lesson__topics">
         {(lesson?.topics ?? []).map((topic, topicIndex) => (
           <CourseAgendaTopic
             key={topicIndex}
