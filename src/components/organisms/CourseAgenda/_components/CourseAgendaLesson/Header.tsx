@@ -4,7 +4,7 @@ import { API } from "@escolalms/sdk/lib";
 
 import { Text, Button, Icon } from "../../../../../index";
 import { format } from "date-fns";
-import { DAY_FORMAT } from "utils/utils";
+import { DAY_FORMAT } from "../../../../../utils/utils";
 
 interface Props {
   lesson: API.Lesson;
