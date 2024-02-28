@@ -1,7 +1,10 @@
 import * as React from "react";
 import { ReactNode, ReactChild, useMemo } from "react";
 import styled from "styled-components";
-import { ProgressBarProps } from "../../atoms/ProgressBar/ProgressBar";
+import {
+  ProgressBar,
+  ProgressBarProps,
+} from "../../atoms/ProgressBar/ProgressBar";
 import { RatioBox } from "../../atoms/RatioBox/RatioBox";
 import { getStylesBasedOnTheme } from "../../../utils/utils";
 import { ExtendableStyledComponent } from "types/component";
@@ -199,7 +202,8 @@ export const NewCourseCard: React.FC<CourseCardProps> = (props) => {
     onImageClick,
     hideImage,
     className = "",
-    price = "19.22",
+    price,
+    progress,
   } = props;
 
   const imageSrc = useMemo(() => {
@@ -275,6 +279,11 @@ export const NewCourseCard: React.FC<CourseCardProps> = (props) => {
           )
         )}
         <div className="course-title">{title}</div>
+        {progress && (
+          <div>
+            <ProgressBar {...progress} />
+          </div>
+        )}
         <div className="course-price">{price}</div>
       </div>
     </StyledCourseCard>
