@@ -12,16 +12,21 @@ export interface CourseAgendaTopicProps {
   clickable: boolean;
 }
 
-type State = "available" | "finished" | "current" | "locked";
+enum StateTypes {
+  CURRENT = 'current',
+  AVAILABLE = 'available',
+  FINISHED = 'finished',
+  LOCKED = 'locked',
+}
 
-const TopicIcon: React.FC<{ state: State }> = ({ state }) => {
+const TopicIcon: React.FC<{ state: StateTypes }> = ({ state }) => {
   const theme = React.useContext(ThemeContext);
   switch (state) {
-    case "current":
+    case StateTypes.CURRENT:
       return <Icon name="current" color={theme.primaryColor} />;
-    case "finished":
+    case StateTypes.FINISHED:
       return <Icon name="finished" />;
-    case "available":
+    case StateTypes.AVAILABLE:
       return <></>;
     default:
       return <Icon name='lock' />;
@@ -48,18 +53,18 @@ const CourseAgendaTopic: React.FC<CourseAgendaTopicProps> = ({
     [currentNotLockedTopicId, topic.id]
   );
 
-  const state: State = useMemo(() => {
+  const state: StateTypes = useMemo(() => {
     if (isCurrent) {
-      return "current";
+      return StateTypes.CURRENT;
     }
     if (isFinished) {
-      return "finished";
+      return StateTypes.FINISHED;
     }
     if (availableTopicsIds?.includes(topic.id)) {
-      return 'available';
+      return StateTypes.AVAILABLE;
     }
 
-    return 'locked';
+    return StateTypes.LOCKED;
   }, [isFinished, isCurrent, availableTopicsIds]);
 
   const onClick = useCallback(() => {
