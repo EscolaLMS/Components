@@ -45,7 +45,8 @@ export const CourseAgendaLesson: React.FC<CourseAgendaLessonProps> = ({
 
   const isLessonActive = useMemo(
     () =>
-      lesson.active_from === null || (lesson.active_from && isAfter(new Date(), new Date(lesson.active_from))),
+      !!(lesson.active_from === null ||
+      (lesson.active_from && isAfter(new Date(), new Date(lesson.active_from)))),
     [lesson.id]
   );
 
@@ -77,7 +78,7 @@ export const CourseAgendaLesson: React.FC<CourseAgendaLessonProps> = ({
     <StyledLessonItem
       className={`lesson__item ${open ? "open" : "closed"} ${
         isAncestor && !isRootAncestor && open ? "full-border" : ""
-      } ${!isSubLesson ? 'bottom-border' : ''}`}
+      } ${!isSubLesson ? "bottom-border" : ""}`}
       aria-label={`${t<string>("Course.Lesson")} ${index + 1}`}
     >
       <Header
