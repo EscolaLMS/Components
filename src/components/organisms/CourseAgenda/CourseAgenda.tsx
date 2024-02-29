@@ -9,9 +9,7 @@ import {
   useCourseAgendaContext,
 } from "./_components/context";
 
-interface CourseAgendaContentProps extends ExtendableStyledComponent {}
-
-type CourseAgendaProps = CourseAgendaContentProps &
+type CourseAgendaProps = ExtendableStyledComponent &
   Omit<CourseAgendaContextProviderProps, "children">;
 
 const StyledSection = styled("section")`
@@ -48,7 +46,7 @@ const StyledSection = styled("section")`
   }
 `;
 
-const CourseAgendaContent: React.FC<CourseAgendaContentProps> = ({
+const CourseAgendaContent: React.FC<ExtendableStyledComponent> = ({
   className = "",
 }) => {
   const { lessons } = useCourseAgendaContext();
