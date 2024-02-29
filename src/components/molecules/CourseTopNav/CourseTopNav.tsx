@@ -45,14 +45,21 @@ export interface CourseTopNavProps
 }
 
 const StyledAside = styled.aside<StyledAsideProps>`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: ${({ mobile }) => (mobile ? "10px" : "15px")};
+  background: ${({ theme }) =>
+    getStylesBasedOnTheme(theme.mode, theme.dm__background, theme.white)};
+  box-shadow: 0px -3px 10px ${({ theme }) => (theme.mode === "light" ? chroma(theme.black).alpha(0.1).hex() : chroma(theme.white).alpha(0.1).hex())};
+  row-gap: 10px;
+
   .course-nav-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: ${({ mobile }) => (mobile ? "10px" : "15px")};
-    background: ${({ theme }) =>
-      getStylesBasedOnTheme(theme.mode, theme.dm__background, theme.white)};
-    box-shadow: 0px -3px 10px ${({ theme }) => (theme.mode === "light" ? chroma(theme.black).alpha(0.1).hex() : chroma(theme.white).alpha(0.1).hex())};
+    width: 100%;
   }
 
   .course-nav-middle-btns {
@@ -127,7 +134,7 @@ export const CourseTopNav: React.FC<CourseTopNavProps> = (props) => {
         </Button>
       );
     }
-    if (isLast) {
+    if (isLast && !isFinished) {
       return (
         <Button
           mode={"primary"}
@@ -142,19 +149,22 @@ export const CourseTopNav: React.FC<CourseTopNavProps> = (props) => {
         </Button>
       );
     }
-    return (
-      <Button
-        mode={"outline"}
-        className="icon-btn mark-btn"
-        onClick={() => {
-          onFinish && onFinish();
-        }}
-        aria-label={t("Course.markAsFinished")}
-      >
-        <Icon name="finished" />
-        {t("Course.markAsFinished")}
-      </Button>
-    );
+    if (!isFinished) {
+      return (
+        <Button
+          mode={"outline"}
+          className="icon-btn mark-btn"
+          onClick={() => {
+            onFinish && onFinish();
+          }}
+          aria-label={t("Course.markAsFinished")}
+        >
+          <Icon name="finished" />
+          {t("Course.markAsFinished")}
+        </Button>
+      );
+    }
+    return <></>;
   }, [isFinished, t, onFinish, mobile, isLast]);
 
   const renderNoteButton = React.useCallback(() => {
@@ -166,7 +176,7 @@ export const CourseTopNav: React.FC<CourseTopNavProps> = (props) => {
         aria-label={t("CourseTopNav.addNote")}
       >
         <Icon name="note" />
-        {!mobile && t("CourseTopNav.addNote")}
+        {t("CourseTopNav.addNote")}
       </Button>
     );
   }, [mobile, t, setShowNoteModal]);
@@ -180,7 +190,7 @@ export const CourseTopNav: React.FC<CourseTopNavProps> = (props) => {
         aria-label={t(`CourseTopNav.${bookmarkBtnText}`)}
       >
         <Icon name="bookmark" />
-        {!mobile && t(`CourseTopNav.${bookmarkBtnText}`)}
+        {t(`CourseTopNav.${bookmarkBtnText}`)}
       </Button>
     );
   }, [mobile, onBookmarkClick, bookmarkBtnText]);
@@ -192,6 +202,12 @@ export const CourseTopNav: React.FC<CourseTopNavProps> = (props) => {
         mobile={mobile}
         className={`wellms-component ${className}`}
       >
+        {mobile && (
+          <div className="course-nav-middle-btns">
+            {addNotes && renderNoteButton()}
+            {addBookmarks && renderBookmarkButton()}
+          </div>
+        )}
         <div className="course-nav-container">
           <Button
             className="icon-btn prev-btn"
@@ -201,13 +217,15 @@ export const CourseTopNav: React.FC<CourseTopNavProps> = (props) => {
             aria-label={t<string>("Actions.ShowPrevious")}
           >
             <Icon name="chevronLeft" />
-            {!mobile && <>{t<string>("CourseTopNav.prev")} </>}
+            {t<string>("CourseTopNav.prev")}
           </Button>
 
-          <div className="course-nav-middle-btns">
-            {addNotes && renderNoteButton()}
-            {addBookmarks && renderBookmarkButton()}
-          </div>
+          {!mobile && (
+            <div className="course-nav-middle-btns">
+              {addNotes && renderNoteButton()}
+              {addBookmarks && renderBookmarkButton()}
+            </div>
+          )}
 
           {renderFinishButton()}
         </div>

@@ -9,15 +9,17 @@ import Spin from "../Spin/Spin";
 import { getStylesBasedOnTheme } from "../../../utils/utils";
 import { ExtendableStyledComponent } from "types/component";
 
-enum ModeTypes {
-  PRIMARY = "primary",
-  SECONDARY = "secondary",
-  OUTLINE = "outline",
-  WHITE = "white",
-  ICON = "icon",
-  SECONDARY_OUTLINE = "secondary outline",
-  GRAY = "gray",
-}
+const ModeTypes = {
+  PRIMARY: "primary",
+  SECONDARY: "secondary",
+  OUTLINE: "outline",
+  WHITE: "white",
+  ICON: "icon",
+  SECONDARY_OUTLINE: "secondary outline",
+  GRAY: "gray",
+} as const;
+
+type ModeProp = typeof ModeTypes[keyof typeof ModeTypes];
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
@@ -26,7 +28,7 @@ export interface ButtonProps
   invert?: boolean;
   loading?: boolean;
   block?: boolean;
-  mode?: ModeTypes;
+  mode?: ModeProp;
   as?: React.ElementType;
   "aria-label"?: string;
 }
@@ -101,10 +103,9 @@ const StyledButton = styled("button")<ButtonProps>`
     return "1.55em";
   }};
   cursor: pointer;
-  padding: "9xp 16px";
   padding: ${(props) => {
     if (props.mode === ModeTypes.ICON) {
-      return "9px 16px";
+      return "8px 16px";
     } else if (
       props.mode === ModeTypes.SECONDARY ||
       props.mode === ModeTypes.SECONDARY_OUTLINE
@@ -112,7 +113,7 @@ const StyledButton = styled("button")<ButtonProps>`
       return "4px 13px";
     }
 
-    return "9px 16px";
+    return "8px 16px";
   }};
   border-radius: ${(props) => props.theme?.buttonRadius || 2}px;
   -webkit-font-smoothing: antialiased;
