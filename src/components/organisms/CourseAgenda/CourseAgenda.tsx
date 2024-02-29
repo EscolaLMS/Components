@@ -9,8 +9,7 @@ import {
   useCourseAgendaContext,
 } from "./_components/context";
 
-interface CourseAgendaContentProps extends ExtendableStyledComponent {
-}
+interface CourseAgendaContentProps extends ExtendableStyledComponent {}
 
 type CourseAgendaProps = CourseAgendaContentProps &
   Omit<CourseAgendaContextProviderProps, "children">;
