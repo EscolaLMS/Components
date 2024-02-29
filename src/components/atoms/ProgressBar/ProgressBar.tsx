@@ -24,6 +24,8 @@ const StyledDiv = styled.div`
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   .progress-container {
+    position: relative;
+
     &:not(:last-child) {
       margin-bottom: 6px;
     }
@@ -32,32 +34,26 @@ const StyledDiv = styled.div`
     align-items: center;
     .progress-bars {
       flex: 1;
-      height: 10px;
+      height: 3px;
       position: relative;
       .empty {
         display: block;
-        background: ${({ theme }) =>
-          getStylesBasedOnTheme(theme.mode, theme.gray2, theme.white)};
+        background: ${({ theme }) => theme.positive2};
         height: 100%;
-        border-radius: 10px;
       }
       .filled {
         position: absolute;
         top: 0;
-        background: ${({ theme }) =>
-          getStylesBasedOnTheme(
-            theme.mode,
-            theme.dm__primaryColor,
-            theme.primaryColor,
-            theme.primaryColor
-          )};
+        background: ${({ theme: { positive } }) => positive};
         display: block;
         height: 100%;
-        border-radius: 10px;
         transition: 0.2s width ease-in-out;
       }
     }
     .percentage-value {
+      position: absolute;
+      right: 0;
+      bottom: 6px;
       flex: 0 0 40px;
       font-size: 14px;
       margin-left: 5px;
@@ -65,6 +61,8 @@ const StyledDiv = styled.div`
       display: flex;
       align-items: center;
       justify-content: center;
+      color: ${({ theme: { positive } }) => positive};
+      font-weight: bold;
     }
   }
 `;
