@@ -4,24 +4,26 @@ import { useTranslation } from "react-i18next";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import type { DefaultResponseError } from "@escolalms/sdk/lib/types/api";
 import type { ResponseError } from "umi-request";
-import { Container, Row, Col } from "react-grid-system";
+
 import { API } from "@escolalms/sdk/lib";
 import { Upload } from "../../molecules/Upload/Upload";
 import styled, { withTheme } from "styled-components";
 
-import { Input, Button, Title, Text, Checkbox, TextArea } from "../../../";
+import { Input, Button, Text, Checkbox, TextArea } from "../../../";
 import { ExtendableStyledComponent } from "types/component";
 
 const StyledFormHeader = styled.div<{ mobile: boolean }>`
   text-align: center;
+  max-width: 50%;
   h2,
   h3,
   h4 {
     font-size: ${(props) => (props.mobile ? "18px" : "28px")};
-    text-align: center;
+    text-align: left;
   }
   p {
     margin: 15px 0;
+    text-align: left;
   }
   .upload {
     padding-top: ${(props) => (props.mobile ? "15px" : "30px")};
@@ -89,7 +91,6 @@ export const MyProfileForm: React.FC<Props> = ({
   onSuccess,
   onError,
   mobile = false,
-  className = "",
 }) => {
   const [initialValues, setInitialValues] = useState<
     FormValues & Record<string, boolean | string | null>
@@ -167,216 +168,194 @@ export const MyProfileForm: React.FC<Props> = ({
   );
 
   return (
-    <Container>
-      <Row>
-        <Col sm={12}>
-          <StyledFormHeader
-            className={`wellms-component ${className}`}
-            mobile={mobile}
-          >
-            <Title level={3} as="h2">
-              {t<string>("MyProfileForm.Heading")}
-            </Title>
-            <Text level={3}>{t<string>("MyProfileForm.Subtitle")}</Text>
-          </StyledFormHeader>
-        </Col>
-      </Row>
-      <Row>
-        <Col sm={mobile ? 12 : 2} className="upload-column">
-          <StyledFormHeader className="wellms-component" mobile={mobile}>
-            <Upload
-              path={initialValues.path_avatar}
-              url={initialValues.avatar}
-              accept="image/*"
-              onChange={onAvatarChange}
-            />
-          </StyledFormHeader>
-        </Col>
-        <Col sm={mobile ? 12 : 8}>
-          <StyledDiv className="wellms-component" mobile={mobile}>
-            <Formik
-              enableReinitialize
-              initialValues={initialValues}
-              validate={(values) => {
-                const errors: FormikErrors<
-                  FormValues & Record<string, string>
-                > = {};
+    <>
+      <StyledDiv className="wellms-component" mobile={mobile}>
+        <Formik
+          enableReinitialize
+          initialValues={initialValues}
+          validate={(values) => {
+            const errors: FormikErrors<FormValues & Record<string, string>> =
+              {};
 
-                if (!values.first_name) {
-                  errors.first_name = t("Required");
+            if (!values.first_name) {
+              errors.first_name = t("Required");
+            }
+            if (!values.last_name) {
+              errors.last_name = t("Required");
+            }
+            if (!values.email) {
+              errors.email = t("Required");
+            } else if (
+              !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
+            ) {
+              errors.email = t("Wrong email");
+            }
+
+            if (values.phone && !/\d{9}$/i.test(values.phone)) {
+              errors.phone = t("Wrong phone number");
+            }
+
+            fields.list &&
+              fields.list.map((field: API.Metadata) => {
+                if (isAdditionalRequiredField(field)) {
+                  if (!values[field.name]) {
+                    errors[field.name] = t("Required");
+                  }
                 }
-                if (!values.last_name) {
-                  errors.last_name = t("Required");
-                }
-                if (!values.email) {
-                  errors.email = t("Required");
-                } else if (
-                  !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(
-                    values.email
-                  )
-                ) {
-                  errors.email = t("Wrong email");
-                }
+              });
 
-                if (values.phone && !/\d{9}$/i.test(values.phone)) {
-                  errors.phone = t("Wrong phone number");
-                }
-
-                fields.list &&
-                  fields.list.map((field: API.Metadata) => {
-                    if (isAdditionalRequiredField(field)) {
-                      if (!values[field.name]) {
-                        errors[field.name] = t("Required");
-                      }
-                    }
-                  });
-
-                return errors;
-              }}
-              onSubmit={(values, { setSubmitting, resetForm, setErrors }) => {
-                updateProfile({
-                  ...values,
-                })
-                  .then(() => {
-                    onSuccess && onSuccess();
-                  })
-                  .catch((err: ResponseError<DefaultResponseError>) => {
-                    // reset form to previous state only if error occured
-                    resetForm();
-                    setErrors({ error: err.data?.message, ...err.data.errors });
-                    onError && onError(err);
-                  })
-                  .finally(() => {
-                    setSubmitting(false);
-                    fetchProfile();
-                  });
-              }}
-            >
-              {({
-                values,
-                errors,
-                touched,
-                handleChange,
-                handleBlur,
-                handleSubmit,
-                isSubmitting,
-              }) => (
-                <form onSubmit={handleSubmit}>
-                  {errors && errors.error && (
-                    <Text type="danger">{errors.error}</Text>
-                  )}
-                  <Input
-                    label={t<string>("First name")}
-                    type="text"
-                    name="first_name"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.first_name}
-                    error={touched.first_name && errors.first_name}
-                    required
-                  />
-
-                  <Input
-                    label={t<string>("Last name")}
-                    type="text"
-                    name="last_name"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.last_name}
-                    error={touched.last_name && errors.last_name}
-                    required
-                  />
-
-                  <Input
-                    label={t<string>("Email")}
-                    className="form-control grey"
-                    type="email"
-                    name="email"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.email}
-                    error={touched.email && errors.email}
-                    required
-                  />
-
-                  <Input
-                    label={t<string>("Phone")}
-                    type="text"
-                    name="phone"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.phone}
-                    error={touched.phone && errors.phone}
-                  />
-
-                  {fields &&
-                    Array.isArray(fields.list) &&
-                    fields.list
-                      .filter(
-                        (field: API.Metadata) =>
-                          field.type === "varchar" || field.type === "text"
-                      )
-                      .map((field: API.Metadata, index: number) =>
-                        field.type === "varchar" ? (
-                          <Input
-                            key={`${field}${index}`}
-                            required={isAdditionalRequiredField(field)}
-                            label={t(`AdditionalFields.${field.name}`)}
-                            type="text"
-                            name={field.name}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            value={String(values[field.name]) || ""}
-                            error={errors[field.name] && touched[field.name]}
-                          />
-                        ) : (
-                          <TextArea
-                            rows={10}
-                            key={`${field}${index}`}
-                            required={isAdditionalRequiredField(field)}
-                            label={t(`AdditionalFields.${field.name}`)}
-                            name={field.name}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            value={String(values[field.name]) || ""}
-                            error={errors[field.name] && touched[field.name]}
-                          />
-                        )
-                      )}
-
-                  {fields &&
-                    fields.list &&
-                    fields.list
-                      .filter((field: API.Metadata) => field.type === "boolean")
-                      .map((field: API.Metadata, index: number) => (
-                        <Checkbox
-                          checked={!!values[field.name]}
-                          key={`${field.id}${index}`}
-                          label={t(`AdditionalFields.${field.name}`)}
-                          id={field.name + Date.now()}
-                          name={field.name}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          required={isAdditionalRequiredField(field)}
-                        />
-                      ))}
-
-                  <Button
-                    mode="secondary"
-                    type="submit"
-                    loading={isSubmitting || isFetching}
-                    block
-                  >
-                    {t<string>("MyProfileForm.Update")}
-                  </Button>
-                </form>
+            return errors;
+          }}
+          onSubmit={(values, { setSubmitting, resetForm, setErrors }) => {
+            updateProfile({
+              ...values,
+            })
+              .then(() => {
+                onSuccess && onSuccess();
+              })
+              .catch((err: ResponseError<DefaultResponseError>) => {
+                // reset form to previous state only if error occured
+                resetForm();
+                setErrors({ error: err.data?.message, ...err.data.errors });
+                onError && onError(err);
+              })
+              .finally(() => {
+                setSubmitting(false);
+                fetchProfile();
+              });
+          }}
+        >
+          {({
+            values,
+            errors,
+            touched,
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            isSubmitting,
+          }) => (
+            <form onSubmit={handleSubmit}>
+              {errors && errors.error && (
+                <Text type="danger">{errors.error}</Text>
               )}
-            </Formik>
-          </StyledDiv>
-        </Col>
-        <Col sm={mobile ? 12 : 2}> </Col>
-      </Row>
-    </Container>
+              <Input
+                label={t<string>("First name")}
+                type="text"
+                name="first_name"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.first_name}
+                error={touched.first_name && errors.first_name}
+                required
+              />
+
+              <Input
+                label={t<string>("Last name")}
+                type="text"
+                name="last_name"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.last_name}
+                error={touched.last_name && errors.last_name}
+                required
+              />
+
+              <Input
+                label={t<string>("Email")}
+                className="form-control grey"
+                type="email"
+                name="email"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.email}
+                error={touched.email && errors.email}
+                required
+              />
+
+              <Input
+                label={t<string>("Phone")}
+                type="text"
+                name="phone"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.phone}
+                error={touched.phone && errors.phone}
+              />
+
+              {fields &&
+                Array.isArray(fields.list) &&
+                fields.list
+                  .filter(
+                    (field: API.Metadata) =>
+                      field.type === "varchar" || field.type === "text"
+                  )
+                  .map((field: API.Metadata, index: number) =>
+                    field.type === "varchar" ? (
+                      <Input
+                        key={`${field}${index}`}
+                        required={isAdditionalRequiredField(field)}
+                        label={t(`AdditionalFields.${field.name}`)}
+                        type="text"
+                        name={field.name}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={String(values[field.name]) || ""}
+                        error={errors[field.name] && touched[field.name]}
+                      />
+                    ) : (
+                      <TextArea
+                        rows={10}
+                        key={`${field}${index}`}
+                        required={isAdditionalRequiredField(field)}
+                        label={t(`AdditionalFields.${field.name}`)}
+                        name={field.name}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={String(values[field.name]) || ""}
+                        error={errors[field.name] && touched[field.name]}
+                      />
+                    )
+                  )}
+
+              {fields &&
+                fields.list &&
+                fields.list
+                  .filter((field: API.Metadata) => field.type === "boolean")
+                  .map((field: API.Metadata, index: number) => (
+                    <Checkbox
+                      checked={!!values[field.name]}
+                      key={`${field.id}${index}`}
+                      label={t(`AdditionalFields.${field.name}`)}
+                      id={field.name + Date.now()}
+                      name={field.name}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      required={isAdditionalRequiredField(field)}
+                    />
+                  ))}
+
+              <Button
+                mode="secondary"
+                type="submit"
+                loading={isSubmitting || isFetching}
+                block
+              >
+                {t<string>("MyProfileForm.Update")}
+              </Button>
+            </form>
+          )}
+        </Formik>
+      </StyledDiv>
+
+      <StyledFormHeader className="wellms-component" mobile={mobile}>
+        <Upload
+          path={initialValues.path_avatar}
+          url={initialValues.avatar}
+          accept="image/*"
+          onChange={onAvatarChange}
+        />
+      </StyledFormHeader>
+    </>
   );
 };
 

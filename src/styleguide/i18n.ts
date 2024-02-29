@@ -103,7 +103,7 @@ export const resources = {
         Title: "Title",
         Date: "Date",
         Price: "Price",
-        Actions: "Actions",
+        Actions: "Invoice",
         NoRecords: "No records",
       },
       RegisterForm: {
@@ -354,7 +354,7 @@ export const resources = {
         Title: "Tytuł",
         Date: "Data",
         Price: "Cena",
-        Actions: "Akcje",
+        Actions: "Faktury",
         NoRecords: "Brak zamówień",
       },
       RegisterForm: {
