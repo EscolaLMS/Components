@@ -15,7 +15,6 @@ interface SharedContextData {
 
   onMarkFinished: (topic: API.Topic) => void;
   onTopicClick: (topic: API.Topic) => void;
-  onNextTopicClick: () => void;
   onCourseFinished: () => void;
 }
 
@@ -49,7 +48,6 @@ const CourseAgendaContext = React.createContext<CourseAgendaContextData>({
 
   onMarkFinished: () => console.warn("INITIAL STATE!"),
   onTopicClick: () => console.warn("INITIAL STATE!"),
-  onNextTopicClick: () => console.warn("INITIAL STATE!"),
   onCourseFinished: () => console.warn("INITIAL STATE!"),
 });
 
@@ -71,7 +69,6 @@ export const CourseAgendaContextProvider: React.FC<
   areAllTopicsUnlocked,
   availableTopicsIds,
   onTopicClick,
-  onNextTopicClick,
   onMarkFinished,
   onCourseFinished,
 }) => {
@@ -179,7 +176,6 @@ export const CourseAgendaContextProvider: React.FC<
         availableTopicsIds,
         onMarkFinished,
         onTopicClick,
-        onNextTopicClick,
         onCourseFinished,
       }}
     >

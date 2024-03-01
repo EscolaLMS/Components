@@ -18,6 +18,7 @@ export const redTheme: DefaultTheme = {
   gray3: colors.disabled,
   gray4: "#F8F8F8",
   positive: "#2CBE69",
+  positive2: "#C9F7DC",
   font: "Lato",
   primaryColor: colors.primary,
   dm__primaryColor: "#EE312F",

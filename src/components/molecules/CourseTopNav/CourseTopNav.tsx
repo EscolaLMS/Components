@@ -36,10 +36,10 @@ export interface CourseTopNavProps
   onFinish: () => void;
   currentNote?: NoteData;
   newNoteData?: NewNoteData;
-  addNotes: boolean;
-  addBookmarks: boolean;
-  onBookmarkClick: () => void;
-  bookmarkBtnText: "addBookmark" | "deleteBookmark";
+  addNotes?: boolean;
+  addBookmarks?: boolean;
+  onBookmarkClick?: () => void;
+  bookmarkBtnText?: "addBookmark" | "deleteBookmark";
   isLast?: boolean;
   onCourseFinished?: () => void;
 }
@@ -108,8 +108,8 @@ export const CourseTopNav: React.FC<CourseTopNavProps> = (props) => {
     onBookmarkClick,
     newNoteData,
     currentNote,
-    addNotes = true,
-    addBookmarks = true,
+    addNotes = false,
+    addBookmarks = false,
     mobile,
     className = "",
     bookmarkBtnText = "addBookmark",

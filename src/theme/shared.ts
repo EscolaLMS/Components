@@ -19,4 +19,5 @@ export const sharedTheme: SharedDefaultTheme = {
   gray1: "#4A4A4A",
   black: "#000000",
   positive: '#6FC988',
+  positive2: '#C9F7DC',
 };
