@@ -48,7 +48,7 @@ const SingleOrderCard = styled("div")<{ mobile: boolean }>`
   justify-content: ${({ mobile }) => (mobile ? "flex-start" : "space-between")};
   align-items: ${({ mobile }) => (mobile ? "flex-start" : "center")};
   margin-bottom: 10px;
-  padding: ${({ mobile }) => (mobile ? "20px 15px" : "12px 0px")};
+  padding: ${({ mobile }) => (mobile ? "20px 0px" : "12px 0px")};
   background: ${({ theme }) =>
     getStylesBasedOnTheme(
       theme.mode,

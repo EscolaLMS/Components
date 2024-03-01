@@ -368,6 +368,7 @@ export const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
       block={block}
       {...props}
       className={`wellms-component ${className}`}
+      role="button"
     >
       {loading && <Spin color={loadingColor} />}
       {children}
