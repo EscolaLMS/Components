@@ -25,46 +25,51 @@ const StyledTabs = styled("div")`
     flex-wrap: nowrap;
     overflow: auto;
     -webkit-overflow-scrolling: touch;
-
+    background-color: ${({ theme }) =>
+      getStylesBasedOnTheme(theme.mode, theme.black, theme.white)};
+    border-radius: ${({ theme }) => theme.cardRadius}px;
+    padding: 8px;
     &-inner {
       display: flex;
-      border-bottom: 2px solid
-        ${({ theme }) =>
-          getStylesBasedOnTheme(theme.mode, theme.gray2, theme.gray3)};
     }
   }
 
   .tab-menu-btn {
     position: relative;
-    padding: 11px;
+    padding: 6px 24px;
     appearance: none;
     border: none;
     background-color: transparent;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 16px;
     white-space: nowrap;
     font-family: ${({ theme }) => getFontFromTheme(theme).fontFamily};
     color: ${({ theme }) =>
       getStylesBasedOnTheme(theme.mode, theme.white, theme.gray1)};
+    border-radius: ${({ theme }) => theme.buttonRadius}px;
+    &:first-of-type {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+    &:nth-of-type(2) {
+      border-radius: 0;
+    }
+    &:last-of-type {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
 
+    background-color: #f8f8f8;
     &.active {
       font-weight: bold;
-
-      &:after {
-        content: "";
-        display: block;
-        position: absolute;
-        left: 0;
-        bottom: -2px;
-        width: 100%;
-        height: 2px;
-        background-color: currentColor;
-      }
+      background-color: ${({ theme }) => theme.primaryColor};
+      color: ${({ theme }) => theme.white};
+      border-radius: ${({ theme }) => theme.buttonRadius}px;
     }
   }
 
   .tabs-panel {
-    padding: 10px 0;
+    padding: 25px 0;
   }
 `;
 

@@ -14,7 +14,7 @@ import { ExtendableStyledComponent } from "types/component";
 
 const StyledFormHeader = styled.div<{ mobile: boolean }>`
   text-align: center;
-  max-width: 50%;
+
   h2,
   h3,
   h4 {
@@ -26,7 +26,6 @@ const StyledFormHeader = styled.div<{ mobile: boolean }>`
     text-align: left;
   }
   .upload {
-    padding-top: ${(props) => (props.mobile ? "15px" : "30px")};
   }
 `;
 
@@ -58,7 +57,6 @@ const StyledDiv = styled.div<{ mobile: boolean }>`
   }
   p,
   a {
-    font-size: 14px;
   }
   h2,
   h3,
@@ -344,17 +342,17 @@ export const MyProfileForm: React.FC<Props> = ({
               </Button>
             </form>
           )}
-        </Formik>
+        </Formik>{" "}
+        <StyledFormHeader className="wellms-component" mobile={mobile}>
+          <Text size="18">{t("MyProfileForm.Avatar")}</Text>
+          <Upload
+            path={initialValues.path_avatar}
+            url={initialValues.avatar}
+            accept="image/*"
+            onChange={onAvatarChange}
+          />
+        </StyledFormHeader>
       </StyledDiv>
-
-      <StyledFormHeader className="wellms-component" mobile={mobile}>
-        <Upload
-          path={initialValues.path_avatar}
-          url={initialValues.avatar}
-          accept="image/*"
-          onChange={onAvatarChange}
-        />
-      </StyledFormHeader>
     </>
   );
 };

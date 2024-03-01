@@ -74,6 +74,7 @@ export const resources = {
         Heading: "My data",
         Subtitle: "Fill in information about yourself",
         Update: "Update",
+        Avatar: "Yours Avatar",
       },
       Categories: {
         Filter: "Filter",
@@ -325,6 +326,7 @@ export const resources = {
         Heading: "Moje dane",
         Subtitle: "Uzupełnij informacje na swój temat",
         Update: "Zapisz zmiany",
+        Avatar: "Twój Awatar",
       },
       Categories: {
         Filter: "Filtruj",
