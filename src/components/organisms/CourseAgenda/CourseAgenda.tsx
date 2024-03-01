@@ -1,9 +1,7 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
 import styled, { withTheme } from "styled-components";
 
 import { ExtendableStyledComponent } from "types/component";
-import { IconTitle, ProgressRing, Text, Icon } from "../../../index";
 import { RecursiveLessons } from "./_components/RecursiveLessons";
 import {
   CourseAgendaContextProvider,
@@ -11,11 +9,7 @@ import {
   useCourseAgendaContext,
 } from "./_components/context";
 
-interface CourseAgendaContentProps extends ExtendableStyledComponent {
-  mobile?: boolean;
-}
-
-type CourseAgendaProps = CourseAgendaContentProps &
+type CourseAgendaProps = ExtendableStyledComponent &
   Omit<CourseAgendaContextProviderProps, "children">;
 
 const StyledSection = styled("section")`
@@ -52,31 +46,13 @@ const StyledSection = styled("section")`
   }
 `;
 
-const CourseAgendaContent: React.FC<CourseAgendaContentProps> = ({
-  mobile = false,
+const CourseAgendaContent: React.FC<ExtendableStyledComponent> = ({
   className = "",
 }) => {
-  const { t } = useTranslation();
-  const { percentage, lessons } = useCourseAgendaContext();
+  const { lessons } = useCourseAgendaContext();
 
   return (
     <StyledSection className={`wellms-component ${className}`}>
-      {!mobile && (
-        <header>
-          <IconTitle
-            level={5}
-            as="h1"
-            icon={<Icon name="program" />}
-            title={t<string>("Course.Agenda")}
-          />
-          <div>
-            <Text mode="secondary" size="14" noMargin>
-              {t<string>("Course.Finished")} {percentage}%
-            </Text>
-            <ProgressRing percentage={percentage} />
-          </div>
-        </header>
-      )}
       <ul className="lessons__list">
         <RecursiveLessons lessons={lessons} />
       </ul>
@@ -86,11 +62,10 @@ const CourseAgendaContent: React.FC<CourseAgendaContentProps> = ({
 
 export const CourseAgenda: React.FC<CourseAgendaProps> = ({
   className,
-  mobile,
   ...contextProps
 }) => (
   <CourseAgendaContextProvider {...contextProps}>
-    <CourseAgendaContent className={className} mobile={mobile} />
+    <CourseAgendaContent className={className} />
   </CourseAgendaContextProvider>
 );
 
