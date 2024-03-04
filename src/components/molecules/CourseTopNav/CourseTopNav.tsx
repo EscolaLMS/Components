@@ -34,6 +34,7 @@ export interface CourseTopNavProps
   onNext: () => void;
   onPrev: () => void;
   onFinish: () => void;
+  isMarkBtnDisabled?: boolean;
   currentNote?: NoteData;
   newNoteData?: NewNoteData;
   addNotes?: boolean;
@@ -99,6 +100,7 @@ const StyledAside = styled.aside<StyledAsideProps>`
 export const CourseTopNav: React.FC<CourseTopNavProps> = (props) => {
   const {
     isFinished = false,
+    isMarkBtnDisabled = false,
     isLast = false,
     hasNext = true,
     hasPrev = true,
@@ -158,6 +160,7 @@ export const CourseTopNav: React.FC<CourseTopNavProps> = (props) => {
             onFinish && onFinish();
           }}
           aria-label={t("Course.markAsFinished")}
+          disabled={isMarkBtnDisabled}
         >
           <Icon name="finished" />
           {t("Course.markAsFinished")}
