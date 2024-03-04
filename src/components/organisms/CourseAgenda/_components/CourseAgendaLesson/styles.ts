@@ -18,6 +18,10 @@ export const StyledLessonItem = styled.li`
 
   &.bottom-border {
     border-bottom: 1px solid ${({ theme }) => theme.gray3};
+
+    &.mobile {
+      padding: 5px 25px;
+    }
   }
 
   .duration {
@@ -239,9 +243,5 @@ export const StyledLessonItem = styled.li`
     &--inactive {
       opacity: 0.55;
     }
-  }
-
-  &.mobile {
-    padding: 5px 25px;
   }
 `;
