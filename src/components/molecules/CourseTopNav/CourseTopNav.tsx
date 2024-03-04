@@ -34,6 +34,7 @@ export interface CourseTopNavProps
   onNext: () => void;
   onPrev: () => void;
   onFinish: () => void;
+  allButtonsDisabled?: boolean;
   isMarkBtnDisabled?: boolean;
   currentNote?: NoteData;
   newNoteData?: NewNoteData;
@@ -104,6 +105,7 @@ export const CourseTopNav: React.FC<CourseTopNavProps> = (props) => {
     isLast = false,
     hasNext = true,
     hasPrev = true,
+    allButtonsDisabled = false,
     onNext,
     onPrev,
     onFinish,
@@ -128,7 +130,7 @@ export const CourseTopNav: React.FC<CourseTopNavProps> = (props) => {
           mode={"primary"}
           className="icon-btn next-btn"
           onClick={() => onNext && onNext()}
-          disabled={!hasNext}
+          disabled={!hasNext || allButtonsDisabled}
           aria-label={t<string>("Actions.ShowNext")}
         >
           {!mobile && <>{t<string>("CourseTopNav.next")} </>}
@@ -146,6 +148,7 @@ export const CourseTopNav: React.FC<CourseTopNavProps> = (props) => {
             }
           }}
           aria-label={t("Course.finishCourse")}
+          disabled={allButtonsDisabled}
         >
           {t("Course.finishCourse")}
         </Button>
@@ -160,7 +163,7 @@ export const CourseTopNav: React.FC<CourseTopNavProps> = (props) => {
             onFinish && onFinish();
           }}
           aria-label={t("Course.markAsFinished")}
-          disabled={isMarkBtnDisabled}
+          disabled={isMarkBtnDisabled || allButtonsDisabled}
         >
           <Icon name="finished" />
           {t("Course.markAsFinished")}
@@ -168,7 +171,7 @@ export const CourseTopNav: React.FC<CourseTopNavProps> = (props) => {
       );
     }
     return <></>;
-  }, [isFinished, t, onFinish, mobile, isLast]);
+  }, [isFinished, t, onFinish, mobile, isLast, allButtonsDisabled]);
 
   const renderNoteButton = React.useCallback(() => {
     return (
@@ -177,12 +180,13 @@ export const CourseTopNav: React.FC<CourseTopNavProps> = (props) => {
         className="icon-btn"
         onClick={() => setShowNoteModal(true)}
         aria-label={t("CourseTopNav.addNote")}
+        disabled={allButtonsDisabled}
       >
         <Icon name="note" />
         {t("CourseTopNav.addNote")}
       </Button>
     );
-  }, [mobile, t, setShowNoteModal]);
+  }, [mobile, t, setShowNoteModal, allButtonsDisabled]);
 
   const renderBookmarkButton = React.useCallback(() => {
     return (
@@ -191,12 +195,13 @@ export const CourseTopNav: React.FC<CourseTopNavProps> = (props) => {
         className="icon-btn"
         onClick={() => onBookmarkClick && onBookmarkClick()}
         aria-label={t(`CourseTopNav.${bookmarkBtnText}`)}
+        disabled={allButtonsDisabled}
       >
         <Icon name="bookmark" />
         {t(`CourseTopNav.${bookmarkBtnText}`)}
       </Button>
     );
-  }, [mobile, onBookmarkClick, bookmarkBtnText]);
+  }, [mobile, onBookmarkClick, bookmarkBtnText, allButtonsDisabled]);
 
   return (
     <>
@@ -216,7 +221,7 @@ export const CourseTopNav: React.FC<CourseTopNavProps> = (props) => {
             className="icon-btn prev-btn"
             mode="gray"
             onClick={() => onPrev && onPrev()}
-            disabled={!hasPrev}
+            disabled={!hasPrev || allButtonsDisabled}
             aria-label={t<string>("Actions.ShowPrevious")}
           >
             <Icon name="chevronLeft" />

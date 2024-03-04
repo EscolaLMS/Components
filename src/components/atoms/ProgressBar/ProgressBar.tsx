@@ -6,16 +6,24 @@ import { ExtendableStyledComponent } from "types/component";
 import { getFontFromTheme } from "../../../theme/provider";
 import { calcPercentage, getStylesBasedOnTheme } from "../../../utils/utils";
 
+const VariantTypes = {
+  ROUNDED: "rounded",
+  SQUARE: "square",
+} as const;
+
+type VariantTypeProp = typeof VariantTypes[keyof typeof VariantTypes];
+
 export interface ProgressBarProps
   extends React.HTMLAttributes<HTMLDivElement>,
     ExtendableStyledComponent {
+  variant?: VariantTypeProp;
   hideLabel?: boolean;
   label?: string | React.ReactNode;
   currentProgress: number;
   maxProgress: number;
 }
 
-const StyledDiv = styled.div`
+const StyledDiv = styled.div<{ $variant?: VariantTypeProp }>`
   margin: 0;
   padding: 0;
   color: ${({ theme }) =>
@@ -33,6 +41,7 @@ const StyledDiv = styled.div`
 
     .label-value {
       width: 95%;
+      font-size: 13px;
     }
 
     .percentage-value {
@@ -42,7 +51,7 @@ const StyledDiv = styled.div`
       display: flex;
       align-items: center;
       justify-content: flex-end;
-      font-weight: bold;
+      font-weight: ${({ $variant }) => $variant === VariantTypes.SQUARE ? 'bold' : 'normal'};
       width: 5%;
     }
   }
@@ -56,12 +65,13 @@ const StyledDiv = styled.div`
     align-items: center;
     .progress-bars {
       flex: 1;
-      height: 3px;
+      height: ${({ $variant }) => $variant === VariantTypes.SQUARE ? '3px' : '6px'};
       position: relative;
       .empty {
         display: block;
         background: ${({ theme }) => theme.positive2};
         height: 100%;
+        border-radius: ${({ $variant }) => $variant === VariantTypes.ROUNDED ? '5px' : ''};
       }
       .filled {
         position: absolute;
@@ -70,6 +80,7 @@ const StyledDiv = styled.div`
         display: block;
         height: 100%;
         transition: 0.2s width ease-in-out;
+        border-radius: ${({ $variant }) => $variant === VariantTypes.ROUNDED ? '5px' : ''};
       }
     }
   }
@@ -78,6 +89,7 @@ const StyledDiv = styled.div`
 export const ProgressBar: React.FC<ProgressBarProps> = (props) => {
   const { t } = useTranslation();
   const {
+    variant = VariantTypes.ROUNDED,
     currentProgress,
     maxProgress,
     hideLabel,
@@ -101,6 +113,7 @@ export const ProgressBar: React.FC<ProgressBarProps> = (props) => {
     <StyledDiv
       {...props}
       className={`wellms-component lms-progress-bar ${className}`}
+      $variant={variant}
     >
       <div className="label-container">
         {renderLabel()}
