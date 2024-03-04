@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback, useEffect, useMemo, useRef } from "react";
 import { API } from "@escolalms/sdk/lib";
 import { ThemeContext } from "styled-components";
 
@@ -13,10 +13,10 @@ export interface CourseAgendaTopicProps {
 }
 
 enum StateTypes {
-  CURRENT = 'current',
-  AVAILABLE = 'available',
-  FINISHED = 'finished',
-  LOCKED = 'locked',
+  CURRENT = "current",
+  AVAILABLE = "available",
+  FINISHED = "finished",
+  LOCKED = "locked",
 }
 
 const TopicIcon: React.FC<{ state: StateTypes }> = ({ state }) => {
@@ -29,7 +29,7 @@ const TopicIcon: React.FC<{ state: StateTypes }> = ({ state }) => {
     case StateTypes.AVAILABLE:
       return <></>;
     default:
-      return <Icon name='lock' />;
+      return <Icon name="lock" />;
   }
 };
 
@@ -41,8 +41,9 @@ const CourseAgendaTopic: React.FC<CourseAgendaTopicProps> = ({
     onTopicClick,
     finishedTopicIds,
     currentNotLockedTopicId,
-    availableTopicsIds
+    availableTopicsIds,
   } = useCourseAgendaContext();
+  const ref = useRef<HTMLLIElement | null>(null);
 
   const isFinished = useMemo(
     () => finishedTopicIds.includes(topic.id),
@@ -52,6 +53,15 @@ const CourseAgendaTopic: React.FC<CourseAgendaTopicProps> = ({
     () => currentNotLockedTopicId === topic.id,
     [currentNotLockedTopicId, topic.id]
   );
+
+  useEffect(() => {
+    if (isCurrent) {
+      ref?.current?.scrollIntoView({
+        behavior: "smooth",
+        block: 'nearest',
+      });
+    }
+  }, [ref?.current, isCurrent]);
 
   const state: StateTypes = useMemo(() => {
     if (isCurrent) {
@@ -74,7 +84,7 @@ const CourseAgendaTopic: React.FC<CourseAgendaTopicProps> = ({
   }, [isCurrent, state]);
 
   return (
-    <li className={`lesson__topic lesson__topic--${state}`}>
+    <li ref={ref} className={`lesson__topic lesson__topic--${state}`}>
       <div
         className="lesson__description"
         tabIndex={clickable ? 0 : -1}
