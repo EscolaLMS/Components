@@ -4,6 +4,8 @@ import { Document, Page, pdfjs } from "react-pdf";
 import { Button, Text } from "../../..";
 import { useTranslation } from "react-i18next";
 import { ExtendableStyledComponent } from "types/component";
+import 'react-pdf/dist/Page/AnnotationLayer.css';
+import 'react-pdf/dist/Page/TextLayer.css';
 
 interface PdfPlayerProps extends ExtendableStyledComponent {
   url: string;
