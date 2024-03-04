@@ -74,6 +74,7 @@ export const resources = {
         Heading: "My data",
         Subtitle: "Fill in information about yourself",
         Update: "Update",
+        Avatar: "Yours Avatar",
       },
       Categories: {
         Filter: "Filter",
@@ -103,7 +104,7 @@ export const resources = {
         Title: "Title",
         Date: "Date",
         Price: "Price",
-        Actions: "Actions",
+        Actions: "Invoice",
         NoRecords: "No records",
       },
       RegisterForm: {
@@ -325,6 +326,7 @@ export const resources = {
         Heading: "Moje dane",
         Subtitle: "Uzupełnij informacje na swój temat",
         Update: "Zapisz zmiany",
+        Avatar: "Twój Awatar",
       },
       Categories: {
         Filter: "Filtruj",
@@ -354,7 +356,7 @@ export const resources = {
         Title: "Tytuł",
         Date: "Data",
         Price: "Cena",
-        Actions: "Akcje",
+        Actions: "Faktury",
         NoRecords: "Brak zamówień",
       },
       RegisterForm: {

@@ -72,7 +72,7 @@ const StyledDiv = styled("div")<InputProps>`
           theme.gray1,
           theme.gray3
         )}`};
-      border-radius: ${({ theme }) => theme.cardRadius}px;
+      border-radius: 50%;
       display: flex;
       flex-direction: row;
       flex-wrap: nowrap;

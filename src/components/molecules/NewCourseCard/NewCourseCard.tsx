@@ -49,11 +49,13 @@ export interface CourseCardProps
   onImageClick?: () => void;
   progress?: ProgressBarProps;
   price?: ReactNode;
+  actions?: ReactNode;
 }
 
 const StyledCourseCard = styled("div")<StyledCourseCardProps>`
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   width: 100%;
   border-radius: 14px;
   border: 1px solid transparent;
@@ -84,7 +86,7 @@ const StyledCourseCard = styled("div")<StyledCourseCardProps>`
     flex-direction: column;
   }
   .course-card__content {
-    padding: 0px 15px;
+    padding: 0px 5px;
 
     @media (max-width: 768px) {
       min-height: 100px;
@@ -94,8 +96,8 @@ const StyledCourseCard = styled("div")<StyledCourseCardProps>`
     }
   }
   .course-title {
-    margin-bottom: 46px;
-    margin-bottom: ${(props) => (props.mobile ? "0px" : `45px`)};
+    margin-bottom: ${(props) => (props.mobile ? "0px" : `25px`)};
+    min-height: 70px;
   }
   .title {
     margin-top: 12px;
@@ -103,7 +105,6 @@ const StyledCourseCard = styled("div")<StyledCourseCardProps>`
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    margin-bottom: ${(props) => (props.mobile ? "10px" : `45px`)};
   }
 
   .categories {
@@ -124,7 +125,7 @@ const StyledCourseCard = styled("div")<StyledCourseCardProps>`
         getStylesBasedOnTheme(
           theme.mode,
           theme.dm__breadcrumbsColor,
-          theme.breadcrumbsColor,
+          theme.textColor,
           hideImage ? theme.gray2 : theme.gray3
         )};
     }
@@ -160,6 +161,9 @@ const StyledCourseCard = styled("div")<StyledCourseCardProps>`
       align-items: center;
       gap: 10px;
     }
+  }
+  .course-card-buttons-group {
+    margin-top: 5px;
   }
   &:hover {
     border: ${(props) =>
@@ -204,6 +208,7 @@ export const NewCourseCard: React.FC<CourseCardProps> = (props) => {
     className = "",
     price,
     progress,
+    actions,
   } = props;
 
   const imageSrc = useMemo(() => {
@@ -231,61 +236,72 @@ export const NewCourseCard: React.FC<CourseCardProps> = (props) => {
       hideImage={hideImage}
       mobile={mobile}
     >
-      {!hideImage && (
-        <div className="image-section">
-          <RatioBox ratio={mobile ? 75 / 100 : 1}>
-            {React.isValidElement(image) ? (
-              image
-            ) : (
-              <div className="escolalms-image">
-                <img
-                  {...imageSectionProps}
-                  className="image"
-                  src={imageSrc}
-                  alt={image ? (image as ImageObject).alt : undefined}
-                />
-              </div>
-            )}
-          </RatioBox>
-        </div>
-      )}
-      <div className="course-card__content">
-        {React.isValidElement(categories) ? (
-          <div className="categories">{categories}</div>
-        ) : (
-          categories &&
-          isCategories(categories) && (
-            <Text className="categories">
-              {categories.categoryElements.map((category, index) => {
-                return (
-                  <React.Fragment key={index}>
-                    <StyledCategory
-                      className="category"
-                      key={category.id}
-                      onClick={() => categories.onCategoryClick(category.id)}
-                      onKeyDown={() => categories.onCategoryClick(category.id)}
-                      role="button"
-                      tabIndex={0}
-                    >
-                      {category.name}
-                    </StyledCategory>
-                    {categories.categoryElements.length !== index + 1 && (
-                      <span> / </span>
-                    )}
-                  </React.Fragment>
-                );
-              })}
-            </Text>
-          )
-        )}
-        <div className="course-title">{title}</div>
-        {progress && (
-          <div>
-            <ProgressBar {...progress} />
+      <div>
+        {" "}
+        {!hideImage && (
+          <div className="image-section">
+            <RatioBox ratio={mobile ? 75 / 100 : 1}>
+              {React.isValidElement(image) ? (
+                image
+              ) : (
+                <div className="escolalms-image">
+                  <img
+                    {...imageSectionProps}
+                    className="image"
+                    src={imageSrc}
+                    alt={image ? (image as ImageObject).alt : undefined}
+                  />
+                </div>
+              )}
+            </RatioBox>
           </div>
         )}
-        <div className="course-price">{price}</div>
+        <div className="course-card__content">
+          {React.isValidElement(categories) ? (
+            <div className="categories">{categories}</div>
+          ) : (
+            categories &&
+            isCategories(categories) && (
+              <Text className="categories">
+                {categories.categoryElements.map((category, index) => {
+                  return (
+                    <React.Fragment key={index}>
+                      <StyledCategory
+                        className="category"
+                        key={category.id}
+                        onClick={() => categories.onCategoryClick(category.id)}
+                        onKeyDown={() =>
+                          categories.onCategoryClick(category.id)
+                        }
+                        role="button"
+                        tabIndex={0}
+                      >
+                        {category.name}
+                      </StyledCategory>
+                      {categories.categoryElements.length !== index + 1 && (
+                        <span> / </span>
+                      )}
+                    </React.Fragment>
+                  );
+                })}
+              </Text>
+            )
+          )}
+          <div className="course-title">{title}</div>
+          <div className="course-actions">
+            {actions && (
+              <div className={"course-card-buttons-group"}>{actions}</div>
+            )}
+            <div className="course-price">{price}</div>
+          </div>
+        </div>
       </div>
+
+      {progress && (
+        <div>
+          <ProgressBar {...progress} />
+        </div>
+      )}
     </StyledCourseCard>
   );
 };

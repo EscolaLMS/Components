@@ -22,7 +22,7 @@ const StyledOrders = styled("div")<{ mobile: boolean }>`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 40px 12px 40px;
+    padding: 0 0px 12px 0px;
     .single-label {
       &:first-of-type {
         flex: 0 0 40%;
@@ -48,7 +48,7 @@ const SingleOrderCard = styled("div")<{ mobile: boolean }>`
   justify-content: ${({ mobile }) => (mobile ? "flex-start" : "space-between")};
   align-items: ${({ mobile }) => (mobile ? "flex-start" : "center")};
   margin-bottom: 10px;
-  padding: ${({ mobile }) => (mobile ? "20px 15px" : "12px 40px")};
+  padding: ${({ mobile }) => (mobile ? "20px 0px" : "12px 0px")};
   background: ${({ theme }) =>
     getStylesBasedOnTheme(
       theme.mode,
