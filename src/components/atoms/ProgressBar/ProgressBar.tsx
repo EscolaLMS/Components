@@ -36,7 +36,7 @@ const StyledDiv = styled.div`
     }
 
     .percentage-value {
-      font-size: 14px;
+      font-size: 13px;
       margin-left: auto;
       height: 22px;
       display: flex;
@@ -48,7 +48,6 @@ const StyledDiv = styled.div`
   }
 
   .progress-container {
-
     &:not(:last-child) {
       margin-bottom: 6px;
     }
