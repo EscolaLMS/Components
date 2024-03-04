@@ -133,7 +133,7 @@ export const CourseTopNav: React.FC<CourseTopNavProps> = (props) => {
           disabled={!hasNext || allButtonsDisabled}
           aria-label={t<string>("Actions.ShowNext")}
         >
-          {!mobile && <>{t<string>("CourseTopNav.next")} </>}
+          {t<string>("CourseTopNav.next")}
           <Icon name="chevronRight" />
         </Button>
       );
@@ -171,7 +171,7 @@ export const CourseTopNav: React.FC<CourseTopNavProps> = (props) => {
       );
     }
     return <></>;
-  }, [isFinished, t, onFinish, mobile, isLast, allButtonsDisabled]);
+  }, [isFinished, t, onFinish, isLast, allButtonsDisabled]);
 
   const renderNoteButton = React.useCallback(() => {
     return (
@@ -186,7 +186,7 @@ export const CourseTopNav: React.FC<CourseTopNavProps> = (props) => {
         {t("CourseTopNav.addNote")}
       </Button>
     );
-  }, [mobile, t, setShowNoteModal, allButtonsDisabled]);
+  }, [t, setShowNoteModal, allButtonsDisabled]);
 
   const renderBookmarkButton = React.useCallback(() => {
     return (
@@ -201,7 +201,7 @@ export const CourseTopNav: React.FC<CourseTopNavProps> = (props) => {
         {t(`CourseTopNav.${bookmarkBtnText}`)}
       </Button>
     );
-  }, [mobile, onBookmarkClick, bookmarkBtnText, allButtonsDisabled]);
+  }, [onBookmarkClick, bookmarkBtnText, allButtonsDisabled]);
 
   return (
     <>

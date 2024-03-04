@@ -70,7 +70,6 @@ export const StyledLessonItem = styled.li`
     }
 
     .lesson__title {
-      font-size: 14px;
       color: ${(props) => props.theme.gray1};
       margin: 0;
       font-weight: bold;
@@ -240,5 +239,9 @@ export const StyledLessonItem = styled.li`
     &--inactive {
       opacity: 0.55;
     }
+  }
+
+  &.mobile {
+    padding: 5px 25px;
   }
 `;

@@ -16,6 +16,7 @@ interface SharedContextData {
   onMarkFinished: (topic: API.Topic) => void;
   onTopicClick: (topic: API.Topic) => void;
   onCourseFinished: () => void;
+  isMobile?: boolean;
 }
 
 interface CourseAgendaContextData extends SharedContextData {
@@ -49,6 +50,7 @@ const CourseAgendaContext = React.createContext<CourseAgendaContextData>({
   onMarkFinished: () => console.warn("INITIAL STATE!"),
   onTopicClick: () => console.warn("INITIAL STATE!"),
   onCourseFinished: () => console.warn("INITIAL STATE!"),
+  isMobile: false,
 });
 
 export const useCourseAgendaContext = () => useContext(CourseAgendaContext);
@@ -71,6 +73,7 @@ export const CourseAgendaContextProvider: React.FC<
   onTopicClick,
   onMarkFinished,
   onCourseFinished,
+  isMobile,
 }) => {
   const flatTopics = useMemo(() => getFlatTopics(lessons), [lessons]);
 
@@ -177,6 +180,7 @@ export const CourseAgendaContextProvider: React.FC<
         onMarkFinished,
         onTopicClick,
         onCourseFinished,
+        isMobile,
       }}
     >
       {children}
