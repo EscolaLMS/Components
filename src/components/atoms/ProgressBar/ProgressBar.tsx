@@ -23,8 +23,31 @@ const StyledDiv = styled.div`
   font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  .label-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding-bottom: 4px;
+
+    .label-value {
+      width: 95%;
+    }
+
+    .percentage-value {
+      font-size: 14px;
+      margin-left: auto;
+      height: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      font-weight: bold;
+      width: 5%;
+    }
+  }
+
   .progress-container {
-    position: relative;
 
     &:not(:last-child) {
       margin-bottom: 6px;
@@ -50,20 +73,6 @@ const StyledDiv = styled.div`
         transition: 0.2s width ease-in-out;
       }
     }
-    .percentage-value {
-      position: absolute;
-      right: 0;
-      bottom: 6px;
-      flex: 0 0 40px;
-      font-size: 14px;
-      margin-left: 5px;
-      height: 22px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: ${({ theme: { positive } }) => positive};
-      font-weight: bold;
-    }
   }
 `;
 
@@ -81,7 +90,7 @@ export const ProgressBar: React.FC<ProgressBarProps> = (props) => {
     if (hideLabel) {
       return <></>;
     }
-    return <div>{label}</div>;
+    return <div className="label-value">{label}</div>;
   }, [hideLabel, label]);
 
   const percentageValue = useCallback(
@@ -94,13 +103,15 @@ export const ProgressBar: React.FC<ProgressBarProps> = (props) => {
       {...props}
       className={`wellms-component lms-progress-bar ${className}`}
     >
-      {renderLabel()}
+      <div className="label-container">
+        {renderLabel()}
+        <span className="percentage-value">{percentageValue()}</span>
+      </div>
       <div className="progress-container">
         <span className="progress-bars">
           <span className="empty"></span>
           <span className="filled" style={{ width: percentageValue() }}></span>
         </span>
-        <span className="percentage-value">{percentageValue()}</span>
       </div>
     </StyledDiv>
   );
