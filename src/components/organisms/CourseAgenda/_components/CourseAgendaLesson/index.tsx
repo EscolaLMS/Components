@@ -31,6 +31,7 @@ export const CourseAgendaLesson: React.FC<CourseAgendaLessonProps> = ({
     finishedTopicIds,
     currentLesson,
     currentLessonParentLessonsIds,
+    isMobile,
   } = useCourseAgendaContext();
 
   const [open, setOpen] = useState(defaultOpen);
@@ -78,7 +79,7 @@ export const CourseAgendaLesson: React.FC<CourseAgendaLessonProps> = ({
     <StyledLessonItem
       className={`lesson__item ${open ? "open" : "closed"} ${
         isAncestor && !isRootAncestor && open ? "full-border" : ""
-      } ${!isSubLesson ? "bottom-border" : ""}`}
+      } ${!isSubLesson ? "bottom-border" : ""} ${isMobile ? 'mobile' : ''}`}
       aria-label={`${t<string>("Course.Lesson")} ${index + 1}`}
     >
       <Header

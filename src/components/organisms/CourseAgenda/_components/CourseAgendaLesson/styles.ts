@@ -18,6 +18,10 @@ export const StyledLessonItem = styled.li`
 
   &.bottom-border {
     border-bottom: 1px solid ${({ theme }) => theme.gray3};
+
+    &.mobile {
+      padding: 5px 25px;
+    }
   }
 
   .duration {
@@ -70,7 +74,6 @@ export const StyledLessonItem = styled.li`
     }
 
     .lesson__title {
-      font-size: 14px;
       color: ${(props) => props.theme.gray1};
       margin: 0;
       font-weight: bold;
