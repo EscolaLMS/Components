@@ -20,14 +20,14 @@ import img2 from "./VideoPlayerPoster.png";
             >
               Nowość
             </Badge>
-            <div className="video-player-breadcrumbs">
+            {/* <div className="video-player-breadcrumbs">
               <Link href="http://onet.pl" target="_blank">
                 Onet
               </Link>
               <Link href="http://onet.pl" target="_blank">
                 Onet
               </Link>
-            </div>
+            </div> */}
             <Title level={3}>Video Example</Title>
             <div className="video-player-footer">
               <Text size={"12"} noMargin>
@@ -63,14 +63,14 @@ import img2 from "./VideoPlayerPoster.png";
             >
               Nowość
             </Badge>
-            <div className="video-player-breadcrumbs">
+            {/* <div className="video-player-breadcrumbs">
               <Link href="http://onet.pl" target="_blank">
                 Onet
               </Link>
               <Link href="http://onet.pl" target="_blank">
                 Onet
               </Link>
-            </div>
+            </div> */}
             <Title level={3}>Audio Example</Title>
             <div className="video-player-footer">
               <Text size={"12"} noMargin>

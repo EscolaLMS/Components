@@ -898,7 +898,10 @@ export const AudioVideoPlayer: React.FC<AudioVideoPlayerProps> = (props) => {
               playing: !prevState.playing,
             }))
           }
-          role={audioVideoState.playing ? "button" : undefined}
+          title="play/pause"
+          aria-labelledby="labeldiv"
+          tabIndex={0}
+          role="button"
           onKeyDown={() => {
             return true;
           }}
