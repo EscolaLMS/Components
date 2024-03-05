@@ -10,28 +10,30 @@ import { Title } from "../../atoms/Typography/Title";
 
 interface Props extends ExtendableStyledComponent {
   submitLabel?: string;
+  cancelLabel?: string;
   header?: string;
   onSubmit: (rate: number) => void;
+  onCancel: () => void;
   children?: React.ReactNode;
 }
 
 const StyledRate = styled.div`
   text-align: center;
+
   .title {
-    ${({ theme }) => {
-      if (theme.mode !== "dark") {
-        return `
-        color: ${theme.primaryColor};
-      `;
-      }
-    }}
+    margin-bottom: 20px;
   }
+
   .selected-info {
-    margin: 30px 0;
+    margin: 6px 0 24px 0;
     font-size: 14px;
   }
   .submit-container {
-    margin-top: 44px;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    margin-top: 37px;
   }
 `;
 
@@ -40,7 +42,9 @@ export const Rate: React.FC<Props> = (props) => {
   const {
     header = "Rate.Header",
     submitLabel = "Rate.submitButton",
+    cancelLabel = "Rate.cancelButton",
     onSubmit,
+    onCancel,
     className = "",
     children,
   } = props;
@@ -63,7 +67,6 @@ export const Rate: React.FC<Props> = (props) => {
       <Title className="title" level={4}>
         {t(header)}
       </Title>
-      <Text className="selected-info">{selectInfoText}</Text>
       <Rating
         ratingValue={hoverRate ? hoverRate : selectedRate}
         size={"33px"}
@@ -76,8 +79,12 @@ export const Rate: React.FC<Props> = (props) => {
           setHoverRate(undefined);
         }}
       />
+      <Text className="selected-info">{selectInfoText}</Text>
       {children}
       <div className="submit-container">
+        <Button mode="white" onClick={onCancel}>
+          {t(cancelLabel)}
+        </Button>
         <Button
           mode="secondary"
           onClick={() => onSubmit(selectedRate)}
