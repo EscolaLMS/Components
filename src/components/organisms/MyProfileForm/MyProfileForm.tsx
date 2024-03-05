@@ -13,8 +13,6 @@ import { Input, Button, Text, Checkbox, TextArea } from "../../../";
 import { ExtendableStyledComponent } from "types/component";
 
 const StyledFormHeader = styled.div<{ mobile: boolean }>`
-  text-align: center;
-
   h2,
   h3,
   h4 {
@@ -26,6 +24,15 @@ const StyledFormHeader = styled.div<{ mobile: boolean }>`
     text-align: left;
   }
   .upload {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    min-width: 250px;
+    .wrapper {
+      margin-right: 20px;
+      width: 40%;
+    }
   }
 `;
 
@@ -37,7 +44,7 @@ const StyledDiv = styled.div<{ mobile: boolean }>`
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   align-content: center;
   .lms-checkbox {
     margin: 20px 0;
@@ -168,6 +175,15 @@ export const MyProfileForm: React.FC<Props> = ({
   return (
     <>
       <StyledDiv className="wellms-component" mobile={mobile}>
+        <StyledFormHeader className="wellms-component" mobile={mobile}>
+          <Text size="18">{t("MyProfileForm.Avatar")}</Text>
+          <Upload
+            path={initialValues.path_avatar}
+            url={initialValues.avatar}
+            accept="image/*"
+            onChange={onAvatarChange}
+          />
+        </StyledFormHeader>
         <Formik
           enableReinitialize
           initialValues={initialValues}
@@ -343,15 +359,6 @@ export const MyProfileForm: React.FC<Props> = ({
             </form>
           )}
         </Formik>{" "}
-        <StyledFormHeader className="wellms-component" mobile={mobile}>
-          <Text size="18">{t("MyProfileForm.Avatar")}</Text>
-          <Upload
-            path={initialValues.path_avatar}
-            url={initialValues.avatar}
-            accept="image/*"
-            onChange={onAvatarChange}
-          />
-        </StyledFormHeader>
       </StyledDiv>
     </>
   );
