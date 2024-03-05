@@ -37,6 +37,7 @@ export { default as Modal } from "./components/atoms/Modal/Modal";
 export { default as Banner } from "./components/molecules/Banner/Banner";
 export { CartCard } from "./components/molecules/CartCard/CartCard";
 export { default as CategoryCard } from "./components/molecules/CategoryCard/CategoryCard";
+export { default as CertificateCard } from "./components/molecules/CertificateCard/CertificateCard";
 export { default as Certificate } from "./components/molecules/Certificate/Certificate";
 export { default as CheckoutCard } from "./components/molecules/CheckoutCard/CheckoutCard";
 export { CourseCard } from "./components/molecules/CourseCard/CourseCard";
