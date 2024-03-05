@@ -57,7 +57,6 @@ const StyledDiv = styled.div<{ $variant?: VariantTypeProp }>`
   }
 
   .progress-container {
-
     &:not(:last-child) {
       margin-bottom: 6px;
     }
