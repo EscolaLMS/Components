@@ -107,7 +107,8 @@ export const MyProfileForm: React.FC<Props> = ({
     phone: "",
   });
   const { t } = useTranslation();
-  const getFieldTranslations = useAdditionalFieldTranslations();
+  const { getFieldTranslations, filterByKey } =
+    useAdditionalFieldTranslations();
   const {
     updateProfile,
     fields,
@@ -302,12 +303,7 @@ export const MyProfileForm: React.FC<Props> = ({
                 Array.isArray(fields.list) &&
                 fields.list
                   .filter((field: API.Metadata) => {
-                    const r =
-                      Array.isArray(field.extra) &&
-                      field.extra?.filter(
-                        (item: Record<string, string | number | boolean>) =>
-                          item.register
-                      );
+                    const r = filterByKey(field);
 
                     return field.type !== "boolean" && !r;
                   })
@@ -353,7 +349,12 @@ export const MyProfileForm: React.FC<Props> = ({
               {fields &&
                 fields.list &&
                 fields.list
-                  .filter((field: API.Metadata) => field.type === "boolean")
+                  // .filter((field: API.Metadata) => field.type === "boolean")
+                  .filter((field: API.Metadata) => {
+                    const r = filterByKey(field);
+
+                    return field.type === "boolean" && !r;
+                  })
                   .map((field: API.Metadata, index: number) => (
                     <Checkbox
                       checked={!!values[field.name]}

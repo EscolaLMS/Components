@@ -127,7 +127,8 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
   });
   const { t } = useTranslation();
   const { register, fields, fetchFields } = useContext(EscolaLMSContext);
-  const getFieldTranslations = useAdditionalFieldTranslations();
+  const { getFieldTranslations, filterByKey } =
+    useAdditionalFieldTranslations();
   useEffect(() => {
     fetchFields({ class_type: "App\\Models\\User" });
   }, []);
@@ -326,12 +327,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
               Array.isArray(fields.list) &&
               fields.list
                 .filter((field: API.Metadata) => {
-                  const r =
-                    Array.isArray(field.extra) &&
-                    field.extra?.filter(
-                      (item: Record<string, string | number | boolean>) =>
-                        item.register
-                    );
+                  const r = filterByKey(field);
 
                   return field.type !== "boolean" && !r;
                 })
@@ -357,12 +353,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
               fields.list &&
               fields.list
                 .filter((field: API.Metadata) => {
-                  const r =
-                    Array.isArray(field.extra) &&
-                    field.extra?.filter(
-                      (item: Record<string, string | number | boolean>) =>
-                        item.register
-                    );
+                  const r = filterByKey(field);
 
                   return field.type === "boolean" && !r;
                 })
