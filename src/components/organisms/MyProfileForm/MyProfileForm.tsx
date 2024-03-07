@@ -11,6 +11,7 @@ import styled, { withTheme } from "styled-components";
 
 import { Input, Button, Text, Checkbox, TextArea } from "../../../";
 import { ExtendableStyledComponent } from "types/component";
+import useAdditionalFieldTranslations from "hooks/useAdditionalFieldsTranslations";
 
 const StyledFormHeader = styled.div<{ mobile: boolean }>`
   h2,
@@ -106,6 +107,7 @@ export const MyProfileForm: React.FC<Props> = ({
     phone: "",
   });
   const { t } = useTranslation();
+  const getFieldTranslations = useAdditionalFieldTranslations();
   const {
     updateProfile,
     fields,
@@ -299,16 +301,30 @@ export const MyProfileForm: React.FC<Props> = ({
               {fields &&
                 Array.isArray(fields.list) &&
                 fields.list
-                  .filter(
-                    (field: API.Metadata) =>
-                      field.type === "varchar" || field.type === "text"
-                  )
+                  .filter((field: API.Metadata) => {
+                    const r =
+                      Array.isArray(field.extra) &&
+                      field.extra?.filter(
+                        (item: Record<string, string | number | boolean>) =>
+                          item.register
+                      );
+
+                    return field.type !== "boolean" && !r;
+                  })
+                  // NOTE: this is old filtering im not sure we should have diffrent filter for register and edit form this is for consideration
+                  // .filter(
+                  //   (field: API.Metadata) =>
+                  //     field.type === "varchar" || field.type === "text"
+                  // )
                   .map((field: API.Metadata, index: number) =>
                     field.type === "varchar" ? (
                       <Input
                         key={`${field}${index}`}
                         required={isAdditionalRequiredField(field)}
-                        label={t(`AdditionalFields.${field.name}`)}
+                        label={
+                          getFieldTranslations(field.extra) ||
+                          t(`AdditionalFields.${field.name}`)
+                        }
                         type="text"
                         name={field.name}
                         onChange={handleChange}
@@ -321,7 +337,10 @@ export const MyProfileForm: React.FC<Props> = ({
                         rows={10}
                         key={`${field}${index}`}
                         required={isAdditionalRequiredField(field)}
-                        label={t(`AdditionalFields.${field.name}`)}
+                        label={
+                          getFieldTranslations(field.extra) ||
+                          t(`AdditionalFields.${field.name}`)
+                        }
                         name={field.name}
                         onChange={handleChange}
                         onBlur={handleBlur}
@@ -339,7 +358,10 @@ export const MyProfileForm: React.FC<Props> = ({
                     <Checkbox
                       checked={!!values[field.name]}
                       key={`${field.id}${index}`}
-                      label={t(`AdditionalFields.${field.name}`)}
+                      label={
+                        getFieldTranslations(field.extra) ||
+                        t(`AdditionalFields.${field.name}`)
+                      }
                       id={field.name + Date.now()}
                       name={field.name}
                       onChange={handleChange}

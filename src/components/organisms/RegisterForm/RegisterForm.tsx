@@ -18,6 +18,7 @@ import { Input, Button, Title, Link, Text, Checkbox } from "../../../";
 import { getStylesBasedOnTheme } from "../../../utils/utils";
 import { ExtendableStyledComponent } from "types/component";
 import { API } from "@escolalms/sdk/lib";
+import useAdditionalFieldTranslations from "hooks/useAdditionalFieldsTranslations";
 
 const StyledDiv = styled.div<{ mobile: boolean }>`
   margin: 0;
@@ -126,7 +127,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
   });
   const { t } = useTranslation();
   const { register, fields, fetchFields } = useContext(EscolaLMSContext);
-
+  const getFieldTranslations = useAdditionalFieldTranslations();
   useEffect(() => {
     fetchFields({ class_type: "App\\Models\\User" });
   }, []);
@@ -339,6 +340,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
                     key={`${field}${index}`}
                     required={isAdditionalRequiredField(field)}
                     label={
+                      getFieldTranslations(field.extra) ||
                       fieldLabels[`AdditionalFields.${field.name}`] ||
                       t(`AdditionalFields.${field.name}`)
                     }
@@ -354,11 +356,21 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
             {fields &&
               fields.list &&
               fields.list
-                .filter((field: API.Metadata) => field.type === "boolean")
+                .filter((field: API.Metadata) => {
+                  const r =
+                    Array.isArray(field.extra) &&
+                    field.extra?.filter(
+                      (item: Record<string, string | number | boolean>) =>
+                        item.register
+                    );
+
+                  return field.type === "boolean" && !r;
+                })
                 .map((field: API.Metadata, index: number) => (
                   <Checkbox
                     key={`${field.id}${index}`}
                     label={
+                      getFieldTranslations(field.extra) ||
                       fieldLabels[`AdditionalFields.${field.name}`] ||
                       t(`AdditionalFields.${field.name}`)
                     }
