@@ -18,7 +18,7 @@ const useAdditionalField = () => {
   );
 
   const filter = useCallback(
-    (fieldMeta: API.Metadata, keyName: string = "register") => {
+    (fieldMeta: API.Metadata, keyName = "register") => {
       return (
         Array.isArray(fieldMeta.extra) &&
         fieldMeta.extra?.filter(
