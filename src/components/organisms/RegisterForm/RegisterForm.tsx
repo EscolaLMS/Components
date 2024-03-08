@@ -323,54 +323,50 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
               error={touched.phone && errors.phone}
             />
 
-            {fields &&
-              Array.isArray(fields.list) &&
-              fields.list
-                .filter((field: API.Metadata) => {
-                  const r = filterByKey(field);
+            {(fields.list || [])
+              .filter((field: API.Metadata) => {
+                const r = filterByKey(field);
 
-                  return field.type !== "boolean" && !r;
-                })
-                .map((field: API.Metadata, index: number) => (
-                  <Input
-                    key={`${field}${index}`}
-                    required={isAdditionalRequiredField(field)}
-                    label={
-                      getFieldTranslations(field.extra) ||
-                      fieldLabels[`AdditionalFields.${field.name}`] ||
-                      t(`AdditionalFields.${field.name}`)
-                    }
-                    type="text"
-                    name={field.name}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={String(values[field.name]) || ""}
-                    error={errors[field.name] && touched[field.name]}
-                  />
-                ))}
+                return field.type !== "boolean" && !r;
+              })
+              .map((field: API.Metadata, index: number) => (
+                <Input
+                  key={`${field}${index}`}
+                  required={isAdditionalRequiredField(field)}
+                  label={
+                    getFieldTranslations(field) ||
+                    fieldLabels[`AdditionalFields.${field.name}`] ||
+                    t(`AdditionalFields.${field.name}`)
+                  }
+                  type="text"
+                  name={field.name}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={String(values[field.name]) || ""}
+                  error={errors[field.name] && touched[field.name]}
+                />
+              ))}
 
-            {fields &&
-              fields.list &&
-              fields.list
-                .filter((field: API.Metadata) => {
-                  const r = filterByKey(field);
+            {(fields.list || [])
+              .filter((field: API.Metadata) => {
+                const r = filterByKey(field);
 
-                  return field.type === "boolean" && !r;
-                })
-                .map((field: API.Metadata, index: number) => (
-                  <Checkbox
-                    key={`${field.id}${index}`}
-                    label={
-                      getFieldTranslations(field.extra) ||
-                      fieldLabels[`AdditionalFields.${field.name}`] ||
-                      t(`AdditionalFields.${field.name}`)
-                    }
-                    id={field.name + Date.now()}
-                    name={field.name}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                ))}
+                return field.type === "boolean" && !r;
+              })
+              .map((field: API.Metadata, index: number) => (
+                <Checkbox
+                  key={`${field.id}${index}`}
+                  label={
+                    getFieldTranslations(field) ||
+                    fieldLabels[`AdditionalFields.${field.name}`] ||
+                    t(`AdditionalFields.${field.name}`)
+                  }
+                  id={field.name + Date.now()}
+                  name={field.name}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+              ))}
 
             <Button mode="primary" type="submit" loading={isSubmitting} block>
               {t<string>("Login.Signup")}
