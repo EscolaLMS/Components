@@ -11,7 +11,7 @@ import styled, { withTheme } from "styled-components";
 
 import { Input, Button, Text, Checkbox, TextArea } from "../../../";
 import { ExtendableStyledComponent } from "types/component";
-import useAdditionalFieldTranslations from "hooks/useAdditionalFieldsTranslations";
+import useAdditionalFieldTranslations from "../../../hooks/useAdditionalFieldsTranslations";
 
 const StyledFormHeader = styled.div<{ mobile: boolean }>`
   h2,

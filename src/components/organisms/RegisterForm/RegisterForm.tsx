@@ -18,7 +18,7 @@ import { Input, Button, Title, Link, Text, Checkbox } from "../../../";
 import { getStylesBasedOnTheme } from "../../../utils/utils";
 import { ExtendableStyledComponent } from "types/component";
 import { API } from "@escolalms/sdk/lib";
-import useAdditionalFieldTranslations from "hooks/useAdditionalFieldsTranslations";
+import useAdditionalFieldTranslations from "../../../hooks/useAdditionalFieldsTranslations";
 
 const StyledDiv = styled.div<{ mobile: boolean }>`
   margin: 0;
