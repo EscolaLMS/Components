@@ -18,6 +18,7 @@ import { Input, Button, Title, Link, Text, Checkbox } from "../../../";
 import { getStylesBasedOnTheme } from "../../../utils/utils";
 import { ExtendableStyledComponent } from "types/component";
 import { API } from "@escolalms/sdk/lib";
+import useAdditionalFieldTranslations from "../../../hooks/useAdditionalFieldsTranslations";
 
 const StyledDiv = styled.div<{ mobile: boolean }>`
   margin: 0;
@@ -126,7 +127,8 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
   });
   const { t } = useTranslation();
   const { register, fields, fetchFields } = useContext(EscolaLMSContext);
-
+  const { getFieldTranslations, filterByKey } =
+    useAdditionalFieldTranslations();
   useEffect(() => {
     fetchFields({ class_type: "App\\Models\\User" });
   }, []);
@@ -321,53 +323,50 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
               error={touched.phone && errors.phone}
             />
 
-            {fields &&
-              Array.isArray(fields.list) &&
-              fields.list
-                .filter((field: API.Metadata) => {
-                  const r =
-                    Array.isArray(field.extra) &&
-                    field.extra?.filter(
-                      (item: Record<string, string | number | boolean>) =>
-                        item.register
-                    );
+            {(fields.list || [])
+              .filter((field: API.Metadata) => {
+                const r = filterByKey(field);
 
-                  return field.type !== "boolean" && !r;
-                })
-                .map((field: API.Metadata, index: number) => (
-                  <Input
-                    key={`${field}${index}`}
-                    required={isAdditionalRequiredField(field)}
-                    label={
-                      fieldLabels[`AdditionalFields.${field.name}`] ||
-                      t(`AdditionalFields.${field.name}`)
-                    }
-                    type="text"
-                    name={field.name}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={String(values[field.name]) || ""}
-                    error={errors[field.name] && touched[field.name]}
-                  />
-                ))}
+                return field.type !== "boolean" && !r;
+              })
+              .map((field: API.Metadata, index: number) => (
+                <Input
+                  key={`${field}${index}`}
+                  required={isAdditionalRequiredField(field)}
+                  label={
+                    getFieldTranslations(field) ||
+                    fieldLabels[`AdditionalFields.${field.name}`] ||
+                    t(`AdditionalFields.${field.name}`)
+                  }
+                  type="text"
+                  name={field.name}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={String(values[field.name]) || ""}
+                  error={errors[field.name] && touched[field.name]}
+                />
+              ))}
 
-            {fields &&
-              fields.list &&
-              fields.list
-                .filter((field: API.Metadata) => field.type === "boolean")
-                .map((field: API.Metadata, index: number) => (
-                  <Checkbox
-                    key={`${field.id}${index}`}
-                    label={
-                      fieldLabels[`AdditionalFields.${field.name}`] ||
-                      t(`AdditionalFields.${field.name}`)
-                    }
-                    id={field.name + Date.now()}
-                    name={field.name}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                ))}
+            {(fields.list || [])
+              .filter((field: API.Metadata) => {
+                const r = filterByKey(field);
+
+                return field.type === "boolean" && !r;
+              })
+              .map((field: API.Metadata, index: number) => (
+                <Checkbox
+                  key={`${field.id}${index}`}
+                  label={
+                    getFieldTranslations(field) ||
+                    fieldLabels[`AdditionalFields.${field.name}`] ||
+                    t(`AdditionalFields.${field.name}`)
+                  }
+                  id={field.name + Date.now()}
+                  name={field.name}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+              ))}
 
             <Button mode="primary" type="submit" loading={isSubmitting} block>
               {t<string>("Login.Signup")}

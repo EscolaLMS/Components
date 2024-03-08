@@ -11,6 +11,7 @@ import styled, { withTheme } from "styled-components";
 
 import { Input, Button, Text, Checkbox, TextArea } from "../../../";
 import { ExtendableStyledComponent } from "types/component";
+import useAdditionalFieldTranslations from "../../../hooks/useAdditionalFieldsTranslations";
 
 const StyledFormHeader = styled.div<{ mobile: boolean }>`
   h2,
@@ -106,6 +107,8 @@ export const MyProfileForm: React.FC<Props> = ({
     phone: "",
   });
   const { t } = useTranslation();
+  const { getFieldTranslations, filterByKey } =
+    useAdditionalFieldTranslations();
   const {
     updateProfile,
     fields,
@@ -296,57 +299,73 @@ export const MyProfileForm: React.FC<Props> = ({
                 error={touched.phone && errors.phone}
               />
 
-              {fields &&
-                Array.isArray(fields.list) &&
-                fields.list
-                  .filter(
-                    (field: API.Metadata) =>
-                      field.type === "varchar" || field.type === "text"
-                  )
-                  .map((field: API.Metadata, index: number) =>
-                    field.type === "varchar" ? (
-                      <Input
-                        key={`${field}${index}`}
-                        required={isAdditionalRequiredField(field)}
-                        label={t(`AdditionalFields.${field.name}`)}
-                        type="text"
-                        name={field.name}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={String(values[field.name]) || ""}
-                        error={errors[field.name] && touched[field.name]}
-                      />
-                    ) : (
-                      <TextArea
-                        rows={10}
-                        key={`${field}${index}`}
-                        required={isAdditionalRequiredField(field)}
-                        label={t(`AdditionalFields.${field.name}`)}
-                        name={field.name}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={String(values[field.name]) || ""}
-                        error={errors[field.name] && touched[field.name]}
-                      />
-                    )
-                  )}
+              {(fields.list || [])
+                .filter((field: API.Metadata) => {
+                  const r = filterByKey(field);
 
-              {fields &&
-                fields.list &&
-                fields.list
-                  .filter((field: API.Metadata) => field.type === "boolean")
-                  .map((field: API.Metadata, index: number) => (
-                    <Checkbox
-                      checked={!!values[field.name]}
-                      key={`${field.id}${index}`}
-                      label={t(`AdditionalFields.${field.name}`)}
-                      id={field.name + Date.now()}
+                  return field.type !== "boolean" && !r;
+                })
+                // NOTE: this is old filtering im not sure we should have diffrent filter for register and edit form this is for consideration
+                // .filter(
+                //   (field: API.Metadata) =>
+                //     field.type === "varchar" || field.type === "text"
+                // )
+                .map((field: API.Metadata, index: number) =>
+                  field.type === "varchar" ? (
+                    <Input
+                      key={`${field}${index}`}
+                      required={isAdditionalRequiredField(field)}
+                      label={
+                        getFieldTranslations(field) ||
+                        t(`AdditionalFields.${field.name}`)
+                      }
+                      type="text"
                       name={field.name}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      required={isAdditionalRequiredField(field)}
+                      value={String(values[field.name]) || ""}
+                      error={errors[field.name] && touched[field.name]}
                     />
-                  ))}
+                  ) : (
+                    <TextArea
+                      rows={10}
+                      key={`${field}${index}`}
+                      required={isAdditionalRequiredField(field)}
+                      label={
+                        getFieldTranslations(field) ||
+                        t(`AdditionalFields.${field.name}`)
+                      }
+                      name={field.name}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={String(values[field.name]) || ""}
+                      error={errors[field.name] && touched[field.name]}
+                    />
+                  )
+                )}
+
+              {(fields.list || [])
+                // .filter((field: API.Metadata) => field.type === "boolean")
+                .filter((field: API.Metadata) => {
+                  const r = filterByKey(field);
+
+                  return field.type === "boolean" && !r;
+                })
+                .map((field: API.Metadata, index: number) => (
+                  <Checkbox
+                    checked={!!values[field.name]}
+                    key={`${field.id}${index}`}
+                    label={
+                      getFieldTranslations(field) ||
+                      t(`AdditionalFields.${field.name}`)
+                    }
+                    id={field.name + Date.now()}
+                    name={field.name}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    required={isAdditionalRequiredField(field)}
+                  />
+                ))}
 
               <Button
                 mode="secondary"
