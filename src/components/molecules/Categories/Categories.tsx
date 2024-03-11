@@ -443,12 +443,7 @@ const CategoriesDrawer: React.FC<CategoriesProps> = (props) => {
           selectedCategories.length > 0 &&
           `(${selectedCategories.length})`}
       </Button>
-      <Drawer
-        open={showDrawer}
-        handler={false}
-        onClose={onToggleDrawer}
-        level={null}
-      >
+      <Drawer open={showDrawer} onClose={onToggleDrawer}>
         <div className={"drawer-content-header"}>
           <button
             type={"button"}
