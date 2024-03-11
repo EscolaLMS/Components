@@ -71,7 +71,7 @@
     "lodash.flow": "^3.5.0",
     "photoswipe": "^5.3.7",
     "rc-dialog": "^8.8.1",
-    "rc-drawer": "^4.4.3",
+    "rc-drawer": "^7.1.0",
     "rc-tree-select": "^5.8.0",
     "react": "^18||^17",
     "react-dom": "^18.2.0",
