@@ -402,12 +402,7 @@ const TagsDrawer: React.FC<TagsProps> = (props) => {
         {t("Tags.Filter")}{" "}
         {selectedTags && selectedTags.length > 0 && `(${selectedTags.length})`}
       </Button>
-      <Drawer
-        open={showDrawer}
-        handler={false}
-        onClose={onToggleDrawer}
-        level={null}
-      >
+      <Drawer open={showDrawer} onClose={onToggleDrawer}>
         <div className={"drawer-content-header"}>
           <button
             type={"button"}
