@@ -19,7 +19,7 @@ const ModeTypes = {
   GRAY: "gray",
 } as const;
 
-type ModeProp = typeof ModeTypes[keyof typeof ModeTypes];
+type ModeProp = (typeof ModeTypes)[keyof typeof ModeTypes];
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
@@ -369,6 +369,7 @@ export const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
       {...props}
       className={`wellms-component ${className}`}
       role="button"
+      aria-labelledby="labeldiv"
     >
       {loading && <Spin color={loadingColor} />}
       {children}

@@ -252,6 +252,7 @@ export const CartCard: React.FC<CartCardProps> = (props) => {
                       role="button"
                       aria-label={t<string>("CartCard.remove")}
                       tabIndex={0}
+                      aria-labelledby="labeldiv"
                     >
                       <IconBin />
                     </span>
@@ -266,21 +267,18 @@ export const CartCard: React.FC<CartCardProps> = (props) => {
       {!mobile && discount && discount.status !== "granted" && (
         <>
           <div className="separator"></div>
-          <div
-            className="discount-toggle"
-            onClick={() => setIsDiscountOpen(!isDiscountOpen)}
-            onKeyUp={() => setIsDiscountOpen(!isDiscountOpen)}
-            role="button"
-            aria-label={t<string>("CartCard.addDiscountButton")}
-            tabIndex={0}
-          >
+          <div className="discount-toggle">
             <Text size={"12"} noMargin id={uniqueId}>
               {t<string>("CartCard.addDiscountButton")}
             </Text>
             <Button
-              as="div"
+              onClick={() => setIsDiscountOpen(!isDiscountOpen)}
+              onKeyUp={() => setIsDiscountOpen(!isDiscountOpen)}
+              title="open discount input"
               mode={"icon"}
               className="open-discount-state-container"
+              aria-labelledby="labeldiv"
+              role="button"
             >
               {isDiscountOpen ? <ArrowOpenIcon /> : <ArrowClosedIcon />}{" "}
             </Button>

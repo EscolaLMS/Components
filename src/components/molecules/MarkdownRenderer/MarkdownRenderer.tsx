@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useId, useState } from "react";
 import styled, { createGlobalStyle, withTheme } from "styled-components";
 import ReactMarkdown from "react-markdown";
 import { ReactMarkdownOptions } from "react-markdown/lib/react-markdown";
@@ -236,12 +236,16 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = (props) => {
 export const MarkdownCheckList: React.FC<
   React.InputHTMLAttributes<HTMLInputElement>
 > = ({ checked, disabled, type }) => {
+  const ID = useId();
   return (
     <input
+      id={ID}
       className="text-checkbox"
       type={type}
       disabled={disabled}
       checked={checked}
+      aria-labelledby={ID}
+      placeholder="checkbox"
     />
   );
 };

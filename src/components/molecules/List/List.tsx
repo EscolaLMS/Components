@@ -2,6 +2,7 @@ import { FC, HTMLAttributes, ReactNode } from "react";
 import styled, { css, withTheme } from "styled-components";
 import { IconText, Text } from "../../..";
 import { getStylesBasedOnTheme } from "../../../utils/utils";
+import chroma from "chroma-js";
 export interface ListItemProps {
   id: number;
   text: string;
@@ -43,7 +44,7 @@ const ListItem = styled.li<{ $isActive?: boolean }>`
   gap: 10px;
   transition: 0.3s;
   background-color: ${({ theme, $isActive }) =>
-    $isActive ? theme.dm__primaryColor : "transparent"};
+    $isActive ? chroma(theme.primaryColor).darken().hex() : "transparent"};
   cursor: pointer;
   &:hover {
     transform: scale(1.05);
@@ -57,20 +58,20 @@ const StyledText = styled(Text)<{ $isActive?: boolean }>`
 `;
 
 const StyledIconText = styled(IconText)<{ $isActive?: boolean }>`
-  & > span {
+  * {
     font-weight: ${({ $isActive }) => ($isActive ? "bold" : "normal")};
     ${basicColorStyle}
-    & > svg {
-      fill: ${({ theme, $isActive }) =>
-        $isActive
-          ? theme.white
-          : getStylesBasedOnTheme(
-              theme.mode,
-              theme.dm__outlineButtonColor,
-              theme.outlineButtonColor,
-              theme.primaryColor
-            )};
-    }
+  }
+  svg {
+    fill: ${({ theme, $isActive }) =>
+      $isActive
+        ? theme.white
+        : getStylesBasedOnTheme(
+            theme.mode,
+            theme.dm__outlineButtonColor,
+            theme.outlineButtonColor,
+            theme.primaryColor
+          )} !important;
   }
 `;
 const List: FC<ListProps> = ({

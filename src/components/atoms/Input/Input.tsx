@@ -314,14 +314,14 @@ export const Input: React.FC<InputProps> = (props) => {
     >
       <div className={`input-container ${addFilledClass()}`}>
         {renderLabel()}
-        <div className="input-and-fieldset">
+        <div className="input-and-fieldset" aria-labelledby="labeldiv">
           <input
             {...props}
             {...notInputProps}
             id={label ? generateRandomInputId : undefined}
           />
           {label ? (
-            <fieldset className="fieldset">
+            <fieldset className="fieldset" aria-labelledby="labeldiv">
               <legend>
                 {label}
                 {required ? "*" : ""}

@@ -46,10 +46,7 @@ const Icon1 = () => (
               }
               tags={
                 <React.Fragment>
-                  <Badge
-                    onClick={(e) => console.log("onTag click")}
-                    color={"#ff0000"}
-                  >
+                  <Badge onClick={(e) => console.log("onTag click")}>
                     Bestseller
                   </Badge>
                   <Badge color={"#6d6d6d"}>New</Badge>
