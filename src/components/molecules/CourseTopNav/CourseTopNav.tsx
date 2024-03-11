@@ -138,22 +138,6 @@ export const CourseTopNav: React.FC<CourseTopNavProps> = (props) => {
         </Button>
       );
     }
-    if (isLast && !isFinished) {
-      return (
-        <Button
-          mode={"primary"}
-          onClick={() => {
-            if (onCourseFinished) {
-              onCourseFinished();
-            }
-          }}
-          aria-label={t("Course.finishCourse")}
-          disabled={allButtonsDisabled}
-        >
-          {t("Course.finishCourse")}
-        </Button>
-      );
-    }
     if (!isFinished) {
       return (
         <Button
@@ -170,7 +154,20 @@ export const CourseTopNav: React.FC<CourseTopNavProps> = (props) => {
         </Button>
       );
     }
-    return <></>;
+    return (
+      <Button
+        mode={"primary"}
+        onClick={() => {
+          if (onCourseFinished) {
+            onCourseFinished();
+          }
+        }}
+        aria-label={t("Course.finishCourse")}
+        disabled={allButtonsDisabled}
+      >
+        {t("Course.finishCourse")}
+      </Button>
+    );
   }, [isFinished, t, onFinish, isLast, allButtonsDisabled]);
 
   const renderNoteButton = React.useCallback(() => {
