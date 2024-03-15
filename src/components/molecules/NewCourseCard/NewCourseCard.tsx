@@ -22,7 +22,7 @@ interface Category {
   name: string;
 }
 
-interface Categories {
+export interface Categories {
   onCategoryClick: (id: number) => void;
   categoryElements: Category[];
 }

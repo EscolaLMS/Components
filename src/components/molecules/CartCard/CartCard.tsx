@@ -82,6 +82,7 @@ interface CartCardProps extends StyledCartCardProps, ExtendableStyledComponent {
   subtitle?: ReactNode;
   onBuyClick: (id: number) => void;
   description?: ReactNode;
+  disclaimer?: string;
   discount?: Discount;
   loading?: boolean;
 }
@@ -91,33 +92,32 @@ const StyledCardCard = styled.div<StyledCartCardProps>`
   box-shadow: ${({ mobile }) => mobile && "0px -2px 15px 0px #0000001A;"};
   background: ${({ theme, mobile }) =>
     mobile
-      ? getStylesBasedOnTheme(
-          theme.mode,
-          theme.dm__background,
-          theme.background
-        )
+      ? getStylesBasedOnTheme(theme.mode, theme.dm__background, theme.white)
       : getStylesBasedOnTheme(
           theme.mode,
           theme.dm__cardBackgroundColor,
-          theme.cardBackgroundColor
+          theme.white
         )};
-  padding: ${(props) => (props.mobile ? "15px" : "40px")};
-
+  padding: ${(props) => (props.mobile ? "15px" : "19px 16px 12px 16px")};
+  border-radius: ${({ theme }) => theme.cardRadius}px;
+  p {
+    margin-bottom: 0;
+  }
   .title {
-    font-size: ${(props) => (props.mobile ? "16px" : "30px")};
+    font-size: ${(props) => (props.mobile ? "16px" : "24px")};
     margin-bottom: ${(props) => (props.mobile ? "10px" : "20px")};
     font-weight: 700;
   }
 
   .buy-button {
-    margin-bottom: ${(props) => (props.mobile ? "8px" : "23px")};
+    /* margin-bottom: ${(props) => (props.mobile ? "8px" : "23px")}; */
   }
 
   .separator {
     height: 1px;
-    width: 24px;
+    width: 100%;
     background: ${({ theme }) =>
-      getStylesBasedOnTheme(theme.mode, theme.white, theme.gray1)};
+      getStylesBasedOnTheme(theme.mode, theme.white, theme.gray4)};
     margin: 20px 0 14px 0;
   }
   .open-discount-state-container {
@@ -129,12 +129,17 @@ const StyledCardCard = styled.div<StyledCartCardProps>`
     margin-top: 17px;
     display: flex;
     flex-direction: column;
-    gap: 28px;
+    gap: 10px;
   }
   .discount-toggle {
     display: flex;
     align-items: center;
     cursor: pointer;
+    justify-content: space-between;
+  }
+
+  .disclamer {
+    margin-bottom: 15px;
   }
   .discount-granted-info {
     margin-bottom: 23px;
@@ -177,6 +182,7 @@ export const CartCard: React.FC<CartCardProps> = (props) => {
     onBuyClick,
     description,
     discount,
+    disclaimer,
     loading,
     mobile = false,
     className = "",
@@ -205,6 +211,9 @@ export const CartCard: React.FC<CartCardProps> = (props) => {
 
   return (
     <StyledCardCard className={`wellms-component ${className}`} mobile={mobile}>
+      <Text size="13" bold>
+        Do zapłaty
+      </Text>
       {!mobile && <Text className="title">{title}</Text>}
       <div className={"cart-card-subtitle"}>{subtitle}</div>
       <div
@@ -228,15 +237,6 @@ export const CartCard: React.FC<CartCardProps> = (props) => {
             textAlign: mobile ? "center" : "left",
           }}
         >
-          <Button
-            mode="secondary"
-            block
-            className="buy-button"
-            loading={loading}
-            onClick={() => onBuyClick(id)}
-          >
-            {t<string>("CartCard.buyButton")}
-          </Button>
           {!mobile && discount && (
             <>
               {discount.status === "granted" && (
@@ -266,7 +266,6 @@ export const CartCard: React.FC<CartCardProps> = (props) => {
       </div>
       {!mobile && discount && discount.status !== "granted" && (
         <>
-          <div className="separator"></div>
           <div className="discount-toggle">
             <Text size={"12"} noMargin id={uniqueId}>
               {t<string>("CartCard.addDiscountButton")}
@@ -297,7 +296,7 @@ export const CartCard: React.FC<CartCardProps> = (props) => {
               />
               {discountInput.length !== 0 && (
                 <Button
-                  mode="outline"
+                  mode="secondary"
                   block
                   loading={loading}
                   onClick={() => discount.onDiscountClick(discountInput)}
@@ -309,6 +308,19 @@ export const CartCard: React.FC<CartCardProps> = (props) => {
           )}
         </>
       )}
+      <div className="separator"></div>
+      <div className="disclamer">
+        <Text size="11">{disclaimer}</Text>
+      </div>
+      <Button
+        mode="secondary"
+        block
+        className="buy-button"
+        loading={loading}
+        onClick={() => onBuyClick(id)}
+      >
+        {t<string>("CartCard.buyButton")}
+      </Button>
     </StyledCardCard>
   );
 };
