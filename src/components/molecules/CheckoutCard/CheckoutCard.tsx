@@ -59,24 +59,32 @@ const StyledCheckoutCard = styled("div")<StyledCheckoutCardProps>`
       theme.white
     )};
   display: flex;
-  align-items: center;
+  flex-direction: ${({ mobile }) => (mobile ? "column" : "row")};
+  align-items: ${({ mobile }) => (mobile ? "flex-start" : "center")};
   justify-content: space-between;
 
   &:not(:last-child) {
     margin-bottom: 20px;
   }
+
   .image-title {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 15px;
+    gap: ${({ mobile }) => (mobile ? "24px" : "15px")};
+    margin-bottom: ${({ mobile }) => (mobile ? "10px" : "0px")};
+    h4 {
+      margin-bottom: 0px !important;
+    }
   }
 
   .action-price-wrapper {
     display: flex;
-    align-items: center;
-    justify-content: flex-end;
+    align-items: ${({ mobile }) => (mobile ? "space-between" : "center")};
+    justify-content: ${({ mobile }) => (mobile ? "space-between" : "flex-end")};
     gap: 10px;
+    margin-left: ${({ mobile }) => (mobile ? "110px" : "0")};
+    width: calc(100% - 110px);
     .price {
       display: flex;
       align-items: center;
@@ -121,8 +129,8 @@ const StyledCheckoutCard = styled("div")<StyledCheckoutCardProps>`
   }
 
   .checkout-card-img {
-    width: 50px;
-    height: 50px;
+    width: ${({ mobile }) => (mobile ? "84px" : "50px")};
+    height: ${({ mobile }) => (mobile ? "84px" : "50px")};
     position: relative;
     svg {
       fill: ${({ theme }) =>
@@ -162,7 +170,7 @@ export const CheckoutCard: React.FC<CheckoutCardProps> = (props) => {
   return (
     <StyledCheckoutCard className="wellms-component" mobile={mobile}>
       <div className="image-title">
-        {!mobile && thumbnail()}
+        {thumbnail()}
         <div>
           {React.isValidElement(categories) && (
             <div className="categories">{categories}</div>
@@ -178,7 +186,7 @@ export const CheckoutCard: React.FC<CheckoutCardProps> = (props) => {
       </div>
 
       <div className="action-price-wrapper">
-        {!mobile && (
+        {
           <div className="price">
             {oldPrice && (
               <Title as={"h5"} level={5} className={"checkout-card-discount"}>
@@ -189,7 +197,7 @@ export const CheckoutCard: React.FC<CheckoutCardProps> = (props) => {
               {price}
             </Title>
           </div>
-        )}
+        }
         <div>
           <Button
             mode={"icon"}

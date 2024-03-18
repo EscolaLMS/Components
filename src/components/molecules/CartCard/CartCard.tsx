@@ -214,7 +214,11 @@ export const CartCard: React.FC<CartCardProps> = (props) => {
       <Text size="13" bold>
         Do zapłaty
       </Text>
-      {!mobile && <Text className="title">{title}</Text>}
+      {!mobile && (
+        <Text size={mobile ? "24" : "16"} className="title">
+          {title}
+        </Text>
+      )}
       <div className={"cart-card-subtitle"}>{subtitle}</div>
       <div
         style={{
@@ -223,7 +227,7 @@ export const CartCard: React.FC<CartCardProps> = (props) => {
       >
         {mobile && (
           <Title
-            level={4}
+            level={mobile ? 2 : 4}
             style={{
               marginRight: 42,
             }}
@@ -231,13 +235,14 @@ export const CartCard: React.FC<CartCardProps> = (props) => {
             {title}
           </Title>
         )}
+
         <div
           style={{
             flex: 1,
             textAlign: mobile ? "center" : "left",
           }}
         >
-          {!mobile && discount && (
+          {discount && (
             <>
               {discount.status === "granted" && (
                 <>
@@ -264,7 +269,7 @@ export const CartCard: React.FC<CartCardProps> = (props) => {
           {description}
         </div>
       </div>
-      {!mobile && discount && discount.status !== "granted" && (
+      {discount && discount.status !== "granted" && (
         <>
           <div className="discount-toggle">
             <Text size={"12"} noMargin id={uniqueId}>
