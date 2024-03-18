@@ -10,9 +10,10 @@ interface OrdersProps
     ExtendableStyledComponent {
   mobile?: boolean;
   data: {
+    status: ReactNode;
     title: ReactNode;
-    date: string;
-    price: string;
+    date: ReactNode;
+    price: ReactNode;
     actions?: ReactNode;
   }[];
 }
@@ -25,7 +26,7 @@ const StyledOrders = styled("div")<{ mobile: boolean }>`
     padding: 0 0px 12px 0px;
     .single-label {
       &:first-of-type {
-        flex: 0 0 40%;
+        flex: 0 0 20%;
         max-width: 40%;
       }
       &:nth-of-type(2),
@@ -60,7 +61,7 @@ const SingleOrderCard = styled("div")<{ mobile: boolean }>`
       margin-bottom: ${({ mobile }) => (mobile ? "15px" : 0)};
     }
     &:first-of-type {
-      flex: ${({ mobile }) => (mobile ? "0 0 100%" : "0 0 40%")};
+      flex: ${({ mobile }) => (mobile ? "0 0 100%" : "0 0 20%")};
       max-width: ${({ mobile }) => (mobile ? "100%" : "40%")};
     }
     &:nth-of-type(2),
@@ -83,7 +84,7 @@ export const Orders: React.FC<OrdersProps> = (props) => {
   const hasActions = useMemo(() => {
     return data.some((record) => !!record.actions);
   }, [data]);
-
+  console.log(data);
   return (
     <StyledOrders className={`wellms-component ${className}`} mobile={mobile}>
       {data.length === 0 && <Text>{t<string>("Orders.NoRecords")}</Text>}
@@ -93,6 +94,9 @@ export const Orders: React.FC<OrdersProps> = (props) => {
             <div className="labels-row">
               <div className="single-label">
                 <Text size={"14"}>{t<string>("Orders.Title")}</Text>
+              </div>{" "}
+              <div className="single-label">
+                <Text size={"14"}>{t<string>("Orders.Status")}</Text>
               </div>
               <div className="single-label">
                 <Text size={"14"}>{t<string>("Orders.Date")}</Text>
@@ -110,6 +114,7 @@ export const Orders: React.FC<OrdersProps> = (props) => {
           {data.map((record, i) => (
             <SingleOrderCard mobile={mobile} key={i}>
               <div className="single-content">{record.title}</div>
+              <div className="single-content">{record.status}</div>
               <div className="single-content">{record.date}</div>
               <div className="single-content">{record.price}</div>
               {hasActions && (

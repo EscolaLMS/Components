@@ -102,6 +102,7 @@ export const resources = {
         RememberMe: "Remember me",
       },
       Orders: {
+        Status: "Status",
         Title: "Title",
         Date: "Date",
         Price: "Price",
@@ -355,6 +356,7 @@ export const resources = {
         RememberMe: "Zapamiętaj mnie",
       },
       Orders: {
+        Status: "Status",
         Title: "Tytuł",
         Date: "Data",
         Price: "Cena",
