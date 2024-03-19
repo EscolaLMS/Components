@@ -84,7 +84,7 @@ export const Orders: React.FC<OrdersProps> = (props) => {
   const hasActions = useMemo(() => {
     return data.some((record) => !!record.actions);
   }, [data]);
-  console.log(data);
+
   return (
     <StyledOrders className={`wellms-component ${className}`} mobile={mobile}>
       {data.length === 0 && <Text>{t<string>("Orders.NoRecords")}</Text>}
