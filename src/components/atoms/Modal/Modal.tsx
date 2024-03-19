@@ -236,6 +236,10 @@ const StyledGlobal = createGlobalStyle<ModalProps>`
         )};
         }
   }
+
+  .rc-dialog-mask {
+    background-color: rgb(0 0 0 / 55%);
+  }
 `;
 
 export const Modal: React.FC<ModalProps> = (props) => {
