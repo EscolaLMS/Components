@@ -9,16 +9,22 @@ export interface ModalProps extends DialogProps, ExtendableStyledComponent {}
 
 const CloseBtn = () => (
   <svg
-    width="14"
-    height="14"
-    viewBox="0 0 14 14"
-    fill="none"
     xmlns="http://www.w3.org/2000/svg"
+    width="18"
+    height="18"
+    viewBox="0 0 18 18"
   >
-    <path
-      d="M0.292893 0.292893C0.683417 -0.0976311 1.31658 -0.0976311 1.70711 0.292893L7 5.58579L12.2929 0.292893C12.6834 -0.0976311 13.3166 -0.0976311 13.7071 0.292893C14.0976 0.683417 14.0976 1.31658 13.7071 1.70711L8.41421 7L13.7071 12.2929C14.0976 12.6834 14.0976 13.3166 13.7071 13.7071C13.3166 14.0976 12.6834 14.0976 12.2929 13.7071L7 8.41421L1.70711 13.7071C1.31658 14.0976 0.683417 14.0976 0.292893 13.7071C-0.0976311 13.3166 -0.0976311 12.6834 0.292893 12.2929L5.58579 7L0.292893 1.70711C-0.0976311 1.31658 -0.0976311 0.683417 0.292893 0.292893Z"
-      fill="#4A4A4A"
-    />
+    <g id="close" transform="translate(0 -0.005)">
+      <g id="Group_68" data-name="Group 68" transform="translate(0 0.005)">
+        <path
+          id="Path_31"
+          data-name="Path 31"
+          d="M15.367,2.638a9,9,0,1,0,0,12.734A9.014,9.014,0,0,0,15.367,2.638Zm-2.653,9.02a.75.75,0,1,1-1.061,1.061L9,10.066,6.349,12.718a.75.75,0,0,1-1.061-1.061L7.939,9,5.287,6.352A.75.75,0,0,1,6.348,5.291L9,7.944l2.652-2.653a.75.75,0,0,1,1.061,1.061L10.061,9Z"
+          transform="translate(0 -0.005)"
+          fill="#afafaf"
+        />
+      </g>
+    </g>
   </svg>
 );
 
@@ -53,7 +59,7 @@ const StyledGlobal = createGlobalStyle<ModalProps>`
       background-color: ${({ theme }) =>
         getStylesBasedOnTheme(theme.mode, theme.black, theme.white)};
       border: none;
-      border-radius: ${({ theme }) => theme.cardRadius}px;
+      border-radius: ${({ theme }) => theme.modalRadius}px;
       background-clip: padding-box;
       width: 100%;
       max-width: ${(props) => (props.width ? props.width : "468px")};
@@ -66,8 +72,8 @@ const StyledGlobal = createGlobalStyle<ModalProps>`
       background: transparent;
       font-size: 21px;
       position: absolute;
-      right: 20px;
-      top: 12px;
+      right: 5px;
+      top: 10px;
       font-weight: 700;
       line-height: 1;
       color: ${({ theme }) =>
@@ -99,7 +105,7 @@ const StyledGlobal = createGlobalStyle<ModalProps>`
     }
 
     &-body {
-      padding: 36px 23px;
+      padding: 35px;
     }
 
     &-footer {
@@ -229,6 +235,10 @@ const StyledGlobal = createGlobalStyle<ModalProps>`
           theme.primaryColor
         )};
         }
+  }
+
+  .rc-dialog-mask {
+    background-color: rgb(0 0 0 / 55%);
   }
 `;
 
