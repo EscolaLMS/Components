@@ -26,7 +26,7 @@ const StyledOrders = styled("div")<{ mobile: boolean }>`
     padding: 0 0px 12px 0px;
     .single-label {
       &:first-of-type {
-        flex: 0 0 20%;
+        flex: 0 0 25%;
         max-width: 40%;
       }
       &:nth-of-type(2),
@@ -61,7 +61,7 @@ const SingleOrderCard = styled("div")<{ mobile: boolean }>`
       margin-bottom: ${({ mobile }) => (mobile ? "15px" : 0)};
     }
     &:first-of-type {
-      flex: ${({ mobile }) => (mobile ? "0 0 100%" : "0 0 20%")};
+      flex: ${({ mobile }) => (mobile ? "0 0 100%" : "0 0 25%")};
       max-width: ${({ mobile }) => (mobile ? "100%" : "40%")};
     }
     &:nth-of-type(2),
