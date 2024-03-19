@@ -13,6 +13,7 @@ export const redTheme: DefaultTheme = {
   inputRadius: 5,
   checkboxRadius: 5,
   cardRadius: 10,
+  modalRadius: 15,
   gray1: "#333333",
   gray2: "#AFAFAF",
   gray3: colors.disabled,
