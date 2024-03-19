@@ -12,6 +12,9 @@ export interface LogoProps
 const StyledLogo = styled("img")<LogoProps>`
   max-width: ${(props) => (props.isSmall ? "80px" : "120px")};
   max-height: ${(props) => (props.isSmall ? "50px" : "75px")};
+  @media (max-width: 778px) {
+    object-fit: contain;
+  }
 `;
 
 export const Logo: React.FC<LogoProps> = (props) => (
