@@ -13,6 +13,9 @@ const SearchWrapper = styled.div`
     border-radius: 21px !important;
     background-color: ${({ theme }) => theme.gray4} !important;
   }
+  .fieldset {
+    border-radius: 21px !important;
+  }
 `;
 
 const ItemButton = styled(Button)`
