@@ -19,7 +19,7 @@ const ModeTypes = {
   GRAY: "gray",
 } as const;
 
-type ModeProp = (typeof ModeTypes)[keyof typeof ModeTypes];
+type ModeProp = typeof ModeTypes[keyof typeof ModeTypes];
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,

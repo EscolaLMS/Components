@@ -108,6 +108,7 @@ const StyledSearch = styled("div")<StyledSearchProps>`
     box-shadow: 0px 10px 15px #00000019;
 
     > * {
+      font-weight: 400;
       padding: 15px;
       cursor: pointer;
       transition: background-color 0.2s ease-in-out;

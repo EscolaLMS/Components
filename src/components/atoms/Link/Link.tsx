@@ -29,6 +29,7 @@ const StyledAnchor = styled("a")<LinkProps>`
 
   & > * {
     vertical-align: middle;
+    transition: color 0.3s ease-out;
   }
   & > svg {
     margin: 0 0.5em;
@@ -38,22 +39,27 @@ const StyledAnchor = styled("a")<LinkProps>`
     content: "";
     position: absolute;
     width: 100%;
-    transform: ${(props) => (props.underline ? "scaleX(1)" : "scaleX(0)")};
+    /* transform: ${(props) =>
+      props.underline ? "scaleX(1)" : "scaleX(0)"}; */
     height: 1px;
     bottom: 0;
     left: 0;
-    background-color: ${({ theme }) =>
-      getStylesBasedOnTheme(theme.mode, theme.gray5, theme.gray1, "black")};
-    transform-origin: ${(props) =>
+    /* background-color: ${({ theme }) =>
+      getStylesBasedOnTheme(theme.mode, theme.gray5, theme.gray1, "black")}; */
+    /* transform-origin: ${(props) =>
       props.underline ? "bottom left" : "bottom right"};
-    transition: transform 0.25s ease-out;
+    transition: transform 0.25s ease-out; */
   }
 
   &:hover,
   &:active {
+    * {
+      color: ${({ theme }) => theme.primaryColor};
+    }
+
     &:after {
-      transform: ${(props) => (props.underline ? "scaleX(0)" : "scaleX(1)")};
-      transform-origin: bottom left;
+      /* transform: ${(props) => (props.underline ? "scaleX(0)" : "scaleX(1)")};
+      transform-origin: bottom left; */
     }
   }
 `;

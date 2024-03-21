@@ -122,7 +122,7 @@ const DropdownMenu: FC<Props> = ({
               onClick={() => onListItemClick(index)}
               onKeyDown={closeMenu}
             >
-              <Text size="14" noMargin bold>
+              <Text size="14" noMargin>
                 {content}
               </Text>
             </MenuItem>
