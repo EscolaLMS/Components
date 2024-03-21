@@ -192,6 +192,9 @@ const StyledMarkdownRenderer = styled("div")<StyledMarkdownRendererProps>`
     max-width: 100%;
     max-height: 75vh;
   }
+  a {
+    color: ${({ theme }) => theme.primaryColor};
+  }
 `;
 
 const LightBoxOverwrite = createGlobalStyle`
