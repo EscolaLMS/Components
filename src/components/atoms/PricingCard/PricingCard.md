@@ -150,7 +150,7 @@ const props = {
             >
               Dodaj do koszyka
             </Button>
-            <Text size={"12"}>Gwarantowane 30 dni na zwrot</Text>
+
             <div className="pricing-card-features">
               <IconText icon={<IconCamera />} text={"40 godzin video"} />
               <IconText
@@ -224,7 +224,7 @@ const props = {
             >
               Dodaj do koszyka
             </Button>
-            <Text size={"12"}>Gwarantowane 30 dni na zwrot</Text>
+
             <div className="pricing-card-features">
               <IconText icon={<IconCamera />} text={"40 godzin video"} />
               <IconText

@@ -53,16 +53,6 @@ const StyledPricingCard = styled("div")<StyledPricingCardProps>`
 
   .pricing-card-features {
     margin-top: 20px;
-
-    &:after {
-      content: "";
-      display: block;
-      margin-bottom: 20px;
-      width: 24px;
-      height: 1px;
-      background-color: ${({ theme }) =>
-        theme.mode === "light" ? theme.gray1 : "transparent"};
-    }
   }
 
   .pricing-card-footer {

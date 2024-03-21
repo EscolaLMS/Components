@@ -58,7 +58,7 @@ const CourseAgendaTopic: React.FC<CourseAgendaTopicProps> = ({
     if (isCurrent) {
       ref?.current?.scrollIntoView({
         behavior: "smooth",
-        block: 'nearest',
+        block: "nearest",
       });
     }
   }, [ref?.current, isCurrent]);

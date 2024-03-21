@@ -17,7 +17,7 @@ interface Props extends SharedComponentProps {
 export const CourseProgramLesson: React.FC<Props> = ({
   lesson,
   index,
-  defaultOpen = true,
+  defaultOpen = false,
   onTopicClick,
   mobile,
   isSubLesson,
