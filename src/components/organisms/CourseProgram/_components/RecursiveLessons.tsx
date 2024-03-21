@@ -19,7 +19,7 @@ export const RecursiveLessons: React.FC<Props> = ({
     {lessons.map((l, index) => (
       <CourseProgramLesson
         key={l.id}
-        defaultOpen
+        defaultOpen={index === 0 ? true : false}
         index={index}
         lesson={l}
         isSubLesson={depth > 0}

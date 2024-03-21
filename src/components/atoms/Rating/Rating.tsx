@@ -95,7 +95,7 @@ const StyledRating = styled.span<RatingProps>`
       height: ${(props) => (props.size ? props.size : "15px")};
       padding-right: 2px;
       color: ${({ theme }) =>
-        getStylesBasedOnTheme(theme.mode, theme.white, theme.gray1)};
+        getStylesBasedOnTheme(theme.mode, theme.white, theme.gray2)};
     }
     .label {
       margin: 0px 5px;
