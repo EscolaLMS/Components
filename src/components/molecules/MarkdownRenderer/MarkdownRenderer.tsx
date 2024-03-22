@@ -194,6 +194,7 @@ const StyledMarkdownRenderer = styled("div")<StyledMarkdownRendererProps>`
   }
   a {
     color: ${({ theme }) => theme.primaryColor};
+    word-break: break-word;
   }
 `;
 
