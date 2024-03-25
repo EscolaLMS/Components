@@ -94,7 +94,7 @@ interface MenuItem {
 }
 export interface NavigationProps extends ExtendableStyledComponent {
   mobile?: boolean;
-  logo: LogoProps;
+  logo: LogoProps | ReactNode;
   menuItems: MenuItem[];
   search?: ReactNode;
   notification?: ReactNode;
@@ -343,7 +343,12 @@ export const Navigation: React.FC<NavigationProps> = (props) => {
         <StyledNavigation className={`wellms-component ${className}`}>
           <GlobalStyle />
           <div className="header">
-            <Logo {...logo} />
+            {React.isValidElement(logo) ? (
+              <React.Fragment>{logo}</React.Fragment>
+            ) : (
+              <Logo {...(logo as LogoProps)} />
+            )}
+
             <IconsHeaderMobileWrapper>
               <IconsHeaderMobileWrapper>
                 {props.cart}
@@ -402,7 +407,11 @@ export const Navigation: React.FC<NavigationProps> = (props) => {
                 </div>
               ) : (
                 <>
-                  <Logo {...logo} />
+                  {React.isValidElement(logo) ? (
+                    <React.Fragment>{logo}</React.Fragment>
+                  ) : (
+                    <Logo {...(logo as LogoProps)} />
+                  )}
                   <span
                     className="menu-drawer-close"
                     onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
