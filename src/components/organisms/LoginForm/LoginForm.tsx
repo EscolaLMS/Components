@@ -46,7 +46,7 @@ const StyledDiv = styled.div<{ mobile: boolean }>`
 
   form {
     width: 100%;
-    max-width: 440px;
+    min-width: ${({ mobile }) => (mobile ? "100%" : "440px")};
     margin-bottom: 15px;
   }
   > button {
