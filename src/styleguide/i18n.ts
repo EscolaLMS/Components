@@ -94,7 +94,7 @@ export const resources = {
         Empty: "No new notifications",
       },
       Login: {
-        Header: "Log in to your Wellms account",
+        Header: "Log in",
         Signin: "Log in",
         NotRemember: "I forgot my password",
         NoAccount: "No account?",
@@ -110,7 +110,7 @@ export const resources = {
         NoRecords: "No records",
       },
       RegisterForm: {
-        Header: "Sign up for your Wellms account",
+        Header: "Sign up ",
         Subtitle: "Many users have already trusted us",
         "Already have an account": "Already have an account?",
       },
@@ -348,7 +348,7 @@ export const resources = {
         Empty: "Brak Nowych powiadomień",
       },
       Login: {
-        Header: "Zaloguj się do swojego konta Wellms",
+        Header: "Zaloguj się ",
         Signin: "Zaloguj się",
         NotRemember: "Nie pamiętam hasła",
         NoAccount: "Nie posiadasz konta?",
@@ -364,7 +364,7 @@ export const resources = {
         NoRecords: "Brak zamówień",
       },
       RegisterForm: {
-        Header: "Dołącz do Wellms, największej plaformy szkoleniowej!",
+        Header: "Zarejestruj się",
         Subtitle: "Zaufało nam już sporo użytkowników",
         "Already have an account": "Masz już konto?",
       },
