@@ -100,15 +100,20 @@ export interface NavigationProps extends ExtendableStyledComponent {
   notification?: ReactNode;
   cart?: ReactNode;
   profile?: ReactNode;
+  isMobileDevice?: boolean;
 }
 
-const GlobalStyle = createGlobalStyle`
+const GlobalStyle = createGlobalStyle<{ $isMobileDevice: boolean }>`
 
 .custom-drawer-wrapper {
   @media (max-width: 530px) {
     width: 90% !important;
   }
+  .drawer-header {
+    padding-top: ${({ $isMobileDevice }) => $isMobileDevice && "100px"};
+  }
 }
+
   svg {
     transition: opacity 0.2s ease-in-out;
   
@@ -243,7 +248,14 @@ const IconsHeaderMobileWrapper = styled.div`
 `;
 
 export const Navigation: React.FC<NavigationProps> = (props) => {
-  const { mobile, logo, menuItems, search, className = "" } = props;
+  const {
+    mobile,
+    logo,
+    menuItems,
+    search,
+    className = "",
+    isMobileDevice,
+  } = props;
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const [drawerSubmenuHistory, setDrawerSubmenuHistory] =
     useState<DrawerSubmenuHistory>({});
@@ -341,7 +353,7 @@ export const Navigation: React.FC<NavigationProps> = (props) => {
     <>
       {mobile ? (
         <StyledNavigation className={`wellms-component ${className}`}>
-          <GlobalStyle />
+          <GlobalStyle $isMobileDevice={isMobileDevice} />
           <div className="header">
             {React.isValidElement(logo) ? (
               <React.Fragment>{logo}</React.Fragment>
