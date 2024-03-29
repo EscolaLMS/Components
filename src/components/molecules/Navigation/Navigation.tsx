@@ -353,7 +353,7 @@ export const Navigation: React.FC<NavigationProps> = (props) => {
     <>
       {mobile ? (
         <StyledNavigation className={`wellms-component ${className}`}>
-          <GlobalStyle $isMobileDevice={isMobileDevice} />
+          <GlobalStyle $isMobileDevice={isMobileDevice || false} />
           <div className="header">
             {React.isValidElement(logo) ? (
               <React.Fragment>{logo}</React.Fragment>
