@@ -67,6 +67,7 @@ interface Props extends ExtendableStyledComponent {
   onResetPasswordLink?: () => void;
   onRegisterLink?: () => void;
   mobile?: boolean;
+  submitText?: string;
 }
 
 export const LoginForm: React.FC<Props> = ({
@@ -76,6 +77,7 @@ export const LoginForm: React.FC<Props> = ({
   onRegisterLink,
   mobile = false,
   className = "",
+  submitText,
 }) => {
   const initialValues: MyFormValues = {
     email: "",
@@ -203,7 +205,7 @@ export const LoginForm: React.FC<Props> = ({
         mode={"outline"}
         onClick={() => onRegisterLink && onRegisterLink()}
       >
-        {t<string>("Login.Signup")}
+        {submitText ? submitText : t<string>("Login.Signup")}
       </Button>
     </StyledDiv>
   );

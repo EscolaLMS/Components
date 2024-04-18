@@ -104,6 +104,7 @@ export interface RegisterFormProps extends ExtendableStyledComponent {
   return_url?: string;
   /** Additional labels you can overwrite fields labels. Usable for additional fields.  */
   fieldLabels?: Record<string, React.ReactNode>;
+  submitText?: string;
 }
 
 export const RegisterForm: React.FC<RegisterFormProps> = ({
@@ -114,6 +115,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
   return_url = "",
   fieldLabels = {},
   className = "",
+  submitText,
 }) => {
   const [initialValues, setInitialValues] = useState<
     FormValues & Record<string, string | boolean>
@@ -173,7 +175,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
   return (
     <StyledDiv className={`wellms-component ${className}`} mobile={mobile}>
       <Title level={3} style={{ maxWidth: "480px", textAlign: "center" }}>
-        {t<string>("RegisterForm.Header")}
+        {submitText ? submitText : t<string>("RegisterForm.Header")}
       </Title>
       <Text level={3}>{t<string>("RegisterForm.Subtitle")}</Text>
       <Formik
@@ -369,7 +371,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
               ))}
 
             <Button mode="primary" type="submit" loading={isSubmitting} block>
-              {t<string>("Login.Signup")}
+              {submitText ? submitText : t<string>("Login.Signup")}
             </Button>
           </form>
         )}
