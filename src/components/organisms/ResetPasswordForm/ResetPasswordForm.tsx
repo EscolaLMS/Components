@@ -91,7 +91,7 @@ export const ResetPasswordForm: React.FC<Props> = ({
     ) => {
       forgot({
         email: values.email,
-        return_url: `${window.location.origin}/${return_url}`,
+        return_url: `${return_url}`,
       })
         .then(() => onFirstStepSuccess && onFirstStepSuccess())
         .catch((err: ResponseError<DefaultResponseError>) => {
