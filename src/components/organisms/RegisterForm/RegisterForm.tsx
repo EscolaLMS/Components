@@ -228,7 +228,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
         onSubmit={(values, { setSubmitting, resetForm, setErrors }) => {
           register({
             ...values,
-            return_url: `${window.location.origin}${return_url}`,
+            return_url: `${return_url}`,
           })
             .then((res: DefaultResponse<RegisterResponse>) => {
               resetForm();
