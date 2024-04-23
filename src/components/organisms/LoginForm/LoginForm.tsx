@@ -200,13 +200,17 @@ export const LoginForm: React.FC<Props> = ({
           {t<string>("Login.NotRemember")}
         </Link>
       </Text>
-      <Text size="14">{t<string>("Login.NoAccount")} </Text>
-      <Button
-        mode={"outline"}
-        onClick={() => onRegisterLink && onRegisterLink()}
-      >
-        {submitText ? submitText : t<string>("Login.Signup")}
-      </Button>
+      {!submitText && (
+        <>
+          <Text size="14">{t<string>("Login.NoAccount")} </Text>
+          <Button
+            mode={"outline"}
+            onClick={() => onRegisterLink && onRegisterLink()}
+          >
+            {submitText ? submitText : t<string>("Login.Signup")}
+          </Button>
+        </>
+      )}
     </StyledDiv>
   );
 };
