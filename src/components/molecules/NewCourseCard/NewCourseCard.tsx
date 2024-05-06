@@ -9,6 +9,7 @@ import { RatioBox } from "../../atoms/RatioBox/RatioBox";
 import { getStylesBasedOnTheme } from "../../../utils/utils";
 import { ExtendableStyledComponent } from "types/component";
 import { Text } from "../../../";
+import { useTranslation } from "react-i18next";
 
 type ImageObject = {
   path?: string;
@@ -50,6 +51,7 @@ export interface CourseCardProps
   progress?: ProgressBarProps;
   price?: ReactNode;
   actions?: ReactNode;
+  disabled?: boolean;
 }
 
 const StyledCourseCard = styled("div")<StyledCourseCardProps>`
@@ -182,6 +184,34 @@ const StyledCourseCard = styled("div")<StyledCourseCardProps>`
       transform: translateY(0);
     }
   }
+
+  &.disabled {
+    pointer-events: none;
+    .image-section {
+      opacity: 0.3;
+    }
+    .course-card__content {
+      opacity: 0.3;
+    }
+    .lost-access {
+      text-align: center;
+      width: max-content;
+      padding: 10px;
+      position: absolute;
+      bottom: 50%;
+      left: 50%;
+      transform: translate(-50%, 50%);
+      background-color: rgba(7, 7, 7, 0.6);
+      border-radius: 14px;
+      p {
+        margin-bottom: 10px;
+        color: white;
+      }
+    }
+    .lms-progress-bar {
+      opacity: 0.3;
+    }
+  }
 `;
 
 const StyledCategory = styled.span`
@@ -209,7 +239,10 @@ export const NewCourseCard: React.FC<CourseCardProps> = (props) => {
     price,
     progress,
     actions,
+    disabled,
   } = props;
+
+  const { t } = useTranslation();
 
   const imageSrc = useMemo(() => {
     if (image && ((image as ImageObject).path || (image as ImageObject).url)) {
@@ -232,12 +265,11 @@ export const NewCourseCard: React.FC<CourseCardProps> = (props) => {
 
   return (
     <StyledCourseCard
-      className={`wellms-component ${className}`}
+      className={`wellms-component ${className} ${disabled ? "disabled" : ""}`}
       hideImage={hideImage}
       mobile={mobile}
     >
       <div>
-        {" "}
         {!hideImage && (
           <div className="image-section">
             <RatioBox ratio={mobile ? 75 / 100 : 1}>
@@ -296,6 +328,13 @@ export const NewCourseCard: React.FC<CourseCardProps> = (props) => {
           </div>
         </div>
       </div>
+      {disabled && (
+        <div className="lost-access">
+          <Text>{t("LostAccess.Title")}</Text>
+
+          <Text>{t("LostAccess.Description")}</Text>
+        </div>
+      )}
 
       {progress && (
         <div>

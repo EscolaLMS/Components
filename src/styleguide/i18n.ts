@@ -252,6 +252,10 @@ export const resources = {
         Cancel: "Cancel",
         Submit: "Submit",
       },
+      LostAccess: {
+        Title: "You lost access",
+        Description: "Buy the course or subscription",
+      },
     },
   },
   fr: {
@@ -502,6 +506,10 @@ export const resources = {
         ContactDetails: "Szczegóły kontaktu",
         Cancel: "Anuluj",
         Submit: "Wyślij",
+      },
+      LostAccess: {
+        Title: "Straciłeś dostęp",
+        Description: "Wykup kurs lub subskrypcję",
       },
     },
   },
