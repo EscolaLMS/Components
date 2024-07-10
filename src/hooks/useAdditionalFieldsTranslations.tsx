@@ -7,6 +7,7 @@ const useAdditionalField = () => {
 
   const additionalFieldTranslations = useCallback(
     (fieldMeta: API.Metadata) => {
+      // @ts-ignore
       const translations = fieldMeta?.extra?.[0]?.translations;
       if (translations && typeof translations === "object") {
         return translations[i18n.language];
