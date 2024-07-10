@@ -19,7 +19,7 @@ import { getStylesBasedOnTheme } from "../../../utils/utils";
 import { ExtendableStyledComponent } from "types/component";
 import { API } from "@escolalms/sdk/lib";
 import useAdditionalFieldTranslations from "../../../hooks/useAdditionalFieldsTranslations";
-import MarkdownRenderer from "components/molecules/MarkdownRenderer/MarkdownRenderer";
+import MarkdownRenderer from "../../molecules/MarkdownRenderer/MarkdownRenderer";
 
 const StyledDiv = styled.div<{ mobile: boolean }>`
   margin: 0;
