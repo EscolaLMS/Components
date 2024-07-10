@@ -35,8 +35,6 @@ export const setThemeToLocalStorage = (
   window.dispatchEvent(new Event("themeChange"));
 };
 
-console.log(Object.keys(themes).includes(window.location.hash.substr(1)));
-
 // Hook
 export function useLocalTheme(
   initialValue: DefaultTheme = defaultTheme
