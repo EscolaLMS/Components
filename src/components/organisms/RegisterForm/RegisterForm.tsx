@@ -19,6 +19,7 @@ import { getStylesBasedOnTheme } from "../../../utils/utils";
 import { ExtendableStyledComponent } from "types/component";
 import { API } from "@escolalms/sdk/lib";
 import useAdditionalFieldTranslations from "../../../hooks/useAdditionalFieldsTranslations";
+import MarkdownRenderer from "components/molecules/MarkdownRenderer/MarkdownRenderer";
 
 const StyledDiv = styled.div<{ mobile: boolean }>`
   margin: 0;
@@ -30,8 +31,10 @@ const StyledDiv = styled.div<{ mobile: boolean }>`
   justify-content: center;
   align-items: center;
   align-content: center;
+  max-width: 470px;
   .lms-checkbox {
-    margin: 20px 0;
+    margin: 10px 0;
+    font-size: 13px;
   }
   .lsm-input {
     margin: 30px 0;
@@ -83,6 +86,19 @@ const GotAccount = styled.div`
   }
 `;
 
+const Clause = styled.div`
+  margin-top: 20px;
+  * {
+    font-size: 12px;
+  }
+`;
+
+const ProccesingWrapper = styled.div`
+  * {
+    font-size: 13px;
+  }
+`;
+
 type FormValues = {
   first_name: string;
   last_name: string;
@@ -128,7 +144,8 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
     phone: "",
   });
   const { t } = useTranslation();
-  const { register, fields, fetchFields } = useContext(EscolaLMSContext);
+  const { register, fields, fetchFields, settings } =
+    useContext(EscolaLMSContext);
   const { getFieldTranslations, filterByKey } =
     useAdditionalFieldTranslations();
   useEffect(() => {
@@ -152,11 +169,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
 
   const isAdditionalRequiredField = useCallback(
     (field: API.Metadata) => {
-      if (
-        field.type !== "boolean" &&
-        field.extra &&
-        Array.isArray(field.extra)
-      ) {
+      if (field.extra && Array.isArray(field.extra)) {
         if (
           field.extra?.some(
             (item: Record<string, string | number | boolean>) =>
@@ -329,7 +342,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
               .filter((field: API.Metadata) => {
                 const r = filterByKey(field);
 
-                return field.type !== "boolean" && !r;
+                return field.type !== "boolean" && r;
               })
               .map((field: API.Metadata, index: number) => (
                 <Input
@@ -350,10 +363,10 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
               ))}
 
             {(fields.list || [])
-              .filter((field: API.Metadata) => {
+              .filter((field) => {
                 const r = filterByKey(field);
 
-                return field.type === "boolean" && !r;
+                return field.type === "boolean" && r;
               })
               .map((field: API.Metadata, index: number) => (
                 <Checkbox
@@ -363,13 +376,57 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
                     fieldLabels[`AdditionalFields.${field.name}`] ||
                     t(`AdditionalFields.${field.name}`)
                   }
+                  required={isAdditionalRequiredField(field) as boolean}
                   id={field.name + Date.now()}
                   name={field.name}
                   onChange={handleChange}
                   onBlur={handleBlur}
+                  error={errors[field.name]}
                 />
               ))}
 
+            {settings.value.register?.processing && (
+              <ProccesingWrapper>
+                <MarkdownRenderer>
+                  {settings.value.register?.processing}
+                </MarkdownRenderer>
+                {(fields.list || [])
+                  .filter((field) => field.name.includes("processing"))
+                  .map((field: API.Metadata, index: number) => (
+                    <Checkbox
+                      key={`${field.id}${index}`}
+                      label={
+                        getFieldTranslations(field) ||
+                        fieldLabels[`AdditionalFields.${field.name}`] ||
+                        t(`AdditionalFields.${field.name}`)
+                      }
+                      required={isAdditionalRequiredField(field) as boolean}
+                      id={field.name + Date.now()}
+                      name={field.name}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      error={errors[field.name]}
+                    />
+                  ))}
+              </ProccesingWrapper>
+            )}
+            {settings.value.register?.clause1 && (
+              <Clause>
+                <MarkdownRenderer>
+                  {settings.value.register.clause1}
+                </MarkdownRenderer>
+              </Clause>
+            )}
+
+            {settings.value.register?.clause2 && (
+              <Clause>
+                <MarkdownRenderer>
+                  {settings.value.register?.clause2}
+                </MarkdownRenderer>
+              </Clause>
+            )}
+
+            {/* {settings.value.regiser} */}
             <Button mode="primary" type="submit" loading={isSubmitting} block>
               {submitText ? submitText : t<string>("Login.Signup")}
             </Button>

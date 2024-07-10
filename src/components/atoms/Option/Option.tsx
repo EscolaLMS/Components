@@ -11,6 +11,8 @@ export interface OptionType
     ExtendableStyledComponent {
   label?: React.ReactNode;
   type: "checkbox" | "radio";
+  error?: string | React.ReactNode;
+  required?: boolean;
 }
 
 const StyledDiv = styled.div<OptionType>`
@@ -29,7 +31,9 @@ const StyledDiv = styled.div<OptionType>`
     color: ${(props) =>
       getStylesBasedOnTheme(props.theme.mode, props.theme.white, "#111")};
   }
-
+  .required {
+    margin-left: 5px;
+  }
   input {
     cursor: pointer;
     transition: border-color 0.5s;
@@ -96,27 +100,84 @@ const StyledDiv = styled.div<OptionType>`
     )};
 `;
 
+const StyledWrapper = styled.div`
+  display: flex;
+  align-items: center;
+
+  font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
+  .error {
+    color: ${({ theme }) =>
+      getStylesBasedOnTheme(
+        theme.mode,
+        theme.dm__errorColor,
+        theme.errorColor,
+        theme.errorColor
+      )};
+    padding-left: 12px;
+    font-size: 12px;
+    line-height: 15px;
+  }
+  .required {
+    color: ${({ theme }) =>
+      getStylesBasedOnTheme(
+        theme.mode,
+        theme.dm__errorColor,
+        theme.errorColor,
+        theme.errorColor
+      )};
+    margin-right: 5px;
+    margin-top: 5px;
+  }
+`;
+
+const StyledContainer = styled.div`
+  font-family: ${(props) => getFontFromTheme(props.theme).fontFamily};
+  .error {
+    color: ${({ theme }) =>
+      getStylesBasedOnTheme(
+        theme.mode,
+        theme.dm__errorColor,
+        theme.errorColor,
+        theme.errorColor
+      )};
+    padding-left: 12px;
+    font-size: 12px;
+    line-height: 15px;
+  }
+`;
+
 export const Option: React.FC<OptionType> = (props) => {
-  const { label, type, className = "" } = props;
+  const { label, type, className = "", required, error } = props;
 
   if (label) {
     return (
-      <StyledDiv
-        type={type}
-        className={`wellms-component lms-${type} ${className}`}
-      >
-        <label>
-          <input {...props} type={type} />
-          <span>{label}</span>
-        </label>
-      </StyledDiv>
+      <StyledContainer>
+        <StyledWrapper>
+          {required && <span className="required">*</span>}
+          <StyledDiv
+            type={type}
+            className={`wellms-component lms-${type} ${className}`}
+          >
+            <label>
+              <input {...props} type={type} /> <span>{label}</span>
+            </label>
+          </StyledDiv>
+        </StyledWrapper>{" "}
+        {error && <div className="error">{error}</div>}
+      </StyledContainer>
     );
   }
 
   return (
-    <StyledDiv className="wellms-component" type={type}>
-      <input {...props} type={type} />
-    </StyledDiv>
+    <StyledContainer>
+      <StyledWrapper>
+        {required && <span className="required">*</span>}
+        <StyledDiv className="wellms-component" type={type}>
+          <input {...props} type={type} />{" "}
+        </StyledDiv>{" "}
+      </StyledWrapper>
+      {error && <div className="error">{error}</div>}
+    </StyledContainer>
   );
 };
 

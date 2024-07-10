@@ -7,7 +7,6 @@ const useAdditionalField = () => {
 
   const additionalFieldTranslations = useCallback(
     (fieldMeta: API.Metadata) => {
-      //@ts-ignore
       const translations = fieldMeta?.extra?.[0]?.translations;
       if (translations && typeof translations === "object") {
         return translations[i18n.language];
@@ -20,14 +19,13 @@ const useAdditionalField = () => {
 
   const filter = useCallback(
     (fieldMeta: API.Metadata, keyName = "register") => {
-      return (
-        Array.isArray(fieldMeta.extra) &&
-        fieldMeta.extra.filter(
-          (item: Record<string, string | number | boolean> | null) => {
-            return item && item[keyName];
-          }
-        )
-      );
+      if (Array.isArray(fieldMeta.extra)) {
+        return fieldMeta.extra.some(
+          (item) =>
+            item && (item[keyName] === undefined || item[keyName] === true)
+        );
+      }
+      return false;
     },
     []
   );
