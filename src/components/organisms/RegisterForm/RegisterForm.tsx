@@ -372,9 +372,14 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
                 <Checkbox
                   key={`${field.id}${index}`}
                   label={
-                    getFieldTranslations(field) ||
-                    fieldLabels[`AdditionalFields.${field.name}`] ||
-                    t(`AdditionalFields.${field.name}`)
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html:
+                          getFieldTranslations(field) ||
+                          fieldLabels[`AdditionalFields.${field.name}`] ||
+                          t(`AdditionalFields.${field.name}`),
+                      }}
+                    />
                   }
                   required={isAdditionalRequiredField(field) as boolean}
                   id={field.name + Date.now()}
