@@ -76,13 +76,25 @@ const StyledCourseCard = styled("div")<StyledCourseCardProps>`
   height: 100%;
   width: 100%;
   flex-shrink: 0;
+  border-radius: 14px;
+  border: 1px solid transparent;
+  transition: transform 0.3s ease-in-out, border 0.3s ease-in-out,
+    box-shadow 0.3s ease-in-out;
+  padding: 6px 6px 16px 6px;
+  overflow: hidden;
 
   .image-section {
     position: relative;
     z-index: 0;
-
+    border-radius: ${({ theme }) => theme.cardRadius}px;
+    overflow: hidden;
+    transform: rotate(0);
     a > div {
       height: 100%;
+    }
+
+    img {
+      transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
     }
   }
   .information-in-image {
@@ -93,7 +105,6 @@ const StyledCourseCard = styled("div")<StyledCourseCardProps>`
     flex-direction: column;
   }
   .badges {
-    padding: 16px 8px;
     align-self: end;
     display: flex;
     gap: 10px;
@@ -109,7 +120,7 @@ const StyledCourseCard = styled("div")<StyledCourseCardProps>`
     border-radius: ${({ theme }) => theme.cardRadius}px;
   }
   .course-section {
-    margin-top: ${(props) => (props.mobile ? "15px" : "28px")};
+    margin-top: ${(props) => (props.mobile ? "15px" : " 8px")};
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -146,7 +157,7 @@ const StyledCourseCard = styled("div")<StyledCourseCardProps>`
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    height: 75px;
+    min-height: 60px;
 
     a {
       text-decoration: none;
@@ -157,27 +168,40 @@ const StyledCourseCard = styled("div")<StyledCourseCardProps>`
   }
   /* stylelint-enable */
   .categories {
-    font-size: 14px;
-    line-height: 17px;
-    color: ${({ theme, hideImage }) => (hideImage ? theme.gray2 : theme.gray3)};
-    margin-bottom: 15px;
+    min-height: 20px;
+    color: ${({ theme }) => theme.textColor};
+    font-family: ${({ theme }) => theme.font};
+    margin-bottom: 7px;
+    margin-top: 10px;
+    width: fit-content;
+    text-transform: uppercase;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+
     * {
-      font-size: 14px;
+      font-size: 18px;
       line-height: 17px;
       color: ${({ theme, hideImage }) =>
         getStylesBasedOnTheme(
           theme.mode,
           theme.dm__breadcrumbsColor,
-          theme.breadcrumbsColor,
+          theme.textColor,
           hideImage ? theme.gray2 : theme.gray3
         )};
+    }
+    span {
+      padding: 2px 4px;
+      background-color: ${({ theme }) => theme.secondaryColor};
+      border-radius: 3px;
+      font-size: 11px;
     }
   }
   .footer,
   .lesson-container {
     display: flex;
     align-items: center;
-    margin-bottom: ${(props) => (props.mobile ? "15px" : "30px")};
+    margin-bottom: ${(props) => (props.mobile ? "15px" : "10px")};
     gap: ${(props) => (props.mobile ? "15px" : "30px")};
   }
   .lessons-count {
@@ -207,11 +231,27 @@ const StyledCourseCard = styled("div")<StyledCourseCardProps>`
     margin-top: auto;
     display: flex;
     flex-direction: column;
-    min-height: 43px;
   }
 
   .escolalms-image {
     height: 100%;
+  }
+  &:hover {
+    border: ${(props) =>
+      props.mobile ? "none" : `1px solid ${props.theme.gray3}`};
+    box-shadow: ${(props) =>
+      props.mobile ? "none" : `0px 5px 15px #00000012`};
+    transform: ${(props) => (props.mobile ? "none" : "translateY(-7px)")};
+
+    .image-section {
+      img {
+        transform: scale(1.1) !important;
+      }
+    }
+
+    .course-price {
+      transform: translateY(0);
+    }
   }
 `;
 
@@ -293,6 +333,39 @@ export const CourseCard: React.FC<CourseCardProps> = (props) => {
   const renderCourseSection = () => {
     return (
       <>
+        <div className="categories">
+          {React.isValidElement(categories) ? (
+            <>{categories}</>
+          ) : (
+            categories &&
+            isCategories(categories) && (
+              <Text className="categories">
+                {categories.categoryElements.map((category, index) => {
+                  return (
+                    <React.Fragment key={index}>
+                      <StyledCategory
+                        className="category"
+                        key={category.id}
+                        onClick={() => categories.onCategoryClick(category.id)}
+                        onKeyDown={() =>
+                          categories.onCategoryClick(category.id)
+                        }
+                        role="button"
+                        tabIndex={0}
+                      >
+                        {category.name}
+                      </StyledCategory>
+                      {categories.categoryElements.length !== index + 1 && (
+                        <span> / </span>
+                      )}
+                    </React.Fragment>
+                  );
+                })}
+              </Text>
+            )
+          )}
+        </div>
+
         {React.isValidElement(title) ? (
           title
         ) : (
@@ -300,38 +373,7 @@ export const CourseCard: React.FC<CourseCardProps> = (props) => {
             {title}
           </Title>
         )}
-
-        {React.isValidElement(categories) ? (
-          <div className="categories">{categories}</div>
-        ) : (
-          categories &&
-          isCategories(categories) && (
-            <Text className="categories">
-              {categories.categoryElements.map((category, index) => {
-                return (
-                  <React.Fragment key={index}>
-                    <StyledCategory
-                      className="category"
-                      key={category.id}
-                      onClick={() => categories.onCategoryClick(category.id)}
-                      onKeyDown={() => categories.onCategoryClick(category.id)}
-                      role="button"
-                      tabIndex={0}
-                    >
-                      {category.name}
-                    </StyledCategory>
-                    {categories.categoryElements.length !== index + 1 && (
-                      <span> / </span>
-                    )}
-                  </React.Fragment>
-                );
-              })}
-            </Text>
-          )
-        )}
-
         {footer && <footer className="footer">{footer}</footer>}
-
         <div className={"card-course-footer"}>
           {actions && (
             <div className={"course-card-buttons-group"}>{actions}</div>
@@ -383,34 +425,35 @@ export const CourseCard: React.FC<CourseCardProps> = (props) => {
               )}
             </RatioBox>
           </ImgWrapper>
-        </div>
-      )}
-      {!hideImage && (
-        <div className="information-in-image">
-          <div className="badges">
-            {React.isValidElement(tags)
-              ? tags
-              : Array.isArray(tags) &&
-                tags.map((tag: Tag) => (
-                  <Badge
-                    className="tag"
-                    key={tag.id}
-                    onClick={(e) => tagClick(e, tag.title)}
-                    color={theme.gray2}
-                  >
-                    {tag.title}
-                  </Badge>
-                ))}
-          </div>
-          {/* {props.subtitle && (
+          {!hideImage && tags && (
+            <div className="information-in-image">
+              <div className="badges">
+                {React.isValidElement(tags)
+                  ? tags
+                  : Array.isArray(tags) &&
+                    tags.map((tag: Tag) => (
+                      <Badge
+                        className="tag"
+                        key={tag.id}
+                        onClick={(e) => tagClick(e, tag.title)}
+                        color={theme.gray2}
+                      >
+                        {tag.title}
+                      </Badge>
+                    ))}
+              </div>
+              {/* {props.subtitle && (
               <div className="card">
                 <Card wings="small">
                   <div className={"card-subtitle"}>{props.subtitle}</div>
                 </Card>
               </div>
             )} */}
+            </div>
+          )}
         </div>
       )}
+
       {hideImage ? (
         <Card wings="large">{renderCourseSection()}</Card>
       ) : (
