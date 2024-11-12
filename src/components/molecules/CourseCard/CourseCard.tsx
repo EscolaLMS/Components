@@ -81,7 +81,6 @@ const StyledCourseCard = styled("div")<StyledCourseCardProps>`
   transition: transform 0.3s ease-in-out, border 0.3s ease-in-out,
     box-shadow 0.3s ease-in-out;
   padding: 6px 6px 16px 6px;
-  overflow: hidden;
 
   .image-section {
     position: relative;
