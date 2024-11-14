@@ -96,7 +96,7 @@ export const LoginForm: React.FC<Props> = ({
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         error: user?.error?.data?.message || user?.error?.message,
-        ...user.error.errors,
+        ...user?.error?.errors,
       });
       onError?.(user.error);
     } else {
@@ -135,7 +135,10 @@ export const LoginForm: React.FC<Props> = ({
             remember_me: values.remember_me ? 1 : 0,
           })
             .catch((err: ResponseError<DefaultResponseError>) => {
-              setErrors({ error: err?.data?.message, ...err.data.errors });
+              setErrors({
+                error: err?.data?.message,
+                ...(err?.data?.errors || {}),
+              });
               onError?.(err?.data);
             })
             .finally(() => setSubmitting(false));
