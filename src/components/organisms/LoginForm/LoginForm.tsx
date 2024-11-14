@@ -136,7 +136,7 @@ export const LoginForm: React.FC<Props> = ({
           })
             .catch((err: ResponseError<DefaultResponseError>) => {
               setErrors({ error: err?.data?.message, ...err.data.errors });
-              onError?.(err.data);
+              onError?.(err?.data);
             })
             .finally(() => setSubmitting(false));
         }}
