@@ -52,6 +52,7 @@ export interface CourseCardProps
   price?: ReactNode;
   actions?: ReactNode;
   disabled?: boolean;
+  footer?: ReactNode;
 }
 
 const StyledCourseCard = styled("div")<StyledCourseCardProps>`
@@ -240,6 +241,7 @@ export const NewCourseCard: React.FC<CourseCardProps> = (props) => {
     progress,
     actions,
     disabled,
+    footer,
   } = props;
 
   const { t } = useTranslation();
@@ -319,13 +321,14 @@ export const NewCourseCard: React.FC<CourseCardProps> = (props) => {
               </Text>
             )
           )}
-          <div className="course-title">{title}</div>
+          <div className="course-title">{title}</div>{" "}
+          <div className="course-price">{price}</div>
           <div className="course-actions">
             {actions && (
               <div className={"course-card-buttons-group"}>{actions}</div>
             )}
-            <div className="course-price">{price}</div>
           </div>
+          {footer && <footer className="footer">{footer}</footer>}
         </div>
       </div>
       {disabled && (
