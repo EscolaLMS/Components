@@ -240,7 +240,6 @@ const StyledCourseCard = styled("div")<StyledCourseCardProps>`
       props.mobile ? "none" : `1px solid ${props.theme.gray3}`};
     box-shadow: ${(props) =>
       props.mobile ? "none" : `0px 5px 15px #00000012`};
-    transform: ${(props) => (props.mobile ? "none" : "translateY(-7px)")};
 
     .image-section {
       img {
