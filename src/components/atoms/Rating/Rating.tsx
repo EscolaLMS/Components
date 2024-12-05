@@ -109,7 +109,7 @@ export const Rating: React.FC<RatingProps> = (props) => {
   const {
     count = 5,
     ratingValue,
-    label,
+    // label,
     onRateClick,
     onIconEnter,
     onIconLeave,
@@ -118,7 +118,7 @@ export const Rating: React.FC<RatingProps> = (props) => {
   const startToRender = Array.from(Array(count).keys());
   return (
     <StyledRating
-      size={props.size}
+      size={props.count}
       ratingValue={ratingValue}
       className={`wellms-component lms-rating ${className}`}
     >
@@ -153,7 +153,7 @@ export const Rating: React.FC<RatingProps> = (props) => {
           />
         );
       })}
-      {label && <span className="label">{label}</span>}
+      {/* {label && <span className="label">{label}</span>} */}
     </StyledRating>
   );
 };
