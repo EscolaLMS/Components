@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useTranslation } from "react-i18next";
 import { format, isAfter } from "date-fns";
 import { Formik, FormikErrors } from "formik";
-import { Task, TaskNote } from "@escolalms/sdk/lib/types/api";
+import { Task, TaskNote } from "@escolalms/sdk/lib/types";
 import { AddTaskNote, EditTaskNote } from "../../TaskNote";
 import { HiOutlineDocumentText } from "react-icons/hi";
 import {

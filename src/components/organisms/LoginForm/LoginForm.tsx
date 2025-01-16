@@ -5,7 +5,7 @@ import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import type {
   DefaultResponseError,
   DefaultResponse,
-} from "@escolalms/sdk/lib/types/api";
+} from "@escolalms/sdk/lib/types";
 import type { ResponseError } from "umi-request";
 
 import styled, { withTheme } from "styled-components";

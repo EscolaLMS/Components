@@ -6,7 +6,7 @@ import { Input } from "../../atoms/Input/Input";
 import { TextArea } from "../../atoms/TextArea/TextArea";
 import Button from "../../atoms/Button/Button";
 import Link from "../../atoms/Link/Link";
-import type { DefaultResponseError } from "@escolalms/sdk/lib/types/api";
+import type { DefaultResponseError } from "@escolalms/sdk/lib/types";
 import type { ResponseError } from "umi-request";
 import { Formik } from "formik";
 import { t } from "i18next";
