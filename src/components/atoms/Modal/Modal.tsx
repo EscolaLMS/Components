@@ -31,7 +31,7 @@ const CloseBtn = () => (
 const StyledGlobal = createGlobalStyle<ModalProps>`
   .rc-dialog {
     position: relative;
-
+    border-radius: ${({ theme }) => theme.buttonRadius}px;
     &-wrap {
       position: fixed;
       overflow: auto;
