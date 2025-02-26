@@ -73,7 +73,7 @@ export const BreadCrumbs: React.FC<BreadCrumbsProps> = ({
     >
       <ul>
         {items.map((node, i) => (
-          <React.Fragment key={i}>
+          <React.Fragment key={`breadcrumb-${getUniqueId(String(node))}-${i}`}>
             <li itemScope itemType="http://data-vocabulary.org/Breadcrumb">
               {node}
             </li>

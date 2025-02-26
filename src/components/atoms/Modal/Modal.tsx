@@ -13,7 +13,9 @@ const CloseBtn = () => (
     width="18"
     height="18"
     viewBox="0 0 18 18"
+    aria-label="Close modal"
   >
+    <title>Close modal</title>
     <g id="close" transform="translate(0 -0.005)">
       <g id="Group_68" data-name="Group 68" transform="translate(0 0.005)">
         <path
@@ -53,7 +55,7 @@ const StyledGlobal = createGlobalStyle<ModalProps>`
       line-height: 21px;
       font-weight: bold;
     }
-
+    &-section,
     &-content {
       position: relative;
       background-color: ${({ theme }) =>

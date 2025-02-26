@@ -1,7 +1,6 @@
 /* eslint-disable no-case-declarations */
 import { FC, ReactNode, useContext, useState } from "react";
-import { BiListCheck, BiListMinus, BiListPlus, BiListUl } from "react-icons/bi";
-import { MdMoreHoriz, MdEditNote, MdDeleteForever } from "react-icons/md";
+
 import {
   Button,
   Checkbox,
@@ -15,6 +14,7 @@ import {
   Modal,
   ModalAddTask,
   Stack,
+  Icon,
 } from "../../..";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { isAfter, isBefore, isToday, isTomorrow } from "date-fns";
@@ -197,7 +197,7 @@ export const TasksComponent: FC<TasksComponentProps> = ({
   const listItems = [
     {
       id: 0,
-      icon: <BiListUl size="1.2em" />,
+      icon: <Icon name="list" />,
       text: t<string>("Tasks.AllTasks"),
       numberOfItems: tasksList
         ? filterTasks(
@@ -209,7 +209,7 @@ export const TasksComponent: FC<TasksComponentProps> = ({
     },
     {
       id: 1,
-      icon: <BiListCheck size="1.2em" />,
+      icon: <Icon name="listCheck" />,
       text: t<string>("Tasks.TodayTasks"),
       numberOfItems: tasksList
         ? filterTasks(
@@ -221,7 +221,7 @@ export const TasksComponent: FC<TasksComponentProps> = ({
     },
     {
       id: 2,
-      icon: <BiListPlus size="1.2em" />,
+      icon: <Icon name="listAdd" />,
       text: t<string>("Tasks.UpcomingTasks"),
       numberOfItems: tasksList
         ? filterTasks(
@@ -233,7 +233,7 @@ export const TasksComponent: FC<TasksComponentProps> = ({
     },
     {
       id: 3,
-      icon: <BiListMinus size="1.2em" />,
+      icon: <Icon name="listSubstract" />,
       text: t<string>("Tasks.OverdueTasks"),
       numberOfItems: tasksList
         ? filterTasks(
@@ -250,7 +250,7 @@ export const TasksComponent: FC<TasksComponentProps> = ({
       id: 10,
       content: (
         <IconText
-          icon={<MdEditNote />}
+          icon={<Icon name="editAll" />}
           text="Edit"
           onClick={() => openModal("editTask")}
         />
@@ -260,7 +260,7 @@ export const TasksComponent: FC<TasksComponentProps> = ({
       id: 20,
       content: (
         <IconText
-          icon={<MdDeleteForever />}
+          icon={<Icon name="delete" />}
           text="Delete"
           onClick={() => openModal("deleteTask")}
         />
@@ -335,7 +335,7 @@ export const TasksComponent: FC<TasksComponentProps> = ({
                 menuItems={sortOptions.options}
               />
               <DropdownMenu
-                child={<MdMoreHoriz size="1.6em" />}
+                child={<Icon name="more" />}
                 menuItems={taskShowAction.options}
               />
             </TasksContentHeader>
@@ -379,7 +379,7 @@ export const TasksComponent: FC<TasksComponentProps> = ({
                       onClick={() =>
                         item !== taskForActions && setTaskForActions(item)
                       }
-                      child={<MdMoreHoriz size="1.6em" />}
+                      child={<Icon name="more" />}
                       menuItems={taskAction}
                     />
                   </TaskDateWrapper>

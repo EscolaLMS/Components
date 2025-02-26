@@ -1,14 +1,14 @@
 ```js
 import ThemeTester from "../../../styleguide/ThemeTester";
-import { MdMoreHoriz, MdEditNote, MdDeleteForever } from "react-icons/md";
-import { IconText } from "../../../";
+
+import { IconText, Icon } from "../../../";
 
 const menuItems = [
   {
     id: 10,
     content: (
       <IconText
-        icon={<MdEditNote />}
+        icon={<Icon name="editAll" />}
         text="Edit"
         onClick={() => console.log("edit")}
       />
@@ -18,7 +18,7 @@ const menuItems = [
     id: 20,
     content: (
       <IconText
-        icon={<MdDeleteForever />}
+        icon={<Icon name="delete" />}
         text="Delete"
         onClick={() => console.log("delete")}
       />
@@ -27,6 +27,6 @@ const menuItems = [
 ];
 
 <ThemeTester>
-  <DropdownMenu menuItems={menuItems} child={<MdMoreHoriz size="1.6em" />} />
+  <DropdownMenu menuItems={menuItems} child={<Icon name="more" />} />
 </ThemeTester>;
 ```

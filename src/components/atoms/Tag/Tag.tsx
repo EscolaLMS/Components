@@ -1,7 +1,6 @@
-import * as React from "react";
-
+import type * as React from "react";
 import styled, { withTheme } from "styled-components";
-import { ExtendableStyledComponent } from "types/component";
+import type { ExtendableStyledComponent } from "types/component";
 import { getStylesBasedOnTheme } from "../../../utils/utils";
 import { getFontFromTheme } from "../../../theme/provider";
 
