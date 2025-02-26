@@ -7,3 +7,4 @@ lib
 .idea
 *.config.js
 .eslintrc.js
+*.d.ts
