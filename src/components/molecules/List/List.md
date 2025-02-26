@@ -1,32 +1,32 @@
 ```js
 import { useState } from "react";
 import ThemeTester from "../../../styleguide/ThemeTester";
-import { BiListCheck, BiListMinus, BiListPlus, BiListUl } from "react-icons/bi";
 
+import { IconText, Icon } from "../../../";
 const [selectedListItem, setSelectedListItem] = useState(0);
 
 const listItems = [
   {
     id: 0,
-    icon: <BiListUl />,
+    icon: <Icon name="list" />,
     text: "All tasks",
     numberOfItems: 10,
   },
   {
     id: 1,
-    icon: <BiListCheck />,
+    icon: <Icon name="listCheck" />,
     text: "Today tasks",
     numberOfItems: 6,
   },
   {
     id: 2,
-    icon: <BiListPlus />,
+    icon: <Icon name="listAdd" />,
     text: "Upcoming tasks",
     numberOfItems: 2,
   },
   {
     id: 3,
-    icon: <BiListMinus />,
+    icon: <Icon name="listSubstract" />,
     text: "Overdue tasks",
     numberOfItems: 2,
   },

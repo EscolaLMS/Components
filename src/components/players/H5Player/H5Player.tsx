@@ -533,7 +533,7 @@ export const H5Player: React.FC<H5PProps> = ({
     )}!important;
    }
    .h5p-content ul.h5p-actions {
-    display: ${hideActionButtons ? 'none' : 'block'};
+    display: ${hideActionButtons ? "none" : "block"};
   }
   `;
     return `data:text/css;base64,${btoa(css)}`;

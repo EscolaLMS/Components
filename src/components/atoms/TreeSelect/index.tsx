@@ -3,9 +3,10 @@ import ReactTreeSelect, {
   TreeSelectProps as ReactTreeSelectProps,
 } from "rc-tree-select";
 import styled from "styled-components";
-import { AiOutlineRight } from "react-icons/ai";
+import { Icon } from "../../../";
 import { getFontFromTheme } from "../../../theme/provider";
 import { getStylesBasedOnTheme } from "../../../utils/utils";
+
 export type TreeSelectProps<ValueType> = Omit<
   ReactTreeSelectProps<ValueType>,
   "switcherIcon" | "inputIcon" | "treeNodeLabelProp" | "getPopupContainer"
@@ -156,7 +157,9 @@ export const TreeSelect = <ValueType,>({
       <ReactTreeSelect
         {...props}
         placeholder={placeholder}
-        switcherIcon={<AiOutlineRight />}
+        switcherIcon={
+          <Icon name="chevronLeft" styles={{ with: 5, height: 10 }} />
+        }
         treeNodeLabelProp="label"
         getPopupContainer={() => wrapperRef.current as HTMLDivElement}
       />

@@ -7,7 +7,7 @@ import { getStylesBasedOnTheme } from "../../../utils/utils";
 import { getUniqueId } from "../../../utils/utils";
 import { ExtendableStyledComponent } from "types/component";
 import { useState } from "react";
-import { BookmarkableType } from "@escolalms/sdk/lib/types/enums";
+import { BookmarkableType } from "@escolalms/sdk/lib/types/api";
 
 interface StyledAsideProps {
   mobile?: boolean;

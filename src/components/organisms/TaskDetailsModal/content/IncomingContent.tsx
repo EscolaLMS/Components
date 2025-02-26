@@ -12,9 +12,9 @@ import {
   Text,
   TextArea,
   Title,
+  Icon,
 } from "../../../../";
 import { RelatedTreeSelect } from "../../../molecules/RelatedTreeSelect";
-import { HiOutlineDocumentText, HiOutlineCalendar } from "react-icons/hi";
 
 import {
   LeftCol,
@@ -97,7 +97,7 @@ export const IncomingContent: React.FC<Props> = ({
           )}
           <NotesContainer>
             <Row $alignItems="center" $gap={4}>
-              <HiOutlineDocumentText />
+              <Icon name="note" />
               <Title level={5}>{t<string>("Tasks.Notes")}</Title>
             </Row>
             <Stack $gap={8}>
@@ -117,7 +117,7 @@ export const IncomingContent: React.FC<Props> = ({
       <RightCol>
         <Text noMargin>{t("TaskDetails.Due", { defaultValue: "Due" })}</Text>
         <DueDate>
-          <HiOutlineCalendar />
+          <Icon name="calendar" />
           <Input
             type="date"
             disabled

@@ -6,7 +6,7 @@ import { format, isAfter } from "date-fns";
 import { Formik, FormikErrors } from "formik";
 import { Task, TaskNote } from "@escolalms/sdk/lib/types/api";
 import { AddTaskNote, EditTaskNote } from "../../TaskNote";
-import { HiOutlineDocumentText } from "react-icons/hi";
+
 import {
   Button,
   Checkbox,
@@ -15,6 +15,7 @@ import {
   Text,
   TextArea,
   Title,
+  Icon,
 } from "../../../../";
 import {
   RelatedTreeSelect,
@@ -209,7 +210,7 @@ export const PersonalContent: React.FC<Props> = ({
                 />
                 <NotesContainer>
                   <Row $alignItems="center" $gap={4}>
-                    <HiOutlineDocumentText />
+                    <Icon name="note" />
                     <Title level={5}>{t<string>("Tasks.Notes")}</Title>
                   </Row>
                   <div>

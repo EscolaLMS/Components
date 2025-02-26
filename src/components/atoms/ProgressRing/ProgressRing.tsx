@@ -1,6 +1,6 @@
 import styled, { withTheme } from "styled-components";
 import { getStylesBasedOnTheme } from "../../../utils/utils";
-import { ExtendableStyledComponent } from "types/component";
+import type { ExtendableStyledComponent } from "types/component";
 
 const StyledSvg = styled("svg")`
   .progress_ring__top {

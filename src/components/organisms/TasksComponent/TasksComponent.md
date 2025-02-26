@@ -2,14 +2,7 @@
 import { useState } from "react";
 import { EscolaLMSContextProvider } from "@escolalms/sdk/lib/react/context";
 import { ThemeTester } from "../../../styleguide";
-import { IconText } from "../../../";
-import {
-  MdMoreHoriz,
-  MdEditNote,
-  MdDeleteForever,
-  MdCheck,
-  MdClose,
-} from "react-icons/md";
+import { IconText, Icon } from "../../../";
 
 const [sort, setSort] = useState("Ascending");
 const [createBy, setCreateBy] = useState("Personal");
@@ -20,7 +13,7 @@ const taskShowAction = [
     id: 1,
     content: (
       <IconText
-        icon={showDone ? <MdCheck size="1.6em" /> : <MdClose size="1.6em" />}
+        icon={showDone ? <Icon name="finished" /> : <Icon name="close" />}
         text="Tasks.ShowDone"
         onClick={() => setShowDone(!showDone)}
       />
@@ -33,7 +26,7 @@ const sortType = [
     id: 0,
     content: (
       <IconText
-        icon={<MdEditNote />}
+        icon={<Icon name="editAll" />}
         text="Ascending"
         onClick={() => setSort("Ascending")}
       />
@@ -43,7 +36,7 @@ const sortType = [
     id: 1,
     content: (
       <IconText
-        icon={<MdEditNote />}
+        icon={<Icon name="editAll" />}
         text="Descending"
         onClick={() => setSort("Descending")}
       />
@@ -56,7 +49,7 @@ const taskCreateBy = [
     id: 0,
     content: (
       <IconText
-        icon={<MdEditNote />}
+        icon={<Icon name="editAll" />}
         text="Personal"
         onClick={() => setCreateBy("Personal")}
       />
@@ -66,7 +59,7 @@ const taskCreateBy = [
     id: 1,
     content: (
       <IconText
-        icon={<MdEditNote />}
+        icon={<Icon name="editAll" />}
         text="Incoming"
         onClick={() => setCreateBy("Incoming")}
       />
