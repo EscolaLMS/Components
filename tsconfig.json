@@ -27,5 +27,7 @@
       "@src/*": ["src/*"]
     }
   },
-  "include": ["./src/**/*", "./node_modules/@escolalms/ts-models/models.d.ts"]
+  "include": ["./src/**/*", "./node_modules/@escolalms/ts-models/models.d.ts"],
+
+  "exclude": ["./src/**/*.d.ts"]
 }
