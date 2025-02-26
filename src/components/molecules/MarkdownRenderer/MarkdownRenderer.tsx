@@ -1,11 +1,11 @@
-import React, { useId, useState } from "react";
+import React, { useEffect, useId, useState } from "react";
 import styled, { createGlobalStyle, withTheme } from "styled-components";
 import ReactMarkdown from "react-markdown";
 import { ReactMarkdownOptions } from "react-markdown/lib/react-markdown";
-import rehypeRaw from "rehype-raw";
-import remarkGfm from "remark-gfm";
-import remarkMath from "remark-math";
-import rehypeKatex from "rehype-katex";
+// import rehypeRaw from "rehype-raw";
+// import remarkGfm from "remark-gfm";
+// import remarkMath from "remark-math";
+// import rehypeKatex from "rehype-katex";
 import "katex/dist/katex.min.css";
 import { Gallery, Item } from "react-photoswipe-gallery";
 import chroma from "chroma-js";
@@ -204,6 +204,23 @@ ${SharedLightboxStyle}
 
 export const MarkdownRenderer: React.FC<MarkdownRendererProps> = (props) => {
   const { mobile = false, fontSize = "16", children, className } = props;
+  const [rehypePlugins, setRehypePlugins] = useState<any[]>([]);
+  const [remarkPlugins, setRemarkPlugins] = useState<any[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      const [rehypeRaw, rehypeKatex, remarkGfm, remarkMath] = await Promise.all(
+        [
+          import("rehype-raw").then((mod) => mod.default),
+          import("rehype-katex").then((mod) => mod.default),
+          import("remark-gfm").then((mod) => mod.default),
+          import("remark-math").then((mod) => mod.default),
+        ]
+      );
+      setRehypePlugins([rehypeRaw, rehypeKatex]);
+      setRemarkPlugins([remarkGfm, remarkMath]);
+    })();
+  }, []);
 
   return (
     <StyledMarkdownRenderer
@@ -213,8 +230,8 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = (props) => {
     >
       <ReactMarkdown
         linkTarget="_blank"
-        rehypePlugins={[rehypeRaw, rehypeKatex]}
-        remarkPlugins={[remarkGfm, remarkMath]}
+        rehypePlugins={rehypePlugins}
+        remarkPlugins={remarkPlugins}
         components={{
           img: (props) => {
             return <MarkdownImage {...props} />;
