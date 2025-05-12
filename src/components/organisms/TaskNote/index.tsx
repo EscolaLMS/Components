@@ -2,7 +2,7 @@ import React, { useContext, useState, useCallback, useRef } from "react";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
 import { useTranslation } from "react-i18next";
 import { Button, Row, Spin, TextArea } from "../../../";
-import { TaskNote } from "@escolalms/sdk/lib/types/api";
+import { TaskNote } from "@escolalms/sdk/lib/types";
 import { AddNoteWrapper } from "../TaskDetailsModal/content/common";
 import useAutosizeTextArea from "../../../hooks/useAutosizeTextArea";
 

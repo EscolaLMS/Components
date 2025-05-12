@@ -5,7 +5,7 @@ import styled, { withTheme } from "styled-components";
 import { ResponseError } from "umi-request";
 import { API } from "@escolalms/sdk/lib";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
-import { DefaultResponseError } from "@escolalms/sdk/lib/types/api";
+import { DefaultResponseError } from "@escolalms/sdk/lib/types";
 
 import { Button } from "../../atoms/Button/Button";
 import { Input } from "../../atoms/Input/Input";

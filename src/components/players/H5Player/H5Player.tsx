@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useMemo } from "react";
 import styled, { withTheme, ThemeContext } from "styled-components";
 import { XAPIEvent, ContextlessPlayer as Player } from "@escolalms/h5p-react";
 
-import * as API from "@escolalms/sdk/lib/types/api";
+import * as API from "@escolalms/sdk/lib/types";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react/context";
 import { getFontFromTheme } from "../../../theme/provider";
 import { Spin } from "../../atoms/Spin/Spin";

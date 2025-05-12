@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Lesson } from "@escolalms/sdk/lib/types/api";
+import { Lesson } from "@escolalms/sdk/lib/types";
 
 import { useCourseAgendaContext } from "../context";
 import CourseAgendaTopic from "../CourseAgendaTopic";
@@ -46,8 +46,11 @@ export const CourseAgendaLesson: React.FC<CourseAgendaLessonProps> = ({
 
   const isLessonActive = useMemo(
     () =>
-      !!(lesson.active_from === null ||
-      (lesson.active_from && isAfter(new Date(), new Date(lesson.active_from)))),
+      !!(
+        lesson.active_from === null ||
+        (lesson.active_from &&
+          isAfter(new Date(), new Date(lesson.active_from)))
+      ),
     [lesson.id]
   );
 
@@ -79,7 +82,7 @@ export const CourseAgendaLesson: React.FC<CourseAgendaLessonProps> = ({
     <StyledLessonItem
       className={`lesson__item ${open ? "open" : "closed"} ${
         isAncestor && !isRootAncestor && open ? "full-border" : ""
-      } ${!isSubLesson ? "bottom-border" : ""} ${isMobile ? 'mobile' : ''}`}
+      } ${!isSubLesson ? "bottom-border" : ""} ${isMobile ? "mobile" : ""}`}
       aria-label={`${t<string>("Course.Lesson")} ${index + 1}`}
     >
       <Header

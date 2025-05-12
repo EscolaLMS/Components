@@ -6,11 +6,11 @@ import type {
   DefaultResponse,
   DefaultResponseError,
   RegisterResponse,
-} from "@escolalms/sdk/lib/types/api";
+} from "@escolalms/sdk/lib/types";
 import type { ResponseError } from "umi-request";
 
 //import "@escolalms/ts-models";
-//import "@escolalms/sdk/lib/types/api";
+//import "@escolalms/sdk/lib/types";
 
 import styled, { withTheme } from "styled-components";
 

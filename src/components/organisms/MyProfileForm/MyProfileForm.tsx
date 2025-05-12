@@ -2,7 +2,7 @@ import { Formik, FormikErrors } from "formik";
 import { useContext, useState, useEffect, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { EscolaLMSContext } from "@escolalms/sdk/lib/react";
-import type { DefaultResponseError } from "@escolalms/sdk/lib/types/api";
+import type { DefaultResponseError } from "@escolalms/sdk/lib/types";
 import type { ResponseError } from "umi-request";
 
 import { API } from "@escolalms/sdk/lib";
