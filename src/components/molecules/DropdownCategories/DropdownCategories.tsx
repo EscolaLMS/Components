@@ -4,7 +4,7 @@ import styled, { withTheme } from "styled-components";
 import { useOnClickOutside } from "../../../hooks/useOnClickOutside";
 import { Checkbox } from "../../../";
 import { Text } from "../../../";
-import { Category } from "@escolalms/sdk/lib/types/api";
+import { Category } from "@escolalms/sdk/lib/types";
 
 interface Props {
   categories: Category[];

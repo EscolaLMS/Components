@@ -1,4 +1,4 @@
-import { Certificate } from "@escolalms/sdk/lib/types/api";
+import { Certificate } from "@escolalms/sdk/lib/types";
 import React from "react";
 import styled, { withTheme } from "styled-components";
 

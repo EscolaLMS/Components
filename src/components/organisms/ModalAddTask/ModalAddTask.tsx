@@ -1,6 +1,6 @@
 import { Button, Input, Title } from "../../..";
 import { API } from "@escolalms/sdk/lib";
-import { DefaultResponseError } from "@escolalms/sdk/lib/types/api";
+import { DefaultResponseError } from "@escolalms/sdk/lib/types";
 import {
   RelatedTreeSelect,
   RelatedValue,

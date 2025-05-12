@@ -1,5 +1,5 @@
 import * as React from "react";
-import type { Tag } from "@escolalms/sdk/lib/types/api";
+import type { Tag } from "@escolalms/sdk/lib/types";
 import styled, {
   createGlobalStyle,
   ThemeContext,

@@ -1,5 +1,5 @@
 import * as React from "react";
-import type { Category } from "@escolalms/sdk/lib/types/api";
+import type { Category } from "@escolalms/sdk/lib/types";
 import styled, {
   createGlobalStyle,
   ThemeContext,
