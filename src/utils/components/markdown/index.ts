@@ -43,6 +43,12 @@ const fixMarkTagForMarkdown = (input: string): string => {
   return result;
 };
 
+const handleDolarSign = (input: string): string => {
+  // Only escape $ when it's followed by a number and not already escaped (not preceded by a backslash)
+  // Match $100, $1,000.50, etc., but not already escaped \$100
+  return input.replace(/(?<!\\)(\$)(\d[\d,]*(?:\.\d+)?)/g, "\\$1$2");
+};
+
 //TODO: Fix lookbehind ?<= regular expression, because it not works on safari
 // const getRegexBetween = (
 //   openChart: string,
@@ -86,6 +92,7 @@ export const fixContentForMarkdown = (content = ""): string => {
     trimContentForMarkdown,
     fixInlineStylesSyntaxForMarkdown,
     fixMarkTagForMarkdown,
+    handleDolarSign,
     // fixUnderlineForMarkdown,
     // fixNoticeForMarkdown,
   ])(content);
