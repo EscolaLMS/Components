@@ -204,8 +204,8 @@ ${SharedLightboxStyle}
 
 export const MarkdownRenderer: React.FC<MarkdownRendererProps> = (props) => {
   const { mobile = false, fontSize = "16", children, className } = props;
-  const [rehypePlugins, setRehypePlugins] = useState<any[]>([]);
-  const [remarkPlugins, setRemarkPlugins] = useState<any[]>([]);
+  const [rehypePlugins, setRehypePlugins] = useState<Array<unknown>>([]);
+  const [remarkPlugins, setRemarkPlugins] = useState<Array<unknown>>([]);
 
   useEffect(() => {
     (async () => {
