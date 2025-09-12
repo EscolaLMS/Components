@@ -4,8 +4,8 @@ import { Document, Page, pdfjs } from "react-pdf";
 import { Button, Text } from "../../..";
 import { useTranslation } from "react-i18next";
 import { ExtendableStyledComponent } from "types/component";
-import 'react-pdf/dist/Page/AnnotationLayer.css';
-import 'react-pdf/dist/Page/TextLayer.css';
+import "react-pdf/dist/Page/AnnotationLayer.css";
+import "react-pdf/dist/Page/TextLayer.css";
 
 interface PdfPlayerProps extends ExtendableStyledComponent {
   url: string;
@@ -16,12 +16,18 @@ interface PdfPlayerProps extends ExtendableStyledComponent {
 }
 
 const StyledWrapper = styled("div")`
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
 
   .pagination-area {
     margin-top: 5px;
     display: flex;
     justify-content: space-between;
+    gap: 10px;
+    align-items: center;
   }
 `;
 
@@ -55,7 +61,7 @@ export const PdfPlayer: React.FunctionComponent<PdfPlayerProps> = ({
   };
 
   React.useEffect(() => {
-    pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
+    pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/legacy/build/pdf.worker.min.mjs`;
     setIsMounted(true);
     return () => setIsMounted(false);
   }, []);

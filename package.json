@@ -79,7 +79,7 @@
     "react-grid-system": "^8.1.9",
     "react-i18next": "^12.2.0",
     "react-markdown": "^8.0.7",
-    "react-pdf": "^7.7.1",
+    "react-pdf": "^10.1.0",
     "react-photoswipe-gallery": "^2.2.7",
     "react-player": "^2.15.1",
     "react-slick": "^0.29.0",
