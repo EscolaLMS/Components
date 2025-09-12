@@ -204,8 +204,10 @@ ${SharedLightboxStyle}
 
 export const MarkdownRenderer: React.FC<MarkdownRendererProps> = (props) => {
   const { mobile = false, fontSize = "16", children, className } = props;
-  const [rehypePlugins, setRehypePlugins] = useState<Array<unknown>>([]);
-  const [remarkPlugins, setRemarkPlugins] = useState<Array<unknown>>([]);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [rehypePlugins, setRehypePlugins] = useState<Array<any>>([]);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [remarkPlugins, setRemarkPlugins] = useState<Array<any>>([]);
 
   useEffect(() => {
     (async () => {
